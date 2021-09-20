@@ -1,6 +1,17 @@
 import { makeStyles, Typography } from "@material-ui/core";
 import React from "react";
 import { Link } from "react-router-dom";
+import {
+  School,
+  Accessible,
+  PeopleOutline,
+  ChromeReaderMode,
+  Face,
+  Assessment,
+  Settings,
+  PostAdd,
+  RecordVoiceOver,
+} from "@material-ui/icons";
 
 const useStyles = makeStyles({
   sideMenu: {
@@ -16,13 +27,15 @@ const useStyles = makeStyles({
       fontSize: "13px",
       padding: "13px 13px 13px 20px",
       color: "#fff",
-      borderBottom: "1px solid #b5b6ad",
+      display: "inline-flex",
+      width: "100%",
     },
     "& h6:hover": {
       color: "#253053",
       backgroundColor: "#fff",
       textDecoration: "none",
     },
+    "& a:hover": { textDecoration: "none" },
   },
 });
 
@@ -37,25 +50,64 @@ const SideMenu = () => {
         Dashboard
       </Typography>
       <Link to={"/"}>
-        <Typography variant="h6">Colleges</Typography>
+        <Typography variant="h6">
+          {" "}
+          <School fontSize="small" />
+          &nbsp;&nbsp;&nbsp; School Configuration
+        </Typography>
       </Link>
       <Link to={"/quick-links"}>
-        <Typography variant="h6">Staff Management</Typography>
+        <Typography variant="h6">
+          {" "}
+          <Accessible fontSize="small" />
+          &nbsp;&nbsp;&nbsp; Employee Management
+        </Typography>
       </Link>
       <Link to={"/dashboard-view-header"}>
-        <Typography variant="h6">Teacher Mapping</Typography>
+        <Typography variant="h6">
+          {" "}
+          <PeopleOutline fontSize="small" />
+          &nbsp;&nbsp;&nbsp; Teacher Mapping
+        </Typography>
       </Link>
       <Link to={"/role-view-link"}>
-        <Typography variant="h6">Academic Setup</Typography>
+        <Typography variant="h6">
+          {" "}
+          <ChromeReaderMode fontSize="small" /> &nbsp;&nbsp;&nbsp;Academic
+          Configuration
+        </Typography>
       </Link>
       <Link to={"/employee-view-link"}>
-        <Typography variant="h6">Student Management</Typography>
+        <Typography variant="h6">
+          {" "}
+          <Face fontSize="small" />
+          &nbsp;&nbsp;&nbsp; Student Management
+        </Typography>
       </Link>
       <Link to={"/personalized-dashboard-view"}>
-        <Typography variant="h6">Attendance Management</Typography>
+        <Typography variant="h6">
+          <Assessment fontSize="small" />
+          &nbsp;&nbsp;&nbsp; Attendance Configuration
+        </Typography>
       </Link>
       <Link to={"/personalized-dashboard-view"}>
-        <Typography variant="h6">Security</Typography>
+        <Typography variant="h6">
+          {" "}
+          <Settings fontSize="small" />
+          &nbsp;&nbsp;&nbsp; Access Control
+        </Typography>
+      </Link>
+      <Link to={"/personalized-dashboard-view"}>
+        <Typography variant="h6">
+          <PostAdd fontSize="small" />
+          &nbsp;&nbsp;&nbsp; Notice
+        </Typography>
+      </Link>
+      <Link to={"/personalized-dashboard-view"}>
+        <Typography variant="h6">
+          <RecordVoiceOver fontSize="small" />
+          &nbsp;&nbsp;&nbsp; Announcement
+        </Typography>
       </Link>
     </div>
   );

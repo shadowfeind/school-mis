@@ -6,8 +6,8 @@ import {
   IconButton,
   makeStyles,
   Toolbar,
-  Typography,
 } from "@material-ui/core";
+
 import { NotificationsNone } from "@material-ui/icons";
 
 const useStyles = makeStyles({
@@ -34,8 +34,13 @@ const useStyles = makeStyles({
       display: "inline-block",
       listStyleType: "none",
       paddingRight: "20px",
+      marginTop: "-5px",
       fontSize: "12px",
     },
+  },
+  wrapIcon: {
+    verticalAlign: "middle",
+    display: "inline-flex",
   },
 });
 
@@ -49,12 +54,13 @@ const Header = () => {
             <Grid item>
               <ul className={classes.list}>
                 <li>Dashboard</li>
-                <li>Schools</li>
-                <li>Settings</li>
-                <li>Dashboard</li>
-                <li>Dashboard</li>
-                <li>Dashboard</li>
-                <li>Dashboard</li>
+                <li>Setings</li>
+                <li>Registration</li>
+                <li>Attendance</li>
+                <li>User Profile</li>
+                <li>Examination</li>
+                <li>Assignment</li>
+                <li>Revenue</li>
               </ul>
             </Grid>
             <Grid item sm></Grid>

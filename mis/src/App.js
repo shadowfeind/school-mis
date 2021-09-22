@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense, lazy } from "react";
 import "./App.css";
 import Header from "./components/Header";
 import SideMenu from "./components/SideMenu";
@@ -9,12 +9,17 @@ import {
   ThemeProvider,
 } from "@material-ui/core";
 import { BrowserRouter as Router, Link, Route, Switch } from "react-router-dom";
+const Settings = lazy(() => import("./settings/Settings"));
 
 const theme = createTheme({
   palette: {
     background: {
       default: "#eaeff5",
     },
+  },
+  MuiButtonRoot: {
+    minWidth: "10px",
+    fontSize: "12px",
   },
 });
 
@@ -28,15 +33,18 @@ const useStyles = makeStyles({
 const App = () => {
   const classes = useStyles();
   return (
-    <Router>
-      <ThemeProvider theme={theme}>
-        <SideMenu />
-        <div className={classes.appMain}>
-          <Header />
-        </div>
-        <CssBaseline />
-      </ThemeProvider>
-    </Router>
+    <Suspense fallback={<div></div>}>
+      <Router>
+        <ThemeProvider theme={theme}>
+          <SideMenu />
+          <div className={classes.appMain}>
+            <Header />
+            <Route exact path={"/"} component={Settings} />
+          </div>
+          <CssBaseline />
+        </ThemeProvider>
+      </Router>
+    </Suspense>
   );
 };
 

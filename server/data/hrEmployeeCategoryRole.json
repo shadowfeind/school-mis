@@ -1,0 +1,66 @@
+{
+  "$id": "1",
+  "searchFilterModel": {
+    "$id": "2",
+    "feeCollectionModel": null,
+    "studentDueModel": null,
+    "company": 0,
+    "ddlCompany": null,
+    "searchString": "",
+    "baseUrl": "/Setup/HREmployeeCategoryRole",
+    "baseUrlExtended": null,
+    "searchParamCode": "company_searchkey_param",
+    "idSessionUser": 0,
+    "pidRefForEdit": null,
+    "idRole": 0,
+    "ddlRole": null,
+    "studentLedgerModel": null,
+    "StartDate": "0001-01-01T00:00:00",
+    "EndDate": "0001-01-01T00:00:00"
+  },
+  "dbModelLst": [
+    {
+      "$id": "3",
+      "IDHREmployeeCategoryRole": 1,
+      "Heading": "Staff",
+      "Description": "Staff",
+      "IsActive": false,
+      "Created_On": "0001-01-01T00:00:00",
+      "Updated_On": "0001-01-01T00:00:00"
+    },
+    {
+      "$id": "4",
+      "IDHREmployeeCategoryRole": 2,
+      "Heading": "Teacher",
+      "Description": "Staff",
+      "IsActive": false,
+      "Created_On": "0001-01-01T00:00:00",
+      "Updated_On": "0001-01-01T00:00:00"
+    },
+    {
+      "$id": "5",
+      "IDHREmployeeCategoryRole": 3,
+      "Heading": "Student",
+      "Description": "Staff",
+      "IsActive": false,
+      "Created_On": "0001-01-01T00:00:00",
+      "Updated_On": "0001-01-01T00:00:00"
+    },
+    {
+      "$id": "6",
+      "IDHREmployeeCategoryRole": 4,
+      "Heading": "Other",
+      "Description": "Other",
+      "IsActive": false,
+      "Created_On": "0001-01-01T00:00:00",
+      "Updated_On": "0001-01-01T00:00:00"
+    }
+  ],
+  "messageModel": {
+    "$id": "7",
+    "title": "List Role",
+    "area": "Setup",
+    "controller": "HREmployeeCategoryRole",
+    "action": "Index"
+  }
+}

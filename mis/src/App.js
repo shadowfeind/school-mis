@@ -9,7 +9,11 @@ import {
   ThemeProvider,
 } from "@material-ui/core";
 import { BrowserRouter as Router, Link, Route, Switch } from "react-router-dom";
+
 const Settings = lazy(() => import("./settings/Settings"));
+const EmployeeManagement = lazy(() =>
+  import("./settings/employeeManagement/EmployeeManagement")
+);
 
 const theme = createTheme({
   palette: {
@@ -39,6 +43,10 @@ const App = () => {
           <SideMenu />
           <div className={classes.appMain}>
             <Header />
+            <Route
+              path={"/employee-management"}
+              component={EmployeeManagement}
+            />
             <Route exact path={"/"} component={Settings} />
           </div>
           <CssBaseline />

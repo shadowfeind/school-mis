@@ -56,7 +56,7 @@ const SideMenu = () => {
           &nbsp;&nbsp;&nbsp; School Configuration
         </Typography>
       </Link>
-      <Link to={"/quick-links"}>
+      <Link to={"/employee-management"}>
         <Typography variant="h6">
           {" "}
           <Accessible fontSize="small" />

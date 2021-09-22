@@ -5,18 +5,8 @@ import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import { makeStyles } from "@material-ui/core";
-
-const SchoolSettings = lazy(() =>
-  import("./schoolConfiguration/schoolSettings/SchoolSettings")
-);
-const Position = lazy(() => import("./schoolConfiguration/position/Position"));
-const EmployeeType = lazy(() =>
-  import("./schoolConfiguration/employeeType/EmployeeType")
-);
-const EmployeeCategoryRole = lazy(() =>
-  import("./schoolConfiguration/employeeCategoryRole/EmployeeCategoryRole")
-);
-const Holiday = lazy(() => import("./schoolConfiguration/holiday/Holiday"));
+const Employee = lazy(() => import("./employee/Employee"));
+const Role = lazy(() => import("./role/Role"));
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -52,14 +42,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Settings = () => {
+const EmployeeManagement = () => {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-
   return (
     <div>
       <AppBar position="static" style={{ background: "#253053" }}>
@@ -75,50 +64,26 @@ const Settings = () => {
         >
           <Tab
             style={{ fontSize: "11px", color: "#fff" }}
-            label="School Settings"
+            label="Employee"
             {...a11yProps(0)}
           />
           <Tab
             style={{ fontSize: "11px", color: "#fff" }}
-            label="Position"
+            label="Role"
             {...a11yProps(1)}
-          />
-          <Tab
-            style={{ fontSize: "11px", color: "#fff" }}
-            label="Employee Type"
-            {...a11yProps(2)}
-          />
-          <Tab
-            style={{ fontSize: "11px", color: "#fff" }}
-            label="Employee Category Role"
-            {...a11yProps(3)}
-          />
-          <Tab
-            style={{ fontSize: "11px", color: "#fff" }}
-            label="Holiday"
-            {...a11yProps(4)}
           />
         </Tabs>
       </AppBar>
       <Suspense fallback={<div></div>}>
         <TabPanel value={value} index={0}>
-          <SchoolSettings />
+          <Employee />
         </TabPanel>
         <TabPanel value={value} index={1}>
-          <Position />
-        </TabPanel>
-        <TabPanel value={value} index={2}>
-          <EmployeeType />
-        </TabPanel>
-        <TabPanel value={value} index={3}>
-          <EmployeeCategoryRole />
-        </TabPanel>
-        <TabPanel value={value} index={4}>
-          <Holiday />
+          <Role />
         </TabPanel>
       </Suspense>
     </div>
   );
 };
 
-export default Settings;
+export default EmployeeManagement;

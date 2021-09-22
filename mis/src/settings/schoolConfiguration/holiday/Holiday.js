@@ -6,18 +6,18 @@ import {
   TableBody,
   Toolbar,
 } from "@material-ui/core";
-import useCustomTable from "../../customHooks/useCustomTable";
-import InputControl from "../../components/controls/InputControl";
+import useCustomTable from "../../../customHooks/useCustomTable";
+import InputControl from "../../../components/controls/InputControl";
 import { Search } from "@material-ui/icons";
 import AddIcon from "@material-ui/icons/Add";
-import Popup from "../../components/Popup";
-import CustomContainer from "../../components/CustomContainer";
+import Popup from "../../../components/Popup";
+import CustomContainer from "../../../components/CustomContainer";
 import { useDispatch, useSelector } from "react-redux";
-import Notification from "../../components/Notification";
-import ConfirmDialog from "../../components/ConfirmDialog";
-import SchoolSettingsTableCollapse from "./SchoolSettingsTableCollapse";
-import SchoolSettingsForm from "./SchoolSettingsForm";
-import { getAllSchoolSettingsAction } from "./SchoolSettingsActions";
+import Notification from "../../../components/Notification";
+import ConfirmDialog from "../../../components/ConfirmDialog";
+import { getAllHolidayAction } from "./HolidayActions";
+import HolidayTableCollapse from "./HolidayTableCollapse";
+import HolidayForm from "./HolidayForm";
 
 const useStyles = makeStyles((theme) => ({
   searchInput: {
@@ -31,15 +31,15 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const tableHeader = [
-  { id: "CompanyName", label: "Company Name" },
-  { id: "CompanyAddress", label: "Company Address" },
-  { id: "PhoneNo", label: "Phone Number" },
-  { id: "EmailID", label: "Email ID" },
-  { id: "WebSite", label: "WebSite" },
+  { id: "HolidayName", label: "Holiday Name" },
+  { id: "Description", label: "Description" },
+  { id: "FromDate", label: "FromDate" },
+  { id: "ToDate", label: "ToDate" },
+  { id: "IsActive", label: "IsActive" },
   { id: "actions", label: "Actions", disableSorting: true },
 ];
 
-const SchoolSettings = () => {
+const Holiday = () => {
   const [tableData, setTableData] = useState([]);
   const [filterFn, setFilterFn] = useState({
     fn: (item) => {
@@ -62,9 +62,7 @@ const SchoolSettings = () => {
 
   const dispatch = useDispatch();
 
-  const { loading, schoolSettings } = useSelector(
-    (state) => state.schoolSettings
-  );
+  const { loading, holiday } = useSelector((state) => state.holiday);
 
   const updateCollegeHandler = (id) => {};
 
@@ -77,13 +75,13 @@ const SchoolSettings = () => {
   };
 
   useEffect(() => {
-    if (!schoolSettings) {
-      dispatch(getAllSchoolSettingsAction());
+    if (!holiday) {
+      dispatch(getAllHolidayAction());
     }
-    if (schoolSettings) {
-      setTableData(schoolSettings.dbModelLstTest);
+    if (holiday) {
+      setTableData(holiday.att_HRHolidayModelLst);
     }
-  }, [dispatch, schoolSettings]);
+  }, [dispatch, holiday]);
 
   const {
     TableContainer,
@@ -99,7 +97,7 @@ const SchoolSettings = () => {
           return item;
         } else {
           return item.filter((x) =>
-            x.CompanyName.toLowerCase().includes(e.target.value)
+            x.HolidayName.toLowerCase().includes(e.target.value)
           );
         }
       },
@@ -111,7 +109,7 @@ const SchoolSettings = () => {
         <Toolbar>
           <InputControl
             className={classes.searchInput}
-            label="Search College"
+            label="Search Holiday"
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
@@ -139,7 +137,7 @@ const SchoolSettings = () => {
           ) : (
             <TableBody>
               {tableDataAfterPagingAndSorting().map((item) => (
-                <SchoolSettingsTableCollapse
+                <HolidayTableCollapse
                   item={item}
                   updateCollegeHandler={updateCollegeHandler}
                   deleteCollegeHandler={deleteCollegeHandler}
@@ -153,11 +151,9 @@ const SchoolSettings = () => {
       <Popup
         openPopup={openPopup}
         setOpenPopup={setOpenPopup}
-        title="School Settings Form"
+        title="Employee Type Form"
       >
-        <SchoolSettingsForm
-          college={schoolSettings ? schoolSettings.dbModel : {}}
-        />
+        <HolidayForm holiday={holiday ? holiday.att_HRHolidayModelLst : {}} />
       </Popup>
       <Notification notify={notify} setNotify={setNotify} />
       <ConfirmDialog
@@ -168,4 +164,4 @@ const SchoolSettings = () => {
   );
 };
 
-export default SchoolSettings;
+export default Holiday;

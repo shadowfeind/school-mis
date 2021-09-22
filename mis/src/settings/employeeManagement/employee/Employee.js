@@ -6,18 +6,18 @@ import {
   TableBody,
   Toolbar,
 } from "@material-ui/core";
-import useCustomTable from "../../customHooks/useCustomTable";
-import InputControl from "../../components/controls/InputControl";
+import useCustomTable from "../../../customHooks/useCustomTable";
+import InputControl from "../../../components/controls/InputControl";
 import { Search } from "@material-ui/icons";
 import AddIcon from "@material-ui/icons/Add";
-import Popup from "../../components/Popup";
-import CustomContainer from "../../components/CustomContainer";
+import Popup from "../../../components/Popup";
+import CustomContainer from "../../../components/CustomContainer";
 import { useDispatch, useSelector } from "react-redux";
-import Notification from "../../components/Notification";
-import ConfirmDialog from "../../components/ConfirmDialog";
-import { getAllEmployeeCategoryRoleAction } from "./EmployeeCategoryRoleActions";
-import EmployeeCategoryRoleTableCollapse from "./EmployeeCategoryRoleTableCollapse";
-import EmployeeCategoryRoleForm from "./EmployeeCategoryRoleForm";
+import Notification from "../../../components/Notification";
+import ConfirmDialog from "../../../components/ConfirmDialog";
+import { getAllEmployeeAction } from "./EmployeeActions";
+import EmployeeTableCollapse from "./EmployeeTableCollpase";
+import EmployeeForm from "./EmployeeForm";
 
 const useStyles = makeStyles((theme) => ({
   searchInput: {
@@ -31,15 +31,15 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const tableHeader = [
-  { id: "Heading", label: "Heading" },
-  { id: "Description", label: "Description" },
-  { id: "IsActive", label: "IsActive" },
-  { id: "Created_On", label: "Created On" },
-  { id: "Updated_On", label: "Updated On" },
+  { id: "FullName", label: "Full Name" },
+  { id: "BranchName", label: "Branch Name" },
+  { id: "DepartmentName", label: "Department Name" },
+  { id: "EmaiPositionHeadlID", label: "Position Head" },
+  { id: "MobileNumber", label: "Mobile Number" },
   { id: "actions", label: "Actions", disableSorting: true },
 ];
 
-const EmployeeType = () => {
+const Employee = () => {
   const [tableData, setTableData] = useState([]);
   const [filterFn, setFilterFn] = useState({
     fn: (item) => {
@@ -62,9 +62,7 @@ const EmployeeType = () => {
 
   const dispatch = useDispatch();
 
-  const { loading, employeeCategoryRole } = useSelector(
-    (state) => state.employeeCategoryRole
-  );
+  const { loading, employee } = useSelector((state) => state.employee);
 
   const updateCollegeHandler = (id) => {};
 
@@ -77,13 +75,13 @@ const EmployeeType = () => {
   };
 
   useEffect(() => {
-    if (!employeeCategoryRole) {
-      dispatch(getAllEmployeeCategoryRoleAction());
+    if (!employee) {
+      dispatch(getAllEmployeeAction());
     }
-    if (employeeCategoryRole) {
-      setTableData(employeeCategoryRole.dbModelLst);
+    if (employee) {
+      setTableData(employee.hrEmployeeModelLst);
     }
-  }, [dispatch, employeeCategoryRole]);
+  }, [dispatch, employee]);
 
   const {
     TableContainer,
@@ -99,7 +97,7 @@ const EmployeeType = () => {
           return item;
         } else {
           return item.filter((x) =>
-            x.Heading.toLowerCase().includes(e.target.value)
+            x.FullName.toLowerCase().includes(e.target.value)
           );
         }
       },
@@ -111,7 +109,7 @@ const EmployeeType = () => {
         <Toolbar>
           <InputControl
             className={classes.searchInput}
-            label="Search Employee Category Role"
+            label="Search College"
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
@@ -139,7 +137,7 @@ const EmployeeType = () => {
           ) : (
             <TableBody>
               {tableDataAfterPagingAndSorting().map((item) => (
-                <EmployeeCategoryRoleTableCollapse
+                <EmployeeTableCollapse
                   item={item}
                   updateCollegeHandler={updateCollegeHandler}
                   deleteCollegeHandler={deleteCollegeHandler}
@@ -153,11 +151,9 @@ const EmployeeType = () => {
       <Popup
         openPopup={openPopup}
         setOpenPopup={setOpenPopup}
-        title="Employee Type Form"
+        title="School Settings Form"
       >
-        <EmployeeCategoryRoleForm
-          college={employeeCategoryRole ? employeeCategoryRole.dbModelLst : {}}
-        />
+        <EmployeeForm college={employee ? employee.hrEmployeeModelLst : {}} />
       </Popup>
       <Notification notify={notify} setNotify={setNotify} />
       <ConfirmDialog
@@ -168,4 +164,4 @@ const EmployeeType = () => {
   );
 };
 
-export default EmployeeType;
+export default Employee;

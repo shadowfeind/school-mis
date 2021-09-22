@@ -6,19 +6,18 @@ import {
   TableBody,
   Toolbar,
 } from "@material-ui/core";
-import useCustomTable from "../../customHooks/useCustomTable";
-import InputControl from "../../components/controls/InputControl";
+import useCustomTable from "../../../customHooks/useCustomTable";
+import InputControl from "../../../components/controls/InputControl";
 import { Search } from "@material-ui/icons";
 import AddIcon from "@material-ui/icons/Add";
-import Popup from "../../components/Popup";
-import CustomContainer from "../../components/CustomContainer";
+import Popup from "../../../components/Popup";
+import CustomContainer from "../../../components/CustomContainer";
 import { useDispatch, useSelector } from "react-redux";
-import Notification from "../../components/Notification";
-import ConfirmDialog from "../../components/ConfirmDialog";
-import PositionForm from "./PositionForm";
-
-import { getAllPositionAction } from "./PositionActions";
-import PositionTableCollapse from "./PositionTableCollapse";
+import Notification from "../../../components/Notification";
+import ConfirmDialog from "../../../components/ConfirmDialog";
+import { getAllEmployeeCategoryRoleAction } from "./EmployeeCategoryRoleActions";
+import EmployeeCategoryRoleTableCollapse from "./EmployeeCategoryRoleTableCollapse";
+import EmployeeCategoryRoleForm from "./EmployeeCategoryRoleForm";
 
 const useStyles = makeStyles((theme) => ({
   searchInput: {
@@ -32,15 +31,15 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const tableHeader = [
-  { id: "PositionHead", label: "Position Head" },
-  { id: "PositionDescription", label: "Position Description" },
+  { id: "Heading", label: "Heading" },
+  { id: "Description", label: "Description" },
   { id: "IsActive", label: "IsActive" },
   { id: "Created_On", label: "Created On" },
   { id: "Updated_On", label: "Updated On" },
   { id: "actions", label: "Actions", disableSorting: true },
 ];
 
-const Position = () => {
+const EmployeeType = () => {
   const [tableData, setTableData] = useState([]);
   const [filterFn, setFilterFn] = useState({
     fn: (item) => {
@@ -63,7 +62,9 @@ const Position = () => {
 
   const dispatch = useDispatch();
 
-  const { loading, position } = useSelector((state) => state.position);
+  const { loading, employeeCategoryRole } = useSelector(
+    (state) => state.employeeCategoryRole
+  );
 
   const updateCollegeHandler = (id) => {};
 
@@ -76,13 +77,13 @@ const Position = () => {
   };
 
   useEffect(() => {
-    if (!position) {
-      dispatch(getAllPositionAction());
+    if (!employeeCategoryRole) {
+      dispatch(getAllEmployeeCategoryRoleAction());
     }
-    if (position) {
-      setTableData(position.hrPositionModelLst);
+    if (employeeCategoryRole) {
+      setTableData(employeeCategoryRole.dbModelLst);
     }
-  }, [dispatch, position]);
+  }, [dispatch, employeeCategoryRole]);
 
   const {
     TableContainer,
@@ -98,7 +99,7 @@ const Position = () => {
           return item;
         } else {
           return item.filter((x) =>
-            x.PositionHead.toLowerCase().includes(e.target.value)
+            x.Heading.toLowerCase().includes(e.target.value)
           );
         }
       },
@@ -110,7 +111,7 @@ const Position = () => {
         <Toolbar>
           <InputControl
             className={classes.searchInput}
-            label="Search Position"
+            label="Search Employee Category Role"
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
@@ -138,7 +139,7 @@ const Position = () => {
           ) : (
             <TableBody>
               {tableDataAfterPagingAndSorting().map((item) => (
-                <PositionTableCollapse
+                <EmployeeCategoryRoleTableCollapse
                   item={item}
                   updateCollegeHandler={updateCollegeHandler}
                   deleteCollegeHandler={deleteCollegeHandler}
@@ -152,9 +153,11 @@ const Position = () => {
       <Popup
         openPopup={openPopup}
         setOpenPopup={setOpenPopup}
-        title="School Settings Form"
+        title="Employee Category Role Form"
       >
-        <PositionForm college={position ? position.hrPositionModelLst : {}} />
+        <EmployeeCategoryRoleForm
+          college={employeeCategoryRole ? employeeCategoryRole.dbModelLst : {}}
+        />
       </Popup>
       <Notification notify={notify} setNotify={setNotify} />
       <ConfirmDialog
@@ -165,4 +168,4 @@ const Position = () => {
   );
 };
 
-export default Position;
+export default EmployeeType;

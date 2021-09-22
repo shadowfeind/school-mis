@@ -1,32 +1,34 @@
 import React, { useEffect } from "react";
 import { Button, Grid } from "@material-ui/core";
-import InputControl from "../../components/controls/InputControl";
-import { useForm, Form } from "../../customHooks/useForm";
+import InputControl from "../../../components/controls/InputControl";
+import { useForm, Form } from "../../../customHooks/useForm";
 import { useDispatch } from "react-redux";
-import CheckBoxControl from "../../components/controls/CheckBoxControl";
+import CheckBoxControl from "../../../components/controls/CheckBoxControl";
+import DatePickerControl from "../../../components/controls/DatePickerControl";
 
 const initialFormValues = {
-  IDHREmployeeType: 0,
+  IDHRHoliday: 0,
   IDHRCompany: 2,
-  EmployeeTypeName: "",
+  HolidayName: "",
   Description: "",
-  IsTaxApplicable: false,
+  FromDate: "2016-10-08T00:00:00",
+  ToDate: "2016-10-15T00:00:00",
   IsActive: false,
   Created_On: "2012-12-12T00:00:00",
   Updated_On: "2015-04-09T14:20:39.947",
 };
 
-const EmployeeTypeForm = ({ college }) => {
+const HolidayForm = ({ holiday }) => {
   const dispatch = useDispatch();
   const validate = () => {
     let temp = {};
-    temp.EmployeeTypeName =
-      values.EmployeeTypeName.length > 10
-        ? "Company Name must be less than 10 characters"
+    temp.HolidayName =
+      values.HolidayName.length > 20
+        ? "HolidayName must be less than 20 characters"
         : "";
     temp.Description =
       values.Description.length > 200
-        ? "Short Form cannot be greater than 200 characters"
+        ? "Description cannot be greater than 200 characters"
         : "";
 
     setErrors({ ...temp });
@@ -43,29 +45,36 @@ const EmployeeTypeForm = ({ college }) => {
   };
 
   useEffect(() => {
-    if (college) {
-      setValues({ ...college });
+    if (holiday) {
+      setValues({ ...holiday });
     }
-  }, [college]);
+  }, [holiday]);
   return (
     <Form onSubmit={handleSubmit}>
       <Grid container style={{ fontSize: "12px" }}>
         <Grid item xs={6}>
           <InputControl
-            name="EmployeeTypeName"
-            label="Employee Type Name"
-            value={values.EmployeeTypeName}
+            name="HolidayName"
+            label="Holiday Name"
+            value={values.HolidayName}
             onChange={handleInputChange}
-            errors={errors.EmployeeTypeName}
+            errors={errors.HolidayName}
             required
           />
 
-          <CheckBoxControl
-            name="IsActive"
-            label="IsActive"
-            value={values.IsActive}
+          <InputControl
+            name="Description"
+            label="Description"
+            value={values.Description}
             onChange={handleInputChange}
-            errors={errors.IsActive}
+            errors={errors.Description}
+            required
+          />
+          <DatePickerControl
+            name="FromDate"
+            label="FromDate"
+            value={values.FromDate}
+            onChange={handleInputChange}
             required
           />
           <div>
@@ -88,12 +97,19 @@ const EmployeeTypeForm = ({ college }) => {
             errors={errors.Description}
             required
           />
-          <CheckBoxControl
-            name="IsTaxApplicable"
-            label="IsTaxApplicable"
-            value={values.IsTaxApplicable}
+          <DatePickerControl
+            name="ToDate"
+            label="ToDate"
+            value={values.ToDate}
             onChange={handleInputChange}
-            errors={errors.IsTaxApplicable}
+            required
+          />
+          <CheckBoxControl
+            name="IsActive"
+            label="IsActive"
+            value={values.IsActive}
+            onChange={handleInputChange}
+            // errors={errors.IsTaxApplicable}
             required
           />
         </Grid>
@@ -102,4 +118,4 @@ const EmployeeTypeForm = ({ college }) => {
   );
 };
 
-export default EmployeeTypeForm;
+export default HolidayForm;

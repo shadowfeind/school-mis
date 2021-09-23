@@ -4,26 +4,23 @@ import InputControl from "../../../components/controls/InputControl";
 import { useForm, Form } from "../../../customHooks/useForm";
 import { useDispatch } from "react-redux";
 import CheckBoxControl from "../../../components/controls/CheckBoxControl";
-import { positionCreateAction } from "./PositionActions";
 
 const initialFormValues = {
-  IDHRPosition: 0,
+  IDClass: 0,
   IDHRCompany: 2,
-  PositionHead: "",
-  PositionDescription: "",
+  ClassName: "",
+  ClassLocation: null,
   IsActive: false,
   Created_On: "2021-09-23T03:44:16.140Z",
   Updated_On: "2021-09-23T03:44:16.141Z",
 };
 
-const PositionForm = ({ position }) => {
+const AcademicClassForm = ({ academicClass }) => {
   const dispatch = useDispatch();
   const validate = () => {
     let temp = {};
-    temp.PositionHead = values.PositionHead ? "" : "This feild is required";
-    temp.PositionDescription = values.PositionDescription
-      ? ""
-      : "This feild is required";
+    temp.ClassName = values.ClassName ? "" : "This feild is required";
+    temp.ClassLocation = values.ClassLocation ? "" : "This feild is required";
 
     setErrors({ ...temp });
     return Object.values(temp).every((x) => x === "");
@@ -37,9 +34,9 @@ const PositionForm = ({ position }) => {
     e.preventDefault();
 
     if (validate()) {
-      if (values.IDHRPosition === 0) {
-        dispatch(positionCreateAction(values));
-      }
+      // if (values.IDClass === 0) {
+      //   dispatch(positionCreateAction(values));
+      // }
       // else {
       //   dispatch(updateSingleCollegeAction(values));
       // }
@@ -56,11 +53,11 @@ const PositionForm = ({ position }) => {
       <Grid container style={{ fontSize: "12px" }}>
         <Grid item xs={6}>
           <InputControl
-            name="PositionHead"
-            label="Position Head"
-            value={values.PositionHead}
+            name="ClassName"
+            label="Class Name"
+            value={values.ClassName}
             onChange={handleInputChange}
-            errors={errors.PositionHead}
+            errors={errors.ClassName}
           />
 
           <CheckBoxControl
@@ -84,11 +81,11 @@ const PositionForm = ({ position }) => {
         </Grid>
         <Grid item xs={6}>
           <InputControl
-            name="PositionDescription"
-            label="Position Description"
-            value={values.PositionDescription}
+            name="ClassLocation"
+            label="Class Location"
+            value={values.ClassLocation}
             onChange={handleInputChange}
-            errors={errors.PositionDescription}
+            errors={errors.ClassLocation}
           />
         </Grid>
       </Grid>
@@ -96,4 +93,4 @@ const PositionForm = ({ position }) => {
   );
 };
 
-export default PositionForm;
+export default AcademicClassForm;

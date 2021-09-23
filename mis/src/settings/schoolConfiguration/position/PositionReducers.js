@@ -2,6 +2,10 @@ import {
   GET_ALL_POSITION_FAIL,
   GET_ALL_POSITION_REQUEST,
   GET_ALL_POSITION_SUCCESS,
+  POSITION_CREATE_FAIL,
+  POSITION_CREATE_REQUEST,
+  POSITION_CREATE_RESET,
+  POSITION_CREATE_SUCCESS,
 } from "./PositionConstatns";
 
 export const getAllPosition = (state = {}, action) => {
@@ -12,6 +16,21 @@ export const getAllPosition = (state = {}, action) => {
       return { loading: false, position: action.payload };
     case GET_ALL_POSITION_FAIL:
       return { loading: false, error: action.payload };
+    default:
+      return state;
+  }
+};
+
+export const createPositionReducer = (state = {}, action) => {
+  switch (action.type) {
+    case POSITION_CREATE_REQUEST:
+      return { loading: true };
+    case POSITION_CREATE_SUCCESS:
+      return { loading: false, position: action.payload, success: true };
+    case POSITION_CREATE_FAIL:
+      return { loading: false, error: action.payload };
+    case POSITION_CREATE_RESET:
+      return {};
     default:
       return state;
   }

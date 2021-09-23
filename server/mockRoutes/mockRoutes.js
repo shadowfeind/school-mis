@@ -81,4 +81,26 @@ router.route("/role").get((req, res) => {
   }
 });
 
+router.route("/academicClass").get((req, res) => {
+  const __dirname = path.resolve("./data/academicClass.json");
+  try {
+    const content = fs.readFileSync(__dirname);
+    const data = JSON.parse(content);
+    res.json(data);
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+router.route("/academicSection").get((req, res) => {
+  const __dirname = path.resolve("./data/academicSection.json");
+  try {
+    const content = fs.readFileSync(__dirname);
+    const data = JSON.parse(content);
+    res.json(data);
+  } catch (error) {
+    console.log(error);
+  }
+});
+
 export default router;

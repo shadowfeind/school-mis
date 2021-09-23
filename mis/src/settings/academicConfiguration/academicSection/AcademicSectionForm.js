@@ -4,26 +4,25 @@ import InputControl from "../../../components/controls/InputControl";
 import { useForm, Form } from "../../../customHooks/useForm";
 import { useDispatch } from "react-redux";
 import CheckBoxControl from "../../../components/controls/CheckBoxControl";
-import { positionCreateAction } from "./PositionActions";
 
 const initialFormValues = {
-  IDHRPosition: 0,
+  IDAcademicRoom: 0,
   IDHRCompany: 2,
-  PositionHead: "",
-  PositionDescription: "",
+  RoomName: "",
+  RoomLocation: "",
+  RoomCapacity: 30,
   IsActive: false,
   Created_On: "2021-09-23T03:44:16.140Z",
   Updated_On: "2021-09-23T03:44:16.141Z",
 };
 
-const PositionForm = ({ position }) => {
+const AcademicSectinoForm = () => {
   const dispatch = useDispatch();
   const validate = () => {
     let temp = {};
-    temp.PositionHead = values.PositionHead ? "" : "This feild is required";
-    temp.PositionDescription = values.PositionDescription
-      ? ""
-      : "This feild is required";
+    temp.RoomName = values.RoomName ? "" : "This feild is required";
+    temp.RoomCapacity = values.RoomCapacity ? "" : "This feild is required";
+    temp.RoomLocation = values.RoomLocation ? "" : "This feild is required";
 
     setErrors({ ...temp });
     return Object.values(temp).every((x) => x === "");
@@ -37,9 +36,9 @@ const PositionForm = ({ position }) => {
     e.preventDefault();
 
     if (validate()) {
-      if (values.IDHRPosition === 0) {
-        dispatch(positionCreateAction(values));
-      }
+      //   if (values.IDHRPosition === 0) {
+      //     dispatch(positionCreateAction(values));
+      //   }
       // else {
       //   dispatch(updateSingleCollegeAction(values));
       // }
@@ -56,13 +55,21 @@ const PositionForm = ({ position }) => {
       <Grid container style={{ fontSize: "12px" }}>
         <Grid item xs={6}>
           <InputControl
-            name="PositionHead"
-            label="Position Head"
-            value={values.PositionHead}
+            name="RoomName"
+            label="Room Name"
+            value={values.RoomName}
             onChange={handleInputChange}
-            errors={errors.PositionHead}
+            errors={errors.RoomName}
           />
-
+          <Grid item xs={6}>
+            <InputControl
+              name="RoomLocation"
+              label="Room Location"
+              value={values.RoomLocation}
+              onChange={handleInputChange}
+              errors={errors.RoomLocation}
+            />
+          </Grid>
           <CheckBoxControl
             name="IsActive"
             label="IsActive"
@@ -70,6 +77,15 @@ const PositionForm = ({ position }) => {
             onChange={handleInputChange}
             errors={errors.IsActive}
             required
+          />
+        </Grid>
+        <Grid item xs={6}>
+          <InputControl
+            name="RoomCapacity"
+            label="RoomCapacity"
+            value={values.RoomCapacity}
+            onChange={handleInputChange}
+            errors={errors.RoomCapacity}
           />
           <div>
             <Button
@@ -82,18 +98,9 @@ const PositionForm = ({ position }) => {
             </Button>
           </div>
         </Grid>
-        <Grid item xs={6}>
-          <InputControl
-            name="PositionDescription"
-            label="Position Description"
-            value={values.PositionDescription}
-            onChange={handleInputChange}
-            errors={errors.PositionDescription}
-          />
-        </Grid>
       </Grid>
     </Form>
   );
 };
 
-export default PositionForm;
+export default AcademicSectinoForm;

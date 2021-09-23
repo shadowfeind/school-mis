@@ -63,6 +63,13 @@ const SideMenu = () => {
           &nbsp;&nbsp;&nbsp; Employee Management
         </Typography>
       </Link>
+      <Link to={"/academic-configuration"}>
+        <Typography variant="h6">
+          {" "}
+          <ChromeReaderMode fontSize="small" /> &nbsp;&nbsp;&nbsp;Academic
+          Configuration
+        </Typography>
+      </Link>
       <Link to={"/dashboard-view-header"}>
         <Typography variant="h6">
           {" "}
@@ -70,13 +77,7 @@ const SideMenu = () => {
           &nbsp;&nbsp;&nbsp; Teacher Mapping
         </Typography>
       </Link>
-      <Link to={"/role-view-link"}>
-        <Typography variant="h6">
-          {" "}
-          <ChromeReaderMode fontSize="small" /> &nbsp;&nbsp;&nbsp;Academic
-          Configuration
-        </Typography>
-      </Link>
+
       <Link to={"/employee-view-link"}>
         <Typography variant="h6">
           {" "}

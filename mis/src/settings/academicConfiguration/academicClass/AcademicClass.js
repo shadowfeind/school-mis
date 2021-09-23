@@ -15,10 +15,9 @@ import CustomContainer from "../../../components/CustomContainer";
 import { useDispatch, useSelector } from "react-redux";
 import Notification from "../../../components/Notification";
 import ConfirmDialog from "../../../components/ConfirmDialog";
-import PositionForm from "./PositionForm";
-
-import { getAllPositionAction } from "./PositionActions";
-import PositionTableCollapse from "./PositionTableCollapse";
+import { getAllAcademicClassAction } from "./AcademicClassActions";
+import AcademicClassTableCollapse from "./AcademicCLassTableCollapse";
+import AcademicClassForm from "./AcademicClassForm";
 
 const useStyles = makeStyles((theme) => ({
   searchInput: {
@@ -32,15 +31,15 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const tableHeader = [
-  { id: "PositionHead", label: "Position Head" },
-  { id: "PositionDescription", label: "Position Description" },
+  { id: "ClassName", label: "Class Name" },
+  { id: "ClassLocation", label: "Class Location" },
   { id: "IsActive", label: "IsActive" },
   { id: "Created_On", label: "Created On" },
   { id: "Updated_On", label: "Updated On" },
   { id: "actions", label: "Actions", disableSorting: true },
 ];
 
-const Position = () => {
+const AcademicClass = () => {
   const [tableData, setTableData] = useState([]);
   const [filterFn, setFilterFn] = useState({
     fn: (item) => {
@@ -63,7 +62,9 @@ const Position = () => {
 
   const dispatch = useDispatch();
 
-  const { loading, position } = useSelector((state) => state.position);
+  const { loading, academicClass } = useSelector(
+    (state) => state.academicClass
+  );
 
   const updateCollegeHandler = (id) => {};
 
@@ -76,13 +77,13 @@ const Position = () => {
   };
 
   useEffect(() => {
-    if (!position) {
-      dispatch(getAllPositionAction());
+    if (!academicClass) {
+      dispatch(getAllAcademicClassAction());
     }
-    if (position) {
-      setTableData(position.hrPositionModelLst);
+    if (academicClass) {
+      setTableData(academicClass.dbModelLst);
     }
-  }, [dispatch, position]);
+  }, [dispatch, academicClass]);
 
   const {
     TableContainer,
@@ -98,7 +99,7 @@ const Position = () => {
           return item;
         } else {
           return item.filter((x) =>
-            x.PositionHead.toLowerCase().includes(e.target.value)
+            x.ClassName.toLowerCase().includes(e.target.value)
           );
         }
       },
@@ -110,7 +111,7 @@ const Position = () => {
         <Toolbar>
           <InputControl
             className={classes.searchInput}
-            label="Search Position"
+            label="Search Academic Class"
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
@@ -138,7 +139,7 @@ const Position = () => {
           ) : (
             <TableBody>
               {tableDataAfterPagingAndSorting().map((item) => (
-                <PositionTableCollapse
+                <AcademicClassTableCollapse
                   item={item}
                   updateCollegeHandler={updateCollegeHandler}
                   deleteCollegeHandler={deleteCollegeHandler}
@@ -154,7 +155,7 @@ const Position = () => {
         setOpenPopup={setOpenPopup}
         title="School Settings Form"
       >
-        <PositionForm position={{}} />
+        <AcademicClassForm position={{}} />
       </Popup>
       <Notification notify={notify} setNotify={setNotify} />
       <ConfirmDialog
@@ -165,4 +166,4 @@ const Position = () => {
   );
 };
 
-export default Position;
+export default AcademicClass;

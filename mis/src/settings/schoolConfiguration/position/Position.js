@@ -17,8 +17,16 @@ import Notification from "../../../components/Notification";
 import ConfirmDialog from "../../../components/ConfirmDialog";
 import PositionForm from "./PositionForm";
 
-import { getAllPositionAction } from "./PositionActions";
+import {
+  getAllPositionAction,
+  getSinglePositionAction,
+} from "./PositionActions";
 import PositionTableCollapse from "./PositionTableCollapse";
+import {
+  GET_SINGLE_POSITION_RESET,
+  POSITION_CREATE_RESET,
+  UPDATE_SINGLE_POSITION_RESET,
+} from "./PositionConstatns";
 
 const useStyles = makeStyles((theme) => ({
   searchInput: {
@@ -65,7 +73,44 @@ const Position = () => {
 
   const { loading, position } = useSelector((state) => state.position);
 
-  const updateCollegeHandler = (id) => {};
+  const { success: createPositionSuccess } = useSelector(
+    (state) => state.createPosition
+  );
+
+  const { position: singlePosition } = useSelector(
+    (state) => state.getSinglePosition
+  );
+
+  const { success: updateSinglePositionSuccess } = useSelector(
+    (state) => state.updateSinglePosition
+  );
+
+  if (createPositionSuccess) {
+    dispatch(getAllPositionAction());
+    setNotify({
+      isOpen: true,
+      message: "Position Created Succesfully",
+      type: "success",
+    });
+    setOpenPopup(false);
+    dispatch({ type: POSITION_CREATE_RESET });
+  }
+
+  if (updateSinglePositionSuccess) {
+    dispatch(getAllPositionAction());
+    setNotify({
+      isOpen: true,
+      message: "Updated Succesfully",
+      type: "success",
+    });
+    setOpenPopup(false);
+    dispatch({ type: UPDATE_SINGLE_POSITION_RESET });
+  }
+
+  const updateCollegeHandler = (id) => {
+    dispatch(getSinglePositionAction(id));
+    setOpenPopup(true);
+  };
 
   const deleteCollegeHandler = (id) => {
     setConfirmDialog({
@@ -104,6 +149,11 @@ const Position = () => {
       },
     });
   };
+
+  const addHandler = () => {
+    dispatch({ type: GET_SINGLE_POSITION_RESET });
+    setOpenPopup(true);
+  };
   return (
     <>
       <CustomContainer>
@@ -125,7 +175,7 @@ const Position = () => {
             color="primary"
             startIcon={<AddIcon />}
             className={classes.button}
-            onClick={() => setOpenPopup(true)}
+            onClick={addHandler}
             // onClick={() => dispatch(test())}
           >
             Add{" "}
@@ -154,7 +204,7 @@ const Position = () => {
         setOpenPopup={setOpenPopup}
         title="School Settings Form"
       >
-        <PositionForm position={{}} />
+        <PositionForm position={singlePosition ? singlePosition.dbModel : {}} />
       </Popup>
       <Notification notify={notify} setNotify={setNotify} />
       <ConfirmDialog

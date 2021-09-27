@@ -104,7 +104,7 @@ const CollegeCollapse = ({
                   </List>
                 </Grid>
                 <Grid item md={6} style={{}}>
-                  <List>
+                  <List key={item.$id * 0.003}>
                     <ListItem>
                       <strong>Phone No.</strong>: {item.PhoneNo}
                     </ListItem>

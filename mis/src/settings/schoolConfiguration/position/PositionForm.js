@@ -4,7 +4,10 @@ import InputControl from "../../../components/controls/InputControl";
 import { useForm, Form } from "../../../customHooks/useForm";
 import { useDispatch } from "react-redux";
 import CheckBoxControl from "../../../components/controls/CheckBoxControl";
-import { positionCreateAction } from "./PositionActions";
+import {
+  positionCreateAction,
+  updateSinglePositionAction,
+} from "./PositionActions";
 
 const initialFormValues = {
   IDHRPosition: 0,
@@ -12,15 +15,21 @@ const initialFormValues = {
   PositionHead: "",
   PositionDescription: "",
   IsActive: false,
-  Created_On: "2021-09-23T03:44:16.140Z",
-  Updated_On: "2021-09-23T03:44:16.141Z",
+  Created_On: "2021-09-23",
+  Updated_On: "2021-09-23",
 };
 
 const PositionForm = ({ position }) => {
   const dispatch = useDispatch();
-  const validate = () => {
-    let temp = {};
-    temp.PositionHead = values.PositionHead ? "" : "This feild is required";
+  const validate = (fieldValues = values) => {
+    let temp = { ...errors };
+
+    temp.PositionHead = !fieldValues.PositionHead
+      ? "This feild is required"
+      : fieldValues.PositionHead.length > 10
+      ? "Must be less than 11 characters"
+      : "";
+
     temp.PositionDescription = values.PositionDescription
       ? ""
       : "This feild is required";
@@ -31,26 +40,23 @@ const PositionForm = ({ position }) => {
   const { values, setValues, handleInputChange, errors, setErrors } =
     useForm(initialFormValues);
 
-  console.log(values);
-
   const handleSubmit = (e) => {
     e.preventDefault();
 
     if (validate()) {
       if (values.IDHRPosition === 0) {
         dispatch(positionCreateAction(values));
+      } else {
+        dispatch(updateSinglePositionAction(values));
       }
-      // else {
-      //   dispatch(updateSingleCollegeAction(values));
-      // }
     }
   };
 
-  // useEffect(() => {
-  //   if (position) {
-  //     setValues({ ...position });
-  //   }
-  // }, [position]);
+  useEffect(() => {
+    if (position) {
+      setValues({ ...position });
+    }
+  }, [position]);
   return (
     <Form onSubmit={handleSubmit}>
       <Grid container style={{ fontSize: "12px" }}>

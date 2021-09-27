@@ -30,33 +30,31 @@ const PositionTableCollapse = ({
   const classes = useStyles();
 
   return (
-    <>
-      <TableRow key={item.$id}>
-        <TableCell>{item.PositionHead}</TableCell>
-        <TableCell>{item.PositionDescription}</TableCell>
-        <TableCell>{item.IsActive ? "Active" : "InActive"}</TableCell>
-        <TableCell>{item.Created_On}</TableCell>
-        <TableCell>{item.Updated_On}</TableCell>
-        <TableCell>
-          <Button
-            variant="contained"
-            color="primary"
-            className={classes.button}
-            onClick={() => updateCollegeHandler(item.IDHRPosition)}
-          >
-            <EditIcon style={{ fontSize: 12 }} />
-          </Button>
-          <Button
-            variant="contained"
-            color="secondary"
-            className={classes.button}
-            onClick={() => deleteCollegeHandler(item.IDHRPosition)}
-          >
-            <DeleteIcon style={{ fontSize: 12 }} />
-          </Button>
-        </TableCell>
-      </TableRow>
-    </>
+    <TableRow key={item.$id}>
+      <TableCell>{item.PositionHead}</TableCell>
+      <TableCell>{item.PositionDescription}</TableCell>
+      <TableCell>{item.IsActive ? "True" : "False"}</TableCell>
+      <TableCell>{item.Created_On}</TableCell>
+      <TableCell>{item.Updated_On}</TableCell>
+      <TableCell>
+        <Button
+          variant="contained"
+          color="primary"
+          className={classes.button}
+          onClick={() => updateCollegeHandler(item.IDHRPosition)}
+        >
+          <EditIcon style={{ fontSize: 12 }} />
+        </Button>
+        <Button
+          variant="contained"
+          color="secondary"
+          className={classes.button}
+          onClick={() => deleteCollegeHandler(item.IDHRPosition)}
+        >
+          <DeleteIcon style={{ fontSize: 12 }} />
+        </Button>
+      </TableCell>
+    </TableRow>
   );
 };
 

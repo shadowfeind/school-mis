@@ -26,17 +26,18 @@ const PositionForm = ({ position }) => {
 
     temp.PositionHead = !fieldValues.PositionHead
       ? "This feild is required"
-      : fieldValues.PositionHead.length > 10
-      ? "Must be less than 11 characters"
+      : fieldValues.PositionHead.length > 20
+      ? "Must be less than 20 characters"
       : "";
 
-    temp.PositionDescription = values.PositionDescription
+    temp.PositionDescription = fieldValues.PositionDescription
       ? ""
       : "This feild is required";
 
     setErrors({ ...temp });
     return Object.values(temp).every((x) => x === "");
   };
+
   const { values, setValues, handleInputChange, errors, setErrors } =
     useForm(initialFormValues);
 

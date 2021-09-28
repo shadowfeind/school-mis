@@ -6,7 +6,12 @@ import {
   getSinglePositionReducer,
   updateSinglePositionReducer,
 } from "./src/settings/schoolConfiguration/position/PositionReducers";
-import { getAllEmployeeType } from "./src/settings/schoolConfiguration/employeeType/EmployeeTypeReducers";
+import {
+  createEmployeeTypeReducer,
+  getAllEmployeeType,
+  getSingleEmployeeTypeReducer,
+  updateSingleEmployeeTypeReducer,
+} from "./src/settings/schoolConfiguration/employeeType/EmployeeTypeReducers";
 import { getAllEmployeeCategoryRole } from "./src/settings/schoolConfiguration/employeeCategoryRole/EmployeeCategoryRoleReduces";
 import { getAllHoliday } from "./src/settings/schoolConfiguration/holiday/HolidayReducers";
 import { getAllEmployee } from "./src/settings/employeeManagement/employee/EmployeeReducers";
@@ -21,6 +26,9 @@ export const reducers = combineReducers({
   getSinglePosition: getSinglePositionReducer,
   updateSinglePosition: updateSinglePositionReducer,
   employeeType: getAllEmployeeType,
+  createEmployeeType: createEmployeeTypeReducer,
+  getSingleEmployeeType: getSingleEmployeeTypeReducer,
+  updateSingleEmployeeType: updateSingleEmployeeTypeReducer,
   employeeCategoryRole: getAllEmployeeCategoryRole,
   holiday: getAllHoliday,
   employee: getAllEmployee,

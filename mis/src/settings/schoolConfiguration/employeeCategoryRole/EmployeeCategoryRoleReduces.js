@@ -9,7 +9,7 @@ export const getAllEmployeeCategoryRole = (state = {}, action) => {
     case GET_ALL_EMPLOYEE_CATEGORY_ROLE_REQUEST:
       return { loading: true };
     case GET_ALL_EMPLOYEE_CATEGORY_ROLE_SUCCESS:
-      return { loading: false, employeCategoryRole: action.payload };
+      return { loading: false, employeeCategoryRole: action.payload };
     case GET_ALL_EMPLOYEE_CATEGORY_ROLE_FAIL:
       return { loading: false, error: action.payload };
     default:

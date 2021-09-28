@@ -183,19 +183,19 @@ const Position = () => {
         </Toolbar>
         <TableContainer className={classes.table}>
           <TblHead />
-          {loading ? (
+          {/* {loading ? (
             <div></div>
-          ) : (
-            <TableBody>
-              {tableDataAfterPagingAndSorting().map((item) => (
-                <PositionTableCollapse
-                  item={item}
-                  updateCollegeHandler={updateCollegeHandler}
-                  deleteCollegeHandler={deleteCollegeHandler}
-                />
-              ))}
-            </TableBody>
-          )}
+          ) : ( */}
+          <TableBody>
+            {tableDataAfterPagingAndSorting().map((item) => (
+              <PositionTableCollapse
+                item={item}
+                updateCollegeHandler={updateCollegeHandler}
+                deleteCollegeHandler={deleteCollegeHandler}
+              />
+            ))}
+          </TableBody>
+          {/* )} */}
         </TableContainer>
         <TblPagination />
       </CustomContainer>
@@ -204,7 +204,7 @@ const Position = () => {
         setOpenPopup={setOpenPopup}
         title="School Settings Form"
       >
-        <PositionForm position={singlePosition ? singlePosition.dbModel : {}} />
+        <PositionForm position={singlePosition && singlePosition.dbModel} />
       </Popup>
       <Notification notify={notify} setNotify={setNotify} />
       <ConfirmDialog

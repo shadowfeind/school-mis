@@ -127,26 +127,25 @@ const SchoolSettings = () => {
             startIcon={<AddIcon />}
             className={classes.button}
             onClick={() => setOpenPopup(true)}
-            // onClick={() => dispatch(test())}
           >
             Add{" "}
           </Button>
         </Toolbar>
         <TableContainer className={classes.table}>
           <TblHead />
-          {loading ? (
+          {/* {loading ? (
             <div></div>
-          ) : (
-            <TableBody>
-              {tableDataAfterPagingAndSorting().map((item) => (
-                <SchoolSettingsTableCollapse
-                  item={item}
-                  updateCollegeHandler={updateCollegeHandler}
-                  deleteCollegeHandler={deleteCollegeHandler}
-                />
-              ))}
-            </TableBody>
-          )}
+          ) : ( */}
+          <TableBody>
+            {tableDataAfterPagingAndSorting().map((item) => (
+              <SchoolSettingsTableCollapse
+                item={item}
+                updateCollegeHandler={updateCollegeHandler}
+                deleteCollegeHandler={deleteCollegeHandler}
+              />
+            ))}
+          </TableBody>
+          {/* )} */}
         </TableContainer>
         <TblPagination />
       </CustomContainer>

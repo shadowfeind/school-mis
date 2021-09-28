@@ -17,8 +17,16 @@ import Notification from "../../../components/Notification";
 import ConfirmDialog from "../../../components/ConfirmDialog";
 
 import EmployeeTypeTableCollapse from "./EmployeeTypeTableCollapse";
-import { getAllEmployeeTypeAction } from "./EmployeeTypeActions";
+import {
+  getAllEmployeeTypeAction,
+  getSingleEmployeeTypeAction,
+} from "./EmployeeTypeActions";
 import EmployeeTypeForm from "./EmployeeTypeForm";
+import {
+  EMPLOYEE_TYPE_CREATE_RESET,
+  GET_SINGLE_EMPLOYEE_TYPE_RESET,
+  UPDATE_SINGLE_EMPLOYEE_TYPE_RESET,
+} from "./EmployeeTypeConstant";
 
 const useStyles = makeStyles((theme) => ({
   searchInput: {
@@ -64,7 +72,44 @@ const EmployeeType = () => {
 
   const { loading, employeeType } = useSelector((state) => state.employeeType);
 
-  const updateCollegeHandler = (id) => {};
+  const { success: createEmployeeTypeSuccess } = useSelector(
+    (state) => state.createEmployeeType
+  );
+
+  const { singleEmployeeType } = useSelector(
+    (state) => state.getSingleEmployeeType
+  );
+
+  const { success: updateSingleEmployeeTypeSuccess } = useSelector(
+    (state) => state.updateSingleEmployeeType
+  );
+
+  if (createEmployeeTypeSuccess) {
+    dispatch(getAllEmployeeTypeAction());
+    setNotify({
+      isOpen: true,
+      message: "Employee Type Created Succesfully",
+      type: "success",
+    });
+    setOpenPopup(false);
+    dispatch({ type: EMPLOYEE_TYPE_CREATE_RESET });
+  }
+
+  if (updateSingleEmployeeTypeSuccess) {
+    dispatch(getAllEmployeeTypeAction());
+    setNotify({
+      isOpen: true,
+      message: "Updated Succesfully",
+      type: "success",
+    });
+    setOpenPopup(false);
+    dispatch({ type: UPDATE_SINGLE_EMPLOYEE_TYPE_RESET });
+  }
+
+  const updateCollegeHandler = (id) => {
+    dispatch(getSingleEmployeeTypeAction(id));
+    setOpenPopup(true);
+  };
 
   const deleteCollegeHandler = (id) => {
     setConfirmDialog({
@@ -103,6 +148,11 @@ const EmployeeType = () => {
       },
     });
   };
+
+  const addHandler = () => {
+    dispatch({ type: GET_SINGLE_EMPLOYEE_TYPE_RESET });
+    setOpenPopup(true);
+  };
   return (
     <>
       <CustomContainer>
@@ -124,7 +174,7 @@ const EmployeeType = () => {
             color="primary"
             startIcon={<AddIcon />}
             className={classes.button}
-            onClick={() => setOpenPopup(true)}
+            onClick={addHandler}
             // onClick={() => dispatch(test())}
           >
             Add{" "}
@@ -132,19 +182,19 @@ const EmployeeType = () => {
         </Toolbar>
         <TableContainer className={classes.table}>
           <TblHead />
-          {loading ? (
+          {/* {loading ? (
             <div></div>
-          ) : (
-            <TableBody>
-              {tableDataAfterPagingAndSorting().map((item) => (
-                <EmployeeTypeTableCollapse
-                  item={item}
-                  updateCollegeHandler={updateCollegeHandler}
-                  deleteCollegeHandler={deleteCollegeHandler}
-                />
-              ))}
-            </TableBody>
-          )}
+          ) : ( */}
+          <TableBody>
+            {tableDataAfterPagingAndSorting().map((item) => (
+              <EmployeeTypeTableCollapse
+                item={item}
+                updateCollegeHandler={updateCollegeHandler}
+                deleteCollegeHandler={deleteCollegeHandler}
+              />
+            ))}
+          </TableBody>
+          {/* )} */}
         </TableContainer>
         <TblPagination />
       </CustomContainer>
@@ -154,7 +204,9 @@ const EmployeeType = () => {
         title="Employee Type Form"
       >
         <EmployeeTypeForm
-          college={employeeType ? employeeType.hrEmployeeTypeModelLst : {}}
+          employeeType={
+            singleEmployeeType && singleEmployeeType.hrEmployeeTypeModel
+          }
         />
       </Popup>
       <Notification notify={notify} setNotify={setNotify} />

@@ -33,7 +33,7 @@ const PositionTableCollapse = ({
     <TableRow key={item.$id}>
       <TableCell>{item.PositionHead}</TableCell>
       <TableCell>{item.PositionDescription}</TableCell>
-      <TableCell>{item.IsActive ? "True" : "False"}</TableCell>
+      <TableCell>{item.IsActive ? "Active" : "InActive"}</TableCell>
       <TableCell>{item.Created_On}</TableCell>
       <TableCell>{item.Updated_On}</TableCell>
       <TableCell>

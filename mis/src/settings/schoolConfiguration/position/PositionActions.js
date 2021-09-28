@@ -95,7 +95,7 @@ export const updateSinglePositionAction = (position) => async (dispatch) => {
     };
 
     const { data } = await axios.put(
-      "http://192.168.1.103:85/api/MobileHRCompany",
+      "http://192.168.1.103:84/api/HRPosition",
       jsonData,
       config
     );

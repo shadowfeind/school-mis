@@ -4,6 +4,10 @@ import InputControl from "../../../components/controls/InputControl";
 import { useForm, Form } from "../../../customHooks/useForm";
 import { useDispatch } from "react-redux";
 import CheckBoxControl from "../../../components/controls/CheckBoxControl";
+import {
+  employeeTypeCreateAction,
+  updateSingleEmployeeTypeAction,
+} from "./EmployeeTypeActions";
 
 const initialFormValues = {
   IDHREmployeeType: 0,
@@ -16,18 +20,18 @@ const initialFormValues = {
   Updated_On: "2015-04-09T14:20:39.947",
 };
 
-const EmployeeTypeForm = ({ college }) => {
+const EmployeeTypeForm = ({ employeeType }) => {
   const dispatch = useDispatch();
-  const validate = () => {
-    let temp = {};
-    temp.EmployeeTypeName =
-      values.EmployeeTypeName.length > 10
-        ? "Company Name must be less than 10 characters"
-        : "";
-    temp.Description =
-      values.Description.length > 200
-        ? "Short Form cannot be greater than 200 characters"
-        : "";
+  const validate = (fieldValues = values) => {
+    let temp = { ...errors };
+
+    temp.EmployeeTypeName = !fieldValues.EmployeeTypeName
+      ? "This feild is required"
+      : fieldValues.EmployeeTypeName.length > 20
+      ? "Must be less than 20 characters"
+      : "";
+
+    temp.Description = fieldValues.Description ? "" : "This feild is required";
 
     setErrors({ ...temp });
     return Object.values(temp).every((x) => x === "");
@@ -39,14 +43,19 @@ const EmployeeTypeForm = ({ college }) => {
     e.preventDefault();
 
     if (validate()) {
+      if (values.IDHREmployeeType === 0) {
+        dispatch(employeeTypeCreateAction(values));
+      } else {
+        dispatch(updateSingleEmployeeTypeAction(values));
+      }
     }
   };
 
   useEffect(() => {
-    if (college) {
-      setValues({ ...college });
+    if (employeeType) {
+      setValues({ ...employeeType });
     }
-  }, [college]);
+  }, [employeeType]);
   return (
     <Form onSubmit={handleSubmit}>
       <Grid container style={{ fontSize: "12px" }}>
@@ -57,7 +66,6 @@ const EmployeeTypeForm = ({ college }) => {
             value={values.EmployeeTypeName}
             onChange={handleInputChange}
             errors={errors.EmployeeTypeName}
-            required
           />
 
           <CheckBoxControl
@@ -65,8 +73,6 @@ const EmployeeTypeForm = ({ college }) => {
             label="IsActive"
             value={values.IsActive}
             onChange={handleInputChange}
-            errors={errors.IsActive}
-            required
           />
           <div>
             <Button
@@ -86,15 +92,12 @@ const EmployeeTypeForm = ({ college }) => {
             value={values.Description}
             onChange={handleInputChange}
             errors={errors.Description}
-            required
           />
           <CheckBoxControl
             name="IsTaxApplicable"
             label="IsTaxApplicable"
             value={values.IsTaxApplicable}
             onChange={handleInputChange}
-            errors={errors.IsTaxApplicable}
-            required
           />
         </Grid>
       </Grid>

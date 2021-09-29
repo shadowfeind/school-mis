@@ -5,14 +5,18 @@ import { useForm, Form } from "../../../customHooks/useForm";
 import { useDispatch } from "react-redux";
 import CheckBoxControl from "../../../components/controls/CheckBoxControl";
 import DatePickerControl from "../../../components/controls/DatePickerControl";
+import {
+  holidayCreateAction,
+  updateSingleHoliadyAction,
+} from "./HolidayActions";
 
 const initialFormValues = {
   IDHRHoliday: 0,
   IDHRCompany: 2,
   HolidayName: "",
   Description: "",
-  FromDate: "2016-10-08T00:00:00",
-  ToDate: "2016-10-15T00:00:00",
+  FromDate: "2021-10-08T00:00:00",
+  ToDate: "2021-10-15T00:00:00",
   IsActive: false,
   Created_On: "2012-12-12T00:00:00",
   Updated_On: "2015-04-09T14:20:39.947",
@@ -20,16 +24,16 @@ const initialFormValues = {
 
 const HolidayForm = ({ holiday }) => {
   const dispatch = useDispatch();
-  const validate = () => {
-    let temp = {};
-    temp.HolidayName =
-      values.HolidayName.length > 20
-        ? "HolidayName must be less than 20 characters"
-        : "";
-    temp.Description =
-      values.Description.length > 200
-        ? "Description cannot be greater than 200 characters"
-        : "";
+  const validate = (fieldValues = values) => {
+    let temp = { ...errors };
+
+    temp.HolidayName = !fieldValues.HolidayName
+      ? "This feild is required"
+      : fieldValues.HolidayName.length > 20
+      ? "Must be less than 20 characters"
+      : "";
+
+    temp.Description = fieldValues.Description ? "" : "This feild is required";
 
     setErrors({ ...temp });
     return Object.values(temp).every((x) => x === "");
@@ -41,6 +45,11 @@ const HolidayForm = ({ holiday }) => {
     e.preventDefault();
 
     if (validate()) {
+      if (values.IDHRHoliday === 0) {
+        dispatch(holidayCreateAction(values));
+      } else {
+        dispatch(updateSingleHoliadyAction(values));
+      }
     }
   };
 
@@ -59,17 +68,8 @@ const HolidayForm = ({ holiday }) => {
             value={values.HolidayName}
             onChange={handleInputChange}
             errors={errors.HolidayName}
-            required
           />
 
-          <InputControl
-            name="Description"
-            label="Description"
-            value={values.Description}
-            onChange={handleInputChange}
-            errors={errors.Description}
-            required
-          />
           <DatePickerControl
             name="FromDate"
             label="FromDate"
@@ -95,7 +95,6 @@ const HolidayForm = ({ holiday }) => {
             value={values.Description}
             onChange={handleInputChange}
             errors={errors.Description}
-            required
           />
           <DatePickerControl
             name="ToDate"

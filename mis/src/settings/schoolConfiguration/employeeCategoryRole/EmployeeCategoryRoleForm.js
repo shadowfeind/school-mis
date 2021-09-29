@@ -4,6 +4,10 @@ import InputControl from "../../../components/controls/InputControl";
 import { useForm, Form } from "../../../customHooks/useForm";
 import { useDispatch } from "react-redux";
 import CheckBoxControl from "../../../components/controls/CheckBoxControl";
+import {
+  employeeCategoryRoleCreateAction,
+  updateSingleEmployeeCategoryRoleAction,
+} from "./EmployeeCategoryRoleActions";
 
 const initialFormValues = {
   IDHREmployeeCategoryRole: 0,
@@ -14,18 +18,20 @@ const initialFormValues = {
   Updated_On: "2015-04-09T14:20:39.947",
 };
 
-const EmployeeCategoryRoleForm = ({ college }) => {
+const EmployeeCategoryRoleForm = ({ employeeCategoryRole }) => {
   const dispatch = useDispatch();
-  const validate = () => {
-    let temp = {};
-    temp.Heading =
-      values.Heading.length > 10
-        ? "Heading Name must be less than 10 characters"
-        : "";
-    temp.Description =
-      values.Description.length > 200
-        ? "Description cannot be greater than 200 characters"
-        : "";
+  const validate = (fieldValues = values) => {
+    let temp = { ...errors };
+    temp.Heading = !fieldValues.Heading
+      ? "This feild is required"
+      : fieldValues.Heading.length > 20
+      ? "Must be less than 20 characters"
+      : "";
+    temp.Description = !fieldValues.Description
+      ? "This feild is required"
+      : fieldValues.Description.length > 20
+      ? "Must be less than 20 characters"
+      : "";
 
     setErrors({ ...temp });
     return Object.values(temp).every((x) => x === "");
@@ -37,14 +43,19 @@ const EmployeeCategoryRoleForm = ({ college }) => {
     e.preventDefault();
 
     if (validate()) {
+      if (values.IDHREmployeeCategoryRole === 0) {
+        dispatch(employeeCategoryRoleCreateAction(values));
+      } else {
+        dispatch(updateSingleEmployeeCategoryRoleAction(values));
+      }
     }
   };
 
   useEffect(() => {
-    if (college) {
-      setValues({ ...college });
+    if (employeeCategoryRole) {
+      setValues({ ...employeeCategoryRole });
     }
-  }, [college]);
+  }, [employeeCategoryRole]);
   return (
     <Form onSubmit={handleSubmit}>
       <Grid container style={{ fontSize: "12px" }}>
@@ -55,7 +66,6 @@ const EmployeeCategoryRoleForm = ({ college }) => {
             value={values.Heading}
             onChange={handleInputChange}
             errors={errors.Heading}
-            required
           />
 
           <CheckBoxControl
@@ -64,7 +74,6 @@ const EmployeeCategoryRoleForm = ({ college }) => {
             value={values.IsActive}
             onChange={handleInputChange}
             errors={errors.IsActive}
-            required
           />
           <div>
             <Button
@@ -84,7 +93,6 @@ const EmployeeCategoryRoleForm = ({ college }) => {
             value={values.Description}
             onChange={handleInputChange}
             errors={errors.Description}
-            required
           />
         </Grid>
       </Grid>

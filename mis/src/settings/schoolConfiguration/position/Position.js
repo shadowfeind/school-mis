@@ -176,7 +176,6 @@ const Position = () => {
             startIcon={<AddIcon />}
             className={classes.button}
             onClick={addHandler}
-            // onClick={() => dispatch(test())}
           >
             Add{" "}
           </Button>

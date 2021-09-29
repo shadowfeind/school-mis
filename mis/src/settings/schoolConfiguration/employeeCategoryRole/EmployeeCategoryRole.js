@@ -15,9 +15,17 @@ import CustomContainer from "../../../components/CustomContainer";
 import { useDispatch, useSelector } from "react-redux";
 import Notification from "../../../components/Notification";
 import ConfirmDialog from "../../../components/ConfirmDialog";
-import { getAllEmployeeCategoryRoleAction } from "./EmployeeCategoryRoleActions";
+import {
+  getAllEmployeeCategoryRoleAction,
+  getSingleEmployeeCategoryRoleAction,
+} from "./EmployeeCategoryRoleActions";
 import EmployeeCategoryRoleTableCollapse from "./EmployeeCategoryRoleTableCollapse";
 import EmployeeCategoryRoleForm from "./EmployeeCategoryRoleForm";
+import {
+  EMPLOYEE_CATEGORY_ROLE_CREATE_RESET,
+  GET_SINGLE_EMPLOYEE_CATEGORY_ROLE_RESET,
+  UPDATE_SINGLE_EMPLOYEE_CATEGORY_ROLE_RESET,
+} from "./EmployeeCategoryRoleConstant";
 
 const useStyles = makeStyles((theme) => ({
   searchInput: {
@@ -66,7 +74,44 @@ const EmployeeType = () => {
     (state) => state.employeeCategoryRole
   );
 
-  const updateCollegeHandler = (id) => {};
+  const { success: createEmployeeCategoryRoleSuccess } = useSelector(
+    (state) => state.createEmployeeCategoryRole
+  );
+
+  const { singleEmployeeCategoryRole } = useSelector(
+    (state) => state.getSingleEmployeeCategoryRole
+  );
+
+  const { success: updateSingleCategoryRoleSuccess } = useSelector(
+    (state) => state.updateSingleEmployeeCategoryRole
+  );
+
+  if (createEmployeeCategoryRoleSuccess) {
+    dispatch(getAllEmployeeCategoryRoleAction());
+    setNotify({
+      isOpen: true,
+      message: "Employee Category Role Created Succesfully",
+      type: "success",
+    });
+    setOpenPopup(false);
+    dispatch({ type: EMPLOYEE_CATEGORY_ROLE_CREATE_RESET });
+  }
+
+  if (updateSingleCategoryRoleSuccess) {
+    dispatch(getAllEmployeeCategoryRoleAction());
+    setNotify({
+      isOpen: true,
+      message: "Updated Succesfully",
+      type: "success",
+    });
+    setOpenPopup(false);
+    dispatch({ type: UPDATE_SINGLE_EMPLOYEE_CATEGORY_ROLE_RESET });
+  }
+
+  const updateCollegeHandler = (id) => {
+    dispatch(getSingleEmployeeCategoryRoleAction(id));
+    setOpenPopup(true);
+  };
 
   const deleteCollegeHandler = (id) => {
     setConfirmDialog({
@@ -105,6 +150,11 @@ const EmployeeType = () => {
       },
     });
   };
+
+  const addHandler = () => {
+    dispatch({ type: GET_SINGLE_EMPLOYEE_CATEGORY_ROLE_RESET });
+    setOpenPopup(true);
+  };
   return (
     <>
       <CustomContainer>
@@ -126,7 +176,7 @@ const EmployeeType = () => {
             color="primary"
             startIcon={<AddIcon />}
             className={classes.button}
-            onClick={() => setOpenPopup(true)}
+            onClick={addHandler}
             // onClick={() => dispatch(test())}
           >
             Add{" "}
@@ -134,19 +184,19 @@ const EmployeeType = () => {
         </Toolbar>
         <TableContainer className={classes.table}>
           <TblHead />
-          {loading ? (
+          {/* {loading ? (
             <div></div>
-          ) : (
-            <TableBody>
-              {tableDataAfterPagingAndSorting().map((item) => (
-                <EmployeeCategoryRoleTableCollapse
-                  item={item}
-                  updateCollegeHandler={updateCollegeHandler}
-                  deleteCollegeHandler={deleteCollegeHandler}
-                />
-              ))}
-            </TableBody>
-          )}
+          ) : ( */}
+          <TableBody>
+            {tableDataAfterPagingAndSorting().map((item) => (
+              <EmployeeCategoryRoleTableCollapse
+                item={item}
+                updateCollegeHandler={updateCollegeHandler}
+                deleteCollegeHandler={deleteCollegeHandler}
+              />
+            ))}
+          </TableBody>
+          {/* )} */}
         </TableContainer>
         <TblPagination />
       </CustomContainer>
@@ -156,7 +206,9 @@ const EmployeeType = () => {
         title="Employee Category Role Form"
       >
         <EmployeeCategoryRoleForm
-          college={employeeCategoryRole ? employeeCategoryRole.dbModelLst : {}}
+          employeeCategoryRole={
+            singleEmployeeCategoryRole && singleEmployeeCategoryRole.dbModel
+          }
         />
       </Popup>
       <Notification notify={notify} setNotify={setNotify} />

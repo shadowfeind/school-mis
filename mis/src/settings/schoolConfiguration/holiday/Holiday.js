@@ -15,9 +15,14 @@ import CustomContainer from "../../../components/CustomContainer";
 import { useDispatch, useSelector } from "react-redux";
 import Notification from "../../../components/Notification";
 import ConfirmDialog from "../../../components/ConfirmDialog";
-import { getAllHolidayAction } from "./HolidayActions";
+import { getAllHolidayAction, getSingleHolidayAction } from "./HolidayActions";
 import HolidayTableCollapse from "./HolidayTableCollapse";
 import HolidayForm from "./HolidayForm";
+import {
+  GET_SINGLE_HOLIDAY_RESET,
+  HOLIDAY_CREATE_RESET,
+  UPDATE_SINGLE_HOLIDAY_RESET,
+} from "./HolidayConstants";
 
 const useStyles = makeStyles((theme) => ({
   searchInput: {
@@ -64,7 +69,42 @@ const Holiday = () => {
 
   const { loading, holiday } = useSelector((state) => state.holiday);
 
-  const updateCollegeHandler = (id) => {};
+  const { success: createHolidaySuccess } = useSelector(
+    (state) => state.createHoliday
+  );
+
+  const { singleHoliday } = useSelector((state) => state.getSingleHoliday);
+
+  const { success: updateSingleHolidaySuccess } = useSelector(
+    (state) => state.updateSingleHoliday
+  );
+
+  if (createHolidaySuccess) {
+    dispatch(getAllHolidayAction());
+    setNotify({
+      isOpen: true,
+      message: "Created Succesfully",
+      type: "success",
+    });
+    setOpenPopup(false);
+    dispatch({ type: HOLIDAY_CREATE_RESET });
+  }
+
+  if (updateSingleHolidaySuccess) {
+    dispatch(getAllHolidayAction());
+    setNotify({
+      isOpen: true,
+      message: "Updated Succesfully",
+      type: "success",
+    });
+    setOpenPopup(false);
+    dispatch({ type: UPDATE_SINGLE_HOLIDAY_RESET });
+  }
+
+  const updateCollegeHandler = (id) => {
+    dispatch(getSingleHolidayAction(id));
+    setOpenPopup(true);
+  };
 
   const deleteCollegeHandler = (id) => {
     setConfirmDialog({
@@ -103,6 +143,12 @@ const Holiday = () => {
       },
     });
   };
+
+  const addHandler = () => {
+    dispatch({ type: GET_SINGLE_HOLIDAY_RESET });
+    setOpenPopup(true);
+  };
+
   return (
     <>
       <CustomContainer>
@@ -124,27 +170,26 @@ const Holiday = () => {
             color="primary"
             startIcon={<AddIcon />}
             className={classes.button}
-            onClick={() => setOpenPopup(true)}
-            // onClick={() => dispatch(test())}
+            onClick={addHandler}
           >
             Add{" "}
           </Button>
         </Toolbar>
         <TableContainer className={classes.table}>
           <TblHead />
-          {loading ? (
+          {/* {loading ? (
             <div></div>
-          ) : (
-            <TableBody>
-              {tableDataAfterPagingAndSorting().map((item) => (
-                <HolidayTableCollapse
-                  item={item}
-                  updateCollegeHandler={updateCollegeHandler}
-                  deleteCollegeHandler={deleteCollegeHandler}
-                />
-              ))}
-            </TableBody>
-          )}
+          ) : ( */}
+          <TableBody>
+            {tableDataAfterPagingAndSorting().map((item) => (
+              <HolidayTableCollapse
+                item={item}
+                updateCollegeHandler={updateCollegeHandler}
+                deleteCollegeHandler={deleteCollegeHandler}
+              />
+            ))}
+          </TableBody>
+          {/* )} */}
         </TableContainer>
         <TblPagination />
       </CustomContainer>
@@ -153,7 +198,7 @@ const Holiday = () => {
         setOpenPopup={setOpenPopup}
         title="Employee Type Form"
       >
-        <HolidayForm holiday={holiday ? holiday.att_HRHolidayModelLst : {}} />
+        <HolidayForm holiday={singleHoliday && singleHoliday.hrHolidayModel} />
       </Popup>
       <Notification notify={notify} setNotify={setNotify} />
       <ConfirmDialog

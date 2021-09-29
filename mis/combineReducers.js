@@ -12,8 +12,18 @@ import {
   getSingleEmployeeTypeReducer,
   updateSingleEmployeeTypeReducer,
 } from "./src/settings/schoolConfiguration/employeeType/EmployeeTypeReducers";
-import { getAllEmployeeCategoryRole } from "./src/settings/schoolConfiguration/employeeCategoryRole/EmployeeCategoryRoleReduces";
-import { getAllHoliday } from "./src/settings/schoolConfiguration/holiday/HolidayReducers";
+import {
+  createEmployeeCategoryRoleReducer,
+  getAllEmployeeCategoryRole,
+  getSingleEmployeeCategoryRoleReducer,
+  updateSingleEmployeeCategoryRoleReducer,
+} from "./src/settings/schoolConfiguration/employeeCategoryRole/EmployeeCategoryRoleReduces";
+import {
+  createHolidayReducer,
+  getAllHoliday,
+  getSingleHolidayReducer,
+  updateSingleHolidayReducer,
+} from "./src/settings/schoolConfiguration/holiday/HolidayReducers";
 import { getAllEmployee } from "./src/settings/employeeManagement/employee/EmployeeReducers";
 import { getAllRoles } from "./src/settings/employeeManagement/role/RoleReducers";
 import { getAllAcademicClass } from "./src/settings/academicConfiguration/academicClass/AcademicClassReducers";
@@ -30,7 +40,13 @@ export const reducers = combineReducers({
   getSingleEmployeeType: getSingleEmployeeTypeReducer,
   updateSingleEmployeeType: updateSingleEmployeeTypeReducer,
   employeeCategoryRole: getAllEmployeeCategoryRole,
+  createEmployeeCategoryRole: createEmployeeCategoryRoleReducer,
+  getSingleEmployeeCategoryRole: getSingleEmployeeCategoryRoleReducer,
+  updateSingleEmployeeCategoryRole: updateSingleEmployeeCategoryRoleReducer,
   holiday: getAllHoliday,
+  createHoliday: createHolidayReducer,
+  getSingleHoliday: getSingleHolidayReducer,
+  updateSingleHoliday: updateSingleHolidayReducer,
   employee: getAllEmployee,
   role: getAllRoles,
   academicClass: getAllAcademicClass,

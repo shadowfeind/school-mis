@@ -6,6 +6,9 @@ import {
   TableBody,
   Toolbar,
 } from "@material-ui/core";
+import { Calendar, momentLocalizer } from "react-big-calendar";
+import moment, { months } from "moment";
+
 import useCustomTable from "../../../customHooks/useCustomTable";
 import InputControl from "../../../components/controls/InputControl";
 import { Search } from "@material-ui/icons";
@@ -23,6 +26,7 @@ import {
   HOLIDAY_CREATE_RESET,
   UPDATE_SINGLE_HOLIDAY_RESET,
 } from "./HolidayConstants";
+import "react-big-calendar/lib/css/react-big-calendar.css";
 
 const useStyles = makeStyles((theme) => ({
   searchInput: {
@@ -43,6 +47,8 @@ const tableHeader = [
   { id: "IsActive", label: "IsActive" },
   { id: "actions", label: "Actions", disableSorting: true },
 ];
+
+const localizer = momentLocalizer(moment);
 
 const Holiday = () => {
   const [tableData, setTableData] = useState([]);
@@ -153,7 +159,7 @@ const Holiday = () => {
     <>
       <CustomContainer>
         <Toolbar>
-          <InputControl
+          {/* <InputControl
             className={classes.searchInput}
             label="Search Holiday"
             InputProps={{
@@ -164,7 +170,7 @@ const Holiday = () => {
               ),
             }}
             onChange={handleSearch}
-          />
+          /> */}
           <Button
             variant="contained"
             color="primary"
@@ -175,12 +181,21 @@ const Holiday = () => {
             Add{" "}
           </Button>
         </Toolbar>
-        <TableContainer className={classes.table}>
-          <TblHead />
-          {/* {loading ? (
+        <Calendar
+          localizer={localizer}
+          events={holiday && holiday.att_HRHolidayModelLst}
+          startAccessor="FromDate"
+          endAccessor="ToDate"
+          titleAccessor="HolidayName"
+          views={months}
+          style={{ height: "60vh" }}
+        />
+        {/* <TableContainer className={classes.table}>
+          <TblHead /> */}
+        {/* {loading ? (
             <div></div>
           ) : ( */}
-          <TableBody>
+        {/* <TableBody>
             {tableDataAfterPagingAndSorting().map((item) => (
               <HolidayTableCollapse
                 item={item}
@@ -188,10 +203,10 @@ const Holiday = () => {
                 deleteCollegeHandler={deleteCollegeHandler}
               />
             ))}
-          </TableBody>
-          {/* )} */}
-        </TableContainer>
-        <TblPagination />
+          </TableBody> */}
+        {/* )} */}
+        {/* </TableContainer>
+        <TblPagination /> */}
       </CustomContainer>
       <Popup
         openPopup={openPopup}

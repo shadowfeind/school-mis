@@ -26,7 +26,10 @@ import {
 } from "./src/settings/schoolConfiguration/holiday/HolidayReducers";
 import { getAllEmployee } from "./src/settings/employeeManagement/employee/EmployeeReducers";
 import { getAllRoles } from "./src/settings/employeeManagement/role/RoleReducers";
-import { getAllAcademicClass } from "./src/settings/academicConfiguration/academicClass/AcademicClassReducers";
+import {
+  createAcademicClassReducer,
+  getAllAcademicClass,
+} from "./src/settings/academicConfiguration/academicClass/AcademicClassReducers";
 import { getAllAcademicSection } from "./src/settings/academicConfiguration/academicSection/AcademicSectionReducers";
 
 export const reducers = combineReducers({
@@ -50,5 +53,6 @@ export const reducers = combineReducers({
   employee: getAllEmployee,
   role: getAllRoles,
   academicClass: getAllAcademicClass,
+  createAcademicClass: createAcademicClassReducer,
   academicSection: getAllAcademicSection,
 });

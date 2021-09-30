@@ -1,5 +1,8 @@
 import axios from "axios";
 import {
+  ACADEMIC_CLASS_CREATE_FAIL,
+  ACADEMIC_CLASS_CREATE_REQUEST,
+  ACADEMIC_CLASS_CREATE_SUCCESS,
   GET_ALL_ACADEMIC_CLASS_FAIL,
   GET_ALL_ACADEMIC_CLASS_REQUEST,
   GET_ALL_ACADEMIC_CLASS_SUCCESS,
@@ -21,3 +24,34 @@ export const getAllAcademicClassAction = () => async (dispatch) => {
     });
   }
 };
+
+export const academicClassCreateAction =
+  (academicClass) => async (dispatch) => {
+    try {
+      dispatch({ type: ACADEMIC_CLASS_CREATE_REQUEST });
+
+      const jsonData = JSON.stringify({ dbModel: academicClass });
+
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      };
+
+      const { data } = await axios.post(
+        "http://192.168.1.103:84/api/HRACADEMIC_CLASS",
+        jsonData,
+        config
+      );
+
+      dispatch({ type: ACADEMIC_CLASS_CREATE_SUCCESS, payload: data });
+    } catch (error) {
+      dispatch({
+        type: ACADEMIC_CLASS_CREATE_FAIL,
+        payload:
+          error.message && error.response.data.message
+            ? error.response.data.message
+            : error.message,
+      });
+    }
+  };

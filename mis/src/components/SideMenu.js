@@ -1,6 +1,6 @@
 import { makeStyles, Typography } from "@material-ui/core";
 import React from "react";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import {
   School,
   Accessible,
@@ -31,8 +31,7 @@ const useStyles = makeStyles({
       width: "100%",
     },
     "& h6:hover": {
-      color: "#253053",
-      backgroundColor: "#fff",
+      backgroundColor: "rgba(255, 255, 255, 0.3)",
       textDecoration: "none",
     },
     "& a:hover": { textDecoration: "none" },
@@ -41,6 +40,11 @@ const useStyles = makeStyles({
 
 const SideMenu = () => {
   const classes = useStyles();
+  const isActive = {
+    color: "#253053",
+    backgroundColor: "rgba(255, 255, 255, 0.3)",
+    textDecoration: "none",
+  };
   return (
     <div className={classes.sideMenu}>
       <Typography
@@ -49,67 +53,67 @@ const SideMenu = () => {
       >
         Dashboard
       </Typography>
-      <Link to={"/"}>
+      <NavLink to={"/"} exact={true} activeStyle={isActive}>
         <Typography variant="h6">
           {" "}
           <School fontSize="small" />
           &nbsp;&nbsp;&nbsp; School Configuration
         </Typography>
-      </Link>
-      <Link to={"/employee-management"}>
+      </NavLink>
+      <NavLink to={"/employee-management"} activeStyle={isActive}>
         <Typography variant="h6">
           {" "}
           <Accessible fontSize="small" />
           &nbsp;&nbsp;&nbsp; Employee Management
         </Typography>
-      </Link>
-      <Link to={"/academic-configuration"}>
+      </NavLink>
+      <NavLink to={"/academic-configuration"} activeStyle={isActive}>
         <Typography variant="h6">
           {" "}
           <ChromeReaderMode fontSize="small" /> &nbsp;&nbsp;&nbsp;Academic
           Configuration
         </Typography>
-      </Link>
-      <Link to={"/dashboard-view-header"}>
+      </NavLink>
+      <NavLink to={"/dashboard-view-header"} activeStyle={isActive}>
         <Typography variant="h6">
           {" "}
           <PeopleOutline fontSize="small" />
           &nbsp;&nbsp;&nbsp; Teacher Mapping
         </Typography>
-      </Link>
+      </NavLink>
 
-      <Link to={"/employee-view-link"}>
+      <NavLink to={"/employee-view-NavLink"} activeStyle={isActive}>
         <Typography variant="h6">
           {" "}
           <Face fontSize="small" />
           &nbsp;&nbsp;&nbsp; Student Management
         </Typography>
-      </Link>
-      <Link to={"/personalized-dashboard-view"}>
+      </NavLink>
+      <NavLink to={"/personalized-dashboard-view"} activeStyle={isActive}>
         <Typography variant="h6">
           <Assessment fontSize="small" />
           &nbsp;&nbsp;&nbsp; Attendance Configuration
         </Typography>
-      </Link>
-      <Link to={"/personalized-dashboard-view"}>
+      </NavLink>
+      <NavLink to={"/personalized-dashboard-view"} activeStyle={isActive}>
         <Typography variant="h6">
           {" "}
           <Settings fontSize="small" />
           &nbsp;&nbsp;&nbsp; Access Control
         </Typography>
-      </Link>
-      <Link to={"/personalized-dashboard-view"}>
+      </NavLink>
+      <NavLink to={"/personalized-dashboard-view"} activeStyle={isActive}>
         <Typography variant="h6">
           <PostAdd fontSize="small" />
           &nbsp;&nbsp;&nbsp; Notice
         </Typography>
-      </Link>
-      <Link to={"/personalized-dashboard-view"}>
+      </NavLink>
+      <NavLink to={"/personalized-dashboard-view"} activeStyle={isActive}>
         <Typography variant="h6">
           <RecordVoiceOver fontSize="small" />
           &nbsp;&nbsp;&nbsp; Announcement
         </Typography>
-      </Link>
+      </NavLink>
     </div>
   );
 };

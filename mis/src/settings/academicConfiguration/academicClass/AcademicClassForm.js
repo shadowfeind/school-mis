@@ -4,6 +4,7 @@ import InputControl from "../../../components/controls/InputControl";
 import { useForm, Form } from "../../../customHooks/useForm";
 import { useDispatch } from "react-redux";
 import CheckBoxControl from "../../../components/controls/CheckBoxControl";
+import { academicClassCreateAction } from "./AcademicClassActions";
 
 const initialFormValues = {
   IDClass: 0,
@@ -17,10 +18,12 @@ const initialFormValues = {
 
 const AcademicClassForm = ({ academicClass }) => {
   const dispatch = useDispatch();
-  const validate = () => {
-    let temp = {};
-    temp.ClassName = values.ClassName ? "" : "This feild is required";
-    temp.ClassLocation = values.ClassLocation ? "" : "This feild is required";
+  const validate = (fieldValues = values) => {
+    let temp = { ...errors };
+    temp.ClassName = !fieldValues.ClassName ? "This feild is required" : "";
+    temp.ClassLocation = !fieldValues.ClassLocation
+      ? "This feild is required"
+      : "";
 
     setErrors({ ...temp });
     return Object.values(temp).every((x) => x === "");
@@ -28,12 +31,11 @@ const AcademicClassForm = ({ academicClass }) => {
   const { values, setValues, handleInputChange, errors, setErrors } =
     useForm(initialFormValues);
 
-  console.log(values);
-
   const handleSubmit = (e) => {
     e.preventDefault();
 
     if (validate()) {
+      dispatch(academicClassCreateAction(values));
       // if (values.IDClass === 0) {
       //   dispatch(positionCreateAction(values));
       // }

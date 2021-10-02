@@ -15,9 +15,13 @@ import CustomContainer from "../../../components/CustomContainer";
 import { useDispatch, useSelector } from "react-redux";
 import Notification from "../../../components/Notification";
 import ConfirmDialog from "../../../components/ConfirmDialog";
-import { getAllEmployeeAction } from "./EmployeeActions";
+import {
+  getAllEmployeeAction,
+  getAllEmployeeCreateAction,
+} from "./EmployeeActions";
 import EmployeeTableCollapse from "./EmployeeTableCollpase";
 import EmployeeForm from "./EmployeeForm";
+import { EMPLOYEE_CREATE_RESET } from "./EmployeeConstants";
 
 const useStyles = makeStyles((theme) => ({
   searchInput: {
@@ -64,6 +68,21 @@ const Employee = () => {
 
   const { loading, employee } = useSelector((state) => state.employee);
 
+  const { success: employeeCreateSuccess } = useSelector(
+    (state) => state.createEmployee
+  );
+
+  if (employeeCreateSuccess) {
+    dispatch(getAllEmployeeAction());
+    setNotify({
+      isOpen: true,
+      message: "Created Succesfully",
+      type: "success",
+    });
+    setOpenPopup(false);
+    dispatch({ type: EMPLOYEE_CREATE_RESET });
+  }
+
   const updateCollegeHandler = (id) => {};
 
   const deleteCollegeHandler = (id) => {
@@ -77,6 +96,7 @@ const Employee = () => {
   useEffect(() => {
     if (!employee) {
       dispatch(getAllEmployeeAction());
+      dispatch(getAllEmployeeCreateAction());
     }
     if (employee) {
       setTableData(employee.hrEmployeeModelLst);
@@ -103,13 +123,17 @@ const Employee = () => {
       },
     });
   };
+
+  const addHandler = () => {
+    setOpenPopup(true);
+  };
   return (
     <>
       <CustomContainer>
         <Toolbar>
           <InputControl
             className={classes.searchInput}
-            label="Search College"
+            label="Search Employee"
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
@@ -124,8 +148,7 @@ const Employee = () => {
             color="primary"
             startIcon={<AddIcon />}
             className={classes.button}
-            onClick={() => setOpenPopup(true)}
-            // onClick={() => dispatch(test())}
+            onClick={addHandler}
           >
             Add{" "}
           </Button>

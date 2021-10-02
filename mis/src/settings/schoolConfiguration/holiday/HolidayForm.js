@@ -75,7 +75,6 @@ const HolidayForm = ({ holiday }) => {
             label="FromDate"
             value={values.FromDate}
             onChange={handleInputChange}
-            required
           />
           <div>
             <Button
@@ -101,7 +100,6 @@ const HolidayForm = ({ holiday }) => {
             label="ToDate"
             value={values.ToDate}
             onChange={handleInputChange}
-            required
           />
           <CheckBoxControl
             name="IsActive"
@@ -109,7 +107,6 @@ const HolidayForm = ({ holiday }) => {
             value={values.IsActive}
             onChange={handleInputChange}
             // errors={errors.IsTaxApplicable}
-            required
           />
         </Grid>
       </Grid>

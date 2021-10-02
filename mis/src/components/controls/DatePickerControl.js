@@ -23,45 +23,10 @@ const DatePickerControl = ({ name, label, value, onChange }) => {
         name={name}
         value={value}
         onChange={(date) => {
-          console.log(typeof date.toISOString());
           onChange(converToDefaultEventPara(name, date));
         }}
       />
     </MuiPickersUtilsProvider>
-    // <TextField
-    //   id="date"
-    //   label={label}
-    //   type="date"
-    //   name={name}
-    //   defaultValue={value}
-    //   InputLabelProps={{
-    //     shrink: true,
-    //   }}
-    //   onChange={(date) => {
-    //     console.log(date);
-    //     const newDate = new Date(date.timeStamp * 1000).toISOString();
-    //     console.log(newDate);
-    //     onChange(converToDefaultEventPara(name, newDate));
-    //   }}
-    // />
-    // <TextField
-    //   name={name}
-    //   label={label}
-    //   type="datetime-local"
-    //   defaultValue={value}
-    //   InputLabelProps={{
-    //     shrink: true,
-    //   }}
-    //   onChange={(date) => {
-    //     const changedDate = date.timeStamp * 1000;
-    //     const newDate = new Date(changedDate).toISOString();
-    //     console.log(newDate);
-    //     console.log(changedDate);
-    //     console.log(date);
-    //     console.log(new Date(1632904900).toISOString());
-    //     onChange(converToDefaultEventPara(name, newDate));
-    //   }}
-    // />
   );
 };
 

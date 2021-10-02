@@ -1,0 +1,663 @@
+{
+  "searchFilterModel": {
+    "enableCRUD": true,
+    "IDReporteeFilter": 0,
+    "ddlReportee": [
+      {
+        "Key": {},
+        "Value": {}
+      }
+    ],
+    "fromDate": "2021-10-01T04:20:16.287Z",
+    "toDate": "2021-10-01T04:20:16.287Z",
+    "fiscalYear": "string",
+    "ddlFiscalYear": [
+      {
+        "Key": {},
+        "Value": {}
+      }
+    ],
+    "IDHREmployeeCategoryRole": 0,
+    "ddlEmployeeCategoryRole": [
+      {
+        "Key": {},
+        "Value": {}
+      }
+    ],
+    "IDDepartmentFilter": 0,
+    "ddlDepartmentTree": [
+      {
+        "Key": {},
+        "Value": {}
+      }
+    ],
+    "IDBranchFilter": 0,
+    "ddlBranchTree": [
+      {
+        "Key": {},
+        "Value": {}
+      }
+    ],
+    "IDUserFilter": 0,
+    "ddlStaff": [
+      {
+        "Key": {},
+        "Value": {}
+      }
+    ],
+    "feeCollectionModel": {
+      "IDTransactionDrCr": 0,
+      "AccountType": "string",
+      "AccountName": "string",
+      "TransactionType": "string",
+      "AccountSubmitCode": 0,
+      "MatCenter": 0,
+      "VoucherBillNo": "string",
+      "TransactionDate": "2021-10-01T04:20:16.287Z",
+      "Dr": 0,
+      "Cr": 0,
+      "Narration": "string",
+      "CreateDate": "2021-10-01T04:20:16.287Z",
+      "UpdateDate": "2021-10-01T04:20:16.287Z",
+      "UpdateMachineCode": "string",
+      "IDVoucherType": 0,
+      "IDAccountType": 0,
+      "StartDate": "2021-10-01T04:20:16.287Z",
+      "EndDate": "2021-10-01T04:20:16.287Z",
+      "RegistrationKey": "string",
+      "IDYearFacultyLink": 0,
+      "Fee": 0,
+      "Discount": 0,
+      "PercentageDiscount": 0,
+      "DiscountAmount": 0,
+      "NarrationForAmountPaid": "string",
+      "AmountPaid": 0,
+      "PreviousBalance": 0,
+      "BalanceDue": 0,
+      "StudentName": "string",
+      "IsActive": true,
+      "Created_On": "2021-10-01T04:20:16.287Z",
+      "Updated_On": "2021-10-01T04:20:16.287Z"
+    },
+    "studentDueModel": {
+      "IDTransactionDrCr": 0,
+      "AccountType": "string",
+      "AccountName": "string",
+      "TransactionType": "string",
+      "AccountSubmitCode": 0,
+      "MatCenter": 0,
+      "VoucherBillNo": "string",
+      "TransactionDate": "2021-10-01T04:20:16.287Z",
+      "Dr": 0,
+      "Cr": 0,
+      "Narration": "string",
+      "CreateDate": "2021-10-01T04:20:16.287Z",
+      "UpdateDate": "2021-10-01T04:20:16.287Z",
+      "UpdateMachineCode": "string",
+      "IDVoucherType": 0,
+      "IDAccountType": 0,
+      "StartDate": "2021-10-01T04:20:16.287Z",
+      "EndDate": "2021-10-01T04:20:16.287Z",
+      "RegistrationKey": "string",
+      "IDYearFacultyLink": 0,
+      "Fee": 0,
+      "Discount": 0,
+      "PercentageDiscount": 0,
+      "DiscountAmount": 0,
+      "NarrationForAmountPaid": "string",
+      "AmountPaid": 0,
+      "PreviousBalance": 0,
+      "BalanceDue": 0,
+      "StudentName": "string",
+      "IsActive": true,
+      "Created_On": "2021-10-01T04:20:16.287Z",
+      "Updated_On": "2021-10-01T04:20:16.287Z"
+    },
+    "company": 0,
+    "ddlCompany": [
+      {
+        "Key": {},
+        "Value": {}
+      }
+    ],
+    "searchString": "string",
+    "baseUrl": "string",
+    "baseUrlExtended": "string",
+    "searchParamCode": "string",
+    "idSessionUser": 0,
+    "pidRefForEdit": "string",
+    "idRole": 0,
+    "ddlRole": [
+      {
+        "Key": {},
+        "Value": {}
+      }
+    ],
+    "studentLedgerModel": {
+      "IDTransactionDrCr": 0,
+      "AccountType": "string",
+      "AccountName": "string",
+      "TransactionType": "string",
+      "AccountSubmitCode": 0,
+      "MatCenter": 0,
+      "VoucherBillNo": "string",
+      "TransactionDate": "2021-10-01T04:20:16.287Z",
+      "Dr": 0,
+      "Cr": 0,
+      "Narration": "string",
+      "CreateDate": "2021-10-01T04:20:16.287Z",
+      "UpdateDate": "2021-10-01T04:20:16.287Z",
+      "UpdateMachineCode": "string",
+      "IDVoucherType": 0,
+      "IDAccountType": 0,
+      "StartDate": "2021-10-01T04:20:16.287Z",
+      "EndDate": "2021-10-01T04:20:16.287Z",
+      "RegistrationKey": "string",
+      "IDYearFacultyLink": 0,
+      "Fee": 0,
+      "Discount": 0,
+      "PercentageDiscount": 0,
+      "DiscountAmount": 0,
+      "NarrationForAmountPaid": "string",
+      "AmountPaid": 0,
+      "PreviousBalance": 0,
+      "BalanceDue": 0,
+      "StudentName": "string",
+      "AmountPaidIntoList": 0,
+      "idTable": 0,
+      "TableName": "string",
+      "level": 0,
+      "IsActive": true,
+      "Created_On": "2021-10-01T04:20:16.287Z",
+      "Updated_On": "2021-10-01T04:20:16.287Z"
+    },
+    "StartDate": "2021-10-01T04:20:16.287Z",
+    "EndDate": "2021-10-01T04:20:16.287Z"
+  },
+  "searchFilterModelStudent": {
+    "ddlQuestionSection": [
+      {
+        "Key": {},
+        "Value": {}
+      }
+    ],
+    "ValidityDate": "2021-10-01T04:20:16.287Z",
+    "IdHREmployee": 0,
+    "idAdmissionFeeStructure": 0,
+    "Sem": 0,
+    "idAdmissionRegistration": 0,
+    "showAddButton": true,
+    "reportMode": "string",
+    "reportDate": "2021-10-01T04:20:16.287Z",
+    "idAcademicYear": 0,
+    "idAssignment": 0,
+    "idStudent": 0,
+    "idTeacher": 0,
+    "idFacultyProgramLink": 0,
+    "idAcademicExamSchedule": 0,
+    "idAcademicYearCalendar": 0,
+    "idSubject": 0,
+    "idTeacherFacultySubjectMappingHeader": 0,
+    "level": 0,
+    "idShift": 0,
+    "idActivityType": 0,
+    "idActivityCount": 0,
+    "section": "string",
+    "classSection": 0,
+    "npMonth": 0,
+    "npYear": 0,
+    "title": "string",
+    "yr": 0,
+    "idOnlineExamSet": 0,
+    "mth": 0,
+    "fromDate": "2021-10-01T04:20:16.287Z",
+    "currentDate": "2021-10-01T04:20:16.287Z",
+    "toDate": "2021-10-01T04:20:16.287Z",
+    "fiscalYear": "string",
+    "ddlAcademicYearCalendar": [
+      {
+        "Key": 0,
+        "Value": "string"
+      }
+    ],
+    "ddlAcademicExamSchedule": [
+      {
+        "Key": 0,
+        "Value": "string"
+      }
+    ],
+    "ddlAcademicYear": [
+      {
+        "Key": {},
+        "Value": {}
+      }
+    ],
+    "ddlAcademicYearPrimitive": [
+      {
+        "Key": 0,
+        "Value": "string"
+      }
+    ],
+    "ddlTeacherFacultySubjectMappingHeader": [
+      {
+        "Key": 0,
+        "Value": "string"
+      }
+    ],
+    "ddlAssignment": [
+      {
+        "Key": 0,
+        "Value": "string"
+      }
+    ],
+    "ddlStudent": [
+      {
+        "Key": {},
+        "Value": {}
+      }
+    ],
+    "ddlTeacher": [
+      {
+        "Key": {},
+        "Value": {}
+      }
+    ],
+    "ddlActivityType": [
+      {
+        "Key": 0,
+        "Value": "string"
+      }
+    ],
+    "ddlAcademicShift": [
+      {
+        "Key": {},
+        "Value": {}
+      }
+    ],
+    "ddlFiscalYear": [
+      {
+        "Key": {},
+        "Value": {}
+      }
+    ],
+    "ddlExamSet": [
+      {
+        "Key": {},
+        "Value": {}
+      }
+    ],
+    "ddlSubject": [
+      {
+        "Key": 0,
+        "Value": "string"
+      }
+    ],
+    "ddlYear": [
+      {
+        "Key": {},
+        "Value": {}
+      }
+    ],
+    "ddlMonth": [
+      {
+        "Key": {},
+        "Value": {}
+      }
+    ],
+    "ddlnpYear": [
+      {
+        "Key": {},
+        "Value": {}
+      }
+    ],
+    "ddlnpMonth": [
+      {
+        "Key": {},
+        "Value": {}
+      }
+    ],
+    "ddlFacultyProgramLink": [
+      {
+        "Key": 0,
+        "Value": "string"
+      }
+    ],
+    "ddlLevel": [
+      {
+        "Key": {},
+        "Value": {}
+      }
+    ],
+    "ddlLevelPrimitive": [
+      {
+        "Key": 0,
+        "Value": "string"
+      }
+    ],
+    "ddlSection": [
+      {
+        "Key": {},
+        "Value": {}
+      }
+    ],
+    "ddlStudentLevel": [
+      {
+        "Key": 0,
+        "Value": "string"
+      }
+    ],
+    "ddlStudentExamStatus": [
+      {
+        "Key": {},
+        "Value": {}
+      }
+    ],
+    "ddlActivityCount": [
+      {
+        "Key": {},
+        "Value": {}
+      }
+    ],
+    "idClass": 0,
+    "ddlClass": [
+      {
+        "Key": {},
+        "Value": {}
+      }
+    ],
+    "nextClass": 0,
+    "dbModel": {
+      "IDAdmissionFacultyFeeStructure": 0,
+      "IDAdmissionFeeStructure": 0,
+      "IDYearFacultyLink": 0,
+      "IDVoucherType": 0,
+      "IDAccountType": 0,
+      "TransactionDate": "2021-10-01T04:20:16.288Z",
+      "VoucherBillNo": "string",
+      "Discount": 0,
+      "DiscountAmount": 0,
+      "Amount": 0,
+      "RegistrationKey": "string",
+      "StudentName": "string",
+      "AmountPaid": 0,
+      "NarrationForAmountPaid": "string"
+    },
+    "RegistrationKey": "string",
+    "ImageFullPath": "string",
+    "feeCollectionModel": {
+      "IDTransactionDrCr": 0,
+      "AccountType": "string",
+      "AccountName": "string",
+      "TransactionType": "string",
+      "AccountSubmitCode": 0,
+      "MatCenter": 0,
+      "VoucherBillNo": "string",
+      "TransactionDate": "2021-10-01T04:20:16.288Z",
+      "Dr": 0,
+      "Cr": 0,
+      "Narration": "string",
+      "CreateDate": "2021-10-01T04:20:16.288Z",
+      "UpdateDate": "2021-10-01T04:20:16.288Z",
+      "UpdateMachineCode": "string",
+      "IDVoucherType": 0,
+      "IDAccountType": 0,
+      "StartDate": "2021-10-01T04:20:16.288Z",
+      "EndDate": "2021-10-01T04:20:16.288Z",
+      "RegistrationKey": "string",
+      "IDYearFacultyLink": 0,
+      "Fee": 0,
+      "Discount": 0,
+      "PercentageDiscount": 0,
+      "DiscountAmount": 0,
+      "NarrationForAmountPaid": "string",
+      "AmountPaid": 0,
+      "PreviousBalance": 0,
+      "BalanceDue": 0,
+      "StudentName": "string",
+      "IsActive": true,
+      "Created_On": "2021-10-01T04:20:16.288Z",
+      "Updated_On": "2021-10-01T04:20:16.288Z"
+    },
+    "studentDueModel": {
+      "IDTransactionDrCr": 0,
+      "AccountType": "string",
+      "AccountName": "string",
+      "TransactionType": "string",
+      "AccountSubmitCode": 0,
+      "MatCenter": 0,
+      "VoucherBillNo": "string",
+      "TransactionDate": "2021-10-01T04:20:16.288Z",
+      "Dr": 0,
+      "Cr": 0,
+      "Narration": "string",
+      "CreateDate": "2021-10-01T04:20:16.288Z",
+      "UpdateDate": "2021-10-01T04:20:16.288Z",
+      "UpdateMachineCode": "string",
+      "IDVoucherType": 0,
+      "IDAccountType": 0,
+      "StartDate": "2021-10-01T04:20:16.288Z",
+      "EndDate": "2021-10-01T04:20:16.288Z",
+      "RegistrationKey": "string",
+      "IDYearFacultyLink": 0,
+      "Fee": 0,
+      "Discount": 0,
+      "PercentageDiscount": 0,
+      "DiscountAmount": 0,
+      "NarrationForAmountPaid": "string",
+      "AmountPaid": 0,
+      "PreviousBalance": 0,
+      "BalanceDue": 0,
+      "StudentName": "string",
+      "IsActive": true,
+      "Created_On": "2021-10-01T04:20:16.288Z",
+      "Updated_On": "2021-10-01T04:20:16.288Z"
+    },
+    "company": 0,
+    "ddlCompany": [
+      {
+        "Key": {},
+        "Value": {}
+      }
+    ],
+    "searchString": "string",
+    "baseUrl": "string",
+    "baseUrlExtended": "string",
+    "searchParamCode": "string",
+    "idSessionUser": 0,
+    "pidRefForEdit": "string",
+    "idRole": 0,
+    "ddlRole": [
+      {
+        "Key": {},
+        "Value": {}
+      }
+    ],
+    "studentLedgerModel": {
+      "IDTransactionDrCr": 0,
+      "AccountType": "string",
+      "AccountName": "string",
+      "TransactionType": "string",
+      "AccountSubmitCode": 0,
+      "MatCenter": 0,
+      "VoucherBillNo": "string",
+      "TransactionDate": "2021-10-01T04:20:16.288Z",
+      "Dr": 0,
+      "Cr": 0,
+      "Narration": "string",
+      "CreateDate": "2021-10-01T04:20:16.288Z",
+      "UpdateDate": "2021-10-01T04:20:16.288Z",
+      "UpdateMachineCode": "string",
+      "IDVoucherType": 0,
+      "IDAccountType": 0,
+      "StartDate": "2021-10-01T04:20:16.288Z",
+      "EndDate": "2021-10-01T04:20:16.288Z",
+      "RegistrationKey": "string",
+      "IDYearFacultyLink": 0,
+      "Fee": 0,
+      "Discount": 0,
+      "PercentageDiscount": 0,
+      "DiscountAmount": 0,
+      "NarrationForAmountPaid": "string",
+      "AmountPaid": 0,
+      "PreviousBalance": 0,
+      "BalanceDue": 0,
+      "StudentName": "string",
+      "AmountPaidIntoList": 0,
+      "idTable": 0,
+      "TableName": "string",
+      "level": 0,
+      "IsActive": true,
+      "Created_On": "2021-10-01T04:20:16.288Z",
+      "Updated_On": "2021-10-01T04:20:16.288Z"
+    },
+    "StartDate": "2021-10-01T04:20:16.288Z",
+    "EndDate": "2021-10-01T04:20:16.288Z"
+  },
+  "hrEmployeeModel": {
+    "IDHREmployee": 0,
+    "LoginIDHREmployee": "string",
+    "IDHRCompany": 0,
+    "WebLoginAccess": true,
+    "Title": "string",
+    "FirstName": "string",
+    "MiddleName": "string",
+    "LastName": "string",
+    "ShortName": "string",
+    "UniversityRegistrationNumber": "string",
+    "DOJ": "2021-10-01T04:20:16.288Z",
+    "IDHRBranch": 0,
+    "IDHRDepartment": 0,
+    "IDHREmployeeType": 0,
+    "Position": 0,
+    "EmailID": "string",
+    "AlternateEmailID": "string",
+    "SkypeID": "string",
+    "BankAC": "string",
+    "OfficeNumber": "string",
+    "OfficeNumberExtension": "string",
+    "HomeNumber": "string",
+    "MobileNumber": "string",
+    "OtherNumber": "string",
+    "sha1_password": "string",
+    "md5_password": "string",
+    "IDHRRole": 0,
+    "imagename": "string",
+    "thumbimagename": "string",
+    "Sex": "string",
+    "Married": "string",
+    "DOB": "2021-10-01T04:20:16.288Z",
+    "BloodGroup": "string",
+    "SpeakingLanguage": "string",
+    "ReadingWritingLanguage": "string",
+    "ComputerLiteracyLevel": "string",
+    "ComputerLiteracyArea": "string",
+    "JoinedPosition": "string",
+    "Status": "string",
+    "PermanentAddressLine1": "string",
+    "PermanentAddressDistrict": "string",
+    "PermanentAddressZone": "string",
+    "PermanentAddressCountry": "string",
+    "TemporaryAddressLine1": "string",
+    "TemporaryAddressDistrict": "string",
+    "TemporaryAddressZone": "string",
+    "TemporaryAddressCountry": "string",
+    "IsNewlyAdded": true,
+    "IDHREmployeeCategoryRole": 0,
+    "Created_By": 0,
+    "IDAcademicRegistration": 0,
+    "FatherName": "string",
+    "FatherContactNo": "string",
+    "FatherOccupation": "string",
+    "FatherWorkingDesignation": "string",
+    "FatherWorkingOrganization": "string",
+    "FatherEmail": "string",
+    "MotherName": "string",
+    "MotherContactNo": "string",
+    "MotherOccupation": "string",
+    "MotherWorkingDesignation": "string",
+    "MotherWorkingOrganization": "string",
+    "MotherEmail": "string",
+    "LocalGuardianName": "string",
+    "LocalGuardianContactNo": "string",
+    "LocalGuardianOccupation": "string",
+    "LocalGuardianWorkingDesignation": "string",
+    "LocalGuardianWorkingOrganization": "string",
+    "LocalGuardianEmail": "string",
+    "Religion": "string",
+    "TemporaryTownVillage": "string",
+    "TemporaryWardNo": "string",
+    "PermanentTownVillage": "string",
+    "PermanentWardNo": "string",
+    "RollNo": "string",
+    "RoleName": "string",
+    "IsActive": true,
+    "Created_On": "2021-10-01T04:20:16.288Z",
+    "Updated_On": "2021-10-01T04:20:16.288Z"
+  },
+  "ddlTitle": [
+    {
+      "Key": {},
+      "Value": {}
+    }
+  ],
+  "ddlBranch": [
+    {
+      "Key": {},
+      "Value": {}
+    }
+  ],
+  "ddlDepartment": [
+    {
+      "Key": {},
+      "Value": {}
+    }
+  ],
+  "ddlEmployeeType": [
+    {
+      "Key": {},
+      "Value": {}
+    }
+  ],
+  "ddlRole": [
+    {
+      "Key": {},
+      "Value": {}
+    }
+  ],
+  "ddlGender": [
+    {
+      "Key": {},
+      "Value": {}
+    }
+  ],
+  "ddlStaff": [
+    {
+      "Key": {},
+      "Value": {}
+    }
+  ],
+  "ddlSalaryScale": [
+    {
+      "Key": {},
+      "Value": {}
+    }
+  ],
+  "ddlPosition": [
+    {
+      "Key": {},
+      "Value": {}
+    }
+  ],
+  "ddlIsActive": [
+    {
+      "Key": {},
+      "Value": {}
+    }
+  ],
+  "messageModel": {
+    "title": "string",
+    "area": "string",
+    "controller": "string",
+    "action": "string"
+  }
+}

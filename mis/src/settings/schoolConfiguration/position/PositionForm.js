@@ -76,7 +76,6 @@ const PositionForm = ({ position }) => {
             value={values.IsActive}
             onChange={handleInputChange}
             errors={errors.IsActive}
-            required
           />
           <div>
             <Button

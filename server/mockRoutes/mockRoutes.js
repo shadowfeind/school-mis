@@ -103,4 +103,15 @@ router.route("/academicSection").get((req, res) => {
   }
 });
 
+router.route("/getEmployeeCreate").get((req, res) => {
+  const __dirname = path.resolve("./data/getEmployeeCreate.json");
+  try {
+    const content = fs.readFileSync(__dirname);
+    const data = JSON.parse(content);
+    res.json(data);
+  } catch (error) {
+    console.log(error);
+  }
+});
+
 export default router;

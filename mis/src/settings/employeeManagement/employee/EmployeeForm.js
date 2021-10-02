@@ -2,38 +2,63 @@ import React, { useEffect } from "react";
 import { Button, Grid } from "@material-ui/core";
 import InputControl from "../../../components/controls/InputControl";
 import { useForm, Form } from "../../../customHooks/useForm";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import DatePickerControl from "../../../components/controls/DatePickerControl";
+import SelectControl from "../../../components/controls/SelectControl";
+import { employeeCreateAction } from "./EmployeeActions";
 
 const initialFormValues = {
+  IDHRCompany: 0,
   IDHREmployee: 0,
+  IDHREmployeeCategoryRole: 0,
   LoginIDHREmployee: "",
-  FullName: "",
-  IDHRBranch: 1,
-  BranchName: "",
-  IDHRDepartment: 1,
-  DepartmentName: "",
-  IDPosition: 1,
-  PositionHead: "",
-  IDHREmployeeType: 2,
-  EmployeeTypeName: "",
+  FirstName: "",
+  MiddleName: "",
+  LastName: "",
   EmailID: "",
-  PhoneNo: "",
+  Sex: "",
+  DOJ: "2021-09-27T10:59:00.89",
+  IDHREmployeeType: 0,
+  IDHRBranch: 0,
+  Position: 0,
+  WebLoginAccess: false,
+  ShortName: "",
+  Title: 0,
+  DOB: "2000-09-27T10:59:00.89",
   MobileNumber: "",
+  Married: "",
+  IDHRRole: 0,
+  BankAC: "",
+  IDHRDepartment: 0,
+  JoinedPosition: 0,
   IsActive: false,
-  IDHREmployeeCategoryRole: 1,
-  IDAcademicRegistration: 0,
-  Updated_On: "2015-04-09T14:20:39.947",
+  Created_On: "2021-10-01T04:20:16.288Z",
+  Updated_On: "2021-10-01T04:20:16.288Z",
 };
+
+const gender = [
+  { Key: 1, Value: "Male" },
+  { Key: 2, Value: "Female" },
+];
+
+const loginAccess = [
+  { Key: 1, Value: "Yes" },
+  { Key: 2, Value: "No" },
+];
+
+const married = [
+  { Key: 1, Value: "Yes" },
+  { Key: 2, Value: "No" },
+];
 
 const EmployeeForm = ({ employee }) => {
   const dispatch = useDispatch();
-  const validate = () => {
-    let temp = {};
-    temp.FullName =
-      values.FullName.length > 200
-        ? "FullName must be less than 200 characters"
-        : "";
+  const validate = (fieldValues = values) => {
+    let temp = { ...errors };
+    temp.LoginIDHREmployee = values.LoginIDHREmployee
+      ? ""
+      : "This feild is required";
+    temp.FirstName = fieldValues.FirstName ? "" : "This feild is required";
 
     setErrors({ ...temp });
     return Object.values(temp).every((x) => x === "");
@@ -41,149 +66,177 @@ const EmployeeForm = ({ employee }) => {
   const { values, setValues, handleInputChange, errors, setErrors } =
     useForm(initialFormValues);
 
+  const { employeeCreate } = useSelector((state) => state.getAllEmployeeCreate);
+  const {
+    ddlEmployeeCategoryRole,
+    ddlTitle,
+    ddlBranch,
+    ddlEmployeeType,
+    ddlPosition,
+    ddlRole,
+    ddlDepartment,
+  } = employeeCreate;
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
     if (validate()) {
+      console.log(values);
+      dispatch(employeeCreateAction(values));
     }
   };
 
-  useEffect(() => {
-    if (employee) {
-      setValues({ ...employee });
-    }
-  }, [employee]);
+  // useEffect(() => {
+  //   if (employee) {
+  //     setValues({ ...employee });
+  //   }
+  // }, [employee]);
   return (
     <Form onSubmit={handleSubmit}>
       <Grid container style={{ fontSize: "12px" }}>
         <Grid item xs={6}>
+          <SelectControl
+            name="IDHREmployeeCategoryRole"
+            label="Category Role"
+            value={values.IDHREmployeeCategoryRole}
+            options={ddlEmployeeCategoryRole}
+            onChange={handleInputChange}
+          />
           <InputControl
             name="LoginIDHREmployee"
             label="Login ID"
             value={values.LoginIDHREmployee}
             onChange={handleInputChange}
-            required
-          />
-          {/* <InputControl
-            name="ShortForm"
-            label="Short Form"
-            value={values.ShortForm}
-            onChange={handleInputChange}
-            errors={errors.ShortForm}
-            required
+            errors={errors.LoginIDHREmployee}
           />
           <InputControl
-            name="CompanyAddress"
-            label="Company Address"
-            value={values.CompanyAddress}
+            name="FirstName"
+            label="First Name"
+            value={values.FirstName}
             onChange={handleInputChange}
-            errors={errors.CompanyAddress}
-            required
+            errors={errors.FirstName}
           />
           <InputControl
-            name="RegNo"
-            label="Reg No"
-            value={values.RegNo}
+            name="LastName"
+            label="Last Name"
+            value={values.LastName}
             onChange={handleInputChange}
-            errors={errors.RegNo}
-            required
-          /> */}
-          {/* <InputControl
-            name="DOE"
-            label="DOE"
-            value={values.DOE}
-            onChange={handleInputChange}
-            required
-          /> */}
-          {/* <DatePickerControl
-            name="DOE"
-            label="DOE"
-            value={values.DOE}
-            onChange={handleInputChange}
-            required
-          />
-          <InputControl
-            name="PhoneNo"
-            label="Phone No"
-            value={values.PhoneNo}
-            onChange={handleInputChange}
-            errors={errors.PhoneNo}
-            type="number"
-            required
-          />
-          <InputControl
-            name="AlternatePhoneNo"
-            label="Alternative Phone No"
-            value={values.AlternatePhoneNo}
-            onChange={handleInputChange}
-            errors={errors.AlternatePhoneNo}
-            type="number"
-            required
-          />
-          <InputControl
-            name="POBox"
-            label="POBox"
-            value={values.POBox}
-            errors={errors.POBox}
-            onChange={handleInputChange}
-            required
-          /> */}
-        </Grid>
-        <Grid item xs={6}>
-          {/* <InputControl
-            name="FaxNo"
-            label="Fax No"
-            value={values.FaxNo}
-            onChange={handleInputChange}
-            errors={errors.FaxNo}
-            required
-          />
-          <InputControl
-            name="PanNo"
-            label="Pan No"
-            value={values.PanNo}
-            errors={errors.PanNo}
-            onChange={handleInputChange}
-            type="number"
-            required
-          />
-          <InputControl
-            name="AlternateFaxNo"
-            label="Alternative Fax No"
-            value={values.AlternateFaxNo}
-            onChange={handleInputChange}
-            errors={errors.AlternateFaxNo}
           />
           <InputControl
             name="EmailID"
-            label="Email ID"
+            label="Email Address"
             value={values.EmailID}
             onChange={handleInputChange}
-            errors={errors.EmailID}
-            type="email"
-            required
+          />
+          <SelectControl
+            name="Sex"
+            label="Gender"
+            value={values.Sex}
+            onChange={handleInputChange}
+            options={gender}
+          />
+          <DatePickerControl
+            name="DOJ"
+            label="Date Of Joining"
+            value={values.DOJ}
+            onChange={handleInputChange}
+          />
+          <SelectControl
+            name="IDHREmployeeType"
+            label="Employee Type"
+            value={values.IDHREmployeeType}
+            onChange={handleInputChange}
+            options={ddlEmployeeType}
+          />
+          <SelectControl
+            name="IDHRBranch"
+            label="Branch Name"
+            value={values.IDHRBranch}
+            onChange={handleInputChange}
+            options={ddlBranch}
+          />
+          <SelectControl
+            name="Position"
+            label="Position"
+            value={values.Position}
+            onChange={handleInputChange}
+            options={ddlPosition}
+          />
+          <SelectControl
+            name="WebLoginAccess"
+            label="Web Login Access"
+            value={values.WebLoginAccess}
+            onChange={handleInputChange}
+            options={loginAccess}
+          />
+        </Grid>
+        <Grid item xs={6}>
+          <InputControl
+            name="ShortName"
+            label="Short Name"
+            value={values.ShortName}
+            onChange={handleInputChange}
+          />
+          <SelectControl
+            name="Title"
+            label="Title"
+            value={values.Title}
+            onChange={handleInputChange}
+            options={ddlTitle}
+          />
+
+          <InputControl
+            name="MiddleName"
+            label="Middle Name"
+            value={values.MiddleName}
+            onChange={handleInputChange}
+          />
+          <DatePickerControl
+            name="DOB"
+            label="Date Of Birth"
+            value={values.DOB}
+            onChange={handleInputChange}
           />
           <InputControl
-            name="WebSite"
-            label="WebSite"
-            value={values.WebSite}
+            name="MobileNumber"
+            label="Mobile Number"
+            value={values.MobileNumber}
             onChange={handleInputChange}
-            required
+          />
+          <SelectControl
+            name="Married"
+            label="Is Married"
+            value={values.Married}
+            onChange={handleInputChange}
+            options={married}
+          />
+          <SelectControl
+            name="IDHRRole"
+            label="Role"
+            value={values.IDHRRole}
+            onChange={handleInputChange}
+            options={ddlRole}
           />
           <InputControl
-            name="Vision"
-            label="Vision"
-            value={values.Vision}
+            name="BankAC"
+            label="Bank Account"
+            value={values.BankAC}
             onChange={handleInputChange}
-            errors={errors.Vision}
           />
-          <InputControl
-            name="Mission"
-            label="Mission"
-            value={values.Mission}
+          <SelectControl
+            name="IDHRDepartment"
+            label="Department Name"
+            value={values.IDHRDepartment}
             onChange={handleInputChange}
-            errors={errors.Mission}
-          /> */}
+            options={ddlDepartment}
+          />
+          <SelectControl
+            name="JoinedPosition"
+            label="Joined Position"
+            value={values.JoinedPosition}
+            onChange={handleInputChange}
+            options={ddlPosition}
+          />
           <div>
             <Button
               variant="contained"

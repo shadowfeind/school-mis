@@ -18,6 +18,7 @@ import ConfirmDialog from "../../../components/ConfirmDialog";
 import { getAllAcademicClassAction } from "./AcademicClassActions";
 import AcademicClassTableCollapse from "./AcademicCLassTableCollapse";
 import AcademicClassForm from "./AcademicClassForm";
+import { ACADEMIC_CLASS_CREATE_RESET } from "./AcademicClassConstants";
 
 const useStyles = makeStyles((theme) => ({
   searchInput: {
@@ -65,6 +66,21 @@ const AcademicClass = () => {
   const { loading, academicClass } = useSelector(
     (state) => state.academicClass
   );
+
+  const { success: academicClassCreateSuccess } = useSelector(
+    (state) => state.createAcademicClass
+  );
+
+  if (academicClassCreateSuccess) {
+    dispatch(getAllAcademicClassAction());
+    setNotify({
+      isOpen: true,
+      message: "Created Succesfully",
+      type: "success",
+    });
+    setOpenPopup(false);
+    dispatch({ type: ACADEMIC_CLASS_CREATE_RESET });
+  }
 
   const updateCollegeHandler = (id) => {};
 

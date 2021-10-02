@@ -24,7 +24,11 @@ import {
   getSingleHolidayReducer,
   updateSingleHolidayReducer,
 } from "./src/settings/schoolConfiguration/holiday/HolidayReducers";
-import { getAllEmployee } from "./src/settings/employeeManagement/employee/EmployeeReducers";
+import {
+  createEmployeeReducer,
+  getAllEmployee,
+  getAllEmployeeCreateReducer,
+} from "./src/settings/employeeManagement/employee/EmployeeReducers";
 import { getAllRoles } from "./src/settings/employeeManagement/role/RoleReducers";
 import {
   createAcademicClassReducer,
@@ -51,6 +55,8 @@ export const reducers = combineReducers({
   getSingleHoliday: getSingleHolidayReducer,
   updateSingleHoliday: updateSingleHolidayReducer,
   employee: getAllEmployee,
+  getAllEmployeeCreate: getAllEmployeeCreateReducer,
+  createEmployee: createEmployeeReducer,
   role: getAllRoles,
   academicClass: getAllAcademicClass,
   createAcademicClass: createAcademicClassReducer,

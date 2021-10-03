@@ -10,45 +10,45 @@ import { employeeCreateAction } from "./EmployeeActions";
 const initialFormValues = {
   IDHRCompany: 0,
   IDHREmployee: 0,
-  IDHREmployeeCategoryRole: 0,
+  IDHREmployeeCategoryRole: 1,
   LoginIDHREmployee: "",
   FirstName: "",
   MiddleName: "",
   LastName: "",
   EmailID: "",
-  Sex: "",
+  Sex: "male",
   DOJ: "2021-09-27T10:59:00.89",
-  IDHREmployeeType: 0,
-  IDHRBranch: 0,
-  Position: 0,
+  IDHREmployeeType: 1,
+  IDHRBranch: 1,
+  Position: 1,
   WebLoginAccess: false,
   ShortName: "",
-  Title: 0,
+  Title: "Mr",
   DOB: "2000-09-27T10:59:00.89",
   MobileNumber: "",
-  Married: "",
-  IDHRRole: 0,
+  Married: "no",
+  IDHRRole: 2,
   BankAC: "",
-  IDHRDepartment: 0,
-  JoinedPosition: 0,
+  IDHRDepartment: 1,
+  JoinedPosition: 1,
   IsActive: false,
   Created_On: "2021-10-01T04:20:16.288Z",
   Updated_On: "2021-10-01T04:20:16.288Z",
 };
 
 const gender = [
-  { Key: 1, Value: "Male" },
-  { Key: 2, Value: "Female" },
+  { Key: "male", Value: "Male" },
+  { Key: "female", Value: "Female" },
 ];
 
 const loginAccess = [
-  { Key: 1, Value: "Yes" },
-  { Key: 2, Value: "No" },
+  { Key: true, Value: "Yes" },
+  { Key: false, Value: "No" },
 ];
 
 const married = [
-  { Key: 1, Value: "Yes" },
-  { Key: 2, Value: "No" },
+  { Key: "yes", Value: "Yes" },
+  { Key: "no", Value: "No" },
 ];
 
 const EmployeeForm = ({ employee }) => {

@@ -16,9 +16,14 @@ import { useDispatch, useSelector } from "react-redux";
 import Notification from "../../../components/Notification";
 import ConfirmDialog from "../../../components/ConfirmDialog";
 
-import { getAllRolesAction } from "./RoleActions";
+import { getAllRolesAction, getSingleRoleAction } from "./RoleActions";
 import RoleTableCollapse from "./RoleTableCollapse";
 import RoleForm from "./RoleForm";
+import {
+  GET_SINGLE_ROLE_RESET,
+  ROLE_CREATE_RESET,
+  UPDATE_SINGLE_ROLE_RESET,
+} from "./RoleConstant";
 
 const useStyles = makeStyles((theme) => ({
   searchInput: {
@@ -65,7 +70,42 @@ const Role = () => {
 
   const { loading, role } = useSelector((state) => state.role);
 
-  const updateCollegeHandler = (id) => {};
+  const { success: createRoleSuccess } = useSelector(
+    (state) => state.createRole
+  );
+
+  const { singleRole } = useSelector((state) => state.getSingleRole);
+
+  const { success: updateSingleRoleSuccess } = useSelector(
+    (state) => state.updateSingleRole
+  );
+
+  if (createRoleSuccess) {
+    dispatch(getAllRolesAction());
+    setNotify({
+      isOpen: true,
+      message: "Created Succesfully",
+      type: "success",
+    });
+    setOpenPopup(false);
+    dispatch({ type: ROLE_CREATE_RESET });
+  }
+
+  if (updateSingleRoleSuccess) {
+    dispatch(getAllRolesAction());
+    setNotify({
+      isOpen: true,
+      message: "Updated Succesfully",
+      type: "success",
+    });
+    setOpenPopup(false);
+    dispatch({ type: UPDATE_SINGLE_ROLE_RESET });
+  }
+
+  const updateCollegeHandler = (id) => {
+    dispatch(getSingleRoleAction(id));
+    setOpenPopup(true);
+  };
 
   const deleteCollegeHandler = (id) => {
     setConfirmDialog({
@@ -104,13 +144,18 @@ const Role = () => {
       },
     });
   };
+
+  const addHandler = () => {
+    dispatch({ type: GET_SINGLE_ROLE_RESET });
+    setOpenPopup(true);
+  };
   return (
     <>
       <CustomContainer>
         <Toolbar>
           <InputControl
             className={classes.searchInput}
-            label="Search Holiday"
+            label="Search Role"
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
@@ -125,7 +170,7 @@ const Role = () => {
             color="primary"
             startIcon={<AddIcon />}
             className={classes.button}
-            onClick={() => setOpenPopup(true)}
+            onClick={addHandler}
             // onClick={() => dispatch(test())}
           >
             Add{" "}
@@ -154,7 +199,7 @@ const Role = () => {
         setOpenPopup={setOpenPopup}
         title="Employee Role Form"
       >
-        <RoleForm holiday={role ? role.IDHRRole : {}} />
+        <RoleForm role={singleRole && singleRole.hrRoleModel} />
       </Popup>
       <Notification notify={notify} setNotify={setNotify} />
       <ConfirmDialog

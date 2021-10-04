@@ -5,10 +5,13 @@ import { useForm, Form } from "../../../customHooks/useForm";
 import { useDispatch, useSelector } from "react-redux";
 import DatePickerControl from "../../../components/controls/DatePickerControl";
 import SelectControl from "../../../components/controls/SelectControl";
-import { employeeCreateAction } from "./EmployeeActions";
+import {
+  employeeCreateAction,
+  updateSingleEmployeeAction,
+} from "./EmployeeActions";
 
 const initialFormValues = {
-  IDHRCompany: 0,
+  IDHRCompany: 2,
   IDHREmployee: 0,
   IDHREmployeeCategoryRole: 1,
   LoginIDHREmployee: "",
@@ -31,7 +34,9 @@ const initialFormValues = {
   BankAC: "",
   IDHRDepartment: 1,
   JoinedPosition: 1,
-  IsActive: false,
+  IsNewlyAdded: 1,
+  IsActive: 1,
+  Created_By: 0,
   Created_On: "2021-10-01T04:20:16.288Z",
   Updated_On: "2021-10-01T04:20:16.288Z",
 };
@@ -67,6 +72,7 @@ const EmployeeForm = ({ employee }) => {
     useForm(initialFormValues);
 
   const { employeeCreate } = useSelector((state) => state.getAllEmployeeCreate);
+
   const {
     ddlEmployeeCategoryRole,
     ddlTitle,
@@ -81,16 +87,19 @@ const EmployeeForm = ({ employee }) => {
     e.preventDefault();
 
     if (validate()) {
-      console.log(values);
-      dispatch(employeeCreateAction(values));
+      if (values.IDHREmployee === 0) {
+        dispatch(employeeCreateAction(values));
+      } else {
+        dispatch(updateSingleEmployeeAction(values));
+      }
     }
   };
 
-  // useEffect(() => {
-  //   if (employee) {
-  //     setValues({ ...employee });
-  //   }
-  // }, [employee]);
+  useEffect(() => {
+    if (employee) {
+      setValues({ ...employee });
+    }
+  }, [employee]);
   return (
     <Form onSubmit={handleSubmit}>
       <Grid container style={{ fontSize: "12px" }}>

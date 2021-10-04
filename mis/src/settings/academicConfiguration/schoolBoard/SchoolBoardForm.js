@@ -5,38 +5,37 @@ import { useForm, Form } from "../../../customHooks/useForm";
 import { useDispatch } from "react-redux";
 import CheckBoxControl from "../../../components/controls/CheckBoxControl";
 import {
-  AcademicSectionCreateAction,
-  updateSingleAcademicSectionAction,
-} from "./AcademicSectionActions";
+  SchoolBoardCreateAction,
+  updateSingleSchoolBoardAction,
+} from "./SchoolBoardActions";
 
 const initialFormValues = {
-  IDAcademicRoom: 0,
+  IDUniversity: 0,
   IDHRCompany: 2,
-  RoomName: "",
-  RoomLocation: "",
-  RoomCapacity: 30,
+  UniversityName: "",
+  Description: "",
   IsActive: false,
-  Created_On: "2021-09-23T03:44:16.140Z",
-  Updated_On: "2021-09-23T03:44:16.141Z",
+  Created_On: "2021-09-23",
+  Updated_On: "2021-09-23",
 };
 
-const AcademicSectinoForm = ({ academicSection }) => {
+const SchoolBoardForm = ({ schoolBoard }) => {
   const dispatch = useDispatch();
   const validate = (fieldValues = values) => {
     let temp = { ...errors };
-    temp.RoomName = fieldValues.RoomName ? "" : "This feild is required";
-    temp.RoomCapacity = fieldValues.RoomCapacity
-      ? ""
-      : "This feild is required";
-    temp.RoomLocation = !fieldValues.RoomLocation
+
+    temp.UniversityName = !fieldValues.UniversityName
       ? "This feild is required"
-      : fieldValues.RoomLocation.length > 200
-      ? "Must be less than 201 letters"
+      : fieldValues.UniversityName.length > 100
+      ? "Must be less than 101 characters"
       : "";
+
+    temp.Description = fieldValues.Description ? "" : "This feild is required";
 
     setErrors({ ...temp });
     return Object.values(temp).every((x) => x === "");
   };
+
   const { values, setValues, handleInputChange, errors, setErrors } =
     useForm(initialFormValues);
 
@@ -44,37 +43,29 @@ const AcademicSectinoForm = ({ academicSection }) => {
     e.preventDefault();
 
     if (validate()) {
-      if (values.IDAcademicRoom === 0) {
-        dispatch(AcademicSectionCreateAction(values));
+      if (values.IDUniversity === 0) {
+        dispatch(SchoolBoardCreateAction(values));
       } else {
-        dispatch(updateSingleAcademicSectionAction(values));
+        dispatch(updateSingleSchoolBoardAction(values));
       }
     }
   };
 
   useEffect(() => {
-    if (academicSection) {
-      setValues({ ...academicSection });
+    if (schoolBoard) {
+      setValues({ ...schoolBoard });
     }
-  }, [academicSection]);
+  }, [schoolBoard]);
   return (
     <Form onSubmit={handleSubmit}>
       <Grid container style={{ fontSize: "12px" }}>
         <Grid item xs={6}>
           <InputControl
-            name="RoomName"
-            label="Room Name"
-            value={values.RoomName}
+            name="UniversityName"
+            label="University Name"
+            value={values.UniversityName}
             onChange={handleInputChange}
-            errors={errors.RoomName}
-          />
-
-          <InputControl
-            name="RoomLocation"
-            label="Room Location"
-            value={values.RoomLocation}
-            onChange={handleInputChange}
-            errors={errors.RoomLocation}
+            errors={errors.UniversityName}
           />
 
           <CheckBoxControl
@@ -83,16 +74,6 @@ const AcademicSectinoForm = ({ academicSection }) => {
             value={values.IsActive}
             onChange={handleInputChange}
             errors={errors.IsActive}
-          />
-        </Grid>
-        <Grid item xs={6}>
-          <InputControl
-            name="RoomCapacity"
-            label="RoomCapacity"
-            value={values.RoomCapacity}
-            onChange={handleInputChange}
-            errors={errors.RoomCapacity}
-            type="number"
           />
           <div>
             <Button
@@ -105,9 +86,18 @@ const AcademicSectinoForm = ({ academicSection }) => {
             </Button>
           </div>
         </Grid>
+        <Grid item xs={6}>
+          <InputControl
+            name="Description"
+            label="Description"
+            value={values.Description}
+            onChange={handleInputChange}
+            errors={errors.Description}
+          />
+        </Grid>
       </Grid>
     </Form>
   );
 };
 
-export default AcademicSectinoForm;
+export default SchoolBoardForm;

@@ -18,10 +18,15 @@ import ConfirmDialog from "../../../components/ConfirmDialog";
 import {
   getAllEmployeeAction,
   getAllEmployeeCreateAction,
+  getSingleEmployeeAction,
 } from "./EmployeeActions";
 import EmployeeTableCollapse from "./EmployeeTableCollpase";
 import EmployeeForm from "./EmployeeForm";
-import { EMPLOYEE_CREATE_RESET } from "./EmployeeConstants";
+import {
+  EMPLOYEE_CREATE_RESET,
+  GET_SINGLE_EMPLOYEE_RESET,
+  UPDATE_SINGLE_EMPLOYEE_RESET,
+} from "./EmployeeConstants";
 
 const useStyles = makeStyles((theme) => ({
   searchInput: {
@@ -72,6 +77,12 @@ const Employee = () => {
     (state) => state.createEmployee
   );
 
+  const { singleEmployee } = useSelector((state) => state.getSingleEmployee);
+
+  const { success: updateSingleEmployeeSuccess } = useSelector(
+    (state) => state.updateSingleEmployee
+  );
+
   if (employeeCreateSuccess) {
     dispatch(getAllEmployeeAction());
     setNotify({
@@ -83,7 +94,21 @@ const Employee = () => {
     dispatch({ type: EMPLOYEE_CREATE_RESET });
   }
 
-  const updateCollegeHandler = (id) => {};
+  if (updateSingleEmployeeSuccess) {
+    dispatch(getAllEmployeeAction());
+    setNotify({
+      isOpen: true,
+      message: "Updated Succesfully",
+      type: "success",
+    });
+    setOpenPopup(false);
+    dispatch({ type: UPDATE_SINGLE_EMPLOYEE_RESET });
+  }
+
+  const updateCollegeHandler = (id) => {
+    dispatch(getSingleEmployeeAction(id));
+    setOpenPopup(true);
+  };
 
   const deleteCollegeHandler = (id) => {
     setConfirmDialog({
@@ -96,12 +121,15 @@ const Employee = () => {
   useEffect(() => {
     if (!employee) {
       dispatch(getAllEmployeeAction());
-      dispatch(getAllEmployeeCreateAction());
     }
     if (employee) {
       setTableData(employee.hrEmployeeModelLst);
     }
   }, [dispatch, employee]);
+
+  useEffect(() => {
+    dispatch(getAllEmployeeCreateAction());
+  }, []);
 
   const {
     TableContainer,
@@ -125,6 +153,7 @@ const Employee = () => {
   };
 
   const addHandler = () => {
+    dispatch({ type: GET_SINGLE_EMPLOYEE_RESET });
     setOpenPopup(true);
   };
   return (
@@ -174,9 +203,11 @@ const Employee = () => {
       <Popup
         openPopup={openPopup}
         setOpenPopup={setOpenPopup}
-        title="School Settings Form"
+        title="Employee Form"
       >
-        <EmployeeForm college={employee ? employee.hrEmployeeModelLst : {}} />
+        <EmployeeForm
+          employee={singleEmployee && singleEmployee.hrEmployeeModel}
+        />
       </Popup>
       <Notification notify={notify} setNotify={setNotify} />
       <ConfirmDialog

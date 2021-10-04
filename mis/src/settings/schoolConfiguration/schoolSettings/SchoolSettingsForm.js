@@ -30,8 +30,8 @@ const initialFormValues = {
 
 const SchoolSettingsForm = ({ college }) => {
   const dispatch = useDispatch();
-  const validate = () => {
-    let temp = {};
+  const validate = (fieldValues = values) => {
+    let temp = { ...errors };
     temp.CompanyName =
       values.CompanyName.length > 200
         ? "Company Name must be less than 200 characters"
@@ -135,13 +135,6 @@ const SchoolSettingsForm = ({ college }) => {
             errors={errors.RegNo}
             required
           />
-          {/* <InputControl
-            name="DOE"
-            label="DOE"
-            value={values.DOE}
-            onChange={handleInputChange}
-            required
-          /> */}
           <DatePickerControl
             name="DOE"
             label="DOE"

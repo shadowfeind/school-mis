@@ -15,10 +15,17 @@ import CustomContainer from "../../../components/CustomContainer";
 import { useDispatch, useSelector } from "react-redux";
 import Notification from "../../../components/Notification";
 import ConfirmDialog from "../../../components/ConfirmDialog";
-import { getAllAcademicClassAction } from "./AcademicClassActions";
+import {
+  getAllAcademicClassAction,
+  getSingleAcademicClassAction,
+} from "./AcademicClassActions";
 import AcademicClassTableCollapse from "./AcademicCLassTableCollapse";
 import AcademicClassForm from "./AcademicClassForm";
-import { ACADEMIC_CLASS_CREATE_RESET } from "./AcademicClassConstants";
+import {
+  ACADEMIC_CLASS_CREATE_RESET,
+  GET_SINGLE_ACADEMIC_CLASS_RESET,
+  UPDATE_SINGLE_ACADEMIC_CLASS_RESET,
+} from "./AcademicClassConstants";
 
 const useStyles = makeStyles((theme) => ({
   searchInput: {
@@ -71,6 +78,14 @@ const AcademicClass = () => {
     (state) => state.createAcademicClass
   );
 
+  const { singleAcademicClass } = useSelector(
+    (state) => state.getSingleAcademicClass
+  );
+
+  const { success: updateSingleAcademicClassSuccess } = useSelector(
+    (state) => state.updateSingleAcademicClass
+  );
+
   if (academicClassCreateSuccess) {
     dispatch(getAllAcademicClassAction());
     setNotify({
@@ -82,7 +97,21 @@ const AcademicClass = () => {
     dispatch({ type: ACADEMIC_CLASS_CREATE_RESET });
   }
 
-  const updateCollegeHandler = (id) => {};
+  if (updateSingleAcademicClassSuccess) {
+    dispatch(getAllAcademicClassAction());
+    setNotify({
+      isOpen: true,
+      message: "Updated Succesfully",
+      type: "success",
+    });
+    setOpenPopup(false);
+    dispatch({ type: UPDATE_SINGLE_ACADEMIC_CLASS_RESET });
+  }
+
+  const updateCollegeHandler = (id) => {
+    dispatch(getSingleAcademicClassAction(id));
+    setOpenPopup(true);
+  };
 
   const deleteCollegeHandler = (id) => {
     setConfirmDialog({
@@ -121,6 +150,12 @@ const AcademicClass = () => {
       },
     });
   };
+
+  const addHandler = () => {
+    dispatch({ type: GET_SINGLE_ACADEMIC_CLASS_RESET });
+    setOpenPopup(true);
+  };
+
   return (
     <>
       <CustomContainer>
@@ -142,7 +177,7 @@ const AcademicClass = () => {
             color="primary"
             startIcon={<AddIcon />}
             className={classes.button}
-            onClick={() => setOpenPopup(true)}
+            onClick={addHandler}
           >
             Add{" "}
           </Button>
@@ -156,6 +191,7 @@ const AcademicClass = () => {
             {tableDataAfterPagingAndSorting().map((item) => (
               <AcademicClassTableCollapse
                 item={item}
+                key={item.$id}
                 updateCollegeHandler={updateCollegeHandler}
                 deleteCollegeHandler={deleteCollegeHandler}
               />
@@ -168,9 +204,11 @@ const AcademicClass = () => {
       <Popup
         openPopup={openPopup}
         setOpenPopup={setOpenPopup}
-        title="School Settings Form"
+        title="Academic Class Form"
       >
-        <AcademicClassForm position={{}} />
+        <AcademicClassForm
+          academicClass={singleAcademicClass && singleAcademicClass.dbModel}
+        />
       </Popup>
       <Notification notify={notify} setNotify={setNotify} />
       <ConfirmDialog

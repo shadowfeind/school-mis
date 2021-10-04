@@ -1,8 +1,17 @@
 import axios from "axios";
 import {
+  ACADEMIC_SECTION_CREATE_FAIL,
+  ACADEMIC_SECTION_CREATE_REQUEST,
+  ACADEMIC_SECTION_CREATE_SUCCESS,
   GET_ALL_ACADEMIC_SECTION_FAIL,
   GET_ALL_ACADEMIC_SECTION_REQUEST,
   GET_ALL_ACADEMIC_SECTION_SUCCESS,
+  GET_SINGLE_ACADEMIC_SECTION_FAIL,
+  GET_SINGLE_ACADEMIC_SECTION_REQUEST,
+  GET_SINGLE_ACADEMIC_SECTION_SUCCESS,
+  UPDATE_SINGLE_ACADEMIC_SECTION_FAIL,
+  UPDATE_SINGLE_ACADEMIC_SECTION_REQUEST,
+  UPDATE_SINGLE_ACADEMIC_SECTION_SUCCESS,
 } from "./AcademicSectionConstants";
 
 export const getAllAcademicSectionAction = () => async (dispatch) => {
@@ -10,7 +19,7 @@ export const getAllAcademicSectionAction = () => async (dispatch) => {
     dispatch({ type: GET_ALL_ACADEMIC_SECTION_REQUEST });
 
     const { data } = await axios.get(
-      "http://localhost:5000/api/mock/academicSection"
+      "http://192.168.1.103:84/api/AcademicRoom"
     );
 
     dispatch({ type: GET_ALL_ACADEMIC_SECTION_SUCCESS, payload: data });
@@ -24,3 +33,85 @@ export const getAllAcademicSectionAction = () => async (dispatch) => {
     });
   }
 };
+
+export const AcademicSectionCreateAction =
+  (academicSection) => async (dispatch) => {
+    try {
+      dispatch({ type: ACADEMIC_SECTION_CREATE_REQUEST });
+
+      const jsonData = JSON.stringify({ dbModel: academicSection });
+
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      };
+
+      const { data } = await axios.post(
+        "http://192.168.1.103:84/api/AcademicRoom",
+        jsonData,
+        config
+      );
+
+      dispatch({ type: ACADEMIC_SECTION_CREATE_SUCCESS, payload: data });
+    } catch (error) {
+      dispatch({
+        type: ACADEMIC_SECTION_CREATE_FAIL,
+        payload:
+          error.message && error.response.data.message
+            ? error.response.data.message
+            : error.message,
+      });
+    }
+  };
+
+export const getSingleAcademicSectionAction = (id) => async (dispatch) => {
+  try {
+    dispatch({ type: GET_SINGLE_ACADEMIC_SECTION_REQUEST });
+
+    const { data } = await axios.get(
+      `http://192.168.1.103:84/api/AcademicRoom/${id}`
+    );
+
+    dispatch({ type: GET_SINGLE_ACADEMIC_SECTION_SUCCESS, payload: data });
+  } catch (error) {
+    dispatch({
+      type: GET_SINGLE_ACADEMIC_SECTION_FAIL,
+      payload:
+        error.message && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+export const updateSingleAcademicSectionAction =
+  (academicSection) => async (dispatch) => {
+    try {
+      dispatch({ type: UPDATE_SINGLE_ACADEMIC_SECTION_REQUEST });
+
+      const jsonData = JSON.stringify({ dbModel: academicSection });
+
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      };
+
+      const { data } = await axios.put(
+        "http://192.168.1.103:84/api/AcademicRoom",
+        jsonData,
+        config
+      );
+
+      dispatch({ type: UPDATE_SINGLE_ACADEMIC_SECTION_SUCCESS, payload: data });
+    } catch (error) {
+      dispatch({
+        type: UPDATE_SINGLE_ACADEMIC_SECTION_FAIL,
+        payload:
+          error.message && error.response.data.message
+            ? error.response.data.message
+            : error.message,
+      });
+    }
+  };

@@ -4,6 +4,7 @@ import InputControl from "../../../components/controls/InputControl";
 import { useForm, Form } from "../../../customHooks/useForm";
 import { useDispatch } from "react-redux";
 import CheckBoxControl from "../../../components/controls/CheckBoxControl";
+import { roleCreateAction, updateSingleRoleAction } from "./RoleActions";
 
 const initialFormValues = {
   IDHRRole: 0,
@@ -18,16 +19,20 @@ const initialFormValues = {
 
 const RoleForm = ({ role }) => {
   const dispatch = useDispatch();
-  const validate = () => {
-    let temp = {};
-    temp.RoleName =
-      values.RoleName.length > 20
-        ? "RoleName must be less than 20 characters"
-        : "";
-    temp.Description =
-      values.Description.length > 200
-        ? "Description cannot be greater than 200 characters"
-        : "";
+  const validate = (fieldValues = values) => {
+    let temp = { ...errors };
+
+    temp.RoleName = !fieldValues.RoleName
+      ? "This feild is required"
+      : fieldValues.RoleName.length > 16
+      ? "Must be less than 16 characters"
+      : "";
+
+    temp.Description = !fieldValues.Description
+      ? "This feild is required"
+      : fieldValues.Description.length > 200
+      ? "Must be less than 201 characters"
+      : "";
 
     setErrors({ ...temp });
     return Object.values(temp).every((x) => x === "");
@@ -39,6 +44,11 @@ const RoleForm = ({ role }) => {
     e.preventDefault();
 
     if (validate()) {
+      if (values.IDHRRole === 0) {
+        dispatch(roleCreateAction(values));
+      } else {
+        dispatch(updateSingleRoleAction(values));
+      }
     }
   };
 
@@ -57,18 +67,29 @@ const RoleForm = ({ role }) => {
             value={values.RoleName}
             onChange={handleInputChange}
             errors={errors.RoleName}
-            required
           />
 
+          <CheckBoxControl
+            name="IsSystemDefined"
+            label="Is System Defined"
+            value={values.IsSystemDefined}
+            onChange={handleInputChange}
+          />
+        </Grid>
+        <Grid item xs={6}>
           <InputControl
             name="Description"
             label="Description"
             value={values.Description}
             onChange={handleInputChange}
             errors={errors.Description}
-            required
           />
-
+          <CheckBoxControl
+            name="MarkAsAdmin"
+            label="Mark As Admin"
+            value={values.MarkAsAdmin}
+            onChange={handleInputChange}
+          />
           <div>
             <Button
               variant="contained"
@@ -79,16 +100,6 @@ const RoleForm = ({ role }) => {
               SUBMIT
             </Button>
           </div>
-        </Grid>
-        <Grid item xs={6}>
-          <CheckBoxControl
-            name="MarkAsAdmin"
-            label="MarkAsAdmin"
-            value={values.MarkAsAdmin}
-            onChange={handleInputChange}
-            // errors={errors.IsTaxApplicable}
-            required
-          />
         </Grid>
       </Grid>
     </Form>

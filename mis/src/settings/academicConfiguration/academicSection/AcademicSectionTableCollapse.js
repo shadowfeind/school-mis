@@ -31,7 +31,7 @@ const AcademicSectionTableCollapse = ({
 
   return (
     <>
-      <TableRow key={item.$id}>
+      <TableRow>
         <TableCell>{item.RoomName}</TableCell>
         <TableCell>{item.RoomLocation}</TableCell>
         <TableCell>{item.RoomCapacity}</TableCell>

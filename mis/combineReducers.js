@@ -28,13 +28,40 @@ import {
   createEmployeeReducer,
   getAllEmployee,
   getAllEmployeeCreateReducer,
+  getSingleEmployeeReducer,
+  updateSingleEmployeeReducer,
 } from "./src/settings/employeeManagement/employee/EmployeeReducers";
-import { getAllRoles } from "./src/settings/employeeManagement/role/RoleReducers";
+import {
+  createRoleReducer,
+  getAllRoles,
+  getSingleRoleReducer,
+  updateSingleRoleReducer,
+} from "./src/settings/employeeManagement/role/RoleReducers";
 import {
   createAcademicClassReducer,
   getAllAcademicClass,
+  getSingleAcademicClassReducer,
+  updateSingleAcademicClassReducer,
 } from "./src/settings/academicConfiguration/academicClass/AcademicClassReducers";
-import { getAllAcademicSection } from "./src/settings/academicConfiguration/academicSection/AcademicSectionReducers";
+import {
+  createAcademicSectionReducer,
+  getAllAcademicSection,
+  getSingleAcademicSectionReducer,
+  updateSingleAcademicSectionReducer,
+} from "./src/settings/academicConfiguration/academicSection/AcademicSectionReducers";
+import {
+  createSchoolBoardReducer,
+  getAllSchoolBoard,
+  getSingleSchoolBoardReducer,
+  updateSingleSchoolBoardReducer,
+} from "./src/settings/academicConfiguration/schoolBoard/SchoolBoardReducers";
+import {
+  createAcademicProgramReducer,
+  getAcademicProgramOptionReducer,
+  getAllAcademicProgram,
+  getSingleAcademicProgramReducer,
+  updateSingleAcademicProgramReducer,
+} from "./src/settings/academicConfiguration/academicProgram/AcademicProgramReducers";
 
 export const reducers = combineReducers({
   schoolSettings: getAllSchoolSettings,
@@ -57,8 +84,27 @@ export const reducers = combineReducers({
   employee: getAllEmployee,
   getAllEmployeeCreate: getAllEmployeeCreateReducer,
   createEmployee: createEmployeeReducer,
+  getSingleEmployee: getSingleEmployeeReducer,
+  updateSingleEmployee: updateSingleEmployeeReducer,
   role: getAllRoles,
+  createRole: createRoleReducer,
+  getSingleRole: getSingleRoleReducer,
+  updateSingleRole: updateSingleRoleReducer,
   academicClass: getAllAcademicClass,
   createAcademicClass: createAcademicClassReducer,
+  getSingleAcademicClass: getSingleAcademicClassReducer,
+  updateSingleAcademicClass: updateSingleAcademicClassReducer,
   academicSection: getAllAcademicSection,
+  createAcademicSection: createAcademicSectionReducer,
+  getSingleAcademicSection: getSingleAcademicSectionReducer,
+  updateSingleAcademicSection: updateSingleAcademicSectionReducer,
+  schoolBoard: getAllSchoolBoard,
+  createSchoolBoard: createSchoolBoardReducer,
+  getSingleSchoolBoard: getSingleSchoolBoardReducer,
+  updateSingleSchoolBoard: updateSingleSchoolBoardReducer,
+  academicProgram: getAllAcademicProgram,
+  createAcademicProgram: createAcademicProgramReducer,
+  getAcademicProgramOption: getAcademicProgramOptionReducer,
+  getSingleAcademicProgram: getSingleAcademicProgramReducer,
+  updateSingleAcademicProgram: updateSingleAcademicProgramReducer,
 });

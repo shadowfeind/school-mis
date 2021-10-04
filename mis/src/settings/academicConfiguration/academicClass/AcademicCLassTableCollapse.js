@@ -31,7 +31,7 @@ const AcademicClassTableCollapse = ({
 
   return (
     <>
-      <TableRow key={item.$id}>
+      <TableRow>
         <TableCell>{item.ClassName}</TableCell>
         <TableCell>{item.ClassLocation}</TableCell>
         <TableCell>{item.IsActive ? "Active" : "InActive"}</TableCell>

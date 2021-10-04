@@ -15,9 +15,17 @@ import CustomContainer from "../../../components/CustomContainer";
 import { useDispatch, useSelector } from "react-redux";
 import Notification from "../../../components/Notification";
 import ConfirmDialog from "../../../components/ConfirmDialog";
-import { getAllAcademicSectionAction } from "./AcademicSectionActions";
+import {
+  getAllAcademicSectionAction,
+  getSingleAcademicSectionAction,
+} from "./AcademicSectionActions";
 import AcademicSectionTableCollapse from "./AcademicSectionTableCollapse";
 import AcademicSectinoForm from "./AcademicSectionForm";
+import {
+  ACADEMIC_SECTION_CREATE_RESET,
+  GET_SINGLE_ACADEMIC_SECTION_RESET,
+  UPDATE_SINGLE_ACADEMIC_SECTION_RESET,
+} from "./AcademicSectionConstants";
 
 const useStyles = makeStyles((theme) => ({
   searchInput: {
@@ -67,7 +75,44 @@ const AcademicSection = () => {
     (state) => state.academicSection
   );
 
-  const updateCollegeHandler = (id) => {};
+  const { success: createAcademicSection } = useSelector(
+    (state) => state.createAcademicSection
+  );
+
+  const { singleAcademicSection } = useSelector(
+    (state) => state.getSingleAcademicSection
+  );
+
+  const { success: updateAcademicSectionSuccess } = useSelector(
+    (state) => state.updateSingleAcademicSection
+  );
+
+  if (createAcademicSection) {
+    dispatch(getAllAcademicSectionAction());
+    setNotify({
+      isOpen: true,
+      message: "Created Succesfully",
+      type: "success",
+    });
+    setOpenPopup(false);
+    dispatch({ type: ACADEMIC_SECTION_CREATE_RESET });
+  }
+
+  if (updateAcademicSectionSuccess) {
+    dispatch(getAllAcademicSectionAction());
+    setNotify({
+      isOpen: true,
+      message: "Updated Succesfully",
+      type: "success",
+    });
+    setOpenPopup(false);
+    dispatch({ type: UPDATE_SINGLE_ACADEMIC_SECTION_RESET });
+  }
+
+  const updateCollegeHandler = (id) => {
+    dispatch(getSingleAcademicSectionAction(id));
+    setOpenPopup(true);
+  };
 
   const deleteCollegeHandler = (id) => {
     setConfirmDialog({
@@ -106,6 +151,12 @@ const AcademicSection = () => {
       },
     });
   };
+
+  const addHandler = () => {
+    dispatch({ type: GET_SINGLE_ACADEMIC_SECTION_RESET });
+    setOpenPopup(true);
+  };
+
   return (
     <>
       <CustomContainer>
@@ -127,27 +178,27 @@ const AcademicSection = () => {
             color="primary"
             startIcon={<AddIcon />}
             className={classes.button}
-            onClick={() => setOpenPopup(true)}
-            // onClick={() => dispatch(test())}
+            onClick={addHandler}
           >
             Add{" "}
           </Button>
         </Toolbar>
         <TableContainer className={classes.table}>
           <TblHead />
-          {loading ? (
+          {/* {loading ? (
             <div></div>
-          ) : (
-            <TableBody>
-              {tableDataAfterPagingAndSorting().map((item) => (
-                <AcademicSectionTableCollapse
-                  item={item}
-                  updateCollegeHandler={updateCollegeHandler}
-                  deleteCollegeHandler={deleteCollegeHandler}
-                />
-              ))}
-            </TableBody>
-          )}
+          ) : ( */}
+          <TableBody>
+            {tableDataAfterPagingAndSorting().map((item) => (
+              <AcademicSectionTableCollapse
+                item={item}
+                key={item.$id}
+                updateCollegeHandler={updateCollegeHandler}
+                deleteCollegeHandler={deleteCollegeHandler}
+              />
+            ))}
+          </TableBody>
+          {/* )} */}
         </TableContainer>
         <TblPagination />
       </CustomContainer>
@@ -156,7 +207,11 @@ const AcademicSection = () => {
         setOpenPopup={setOpenPopup}
         title="School Settings Form"
       >
-        <AcademicSectinoForm position={{}} />
+        <AcademicSectinoForm
+          academicSection={
+            singleAcademicSection && singleAcademicSection.dbModel
+          }
+        />
       </Popup>
       <Notification notify={notify} setNotify={setNotify} />
       <ConfirmDialog

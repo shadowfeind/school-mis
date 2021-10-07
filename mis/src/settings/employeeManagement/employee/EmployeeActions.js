@@ -40,7 +40,7 @@ export const getAllEmployeeCreateAction = () => async (dispatch) => {
     dispatch({ type: GET_ALL_EMPLOYEE_CREATE_REQUEST });
 
     const { data } = await axios.get(
-      "http://localhost:5000/api/mock/getEmployeeCreate"
+      "http://192.168.1.103:84/api/HREmployee/0/0/0/0/0/create"
     );
 
     dispatch({ type: GET_ALL_EMPLOYEE_CREATE_SUCCESS, payload: data });

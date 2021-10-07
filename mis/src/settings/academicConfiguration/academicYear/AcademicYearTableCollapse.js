@@ -26,7 +26,7 @@ const useStyles = makeStyles({
   },
 });
 
-const AcademicProgramTableCollapse = ({
+const AcademicYearTableCollapse = ({
   item,
   updateCollegeHandler,
   deleteCollegeHandler,
@@ -38,17 +38,17 @@ const AcademicProgramTableCollapse = ({
   return (
     <>
       <TableRow>
-        <TableCell>{item.AcademicProgramName}</TableCell>
-        <TableCell>{item.Description}</TableCell>
+        <TableCell>{item.AcademicYearName}</TableCell>
+        <TableCell>{item.AcademicYearCode}</TableCell>
         <TableCell>{item.IsActive ? "IsActive" : "NotActive"}</TableCell>
-        <TableCell>{item.Created_On}</TableCell>
-        <TableCell>{item.Updated_On}</TableCell>
+        <TableCell>{item.StartDate}</TableCell>
+        <TableCell>{item.EndDate}</TableCell>
         <TableCell>
           <Button
             variant="contained"
             color="primary"
             className={classes.button}
-            onClick={() => updateCollegeHandler(item.IDAcademicProgram)}
+            onClick={() => updateCollegeHandler(item.IDAcademicYear)}
           >
             <EditIcon style={{ fontSize: 12 }} />
           </Button>
@@ -56,7 +56,7 @@ const AcademicProgramTableCollapse = ({
             variant="contained"
             color="secondary"
             className={classes.button}
-            onClick={() => deleteCollegeHandler(item.IDAcademicProgram)}
+            onClick={() => deleteCollegeHandler(item.IDAcademicYear)}
           >
             <DeleteIcon style={{ fontSize: 12 }} />
           </Button>
@@ -87,30 +87,31 @@ const AcademicProgramTableCollapse = ({
                 <Grid item md={6}>
                   <List key={item.$id * 0.002}>
                     <ListItem>
-                      <strong>Academic Program Name</strong>:{" "}
-                      {item.AcademicProgramName}
+                      <strong>Academic Year Name</strong>: {item.IDAcademicYear}
                     </ListItem>
-                    <ListItem
-                      style={{ alignItems: "start", maxWidth: "600px" }}
-                    >
-                      <strong>Description</strong>: {item.Description}
+                    <ListItem>
+                      <strong>Academic Year</strong>: {item.AcademicYear}
                     </ListItem>
                     <ListItem>
                       <strong>IsActive</strong>:{" "}
                       {item.IsActive ? "IsActive" : "NotActive"}
                     </ListItem>
                     <ListItem>
-                      <strong>Created On</strong>: {item.Created_On}
+                      <strong>Academic Year Code</strong>:{" "}
+                      {item.AcademicYearCode}
                     </ListItem>
                     <ListItem>
-                      <strong>Updated On</strong>: {item.Updated_On}
+                      <strong>Start Date</strong>: {item.StartDate}
+                    </ListItem>
+                    <ListItem>
+                      <strong>End Date</strong>: {item.EndDate}
                     </ListItem>
                   </List>
                 </Grid>
                 <Grid item md={6} style={{}}>
                   <List key={item.$id * 0.003}>
                     <ListItem>
-                      <strong>School Board</strong>:{" "}
+                      <strong>Academic Program</strong>:{" "}
                       {/* {selected.map((item) => (
                         <div>
                           {" "}
@@ -129,4 +130,4 @@ const AcademicProgramTableCollapse = ({
   );
 };
 
-export default AcademicProgramTableCollapse;
+export default AcademicYearTableCollapse;

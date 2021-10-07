@@ -1,0 +1,323 @@
+{
+  "$id": "1",
+  "dbModel": {
+    "$id": "2",
+    "IDFaculty": 0,
+    "TotalLevel": 0,
+    "TotalSeat": 0,
+    "TotalSection": 0,
+    "IDHRCompany": 2,
+    "Header": null,
+    "LevelMOU": null,
+    "IDFacultyCoordinator": 0,
+    "IsActive": true,
+    "Created_On": "0001-01-01T00:00:00",
+    "Updated_On": "0001-01-01T00:00:00"
+  },
+  "ddlYearProgramLink": null,
+  "ddlIsActive": [
+    {
+      "$id": "3",
+      "Key": false,
+      "Value": "No"
+    },
+    {
+      "$id": "4",
+      "Key": true,
+      "Value": "Yes"
+    }
+  ],
+  "ddlStaff": [
+    {
+      "$id": "5",
+      "Key": 10854,
+      "Value": "Asha  School"
+    },
+    {
+      "$id": "6",
+      "Key": 11051,
+      "Value": "kiran  rai"
+    },
+    {
+      "$id": "7",
+      "Key": 11053,
+      "Value": "Kritagya  Rava"
+    },
+    {
+      "$id": "8",
+      "Key": 12052,
+      "Value": "suresh  "
+    },
+    {
+      "$id": "9",
+      "Key": 12053,
+      "Value": "kiran final  "
+    },
+    {
+      "$id": "10",
+      "Key": 12054,
+      "Value": "Final Testing  testing"
+    },
+    {
+      "$id": "11",
+      "Key": 12055,
+      "Value": "traves  troy"
+    },
+    {
+      "$id": "12",
+      "Key": 12056,
+      "Value": "kiran  chamling"
+    },
+    {
+      "$id": "13",
+      "Key": 12057,
+      "Value": "error testing  "
+    },
+    {
+      "$id": "14",
+      "Key": 12058,
+      "Value": "final testing1  "
+    },
+    {
+      "$id": "15",
+      "Key": 12059,
+      "Value": "final testing2  "
+    },
+    {
+      "$id": "16",
+      "Key": 12060,
+      "Value": "final testing3  "
+    },
+    {
+      "$id": "17",
+      "Key": 12061,
+      "Value": "super final  "
+    }
+  ],
+  "ddlLevel": [
+    {
+      "$id": "18",
+      "Key": 1,
+      "Value": "First"
+    },
+    {
+      "$id": "19",
+      "Key": 2,
+      "Value": "Second"
+    },
+    {
+      "$id": "20",
+      "Key": 3,
+      "Value": "Third"
+    },
+    {
+      "$id": "21",
+      "Key": 4,
+      "Value": "Fourth"
+    },
+    {
+      "$id": "22",
+      "Key": 5,
+      "Value": "Fifth"
+    },
+    {
+      "$id": "23",
+      "Key": 6,
+      "Value": "Sixth"
+    },
+    {
+      "$id": "24",
+      "Key": 7,
+      "Value": "Seventh"
+    },
+    {
+      "$id": "25",
+      "Key": 8,
+      "Value": "Eighth"
+    }
+  ],
+  "ddlSection": [
+    {
+      "$id": "26",
+      "Key": 1,
+      "Value": "One"
+    },
+    {
+      "$id": "27",
+      "Key": 2,
+      "Value": "Two"
+    },
+    {
+      "$id": "28",
+      "Key": 3,
+      "Value": "Three"
+    },
+    {
+      "$id": "29",
+      "Key": 4,
+      "Value": "Four"
+    },
+    {
+      "$id": "30",
+      "Key": 5,
+      "Value": "Five"
+    },
+    {
+      "$id": "31",
+      "Key": 6,
+      "Value": "Six"
+    },
+    {
+      "$id": "32",
+      "Key": 7,
+      "Value": "Seven"
+    },
+    {
+      "$id": "33",
+      "Key": 8,
+      "Value": "Eight"
+    },
+    {
+      "$id": "34",
+      "Key": 9,
+      "Value": "Nine"
+    },
+    {
+      "$id": "35",
+      "Key": 10,
+      "Value": "Ten"
+    },
+    {
+      "$id": "36",
+      "Key": 11,
+      "Value": "Eleven"
+    },
+    {
+      "$id": "37",
+      "Key": 12,
+      "Value": "Twelve"
+    },
+    {
+      "$id": "38",
+      "Key": 13,
+      "Value": "Thirteen"
+    },
+    {
+      "$id": "39",
+      "Key": 14,
+      "Value": "Fourteen"
+    },
+    {
+      "$id": "40",
+      "Key": 15,
+      "Value": "Fifteen"
+    },
+    {
+      "$id": "41",
+      "Key": 16,
+      "Value": "Sixteen"
+    },
+    {
+      "$id": "42",
+      "Key": 17,
+      "Value": "Seventeen"
+    },
+    {
+      "$id": "43",
+      "Key": 18,
+      "Value": "Eighteen"
+    },
+    {
+      "$id": "44",
+      "Key": 19,
+      "Value": "Nineteen"
+    },
+    {
+      "$id": "45",
+      "Key": 20,
+      "Value": "Twenty"
+    }
+  ],
+  "ddlLevelMOU": [
+    {
+      "$id": "46",
+      "Key": "Year",
+      "Value": "Year"
+    },
+    {
+      "$id": "47",
+      "Key": "Semester",
+      "Value": "Semester"
+    },
+    {
+      "$id": "48",
+      "Key": "Trimester",
+      "Value": "Trimester"
+    }
+  ],
+  "available": [
+    {
+      "$id": "49",
+      "Id": "2",
+      "Name": "Secondary Education Examination Board / School",
+      "IsSelected": false,
+      "Tags": null
+    },
+    {
+      "$id": "50",
+      "Id": "7",
+      "Name": "Secondary Education Examination Board / Testing 1",
+      "IsSelected": false,
+      "Tags": null
+    },
+    {
+      "$id": "51",
+      "Id": "8",
+      "Name": "Testing University 1 / Testing 1",
+      "IsSelected": false,
+      "Tags": null
+    },
+    {
+      "$id": "52",
+      "Id": "10",
+      "Name": "Testing University 1 / Master",
+      "IsSelected": false,
+      "Tags": null
+    }
+  ],
+  "selected": [],
+  "postedChekboxLst": null,
+  "availableAdmissionFee": null,
+  "selectedAdmissionFee": null,
+  "postedChekboxLstAdmissionFee": null,
+  "searchFilterModel": {
+    "$id": "53",
+    "IDLevel": 0,
+    "ddlClass": null,
+    "feeCollectionModel": null,
+    "studentDueModel": null,
+    "company": 2,
+    "ddlCompany": null,
+    "searchString": "0",
+    "baseUrl": "/Setup/AcademicFaculty",
+    "baseUrlExtended": null,
+    "searchParamCode": null,
+    "idSessionUser": 0,
+    "pidRefForEdit": null,
+    "idRole": 0,
+    "ddlRole": null,
+    "studentLedgerModel": null,
+    "StartDate": "0001-01-01T00:00:00",
+    "EndDate": "0001-01-01T00:00:00"
+  },
+  "ddlAdmFacultyUniversityProgramSubModel": null,
+  "ddlAdmFacultyAdmissionFeeSubModel": null,
+  "ddlAcademicFacultySubjectLinkSubModel": null,
+  "messageModel": {
+    "$id": "54",
+    "title": "Add Academic Faculty",
+    "area": "Setup",
+    "controller": "AcademicFaculty",
+    "action": "Index"
+  }
+}

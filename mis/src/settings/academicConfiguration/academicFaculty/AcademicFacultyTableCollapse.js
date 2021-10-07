@@ -26,7 +26,7 @@ const useStyles = makeStyles({
   },
 });
 
-const AcademicProgramTableCollapse = ({
+const AcademicFacultyTableCollapse = ({
   item,
   updateCollegeHandler,
   deleteCollegeHandler,
@@ -38,17 +38,17 @@ const AcademicProgramTableCollapse = ({
   return (
     <>
       <TableRow>
-        <TableCell>{item.AcademicProgramName}</TableCell>
-        <TableCell>{item.Description}</TableCell>
+        <TableCell>{item.Header}</TableCell>
+        <TableCell>{item.TotalLevel}</TableCell>
         <TableCell>{item.IsActive ? "IsActive" : "NotActive"}</TableCell>
-        <TableCell>{item.Created_On}</TableCell>
-        <TableCell>{item.Updated_On}</TableCell>
+        <TableCell>{item.LevelMOU}</TableCell>
+        <TableCell>{item.TotalSeat}</TableCell>
         <TableCell>
           <Button
             variant="contained"
             color="primary"
             className={classes.button}
-            onClick={() => updateCollegeHandler(item.IDAcademicProgram)}
+            onClick={() => updateCollegeHandler(item.IDFaculty)}
           >
             <EditIcon style={{ fontSize: 12 }} />
           </Button>
@@ -56,7 +56,7 @@ const AcademicProgramTableCollapse = ({
             variant="contained"
             color="secondary"
             className={classes.button}
-            onClick={() => deleteCollegeHandler(item.IDAcademicProgram)}
+            onClick={() => deleteCollegeHandler(item.IDFaculty)}
           >
             <DeleteIcon style={{ fontSize: 12 }} />
           </Button>
@@ -87,30 +87,29 @@ const AcademicProgramTableCollapse = ({
                 <Grid item md={6}>
                   <List key={item.$id * 0.002}>
                     <ListItem>
-                      <strong>Academic Program Name</strong>:{" "}
-                      {item.AcademicProgramName}
+                      <strong>Academic Header</strong>: {item.Header}
                     </ListItem>
                     <ListItem
                       style={{ alignItems: "start", maxWidth: "600px" }}
                     >
-                      <strong>Description</strong>: {item.Description}
+                      <strong>Total Level</strong>: {item.TotalLevel}
                     </ListItem>
                     <ListItem>
                       <strong>IsActive</strong>:{" "}
                       {item.IsActive ? "IsActive" : "NotActive"}
                     </ListItem>
                     <ListItem>
-                      <strong>Created On</strong>: {item.Created_On}
+                      <strong>Level System</strong>: {item.LevelMOU}
                     </ListItem>
                     <ListItem>
-                      <strong>Updated On</strong>: {item.Updated_On}
+                      <strong>Total Seat</strong>: {item.TotalSeat}
                     </ListItem>
                   </List>
                 </Grid>
                 <Grid item md={6} style={{}}>
                   <List key={item.$id * 0.003}>
                     <ListItem>
-                      <strong>School Board</strong>:{" "}
+                      <strong>Academic Program</strong>:{" "}
                       {/* {selected.map((item) => (
                         <div>
                           {" "}
@@ -129,4 +128,4 @@ const AcademicProgramTableCollapse = ({
   );
 };
 
-export default AcademicProgramTableCollapse;
+export default AcademicFacultyTableCollapse;

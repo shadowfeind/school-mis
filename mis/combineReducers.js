@@ -62,6 +62,26 @@ import {
   getSingleAcademicProgramReducer,
   updateSingleAcademicProgramReducer,
 } from "./src/settings/academicConfiguration/academicProgram/AcademicProgramReducers";
+import {
+  createAcademicFacultyReducer,
+  getAcademicFacultyOptionReducer,
+  getAllAcademicFaculty,
+  getSingleAcademicFacultyReducer,
+} from "./src/settings/academicConfiguration/academicFaculty/AcademicFacultyReducers";
+import {
+  createAcademicYearReducer,
+  getAcademicYearOptionReducer,
+  getAllAcademicYear,
+  getSingleAcademicYearReducer,
+  updateSingleAcademicYearReducer,
+} from "./src/settings/academicConfiguration/academicYear/AcademicYearReducers";
+import {
+  createAcademicYearCalendarReducer,
+  getAcademicYearCalendarOptionReducer,
+  getAllAcademicYearCalendar,
+  getSingleAcademicYearCalendarReducer,
+  updateSingleAcademicYearCalendarReducer,
+} from "./src/settings/academicConfiguration/academicYearCalendar/AcademicYearCalendarReducers";
 
 export const reducers = combineReducers({
   schoolSettings: getAllSchoolSettings,
@@ -107,4 +127,18 @@ export const reducers = combineReducers({
   getAcademicProgramOption: getAcademicProgramOptionReducer,
   getSingleAcademicProgram: getSingleAcademicProgramReducer,
   updateSingleAcademicProgram: updateSingleAcademicProgramReducer,
+  academicFaculty: getAllAcademicFaculty,
+  createAcademicFaculty: createAcademicFacultyReducer,
+  getAcademicFacultyOption: getAcademicFacultyOptionReducer,
+  getSingleAcademicFaculty: getSingleAcademicFacultyReducer,
+  academicYear: getAllAcademicYear,
+  createAcademicYear: createAcademicYearReducer,
+  getAcademicYearOption: getAcademicYearOptionReducer,
+  getSingleAcademicYear: getSingleAcademicYearReducer,
+  updateSingleAcademicYear: updateSingleAcademicYearReducer,
+  academicYearCalendar: getAllAcademicYearCalendar,
+  createAcademicYearCalendar: createAcademicYearCalendarReducer,
+  getAcademicYearCalendarOption: getAcademicYearCalendarOptionReducer,
+  getSingleAcademicYearCalendar: getSingleAcademicYearCalendarReducer,
+  updateSingleAcademicYearCalendar: updateSingleAcademicYearCalendarReducer,
 });

@@ -1,0 +1,183 @@
+import React, { useState, useEffect } from "react";
+import { Button, Grid } from "@material-ui/core";
+import InputControl from "../../../components/controls/InputControl";
+import { useForm, Form } from "../../../customHooks/useForm";
+import { useDispatch, useSelector } from "react-redux";
+import CheckBoxControl from "../../../components/controls/CheckBoxControl";
+
+import FormLabel from "@material-ui/core/FormLabel";
+import FormControl from "@material-ui/core/FormControl";
+import FormGroup from "@material-ui/core/FormGroup";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Checkbox from "@material-ui/core/Checkbox";
+import { AcademicFacultyCreateAction } from "./AcademicFacultyActions";
+import SelectControl from "../../../components/controls/SelectControl";
+
+const initialFormValues = {
+  IDFaculty: 0,
+  IDHRCompany: 2,
+  Header: "",
+  TotalSeat: 60,
+  LevelMOU: "Trimester",
+  TotalSection: 2,
+  TotalLevel: 12,
+  IDFacultyCoordinator: 3,
+  IsActive: false,
+  Created_On: "2021-09-23",
+  Updated_On: "2021-09-23",
+};
+
+const AcademicFacultyForm = ({ academicFaculty, selected }) => {
+  const [checkboxState, setCheckboxState] = useState([]);
+  const dispatch = useDispatch();
+  const validate = (fieldValues = values) => {
+    let temp = { ...errors };
+
+    temp.Header = !fieldValues.Header
+      ? "This feild is required"
+      : fieldValues.Header.length > 100
+      ? "Must be less than 101 characters"
+      : "";
+
+    temp.TotalSeat = !fieldValues.TotalSeat ? "This feild is required" : "";
+
+    temp.LevelMOU = !fieldValues.LevelMOU ? "This feild is required" : "";
+
+    temp.TotalSection = !fieldValues.TotalSection
+      ? "This feild is required"
+      : "";
+
+    temp.IDFacultyCoordinator = !fieldValues.IDFacultyCoordinator
+      ? "This feild is required"
+      : "";
+
+    setErrors({ ...temp });
+    return Object.values(temp).every((x) => x === "");
+  };
+
+  const { values, setValues, handleInputChange, errors, setErrors } =
+    useForm(initialFormValues);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if (validate()) {
+      if (values.IDFaculty === 0) {
+        dispatch(AcademicFacultyCreateAction(values, checkboxState));
+      } else {
+        // dispatch(updateSingleAcademicProgramAction(values));
+        alert("update api waiting");
+      }
+    }
+  };
+
+  const { academicFacultyOption } = useSelector(
+    (state) => state.getAcademicFacultyOption
+  );
+
+  const { available, ddlLevelMOU, ddlSection, ddlLevel, ddlStaff } =
+    academicFacultyOption;
+
+  const handleChangeCheckbox = (e) => {
+    setCheckboxState([...checkboxState, e.target.value]);
+  };
+
+  useEffect(() => {
+    if (academicFaculty) {
+      setValues({ ...academicFaculty });
+    }
+  }, [academicFaculty]);
+  return (
+    <Form onSubmit={handleSubmit}>
+      <Grid container style={{ fontSize: "12px" }}>
+        <Grid item xs={6}>
+          <InputControl
+            name="Header"
+            label="Faculty Header"
+            value={values.Header}
+            onChange={handleInputChange}
+            errors={errors.Header}
+          />
+          <InputControl
+            name="TotalSeat"
+            label="TotalSeat"
+            value={values.TotalSeat}
+            onChange={handleInputChange}
+            errors={errors.TotalSeat}
+            type="number"
+          />
+          <SelectControl
+            name="LevelMOU"
+            label="Level MOU"
+            value={values.LevelMOU}
+            onChange={handleInputChange}
+            options={ddlLevelMOU}
+            errors={errors.LevelMOU}
+          />
+          <SelectControl
+            name="TotalSection"
+            label="Total Section"
+            value={values.TotalSection}
+            onChange={handleInputChange}
+            options={ddlSection}
+            errors={errors.TotalSection}
+          />
+          <SelectControl
+            name="TotalLevel"
+            label="Total Level"
+            value={values.TotalLevel}
+            onChange={handleInputChange}
+            options={ddlLevel}
+            errors={errors.TotalLevel}
+          />
+          <SelectControl
+            name="IDFacultyCoordinator"
+            label="Faculty Coordinator"
+            value={values.IDFacultyCoordinator}
+            onChange={handleInputChange}
+            options={ddlStaff}
+            errors={errors.IDFacultyCoordinator}
+          />
+          <CheckBoxControl
+            name="IsActive"
+            label="IsActive"
+            value={values.IsActive}
+            onChange={handleInputChange}
+          />
+          <div>
+            <Button
+              variant="contained"
+              color="primary"
+              type="submit"
+              style={{ margin: "10px 0 0 10px" }}
+            >
+              SUBMIT
+            </Button>
+          </div>
+        </Grid>
+        <Grid item xs={6}>
+          <FormControl component="fieldset">
+            <FormLabel component="legend">Academic Program</FormLabel>
+            <FormGroup>
+              {selected
+                ? selected.map((item) => <p> {item.Name}</p>)
+                : available.map((item) => (
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          onChange={handleChangeCheckbox}
+                          value={item.Id}
+                        />
+                      }
+                      label={item.Name}
+                    />
+                  ))}
+            </FormGroup>
+          </FormControl>
+        </Grid>
+      </Grid>
+    </Form>
+  );
+};
+
+export default AcademicFacultyForm;

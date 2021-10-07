@@ -11,8 +11,8 @@ const AcademicFaculty = lazy(() => import("./academicFaculty/AcademicFaculty"));
 const AcademicProgram = lazy(() => import("./academicProgram/AcademicProgram"));
 const AcademicSection = lazy(() => import("./academicSection/AcademicSection"));
 const AcademicSubject = lazy(() => import("./academicSubject/AcademicSubject"));
-const AcademicYearCalender = lazy(() =>
-  import("./academicYearCalender/AcademicYearCalender")
+const AcademicYearCalendar = lazy(() =>
+  import("./academicYearCalendar/AcademicYearCalendar")
 );
 const AssignFacultySubject = lazy(() =>
   import("./assignFacultySubject/AssignFacultySubject")
@@ -149,7 +149,7 @@ const AcademicConfiguration = () => {
           <AcademicYear />
         </TabPanel>
         <TabPanel value={value} index={6}>
-          <AcademicYearCalender />
+          <AcademicYearCalendar />
         </TabPanel>
         <TabPanel value={value} index={7}>
           <AssignFacultySubject />

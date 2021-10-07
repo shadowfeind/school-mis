@@ -5,6 +5,7 @@ import {
   makeStyles,
   TableBody,
   Toolbar,
+  Grid,
 } from "@material-ui/core";
 import useCustomTable from "../../../customHooks/useCustomTable";
 import InputControl from "../../../components/controls/InputControl";
@@ -15,17 +16,10 @@ import CustomContainer from "../../../components/CustomContainer";
 import { useDispatch, useSelector } from "react-redux";
 import Notification from "../../../components/Notification";
 import ConfirmDialog from "../../../components/ConfirmDialog";
-import {
-  ACADEMIC_FACULTY_CREATE_RESET,
-  GET_SINGLE_ACADEMIC_FACULTY_RESET,
-} from "./AcademicFacultyConstants";
-import {
-  getAcademicFacultyOptionAction,
-  getAllAcademicFacultyAction,
-  getSingleAcademicFacultyAction,
-} from "./AcademicFacultyActions";
-import AcademicFacultyForm from "./AcademicFacultyForm";
-import AcademicFacultyTableCollapse from "./AcademicFacultyTableCollapse";
+import { GET_SINGLE_ACADEMIC_YEAR_CALENDAR_RESET } from "./AcademicYearCalendarConstant";
+import AcademicYearCalendarTableCollapse from "./AcademicYearCalendarTableCollapse";
+import { getAllAcademicYearCalendarAction } from "./AcademicYearCalendarActions";
+import SelectControl from "../../../components/controls/SelectControl";
 
 const useStyles = makeStyles((theme) => ({
   searchInput: {
@@ -36,18 +30,21 @@ const useStyles = makeStyles((theme) => ({
     position: "absolute",
     right: "10px",
   },
+  customInput: {
+    minWidth: "200px",
+  },
 }));
 
 const tableHeader = [
-  { id: "Header", label: "Academic Header" },
-  { id: "TotalLevel", label: "Total Level" },
-  { id: "IsActive", label: "IsActive" },
-  { id: "LevelMOU", label: "Level MOU" },
-  { id: "TotalSeat", label: "Total Seat" },
+  { id: "EventName", label: "Event Name" },
+  { id: "EventType", label: "Event Type" },
+  { id: "EventStatus", label: "Event Status" },
+  { id: "FromDate", label: "From Date" },
+  { id: "ToDate", label: "To Date" },
   { id: "actions", label: "Actions", disableSorting: true },
 ];
 
-const AcademicFaculty = () => {
+const AcademicYearCalendar = () => {
   const [tableData, setTableData] = useState([]);
   const [filterFn, setFilterFn] = useState({
     fn: (item) => {
@@ -70,47 +67,31 @@ const AcademicFaculty = () => {
 
   const dispatch = useDispatch();
 
-  const { loading, academicFaculty } = useSelector(
-    (state) => state.academicFaculty
+  const { loading, academicYearCalendar } = useSelector(
+    (state) => state.academicYearCalendar
+  );
+  const { success: createAcademicYearCalendarSuccess } = useSelector(
+    (state) => state.createAcademicYearCalendar
   );
 
-  const { success: createAcademicFacultySuccess } = useSelector(
-    (state) => state.createAcademicFaculty
+  const { singleAcademicYearCalendar } = useSelector(
+    (state) => state.getSingleAcademicYearCalendar
   );
 
-  const { singleAcademicFaculty } = useSelector(
-    (state) => state.getSingleAcademicFaculty
-  );
-
-  // const { success: updateSingleAcademicFacultySuccess } = useSelector(
-  //   (state) => state.updateSingleAcademicFaculty
-  // );
-
-  if (createAcademicFacultySuccess) {
-    dispatch(getAllAcademicFacultyAction());
-    setNotify({
-      isOpen: true,
-      message: "Created Succesfully",
-      type: "success",
-    });
-    setOpenPopup(false);
-    dispatch({ type: ACADEMIC_FACULTY_CREATE_RESET });
-  }
-
-  // if (updateSingleAcademicProgramSuccess) {
-  //   dispatch(getAllAcademicProgramAction());
+  // if (createAcademicYearCalendarSuccess) {
+  //   dispatch(getAllAcademicYearCalendarAction());
   //   setNotify({
   //     isOpen: true,
-  //     message: "Updated Succesfully",
+  //     message: "Created Succesfully",
   //     type: "success",
   //   });
   //   setOpenPopup(false);
-  //   dispatch({ type: UPDATE_SINGLE_ACADEMIC_PROGRAM_RESET });
+  //   dispatch({ type: ACADEMIC_YEAR_CREATE_RESET });
   // }
 
   const updateCollegeHandler = (id) => {
-    dispatch(getSingleAcademicFacultyAction(id));
-    setOpenPopup(true);
+    // dispatch(getSingleAcademicYearAction(id));
+    // setOpenPopup(true);
   };
 
   const deleteCollegeHandler = (id) => {
@@ -122,17 +103,13 @@ const AcademicFaculty = () => {
   };
 
   useEffect(() => {
-    if (!academicFaculty) {
-      dispatch(getAllAcademicFacultyAction());
+    if (!academicYearCalendar) {
+      dispatch(getAllAcademicYearCalendarAction());
     }
-    if (academicFaculty) {
-      setTableData(academicFaculty.dbModelLst);
+    if (academicYearCalendar) {
+      setTableData(academicYearCalendar.dbModelLst);
     }
-  }, [dispatch, academicFaculty]);
-
-  useEffect(() => {
-    dispatch(getAcademicFacultyOptionAction());
-  }, []);
+  }, [dispatch, academicYearCalendar]);
 
   const {
     TableContainer,
@@ -148,7 +125,7 @@ const AcademicFaculty = () => {
           return item;
         } else {
           return item.filter((x) =>
-            x.Header.toLowerCase().includes(e.target.value)
+            x.EventName.toLowerCase().includes(e.target.value)
           );
         }
       },
@@ -156,12 +133,68 @@ const AcademicFaculty = () => {
   };
 
   const addHandler = () => {
-    dispatch({ type: GET_SINGLE_ACADEMIC_FACULTY_RESET });
+    dispatch({ type: GET_SINGLE_ACADEMIC_YEAR_CALENDAR_RESET });
     setOpenPopup(true);
   };
+
+  const gender = [
+    { Key: "male", Value: "Male" },
+    { Key: "female", Value: "Female" },
+  ];
+
   return (
     <>
       <CustomContainer>
+        <Toolbar>
+          <Grid container style={{ fontSize: "12px" }}>
+            <Grid item xs={3}>
+              <SelectControl
+                name="Sex"
+                label="Academic Year"
+                // value={values.Sex}
+                // onChange={handleInputChange}
+                style={{ minWidth: "100%" }}
+                options={gender}
+              />
+            </Grid>
+            <Grid item xs={3}>
+              <SelectControl
+                name="Sex"
+                label="Program/Faculty"
+                // value={values.Sex}
+                // onChange={handleInputChange}
+                options={gender}
+              />
+            </Grid>
+            <Grid item xs={3}>
+              <SelectControl
+                name="Sex"
+                label="Classes"
+                // value={values.Sex}
+                // onChange={handleInputChange}
+                options={gender}
+              />
+            </Grid>
+            <Grid item xs={3}>
+              <Button
+                variant="contained"
+                color="primary"
+                type="submit"
+                style={{ margin: "10px 0 0 10px" }}
+              >
+                CREATE
+              </Button>
+              <Button
+                variant="contained"
+                color="primary"
+                type="submit"
+                style={{ margin: "10px 0 0 10px" }}
+              >
+                SEARCH
+              </Button>
+            </Grid>
+          </Grid>
+        </Toolbar>
         <Toolbar>
           <InputControl
             className={classes.searchInput}
@@ -175,7 +208,7 @@ const AcademicFaculty = () => {
             }}
             onChange={handleSearch}
           />
-          <Button
+          {/* <Button
             variant="contained"
             color="primary"
             startIcon={<AddIcon />}
@@ -183,16 +216,16 @@ const AcademicFaculty = () => {
             onClick={addHandler}
           >
             Add{" "}
-          </Button>
+          </Button> */}
         </Toolbar>
         <TableContainer className={classes.table}>
           <TblHead />
           {/* {loading ? (
-            <div></div>
-          ) : ( */}
+        <div></div>
+      ) : ( */}
           <TableBody>
             {tableDataAfterPagingAndSorting().map((item) => (
-              <AcademicFacultyTableCollapse
+              <AcademicYearCalendarTableCollapse
                 item={item}
                 key={item.id}
                 updateCollegeHandler={updateCollegeHandler}
@@ -209,12 +242,10 @@ const AcademicFaculty = () => {
         setOpenPopup={setOpenPopup}
         title="Academic Faculty Form"
       >
-        <AcademicFacultyForm
-          academicFaculty={
-            singleAcademicFaculty && singleAcademicFaculty.dbModel
-          }
-          selected={singleAcademicFaculty && singleAcademicFaculty.selected}
-        />
+        {/* <AcademicYearForm
+      academicYear={singleAcademicYear && singleAcademicYear.dbModel}
+      selected={singleAcademicYear && singleAcademicYear.selected}
+    /> */}
       </Popup>
       <Notification notify={notify} setNotify={setNotify} />
       <ConfirmDialog
@@ -225,4 +256,4 @@ const AcademicFaculty = () => {
   );
 };
 
-export default AcademicFaculty;
+export default AcademicYearCalendar;

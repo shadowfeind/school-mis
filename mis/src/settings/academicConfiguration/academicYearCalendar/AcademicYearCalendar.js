@@ -67,7 +67,7 @@ const AcademicYearCalendar = () => {
 
   const dispatch = useDispatch();
 
-  const { loading, academicYearCalendar } = useSelector(
+  const { academicYearCalendar } = useSelector(
     (state) => state.academicYearCalendar
   );
   const { success: createAcademicYearCalendarSuccess } = useSelector(
@@ -153,7 +153,6 @@ const AcademicYearCalendar = () => {
                 label="Academic Year"
                 // value={values.Sex}
                 // onChange={handleInputChange}
-                style={{ minWidth: "100%" }}
                 options={gender}
               />
             </Grid>
@@ -161,6 +160,7 @@ const AcademicYearCalendar = () => {
               <SelectControl
                 name="Sex"
                 label="Program/Faculty"
+                className={classes.customInput}
                 // value={values.Sex}
                 // onChange={handleInputChange}
                 options={gender}
@@ -170,6 +170,7 @@ const AcademicYearCalendar = () => {
               <SelectControl
                 name="Sex"
                 label="Classes"
+                className={classes.customInput}
                 // value={values.Sex}
                 // onChange={handleInputChange}
                 options={gender}
@@ -195,6 +196,7 @@ const AcademicYearCalendar = () => {
             </Grid>
           </Grid>
         </Toolbar>
+        <div style={{ height: "15px" }}></div>
         <Toolbar>
           <InputControl
             className={classes.searchInput}
@@ -220,9 +222,7 @@ const AcademicYearCalendar = () => {
         </Toolbar>
         <TableContainer className={classes.table}>
           <TblHead />
-          {/* {loading ? (
-        <div></div>
-      ) : ( */}
+
           <TableBody>
             {tableDataAfterPagingAndSorting().map((item) => (
               <AcademicYearCalendarTableCollapse
@@ -233,7 +233,6 @@ const AcademicYearCalendar = () => {
               />
             ))}
           </TableBody>
-          {/* )} */}
         </TableContainer>
         <TblPagination />
       </CustomContainer>

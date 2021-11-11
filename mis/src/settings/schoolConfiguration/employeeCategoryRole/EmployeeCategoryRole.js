@@ -70,21 +70,51 @@ const EmployeeType = () => {
 
   const dispatch = useDispatch();
 
-  const { loading, employeeCategoryRole } = useSelector(
+  const { employeeCategoryRole, error } = useSelector(
     (state) => state.employeeCategoryRole
   );
 
-  const { success: createEmployeeCategoryRoleSuccess } = useSelector(
-    (state) => state.createEmployeeCategoryRole
-  );
+  const {
+    success: createEmployeeCategoryRoleSuccess,
+    error: createEmployeeCategoryRoleError,
+  } = useSelector((state) => state.createEmployeeCategoryRole);
 
-  const { singleEmployeeCategoryRole } = useSelector(
-    (state) => state.getSingleEmployeeCategoryRole
-  );
+  const { singleEmployeeCategoryRole, error: singleEmployeeCategoryRoleError } =
+    useSelector((state) => state.getSingleEmployeeCategoryRole);
 
-  const { success: updateSingleCategoryRoleSuccess } = useSelector(
-    (state) => state.updateSingleEmployeeCategoryRole
-  );
+  const {
+    success: updateSingleEmployeeCategoryRoleSuccess,
+    error: updateSingleEmployeeCategoryRole,
+  } = useSelector((state) => state.updateSingleEmployeeCategoryRole);
+
+  if (error) {
+    setNotify({
+      isOpen: true,
+      message: error,
+      type: "error",
+    });
+  }
+  if (createEmployeeCategoryRoleError) {
+    setNotify({
+      isOpen: true,
+      message: createEmployeeCategoryRoleError,
+      type: "error",
+    });
+  }
+  if (singleEmployeeCategoryRoleError) {
+    setNotify({
+      isOpen: true,
+      message: singleEmployeeCategoryRoleError,
+      type: "error",
+    });
+  }
+  if (updateSingleEmployeeCategoryRole) {
+    setNotify({
+      isOpen: true,
+      message: updateSingleEmployeeCategoryRole,
+      type: "error",
+    });
+  }
 
   if (createEmployeeCategoryRoleSuccess) {
     dispatch(getAllEmployeeCategoryRoleAction());
@@ -97,7 +127,7 @@ const EmployeeType = () => {
     dispatch({ type: EMPLOYEE_CATEGORY_ROLE_CREATE_RESET });
   }
 
-  if (updateSingleCategoryRoleSuccess) {
+  if (updateSingleEmployeeCategoryRoleSuccess) {
     dispatch(getAllEmployeeCategoryRoleAction());
     setNotify({
       isOpen: true,
@@ -177,16 +207,12 @@ const EmployeeType = () => {
             startIcon={<AddIcon />}
             className={classes.button}
             onClick={addHandler}
-            // onClick={() => dispatch(test())}
           >
             Add{" "}
           </Button>
         </Toolbar>
         <TableContainer className={classes.table}>
           <TblHead />
-          {/* {loading ? (
-            <div></div>
-          ) : ( */}
           <TableBody>
             {tableDataAfterPagingAndSorting().map((item) => (
               <EmployeeCategoryRoleTableCollapse
@@ -196,7 +222,6 @@ const EmployeeType = () => {
               />
             ))}
           </TableBody>
-          {/* )} */}
         </TableContainer>
         <TblPagination />
       </CustomContainer>
@@ -209,6 +234,7 @@ const EmployeeType = () => {
           employeeCategoryRole={
             singleEmployeeCategoryRole && singleEmployeeCategoryRole.dbModel
           }
+          setOpenPopup={setOpenPopup}
         />
       </Popup>
       <Notification notify={notify} setNotify={setNotify} />

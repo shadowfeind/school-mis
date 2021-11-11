@@ -70,19 +70,48 @@ const SchoolBoard = () => {
 
   const dispatch = useDispatch();
 
-  const { loading, schoolBoard } = useSelector((state) => state.schoolBoard);
+  const { schoolBoard, error } = useSelector((state) => state.schoolBoard);
 
-  const { success: createSchoolBoardSuccess } = useSelector(
-    (state) => state.createSchoolBoard
-  );
+  const { success: createSchoolBoardSuccess, error: createSchoolBoardError } =
+    useSelector((state) => state.createSchoolBoard);
 
-  const { singleSchoolBoard } = useSelector(
+  const { singleSchoolBoard, error: singleSchoolBoardError } = useSelector(
     (state) => state.getSingleSchoolBoard
   );
 
-  const { success: updateSchoolBoardSuccess } = useSelector(
-    (state) => state.updateSingleSchoolBoard
-  );
+  const {
+    success: updateSchoolBoardSuccess,
+    error: updateSingleSchoolBoardErrpr,
+  } = useSelector((state) => state.updateSingleSchoolBoard);
+
+  if (error) {
+    setNotify({
+      isOpen: true,
+      message: error,
+      type: "error",
+    });
+  }
+  if (createSchoolBoardError) {
+    setNotify({
+      isOpen: true,
+      message: createSchoolBoardError,
+      type: "error",
+    });
+  }
+  if (singleSchoolBoardError) {
+    setNotify({
+      isOpen: true,
+      message: singleSchoolBoardError,
+      type: "error",
+    });
+  }
+  if (updateSingleSchoolBoardErrpr) {
+    setNotify({
+      isOpen: true,
+      message: updateSingleSchoolBoardErrpr,
+      type: "error",
+    });
+  }
 
   if (createSchoolBoardSuccess) {
     dispatch(getAllSchoolBoardAction());
@@ -181,9 +210,7 @@ const SchoolBoard = () => {
         </Toolbar>
         <TableContainer className={classes.table}>
           <TblHead />
-          {/* {loading ? (
-            <div></div>
-          ) : ( */}
+
           <TableBody>
             {tableDataAfterPagingAndSorting().map((item) => (
               <SchoolBoardTableCollapse
@@ -193,7 +220,6 @@ const SchoolBoard = () => {
               />
             ))}
           </TableBody>
-          {/* )} */}
         </TableContainer>
         <TblPagination />
       </CustomContainer>
@@ -204,6 +230,7 @@ const SchoolBoard = () => {
       >
         <SchoolBoardForm
           schoolBoard={singleSchoolBoard && singleSchoolBoard.dbModel}
+          setOpenPopup={setOpenPopup}
         />
       </Popup>
       <Notification notify={notify} setNotify={setNotify} />

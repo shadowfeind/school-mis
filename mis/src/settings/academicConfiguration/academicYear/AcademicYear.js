@@ -70,19 +70,40 @@ const AcademicYear = () => {
 
   const dispatch = useDispatch();
 
-  const { loading, academicYear } = useSelector((state) => state.academicYear);
+  const { academicYear, error } = useSelector((state) => state.academicYear);
 
-  const { success: createAcademicYearSuccess } = useSelector(
-    (state) => state.createAcademicYear
-  );
+  const { success: createAcademicYearSuccess, error: createAcademicYearError } =
+    useSelector((state) => state.createAcademicYear);
 
-  const { singleAcademicYear } = useSelector(
+  const { singleAcademicYear, error: singleAcademicYearError } = useSelector(
     (state) => state.getSingleAcademicYear
   );
 
   // const { success: updateSingleAcademicYearSuccess } = useSelector(
   //   (state) => state.updateSingleAcademicYear
   // );
+
+  if (error) {
+    setNotify({
+      isOpen: true,
+      message: error,
+      type: "error",
+    });
+  }
+  if (createAcademicYearError) {
+    setNotify({
+      isOpen: true,
+      message: createAcademicYearError,
+      type: "error",
+    });
+  }
+  if (singleAcademicYearError) {
+    setNotify({
+      isOpen: true,
+      message: singleAcademicYearError,
+      type: "error",
+    });
+  }
 
   if (createAcademicYearSuccess) {
     dispatch(getAllAcademicYearAction());
@@ -185,9 +206,7 @@ const AcademicYear = () => {
         </Toolbar>
         <TableContainer className={classes.table}>
           <TblHead />
-          {/* {loading ? (
-            <div></div>
-          ) : ( */}
+
           <TableBody>
             {tableDataAfterPagingAndSorting().map((item) => (
               <AcademicYearTableCollapse
@@ -198,18 +217,18 @@ const AcademicYear = () => {
               />
             ))}
           </TableBody>
-          {/* )} */}
         </TableContainer>
         <TblPagination />
       </CustomContainer>
       <Popup
         openPopup={openPopup}
         setOpenPopup={setOpenPopup}
-        title="Academic Faculty Form"
+        title="Academic Year Form"
       >
         <AcademicYearForm
           academicYear={singleAcademicYear && singleAcademicYear.dbModel}
           selected={singleAcademicYear && singleAcademicYear.selected}
+          setOpenPopup={setOpenPopup}
         />
       </Popup>
       <Notification notify={notify} setNotify={setNotify} />

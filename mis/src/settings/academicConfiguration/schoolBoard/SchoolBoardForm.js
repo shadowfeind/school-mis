@@ -19,7 +19,7 @@ const initialFormValues = {
   Updated_On: "2021-09-23",
 };
 
-const SchoolBoardForm = ({ schoolBoard }) => {
+const SchoolBoardForm = ({ schoolBoard, setOpenPopup }) => {
   const dispatch = useDispatch();
   const validate = (fieldValues = values) => {
     let temp = { ...errors };
@@ -75,16 +75,6 @@ const SchoolBoardForm = ({ schoolBoard }) => {
             onChange={handleInputChange}
             errors={errors.IsActive}
           />
-          <div>
-            <Button
-              variant="contained"
-              color="primary"
-              type="submit"
-              style={{ margin: "10px 0 0 10px" }}
-            >
-              SUBMIT
-            </Button>
-          </div>
         </Grid>
         <Grid item xs={6}>
           <InputControl
@@ -96,6 +86,32 @@ const SchoolBoardForm = ({ schoolBoard }) => {
           />
         </Grid>
       </Grid>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "end",
+          paddingTop: "10px",
+          marginTop: "10px",
+          borderTop: "1px solid #f3f3f3",
+        }}
+      >
+        <Button
+          variant="contained"
+          color="secondary"
+          onClick={() => setOpenPopup(false)}
+          style={{ margin: "10px 0 0 10px" }}
+        >
+          CANCEL
+        </Button>
+        <Button
+          variant="contained"
+          color="primary"
+          type="submit"
+          style={{ margin: "10px 0 0 10px" }}
+        >
+          SUBMIT
+        </Button>
+      </div>
     </Form>
   );
 };

@@ -73,17 +73,30 @@ const Holiday = () => {
 
   const dispatch = useDispatch();
 
-  const { loading, holiday } = useSelector((state) => state.holiday);
+  const { holiday, error } = useSelector((state) => state.holiday);
 
-  const { success: createHolidaySuccess } = useSelector(
-    (state) => state.createHoliday
-  );
+  const { success: createHolidaySuccess, error: createHolidayError } =
+    useSelector((state) => state.createHoliday);
 
   const { singleHoliday } = useSelector((state) => state.getSingleHoliday);
 
   const { success: updateSingleHolidaySuccess } = useSelector(
     (state) => state.updateSingleHoliday
   );
+  if (error) {
+    setNotify({
+      isOpen: true,
+      message: error,
+      type: "error",
+    });
+  }
+  if (createHolidayError) {
+    setNotify({
+      isOpen: true,
+      message: createHolidayError,
+      type: "error",
+    });
+  }
 
   if (createHolidaySuccess) {
     dispatch(getAllHolidayAction());
@@ -159,18 +172,6 @@ const Holiday = () => {
     <>
       <CustomContainer>
         <Toolbar>
-          {/* <InputControl
-            className={classes.searchInput}
-            label="Search Holiday"
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <Search />
-                </InputAdornment>
-              ),
-            }}
-            onChange={handleSearch}
-          /> */}
           <Button
             variant="contained"
             color="primary"
@@ -190,30 +191,16 @@ const Holiday = () => {
           views={months}
           style={{ height: "60vh" }}
         />
-        {/* <TableContainer className={classes.table}>
-          <TblHead /> */}
-        {/* {loading ? (
-            <div></div>
-          ) : ( */}
-        {/* <TableBody>
-            {tableDataAfterPagingAndSorting().map((item) => (
-              <HolidayTableCollapse
-                item={item}
-                updateCollegeHandler={updateCollegeHandler}
-                deleteCollegeHandler={deleteCollegeHandler}
-              />
-            ))}
-          </TableBody> */}
-        {/* )} */}
-        {/* </TableContainer>
-        <TblPagination /> */}
       </CustomContainer>
       <Popup
         openPopup={openPopup}
         setOpenPopup={setOpenPopup}
-        title="Employee Type Form"
+        title="Holiday Form"
       >
-        <HolidayForm holiday={singleHoliday && singleHoliday.hrHolidayModel} />
+        <HolidayForm
+          holiday={singleHoliday && singleHoliday.hrHolidayModel}
+          setOpenPopup={setOpenPopup}
+        />
       </Popup>
       <Notification notify={notify} setNotify={setNotify} />
       <ConfirmDialog

@@ -68,17 +68,47 @@ const Role = () => {
 
   const dispatch = useDispatch();
 
-  const { loading, role } = useSelector((state) => state.role);
+  const { role, error } = useSelector((state) => state.role);
 
-  const { success: createRoleSuccess } = useSelector(
+  const { success: createRoleSuccess, error: createRoleError } = useSelector(
     (state) => state.createRole
   );
 
-  const { singleRole } = useSelector((state) => state.getSingleRole);
-
-  const { success: updateSingleRoleSuccess } = useSelector(
-    (state) => state.updateSingleRole
+  const { singleRole, error: singleRoleError } = useSelector(
+    (state) => state.getSingleRole
   );
+
+  const { success: updateSingleRoleSuccess, error: updateSingleRoleError } =
+    useSelector((state) => state.updateSingleRole);
+
+  if (error) {
+    setNotify({
+      isOpen: true,
+      message: error,
+      type: "error",
+    });
+  }
+  if (createRoleError) {
+    setNotify({
+      isOpen: true,
+      message: createRoleError,
+      type: "error",
+    });
+  }
+  if (singleRoleError) {
+    setNotify({
+      isOpen: true,
+      message: singleRoleError,
+      type: "error",
+    });
+  }
+  if (updateSingleRoleError) {
+    setNotify({
+      isOpen: true,
+      message: updateSingleRoleError,
+      type: "error",
+    });
+  }
 
   if (createRoleSuccess) {
     dispatch(getAllRolesAction());
@@ -171,26 +201,22 @@ const Role = () => {
             startIcon={<AddIcon />}
             className={classes.button}
             onClick={addHandler}
-            // onClick={() => dispatch(test())}
           >
             Add{" "}
           </Button>
         </Toolbar>
         <TableContainer className={classes.table}>
           <TblHead />
-          {loading ? (
-            <div></div>
-          ) : (
-            <TableBody>
-              {tableDataAfterPagingAndSorting().map((item) => (
-                <RoleTableCollapse
-                  item={item}
-                  updateCollegeHandler={updateCollegeHandler}
-                  deleteCollegeHandler={deleteCollegeHandler}
-                />
-              ))}
-            </TableBody>
-          )}
+
+          <TableBody>
+            {tableDataAfterPagingAndSorting().map((item) => (
+              <RoleTableCollapse
+                item={item}
+                updateCollegeHandler={updateCollegeHandler}
+                deleteCollegeHandler={deleteCollegeHandler}
+              />
+            ))}
+          </TableBody>
         </TableContainer>
         <TblPagination />
       </CustomContainer>
@@ -199,7 +225,10 @@ const Role = () => {
         setOpenPopup={setOpenPopup}
         title="Employee Role Form"
       >
-        <RoleForm role={singleRole && singleRole.hrRoleModel} />
+        <RoleForm
+          role={singleRole && singleRole.hrRoleModel}
+          setOpenPopup={setOpenPopup}
+        />
       </Popup>
       <Notification notify={notify} setNotify={setNotify} />
       <ConfirmDialog

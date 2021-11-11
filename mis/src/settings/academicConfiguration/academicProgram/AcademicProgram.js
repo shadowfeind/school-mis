@@ -71,21 +71,50 @@ const AcademicProgram = () => {
 
   const dispatch = useDispatch();
 
-  const { loading, academicProgram } = useSelector(
+  const { academicProgram, error } = useSelector(
     (state) => state.academicProgram
   );
 
-  const { success: createAcademicProgramSuccess } = useSelector(
-    (state) => state.createAcademicProgram
-  );
+  const {
+    success: createAcademicProgramSuccess,
+    error: createAcademicProgramError,
+  } = useSelector((state) => state.createAcademicProgram);
 
-  const { singleAcademicProgram } = useSelector(
-    (state) => state.getSingleAcademicProgram
-  );
+  const { singleAcademicProgram, error: singleAcademicProgramError } =
+    useSelector((state) => state.getSingleAcademicProgram);
 
-  const { success: updateSingleAcademicProgramSuccess } = useSelector(
-    (state) => state.updateSingleAcademicProgram
-  );
+  const {
+    success: updateSingleAcademicProgramSuccess,
+    error: updateSingleAcademicProgramErrpr,
+  } = useSelector((state) => state.updateSingleAcademicProgram);
+  if (error) {
+    setNotify({
+      isOpen: true,
+      message: error,
+      type: "error",
+    });
+  }
+  if (createAcademicProgramError) {
+    setNotify({
+      isOpen: true,
+      message: createAcademicProgramError,
+      type: "error",
+    });
+  }
+  if (singleAcademicProgramError) {
+    setNotify({
+      isOpen: true,
+      message: singleAcademicProgramError,
+      type: "error",
+    });
+  }
+  if (updateSingleAcademicProgramErrpr) {
+    setNotify({
+      isOpen: true,
+      message: updateSingleAcademicProgramErrpr,
+      type: "error",
+    });
+  }
 
   if (createAcademicProgramSuccess) {
     dispatch(getAllAcademicProgramAction());
@@ -215,6 +244,7 @@ const AcademicProgram = () => {
             singleAcademicProgram && singleAcademicProgram.dbModel
           }
           selected={singleAcademicProgram && singleAcademicProgram.selected}
+          setOpenPopup={setOpenPopup}
         />
       </Popup>
       <Notification notify={notify} setNotify={setNotify} />

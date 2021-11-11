@@ -23,8 +23,8 @@ const Popup = ({ title, children, openPopup, setOpenPopup }) => {
   return (
     <Dialog maxWidth="md" open={openPopup}>
       <DialogTitle>
-        <div style={{ display: "flex" }}>
-          <h5 style={{ flexGrow: 1 }}>{title}</h5>{" "}
+        <div style={{ display: "flex", justifyContent: "center" }}>
+          <h5 style={{ flexGrow: 1, margin: "10px 0" }}>{title}</h5>{" "}
           <Button
             variant="contained"
             color="secondary"

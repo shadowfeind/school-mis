@@ -71,17 +71,48 @@ const Employee = () => {
 
   const dispatch = useDispatch();
 
-  const { loading, employee } = useSelector((state) => state.employee);
+  const { employee, error } = useSelector((state) => state.employee);
 
-  const { success: employeeCreateSuccess } = useSelector(
-    (state) => state.createEmployee
+  const { success: employeeCreateSuccess, error: employeeCreateError } =
+    useSelector((state) => state.createEmployee);
+
+  const { singleEmployee, error: singleEmployeeError } = useSelector(
+    (state) => state.getSingleEmployee
   );
 
-  const { singleEmployee } = useSelector((state) => state.getSingleEmployee);
+  const {
+    success: updateSingleEmployeeSuccess,
+    error: updateSingleEmployeeError,
+  } = useSelector((state) => state.updateSingleEmployee);
 
-  const { success: updateSingleEmployeeSuccess } = useSelector(
-    (state) => state.updateSingleEmployee
-  );
+  if (error) {
+    setNotify({
+      isOpen: true,
+      message: error,
+      type: "error",
+    });
+  }
+  if (employeeCreateError) {
+    setNotify({
+      isOpen: true,
+      message: employeeCreateError,
+      type: "error",
+    });
+  }
+  if (singleEmployeeError) {
+    setNotify({
+      isOpen: true,
+      message: singleEmployeeError,
+      type: "error",
+    });
+  }
+  if (updateSingleEmployeeError) {
+    setNotify({
+      isOpen: true,
+      message: updateSingleEmployeeError,
+      type: "error",
+    });
+  }
 
   if (employeeCreateSuccess) {
     dispatch(getAllEmployeeAction());
@@ -184,19 +215,16 @@ const Employee = () => {
         </Toolbar>
         <TableContainer className={classes.table}>
           <TblHead />
-          {loading ? (
-            <div></div>
-          ) : (
-            <TableBody>
-              {tableDataAfterPagingAndSorting().map((item) => (
-                <EmployeeTableCollapse
-                  item={item}
-                  updateCollegeHandler={updateCollegeHandler}
-                  deleteCollegeHandler={deleteCollegeHandler}
-                />
-              ))}
-            </TableBody>
-          )}
+
+          <TableBody>
+            {tableDataAfterPagingAndSorting().map((item) => (
+              <EmployeeTableCollapse
+                item={item}
+                updateCollegeHandler={updateCollegeHandler}
+                deleteCollegeHandler={deleteCollegeHandler}
+              />
+            ))}
+          </TableBody>
         </TableContainer>
         <TblPagination />
       </CustomContainer>
@@ -207,6 +235,7 @@ const Employee = () => {
       >
         <EmployeeForm
           employee={singleEmployee && singleEmployee.hrEmployeeModel}
+          setOpenPopup={setOpenPopup}
         />
       </Popup>
       <Notification notify={notify} setNotify={setNotify} />

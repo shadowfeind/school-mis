@@ -70,21 +70,43 @@ const AcademicFaculty = () => {
 
   const dispatch = useDispatch();
 
-  const { loading, academicFaculty } = useSelector(
+  const { academicFaculty, error } = useSelector(
     (state) => state.academicFaculty
   );
 
-  const { success: createAcademicFacultySuccess } = useSelector(
-    (state) => state.createAcademicFaculty
-  );
+  const {
+    success: createAcademicFacultySuccess,
+    error: createAcademicFacultyError,
+  } = useSelector((state) => state.createAcademicFaculty);
 
-  const { singleAcademicFaculty } = useSelector(
-    (state) => state.getSingleAcademicFaculty
-  );
+  const { singleAcademicFaculty, error: singleAcademicFacultyError } =
+    useSelector((state) => state.getSingleAcademicFaculty);
 
   // const { success: updateSingleAcademicFacultySuccess } = useSelector(
   //   (state) => state.updateSingleAcademicFaculty
   // );
+
+  if (error) {
+    setNotify({
+      isOpen: true,
+      message: error,
+      type: "error",
+    });
+  }
+  if (createAcademicFacultyError) {
+    setNotify({
+      isOpen: true,
+      message: createAcademicFacultyError,
+      type: "error",
+    });
+  }
+  if (singleAcademicFacultyError) {
+    setNotify({
+      isOpen: true,
+      message: singleAcademicFacultyError,
+      type: "error",
+    });
+  }
 
   if (createAcademicFacultySuccess) {
     dispatch(getAllAcademicFacultyAction());
@@ -187,9 +209,7 @@ const AcademicFaculty = () => {
         </Toolbar>
         <TableContainer className={classes.table}>
           <TblHead />
-          {/* {loading ? (
-            <div></div>
-          ) : ( */}
+
           <TableBody>
             {tableDataAfterPagingAndSorting().map((item) => (
               <AcademicFacultyTableCollapse
@@ -200,7 +220,6 @@ const AcademicFaculty = () => {
               />
             ))}
           </TableBody>
-          {/* )} */}
         </TableContainer>
         <TblPagination />
       </CustomContainer>
@@ -214,6 +233,7 @@ const AcademicFaculty = () => {
             singleAcademicFaculty && singleAcademicFaculty.dbModel
           }
           selected={singleAcademicFaculty && singleAcademicFaculty.selected}
+          setOpenPopup={setOpenPopup}
         />
       </Popup>
       <Notification notify={notify} setNotify={setNotify} />

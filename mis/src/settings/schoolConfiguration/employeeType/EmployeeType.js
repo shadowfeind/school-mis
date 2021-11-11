@@ -70,19 +70,51 @@ const EmployeeType = () => {
 
   const dispatch = useDispatch();
 
-  const { loading, employeeType } = useSelector((state) => state.employeeType);
+  const { employeeType, error } = useSelector((state) => state.employeeType);
 
-  const { success: createEmployeeTypeSuccess } = useSelector(
-    (state) => state.createEmployeeType
-  );
+  const { success: createEmployeeTypeSuccess, error: createEmployeeTypeError } =
+    useSelector((state) => state.createEmployeeType);
 
-  const { singleEmployeeType } = useSelector(
+  const { singleEmployeeType, error: singleEmployeeTypeError } = useSelector(
     (state) => state.getSingleEmployeeType
   );
 
-  const { success: updateSingleEmployeeTypeSuccess } = useSelector(
-    (state) => state.updateSingleEmployeeType
-  );
+  const {
+    success: updateSingleEmployeeTypeSuccess,
+    updateSingleEmployeeTypeError,
+  } = useSelector((state) => state.updateSingleEmployeeType);
+
+  if (error) {
+    setNotify({
+      isOpen: true,
+      message: error,
+      type: "error",
+    });
+  }
+
+  if (createEmployeeTypeError) {
+    setNotify({
+      isOpen: true,
+      message: createEmployeeTypeError,
+      type: "error",
+    });
+  }
+
+  if (singleEmployeeTypeError) {
+    setNotify({
+      isOpen: true,
+      message: singleEmployeeTypeError,
+      type: "error",
+    });
+  }
+
+  if (updateSingleEmployeeTypeError) {
+    setNotify({
+      isOpen: true,
+      message: updateSingleEmployeeTypeError,
+      type: "error",
+    });
+  }
 
   if (createEmployeeTypeSuccess) {
     dispatch(getAllEmployeeTypeAction());
@@ -175,16 +207,13 @@ const EmployeeType = () => {
             startIcon={<AddIcon />}
             className={classes.button}
             onClick={addHandler}
-            // onClick={() => dispatch(test())}
           >
             Add{" "}
           </Button>
         </Toolbar>
         <TableContainer className={classes.table}>
           <TblHead />
-          {/* {loading ? (
-            <div></div>
-          ) : ( */}
+
           <TableBody>
             {tableDataAfterPagingAndSorting().map((item) => (
               <EmployeeTypeTableCollapse
@@ -194,7 +223,6 @@ const EmployeeType = () => {
               />
             ))}
           </TableBody>
-          {/* )} */}
         </TableContainer>
         <TblPagination />
       </CustomContainer>
@@ -207,6 +235,7 @@ const EmployeeType = () => {
           employeeType={
             singleEmployeeType && singleEmployeeType.hrEmployeeTypeModel
           }
+          setOpenPopup={setOpenPopup}
         />
       </Popup>
       <Notification notify={notify} setNotify={setNotify} />

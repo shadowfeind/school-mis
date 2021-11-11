@@ -16,7 +16,11 @@ const SelectControl = ({
   options,
 }) => {
   return (
-    <FormControl variant="outlined" {...(errors && { error: true })}>
+    <FormControl
+      style={{ minWidth: "80%" }}
+      variant="outlined"
+      {...(errors && { error: true })}
+    >
       <InputLabel>{label}</InputLabel>
       <Select label={label} name={name} value={value} onChange={onChange}>
         <MenuItem value="">None</MenuItem>

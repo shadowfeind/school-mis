@@ -71,19 +71,27 @@ const Position = () => {
 
   const dispatch = useDispatch();
 
-  const { loading, position } = useSelector((state) => state.position);
+  const { position, error } = useSelector((state) => state.position);
 
-  const { success: createPositionSuccess } = useSelector(
-    (state) => state.createPosition
-  );
+  const { success: createPositionSuccess, error: createPositionError } =
+    useSelector((state) => state.createPosition);
 
-  const { position: singlePosition } = useSelector(
+  const { position: singlePosition, error: singlePositionError } = useSelector(
     (state) => state.getSinglePosition
   );
 
-  const { success: updateSinglePositionSuccess } = useSelector(
-    (state) => state.updateSinglePosition
-  );
+  const {
+    success: updateSinglePositionSuccess,
+    error: updateSinglePositionError,
+  } = useSelector((state) => state.updateSinglePosition);
+
+  if (error) {
+    setNotify({
+      isOpen: true,
+      message: error,
+      type: "error",
+    });
+  }
 
   if (createPositionSuccess) {
     dispatch(getAllPositionAction());
@@ -96,6 +104,22 @@ const Position = () => {
     dispatch({ type: POSITION_CREATE_RESET });
   }
 
+  if (createPositionError) {
+    setNotify({
+      isOpen: true,
+      message: createPositionError,
+      type: "error",
+    });
+  }
+
+  if (singlePositionError) {
+    setNotify({
+      isOpen: true,
+      message: singlePositionError,
+      type: "error",
+    });
+  }
+
   if (updateSinglePositionSuccess) {
     dispatch(getAllPositionAction());
     setNotify({
@@ -105,6 +129,14 @@ const Position = () => {
     });
     setOpenPopup(false);
     dispatch({ type: UPDATE_SINGLE_POSITION_RESET });
+  }
+
+  if (updateSinglePositionError) {
+    setNotify({
+      isOpen: true,
+      message: updateSinglePositionError,
+      type: "error",
+    });
   }
 
   const updateCollegeHandler = (id) => {
@@ -182,9 +214,7 @@ const Position = () => {
         </Toolbar>
         <TableContainer className={classes.table}>
           <TblHead />
-          {/* {loading ? (
-            <div></div>
-          ) : ( */}
+
           <TableBody>
             {tableDataAfterPagingAndSorting().map((item) => (
               <PositionTableCollapse
@@ -194,16 +224,18 @@ const Position = () => {
               />
             ))}
           </TableBody>
-          {/* )} */}
         </TableContainer>
         <TblPagination />
       </CustomContainer>
       <Popup
         openPopup={openPopup}
         setOpenPopup={setOpenPopup}
-        title="School Settings Form"
+        title="Position Form"
       >
-        <PositionForm position={singlePosition && singlePosition.dbModel} />
+        <PositionForm
+          position={singlePosition && singlePosition.dbModel}
+          setOpenPopup={setOpenPopup}
+        />
       </Popup>
       <Notification notify={notify} setNotify={setNotify} />
       <ConfirmDialog

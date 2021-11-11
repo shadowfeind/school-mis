@@ -71,21 +71,49 @@ const AcademicSection = () => {
 
   const dispatch = useDispatch();
 
-  const { loading, academicSection } = useSelector(
+  const { academicSection, error } = useSelector(
     (state) => state.academicSection
   );
 
-  const { success: createAcademicSection } = useSelector(
-    (state) => state.createAcademicSection
-  );
+  const { success: createAcademicSection, error: createAcademicSectionError } =
+    useSelector((state) => state.createAcademicSection);
 
-  const { singleAcademicSection } = useSelector(
-    (state) => state.getSingleAcademicSection
-  );
+  const { singleAcademicSection, error: singleAcademicSectionError } =
+    useSelector((state) => state.getSingleAcademicSection);
 
-  const { success: updateAcademicSectionSuccess } = useSelector(
-    (state) => state.updateSingleAcademicSection
-  );
+  const {
+    success: updateAcademicSectionSuccess,
+    error: updateSingleAcademicSectionError,
+  } = useSelector((state) => state.updateSingleAcademicSection);
+
+  if (error) {
+    setNotify({
+      isOpen: true,
+      message: error,
+      type: "error",
+    });
+  }
+  if (createAcademicSectionError) {
+    setNotify({
+      isOpen: true,
+      message: createAcademicSectionError,
+      type: "error",
+    });
+  }
+  if (singleAcademicSectionError) {
+    setNotify({
+      isOpen: true,
+      message: singleAcademicSectionError,
+      type: "error",
+    });
+  }
+  if (updateSingleAcademicSectionError) {
+    setNotify({
+      isOpen: true,
+      message: updateSingleAcademicSectionError,
+      type: "error",
+    });
+  }
 
   if (createAcademicSection) {
     dispatch(getAllAcademicSectionAction());
@@ -185,9 +213,7 @@ const AcademicSection = () => {
         </Toolbar>
         <TableContainer className={classes.table}>
           <TblHead />
-          {/* {loading ? (
-            <div></div>
-          ) : ( */}
+
           <TableBody>
             {tableDataAfterPagingAndSorting().map((item) => (
               <AcademicSectionTableCollapse
@@ -198,19 +224,19 @@ const AcademicSection = () => {
               />
             ))}
           </TableBody>
-          {/* )} */}
         </TableContainer>
         <TblPagination />
       </CustomContainer>
       <Popup
         openPopup={openPopup}
         setOpenPopup={setOpenPopup}
-        title="School Settings Form"
+        title="Academic Section Form"
       >
         <AcademicSectinoForm
           academicSection={
             singleAcademicSection && singleAcademicSection.dbModel
           }
+          setOpenPopup={setOpenPopup}
         />
       </Popup>
       <Notification notify={notify} setNotify={setNotify} />

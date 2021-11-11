@@ -70,21 +70,50 @@ const AcademicClass = () => {
 
   const dispatch = useDispatch();
 
-  const { loading, academicClass } = useSelector(
-    (state) => state.academicClass
-  );
+  const { academicClass, error } = useSelector((state) => state.academicClass);
 
-  const { success: academicClassCreateSuccess } = useSelector(
-    (state) => state.createAcademicClass
-  );
+  const {
+    success: academicClassCreateSuccess,
+    error: academicClassCreateError,
+  } = useSelector((state) => state.createAcademicClass);
 
-  const { singleAcademicClass } = useSelector(
+  const { singleAcademicClass, error: singleAcademicClassError } = useSelector(
     (state) => state.getSingleAcademicClass
   );
 
-  const { success: updateSingleAcademicClassSuccess } = useSelector(
-    (state) => state.updateSingleAcademicClass
-  );
+  const {
+    success: updateSingleAcademicClassSuccess,
+    error: updateSingleAcademicClassError,
+  } = useSelector((state) => state.updateSingleAcademicClass);
+
+  if (error) {
+    setNotify({
+      isOpen: true,
+      message: error,
+      type: "error",
+    });
+  }
+  if (academicClassCreateError) {
+    setNotify({
+      isOpen: true,
+      message: academicClassCreateError,
+      type: "error",
+    });
+  }
+  if (singleAcademicClassError) {
+    setNotify({
+      isOpen: true,
+      message: singleAcademicClassError,
+      type: "error",
+    });
+  }
+  if (updateSingleAcademicClassError) {
+    setNotify({
+      isOpen: true,
+      message: updateSingleAcademicClassError,
+      type: "error",
+    });
+  }
 
   if (academicClassCreateSuccess) {
     dispatch(getAllAcademicClassAction());
@@ -184,9 +213,7 @@ const AcademicClass = () => {
         </Toolbar>
         <TableContainer className={classes.table}>
           <TblHead />
-          {/* {loading ? (
-            <div></div>
-          ) : ( */}
+
           <TableBody>
             {tableDataAfterPagingAndSorting().map((item) => (
               <AcademicClassTableCollapse
@@ -197,7 +224,6 @@ const AcademicClass = () => {
               />
             ))}
           </TableBody>
-          {/* )} */}
         </TableContainer>
         <TblPagination />
       </CustomContainer>
@@ -208,6 +234,7 @@ const AcademicClass = () => {
       >
         <AcademicClassForm
           academicClass={singleAcademicClass && singleAcademicClass.dbModel}
+          setOpenPopup={setOpenPopup}
         />
       </Popup>
       <Notification notify={notify} setNotify={setNotify} />

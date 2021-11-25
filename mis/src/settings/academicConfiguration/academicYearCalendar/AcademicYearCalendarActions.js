@@ -1,5 +1,8 @@
 import axios from "axios";
 import {
+  GET_ACADEMIC_YEAR_CALENDAR_PROGRAM_FAIL,
+  GET_ACADEMIC_YEAR_CALENDAR_PROGRAM_REQUEST,
+  GET_ACADEMIC_YEAR_CALENDAR_PROGRAM_SUCCESS,
   GET_ALL_ACADEMIC_YEAR_CALENDAR_FAIL,
   GET_ALL_ACADEMIC_YEAR_CALENDAR_REQUEST,
   GET_ALL_ACADEMIC_YEAR_CALENDAR_SUCCESS,
@@ -24,3 +27,27 @@ export const getAllAcademicYearCalendarAction = () => async (dispatch) => {
     });
   }
 };
+
+export const getAcademicYearCalendarProgramAction =
+  (id) => async (dispatch) => {
+    try {
+      dispatch({ type: GET_ACADEMIC_YEAR_CALENDAR_PROGRAM_REQUEST });
+
+      const { data } = await axios.get(
+        `http://192.168.1.103:84/api/GetUniversityProgramFaculty/${id}/get`
+      );
+
+      dispatch({
+        type: GET_ACADEMIC_YEAR_CALENDAR_PROGRAM_SUCCESS,
+        payload: data,
+      });
+    } catch (error) {
+      dispatch({
+        type: GET_ACADEMIC_YEAR_CALENDAR_PROGRAM_FAIL,
+        payload:
+          error.message && error.response.data.message
+            ? error.response.data.message
+            : error.message,
+      });
+    }
+  };

@@ -81,8 +81,7 @@ const SideMenu = () => {
           &nbsp;&nbsp;&nbsp; Teacher Mapping
         </Typography>
       </NavLink>
-
-      <NavLink to={"/employee-view-NavLink"} activeStyle={isActive}>
+      <NavLink to={"/student-management"} activeStyle={isActive}>
         <Typography variant="h6">
           {" "}
           <Face fontSize="small" />

@@ -17,6 +17,9 @@ const EmployeeManagement = lazy(() =>
 const AcademicConfiguration = lazy(() =>
   import("./settings/academicConfiguration/AcademicConfiguration")
 );
+const StudentManagement = lazy(() =>
+  import("./settings/studentManagement/StudentManagement")
+);
 
 const theme = createTheme({
   palette: {
@@ -54,6 +57,7 @@ const App = () => {
               path={"/academic-configuration"}
               component={AcademicConfiguration}
             />
+            <Route path={"/student-management"} component={StudentManagement} />
             <Route exact path={"/"} component={Settings} />
           </div>
           <CssBaseline />

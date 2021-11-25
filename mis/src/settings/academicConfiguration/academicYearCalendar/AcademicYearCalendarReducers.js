@@ -7,6 +7,9 @@ import {
   GET_ACADEMIC_YEAR_CALENDAR_OPTION_REQUEST,
   GET_ACADEMIC_YEAR_CALENDAR_OPTION_RESET,
   GET_ACADEMIC_YEAR_CALENDAR_OPTION_SUCCESS,
+  GET_ACADEMIC_YEAR_CALENDAR_PROGRAM_FAIL,
+  GET_ACADEMIC_YEAR_CALENDAR_PROGRAM_REQUEST,
+  GET_ACADEMIC_YEAR_CALENDAR_PROGRAM_SUCCESS,
   GET_ALL_ACADEMIC_YEAR_CALENDAR_FAIL,
   GET_ALL_ACADEMIC_YEAR_CALENDAR_REQUEST,
   GET_ALL_ACADEMIC_YEAR_CALENDAR_SUCCESS,
@@ -27,6 +30,19 @@ export const getAllAcademicYearCalendar = (state = {}, action) => {
     case GET_ALL_ACADEMIC_YEAR_CALENDAR_SUCCESS:
       return { loading: false, academicYearCalendar: action.payload };
     case GET_ALL_ACADEMIC_YEAR_CALENDAR_FAIL:
+      return { loading: false, error: action.payload };
+    default:
+      return state;
+  }
+};
+
+export const getAcademicYearCalendarProgramReducer = (state = {}, action) => {
+  switch (action.type) {
+    case GET_ACADEMIC_YEAR_CALENDAR_PROGRAM_REQUEST:
+      return { loading: true };
+    case GET_ACADEMIC_YEAR_CALENDAR_PROGRAM_SUCCESS:
+      return { loading: false, academicYearCalendarProgram: action.payload };
+    case GET_ACADEMIC_YEAR_CALENDAR_PROGRAM_FAIL:
       return { loading: false, error: action.payload };
     default:
       return state;

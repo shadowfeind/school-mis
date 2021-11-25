@@ -18,7 +18,10 @@ import Notification from "../../../components/Notification";
 import ConfirmDialog from "../../../components/ConfirmDialog";
 import { GET_SINGLE_ACADEMIC_YEAR_CALENDAR_RESET } from "./AcademicYearCalendarConstant";
 import AcademicYearCalendarTableCollapse from "./AcademicYearCalendarTableCollapse";
-import { getAllAcademicYearCalendarAction } from "./AcademicYearCalendarActions";
+import {
+  getAcademicYearCalendarProgramAction,
+  getAllAcademicYearCalendarAction,
+} from "./AcademicYearCalendarActions";
 import SelectControl from "../../../components/controls/SelectControl";
 
 const useStyles = makeStyles((theme) => ({
@@ -62,6 +65,10 @@ const AcademicYearCalendar = () => {
     title: "",
     subTitle: "",
   });
+  const [ddlClass, setDdlClass] = useState([]);
+  const [academicYearDdl, setAcademicYearDdl] = useState([]);
+  const [programDdl, setProgramDdl] = useState([]);
+  const [programValue, setProgramValue] = useState(6);
 
   const classes = useStyles();
 
@@ -76,6 +83,10 @@ const AcademicYearCalendar = () => {
 
   const { singleAcademicYearCalendar } = useSelector(
     (state) => state.getSingleAcademicYearCalendar
+  );
+
+  const { academicYearCalendarProgram } = useSelector(
+    (state) => state.getAcademicYearCalendarProgram
   );
 
   // if (createAcademicYearCalendarSuccess) {
@@ -108,6 +119,10 @@ const AcademicYearCalendar = () => {
     }
     if (academicYearCalendar) {
       setTableData(academicYearCalendar.dbModelLst);
+      setDdlClass(academicYearCalendar.searchFilterModel.ddlClass);
+      setAcademicYearDdl(
+        academicYearCalendar.searchFilterModel.ddlAcademicYear
+      );
     }
   }, [dispatch, academicYearCalendar]);
 
@@ -142,6 +157,16 @@ const AcademicYearCalendar = () => {
     { Key: "female", Value: "Female" },
   ];
 
+  const handleSelectChange = (value) => {
+    dispatch(getAcademicYearCalendarProgramAction(value));
+  };
+
+  useEffect(() => {
+    if (academicYearCalendarProgram) {
+      setProgramDdl([...academicYearCalendarProgram.ddlFacultyProgramLink]);
+    }
+  }, [academicYearCalendarProgram]);
+
   return (
     <>
       <CustomContainer>
@@ -152,28 +177,26 @@ const AcademicYearCalendar = () => {
                 name="Sex"
                 label="Academic Year"
                 // value={values.Sex}
-                // onChange={handleInputChange}
-                options={gender}
+                onChange={(e) => handleSelectChange(e.target.value)}
+                options={academicYearDdl}
               />
             </Grid>
             <Grid item xs={3}>
               <SelectControl
                 name="Sex"
                 label="Program/Faculty"
-                className={classes.customInput}
-                // value={values.Sex}
+                value={programValue}
                 // onChange={handleInputChange}
-                options={gender}
+                options={programDdl}
               />
             </Grid>
             <Grid item xs={3}>
               <SelectControl
                 name="Sex"
                 label="Classes"
-                className={classes.customInput}
                 // value={values.Sex}
                 // onChange={handleInputChange}
-                options={gender}
+                options={ddlClass}
               />
             </Grid>
             <Grid item xs={3}>

@@ -79,9 +79,22 @@ import {
   createAcademicYearCalendarReducer,
   getAcademicYearCalendarOptionReducer,
   getAllAcademicYearCalendar,
+  getAcademicYearCalendarProgramReducer,
   getSingleAcademicYearCalendarReducer,
   updateSingleAcademicYearCalendarReducer,
 } from "./src/settings/academicConfiguration/academicYearCalendar/AcademicYearCalendarReducers";
+import {
+  createAcademicSubjectReducer,
+  getAllAcademicSubject,
+  getSingleAcademicSubjectReducer,
+  updateSingleAcademicSubjectReducer,
+} from "./src/settings/academicConfiguration/academicSubject/AcademicSubjectReducers";
+import {
+  getAllAssignFacultySubjectReducer,
+  getAssignFacultySubjectOptionReducer,
+  getListAssignFacultySubjectReducer,
+} from "./src/settings/academicConfiguration/assignFacultySubject/AssignFacultySubjectReducers";
+import { getAllStudentProfile } from "./src/settings/studentManagement/studentProfile/StudentProfileReducers";
 
 export const reducers = combineReducers({
   schoolSettings: getAllSchoolSettings,
@@ -141,4 +154,13 @@ export const reducers = combineReducers({
   getAcademicYearCalendarOption: getAcademicYearCalendarOptionReducer,
   getSingleAcademicYearCalendar: getSingleAcademicYearCalendarReducer,
   updateSingleAcademicYearCalendar: updateSingleAcademicYearCalendarReducer,
+  getAcademicYearCalendarProgram: getAcademicYearCalendarProgramReducer,
+  academicSubject: getAllAcademicSubject,
+  getSingleAcademicSubject: getSingleAcademicSubjectReducer,
+  createAcademicSubject: createAcademicSubjectReducer,
+  updateSingleAcademicSubject: updateSingleAcademicSubjectReducer,
+  getAllAssignFacultySubject: getAllAssignFacultySubjectReducer,
+  getAssignFacultySubjectOption: getAssignFacultySubjectOptionReducer,
+  getListAssignFacultySubject: getListAssignFacultySubjectReducer,
+  studentProfile: getAllStudentProfile,
 });

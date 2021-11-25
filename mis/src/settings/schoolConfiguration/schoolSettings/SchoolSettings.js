@@ -156,6 +156,7 @@ const SchoolSettings = () => {
       >
         <SchoolSettingsForm
           college={schoolSettings ? schoolSettings.dbModelLstTest : {}}
+          setOpenPopup={setOpenPopup}
         />
       </Popup>
       <Notification notify={notify} setNotify={setNotify} />

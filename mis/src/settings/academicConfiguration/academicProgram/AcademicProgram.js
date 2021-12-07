@@ -224,7 +224,7 @@ const AcademicProgram = () => {
             {tableDataAfterPagingAndSorting().map((item) => (
               <AcademicProgramTableCollapse
                 item={item}
-                key={item.id}
+                key={item.$id}
                 updateCollegeHandler={updateCollegeHandler}
                 deleteCollegeHandler={deleteCollegeHandler}
               />

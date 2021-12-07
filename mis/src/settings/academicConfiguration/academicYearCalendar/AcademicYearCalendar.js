@@ -250,7 +250,7 @@ const AcademicYearCalendar = () => {
             {tableDataAfterPagingAndSorting().map((item) => (
               <AcademicYearCalendarTableCollapse
                 item={item}
-                key={item.id}
+                key={item.$id}
                 updateCollegeHandler={updateCollegeHandler}
                 deleteCollegeHandler={deleteCollegeHandler}
               />

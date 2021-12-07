@@ -214,7 +214,7 @@ const AcademicFaculty = () => {
             {tableDataAfterPagingAndSorting().map((item) => (
               <AcademicFacultyTableCollapse
                 item={item}
-                key={item.id}
+                key={item.$id}
                 updateCollegeHandler={updateCollegeHandler}
                 deleteCollegeHandler={deleteCollegeHandler}
               />

@@ -30,7 +30,7 @@ const PositionTableCollapse = ({
   const classes = useStyles();
 
   return (
-    <TableRow key={item.$id}>
+    <TableRow>
       <TableCell>{item.PositionHead}</TableCell>
       <TableCell>{item.PositionDescription}</TableCell>
       <TableCell>{item.IsActive ? "Active" : "InActive"}</TableCell>

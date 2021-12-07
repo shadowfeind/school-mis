@@ -220,6 +220,7 @@ const Employee = () => {
             {tableDataAfterPagingAndSorting().map((item) => (
               <EmployeeTableCollapse
                 item={item}
+                key={item.$id}
                 updateCollegeHandler={updateCollegeHandler}
                 deleteCollegeHandler={deleteCollegeHandler}
               />

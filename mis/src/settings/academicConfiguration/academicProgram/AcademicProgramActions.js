@@ -1,4 +1,5 @@
 import axios from "axios";
+import { API_URL } from "../../../constants";
 import {
   ACADEMIC_PROGRAM_CREATE_FAIL,
   ACADEMIC_PROGRAM_CREATE_REQUEST,
@@ -21,9 +22,7 @@ export const getAllAcademicProgramAction = () => async (dispatch) => {
   try {
     dispatch({ type: GET_ALL_ACADEMIC_PROGRAM_REQUEST });
 
-    const { data } = await axios.get(
-      "http://192.168.1.103:84/api/AcademicProgram"
-    );
+    const { data } = await axios.get(`${API_URL}/api/AcademicProgram`);
 
     dispatch({ type: GET_ALL_ACADEMIC_PROGRAM_SUCCESS, payload: data });
   } catch (error) {
@@ -54,7 +53,7 @@ export const AcademicProgramCreateAction =
       };
 
       const { data } = await axios.post(
-        "http://192.168.1.103:84/api/AcademicProgram",
+        `${API_URL}/api/AcademicProgram`,
         jsonData,
         config
       );
@@ -76,7 +75,7 @@ export const getAcademicProgramOptionAction = () => async (dispatch) => {
     dispatch({ type: GET_ACADEMIC_PROGRAM_OPTION_REQUEST });
 
     const { data } = await axios.get(
-      `http://192.168.1.103:84/api/GetToCreateAcademicProgram/0/0/create`
+      `${API_URL}/api/GetToCreateAcademicProgram/0/0/create`
     );
 
     dispatch({ type: GET_ACADEMIC_PROGRAM_OPTION_SUCCESS, payload: data });
@@ -95,9 +94,7 @@ export const getSingleAcademicProgramAction = (id) => async (dispatch) => {
   try {
     dispatch({ type: GET_SINGLE_ACADEMIC_PROGRAM_REQUEST });
 
-    const { data } = await axios.get(
-      `http://192.168.1.103:84/api/AcademicProgram/${id}`
-    );
+    const { data } = await axios.get(`${API_URL}/api/AcademicProgram/${id}`);
 
     dispatch({ type: GET_SINGLE_ACADEMIC_PROGRAM_SUCCESS, payload: data });
   } catch (error) {
@@ -125,7 +122,7 @@ export const updateSingleAcademicProgramAction =
       };
 
       const { data } = await axios.put(
-        "http://192.168.1.103:84/api/AcademicProgram",
+        `${API_URL}/api/AcademicProgram`,
         jsonData,
         config
       );

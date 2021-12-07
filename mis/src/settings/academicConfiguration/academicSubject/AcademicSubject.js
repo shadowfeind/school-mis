@@ -186,6 +186,7 @@ const AcademicSubject = () => {
             {tableDataAfterPagingAndSorting().map((item) => (
               <AcademicSubjectTableCollepse
                 item={item}
+                key={item.$id}
                 updateCollegeHandler={updateCollegeHandler}
                 deleteCollegeHandler={deleteCollegeHandler}
               />

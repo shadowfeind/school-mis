@@ -1,4 +1,5 @@
 import axios from "axios";
+import { API_URL } from "../../../constants";
 import {
   ACADEMIC_YEAR_CREATE_FAIL,
   ACADEMIC_YEAR_CREATE_REQUEST,
@@ -18,9 +19,7 @@ export const getAllAcademicYearAction = () => async (dispatch) => {
   try {
     dispatch({ type: GET_ALL_ACADEMIC_YEAR_REQUEST });
 
-    const { data } = await axios.get(
-      "http://192.168.1.103:84/api/AcademicYear"
-    );
+    const { data } = await axios.get(`${API_URL}/api/AcademicYear`);
 
     dispatch({ type: GET_ALL_ACADEMIC_YEAR_SUCCESS, payload: data });
   } catch (error) {
@@ -51,7 +50,7 @@ export const AcademicYearCreateAction =
       };
 
       const { data } = await axios.post(
-        "http://192.168.1.103:84/api/AcademicYear",
+        `${API_URL}/api/AcademicYear`,
         jsonData,
         config
       );
@@ -73,7 +72,7 @@ export const getAcademicYearOptionAction = () => async (dispatch) => {
     dispatch({ type: GET_ACADEMIC_YEAR_OPTION_REQUEST });
 
     const { data } = await axios.get(
-      `http://192.168.1.103:84/api/GetToCreateAcademicYear/0/0/create`
+      `${API_URL}/api/GetToCreateAcademicYear/0/0/create`
     );
 
     dispatch({ type: GET_ACADEMIC_YEAR_OPTION_SUCCESS, payload: data });
@@ -92,9 +91,7 @@ export const getSingleAcademicYearAction = (id) => async (dispatch) => {
   try {
     dispatch({ type: GET_SINGLE_ACADEMIC_YEAR_REQUEST });
 
-    const { data } = await axios.get(
-      `http://192.168.1.103:84/api/AcademicYear/${id}`
-    );
+    const { data } = await axios.get(`${API_URL}/api/AcademicYear/${id}`);
 
     dispatch({ type: GET_SINGLE_ACADEMIC_YEAR_SUCCESS, payload: data });
   } catch (error) {
@@ -122,7 +119,7 @@ export const updateSingleAcademicYearAction =
       };
 
       const { data } = await axios.put(
-        "http://192.168.1.103:84/api/AcademicYear",
+        `${API_URL}/api/AcademicYear`,
         jsonData,
         config
       );

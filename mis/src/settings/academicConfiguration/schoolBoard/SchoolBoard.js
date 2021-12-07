@@ -215,6 +215,7 @@ const SchoolBoard = () => {
             {tableDataAfterPagingAndSorting().map((item) => (
               <SchoolBoardTableCollapse
                 item={item}
+                key={item.$id}
                 updateCollegeHandler={updateCollegeHandler}
                 deleteCollegeHandler={deleteCollegeHandler}
               />

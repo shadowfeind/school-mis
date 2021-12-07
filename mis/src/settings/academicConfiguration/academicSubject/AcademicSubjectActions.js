@@ -1,4 +1,5 @@
 import axios from "axios";
+import { API_URL } from "../../../constants";
 import {
   GET_All_ACADEMIC_SUBJECT_REQUEST,
   GET_ALL_ACADEMIC_SUBJECT_SUCCES,
@@ -18,9 +19,7 @@ import {
 export const getAllAcademicSubjectAction = () => async (dispatch) => {
   try {
     dispatch({ type: GET_All_ACADEMIC_SUBJECT_REQUEST });
-    const { data } = await axios.get(
-      "http://192.168.1.103:84/api/AcademicSubject"
-    );
+    const { data } = await axios.get(`${API_URL}/api/AcademicSubject`);
 
     dispatch({ type: GET_ALL_ACADEMIC_SUBJECT_SUCCES, payload: data });
   } catch (error) {
@@ -34,9 +33,7 @@ export const getAllAcademicSubjectAction = () => async (dispatch) => {
 export const getSingleAcademicSubjectAction = (id) => async (dispatch) => {
   try {
     dispatch({ type: GET_SINGLE_ACADEMIC_SUBJECT_REQUEST });
-    const { data } = await axios.get(
-      `http://192.168.1.103:84/api/AcademicSubject/${id}`
-    );
+    const { data } = await axios.get(`${API_URL}/api/AcademicSubject/${id}`);
 
     dispatch({ type: GET_SINGLE_ACADEMIC_SUBJECT_SUCCESS, payload: data });
   } catch (error) {
@@ -63,7 +60,7 @@ export const academicSubjectCreateAction =
       };
 
       const { data } = await axios.post(
-        "http://192.168.1.103:84/api/AcademicSubject",
+        `${API_URL}/api/AcademicSubject`,
         jsonData,
         config
       );
@@ -94,7 +91,7 @@ export const updateSingleAcademicSubjectAction =
       };
 
       const { data } = await axios.put(
-        "http://192.168.1.103:84/api/AcademicSubject",
+        `${API_URL}/api/AcademicSubject`,
         jsonData,
         config
       );

@@ -140,6 +140,7 @@ const SchoolSettings = () => {
             {tableDataAfterPagingAndSorting().map((item) => (
               <SchoolSettingsTableCollapse
                 item={item}
+                key={item.$id}
                 updateCollegeHandler={updateCollegeHandler}
                 deleteCollegeHandler={deleteCollegeHandler}
               />

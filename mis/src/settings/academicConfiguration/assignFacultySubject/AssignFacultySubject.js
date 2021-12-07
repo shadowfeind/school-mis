@@ -18,12 +18,19 @@ import ConfirmDialog from "../../../components/ConfirmDialog";
 import SelectControl from "../../../components/controls/SelectControl";
 import { getAcademicYearCalendarProgramAction } from "../academicYearCalendar/AcademicYearCalendarActions";
 import {
+  AcademicFacultyCreateAction,
   getALLAssignFacultySubject,
   getAssignFacultySubjectOptionAction,
   getListAssignFacultySubject,
+  getAssignFacultySubjectEditAction,
 } from "./AssignFacultySubjectActions";
 import AssignFacultySubjectTableCollepse from "./AssignFacultySubjectTableCollapse";
 import AssignFacultySubjectFormCreate from "./AssignFacultySubjectFormCreate";
+import {
+  ASSIGN_FACULTY_SUBJECT_EDIT_POST_RESET,
+  ASSIGN_FACULTY_SUBJECT_POST_RESET,
+} from "./AssignFacultySubjectConstants";
+import AssignFacultySubjectFormEdit from "./AssignFacultySubjectFormEdit";
 
 const useStyles = makeStyles((theme) => ({
   searchInput: {
@@ -59,6 +66,7 @@ const AssignFacultySubject = () => {
     },
   });
   const [openPopup, setOpenPopup] = useState(false);
+  const [openPopupForm, setOpenPopupForm] = useState(false);
   const [notify, setNotify] = useState({
     isOpen: false,
     message: "",
@@ -97,22 +105,25 @@ const AssignFacultySubject = () => {
     (state) => state.getAssignFacultySubjectOption
   );
 
-  // if (createAcademicYearCalendarSuccess) {
-  //   dispatch(getAllAcademicYearCalendarAction());
-  //   setNotify({
-  //     isOpen: true,
-  //     message: "Created Succesfully",
-  //     type: "success",
-  //   });
-  //   setOpenPopup(false);
-  //   dispatch({ type: ACADEMIC_YEAR_CREATE_RESET });
-  // }
+  const { success: facultySubjectSuccess, error: facultySubjectError } =
+    useSelector((state) => state.assignFacultySubjectPost);
 
-  const updateCollegeHandler = (id) => {
-    // dispatch(getSingleAcademicYearAction(id));
-    // setOpenPopup(true);
-  };
+  const { singleFacultySubject } = useSelector(
+    (state) => state.assignFacultySubjectEdit
+  );
 
+  const { success: singleFacultyEditSuccess } = useSelector(
+    (state) => state.assignFacultySubjectEditPost
+  );
+
+  if (singleFacultyEditSuccess) {
+    setNotify({
+      isOpen: true,
+      message: "Updated Succesfully",
+      type: "success",
+    });
+    dispatch({ type: ASSIGN_FACULTY_SUBJECT_EDIT_POST_RESET });
+  }
   const deleteCollegeHandler = (id) => {
     setConfirmDialog({
       isOpen: true,
@@ -153,9 +164,11 @@ const AssignFacultySubject = () => {
     });
   };
 
-  const addHandler = () => {
-    dispatch({ type: GET_SINGLE_ACADEMIC_YEAR_CALENDAR_RESET });
-    setOpenPopup(true);
+  const updateFacultySubjectHandler = (id) => {
+    dispatch(
+      getAssignFacultySubjectEditAction(id, acaYear, programValue, classId)
+    );
+    setOpenPopupForm(true);
   };
 
   const handleSelectChange = (value) => {
@@ -194,8 +207,36 @@ const AssignFacultySubject = () => {
   };
 
   const formCheckSubmitHandler = () => {
-    console.log(formCheck);
+    dispatch(
+      AcademicFacultyCreateAction(
+        academicSubjects.idYearFacultyProgramLink,
+        academicSubjects.level,
+        formCheck
+      )
+    );
+    // console.log(formCheck);
+    setOpenPopup(false);
   };
+
+  if (facultySubjectSuccess) {
+    setFormCheck([]);
+    dispatch({ type: ASSIGN_FACULTY_SUBJECT_POST_RESET });
+    dispatch(getListAssignFacultySubject(acaYear, programValue, classId));
+    setNotify({
+      isOpen: true,
+      message: "Created Succesfully",
+      type: "success",
+    });
+  }
+  if (facultySubjectError) {
+    setFormCheck([]);
+    dispatch({ type: ASSIGN_FACULTY_SUBJECT_POST_RESET });
+    setNotify({
+      isOpen: true,
+      message: facultySubjectError,
+      type: "error",
+    });
+  }
   return (
     <>
       <CustomContainer>
@@ -233,6 +274,7 @@ const AssignFacultySubject = () => {
                 type="submit"
                 style={{ margin: "10px 0 0 10px" }}
                 onClick={handleCreateClick}
+                type="submit"
               >
                 CREATE
               </Button>
@@ -242,6 +284,7 @@ const AssignFacultySubject = () => {
                 type="submit"
                 style={{ margin: "10px 0 0 10px" }}
                 onClick={listSearchHandler}
+                type="submit"
               >
                 SEARCH
               </Button>
@@ -272,7 +315,7 @@ const AssignFacultySubject = () => {
                 <AssignFacultySubjectTableCollepse
                   item={item}
                   key={item.id}
-                  updateCollegeHandler={updateCollegeHandler}
+                  updateFacultySubjectHandler={updateFacultySubjectHandler}
                   deleteCollegeHandler={deleteCollegeHandler}
                 />
               ))}
@@ -284,7 +327,7 @@ const AssignFacultySubject = () => {
       <Popup
         openPopup={openPopup}
         setOpenPopup={setOpenPopup}
-        title="Add Academic Subject"
+        title="Add Academic Faculty Subject"
       >
         <AssignFacultySubjectFormCreate
           subjectOptions={
@@ -292,6 +335,24 @@ const AssignFacultySubject = () => {
           }
           setFormCheck={setFormCheck}
           formCheckSubmitHandler={formCheckSubmitHandler}
+        />
+      </Popup>
+      <Popup
+        openPopup={openPopupForm}
+        setOpenPopup={setOpenPopupForm}
+        title="Edit Academic Faculty Subject"
+      >
+        <AssignFacultySubjectFormEdit
+          singleFacultySubject={
+            singleFacultySubject && singleFacultySubject.model
+          }
+          dbModel={singleFacultySubject && singleFacultySubject.dbModel}
+          idYearFacultyProgramLink={
+            singleFacultySubject &&
+            singleFacultySubject.idYearFacultyProgramLink
+          }
+          level={singleFacultySubject && singleFacultySubject.level}
+          setOpenPopupForm={setOpenPopupForm}
         />
       </Popup>
       <Notification notify={notify} setNotify={setNotify} />

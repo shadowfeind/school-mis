@@ -12,31 +12,28 @@ const useStyles = makeStyles({
   },
 });
 
-const AssignFacultySubjectTableCollepse = ({
+const ReassociateStudentTableCollapse = ({
   item,
-  updateFacultySubjectHandler,
-  deleteCollegeHandler,
+  updateFormHandler,
+  //   deleteCollegeHandler,
 }) => {
   const classes = useStyles();
 
   return (
     <TableRow key={item.$id}>
-      <TableCell>{item.SubjectName}</TableCell>
-      <TableCell>{item.SubjectCode}</TableCell>
-      <TableCell>{item.IsOptional ? "True" : "False"}</TableCell>
-      <TableCell>{item.IsCompulsory ? "True" : "False"}</TableCell>
-      <TableCell>{item.IsTheoritical ? "True" : "False"}</TableCell>
-      <TableCell>{item.IsPractical ? "True" : "False"}</TableCell>
-      <TableCell>{item.IsActive ? "True" : "False"}</TableCell>
-      <TableCell>{item.CreditHour}</TableCell>
+      <TableCell>{item.StudentName}</TableCell>
+      <TableCell>{item.RollNo}</TableCell>
+      <TableCell>{item.PUNumber}</TableCell>
+      <TableCell>{item.AcademicProgramName}</TableCell>
+      <TableCell>{item.Email}</TableCell>
+      <TableCell>{item.MobileNo}</TableCell>
+      <TableCell>{item.LevelStatus}</TableCell>
       <TableCell>
         <Button
           variant="contained"
           color="primary"
           className={classes.button}
-          onClick={() =>
-            updateFacultySubjectHandler(item.IDAcademicFacultySubjectLink)
-          }
+          onClick={() => updateFormHandler()}
         >
           <EditIcon style={{ fontSize: 12 }} />
         </Button>
@@ -53,4 +50,4 @@ const AssignFacultySubjectTableCollepse = ({
   );
 };
 
-export default AssignFacultySubjectTableCollepse;
+export default ReassociateStudentTableCollapse;

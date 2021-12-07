@@ -212,6 +212,7 @@ const Role = () => {
             {tableDataAfterPagingAndSorting().map((item) => (
               <RoleTableCollapse
                 item={item}
+                key={item.$id}
                 updateCollegeHandler={updateCollegeHandler}
                 deleteCollegeHandler={deleteCollegeHandler}
               />

@@ -20,8 +20,8 @@ const initialFormValues = {
   TotalSeat: 60,
   LevelMOU: "Trimester",
   TotalSection: 2,
-  TotalLevel: 12,
-  IDFacultyCoordinator: 3,
+  TotalLevel: 2,
+  IDFacultyCoordinator: 10854,
   IsActive: false,
   Created_On: "2021-09-23",
   Updated_On: "2021-09-23",
@@ -153,6 +153,7 @@ const AcademicFacultyForm = ({ academicFaculty, selected, setOpenPopup }) => {
                 ? selected.map((item) => <p> {item.Name}</p>)
                 : available.map((item) => (
                     <FormControlLabel
+                      key={item.$id}
                       control={
                         <Checkbox
                           onChange={handleChangeCheckbox}

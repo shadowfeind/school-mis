@@ -8,7 +8,7 @@ import {
   makeStyles,
   ThemeProvider,
 } from "@material-ui/core";
-import { BrowserRouter as Router, Link, Route, Switch } from "react-router-dom";
+import { HashRouter as Router, Link, Route, Switch } from "react-router-dom";
 
 const Settings = lazy(() => import("./settings/Settings"));
 const EmployeeManagement = lazy(() =>

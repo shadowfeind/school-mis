@@ -92,7 +92,8 @@ const useCustomTable = (tableData, tableHeader, filterFn) => {
       page={page}
       count={tableData.length}
       onPageChange={handlePageChange}
-      onChangeRowsPerPage={handleChangeRowsPerPage}
+      // onChangeRowsPerPage={handleChangeRowsPerPage}
+      onRowsPerPageChange={handleChangeRowsPerPage}
     />
   );
 

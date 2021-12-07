@@ -36,7 +36,7 @@ const EmployeeTableCollapse = ({
 
   return (
     <>
-      <TableRow key={item.$id}>
+      <TableRow>
         <TableCell>{item.FullName}</TableCell>
         <TableCell>{item.BranchName}</TableCell>
         <TableCell>{item.DepartmentName}</TableCell>

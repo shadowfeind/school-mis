@@ -31,7 +31,7 @@ const RoleTableCollapse = ({
 
   return (
     <>
-      <TableRow key={item.$id}>
+      <TableRow>
         <TableCell>{item.RoleName}</TableCell>
         <TableCell>{item.Description}</TableCell>
         <TableCell>{item.Created_On}</TableCell>

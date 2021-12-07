@@ -1,80 +1,80 @@
 import { combineReducers } from "redux";
-import { getAllSchoolSettings } from "./src/settings/schoolConfiguration/schoolSettings/SchoolSettingsReducers";
+import { getAllSchoolSettings } from "./settings/schoolConfiguration/schoolSettings/SchoolSettingsReducers";
 import {
   createPositionReducer,
   getAllPosition,
   getSinglePositionReducer,
   updateSinglePositionReducer,
-} from "./src/settings/schoolConfiguration/position/PositionReducers";
+} from "./settings/schoolConfiguration/position/PositionReducers";
 import {
   createEmployeeTypeReducer,
   getAllEmployeeType,
   getSingleEmployeeTypeReducer,
   updateSingleEmployeeTypeReducer,
-} from "./src/settings/schoolConfiguration/employeeType/EmployeeTypeReducers";
+} from "./settings/schoolConfiguration/employeeType/EmployeeTypeReducers";
 import {
   createEmployeeCategoryRoleReducer,
   getAllEmployeeCategoryRole,
   getSingleEmployeeCategoryRoleReducer,
   updateSingleEmployeeCategoryRoleReducer,
-} from "./src/settings/schoolConfiguration/employeeCategoryRole/EmployeeCategoryRoleReduces";
+} from "./settings/schoolConfiguration/employeeCategoryRole/EmployeeCategoryRoleReduces";
 import {
   createHolidayReducer,
   getAllHoliday,
   getSingleHolidayReducer,
   updateSingleHolidayReducer,
-} from "./src/settings/schoolConfiguration/holiday/HolidayReducers";
+} from "./settings/schoolConfiguration/holiday/HolidayReducers";
 import {
   createEmployeeReducer,
   getAllEmployee,
   getAllEmployeeCreateReducer,
   getSingleEmployeeReducer,
   updateSingleEmployeeReducer,
-} from "./src/settings/employeeManagement/employee/EmployeeReducers";
+} from "./settings/employeeManagement/employee/EmployeeReducers";
 import {
   createRoleReducer,
   getAllRoles,
   getSingleRoleReducer,
   updateSingleRoleReducer,
-} from "./src/settings/employeeManagement/role/RoleReducers";
+} from "./settings/employeeManagement/role/RoleReducers";
 import {
   createAcademicClassReducer,
   getAllAcademicClass,
   getSingleAcademicClassReducer,
   updateSingleAcademicClassReducer,
-} from "./src/settings/academicConfiguration/academicClass/AcademicClassReducers";
+} from "./settings/academicConfiguration/academicClass/AcademicClassReducers";
 import {
   createAcademicSectionReducer,
   getAllAcademicSection,
   getSingleAcademicSectionReducer,
   updateSingleAcademicSectionReducer,
-} from "./src/settings/academicConfiguration/academicSection/AcademicSectionReducers";
+} from "./settings/academicConfiguration/academicSection/AcademicSectionReducers";
 import {
   createSchoolBoardReducer,
   getAllSchoolBoard,
   getSingleSchoolBoardReducer,
   updateSingleSchoolBoardReducer,
-} from "./src/settings/academicConfiguration/schoolBoard/SchoolBoardReducers";
+} from "./settings/academicConfiguration/schoolBoard/SchoolBoardReducers";
 import {
   createAcademicProgramReducer,
   getAcademicProgramOptionReducer,
   getAllAcademicProgram,
   getSingleAcademicProgramReducer,
   updateSingleAcademicProgramReducer,
-} from "./src/settings/academicConfiguration/academicProgram/AcademicProgramReducers";
+} from "./settings/academicConfiguration/academicProgram/AcademicProgramReducers";
 import {
   createAcademicFacultyReducer,
   getAcademicFacultyOptionReducer,
   getAllAcademicFaculty,
   getSingleAcademicFacultyReducer,
-} from "./src/settings/academicConfiguration/academicFaculty/AcademicFacultyReducers";
+} from "./settings/academicConfiguration/academicFaculty/AcademicFacultyReducers";
 import {
   createAcademicYearReducer,
   getAcademicYearOptionReducer,
   getAllAcademicYear,
   getSingleAcademicYearReducer,
   updateSingleAcademicYearReducer,
-} from "./src/settings/academicConfiguration/academicYear/AcademicYearReducers";
+} from "./settings/academicConfiguration/academicYear/AcademicYearReducers";
 import {
   createAcademicYearCalendarReducer,
   getAcademicYearCalendarOptionReducer,
@@ -82,19 +82,29 @@ import {
   getAcademicYearCalendarProgramReducer,
   getSingleAcademicYearCalendarReducer,
   updateSingleAcademicYearCalendarReducer,
-} from "./src/settings/academicConfiguration/academicYearCalendar/AcademicYearCalendarReducers";
+} from "./settings/academicConfiguration/academicYearCalendar/AcademicYearCalendarReducers";
 import {
   createAcademicSubjectReducer,
   getAllAcademicSubject,
   getSingleAcademicSubjectReducer,
   updateSingleAcademicSubjectReducer,
-} from "./src/settings/academicConfiguration/academicSubject/AcademicSubjectReducers";
+} from "./settings/academicConfiguration/academicSubject/AcademicSubjectReducers";
 import {
+  assignFacultySubjectEditPostReducer,
+  assignFacultySubjectEditReducer,
+  assignFacultySubjectPostReducer,
   getAllAssignFacultySubjectReducer,
   getAssignFacultySubjectOptionReducer,
   getListAssignFacultySubjectReducer,
-} from "./src/settings/academicConfiguration/assignFacultySubject/AssignFacultySubjectReducers";
-import { getAllStudentProfile } from "./src/settings/studentManagement/studentProfile/StudentProfileReducers";
+  getSingleassignFacultySubjectReducer,
+} from "./settings/academicConfiguration/assignFacultySubject/AssignFacultySubjectReducers";
+import { getAllStudentProfile } from "./settings/studentManagement/studentProfile/StudentProfileReducers";
+import {
+  getAllReassociateStudentsReducer,
+  getReassociateStudentsLevelupPostReducer,
+  getReassociateStudentsLevelupReducer,
+  getReassociateStudentsListsReducer,
+} from "./settings/studentManagement/reassociateStudent/ReassociateStudentReducers";
 
 export const reducers = combineReducers({
   schoolSettings: getAllSchoolSettings,
@@ -162,5 +172,13 @@ export const reducers = combineReducers({
   getAllAssignFacultySubject: getAllAssignFacultySubjectReducer,
   getAssignFacultySubjectOption: getAssignFacultySubjectOptionReducer,
   getListAssignFacultySubject: getListAssignFacultySubjectReducer,
+  assignFacultySubjectPost: assignFacultySubjectPostReducer,
+  getSingleassignFacultySubject: getSingleassignFacultySubjectReducer,
+  assignFacultySubjectEdit: assignFacultySubjectEditReducer,
+  assignFacultySubjectEditPost: assignFacultySubjectEditPostReducer,
   studentProfile: getAllStudentProfile,
+  getAllReassociateStudents: getAllReassociateStudentsReducer,
+  getReassociateStudentsLists: getReassociateStudentsListsReducer,
+  getReassociateStudentsLevelup: getReassociateStudentsLevelupReducer,
+  getReassociateStudentsLevelupPost: getReassociateStudentsLevelupPostReducer,
 });

@@ -217,6 +217,7 @@ const EmployeeType = () => {
             {tableDataAfterPagingAndSorting().map((item) => (
               <EmployeeCategoryRoleTableCollapse
                 item={item}
+                key={item.$id}
                 updateCollegeHandler={updateCollegeHandler}
                 deleteCollegeHandler={deleteCollegeHandler}
               />

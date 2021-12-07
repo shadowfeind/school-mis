@@ -8,6 +8,7 @@ import {
   TableCell,
   Checkbox,
   Button,
+  TextField,
 } from "@material-ui/core";
 import { withStyles, makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
@@ -41,9 +42,42 @@ const AssignFacultySubjectFormCreate = ({
   formCheckSubmitHandler,
 }) => {
   const classes = useStyles();
+  const inputHandler = (subject, value) => {
+    setFormCheck((prev) => {
+      const exists = prev.find(
+        (u) => u.IDAcademicSubject === subject.IDAcademicSubject
+      );
+      if (exists) {
+        const newSubject = { ...subject, CreditHour: Number(value) };
+        // console.log(newSubject);
+        let newArr = [...prev];
+        prev.map((data, index) => {
+          newArr[index].CreditHour = Number(value);
+        });
+        return [...newArr];
+      }
+      return [...prev];
+    });
+  };
 
-  const handleChange = (e) => {
-    setFormCheck((pre) => [...pre, e.target.value]);
+  const handleChange = (subject) => {
+    setFormCheck((prev) => {
+      const exists = prev.find(
+        (u) => u.IDAcademicSubject === subject.IDAcademicSubject
+      );
+      if (exists) {
+        let newArr = prev.filter(
+          (u) => u.IDAcademicSubject !== subject.IDAcademicSubject
+        );
+        return [...newArr];
+      }
+      let newCreditHour = Number(
+        document.getElementById(`subject_${subject.IDAcademicSubject}`).value
+      );
+      const newSubject = { ...subject, CreditHour: newCreditHour };
+      // console.log(newSubject);
+      return [...prev, newSubject];
+    });
   };
   return (
     <>
@@ -84,14 +118,20 @@ const AssignFacultySubjectFormCreate = ({
                     {subject.IsTheoritical ? "True" : "False"}
                   </StyledTableCell>
                   <StyledTableCell align="right">
-                    {subject.CreditHour}
+                    <TextField
+                      id={`subject_${subject.IDAcademicSubject}`}
+                      defaultValue={subject.CreditHour}
+                      type="number"
+                      label="Credit Hours"
+                      variant="outlined"
+                      onChange={(e) => inputHandler(subject, e.target.value)}
+                    />
                   </StyledTableCell>
                   <StyledTableCell align="right">
                     {" "}
                     <Checkbox
                       // checked={state.checkedB}
-                      onChange={(e) => handleChange(e)}
-                      value={subject}
+                      onChange={() => handleChange(subject)}
                       name="checkedB"
                       color="primary"
                     />

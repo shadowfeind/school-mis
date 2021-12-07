@@ -1,4 +1,5 @@
 import axios from "axios";
+import { API_URL } from "../../../constants";
 import {
   ACADEMIC_SECTION_CREATE_FAIL,
   ACADEMIC_SECTION_CREATE_REQUEST,
@@ -18,9 +19,7 @@ export const getAllAcademicSectionAction = () => async (dispatch) => {
   try {
     dispatch({ type: GET_ALL_ACADEMIC_SECTION_REQUEST });
 
-    const { data } = await axios.get(
-      "http://192.168.1.103:84/api/AcademicRoom"
-    );
+    const { data } = await axios.get(`${API_URL}/api/AcademicRoom`);
 
     dispatch({ type: GET_ALL_ACADEMIC_SECTION_SUCCESS, payload: data });
   } catch (error) {
@@ -48,7 +47,7 @@ export const AcademicSectionCreateAction =
       };
 
       const { data } = await axios.post(
-        "http://192.168.1.103:84/api/AcademicRoom",
+        `${API_URL}/api/AcademicRoom`,
         jsonData,
         config
       );
@@ -69,9 +68,7 @@ export const getSingleAcademicSectionAction = (id) => async (dispatch) => {
   try {
     dispatch({ type: GET_SINGLE_ACADEMIC_SECTION_REQUEST });
 
-    const { data } = await axios.get(
-      `http://192.168.1.103:84/api/AcademicRoom/${id}`
-    );
+    const { data } = await axios.get(`${API_URL}/api/AcademicRoom/${id}`);
 
     dispatch({ type: GET_SINGLE_ACADEMIC_SECTION_SUCCESS, payload: data });
   } catch (error) {
@@ -99,7 +96,7 @@ export const updateSingleAcademicSectionAction =
       };
 
       const { data } = await axios.put(
-        "http://192.168.1.103:84/api/AcademicRoom",
+        `${API_URL}/api/AcademicRoom`,
         jsonData,
         config
       );

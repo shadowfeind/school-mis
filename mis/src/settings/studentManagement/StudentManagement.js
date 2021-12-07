@@ -5,6 +5,10 @@ import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import { makeStyles } from "@material-ui/core";
+
+const ReassociateStudent = lazy(() =>
+  import("./reassociateStudent/ReassociateStudent")
+);
 const StudentProfile = lazy(() => import("./studentProfile/StudentProfile"));
 
 function TabPanel(props) {
@@ -20,7 +24,7 @@ function TabPanel(props) {
     >
       {value === index && (
         <Box p={3}>
-          <Typography>{children}</Typography>
+          <Typography component="div">{children}</Typography>
         </Box>
       )}
     </div>
@@ -82,6 +86,9 @@ const StudentManagement = () => {
       <Suspense fallback={<div></div>}>
         <TabPanel value={value} index={0}>
           <StudentProfile />
+        </TabPanel>
+        <TabPanel value={value} index={2}>
+          <ReassociateStudent />
         </TabPanel>
       </Suspense>
     </div>

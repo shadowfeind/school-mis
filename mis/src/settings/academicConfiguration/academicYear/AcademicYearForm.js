@@ -139,6 +139,7 @@ const AcademicYearForm = ({ academicYear, selected, setOpenPopup }) => {
                 ? selected.map((item) => <p> {item.Name}</p>)
                 : available.map((item) => (
                     <FormControlLabel
+                      key={item.$id}
                       control={
                         <Checkbox
                           onChange={handleChangeCheckbox}

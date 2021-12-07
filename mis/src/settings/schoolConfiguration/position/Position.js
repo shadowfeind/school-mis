@@ -219,6 +219,7 @@ const Position = () => {
             {tableDataAfterPagingAndSorting().map((item) => (
               <PositionTableCollapse
                 item={item}
+                key={item.$id}
                 updateCollegeHandler={updateCollegeHandler}
                 deleteCollegeHandler={deleteCollegeHandler}
               />

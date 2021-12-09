@@ -77,11 +77,12 @@ import {
 } from "./settings/academicConfiguration/academicYear/AcademicYearReducers";
 import {
   createAcademicYearCalendarReducer,
-  getAcademicYearCalendarOptionReducer,
   getAllAcademicYearCalendar,
   getAcademicYearCalendarProgramReducer,
   getSingleAcademicYearCalendarReducer,
   updateSingleAcademicYearCalendarReducer,
+  createAcademicYearCalendarPostReducer,
+  academicYearCalendarSearchReducer,
 } from "./settings/academicConfiguration/academicYearCalendar/AcademicYearCalendarReducers";
 import {
   createAcademicSubjectReducer,
@@ -161,7 +162,8 @@ export const reducers = combineReducers({
   updateSingleAcademicYear: updateSingleAcademicYearReducer,
   academicYearCalendar: getAllAcademicYearCalendar,
   createAcademicYearCalendar: createAcademicYearCalendarReducer,
-  getAcademicYearCalendarOption: getAcademicYearCalendarOptionReducer,
+  createAcademicYearCalendarPost: createAcademicYearCalendarPostReducer,
+  academicYearCalendarSearch: academicYearCalendarSearchReducer,
   getSingleAcademicYearCalendar: getSingleAcademicYearCalendarReducer,
   updateSingleAcademicYearCalendar: updateSingleAcademicYearCalendarReducer,
   getAcademicYearCalendarProgram: getAcademicYearCalendarProgramReducer,

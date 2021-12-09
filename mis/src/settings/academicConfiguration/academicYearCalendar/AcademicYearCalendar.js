@@ -16,13 +16,20 @@ import CustomContainer from "../../../components/CustomContainer";
 import { useDispatch, useSelector } from "react-redux";
 import Notification from "../../../components/Notification";
 import ConfirmDialog from "../../../components/ConfirmDialog";
-import { GET_SINGLE_ACADEMIC_YEAR_CALENDAR_RESET } from "./AcademicYearCalendarConstant";
+import {
+  ACADEMIC_YEAR_CALENDAR_CREATE_POST_RESET,
+  UPDATE_SINGLE_ACADEMIC_YEAR_CALENDAR_RESET,
+} from "./AcademicYearCalendarConstant";
 import AcademicYearCalendarTableCollapse from "./AcademicYearCalendarTableCollapse";
 import {
+  academicYearCalendarSearchAction,
+  createAcademicYearCalendarAction,
   getAcademicYearCalendarProgramAction,
   getAllAcademicYearCalendarAction,
+  getSingleAcademicYearCalendarAction,
 } from "./AcademicYearCalendarActions";
 import SelectControl from "../../../components/controls/SelectControl";
+import AcademicYearCalendarForm from "./AcademicYearCalendarForm";
 
 const useStyles = makeStyles((theme) => ({
   searchInput: {
@@ -69,6 +76,8 @@ const AcademicYearCalendar = () => {
   const [academicYearDdl, setAcademicYearDdl] = useState([]);
   const [programDdl, setProgramDdl] = useState([]);
   const [programValue, setProgramValue] = useState(6);
+  const [classId, setClassId] = useState(14);
+  const [acaYear, setAcaYear] = useState(55);
 
   const classes = useStyles();
 
@@ -77,32 +86,60 @@ const AcademicYearCalendar = () => {
   const { academicYearCalendar } = useSelector(
     (state) => state.academicYearCalendar
   );
-  const { success: createAcademicYearCalendarSuccess } = useSelector(
-    (state) => state.createAcademicYearCalendar
+
+  const { academicYearCalendarProgram } = useSelector(
+    (state) => state.getAcademicYearCalendarProgram
+  );
+
+  const { success: academicYearCreateSuccess } = useSelector(
+    (state) => state.createAcademicYearCalendarPost
+  );
+
+  const { academicSearch } = useSelector(
+    (state) => state.academicYearCalendarSearch
   );
 
   const { singleAcademicYearCalendar } = useSelector(
     (state) => state.getSingleAcademicYearCalendar
   );
 
-  const { academicYearCalendarProgram } = useSelector(
-    (state) => state.getAcademicYearCalendarProgram
+  const { success: updateSingleAcademicYearCalendarSuccess } = useSelector(
+    (state) => state.updateSingleAcademicYearCalendar
   );
 
-  // if (createAcademicYearCalendarSuccess) {
-  //   dispatch(getAllAcademicYearCalendarAction());
-  //   setNotify({
-  //     isOpen: true,
-  //     message: "Created Succesfully",
-  //     type: "success",
-  //   });
-  //   setOpenPopup(false);
-  //   dispatch({ type: ACADEMIC_YEAR_CREATE_RESET });
-  // }
+  if (academicYearCreateSuccess) {
+    setNotify({
+      isOpen: true,
+      message: "Created Succesfully",
+      type: "success",
+    });
+    setOpenPopup(false);
+    dispatch({ type: ACADEMIC_YEAR_CALENDAR_CREATE_POST_RESET });
+  }
 
-  const updateCollegeHandler = (id) => {
-    // dispatch(getSingleAcademicYearAction(id));
-    // setOpenPopup(true);
+  if (updateSingleAcademicYearCalendarSuccess) {
+    setNotify({
+      isOpen: true,
+      message: "Created Succesfully",
+      type: "success",
+    });
+    setOpenPopup(false);
+    dispatch({ type: UPDATE_SINGLE_ACADEMIC_YEAR_CALENDAR_RESET });
+    // dispatch(academicYearCalendarSearchAction(acaYear, programValue, classId));
+  }
+
+  const updateAcademicYear = (id) => {
+    if (academicSearch) {
+      dispatch(
+        getSingleAcademicYearCalendarAction(
+          id,
+          academicSearch.searchFilterModel.idAcademicYear,
+          academicSearch.searchFilterModel.idFacultyProgramLink,
+          academicSearch.searchFilterModel.level
+        )
+      );
+      setOpenPopup(true);
+    }
   };
 
   const deleteCollegeHandler = (id) => {
@@ -118,13 +155,21 @@ const AcademicYearCalendar = () => {
       dispatch(getAllAcademicYearCalendarAction());
     }
     if (academicYearCalendar) {
-      setTableData(academicYearCalendar.dbModelLst);
+      setProgramDdl(
+        academicYearCalendar.searchFilterModel.ddlFacultyProgramLink
+      );
       setDdlClass(academicYearCalendar.searchFilterModel.ddlClass);
       setAcademicYearDdl(
         academicYearCalendar.searchFilterModel.ddlAcademicYear
       );
     }
   }, [dispatch, academicYearCalendar]);
+
+  useEffect(() => {
+    if (academicSearch) {
+      setTableData(academicSearch.dbModelLst);
+    }
+  }, [academicSearch]);
 
   const {
     TableContainer,
@@ -147,18 +192,9 @@ const AcademicYearCalendar = () => {
     });
   };
 
-  const addHandler = () => {
-    dispatch({ type: GET_SINGLE_ACADEMIC_YEAR_CALENDAR_RESET });
-    setOpenPopup(true);
-  };
-
-  const gender = [
-    { Key: "male", Value: "Male" },
-    { Key: "female", Value: "Female" },
-  ];
-
   const handleSelectChange = (value) => {
     dispatch(getAcademicYearCalendarProgramAction(value));
+    setAcaYear(value);
   };
 
   useEffect(() => {
@@ -166,6 +202,15 @@ const AcademicYearCalendar = () => {
       setProgramDdl([...academicYearCalendarProgram.ddlFacultyProgramLink]);
     }
   }, [academicYearCalendarProgram]);
+
+  const handleCreate = () => {
+    dispatch(createAcademicYearCalendarAction(acaYear, programValue, classId));
+    setOpenPopup(true);
+  };
+
+  const handleAcademicYearCalendarSearch = () => {
+    dispatch(academicYearCalendarSearchAction(acaYear, programValue, classId));
+  };
 
   return (
     <>
@@ -176,7 +221,7 @@ const AcademicYearCalendar = () => {
               <SelectControl
                 name="Sex"
                 label="Academic Year"
-                // value={values.Sex}
+                value={acaYear}
                 onChange={(e) => handleSelectChange(e.target.value)}
                 options={academicYearDdl}
               />
@@ -194,8 +239,8 @@ const AcademicYearCalendar = () => {
               <SelectControl
                 name="Sex"
                 label="Classes"
-                // value={values.Sex}
-                // onChange={handleInputChange}
+                value={classId}
+                onChange={(e) => setClassId(e.target.value)}
                 options={ddlClass}
               />
             </Grid>
@@ -205,6 +250,7 @@ const AcademicYearCalendar = () => {
                 color="primary"
                 type="submit"
                 style={{ margin: "10px 0 0 10px" }}
+                onClick={handleCreate}
               >
                 CREATE
               </Button>
@@ -213,6 +259,7 @@ const AcademicYearCalendar = () => {
                 color="primary"
                 type="submit"
                 style={{ margin: "10px 0 0 10px" }}
+                onClick={handleAcademicYearCalendarSearch}
               >
                 SEARCH
               </Button>
@@ -233,41 +280,38 @@ const AcademicYearCalendar = () => {
             }}
             onChange={handleSearch}
           />
-          {/* <Button
-            variant="contained"
-            color="primary"
-            startIcon={<AddIcon />}
-            className={classes.button}
-            onClick={addHandler}
-          >
-            Add{" "}
-          </Button> */}
         </Toolbar>
-        <TableContainer className={classes.table}>
-          <TblHead />
+        {academicSearch && (
+          <TableContainer className={classes.table}>
+            <TblHead />
 
-          <TableBody>
-            {tableDataAfterPagingAndSorting().map((item) => (
-              <AcademicYearCalendarTableCollapse
-                item={item}
-                key={item.$id}
-                updateCollegeHandler={updateCollegeHandler}
-                deleteCollegeHandler={deleteCollegeHandler}
-              />
-            ))}
-          </TableBody>
-        </TableContainer>
-        <TblPagination />
+            <TableBody>
+              {tableDataAfterPagingAndSorting().map((item) => (
+                <AcademicYearCalendarTableCollapse
+                  item={item}
+                  key={item.$id}
+                  updateAcademicYear={updateAcademicYear}
+                  deleteCollegeHandler={deleteCollegeHandler}
+                />
+              ))}
+            </TableBody>
+          </TableContainer>
+        )}
+
+        {academicSearch && <TblPagination />}
       </CustomContainer>
       <Popup
         openPopup={openPopup}
         setOpenPopup={setOpenPopup}
-        title="Academic Faculty Form"
+        title="Create Academic Year Calendar"
       >
-        {/* <AcademicYearForm
-      academicYear={singleAcademicYear && singleAcademicYear.dbModel}
-      selected={singleAcademicYear && singleAcademicYear.selected}
-    /> */}
+        <AcademicYearCalendarForm
+          singleAcademicYearCalendar={
+            singleAcademicYearCalendar && singleAcademicYearCalendar
+          }
+          setOpenPopup={setOpenPopup}
+          classId={classId}
+        />
       </Popup>
       <Notification notify={notify} setNotify={setNotify} />
       <ConfirmDialog

@@ -1,12 +1,15 @@
 import {
   ACADEMIC_YEAR_CALENDAR_CREATE_FAIL,
+  ACADEMIC_YEAR_CALENDAR_CREATE_POST_FAIL,
+  ACADEMIC_YEAR_CALENDAR_CREATE_POST_REQUEST,
+  ACADEMIC_YEAR_CALENDAR_CREATE_POST_RESET,
+  ACADEMIC_YEAR_CALENDAR_CREATE_POST_SUCCESS,
   ACADEMIC_YEAR_CALENDAR_CREATE_REQUEST,
   ACADEMIC_YEAR_CALENDAR_CREATE_RESET,
   ACADEMIC_YEAR_CALENDAR_CREATE_SUCCESS,
-  GET_ACADEMIC_YEAR_CALENDAR_OPTION_FAIL,
-  GET_ACADEMIC_YEAR_CALENDAR_OPTION_REQUEST,
-  GET_ACADEMIC_YEAR_CALENDAR_OPTION_RESET,
-  GET_ACADEMIC_YEAR_CALENDAR_OPTION_SUCCESS,
+  ACADEMIC_YEAR_CALENDAR_SEARCH_FAIL,
+  ACADEMIC_YEAR_CALENDAR_SEARCH_REQUEST,
+  ACADEMIC_YEAR_CALENDAR_SEARCH_SUCCESS,
   GET_ACADEMIC_YEAR_CALENDAR_PROGRAM_FAIL,
   GET_ACADEMIC_YEAR_CALENDAR_PROGRAM_REQUEST,
   GET_ACADEMIC_YEAR_CALENDAR_PROGRAM_SUCCESS,
@@ -56,8 +59,7 @@ export const createAcademicYearCalendarReducer = (state = {}, action) => {
     case ACADEMIC_YEAR_CALENDAR_CREATE_SUCCESS:
       return {
         loading: false,
-        academicYearCalendar: action.payload,
-        success: true,
+        createAcademicYearCalendarOptions: action.payload,
       };
     case ACADEMIC_YEAR_CALENDAR_CREATE_FAIL:
       return { loading: false, error: action.payload };
@@ -68,16 +70,35 @@ export const createAcademicYearCalendarReducer = (state = {}, action) => {
   }
 };
 
-export const getAcademicYearCalendarOptionReducer = (state = {}, action) => {
+export const createAcademicYearCalendarPostReducer = (state = {}, action) => {
   switch (action.type) {
-    case GET_ACADEMIC_YEAR_CALENDAR_OPTION_REQUEST:
+    case ACADEMIC_YEAR_CALENDAR_CREATE_POST_REQUEST:
       return { loading: true };
-    case GET_ACADEMIC_YEAR_CALENDAR_OPTION_SUCCESS:
-      return { loading: false, academicYearCalendarOption: action.payload };
-    case GET_ACADEMIC_YEAR_CALENDAR_OPTION_FAIL:
+    case ACADEMIC_YEAR_CALENDAR_CREATE_POST_SUCCESS:
+      return {
+        loading: false,
+        success: true,
+      };
+    case ACADEMIC_YEAR_CALENDAR_CREATE_POST_FAIL:
       return { loading: false, error: action.payload };
-    case GET_ACADEMIC_YEAR_CALENDAR_OPTION_RESET:
+    case ACADEMIC_YEAR_CALENDAR_CREATE_POST_RESET:
       return {};
+    default:
+      return state;
+  }
+};
+
+export const academicYearCalendarSearchReducer = (state = {}, action) => {
+  switch (action.type) {
+    case ACADEMIC_YEAR_CALENDAR_SEARCH_REQUEST:
+      return { loading: true };
+    case ACADEMIC_YEAR_CALENDAR_SEARCH_SUCCESS:
+      return {
+        loading: false,
+        academicSearch: action.payload,
+      };
+    case ACADEMIC_YEAR_CALENDAR_SEARCH_FAIL:
+      return { loading: false, error: action.payload };
     default:
       return state;
   }
@@ -105,7 +126,6 @@ export const updateSingleAcademicYearCalendarReducer = (state = {}, action) => {
     case UPDATE_SINGLE_ACADEMIC_YEAR_CALENDAR_SUCCESS:
       return {
         loading: false,
-        updatedAcademicYearCalendar: action.payload,
         success: true,
       };
     case UPDATE_SINGLE_ACADEMIC_YEAR_CALENDAR_FAIL:

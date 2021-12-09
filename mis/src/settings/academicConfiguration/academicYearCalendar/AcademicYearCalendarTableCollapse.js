@@ -28,7 +28,7 @@ const useStyles = makeStyles({
 
 const AcademicYearCalendarTableCollapse = ({
   item,
-  updateCollegeHandler,
+  updateAcademicYear,
   deleteCollegeHandler,
 }) => {
   const [open, setOpen] = useState(false);
@@ -48,7 +48,7 @@ const AcademicYearCalendarTableCollapse = ({
             variant="contained"
             color="primary"
             className={classes.button}
-            onClick={() => updateCollegeHandler(item.IDAcademicYearCalendar)}
+            onClick={() => updateAcademicYear(item.IDAcademicYearCalendar)}
           >
             <EditIcon style={{ fontSize: 12 }} />
           </Button>

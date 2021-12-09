@@ -26,9 +26,9 @@ export const getAllAcademicYearAction = () => async (dispatch) => {
     dispatch({
       type: GET_ALL_ACADEMIC_YEAR_FAIL,
       payload:
-        error.message && error.response.data.message
-          ? error.response.data.message
-          : error.message,
+        error.essage && error.response.data.essage
+          ? error.response.data.essage
+          : error.essage,
     });
   }
 };

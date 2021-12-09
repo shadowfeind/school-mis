@@ -81,8 +81,8 @@ const AssignFacultySubject = () => {
   const [academicYearDdl, setAcademicYearDdl] = useState([]);
   const [programDdl, setProgramDdl] = useState([]);
   const [programValue, setProgramValue] = useState(6);
-  const [classId, setClassId] = useState(0);
-  const [acaYear, setAcaYear] = useState(0);
+  const [classId, setClassId] = useState(14);
+  const [acaYear, setAcaYear] = useState(55);
   const [formCheck, setFormCheck] = useState([]);
 
   const classes = useStyles();
@@ -138,6 +138,9 @@ const AssignFacultySubject = () => {
     }
     if (allAcademicSubjects) {
       // setTableData(academicYearCalendar.dbModelLst);
+      setProgramDdl(
+        allAcademicSubjects.searchFilterModel.ddlFacultyProgramLink
+      );
       setDdlClass(allAcademicSubjects.searchFilterModel.ddlClass);
       setAcademicYearDdl(allAcademicSubjects.searchFilterModel.ddlAcademicYear);
     }
@@ -248,6 +251,7 @@ const AssignFacultySubject = () => {
                 label="Academic Year"
                 onChange={(e) => handleAcademicYearChange(e)}
                 options={academicYearDdl}
+                value={acaYear}
               />
             </Grid>
             <Grid item xs={3}>
@@ -265,6 +269,7 @@ const AssignFacultySubject = () => {
                 label="Classes"
                 onChange={(e) => handleClassChange(e)}
                 options={ddlClass}
+                value={classId}
               />
             </Grid>
             <Grid item xs={3}>
@@ -314,7 +319,7 @@ const AssignFacultySubject = () => {
               {tableDataAfterPagingAndSorting().map((item) => (
                 <AssignFacultySubjectTableCollepse
                   item={item}
-                  key={item.id}
+                  key={item.$id}
                   updateFacultySubjectHandler={updateFacultySubjectHandler}
                   deleteCollegeHandler={deleteCollegeHandler}
                 />

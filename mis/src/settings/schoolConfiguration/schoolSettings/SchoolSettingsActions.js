@@ -17,10 +17,7 @@ export const getAllSchoolSettingsAction = () => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: GET_ALL_SCHOOL_SETTINGS_FAIL,
-      payload:
-        error.message && error.response.data.message
-          ? error.response.data.message
-          : error.message,
+      payload: error.message ? error.message : error.Message,
     });
   }
 };

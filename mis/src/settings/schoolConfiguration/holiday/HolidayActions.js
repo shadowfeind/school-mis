@@ -1,4 +1,5 @@
 import axios from "axios";
+import { API_URL } from "../../../constants";
 import {
   GET_ALL_HOLIDAY_FAIL,
   GET_ALL_HOLIDAY_REQUEST,
@@ -18,18 +19,13 @@ export const getAllHolidayAction = () => async (dispatch) => {
   try {
     dispatch({ type: GET_ALL_HOLIDAY_REQUEST });
 
-    const { data } = await axios.get(
-      "http://192.168.1.103:84/api/Att_HRHoliday"
-    );
+    const { data } = await axios.get(`${API_URL}/api/Att_HRHoliday`);
 
     dispatch({ type: GET_ALL_HOLIDAY_SUCCESS, payload: data });
   } catch (error) {
     dispatch({
       type: GET_ALL_HOLIDAY_FAIL,
-      payload:
-        error.message && error.response.data.message
-          ? error.response.data.message
-          : error.message,
+      payload: error.message ? error.message : error.Message,
     });
   }
 };
@@ -47,7 +43,7 @@ export const holidayCreateAction = (holiday) => async (dispatch) => {
     };
 
     const { data } = await axios.post(
-      "http://192.168.1.103:84/api/Att_HRHoliday",
+      `${API_URL}/api/Att_HRHoliday`,
       jsonData,
       config
     );
@@ -56,10 +52,7 @@ export const holidayCreateAction = (holiday) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: HOLIDAY_CREATE_FAIL,
-      payload:
-        error.message && error.response.data.message
-          ? error.response.data.message
-          : error.message,
+      payload: error.message ? error.message : error.Message,
     });
   }
 };
@@ -68,18 +61,13 @@ export const getSingleHolidayAction = (id) => async (dispatch) => {
   try {
     dispatch({ type: GET_SINGLE_HOLIDAY_REQUEST });
 
-    const { data } = await axios.get(
-      `http://192.168.1.103:84/api/Att_HRHoliday/${id}`
-    );
+    const { data } = await axios.get(`${API_URL}/api/Att_HRHoliday/${id}`);
 
     dispatch({ type: GET_SINGLE_HOLIDAY_SUCCESS, payload: data });
   } catch (error) {
     dispatch({
       type: GET_SINGLE_HOLIDAY_FAIL,
-      payload:
-        error.message && error.response.data.message
-          ? error.response.data.message
-          : error.message,
+      payload: error.message ? error.message : error.Message,
     });
   }
 };
@@ -97,7 +85,7 @@ export const updateSingleHoliadyAction = (holiday) => async (dispatch) => {
     };
 
     const { data } = await axios.put(
-      "http://192.168.1.103:84/api/Att_HRHoliday",
+      `${API_URL}/api/Att_HRHoliday`,
       jsonData,
       config
     );
@@ -106,10 +94,7 @@ export const updateSingleHoliadyAction = (holiday) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: UPDATE_SINGLE_HOLIDAY_FAIL,
-      payload:
-        error.message && error.response.data.message
-          ? error.response.data.message
-          : error.message,
+      payload: error.message ? error.message : error.Message,
     });
   }
 };

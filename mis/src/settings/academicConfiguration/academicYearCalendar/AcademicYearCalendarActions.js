@@ -34,10 +34,7 @@ export const getAllAcademicYearCalendarAction = () => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: GET_ALL_ACADEMIC_YEAR_CALENDAR_FAIL,
-      payload:
-        error.message && error.response.data.message
-          ? error.response.data.message
-          : error.message,
+      payload: error.message ? error.message : error.Message,
     });
   }
 };
@@ -58,10 +55,7 @@ export const getAcademicYearCalendarProgramAction =
     } catch (error) {
       dispatch({
         type: GET_ACADEMIC_YEAR_CALENDAR_PROGRAM_FAIL,
-        payload:
-          error.message && error.response.data.message
-            ? error.response.data.message
-            : error.message,
+        payload: error.message ? error.message : error.Message,
       });
     }
   };
@@ -82,10 +76,7 @@ export const createAcademicYearCalendarAction =
     } catch (error) {
       dispatch({
         type: ACADEMIC_YEAR_CALENDAR_CREATE_FAIL,
-        payload:
-          error.message && error.response.data.message
-            ? error.response.data.message
-            : error.message,
+        payload: error.message ? error.message : error.Message,
       });
     }
   };
@@ -113,10 +104,7 @@ export const createAcademicYearCalendarPostAction =
     } catch (error) {
       dispatch({
         type: ACADEMIC_YEAR_CALENDAR_CREATE_POST_FAIL,
-        payload:
-          error.message && error.response.data.message
-            ? error.response.data.message
-            : error.message,
+        payload: error.message ? error.message : error.Message,
       });
     }
   };
@@ -138,10 +126,7 @@ export const academicYearCalendarSearchAction =
     } catch (error) {
       dispatch({
         type: ACADEMIC_YEAR_CALENDAR_SEARCH_FAIL,
-        payload:
-          error.message && error.response.data.message
-            ? error.response.data.message
-            : error.message,
+        payload: error.message ? error.message : error.Message,
       });
     }
   };
@@ -162,10 +147,7 @@ export const getSingleAcademicYearCalendarAction =
     } catch (error) {
       dispatch({
         type: GET_SINGLE_ACADEMIC_YEAR_CALENDAR_FAIL,
-        payload:
-          error.message && error.response.data.message
-            ? error.response.data.message
-            : error.message,
+        payload: error.message ? error.message : error.Message,
       });
     }
   };
@@ -193,10 +175,7 @@ export const updateSingleAcademicYearCalendarAction =
     } catch (error) {
       dispatch({
         type: UPDATE_SINGLE_ACADEMIC_YEAR_CALENDAR_FAIL,
-        payload:
-          error.message && error.response.data.message
-            ? error.response.data.message
-            : error.message,
+        payload: error.message ? error.message : error.Message,
       });
     }
   };

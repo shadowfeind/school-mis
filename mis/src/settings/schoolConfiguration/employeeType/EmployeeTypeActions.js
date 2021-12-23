@@ -1,4 +1,5 @@
 import axios from "axios";
+import { API_URL } from "../../../constants";
 import {
   EMPLOYEE_TYPE_CREATE_FAIL,
   EMPLOYEE_TYPE_CREATE_REQUEST,
@@ -18,18 +19,13 @@ export const getAllEmployeeTypeAction = () => async (dispatch) => {
   try {
     dispatch({ type: GET_ALL_EMPLOYEE_TYPE_REQUEST });
 
-    const { data } = await axios.get(
-      "http://192.168.1.103:84/api/HREmployeeType"
-    );
+    const { data } = await axios.get(`${API_URL}/api/HREmployeeType`);
 
     dispatch({ type: GET_ALL_EMPLOYEE_TYPE_SUCCESS, payload: data });
   } catch (error) {
     dispatch({
       type: GET_ALL_EMPLOYEE_TYPE_FAIL,
-      payload:
-        error.message && error.response.data.message
-          ? error.response.data.message
-          : error.message,
+      payload: error.message ? error.message : error.Message,
     });
   }
 };
@@ -47,7 +43,7 @@ export const employeeTypeCreateAction = (employeeType) => async (dispatch) => {
     };
 
     const { data } = await axios.post(
-      "http://192.168.1.103:84/api/HREmployeeType",
+      `${API_URL}/api/HREmployeeType`,
       jsonData,
       config
     );
@@ -56,10 +52,7 @@ export const employeeTypeCreateAction = (employeeType) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: EMPLOYEE_TYPE_CREATE_FAIL,
-      payload:
-        error.message && error.response.data.message
-          ? error.response.data.message
-          : error.message,
+      payload: error.message ? error.message : error.Message,
     });
   }
 };
@@ -68,18 +61,13 @@ export const getSingleEmployeeTypeAction = (id) => async (dispatch) => {
   try {
     dispatch({ type: GET_SINGLE_EMPLOYEE_TYPE_REQUEST });
 
-    const { data } = await axios.get(
-      `http://192.168.1.103:84/api/HREmployeeType/${id}`
-    );
+    const { data } = await axios.get(`${API_URL}/api/HREmployeeType/${id}`);
 
     dispatch({ type: GET_SINGLE_EMPLOYEE_TYPE_SUCCESS, payload: data });
   } catch (error) {
     dispatch({
       type: GET_SINGLE_EMPLOYEE_TYPE_FAIL,
-      payload:
-        error.message && error.response.data.message
-          ? error.response.data.message
-          : error.message,
+      payload: error.message ? error.message : error.Message,
     });
   }
 };
@@ -98,7 +86,7 @@ export const updateSingleEmployeeTypeAction =
       };
 
       const { data } = await axios.put(
-        "http://192.168.1.103:84/api/HREmployeeType",
+        `${API_URL}/api/HREmployeeType`,
         jsonData,
         config
       );
@@ -107,10 +95,7 @@ export const updateSingleEmployeeTypeAction =
     } catch (error) {
       dispatch({
         type: UPDATE_SINGLE_EMPLOYEE_TYPE_FAIL,
-        payload:
-          error.message && error.response.data.message
-            ? error.response.data.message
-            : error.message,
+        payload: error.message ? error.message : error.Message,
       });
     }
   };

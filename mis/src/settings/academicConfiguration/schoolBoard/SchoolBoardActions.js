@@ -1,4 +1,5 @@
 import axios from "axios";
+import { API_URL } from "../../../constants";
 import {
   GET_ALL_SCHOOL_BOARD_FAIL,
   GET_ALL_SCHOOL_BOARD_REQUEST,
@@ -18,16 +19,13 @@ export const getAllSchoolBoardAction = () => async (dispatch) => {
   try {
     dispatch({ type: GET_ALL_SCHOOL_BOARD_REQUEST });
 
-    const { data } = await axios.get("http://192.168.1.103:84/api/University");
+    const { data } = await axios.get(`${API_URL}/api/University`);
 
     dispatch({ type: GET_ALL_SCHOOL_BOARD_SUCCESS, payload: data });
   } catch (error) {
     dispatch({
       type: GET_ALL_SCHOOL_BOARD_FAIL,
-      payload:
-        error.message && error.response.data.message
-          ? error.response.data.message
-          : error.message,
+      payload: error.message ? error.message : error.Message,
     });
   }
 };
@@ -45,7 +43,7 @@ export const SchoolBoardCreateAction = (schoolBoard) => async (dispatch) => {
     };
 
     const { data } = await axios.post(
-      "http://192.168.1.103:84/api/University",
+      `${API_URL}/api/University`,
       jsonData,
       config
     );
@@ -54,10 +52,7 @@ export const SchoolBoardCreateAction = (schoolBoard) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: SCHOOL_BOARD_CREATE_FAIL,
-      payload:
-        error.message && error.response.data.message
-          ? error.response.data.message
-          : error.message,
+      payload: error.message ? error.message : error.Message,
     });
   }
 };
@@ -66,18 +61,13 @@ export const getSingleSchoolBoardAction = (id) => async (dispatch) => {
   try {
     dispatch({ type: GET_SINGLE_SCHOOL_BOARD_REQUEST });
 
-    const { data } = await axios.get(
-      `http://192.168.1.103:84/api/University/${id}`
-    );
+    const { data } = await axios.get(`${API_URL}/api/University/${id}`);
 
     dispatch({ type: GET_SINGLE_SCHOOL_BOARD_SUCCESS, payload: data });
   } catch (error) {
     dispatch({
       type: GET_SINGLE_SCHOOL_BOARD_FAIL,
-      payload:
-        error.message && error.response.data.message
-          ? error.response.data.message
-          : error.message,
+      payload: error.message ? error.message : error.Message,
     });
   }
 };
@@ -96,7 +86,7 @@ export const updateSingleSchoolBoardAction =
       };
 
       const { data } = await axios.put(
-        "http://192.168.1.103:84/api/University",
+        `${API_URL}/api/University`,
         jsonData,
         config
       );
@@ -105,10 +95,7 @@ export const updateSingleSchoolBoardAction =
     } catch (error) {
       dispatch({
         type: UPDATE_SINGLE_SCHOOL_BOARD_FAIL,
-        payload:
-          error.message && error.response.data.message
-            ? error.response.data.message
-            : error.message,
+        payload: error.message ? error.message : error.Message,
       });
     }
   };

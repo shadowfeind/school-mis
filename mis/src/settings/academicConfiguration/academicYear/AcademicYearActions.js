@@ -25,10 +25,7 @@ export const getAllAcademicYearAction = () => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: GET_ALL_ACADEMIC_YEAR_FAIL,
-      payload:
-        error.essage && error.response.data.essage
-          ? error.response.data.essage
-          : error.essage,
+      payload: error.message ? error.message : error.Message,
     });
   }
 };
@@ -59,10 +56,7 @@ export const AcademicYearCreateAction =
     } catch (error) {
       dispatch({
         type: ACADEMIC_YEAR_CREATE_FAIL,
-        payload:
-          error.message && error.response.data.message
-            ? error.response.data.message
-            : error.message,
+        payload: error.message ? error.message : error.Message,
       });
     }
   };
@@ -79,10 +73,7 @@ export const getAcademicYearOptionAction = () => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: GET_ACADEMIC_YEAR_OPTION_FAIL,
-      payload:
-        error.message && error.response.data.message
-          ? error.response.data.message
-          : error.message,
+      payload: error.message ? error.message : error.Message,
     });
   }
 };
@@ -97,10 +88,7 @@ export const getSingleAcademicYearAction = (id) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: GET_SINGLE_ACADEMIC_YEAR_FAIL,
-      payload:
-        error.message && error.response.data.message
-          ? error.response.data.message
-          : error.message,
+      payload: error.message ? error.message : error.Message,
     });
   }
 };
@@ -128,10 +116,7 @@ export const updateSingleAcademicYearAction =
     } catch (error) {
       dispatch({
         type: UPDATE_SINGLE_ACADEMIC_YEAR_FAIL,
-        payload:
-          error.message && error.response.data.message
-            ? error.response.data.message
-            : error.message,
+        payload: error.message ? error.message : error.Message,
       });
     }
   };

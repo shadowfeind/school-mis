@@ -1,4 +1,5 @@
 import axios from "axios";
+import { API_URL } from "../../../constants";
 import {
   GET_ALL_POSITION_FAIL,
   GET_ALL_POSITION_REQUEST,
@@ -18,16 +19,13 @@ export const getAllPositionAction = () => async (dispatch) => {
   try {
     dispatch({ type: GET_ALL_POSITION_REQUEST });
 
-    const { data } = await axios.get("http://192.168.1.103:84/api/HRPosition");
+    const { data } = await axios.get(`${API_URL}/api/HRPosition`);
 
     dispatch({ type: GET_ALL_POSITION_SUCCESS, payload: data });
   } catch (error) {
     dispatch({
       type: GET_ALL_POSITION_FAIL,
-      payload:
-        error.message && error.response.data.message
-          ? error.response.data.message
-          : error.message,
+      payload: error.message ? error.message : error.Message,
     });
   }
 };
@@ -45,7 +43,7 @@ export const positionCreateAction = (position) => async (dispatch) => {
     };
 
     const { data } = await axios.post(
-      "http://192.168.1.103:84/api/HRPosition",
+      `${API_URL}/api/HRPosition`,
       jsonData,
       config
     );
@@ -54,10 +52,7 @@ export const positionCreateAction = (position) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: POSITION_CREATE_FAIL,
-      payload:
-        error.message && error.response.data.message
-          ? error.response.data.message
-          : error.message,
+      payload: error.message ? error.message : error.Message,
     });
   }
 };
@@ -66,18 +61,13 @@ export const getSinglePositionAction = (id) => async (dispatch) => {
   try {
     dispatch({ type: GET_SINGLE_POSITION_REQUEST });
 
-    const { data } = await axios.get(
-      `http://192.168.1.103:84/api/HRPosition/${id}`
-    );
+    const { data } = await axios.get(`${API_URL}/api/HRPosition/${id}`);
 
     dispatch({ type: GET_SINGLE_POSITION_SUCCESS, payload: data });
   } catch (error) {
     dispatch({
       type: GET_SINGLE_POSITION_FAIL,
-      payload:
-        error.message && error.response.data.message
-          ? error.response.data.message
-          : error.message,
+      payload: error.message ? error.message : error.Message,
     });
   }
 };
@@ -95,7 +85,7 @@ export const updateSinglePositionAction = (position) => async (dispatch) => {
     };
 
     const { data } = await axios.put(
-      "http://192.168.1.103:84/api/HRPosition",
+      `${API_URL}/api/HRPosition`,
       jsonData,
       config
     );
@@ -104,10 +94,7 @@ export const updateSinglePositionAction = (position) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: UPDATE_SINGLE_POSITION_FAIL,
-      payload:
-        error.message && error.response.data.message
-          ? error.response.data.message
-          : error.message,
+      payload: error.message ? error.message : error.Message,
     });
   }
 };

@@ -28,10 +28,7 @@ export const getAllAcademicFacultyAction = () => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: GET_ALL_ACADEMIC_FACULTY_FAIL,
-      payload:
-        error.message && error.response.data.message
-          ? error.response.data.message
-          : error.message,
+      payload: error.message ? error.message : error.Message,
     });
   }
 };
@@ -62,10 +59,7 @@ export const AcademicFacultyCreateAction =
     } catch (error) {
       dispatch({
         type: ACADEMIC_FACULTY_CREATE_FAIL,
-        payload:
-          error.message && error.response.data.message
-            ? error.response.data.message
-            : error.message,
+        payload: error.message ? error.message : error.Message,
       });
     }
   };
@@ -82,10 +76,7 @@ export const getAcademicFacultyOptionAction = () => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: GET_ACADEMIC_FACULTY_OPTION_FAIL,
-      payload:
-        error.message && error.response.data.message
-          ? error.response.data.message
-          : error.message,
+      payload: error.message ? error.message : error.Message,
     });
   }
 };
@@ -100,10 +91,7 @@ export const getSingleAcademicFacultyAction = (id) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: GET_SINGLE_ACADEMIC_FACULTY_FAIL,
-      payload:
-        error.message && error.response.data.message
-          ? error.response.data.message
-          : error.message,
+      payload: error.message ? error.message : error.Message,
     });
   }
 };
@@ -131,10 +119,7 @@ export const updateSingleAcademicFacultyAction =
     } catch (error) {
       dispatch({
         type: UPDATE_SINGLE_ACADEMIC_FACULTY_FAIL,
-        payload:
-          error.message && error.response.data.message
-            ? error.response.data.message
-            : error.message,
+        payload: error.message ? error.message : error.Message,
       });
     }
   };

@@ -1,4 +1,5 @@
 import axios from "axios";
+import { API_URL } from "../../../constants";
 import {
   EMPLOYEE_CREATE_FAIL,
   EMPLOYEE_CREATE_REQUEST,
@@ -21,16 +22,13 @@ export const getAllEmployeeAction = () => async (dispatch) => {
   try {
     dispatch({ type: GET_ALL_EMPLOYEE_REQUEST });
 
-    const { data } = await axios.get("http://192.168.1.103:84/api/HREmployee");
+    const { data } = await axios.get(`${API_URL}/api/HREmployee`);
 
     dispatch({ type: GET_ALL_EMPLOYEE_SUCCESS, payload: data });
   } catch (error) {
     dispatch({
       type: GET_ALL_EMPLOYEE_FAIL,
-      payload:
-        error.message && error.response.data.message
-          ? error.response.data.message
-          : error.message,
+      payload: error.message ? error.message : error.Message,
     });
   }
 };
@@ -40,14 +38,14 @@ export const getAllEmployeeCreateAction = () => async (dispatch) => {
     dispatch({ type: GET_ALL_EMPLOYEE_CREATE_REQUEST });
 
     const { data } = await axios.get(
-      "http://192.168.1.103:84/api/HREmployee/0/0/0/0/0/create"
+      `${API_URL}/api/HREmployee/0/0/0/0/0/create`
     );
 
     dispatch({ type: GET_ALL_EMPLOYEE_CREATE_SUCCESS, payload: data });
   } catch (error) {
     dispatch({
       type: GET_ALL_EMPLOYEE_CREATE_FAIL,
-      payload: error.message,
+      payload: error.message ? error.message : error.Message,
     });
   }
 };
@@ -65,7 +63,7 @@ export const employeeCreateAction = (employee) => async (dispatch) => {
     };
 
     const { data } = await axios.post(
-      "http://192.168.1.103:84/api/HREmployee",
+      `${API_URL}/api/HREmployee`,
       jsonData,
       config
     );
@@ -74,10 +72,7 @@ export const employeeCreateAction = (employee) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: EMPLOYEE_CREATE_FAIL,
-      payload:
-        error.message && error.response.data.message
-          ? error.response.data.message
-          : error.message,
+      payload: error.message ? error.message : error.Message,
     });
   }
 };
@@ -86,18 +81,13 @@ export const getSingleEmployeeAction = (id) => async (dispatch) => {
   try {
     dispatch({ type: GET_SINGLE_EMPLOYEE_REQUEST });
 
-    const { data } = await axios.get(
-      `http://192.168.1.103:84/api/HREmployee/${id}`
-    );
+    const { data } = await axios.get(`${API_URL}/api/HREmployee/${id}`);
 
     dispatch({ type: GET_SINGLE_EMPLOYEE_SUCCESS, payload: data });
   } catch (error) {
     dispatch({
       type: GET_SINGLE_EMPLOYEE_FAIL,
-      payload:
-        error.message && error.response.data.message
-          ? error.response.data.message
-          : error.message,
+      payload: error.message ? error.message : error.Message,
     });
   }
 };
@@ -115,7 +105,7 @@ export const updateSingleEmployeeAction = (employee) => async (dispatch) => {
     };
 
     const { data } = await axios.put(
-      "http://192.168.1.103:84/api/HREmployee",
+      `${API_URL}/api/HREmployee`,
       jsonData,
       config
     );
@@ -124,10 +114,7 @@ export const updateSingleEmployeeAction = (employee) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: UPDATE_SINGLE_EMPLOYEE_FAIL,
-      payload:
-        error.message && error.response.data.message
-          ? error.response.data.message
-          : error.message,
+      payload: error.message ? error.message : error.Message,
     });
   }
 };

@@ -1,4 +1,5 @@
 import axios from "axios";
+import { API_URL } from "../../../constants";
 import {
   EMPLOYEE_CATEGORY_ROLE_CREATE_FAIL,
   EMPLOYEE_CATEGORY_ROLE_CREATE_REQUEST,
@@ -18,18 +19,13 @@ export const getAllEmployeeCategoryRoleAction = () => async (dispatch) => {
   try {
     dispatch({ type: GET_ALL_EMPLOYEE_CATEGORY_ROLE_REQUEST });
 
-    const { data } = await axios.get(
-      "http://192.168.1.103:84/api/HREmployeeCategoryRole"
-    );
+    const { data } = await axios.get(`${API_URL}/api/HREmployeeCategoryRole`);
 
     dispatch({ type: GET_ALL_EMPLOYEE_CATEGORY_ROLE_SUCCESS, payload: data });
   } catch (error) {
     dispatch({
       type: GET_ALL_EMPLOYEE_CATEGORY_ROLE_FAIL,
-      payload:
-        error.message && error.response.data.message
-          ? error.response.data.message
-          : error.message,
+      payload: error.message ? error.message : error.Message,
     });
   }
 };
@@ -48,7 +44,7 @@ export const employeeCategoryRoleCreateAction =
       };
 
       const { data } = await axios.post(
-        "http://192.168.1.103:84/api/HREmployeeCategoryRole",
+        `${API_URL}/api/HREmployeeCategoryRole`,
         jsonData,
         config
       );
@@ -57,10 +53,7 @@ export const employeeCategoryRoleCreateAction =
     } catch (error) {
       dispatch({
         type: EMPLOYEE_CATEGORY_ROLE_CREATE_FAIL,
-        payload:
-          error.message && error.response.data.message
-            ? error.response.data.message
-            : error.message,
+        payload: error.message ? error.message : error.Message,
       });
     }
   };
@@ -70,7 +63,7 @@ export const getSingleEmployeeCategoryRoleAction = (id) => async (dispatch) => {
     dispatch({ type: GET_SINGLE_EMPLOYEE_CATEGORY_ROLE_REQUEST });
 
     const { data } = await axios.get(
-      `http://192.168.1.103:84/api/HREmployeeCategoryRole/${id}`
+      `${API_URL}/api/HREmployeeCategoryRole/${id}`
     );
 
     dispatch({
@@ -80,10 +73,7 @@ export const getSingleEmployeeCategoryRoleAction = (id) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: GET_SINGLE_EMPLOYEE_CATEGORY_ROLE_FAIL,
-      payload:
-        error.message && error.response.data.message
-          ? error.response.data.message
-          : error.message,
+      payload: error.message ? error.message : error.Message,
     });
   }
 };
@@ -102,7 +92,7 @@ export const updateSingleEmployeeCategoryRoleAction =
       };
 
       const { data } = await axios.put(
-        "http://192.168.1.103:84/api/HREmployeeCategoryRole",
+        `${API_URL}/api/HREmployeeCategoryRole`,
         jsonData,
         config
       );
@@ -114,10 +104,7 @@ export const updateSingleEmployeeCategoryRoleAction =
     } catch (error) {
       dispatch({
         type: UPDATE_SINGLE_EMPLOYEE_CATEGORY_ROLE_FAIL,
-        payload:
-          error.message && error.response.data.message
-            ? error.response.data.message
-            : error.message,
+        payload: error.message ? error.message : error.Message,
       });
     }
   };

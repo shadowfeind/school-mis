@@ -1,4 +1,5 @@
 import axios from "axios";
+import { API_URL } from "../../../constants";
 import {
   GET_ALL_ROLE_FAIL,
   GET_ALL_ROLE_REQUEST,
@@ -18,16 +19,13 @@ export const getAllRolesAction = () => async (dispatch) => {
   try {
     dispatch({ type: GET_ALL_ROLE_REQUEST });
 
-    const { data } = await axios.get("http://192.168.1.103:84/api/HRRole");
+    const { data } = await axios.get(`${API_URL}/api/HRRole`);
 
     dispatch({ type: GET_ALL_ROLE_SUCCESS, payload: data });
   } catch (error) {
     dispatch({
       type: GET_ALL_ROLE_FAIL,
-      payload:
-        error.message && error.response.data.message
-          ? error.response.data.message
-          : error.message,
+      payload: error.message ? error.message : error.Message,
     });
   }
 };
@@ -45,7 +43,7 @@ export const roleCreateAction = (role) => async (dispatch) => {
     };
 
     const { data } = await axios.post(
-      "http://192.168.1.103:84/api/HRRole",
+      `${API_URL}/api/HRRole`,
       jsonData,
       config
     );
@@ -54,10 +52,7 @@ export const roleCreateAction = (role) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: ROLE_CREATE_FAIL,
-      payload:
-        error.message && error.response.data.message
-          ? error.response.data.message
-          : error.message,
+      payload: error.message ? error.message : error.Message,
     });
   }
 };
@@ -66,18 +61,13 @@ export const getSingleRoleAction = (id) => async (dispatch) => {
   try {
     dispatch({ type: GET_SINGLE_ROLE_REQUEST });
 
-    const { data } = await axios.get(
-      `http://192.168.1.103:84/api/HRRole/${id}`
-    );
+    const { data } = await axios.get(`${API_URL}/api/HRRole/${id}`);
 
     dispatch({ type: GET_SINGLE_ROLE_SUCCESS, payload: data });
   } catch (error) {
     dispatch({
       type: GET_SINGLE_ROLE_FAIL,
-      payload:
-        error.message && error.response.data.message
-          ? error.response.data.message
-          : error.message,
+      payload: error.message ? error.message : error.Message,
     });
   }
 };
@@ -94,20 +84,13 @@ export const updateSingleRoleAction = (role) => async (dispatch) => {
       },
     };
 
-    const { data } = await axios.put(
-      "http://192.168.1.103:84/api/HRRole",
-      jsonData,
-      config
-    );
+    const { data } = await axios.put(`${API_URL}/api/HRRole`, jsonData, config);
 
     dispatch({ type: UPDATE_SINGLE_ROLE_SUCCESS, payload: data });
   } catch (error) {
     dispatch({
       type: UPDATE_SINGLE_ROLE_FAIL,
-      payload:
-        error.message && error.response.data.message
-          ? error.response.data.message
-          : error.message,
+      payload: error.message ? error.message : error.Message,
     });
   }
 };

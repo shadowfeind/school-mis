@@ -1,4 +1,5 @@
 import axios from "axios";
+import { API_URL } from "../../../constants";
 import {
   ASSIGN_FACULTY_SUBJECT_EDIT_FAIL,
   ASSIGN_FACULTY_SUBJECT_EDIT_POST_FAIL,
@@ -27,18 +28,13 @@ export const getALLAssignFacultySubject = () => async (dispatch) => {
   try {
     dispatch({ type: GET_ALL_ASSIGN_FACULTY_SUBJECT_REQUEST });
 
-    const { data } = await axios.get(
-      "http://192.168.1.103:84/api/AcaFacultySubjectLink"
-    );
+    const { data } = await axios.get(`${API_URL}/api/AcaFacultySubjectLink`);
 
     dispatch({ type: GET_ALL_ASSIGN_FACULTY_SUBJECT_SUCCESS, payload: data });
   } catch (error) {
     dispatch({
       type: GET_ALL_ASSIGN_FACULTY_SUBJECT_FAIL,
-      payload:
-        error.message && error.response.data.message
-          ? error.response.data.message
-          : error.message,
+      payload: error.message ? error.message : error.Message,
     });
   }
 };
@@ -49,7 +45,7 @@ export const getListAssignFacultySubject =
       dispatch({ type: GET_LIST_ASSIGN_FACULTY_SUBJECT_REQUEST });
 
       const { data } = await axios.get(
-        `http://192.168.1.103:84/api/GetListAcademicFacultySubjectLink/${year}/${program}/${classId}/getList`
+        `${API_URL}/api/GetListAcademicFacultySubjectLink/${year}/${program}/${classId}/getList`
       );
 
       dispatch({
@@ -59,10 +55,7 @@ export const getListAssignFacultySubject =
     } catch (error) {
       dispatch({
         type: GET_LIST_ASSIGN_FACULTY_SUBJECT_FAIL,
-        payload:
-          error.message && error.response.data.message
-            ? error.response.data.message
-            : error.message,
+        payload: error.message ? error.message : error.Message,
       });
     }
   };
@@ -73,7 +66,7 @@ export const getSingleAssignFacultySubjectAction =
       dispatch({ type: GET_SINGLE_ASSIGN_FACULTY_SUBJECT_REQUEST });
 
       const { data } = await axios.get(
-        `http://192.168.1.103:84/api/GetAcademicFacultySubjectLinkById/${id}/${year}/${program}/${classId}/edit`
+        `${API_URL}/api/GetAcademicFacultySubjectLinkById/${id}/${year}/${program}/${classId}/edit`
       );
 
       dispatch({
@@ -83,10 +76,7 @@ export const getSingleAssignFacultySubjectAction =
     } catch (error) {
       dispatch({
         type: GET_SINGLE_ASSIGN_FACULTY_SUBJECT_FAIL,
-        payload:
-          error.message && error.response.data.message
-            ? error.response.data.message
-            : error.message,
+        payload: error.message ? error.message : error.Message,
       });
     }
   };
@@ -97,17 +87,14 @@ export const getAssignFacultySubjectOptionAction =
       dispatch({ type: ASSIGN_FACULTY_SUBJECT_GET_REQUEST });
 
       const { data } = await axios.get(
-        `http://192.168.1.103:84/api/GetAcademicFacultySubjectLinkById/${year}/${program}/${classId}/create`
+        `${API_URL}/api/GetAcademicFacultySubjectLinkById/${year}/${program}/${classId}/create`
       );
 
       dispatch({ type: ASSIGN_FACULTY_SUBJECT_GET_SUCCESS, payload: data });
     } catch (error) {
       dispatch({
         type: ASSIGN_FACULTY_SUBJECT_GET_FAIL,
-        payload:
-          error.message && error.response.data.message
-            ? error.response.data.message
-            : error.message,
+        payload: error.message ? error.message : error.Message,
       });
     }
   };
@@ -131,7 +118,7 @@ export const AcademicFacultyCreateAction =
       };
 
       const { data } = await axios.post(
-        "http://192.168.1.103:84/api/AcaFacultySubjectLink",
+        `${API_URL}/api/AcaFacultySubjectLink`,
         jsonData,
         config
       );
@@ -140,10 +127,7 @@ export const AcademicFacultyCreateAction =
     } catch (error) {
       dispatch({
         type: ASSIGN_FACULTY_SUBJECT_POST_FAIL,
-        payload:
-          error.message && error.response.data.message
-            ? error.response.data.message
-            : error.message,
+        payload: error.message ? error.message : error.Message,
       });
     }
   };
@@ -154,17 +138,14 @@ export const getAssignFacultySubjectEditAction =
       dispatch({ type: ASSIGN_FACULTY_SUBJECT_EDIT_REQUEST });
 
       const { data } = await axios.get(
-        `http://192.168.1.103:84/api/GetSingleEditAcademicFacultySubjectLinkByParams/${id}/${year}/${program}/${classId}/singleEdit`
+        `${API_URL}/api/GetSingleEditAcademicFacultySubjectLinkByParams/${id}/${year}/${program}/${classId}/singleEdit`
       );
 
       dispatch({ type: ASSIGN_FACULTY_SUBJECT_EDIT_SUCCESS, payload: data });
     } catch (error) {
       dispatch({
         type: ASSIGN_FACULTY_SUBJECT_EDIT_FAIL,
-        payload:
-          error.message && error.response.data.message
-            ? error.response.data.message
-            : error.message,
+        payload: error.message ? error.message : error.Message,
       });
     }
   };
@@ -188,7 +169,7 @@ export const academicFacultySubjectPostEditAction =
       };
 
       const { data } = await axios.put(
-        "http://192.168.1.103:84/api/AcaFacultySubjectLink",
+        `${API_URL}/api/AcaFacultySubjectLink`,
         jsonData,
         config
       );
@@ -200,10 +181,7 @@ export const academicFacultySubjectPostEditAction =
     } catch (error) {
       dispatch({
         type: ASSIGN_FACULTY_SUBJECT_EDIT_POST_FAIL,
-        payload:
-          error.message && error.response.data.message
-            ? error.response.data.message
-            : error.message,
+        payload: error.message ? error.message : error.Message,
       });
     }
   };

@@ -26,11 +26,17 @@ const SchoolBoardForm = ({ schoolBoard, setOpenPopup }) => {
 
     temp.UniversityName = !fieldValues.UniversityName
       ? "This feild is required"
+      : !fieldValues.UniversityName.trim()
+      ? "This feild is required"
       : fieldValues.UniversityName.length > 100
       ? "Must be less than 101 characters"
       : "";
 
-    temp.Description = fieldValues.Description ? "" : "This feild is required";
+    temp.Description = !fieldValues.Description
+      ? "This feild is required"
+      : !fieldValues.Description.trim()
+      ? "This feild is required"
+      : "";
 
     setErrors({ ...temp });
     return Object.values(temp).every((x) => x === "");

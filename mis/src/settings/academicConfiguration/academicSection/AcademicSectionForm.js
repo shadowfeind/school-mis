@@ -24,11 +24,17 @@ const AcademicSectinoForm = ({ academicSection, setOpenPopup }) => {
   const dispatch = useDispatch();
   const validate = (fieldValues = values) => {
     let temp = { ...errors };
-    temp.RoomName = fieldValues.RoomName ? "" : "This feild is required";
+    temp.RoomName = !fieldValues.RoomName
+      ? "This feild is required"
+      : !fieldValues.RoomName.trim()
+      ? "This feild is required"
+      : "";
     temp.RoomCapacity = fieldValues.RoomCapacity
       ? ""
       : "This feild is required";
     temp.RoomLocation = !fieldValues.RoomLocation
+      ? "This feild is required"
+      : !fieldValues.RoomLocation.trim()
       ? "This feild is required"
       : fieldValues.RoomLocation.length > 200
       ? "Must be less than 201 letters"

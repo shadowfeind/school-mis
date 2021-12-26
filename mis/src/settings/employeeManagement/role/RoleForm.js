@@ -24,11 +24,15 @@ const RoleForm = ({ role, setOpenPopup }) => {
 
     temp.RoleName = !fieldValues.RoleName
       ? "This feild is required"
+      : !fieldValues.RoleName.trim()
+      ? "This feild is required"
       : fieldValues.RoleName.length > 16
       ? "Must be less than 16 characters"
       : "";
 
     temp.Description = !fieldValues.Description
+      ? "This feild is required"
+      : !fieldValues.Description.trim()
       ? "This feild is required"
       : fieldValues.Description.length > 200
       ? "Must be less than 201 characters"

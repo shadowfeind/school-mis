@@ -23,6 +23,7 @@ import EmployeeCategoryRoleTableCollapse from "./EmployeeCategoryRoleTableCollap
 import EmployeeCategoryRoleForm from "./EmployeeCategoryRoleForm";
 import {
   EMPLOYEE_CATEGORY_ROLE_CREATE_RESET,
+  GET_ALL_EMPLOYEE_CATEGORY_ROLE_RESET,
   GET_SINGLE_EMPLOYEE_CATEGORY_ROLE_RESET,
   UPDATE_SINGLE_EMPLOYEE_CATEGORY_ROLE_RESET,
 } from "./EmployeeCategoryRoleConstant";
@@ -93,6 +94,7 @@ const EmployeeType = () => {
       message: error,
       type: "error",
     });
+    dispatch({ type: GET_ALL_EMPLOYEE_CATEGORY_ROLE_RESET });
   }
   if (createEmployeeCategoryRoleError) {
     setNotify({
@@ -100,6 +102,7 @@ const EmployeeType = () => {
       message: createEmployeeCategoryRoleError,
       type: "error",
     });
+    dispatch({ type: EMPLOYEE_CATEGORY_ROLE_CREATE_RESET });
   }
   if (singleEmployeeCategoryRoleError) {
     setNotify({
@@ -107,6 +110,7 @@ const EmployeeType = () => {
       message: singleEmployeeCategoryRoleError,
       type: "error",
     });
+    dispatch({ type: GET_SINGLE_EMPLOYEE_CATEGORY_ROLE_RESET });
   }
   if (updateSingleEmployeeCategoryRole) {
     setNotify({
@@ -114,6 +118,7 @@ const EmployeeType = () => {
       message: updateSingleEmployeeCategoryRole,
       type: "error",
     });
+    dispatch({ type: UPDATE_SINGLE_EMPLOYEE_CATEGORY_ROLE_RESET });
   }
 
   if (createEmployeeCategoryRoleSuccess) {

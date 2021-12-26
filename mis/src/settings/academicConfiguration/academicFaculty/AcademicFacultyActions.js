@@ -22,7 +22,9 @@ export const getAllAcademicFacultyAction = () => async (dispatch) => {
   try {
     dispatch({ type: GET_ALL_ACADEMIC_FACULTY_REQUEST });
 
-    const { data } = await axios.get(`${API_URL}/api/AcademicFaculty`);
+    const { data } = await axios.get(
+      `${API_URL}/api/AcademicFaculty/GetAcademicFaculty`
+    );
 
     dispatch({ type: GET_ALL_ACADEMIC_FACULTY_SUCCESS, payload: data });
   } catch (error) {
@@ -50,7 +52,7 @@ export const AcademicFacultyCreateAction =
       };
 
       const { data } = await axios.post(
-        `${API_URL}/api/AcademicFaculty`,
+        `${API_URL}/api/AcademicFaculty/PostAcademicFaculty`,
         jsonData,
         config
       );
@@ -85,7 +87,9 @@ export const getSingleAcademicFacultyAction = (id) => async (dispatch) => {
   try {
     dispatch({ type: GET_SINGLE_ACADEMIC_FACULTY_REQUEST });
 
-    const { data } = await axios.get(`${API_URL}/api/AcademicFaculty/${id}`);
+    const { data } = await axios.get(
+      `${API_URL}/api/AcademicFaculty/GetAcademicFacultyById/${id}`
+    );
 
     dispatch({ type: GET_SINGLE_ACADEMIC_FACULTY_SUCCESS, payload: data });
   } catch (error) {

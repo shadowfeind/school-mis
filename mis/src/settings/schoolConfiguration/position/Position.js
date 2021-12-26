@@ -26,6 +26,7 @@ import {
   GET_SINGLE_POSITION_RESET,
   POSITION_CREATE_RESET,
   UPDATE_SINGLE_POSITION_RESET,
+  GET_ALL_POSITION_RESET,
 } from "./PositionConstatns";
 
 const useStyles = makeStyles((theme) => ({
@@ -86,6 +87,7 @@ const Position = () => {
   } = useSelector((state) => state.updateSinglePosition);
 
   if (error) {
+    dispatch({ type: GET_ALL_POSITION_RESET });
     setNotify({
       isOpen: true,
       message: error,
@@ -110,6 +112,7 @@ const Position = () => {
       message: createPositionError,
       type: "error",
     });
+    dispatch({ type: POSITION_CREATE_RESET });
   }
 
   if (singlePositionError) {
@@ -118,6 +121,7 @@ const Position = () => {
       message: singlePositionError,
       type: "error",
     });
+    dispatch({ type: GET_SINGLE_POSITION_RESET });
   }
 
   if (updateSinglePositionSuccess) {
@@ -137,6 +141,7 @@ const Position = () => {
       message: updateSinglePositionError,
       type: "error",
     });
+    dispatch({ type: UPDATE_SINGLE_POSITION_RESET });
   }
 
   const updateCollegeHandler = (id) => {

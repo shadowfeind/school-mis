@@ -24,10 +24,14 @@ const EmployeeCategoryRoleForm = ({ employeeCategoryRole, setOpenPopup }) => {
     let temp = { ...errors };
     temp.Heading = !fieldValues.Heading
       ? "This feild is required"
+      : !fieldValues.Heading.trim()
+      ? "This feild is required"
       : fieldValues.Heading.length > 20
       ? "Must be less than 20 characters"
       : "";
     temp.Description = !fieldValues.Description
+      ? "This feild is required"
+      : !fieldValues.Description.trim()
       ? "This feild is required"
       : fieldValues.Description.length > 20
       ? "Must be less than 20 characters"

@@ -19,7 +19,9 @@ export const getAllAcademicSectionAction = () => async (dispatch) => {
   try {
     dispatch({ type: GET_ALL_ACADEMIC_SECTION_REQUEST });
 
-    const { data } = await axios.get(`${API_URL}/api/AcademicRoom`);
+    const { data } = await axios.get(
+      `${API_URL}/api/AcademicRoom/GetAcademicRoom`
+    );
 
     dispatch({ type: GET_ALL_ACADEMIC_SECTION_SUCCESS, payload: data });
   } catch (error) {
@@ -44,7 +46,7 @@ export const AcademicSectionCreateAction =
       };
 
       const { data } = await axios.post(
-        `${API_URL}/api/AcademicRoom`,
+        `${API_URL}/api/AcademicRoom/PostAcademicRoom`,
         jsonData,
         config
       );
@@ -62,7 +64,9 @@ export const getSingleAcademicSectionAction = (id) => async (dispatch) => {
   try {
     dispatch({ type: GET_SINGLE_ACADEMIC_SECTION_REQUEST });
 
-    const { data } = await axios.get(`${API_URL}/api/AcademicRoom/${id}`);
+    const { data } = await axios.get(
+      `${API_URL}/api/AcademicRoom/GetAcademicRoomById/${id}`
+    );
 
     dispatch({ type: GET_SINGLE_ACADEMIC_SECTION_SUCCESS, payload: data });
   } catch (error) {
@@ -87,7 +91,7 @@ export const updateSingleAcademicSectionAction =
       };
 
       const { data } = await axios.put(
-        `${API_URL}/api/AcademicRoom`,
+        `${API_URL}/api/AcademicRoom/PutAcademicRoom`,
         jsonData,
         config
       );

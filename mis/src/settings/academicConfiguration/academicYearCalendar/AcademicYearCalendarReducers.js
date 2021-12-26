@@ -15,6 +15,7 @@ import {
   GET_ACADEMIC_YEAR_CALENDAR_PROGRAM_SUCCESS,
   GET_ALL_ACADEMIC_YEAR_CALENDAR_FAIL,
   GET_ALL_ACADEMIC_YEAR_CALENDAR_REQUEST,
+  GET_ALL_ACADEMIC_YEAR_CALENDAR_RESET,
   GET_ALL_ACADEMIC_YEAR_CALENDAR_SUCCESS,
   GET_SINGLE_ACADEMIC_YEAR_CALENDAR_FAIL,
   GET_SINGLE_ACADEMIC_YEAR_CALENDAR_REQUEST,
@@ -34,6 +35,8 @@ export const getAllAcademicYearCalendar = (state = {}, action) => {
       return { loading: false, academicYearCalendar: action.payload };
     case GET_ALL_ACADEMIC_YEAR_CALENDAR_FAIL:
       return { loading: false, error: action.payload };
+    case GET_ALL_ACADEMIC_YEAR_CALENDAR_RESET:
+      return {};
     default:
       return state;
   }

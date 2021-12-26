@@ -23,6 +23,7 @@ import AcademicClassTableCollapse from "./AcademicCLassTableCollapse";
 import AcademicClassForm from "./AcademicClassForm";
 import {
   ACADEMIC_CLASS_CREATE_RESET,
+  GET_ALL_ACADEMIC_CLASS_RESET,
   GET_SINGLE_ACADEMIC_CLASS_RESET,
   UPDATE_SINGLE_ACADEMIC_CLASS_RESET,
 } from "./AcademicClassConstants";
@@ -92,6 +93,7 @@ const AcademicClass = () => {
       message: error,
       type: "error",
     });
+    dispatch({ type: GET_ALL_ACADEMIC_CLASS_RESET });
   }
   if (academicClassCreateError) {
     setNotify({
@@ -99,6 +101,7 @@ const AcademicClass = () => {
       message: academicClassCreateError,
       type: "error",
     });
+    dispatch({ type: ACADEMIC_CLASS_CREATE_RESET });
   }
   if (singleAcademicClassError) {
     setNotify({
@@ -106,6 +109,7 @@ const AcademicClass = () => {
       message: singleAcademicClassError,
       type: "error",
     });
+    dispatch({ type: GET_SINGLE_ACADEMIC_CLASS_RESET });
   }
   if (updateSingleAcademicClassError) {
     setNotify({
@@ -113,6 +117,7 @@ const AcademicClass = () => {
       message: updateSingleAcademicClassError,
       type: "error",
     });
+    dispatch({ type: UPDATE_SINGLE_ACADEMIC_CLASS_RESET });
   }
 
   if (academicClassCreateSuccess) {

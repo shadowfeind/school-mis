@@ -19,7 +19,9 @@ export const getAllEmployeeCategoryRoleAction = () => async (dispatch) => {
   try {
     dispatch({ type: GET_ALL_EMPLOYEE_CATEGORY_ROLE_REQUEST });
 
-    const { data } = await axios.get(`${API_URL}/api/HREmployeeCategoryRole`);
+    const { data } = await axios.get(
+      `${API_URL}/api/HREmployeeCategoryRole/GetHREmployeeCategoryRoleViewModelLst`
+    );
 
     dispatch({ type: GET_ALL_EMPLOYEE_CATEGORY_ROLE_SUCCESS, payload: data });
   } catch (error) {
@@ -44,7 +46,7 @@ export const employeeCategoryRoleCreateAction =
       };
 
       const { data } = await axios.post(
-        `${API_URL}/api/HREmployeeCategoryRole`,
+        `${API_URL}/api/HREmployeeCategoryRole/PostHREmployeeCategoryRole`,
         jsonData,
         config
       );
@@ -63,7 +65,7 @@ export const getSingleEmployeeCategoryRoleAction = (id) => async (dispatch) => {
     dispatch({ type: GET_SINGLE_EMPLOYEE_CATEGORY_ROLE_REQUEST });
 
     const { data } = await axios.get(
-      `${API_URL}/api/HREmployeeCategoryRole/${id}`
+      `${API_URL}/api/HREmployeeCategoryRole/GetHREmployeeCategoryRoleById/${id}`
     );
 
     dispatch({
@@ -92,7 +94,7 @@ export const updateSingleEmployeeCategoryRoleAction =
       };
 
       const { data } = await axios.put(
-        `${API_URL}/api/HREmployeeCategoryRole`,
+        `${API_URL}/api/HREmployeeCategoryRole/PutHREmployeeCategoryRole`,
         jsonData,
         config
       );

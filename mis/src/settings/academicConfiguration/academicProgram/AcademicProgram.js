@@ -22,6 +22,8 @@ import {
 } from "./AcademicProgramActions";
 import {
   ACADEMIC_PROGRAM_CREATE_RESET,
+  GET_ACADEMIC_PROGRAM_OPTION_RESET,
+  GET_ALL_ACADEMIC_PROGRAM_RESET,
   GET_SINGLE_ACADEMIC_PROGRAM_RESET,
   UPDATE_SINGLE_ACADEMIC_PROGRAM_RESET,
 } from "./AcademicProgramConstants";
@@ -93,6 +95,7 @@ const AcademicProgram = () => {
       message: error,
       type: "error",
     });
+    dispatch({ type: GET_ALL_ACADEMIC_PROGRAM_RESET });
   }
   if (createAcademicProgramError) {
     setNotify({
@@ -100,6 +103,7 @@ const AcademicProgram = () => {
       message: createAcademicProgramError,
       type: "error",
     });
+    dispatch({ type: ACADEMIC_PROGRAM_CREATE_RESET });
   }
   if (singleAcademicProgramError) {
     setNotify({
@@ -107,6 +111,7 @@ const AcademicProgram = () => {
       message: singleAcademicProgramError,
       type: "error",
     });
+    dispatch({ type: GET_SINGLE_ACADEMIC_PROGRAM_RESET });
   }
   if (updateSingleAcademicProgramErrpr) {
     setNotify({
@@ -114,6 +119,7 @@ const AcademicProgram = () => {
       message: updateSingleAcademicProgramErrpr,
       type: "error",
     });
+    dispatch({ type: UPDATE_SINGLE_ACADEMIC_PROGRAM_RESET });
   }
 
   if (createAcademicProgramSuccess) {

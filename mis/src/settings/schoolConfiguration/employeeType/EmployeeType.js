@@ -24,6 +24,7 @@ import {
 import EmployeeTypeForm from "./EmployeeTypeForm";
 import {
   EMPLOYEE_TYPE_CREATE_RESET,
+  GET_ALL_EMPLOYEE_TYPE_RESET,
   GET_SINGLE_EMPLOYEE_TYPE_RESET,
   UPDATE_SINGLE_EMPLOYEE_TYPE_RESET,
 } from "./EmployeeTypeConstant";
@@ -90,6 +91,7 @@ const EmployeeType = () => {
       message: error,
       type: "error",
     });
+    dispatch({ type: GET_ALL_EMPLOYEE_TYPE_RESET });
   }
 
   if (createEmployeeTypeError) {
@@ -98,6 +100,7 @@ const EmployeeType = () => {
       message: createEmployeeTypeError,
       type: "error",
     });
+    dispatch({ type: EMPLOYEE_TYPE_CREATE_RESET });
   }
 
   if (singleEmployeeTypeError) {
@@ -106,6 +109,7 @@ const EmployeeType = () => {
       message: singleEmployeeTypeError,
       type: "error",
     });
+    dispatch({ type: GET_SINGLE_EMPLOYEE_TYPE_RESET });
   }
 
   if (updateSingleEmployeeTypeError) {
@@ -114,6 +118,7 @@ const EmployeeType = () => {
       message: updateSingleEmployeeTypeError,
       type: "error",
     });
+    dispatch({ type: UPDATE_SINGLE_EMPLOYEE_TYPE_RESET });
   }
 
   if (createEmployeeTypeSuccess) {

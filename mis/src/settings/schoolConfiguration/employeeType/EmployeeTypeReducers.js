@@ -5,6 +5,7 @@ import {
   EMPLOYEE_TYPE_CREATE_SUCCESS,
   GET_ALL_EMPLOYEE_TYPE_FAIL,
   GET_ALL_EMPLOYEE_TYPE_REQUEST,
+  GET_ALL_EMPLOYEE_TYPE_RESET,
   GET_ALL_EMPLOYEE_TYPE_SUCCESS,
   GET_SINGLE_EMPLOYEE_TYPE_FAIL,
   GET_SINGLE_EMPLOYEE_TYPE_REQUEST,
@@ -24,6 +25,8 @@ export const getAllEmployeeType = (state = {}, action) => {
       return { loading: false, employeeType: action.payload };
     case GET_ALL_EMPLOYEE_TYPE_FAIL:
       return { loading: false, error: action.payload };
+    case GET_ALL_EMPLOYEE_TYPE_RESET:
+      return {};
     default:
       return state;
   }

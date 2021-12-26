@@ -9,6 +9,7 @@ import {
   GET_ACADEMIC_FACULTY_OPTION_SUCCESS,
   GET_ALL_ACADEMIC_FACULTY_FAIL,
   GET_ALL_ACADEMIC_FACULTY_REQUEST,
+  GET_ALL_ACADEMIC_FACULTY_RESET,
   GET_ALL_ACADEMIC_FACULTY_SUCCESS,
   GET_SINGLE_ACADEMIC_FACULTY_FAIL,
   GET_SINGLE_ACADEMIC_FACULTY_REQUEST,
@@ -28,6 +29,8 @@ export const getAllAcademicFaculty = (state = {}, action) => {
       return { loading: false, academicFaculty: action.payload };
     case GET_ALL_ACADEMIC_FACULTY_FAIL:
       return { loading: false, error: action.payload };
+    case GET_ALL_ACADEMIC_FACULTY_RESET:
+      return {};
     default:
       return state;
   }

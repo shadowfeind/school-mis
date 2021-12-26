@@ -32,11 +32,15 @@ const AcademicProgramForm = ({ academicProgram, selected, setOpenPopup }) => {
 
     temp.AcademicProgramName = !fieldValues.AcademicProgramName
       ? "This feild is required"
+      : !fieldValues.AcademicProgramName.trim()
+      ? "This feild is required"
       : fieldValues.AcademicProgramName.length > 100
       ? "Must be less than 101 characters"
       : "";
 
     temp.Description = !fieldValues.Description
+      ? "This feild is required"
+      : !fieldValues.Description.trim()
       ? "This feild is required"
       : fieldValues.Description.length > 1000
       ? "Must be less than 1000 characters"

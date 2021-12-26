@@ -13,7 +13,7 @@ const initialFormValues = {
   IDClass: 0,
   IDHRCompany: 2,
   ClassName: "",
-  ClassLocation: null,
+  ClassLocation: "",
   IsActive: false,
   Created_On: "2021-09-23T03:44:16.140Z",
   Updated_On: "2021-09-23T03:44:16.141Z",
@@ -24,6 +24,8 @@ const AcademicClassForm = ({ academicClass, setOpenPopup }) => {
   const validate = (fieldValues = values) => {
     let temp = { ...errors };
     temp.ClassName = !fieldValues.ClassName
+      ? "This feild is required"
+      : !fieldValues.ClassName.trim()
       ? "This feild is required"
       : fieldValues.ClassName.length > 20
       ? "Must be less than 21 characters"

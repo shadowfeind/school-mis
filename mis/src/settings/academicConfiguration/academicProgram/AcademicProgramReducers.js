@@ -9,6 +9,7 @@ import {
   GET_ACADEMIC_PROGRAM_OPTION_SUCCESS,
   GET_ALL_ACADEMIC_PROGRAM_FAIL,
   GET_ALL_ACADEMIC_PROGRAM_REQUEST,
+  GET_ALL_ACADEMIC_PROGRAM_RESET,
   GET_ALL_ACADEMIC_PROGRAM_SUCCESS,
   GET_SINGLE_ACADEMIC_PROGRAM_FAIL,
   GET_SINGLE_ACADEMIC_PROGRAM_REQUEST,
@@ -28,6 +29,8 @@ export const getAllAcademicProgram = (state = {}, action) => {
       return { loading: false, academicProgram: action.payload };
     case GET_ALL_ACADEMIC_PROGRAM_FAIL:
       return { loading: false, error: action.payload };
+    case GET_ALL_ACADEMIC_PROGRAM_RESET:
+      return {};
     default:
       return state;
   }

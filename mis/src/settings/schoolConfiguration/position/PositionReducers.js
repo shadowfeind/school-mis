@@ -1,6 +1,7 @@
 import {
   GET_ALL_POSITION_FAIL,
   GET_ALL_POSITION_REQUEST,
+  GET_ALL_POSITION_RESET,
   GET_ALL_POSITION_SUCCESS,
   GET_SINGLE_POSITION_FAIL,
   GET_SINGLE_POSITION_REQUEST,
@@ -24,6 +25,8 @@ export const getAllPosition = (state = {}, action) => {
       return { loading: false, position: action.payload };
     case GET_ALL_POSITION_FAIL:
       return { loading: false, error: action.payload };
+    case GET_ALL_POSITION_RESET:
+      return {};
     default:
       return state;
   }

@@ -34,17 +34,23 @@ const AcademicYearForm = ({ academicYear, selected, setOpenPopup }) => {
 
     temp.AcademicYearName = !fieldValues.AcademicYearName
       ? "This feild is required"
+      : !fieldValues.AcademicYearName.trim()
+      ? "This feild is required"
       : fieldValues.AcademicYearName.length > 100
       ? "Must be less than 101 characters"
       : "";
 
     temp.AcademicYearCode = !fieldValues.AcademicYearCode
       ? "This feild is required"
+      : !fieldValues.AcademicYearCode.trim()
+      ? "This feild is required"
       : fieldValues.AcademicYearCode.length > 10
       ? "Must be less than 11 characters"
       : "";
 
     temp.AcademicYear = !fieldValues.AcademicYear
+      ? "This feild is required"
+      : !fieldValues.AcademicYear.trim()
       ? "This feild is required"
       : "";
 

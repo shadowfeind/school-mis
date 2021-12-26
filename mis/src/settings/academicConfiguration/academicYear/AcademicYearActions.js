@@ -19,7 +19,9 @@ export const getAllAcademicYearAction = () => async (dispatch) => {
   try {
     dispatch({ type: GET_ALL_ACADEMIC_YEAR_REQUEST });
 
-    const { data } = await axios.get(`${API_URL}/api/AcademicYear`);
+    const { data } = await axios.get(
+      `${API_URL}/api/AcademicYear/GetAcademicYear`
+    );
 
     dispatch({ type: GET_ALL_ACADEMIC_YEAR_SUCCESS, payload: data });
   } catch (error) {
@@ -47,7 +49,7 @@ export const AcademicYearCreateAction =
       };
 
       const { data } = await axios.post(
-        `${API_URL}/api/AcademicYear`,
+        `${API_URL}/api/AcademicYear/PostYear`,
         jsonData,
         config
       );
@@ -82,7 +84,9 @@ export const getSingleAcademicYearAction = (id) => async (dispatch) => {
   try {
     dispatch({ type: GET_SINGLE_ACADEMIC_YEAR_REQUEST });
 
-    const { data } = await axios.get(`${API_URL}/api/AcademicYear/${id}`);
+    const { data } = await axios.get(
+      `${API_URL}/api/AcademicYear/GetAcademicYearById/${id}`
+    );
 
     dispatch({ type: GET_SINGLE_ACADEMIC_YEAR_SUCCESS, payload: data });
   } catch (error) {
@@ -93,6 +97,7 @@ export const getSingleAcademicYearAction = (id) => async (dispatch) => {
   }
 };
 
+//no put api
 export const updateSingleAcademicYearAction =
   (academicYear) => async (dispatch) => {
     try {

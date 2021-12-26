@@ -19,7 +19,7 @@ export const getAllSchoolBoardAction = () => async (dispatch) => {
   try {
     dispatch({ type: GET_ALL_SCHOOL_BOARD_REQUEST });
 
-    const { data } = await axios.get(`${API_URL}/api/University`);
+    const { data } = await axios.get(`${API_URL}/api/University/GetUniversity`);
 
     dispatch({ type: GET_ALL_SCHOOL_BOARD_SUCCESS, payload: data });
   } catch (error) {
@@ -43,7 +43,7 @@ export const SchoolBoardCreateAction = (schoolBoard) => async (dispatch) => {
     };
 
     const { data } = await axios.post(
-      `${API_URL}/api/University`,
+      `${API_URL}/api/University/PostUniversity`,
       jsonData,
       config
     );
@@ -61,7 +61,9 @@ export const getSingleSchoolBoardAction = (id) => async (dispatch) => {
   try {
     dispatch({ type: GET_SINGLE_SCHOOL_BOARD_REQUEST });
 
-    const { data } = await axios.get(`${API_URL}/api/University/${id}`);
+    const { data } = await axios.get(
+      `${API_URL}/api/University/GetUniversityById/${id}`
+    );
 
     dispatch({ type: GET_SINGLE_SCHOOL_BOARD_SUCCESS, payload: data });
   } catch (error) {
@@ -86,7 +88,7 @@ export const updateSingleSchoolBoardAction =
       };
 
       const { data } = await axios.put(
-        `${API_URL}/api/University`,
+        `${API_URL}/api/University/PutUniversity`,
         jsonData,
         config
       );

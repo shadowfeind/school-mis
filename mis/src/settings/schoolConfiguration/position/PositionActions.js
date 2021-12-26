@@ -19,7 +19,8 @@ export const getAllPositionAction = () => async (dispatch) => {
   try {
     dispatch({ type: GET_ALL_POSITION_REQUEST });
 
-    const { data } = await axios.get(`${API_URL}/api/HRPosition`);
+    const { data } = await axios.get(`${API_URL}/api/HRPosition/GetHRPosition
+    `);
 
     dispatch({ type: GET_ALL_POSITION_SUCCESS, payload: data });
   } catch (error) {
@@ -43,7 +44,7 @@ export const positionCreateAction = (position) => async (dispatch) => {
     };
 
     const { data } = await axios.post(
-      `${API_URL}/api/HRPosition`,
+      `${API_URL}/api/HRPosition/PostHRPosition`,
       jsonData,
       config
     );
@@ -61,7 +62,9 @@ export const getSinglePositionAction = (id) => async (dispatch) => {
   try {
     dispatch({ type: GET_SINGLE_POSITION_REQUEST });
 
-    const { data } = await axios.get(`${API_URL}/api/HRPosition/${id}`);
+    const { data } = await axios.get(
+      `${API_URL}/api/HRPosition/GetPositionById/${id}`
+    );
 
     dispatch({ type: GET_SINGLE_POSITION_SUCCESS, payload: data });
   } catch (error) {
@@ -85,7 +88,7 @@ export const updateSinglePositionAction = (position) => async (dispatch) => {
     };
 
     const { data } = await axios.put(
-      `${API_URL}/api/HRPosition`,
+      `${API_URL}/api/HRPosition/PutHRPosition`,
       jsonData,
       config
     );

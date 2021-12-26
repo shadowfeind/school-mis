@@ -24,6 +24,8 @@ import EmployeeTableCollapse from "./EmployeeTableCollpase";
 import EmployeeForm from "./EmployeeForm";
 import {
   EMPLOYEE_CREATE_RESET,
+  GET_ALL_EMPLOYEE_CREATE_RESET,
+  GET_ALL_EMPLOYEE_RESET,
   GET_SINGLE_EMPLOYEE_RESET,
   UPDATE_SINGLE_EMPLOYEE_RESET,
 } from "./EmployeeConstants";
@@ -91,6 +93,7 @@ const Employee = () => {
       message: error,
       type: "error",
     });
+    dispatch({ type: GET_ALL_EMPLOYEE_RESET });
   }
   if (employeeCreateError) {
     setNotify({
@@ -98,6 +101,7 @@ const Employee = () => {
       message: employeeCreateError,
       type: "error",
     });
+    dispatch({ type: EMPLOYEE_CREATE_RESET });
   }
   if (singleEmployeeError) {
     setNotify({
@@ -105,6 +109,7 @@ const Employee = () => {
       message: singleEmployeeError,
       type: "error",
     });
+    dispatch({ type: GET_SINGLE_EMPLOYEE_RESET });
   }
   if (updateSingleEmployeeError) {
     setNotify({
@@ -112,6 +117,7 @@ const Employee = () => {
       message: updateSingleEmployeeError,
       type: "error",
     });
+    dispatch({ type: GET_ALL_EMPLOYEE_CREATE_RESET });
   }
 
   if (employeeCreateSuccess) {

@@ -28,7 +28,9 @@ export const getAllAcademicYearCalendarAction = () => async (dispatch) => {
   try {
     dispatch({ type: GET_ALL_ACADEMIC_YEAR_CALENDAR_REQUEST });
 
-    const { data } = await axios.get(`${API_URL}/api/AcademicYearCalendar`);
+    const { data } = await axios.get(
+      `${API_URL}/api/AcademicYearCalendar/GetAcademicYearCalendarLst`
+    );
 
     dispatch({ type: GET_ALL_ACADEMIC_YEAR_CALENDAR_SUCCESS, payload: data });
   } catch (error) {
@@ -96,7 +98,11 @@ export const createAcademicYearCalendarPostAction =
         },
       };
 
-      await axios.post(`${API_URL}/api/AcademicYearCalendar`, jsonData, config);
+      await axios.post(
+        `${API_URL}/api/AcademicYearCalendar/PostAcademicYearCalendar`,
+        jsonData,
+        config
+      );
 
       dispatch({
         type: ACADEMIC_YEAR_CALENDAR_CREATE_POST_SUCCESS,
@@ -167,7 +173,11 @@ export const updateSingleAcademicYearCalendarAction =
         },
       };
 
-      await axios.put(`${API_URL}/api/AcademicYearCalendar`, jsonData, config);
+      await axios.put(
+        `${API_URL}/api/AcademicYearCalendar/Put`,
+        jsonData,
+        config
+      );
 
       dispatch({
         type: UPDATE_SINGLE_ACADEMIC_YEAR_CALENDAR_SUCCESS,

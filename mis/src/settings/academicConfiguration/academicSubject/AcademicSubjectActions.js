@@ -19,7 +19,9 @@ import {
 export const getAllAcademicSubjectAction = () => async (dispatch) => {
   try {
     dispatch({ type: GET_All_ACADEMIC_SUBJECT_REQUEST });
-    const { data } = await axios.get(`${API_URL}/api/AcademicSubject`);
+    const { data } = await axios.get(
+      `${API_URL}/api/AcademicSubject/GetAcademicSubject`
+    );
 
     dispatch({ type: GET_ALL_ACADEMIC_SUBJECT_SUCCES, payload: data });
   } catch (error) {
@@ -33,7 +35,9 @@ export const getAllAcademicSubjectAction = () => async (dispatch) => {
 export const getSingleAcademicSubjectAction = (id) => async (dispatch) => {
   try {
     dispatch({ type: GET_SINGLE_ACADEMIC_SUBJECT_REQUEST });
-    const { data } = await axios.get(`${API_URL}/api/AcademicSubject/${id}`);
+    const { data } = await axios.get(
+      `${API_URL}/api/AcademicSubject/GetAcademicSubject/${id}`
+    );
 
     dispatch({ type: GET_SINGLE_ACADEMIC_SUBJECT_SUCCESS, payload: data });
   } catch (error) {
@@ -57,7 +61,7 @@ export const academicSubjectCreateAction =
       };
 
       const { data } = await axios.post(
-        `${API_URL}/api/AcademicSubject`,
+        `${API_URL}/api/AcademicSubject/PostAcademicSubject`,
         jsonData,
         config
       );
@@ -85,7 +89,7 @@ export const updateSingleAcademicSubjectAction =
       };
 
       const { data } = await axios.put(
-        `${API_URL}/api/AcademicSubject`,
+        `${API_URL}/api/AcademicSubject/PutAcademicSubject`,
         jsonData,
         config
       );

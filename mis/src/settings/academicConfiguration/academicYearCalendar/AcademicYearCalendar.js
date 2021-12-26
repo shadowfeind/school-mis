@@ -17,6 +17,7 @@ import Notification from "../../../components/Notification";
 import ConfirmDialog from "../../../components/ConfirmDialog";
 import {
   ACADEMIC_YEAR_CALENDAR_CREATE_POST_RESET,
+  GET_ALL_ACADEMIC_YEAR_CALENDAR_RESET,
   UPDATE_SINGLE_ACADEMIC_YEAR_CALENDAR_RESET,
 } from "./AcademicYearCalendarConstant";
 import AcademicYearCalendarTableCollapse from "./AcademicYearCalendarTableCollapse";
@@ -82,7 +83,7 @@ const AcademicYearCalendar = () => {
 
   const dispatch = useDispatch();
 
-  const { academicYearCalendar } = useSelector(
+  const { academicYearCalendar, error } = useSelector(
     (state) => state.academicYearCalendar
   );
 
@@ -90,9 +91,8 @@ const AcademicYearCalendar = () => {
     (state) => state.getAcademicYearCalendarProgram
   );
 
-  const { success: academicYearCreateSuccess } = useSelector(
-    (state) => state.createAcademicYearCalendarPost
-  );
+  const { success: academicYearCreateSuccess, error: academicYearCreateError } =
+    useSelector((state) => state.createAcademicYearCalendarPost);
 
   const { academicSearch } = useSelector(
     (state) => state.academicYearCalendarSearch
@@ -102,9 +102,35 @@ const AcademicYearCalendar = () => {
     (state) => state.getSingleAcademicYearCalendar
   );
 
-  const { success: updateSingleAcademicYearCalendarSuccess } = useSelector(
-    (state) => state.updateSingleAcademicYearCalendar
-  );
+  const {
+    success: updateSingleAcademicYearCalendarSuccess,
+    error: updateSingleAcademicYearCalendarError,
+  } = useSelector((state) => state.updateSingleAcademicYearCalendar);
+
+  if (error) {
+    setNotify({
+      isOpen: true,
+      message: error,
+      type: "error",
+    });
+    dispatch({ type: GET_ALL_ACADEMIC_YEAR_CALENDAR_RESET });
+  }
+  if (academicYearCreateError) {
+    setNotify({
+      isOpen: true,
+      message: error,
+      type: "error",
+    });
+    dispatch({ type: ACADEMIC_YEAR_CALENDAR_CREATE_POST_RESET });
+  }
+  if (updateSingleAcademicYearCalendarError) {
+    setNotify({
+      isOpen: true,
+      message: error,
+      type: "error",
+    });
+    dispatch({ type: UPDATE_SINGLE_ACADEMIC_YEAR_CALENDAR_RESET });
+  }
 
   if (academicYearCreateSuccess) {
     setNotify({

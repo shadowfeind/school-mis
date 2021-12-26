@@ -19,7 +19,9 @@ export const getAllAcademicClassAction = () => async (dispatch) => {
   try {
     dispatch({ type: GET_ALL_ACADEMIC_CLASS_REQUEST });
 
-    const { data } = await axios.get(`${API_URL}/api/AcademicClass`);
+    const { data } = await axios.get(
+      `${API_URL}/api/AcademicClass/GetAcademicClass`
+    );
 
     dispatch({ type: GET_ALL_ACADEMIC_CLASS_SUCCESS, payload: data });
   } catch (error) {
@@ -44,7 +46,7 @@ export const academicClassCreateAction =
       };
 
       const { data } = await axios.post(
-        `${API_URL}/api/AcademicClass`,
+        `${API_URL}/api/AcademicClass/PostHRPosition`,
         jsonData,
         config
       );
@@ -62,7 +64,9 @@ export const getSingleAcademicClassAction = (id) => async (dispatch) => {
   try {
     dispatch({ type: GET_SINGLE_ACADEMIC_CLASS_REQUEST });
 
-    const { data } = await axios.get(`${API_URL}/api/AcademicClass/${id}`);
+    const { data } = await axios.get(
+      `${API_URL}/api/AcademicClass/GetAcademicClassById/${id}`
+    );
 
     dispatch({ type: GET_SINGLE_ACADEMIC_CLASS_SUCCESS, payload: data });
   } catch (error) {
@@ -87,7 +91,7 @@ export const updateSingleAcademicClassAction =
       };
 
       const { data } = await axios.put(
-        `${API_URL}/api/AcademicClass`,
+        `${API_URL}/api/AcademicClass/PutHRPosition`,
         jsonData,
         config
       );

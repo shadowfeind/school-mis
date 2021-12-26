@@ -35,6 +35,8 @@ const AcademicFacultyForm = ({ academicFaculty, selected, setOpenPopup }) => {
 
     temp.Header = !fieldValues.Header
       ? "This feild is required"
+      : !fieldValues.Header.trim()
+      ? "This feild is required"
       : fieldValues.Header.length > 100
       ? "Must be less than 101 characters"
       : "";

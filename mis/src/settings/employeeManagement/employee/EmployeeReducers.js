@@ -17,6 +17,8 @@ import {
   UPDATE_SINGLE_EMPLOYEE_SUCCESS,
   UPDATE_SINGLE_EMPLOYEE_FAIL,
   UPDATE_SINGLE_EMPLOYEE_RESET,
+  GET_ALL_EMPLOYEE_RESET,
+  GET_ALL_EMPLOYEE_CREATE_RESET,
 } from "./EmployeeConstants";
 
 export const getAllEmployee = (state = {}, action) => {
@@ -27,6 +29,8 @@ export const getAllEmployee = (state = {}, action) => {
       return { loading: false, employee: action.payload };
     case GET_ALL_EMPLOYEE_FAIL:
       return { loading: false, error: action.payload };
+    case GET_ALL_EMPLOYEE_RESET:
+      return {};
     default:
       return state;
   }
@@ -40,6 +44,8 @@ export const getAllEmployeeCreateReducer = (state = {}, action) => {
       return { loading: false, employeeCreate: action.payload };
     case GET_ALL_EMPLOYEE_CREATE_FAIL:
       return { loading: false, error: action.payload };
+    case GET_ALL_EMPLOYEE_CREATE_RESET:
+      return {};
     default:
       return state;
   }

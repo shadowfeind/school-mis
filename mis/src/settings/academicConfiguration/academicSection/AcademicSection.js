@@ -23,6 +23,7 @@ import AcademicSectionTableCollapse from "./AcademicSectionTableCollapse";
 import AcademicSectinoForm from "./AcademicSectionForm";
 import {
   ACADEMIC_SECTION_CREATE_RESET,
+  GET_ALL_ACADEMIC_SECTION_RESET,
   GET_SINGLE_ACADEMIC_SECTION_RESET,
   UPDATE_SINGLE_ACADEMIC_SECTION_RESET,
 } from "./AcademicSectionConstants";
@@ -92,6 +93,7 @@ const AcademicSection = () => {
       message: error,
       type: "error",
     });
+    dispatch({ type: GET_ALL_ACADEMIC_SECTION_RESET });
   }
   if (createAcademicSectionError) {
     setNotify({
@@ -99,6 +101,7 @@ const AcademicSection = () => {
       message: createAcademicSectionError,
       type: "error",
     });
+    dispatch({ type: ACADEMIC_SECTION_CREATE_RESET });
   }
   if (singleAcademicSectionError) {
     setNotify({
@@ -106,6 +109,7 @@ const AcademicSection = () => {
       message: singleAcademicSectionError,
       type: "error",
     });
+    dispatch({ type: GET_SINGLE_ACADEMIC_SECTION_RESET });
   }
   if (updateSingleAcademicSectionError) {
     setNotify({
@@ -113,6 +117,7 @@ const AcademicSection = () => {
       message: updateSingleAcademicSectionError,
       type: "error",
     });
+    dispatch({ type: UPDATE_SINGLE_ACADEMIC_SECTION_RESET });
   }
 
   if (createAcademicSection) {

@@ -4,6 +4,10 @@ import InputControl from "../../../components/controls/InputControl";
 import { useForm, Form } from "../../../customHooks/useForm";
 import { useDispatch } from "react-redux";
 import DatePickerControl from "../../../components/controls/DatePickerControl";
+import {
+  schoolSettingCreateAction,
+  updateSingleScholSettingAction,
+} from "./SchoolSettingsActions";
 
 const initialFormValues = {
   IDHRCompany: 0,
@@ -32,52 +36,77 @@ const SchoolSettingsForm = ({ college, setOpenPopup }) => {
   const dispatch = useDispatch();
   const validate = (fieldValues = values) => {
     let temp = { ...errors };
-    temp.CompanyName =
-      values.CompanyName.length > 200
-        ? "Company Name must be less than 200 characters"
-        : "";
-    temp.ShortForm =
-      values.ShortForm.length > 6
-        ? "Short Form cannot be greater than 6 characters"
-        : "";
-    temp.POBox =
-      values.POBox.length > 20
-        ? "POBox cannot be greater than 20 characters"
-        : "";
-    temp.CompanyAddress =
-      values.CompanyAddress.length > 2000
-        ? "Company Address cannot be greater than 2000 characters"
-        : "";
-    temp.RegNo =
-      values.RegNo.length > 20
-        ? "RegNo cannot be greater than 20 characters"
-        : "";
-    temp.PhoneNo =
-      values.PhoneNo.length > 20
-        ? "PhoneNo cannot be greater than 20 characters"
-        : "";
-    temp.AlternatePhoneNo =
-      values.AlternatePhoneNo.length > 20
-        ? "AlternatePhoneNo cannot be greater than 20 characters"
-        : "";
-    temp.FaxNo =
-      values.FaxNo.length > 20
-        ? "FaxNo cannot be greater than 20 characters"
-        : "";
-    temp.AlternatePhoneNo =
-      values.AlternatePhoneNo.length > 20
-        ? "AlternatePhoneNo cannot be greater than 20 characters"
-        : "";
-    temp.EmailID =
-      values.EmailID.length > 200
-        ? "EmailID cannot be greater than 200 characters"
-        : "";
+    temp.CompanyName = !fieldValues.CompanyName
+      ? "This feild is required"
+      : !fieldValues.CompanyName.trim()
+      ? "This feild is required"
+      : fieldValues.CompanyName.length > 200
+      ? "Company Name must be less than 200 characters"
+      : "";
+    temp.ShortForm = !fieldValues.ShortForm
+      ? "This feild is required"
+      : !fieldValues.ShortForm.trim()
+      ? "This feild is required"
+      : fieldValues.ShortForm.length > 6
+      ? "Short Form cannot be greater than 6 characters"
+      : "";
+    temp.DOE = !fieldValues.DOE ? "This feild is required" : "";
+    temp.POBox = !fieldValues.POBox
+      ? "This feild is required"
+      : !fieldValues.POBox.trim()
+      ? "This feild is required"
+      : fieldValues.POBox.length > 20
+      ? "POBox cannot be greater than 20 characters"
+      : "";
+    temp.CompanyAddress = !fieldValues.CompanyAddress
+      ? "This feild is required"
+      : !fieldValues.CompanyAddress.trim()
+      ? "This feild is required"
+      : fieldValues.CompanyAddress > 2000
+      ? "Company Address cannot be greater than 2000 characters"
+      : "";
+    temp.RegNo = !fieldValues.RegNo
+      ? "This feild is required"
+      : !fieldValues.RegNo.trim()
+      ? "This feild is required"
+      : fieldValues.RegNo.length > 20
+      ? "RegNo cannot be greater than 20 characters"
+      : "";
+    temp.PhoneNo = !fieldValues.PhoneNo
+      ? "This feild is required"
+      : !fieldValues.PhoneNo.trim()
+      ? "This feild is required"
+      : fieldValues.PhoneNo.length > 20
+      ? "PhoneNo cannot be greater than 20 characters"
+      : "";
+    temp.AlternatePhoneNo = !fieldValues.AlternatePhoneNo
+      ? "This feild is required"
+      : !fieldValues.AlternatePhoneNo.trim()
+      ? "This feild is required"
+      : fieldValues.AlternatePhoneNo.length > 20
+      ? "AlternatePhoneNo cannot be greater than 20 characters"
+      : "";
+    temp.FaxNo = !fieldValues.FaxNo
+      ? "This feild is required"
+      : !fieldValues.FaxNo.trim()
+      ? "This feild is required"
+      : fieldValues.FaxNo.length > 20
+      ? "FaxNo cannot be greater than 20 characters"
+      : "";
+    temp.PanNo = !fieldValues.PanNo ? "This feild is required" : "";
+    temp.EmailID = !fieldValues.EmailID
+      ? "This feild is required"
+      : !fieldValues.EmailID.trim()
+      ? "This feild is required"
+      : fieldValues.EmailID.length > 200
+      ? "EmailID cannot be greater than 200 characters"
+      : "";
     temp.Vision =
-      values.Vision.length > 500
+      fieldValues.Vision && fieldValues.Vision.length > 500
         ? "Vision cannot be greater than 500 characters"
         : "";
     temp.Mission =
-      values.Mission.length > 500
+      fieldValues.Mission && fieldValues.Mission.length > 500
         ? "Mission cannot be greater than 500 characters"
         : "";
 
@@ -91,6 +120,11 @@ const SchoolSettingsForm = ({ college, setOpenPopup }) => {
     e.preventDefault();
 
     if (validate()) {
+      if (values.IDHRCompany === 0) {
+        dispatch(schoolSettingCreateAction(values));
+      } else {
+        dispatch(updateSingleScholSettingAction(values));
+      }
     }
   };
 
@@ -109,7 +143,6 @@ const SchoolSettingsForm = ({ college, setOpenPopup }) => {
             value={values.CompanyName}
             onChange={handleInputChange}
             errors={errors.CompanyName}
-            required
           />
           <InputControl
             name="ShortForm"
@@ -117,7 +150,6 @@ const SchoolSettingsForm = ({ college, setOpenPopup }) => {
             value={values.ShortForm}
             onChange={handleInputChange}
             errors={errors.ShortForm}
-            required
           />
           <InputControl
             name="CompanyAddress"
@@ -125,7 +157,6 @@ const SchoolSettingsForm = ({ college, setOpenPopup }) => {
             value={values.CompanyAddress}
             onChange={handleInputChange}
             errors={errors.CompanyAddress}
-            required
           />
           <InputControl
             name="RegNo"
@@ -133,14 +164,13 @@ const SchoolSettingsForm = ({ college, setOpenPopup }) => {
             value={values.RegNo}
             onChange={handleInputChange}
             errors={errors.RegNo}
-            required
           />
           <DatePickerControl
             name="DOE"
             label="DOE"
             value={values.DOE}
             onChange={handleInputChange}
-            required
+            errors={errors.DOE}
           />
           <InputControl
             name="PhoneNo"
@@ -149,7 +179,7 @@ const SchoolSettingsForm = ({ college, setOpenPopup }) => {
             onChange={handleInputChange}
             errors={errors.PhoneNo}
             type="number"
-            required
+            errors={errors.PhoneNo}
           />
           <InputControl
             name="AlternatePhoneNo"
@@ -158,7 +188,6 @@ const SchoolSettingsForm = ({ college, setOpenPopup }) => {
             onChange={handleInputChange}
             errors={errors.AlternatePhoneNo}
             type="number"
-            required
           />
           <InputControl
             name="POBox"
@@ -166,7 +195,7 @@ const SchoolSettingsForm = ({ college, setOpenPopup }) => {
             value={values.POBox}
             errors={errors.POBox}
             onChange={handleInputChange}
-            required
+            errors={errors.POBox}
           />
         </Grid>
         <Grid item xs={6}>
@@ -176,7 +205,6 @@ const SchoolSettingsForm = ({ college, setOpenPopup }) => {
             value={values.FaxNo}
             onChange={handleInputChange}
             errors={errors.FaxNo}
-            required
           />
           <InputControl
             name="PanNo"
@@ -185,7 +213,6 @@ const SchoolSettingsForm = ({ college, setOpenPopup }) => {
             errors={errors.PanNo}
             onChange={handleInputChange}
             type="number"
-            required
           />
           <InputControl
             name="AlternateFaxNo"
@@ -201,14 +228,12 @@ const SchoolSettingsForm = ({ college, setOpenPopup }) => {
             onChange={handleInputChange}
             errors={errors.EmailID}
             type="email"
-            required
           />
           <InputControl
             name="WebSite"
             label="WebSite"
             value={values.WebSite}
             onChange={handleInputChange}
-            required
           />
           <InputControl
             name="Vision"

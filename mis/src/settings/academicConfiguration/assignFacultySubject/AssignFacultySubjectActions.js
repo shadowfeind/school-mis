@@ -28,7 +28,9 @@ export const getALLAssignFacultySubject = () => async (dispatch) => {
   try {
     dispatch({ type: GET_ALL_ASSIGN_FACULTY_SUBJECT_REQUEST });
 
-    const { data } = await axios.get(`${API_URL}/api/AcaFacultySubjectLink`);
+    const { data } = await axios.get(
+      `${API_URL}/api/AcaFacultySubjectLink/GetAcademicFacultySubjectLink`
+    );
 
     dispatch({ type: GET_ALL_ASSIGN_FACULTY_SUBJECT_SUCCESS, payload: data });
   } catch (error) {
@@ -118,7 +120,7 @@ export const AcademicFacultyCreateAction =
       };
 
       const { data } = await axios.post(
-        `${API_URL}/api/AcaFacultySubjectLink`,
+        `${API_URL}/api/AcaFacultySubjectLink/PostAcademicFacultySubjectLinkA`,
         jsonData,
         config
       );
@@ -169,7 +171,7 @@ export const academicFacultySubjectPostEditAction =
       };
 
       const { data } = await axios.put(
-        `${API_URL}/api/AcaFacultySubjectLink`,
+        `${API_URL}/api/AcaFacultySubjectLink/Put`,
         jsonData,
         config
       );

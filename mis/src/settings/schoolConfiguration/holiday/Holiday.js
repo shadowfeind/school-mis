@@ -10,8 +10,7 @@ import { Calendar, momentLocalizer } from "react-big-calendar";
 import moment, { months } from "moment";
 
 import useCustomTable from "../../../customHooks/useCustomTable";
-import InputControl from "../../../components/controls/InputControl";
-import { Search } from "@material-ui/icons";
+
 import AddIcon from "@material-ui/icons/Add";
 import Popup from "../../../components/Popup";
 import CustomContainer from "../../../components/CustomContainer";
@@ -19,9 +18,10 @@ import { useDispatch, useSelector } from "react-redux";
 import Notification from "../../../components/Notification";
 import ConfirmDialog from "../../../components/ConfirmDialog";
 import { getAllHolidayAction, getSingleHolidayAction } from "./HolidayActions";
-import HolidayTableCollapse from "./HolidayTableCollapse";
+
 import HolidayForm from "./HolidayForm";
 import {
+  GET_ALL_HOLIDAY_RESET,
   GET_SINGLE_HOLIDAY_RESET,
   HOLIDAY_CREATE_RESET,
   UPDATE_SINGLE_HOLIDAY_RESET,
@@ -89,6 +89,7 @@ const Holiday = () => {
       message: error,
       type: "error",
     });
+    dispatch({ type: GET_ALL_HOLIDAY_RESET });
   }
   if (createHolidayError) {
     setNotify({
@@ -96,6 +97,7 @@ const Holiday = () => {
       message: createHolidayError,
       type: "error",
     });
+    dispatch({ type: HOLIDAY_CREATE_RESET });
   }
 
   if (createHolidaySuccess) {

@@ -5,6 +5,7 @@ import {
   EMPLOYEE_CATEGORY_ROLE_CREATE_SUCCESS,
   GET_ALL_EMPLOYEE_CATEGORY_ROLE_FAIL,
   GET_ALL_EMPLOYEE_CATEGORY_ROLE_REQUEST,
+  GET_ALL_EMPLOYEE_CATEGORY_ROLE_RESET,
   GET_ALL_EMPLOYEE_CATEGORY_ROLE_SUCCESS,
   GET_SINGLE_EMPLOYEE_CATEGORY_ROLE_FAIL,
   GET_SINGLE_EMPLOYEE_CATEGORY_ROLE_REQUEST,
@@ -24,6 +25,8 @@ export const getAllEmployeeCategoryRole = (state = {}, action) => {
       return { loading: false, employeeCategoryRole: action.payload };
     case GET_ALL_EMPLOYEE_CATEGORY_ROLE_FAIL:
       return { loading: false, error: action.payload };
+    case GET_ALL_EMPLOYEE_CATEGORY_ROLE_RESET:
+      return {};
     default:
       return state;
   }

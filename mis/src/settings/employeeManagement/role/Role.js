@@ -20,6 +20,7 @@ import { getAllRolesAction, getSingleRoleAction } from "./RoleActions";
 import RoleTableCollapse from "./RoleTableCollapse";
 import RoleForm from "./RoleForm";
 import {
+  GET_ALL_ROLE_RESET,
   GET_SINGLE_ROLE_RESET,
   ROLE_CREATE_RESET,
   UPDATE_SINGLE_ROLE_RESET,
@@ -87,6 +88,7 @@ const Role = () => {
       message: error,
       type: "error",
     });
+    dispatch({ type: GET_ALL_ROLE_RESET });
   }
   if (createRoleError) {
     setNotify({
@@ -94,6 +96,7 @@ const Role = () => {
       message: createRoleError,
       type: "error",
     });
+    dispatch({ type: ROLE_CREATE_RESET });
   }
   if (singleRoleError) {
     setNotify({
@@ -101,6 +104,7 @@ const Role = () => {
       message: singleRoleError,
       type: "error",
     });
+    dispatch({ type: GET_SINGLE_ROLE_RESET });
   }
   if (updateSingleRoleError) {
     setNotify({
@@ -108,6 +112,7 @@ const Role = () => {
       message: updateSingleRoleError,
       type: "error",
     });
+    dispatch({ type: UPDATE_SINGLE_ROLE_RESET });
   }
 
   if (createRoleSuccess) {

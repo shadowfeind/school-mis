@@ -19,7 +19,9 @@ export const getAllEmployeeTypeAction = () => async (dispatch) => {
   try {
     dispatch({ type: GET_ALL_EMPLOYEE_TYPE_REQUEST });
 
-    const { data } = await axios.get(`${API_URL}/api/HREmployeeType`);
+    const { data } = await axios.get(
+      `${API_URL}/api/HREmployeeType/GetHREmployeeType`
+    );
 
     dispatch({ type: GET_ALL_EMPLOYEE_TYPE_SUCCESS, payload: data });
   } catch (error) {
@@ -43,7 +45,7 @@ export const employeeTypeCreateAction = (employeeType) => async (dispatch) => {
     };
 
     const { data } = await axios.post(
-      `${API_URL}/api/HREmployeeType`,
+      `${API_URL}/api/HREmployeeType/PostHREmployeeType`,
       jsonData,
       config
     );
@@ -61,7 +63,9 @@ export const getSingleEmployeeTypeAction = (id) => async (dispatch) => {
   try {
     dispatch({ type: GET_SINGLE_EMPLOYEE_TYPE_REQUEST });
 
-    const { data } = await axios.get(`${API_URL}/api/HREmployeeType/${id}`);
+    const { data } = await axios.get(
+      `${API_URL}/api/HREmployeeType/GetHREmployeeTypeById/${id}`
+    );
 
     dispatch({ type: GET_SINGLE_EMPLOYEE_TYPE_SUCCESS, payload: data });
   } catch (error) {
@@ -86,7 +90,7 @@ export const updateSingleEmployeeTypeAction =
       };
 
       const { data } = await axios.put(
-        `${API_URL}/api/HREmployeeType`,
+        `${API_URL}/api/HREmployeeType/PutHREmployeeType`,
         jsonData,
         config
       );

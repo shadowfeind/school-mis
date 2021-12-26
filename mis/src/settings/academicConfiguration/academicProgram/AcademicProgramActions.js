@@ -22,7 +22,9 @@ export const getAllAcademicProgramAction = () => async (dispatch) => {
   try {
     dispatch({ type: GET_ALL_ACADEMIC_PROGRAM_REQUEST });
 
-    const { data } = await axios.get(`${API_URL}/api/AcademicProgram`);
+    const { data } = await axios.get(
+      `${API_URL}/api/AcademicProgram/GetAcademicProgram`
+    );
 
     dispatch({ type: GET_ALL_ACADEMIC_PROGRAM_SUCCESS, payload: data });
   } catch (error) {
@@ -50,7 +52,7 @@ export const AcademicProgramCreateAction =
       };
 
       const { data } = await axios.post(
-        `${API_URL}/api/AcademicProgram`,
+        `${API_URL}/api/AcademicProgram/PostAcademicProgram`,
         jsonData,
         config
       );
@@ -85,7 +87,9 @@ export const getSingleAcademicProgramAction = (id) => async (dispatch) => {
   try {
     dispatch({ type: GET_SINGLE_ACADEMIC_PROGRAM_REQUEST });
 
-    const { data } = await axios.get(`${API_URL}/api/AcademicProgram/${id}`);
+    const { data } = await axios.get(
+      `${API_URL}/api/AcademicProgram/GetAcademicProgramById/${id}`
+    );
 
     dispatch({ type: GET_SINGLE_ACADEMIC_PROGRAM_SUCCESS, payload: data });
   } catch (error) {
@@ -96,6 +100,7 @@ export const getSingleAcademicProgramAction = (id) => async (dispatch) => {
   }
 };
 
+// api not published
 export const updateSingleAcademicProgramAction =
   (academicProgram) => async (dispatch) => {
     try {

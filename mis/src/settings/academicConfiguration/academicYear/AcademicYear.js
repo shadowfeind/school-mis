@@ -22,6 +22,7 @@ import {
 } from "./AcademicYearActions";
 import {
   ACADEMIC_YEAR_CREATE_RESET,
+  GET_ALL_ACADEMIC_YEAR_RESET,
   GET_SINGLE_ACADEMIC_YEAR_RESET,
 } from "./AcademicYearConstant";
 import AcademicYearTableCollapse from "./AcademicYearTableCollapse";
@@ -89,6 +90,7 @@ const AcademicYear = () => {
       message: error,
       type: "error",
     });
+    dispatch({ type: GET_ALL_ACADEMIC_YEAR_RESET });
   }
   if (createAcademicYearError) {
     setNotify({
@@ -96,6 +98,7 @@ const AcademicYear = () => {
       message: createAcademicYearError,
       type: "error",
     });
+    dispatch({ type: ACADEMIC_YEAR_CREATE_RESET });
   }
   if (singleAcademicYearError) {
     setNotify({
@@ -103,6 +106,7 @@ const AcademicYear = () => {
       message: singleAcademicYearError,
       type: "error",
     });
+    dispatch({ type: GET_SINGLE_ACADEMIC_YEAR_RESET });
   }
 
   if (createAcademicYearSuccess) {

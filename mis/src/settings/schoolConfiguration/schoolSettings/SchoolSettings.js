@@ -17,7 +17,16 @@ import Notification from "../../../components/Notification";
 import ConfirmDialog from "../../../components/ConfirmDialog";
 import SchoolSettingsTableCollapse from "./SchoolSettingsTableCollapse";
 import SchoolSettingsForm from "./SchoolSettingsForm";
-import { getAllSchoolSettingsAction } from "./SchoolSettingsActions";
+import {
+  getAllSchoolSettingsAction,
+  getSingleSchoolSettingAction,
+} from "./SchoolSettingsActions";
+import {
+  GET_ALL_SCHOOL_SETTINGS_RESET,
+  GET_SINGLE_SCHOOL_SETTINGS_RESET,
+  SCHOOL_SETTINGS_CREATE_RESET,
+  UPDATE_SINGLE_SCHOOL_SETTINGS_RESET,
+} from "./SchoolSettingsConstants";
 
 const useStyles = makeStyles((theme) => ({
   searchInput: {
@@ -62,11 +71,79 @@ const SchoolSettings = () => {
 
   const dispatch = useDispatch();
 
-  const { loading, schoolSettings } = useSelector(
+  const { error, schoolSettings } = useSelector(
     (state) => state.schoolSettings
   );
 
-  const updateCollegeHandler = (id) => {};
+  const { singleSchoolSetting } = useSelector(
+    (state) => state.getSingleSchoolSettings
+  );
+
+  const {
+    success: createSchoolSettingSuccess,
+    error: createSchoolSettingError,
+  } = useSelector((state) => state.createSchoolSettings);
+
+  const {
+    success: updateSchoolSettingSuccess,
+    error: updateSchoolSettingError,
+  } = useSelector((state) => state.updateSingleSchoolSettings);
+
+  if (error) {
+    dispatch({ type: GET_ALL_SCHOOL_SETTINGS_RESET });
+    setNotify({
+      isOpen: true,
+      message: error,
+      type: "error",
+    });
+  }
+
+  if (createSchoolSettingError) {
+    dispatch({ type: SCHOOL_SETTINGS_CREATE_RESET });
+    setNotify({
+      isOpen: true,
+      message: error,
+      type: "error",
+    });
+    setOpenPopup(false);
+  }
+
+  if (updateSchoolSettingError) {
+    dispatch({ type: UPDATE_SINGLE_SCHOOL_SETTINGS_RESET });
+    setNotify({
+      isOpen: true,
+      message: error,
+      type: "error",
+    });
+    setOpenPopup(false);
+  }
+
+  if (createSchoolSettingSuccess) {
+    dispatch(getAllSchoolSettingsAction());
+    setOpenPopup(false);
+    setNotify({
+      isOpen: true,
+      message: "Created Succesfully",
+      type: "success",
+    });
+    dispatch({ type: SCHOOL_SETTINGS_CREATE_RESET });
+  }
+
+  if (updateSchoolSettingSuccess) {
+    dispatch(getAllSchoolSettingsAction());
+    setOpenPopup(false);
+    setNotify({
+      isOpen: true,
+      message: "Updated Succesfully",
+      type: "success",
+    });
+    dispatch({ type: UPDATE_SINGLE_SCHOOL_SETTINGS_RESET });
+  }
+
+  const updateCollegeHandler = (id) => {
+    dispatch(getSingleSchoolSettingAction(id));
+    setOpenPopup(true);
+  };
 
   const deleteCollegeHandler = (id) => {
     setConfirmDialog({
@@ -105,6 +182,11 @@ const SchoolSettings = () => {
       },
     });
   };
+
+  const addHandler = () => {
+    dispatch({ type: GET_SINGLE_SCHOOL_SETTINGS_RESET });
+    setOpenPopup(true);
+  };
   return (
     <>
       <CustomContainer>
@@ -126,16 +208,14 @@ const SchoolSettings = () => {
             color="primary"
             startIcon={<AddIcon />}
             className={classes.button}
-            onClick={() => setOpenPopup(true)}
+            onClick={addHandler}
           >
             Add{" "}
           </Button>
         </Toolbar>
         <TableContainer className={classes.table}>
           <TblHead />
-          {/* {loading ? (
-            <div></div>
-          ) : ( */}
+
           <TableBody>
             {tableDataAfterPagingAndSorting().map((item) => (
               <SchoolSettingsTableCollapse
@@ -146,7 +226,6 @@ const SchoolSettings = () => {
               />
             ))}
           </TableBody>
-          {/* )} */}
         </TableContainer>
         <TblPagination />
       </CustomContainer>
@@ -156,7 +235,7 @@ const SchoolSettings = () => {
         title="School Settings Form"
       >
         <SchoolSettingsForm
-          college={schoolSettings ? schoolSettings.dbModelLstTest : {}}
+          college={singleSchoolSetting ? singleSchoolSetting.dbModel : {}}
           setOpenPopup={setOpenPopup}
         />
       </Popup>

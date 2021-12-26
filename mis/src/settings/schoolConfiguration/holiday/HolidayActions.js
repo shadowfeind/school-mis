@@ -19,7 +19,9 @@ export const getAllHolidayAction = () => async (dispatch) => {
   try {
     dispatch({ type: GET_ALL_HOLIDAY_REQUEST });
 
-    const { data } = await axios.get(`${API_URL}/api/Att_HRHoliday`);
+    const { data } = await axios.get(
+      `${API_URL}/api/Att_HRHoliday/GetAtt_HRHoliday`
+    );
 
     dispatch({ type: GET_ALL_HOLIDAY_SUCCESS, payload: data });
   } catch (error) {
@@ -43,7 +45,7 @@ export const holidayCreateAction = (holiday) => async (dispatch) => {
     };
 
     const { data } = await axios.post(
-      `${API_URL}/api/Att_HRHoliday`,
+      `${API_URL}/api/Att_HRHoliday/PostAtt_HRHoliday`,
       jsonData,
       config
     );

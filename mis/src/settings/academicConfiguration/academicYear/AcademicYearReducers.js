@@ -9,6 +9,7 @@ import {
   GET_ACADEMIC_YEAR_OPTION_SUCCESS,
   GET_ALL_ACADEMIC_YEAR_FAIL,
   GET_ALL_ACADEMIC_YEAR_REQUEST,
+  GET_ALL_ACADEMIC_YEAR_RESET,
   GET_ALL_ACADEMIC_YEAR_SUCCESS,
   GET_SINGLE_ACADEMIC_YEAR_FAIL,
   GET_SINGLE_ACADEMIC_YEAR_REQUEST,
@@ -28,6 +29,8 @@ export const getAllAcademicYear = (state = {}, action) => {
       return { loading: false, academicYear: action.payload };
     case GET_ALL_ACADEMIC_YEAR_FAIL:
       return { loading: false, error: action.payload };
+    case GET_ALL_ACADEMIC_YEAR_RESET:
+      return {};
     default:
       return state;
   }

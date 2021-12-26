@@ -1,6 +1,7 @@
 import {
   GET_ALL_ROLE_FAIL,
   GET_ALL_ROLE_REQUEST,
+  GET_ALL_ROLE_RESET,
   GET_ALL_ROLE_SUCCESS,
   GET_SINGLE_ROLE_FAIL,
   GET_SINGLE_ROLE_REQUEST,
@@ -24,6 +25,8 @@ export const getAllRoles = (state = {}, action) => {
       return { loading: false, role: action.payload };
     case GET_ALL_ROLE_FAIL:
       return { loading: false, error: action.payload };
+    case GET_ALL_ROLE_RESET:
+      return {};
     default:
       return state;
   }

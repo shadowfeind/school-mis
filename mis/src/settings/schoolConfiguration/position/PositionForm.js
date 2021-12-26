@@ -28,11 +28,15 @@ const PositionForm = ({ position, setOpenPopup }) => {
       ? "This feild is required"
       : fieldValues.PositionHead.length > 20
       ? "Must be less than 20 characters"
+      : !fieldValues.PositionHead.trim()
+      ? "This feild is required"
       : "";
 
-    temp.PositionDescription = fieldValues.PositionDescription
-      ? ""
-      : "This feild is required";
+    temp.PositionDescription = !fieldValues.PositionDescription
+      ? "This feild is required"
+      : !fieldValues.PositionDescription.trim()
+      ? "This feild is required"
+      : "";
 
     setErrors({ ...temp });
     return Object.values(temp).every((x) => x === "");

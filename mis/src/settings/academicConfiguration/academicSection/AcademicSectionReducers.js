@@ -5,6 +5,7 @@ import {
   ACADEMIC_SECTION_CREATE_SUCCESS,
   GET_ALL_ACADEMIC_SECTION_FAIL,
   GET_ALL_ACADEMIC_SECTION_REQUEST,
+  GET_ALL_ACADEMIC_SECTION_RESET,
   GET_ALL_ACADEMIC_SECTION_SUCCESS,
   GET_SINGLE_ACADEMIC_SECTION_FAIL,
   GET_SINGLE_ACADEMIC_SECTION_REQUEST,
@@ -24,6 +25,8 @@ export const getAllAcademicSection = (state = {}, action) => {
       return { loading: false, academicSection: action.payload };
     case GET_ALL_ACADEMIC_SECTION_FAIL:
       return { loading: false, error: action.payload };
+    case GET_ALL_ACADEMIC_SECTION_RESET:
+      return {};
     default:
       return state;
   }

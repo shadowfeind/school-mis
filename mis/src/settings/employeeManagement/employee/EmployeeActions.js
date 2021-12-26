@@ -22,7 +22,7 @@ export const getAllEmployeeAction = () => async (dispatch) => {
   try {
     dispatch({ type: GET_ALL_EMPLOYEE_REQUEST });
 
-    const { data } = await axios.get(`${API_URL}/api/HREmployee`);
+    const { data } = await axios.get(`${API_URL}/api/HREmployee/GetHREmployee`);
 
     dispatch({ type: GET_ALL_EMPLOYEE_SUCCESS, payload: data });
   } catch (error) {
@@ -63,7 +63,7 @@ export const employeeCreateAction = (employee) => async (dispatch) => {
     };
 
     const { data } = await axios.post(
-      `${API_URL}/api/HREmployee`,
+      `${API_URL}/api/HREmployee/PostHREmployee`,
       jsonData,
       config
     );
@@ -81,7 +81,9 @@ export const getSingleEmployeeAction = (id) => async (dispatch) => {
   try {
     dispatch({ type: GET_SINGLE_EMPLOYEE_REQUEST });
 
-    const { data } = await axios.get(`${API_URL}/api/HREmployee/${id}`);
+    const { data } = await axios.get(
+      `${API_URL}/api/HREmployee/GetHREmployeeById/${id}`
+    );
 
     dispatch({ type: GET_SINGLE_EMPLOYEE_SUCCESS, payload: data });
   } catch (error) {
@@ -105,7 +107,7 @@ export const updateSingleEmployeeAction = (employee) => async (dispatch) => {
     };
 
     const { data } = await axios.put(
-      `${API_URL}/api/HREmployee`,
+      `${API_URL}/api/HREmployee/PutHRPosition`,
       jsonData,
       config
     );

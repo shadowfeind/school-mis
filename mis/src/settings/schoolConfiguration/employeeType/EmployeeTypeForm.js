@@ -29,9 +29,15 @@ const EmployeeTypeForm = ({ employeeType, setOpenPopup }) => {
       ? "This feild is required"
       : fieldValues.EmployeeTypeName.length > 20
       ? "Must be less than 20 characters"
+      : !fieldValues.EmployeeTypeName.trim()
+      ? "This feild is required"
       : "";
 
-    temp.Description = fieldValues.Description ? "" : "This feild is required";
+    temp.Description = !fieldValues.Description
+      ? "This feild is required"
+      : !fieldValues.Description.trim()
+      ? "This feild is required"
+      : "";
 
     setErrors({ ...temp });
     return Object.values(temp).every((x) => x === "");

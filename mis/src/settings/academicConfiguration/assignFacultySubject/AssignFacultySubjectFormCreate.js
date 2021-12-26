@@ -125,6 +125,7 @@ const AssignFacultySubjectFormCreate = ({
                       label="Credit Hours"
                       variant="outlined"
                       onChange={(e) => inputHandler(subject, e.target.value)}
+                      inputProps={{ tabIndex: "1" }}
                     />
                   </StyledTableCell>
                   <StyledTableCell align="right">

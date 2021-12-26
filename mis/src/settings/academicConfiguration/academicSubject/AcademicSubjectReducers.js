@@ -15,6 +15,7 @@ import {
   UPDATE_SINGLE_ACADEMIC_SUBJECT_SUCCESS,
   UPDATE_SINGLE_ACADEMIC_SUBJECT_FAIL,
   UPDATE_SINGLE_ACADEMIC_SUBJECT_RESET,
+  GET_ALL_ACADEMIC_SUBJECT_RESET,
 } from "./AcademicSubjectConstants";
 
 export const getAllAcademicSubject = (state = {}, action) => {
@@ -25,6 +26,8 @@ export const getAllAcademicSubject = (state = {}, action) => {
       return { loading: false, academicSubject: action.payload };
     case GET_ALL_ACADEMIC_SUBJECT_FAIL:
       return { loading: false, error: action.payload };
+    case GET_ALL_ACADEMIC_SUBJECT_RESET:
+      return {};
 
     default:
       return state;

@@ -19,7 +19,7 @@ export const getAllReassociateStudentsAction = () => async (dispatch) => {
   try {
     dispatch({ type: GET_ALL_REASSOCIATE_STUDENTS_REQUEST });
 
-    const { data } = await axios.get(`${API_URL}/api/ReassociateStudent`);
+    const { data } = await axios.get(`${API_URL}/api/ReassociateStudent/Get`);
 
     dispatch({ type: GET_ALL_REASSOCIATE_STUDENTS_SUCCESS, payload: data });
   } catch (error) {
@@ -77,7 +77,6 @@ export const getReassociateStudentsLevelupPostAction =
       const jsonData = JSON.stringify({
         dbModelLst: checkboxState,
         searchFilterModel,
-        mode: 0,
       });
 
       const config = {
@@ -87,7 +86,8 @@ export const getReassociateStudentsLevelupPostAction =
       };
 
       const { data } = await axios.post(
-        `${API_URL}/api/ReassociateStudent`,
+        `${API_URL}/api/ReassociateStudent/PostBulkLevelUp?mode=1
+        `,
         jsonData,
         config
       );

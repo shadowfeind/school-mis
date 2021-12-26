@@ -1,6 +1,7 @@
 import {
   GET_ALL_SCHOOL_BOARD_FAIL,
   GET_ALL_SCHOOL_BOARD_REQUEST,
+  GET_ALL_SCHOOL_BOARD_RESET,
   GET_ALL_SCHOOL_BOARD_SUCCESS,
   GET_SINGLE_SCHOOL_BOARD_FAIL,
   GET_SINGLE_SCHOOL_BOARD_REQUEST,
@@ -24,6 +25,8 @@ export const getAllSchoolBoard = (state = {}, action) => {
       return { loading: false, schoolBoard: action.payload };
     case GET_ALL_SCHOOL_BOARD_FAIL:
       return { loading: false, error: action.payload };
+    case GET_ALL_SCHOOL_BOARD_RESET:
+      return {};
     default:
       return state;
   }

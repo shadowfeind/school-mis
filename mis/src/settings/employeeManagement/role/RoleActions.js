@@ -19,7 +19,7 @@ export const getAllRolesAction = () => async (dispatch) => {
   try {
     dispatch({ type: GET_ALL_ROLE_REQUEST });
 
-    const { data } = await axios.get(`${API_URL}/api/HRRole`);
+    const { data } = await axios.get(`${API_URL}/api/HRRole/GetHRRole`);
 
     dispatch({ type: GET_ALL_ROLE_SUCCESS, payload: data });
   } catch (error) {
@@ -43,7 +43,7 @@ export const roleCreateAction = (role) => async (dispatch) => {
     };
 
     const { data } = await axios.post(
-      `${API_URL}/api/HRRole`,
+      `${API_URL}/api/HRRole/PostHRPosition`,
       jsonData,
       config
     );
@@ -61,7 +61,9 @@ export const getSingleRoleAction = (id) => async (dispatch) => {
   try {
     dispatch({ type: GET_SINGLE_ROLE_REQUEST });
 
-    const { data } = await axios.get(`${API_URL}/api/HRRole/${id}`);
+    const { data } = await axios.get(
+      `${API_URL}/api/HRRole/GetHRRoleById/${id}`
+    );
 
     dispatch({ type: GET_SINGLE_ROLE_SUCCESS, payload: data });
   } catch (error) {
@@ -84,7 +86,11 @@ export const updateSingleRoleAction = (role) => async (dispatch) => {
       },
     };
 
-    const { data } = await axios.put(`${API_URL}/api/HRRole`, jsonData, config);
+    const { data } = await axios.put(
+      `${API_URL}/api/HRRole/PutHRPosition`,
+      jsonData,
+      config
+    );
 
     dispatch({ type: UPDATE_SINGLE_ROLE_SUCCESS, payload: data });
   } catch (error) {

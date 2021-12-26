@@ -1,5 +1,10 @@
 import { combineReducers } from "redux";
-import { getAllSchoolSettings } from "./settings/schoolConfiguration/schoolSettings/SchoolSettingsReducers";
+import {
+  createSchoolSettingsReducer,
+  getAllSchoolSettings,
+  getSingleSchoolSettingsReducer,
+  updateSingleSchoolSettingsReducer,
+} from "./settings/schoolConfiguration/schoolSettings/SchoolSettingsReducers";
 import {
   createPositionReducer,
   getAllPosition,
@@ -109,6 +114,9 @@ import {
 
 export const reducers = combineReducers({
   schoolSettings: getAllSchoolSettings,
+  createSchoolSettings: createSchoolSettingsReducer,
+  getSingleSchoolSettings: getSingleSchoolSettingsReducer,
+  updateSingleSchoolSettings: updateSingleSchoolSettingsReducer,
   position: getAllPosition,
   createPosition: createPositionReducer,
   getSinglePosition: getSinglePositionReducer,

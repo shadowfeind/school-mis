@@ -5,6 +5,7 @@ import {
   ACADEMIC_CLASS_CREATE_SUCCESS,
   GET_ALL_ACADEMIC_CLASS_FAIL,
   GET_ALL_ACADEMIC_CLASS_REQUEST,
+  GET_ALL_ACADEMIC_CLASS_RESET,
   GET_ALL_ACADEMIC_CLASS_SUCCESS,
   GET_SINGLE_ACADEMIC_CLASS_FAIL,
   GET_SINGLE_ACADEMIC_CLASS_REQUEST,
@@ -24,6 +25,8 @@ export const getAllAcademicClass = (state = {}, action) => {
       return { loading: false, academicClass: action.payload };
     case GET_ALL_ACADEMIC_CLASS_FAIL:
       return { loading: false, error: action.payload };
+    case GET_ALL_ACADEMIC_CLASS_RESET:
+      return {};
     default:
       return state;
   }

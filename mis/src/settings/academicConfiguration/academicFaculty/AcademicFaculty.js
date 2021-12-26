@@ -17,6 +17,7 @@ import Notification from "../../../components/Notification";
 import ConfirmDialog from "../../../components/ConfirmDialog";
 import {
   ACADEMIC_FACULTY_CREATE_RESET,
+  GET_ALL_ACADEMIC_FACULTY_RESET,
   GET_SINGLE_ACADEMIC_FACULTY_RESET,
 } from "./AcademicFacultyConstants";
 import {
@@ -92,6 +93,7 @@ const AcademicFaculty = () => {
       message: error,
       type: "error",
     });
+    dispatch({ type: GET_ALL_ACADEMIC_FACULTY_RESET });
   }
   if (createAcademicFacultyError) {
     setNotify({
@@ -99,6 +101,7 @@ const AcademicFaculty = () => {
       message: createAcademicFacultyError,
       type: "error",
     });
+    dispatch({ type: ACADEMIC_FACULTY_CREATE_RESET });
   }
   if (singleAcademicFacultyError) {
     setNotify({
@@ -106,6 +109,7 @@ const AcademicFaculty = () => {
       message: singleAcademicFacultyError,
       type: "error",
     });
+    dispatch({ type: GET_SINGLE_ACADEMIC_FACULTY_RESET });
   }
 
   if (createAcademicFacultySuccess) {

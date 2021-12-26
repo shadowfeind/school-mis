@@ -60,10 +60,16 @@ const EmployeeForm = ({ employee, setOpenPopup }) => {
   const dispatch = useDispatch();
   const validate = (fieldValues = values) => {
     let temp = { ...errors };
-    temp.LoginIDHREmployee = values.LoginIDHREmployee
-      ? ""
-      : "This feild is required";
-    temp.FirstName = fieldValues.FirstName ? "" : "This feild is required";
+    temp.LoginIDHREmployee = !fieldValues.LoginIDHREmployee
+      ? "This feild is required"
+      : !fieldValues.LoginIDHREmployee.trim()
+      ? "This feild is required"
+      : "";
+    temp.FirstName = !fieldValues.FirstName
+      ? "This feild is required"
+      : !fieldValues.FirstName.trim()
+      ? "This feild is required"
+      : "";
 
     setErrors({ ...temp });
     return Object.values(temp).every((x) => x === "");
@@ -113,14 +119,14 @@ const EmployeeForm = ({ employee, setOpenPopup }) => {
           />
           <InputControl
             name="LoginIDHREmployee"
-            label="Login ID"
+            label="Login ID*"
             value={values.LoginIDHREmployee}
             onChange={handleInputChange}
             errors={errors.LoginIDHREmployee}
           />
           <InputControl
             name="FirstName"
-            label="First Name"
+            label="First Name*"
             value={values.FirstName}
             onChange={handleInputChange}
             errors={errors.FirstName}
@@ -211,6 +217,7 @@ const EmployeeForm = ({ employee, setOpenPopup }) => {
             label="Mobile Number"
             value={values.MobileNumber}
             onChange={handleInputChange}
+            type="number"
           />
           <SelectControl
             name="Married"

@@ -27,6 +27,7 @@ import {
   GET_SINGLE_ACADEMIC_SUBJECT_RESET,
   ACADEMIC_SUBJECT_CREATE_RESET,
   UPDATE_SINGLE_ACADEMIC_SUBJECT_RESET,
+  GET_ALL_ACADEMIC_SUBJECT_RESET,
 } from "./AcademicSubjectConstants";
 
 const useStyles = makeStyles((theme) => ({
@@ -74,21 +75,60 @@ const AcademicSubject = () => {
 
   const dispatch = useDispatch();
 
-  const { loading, academicSubject } = useSelector(
+  const { error, academicSubject } = useSelector(
     (state) => state.academicSubject
   );
 
-  const { academicSubject: singleAcademicSubject } = useSelector(
-    (state) => state.getSingleAcademicSubject
-  );
+  const {
+    academicSubject: singleAcademicSubject,
+    error: getSingleAcademicSubjectError,
+  } = useSelector((state) => state.getSingleAcademicSubject);
 
-  const { success: createAcademicSubjectSuccess } = useSelector(
-    (state) => state.createAcademicSubject
-  );
+  const {
+    success: createAcademicSubjectSuccess,
+    error: createAcademicSubjectError,
+  } = useSelector((state) => state.createAcademicSubject);
 
-  const { success: updateSingleAcademicSubjectSuccess } = useSelector(
-    (state) => state.updateSingleAcademicSubject
-  );
+  const {
+    success: updateSingleAcademicSubjectSuccess,
+    error: updateSingleAcademicSubjectError,
+  } = useSelector((state) => state.updateSingleAcademicSubject);
+
+  if (error) {
+    setNotify({
+      isOpen: true,
+      message: error,
+      type: "error",
+    });
+    dispatch({ type: GET_ALL_ACADEMIC_SUBJECT_RESET });
+  }
+
+  if (createAcademicSubjectError) {
+    setNotify({
+      isOpen: true,
+      message: error,
+      type: "error",
+    });
+    dispatch({ type: ACADEMIC_SUBJECT_CREATE_RESET });
+  }
+
+  if (getSingleAcademicSubjectError) {
+    setNotify({
+      isOpen: true,
+      message: error,
+      type: "error",
+    });
+    dispatch({ type: GET_SINGLE_ACADEMIC_SUBJECT_RESET });
+  }
+
+  if (updateSingleAcademicSubjectError) {
+    setNotify({
+      isOpen: true,
+      message: error,
+      type: "error",
+    });
+    dispatch({ type: UPDATE_SINGLE_ACADEMIC_SUBJECT_RESET });
+  }
 
   if (createAcademicSubjectSuccess) {
     dispatch(getAllAcademicSubjectAction());

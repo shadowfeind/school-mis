@@ -1,6 +1,7 @@
 import {
   GET_ALL_HOLIDAY_FAIL,
   GET_ALL_HOLIDAY_REQUEST,
+  GET_ALL_HOLIDAY_RESET,
   GET_ALL_HOLIDAY_SUCCESS,
   GET_SINGLE_HOLIDAY_FAIL,
   GET_SINGLE_HOLIDAY_REQUEST,
@@ -24,6 +25,8 @@ export const getAllHoliday = (state = {}, action) => {
       return { loading: false, holiday: action.payload };
     case GET_ALL_HOLIDAY_FAIL:
       return { loading: false, error: action.payload };
+    case GET_ALL_HOLIDAY_RESET:
+      return {};
     default:
       return state;
   }

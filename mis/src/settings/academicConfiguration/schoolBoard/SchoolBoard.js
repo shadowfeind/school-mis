@@ -20,6 +20,7 @@ import {
   getSingleSchoolBoardAction,
 } from "./SchoolBoardActions";
 import {
+  GET_ALL_SCHOOL_BOARD_RESET,
   GET_SINGLE_SCHOOL_BOARD_RESET,
   SCHOOL_BOARD_CREATE_RESET,
   UPDATE_SINGLE_SCHOOL_BOARD_RESET,
@@ -81,7 +82,7 @@ const SchoolBoard = () => {
 
   const {
     success: updateSchoolBoardSuccess,
-    error: updateSingleSchoolBoardErrpr,
+    error: updateSingleSchoolBoardError,
   } = useSelector((state) => state.updateSingleSchoolBoard);
 
   if (error) {
@@ -90,6 +91,7 @@ const SchoolBoard = () => {
       message: error,
       type: "error",
     });
+    dispatch({ type: GET_ALL_SCHOOL_BOARD_RESET });
   }
   if (createSchoolBoardError) {
     setNotify({
@@ -97,6 +99,7 @@ const SchoolBoard = () => {
       message: createSchoolBoardError,
       type: "error",
     });
+    dispatch({ type: SCHOOL_BOARD_CREATE_RESET });
   }
   if (singleSchoolBoardError) {
     setNotify({
@@ -104,13 +107,15 @@ const SchoolBoard = () => {
       message: singleSchoolBoardError,
       type: "error",
     });
+    dispatch({ type: GET_SINGLE_SCHOOL_BOARD_RESET });
   }
-  if (updateSingleSchoolBoardErrpr) {
+  if (updateSingleSchoolBoardError) {
     setNotify({
       isOpen: true,
-      message: updateSingleSchoolBoardErrpr,
+      message: updateSingleSchoolBoardError,
       type: "error",
     });
+    dispatch({ type: UPDATE_SINGLE_SCHOOL_BOARD_RESET });
   }
 
   if (createSchoolBoardSuccess) {

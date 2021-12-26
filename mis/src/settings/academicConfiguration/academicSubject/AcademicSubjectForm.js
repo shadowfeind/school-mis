@@ -35,15 +35,23 @@ const AcademicSubjectForm = ({ academicSubject }) => {
 
     temp.SubjectName = !fieldValues.SubjectName
       ? "This feild is required"
+      : !fieldValues.SubjectName.trim()
+      ? "This feild is required"
       : fieldValues.SubjectName.length > 20
       ? "Must be less than 20 characters"
       : "";
 
-    temp.SubjectDescription = fieldValues.SubjectDescription
-      ? ""
-      : "This feild is required";
+    temp.SubjectDescription = !fieldValues.SubjectDescription
+      ? "This feild is required"
+      : !fieldValues.SubjectDescription.trim()
+      ? "This feild is required"
+      : "";
 
-    temp.SubjectCode = fieldValues.SubjectCode ? "" : "This field is required";
+    temp.SubjectCode = !fieldValues.SubjectCode
+      ? "This field is required"
+      : !fieldValues.SubjectCode.trim()
+      ? "This field is required"
+      : "";
 
     setErrors({ ...temp });
     return Object.values(temp).every((x) => x === "");

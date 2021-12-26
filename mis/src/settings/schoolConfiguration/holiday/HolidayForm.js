@@ -29,11 +29,17 @@ const HolidayForm = ({ holiday, setOpenPopup }) => {
 
     temp.HolidayName = !fieldValues.HolidayName
       ? "This feild is required"
+      : !fieldValues.HolidayName.trim()
+      ? "This feild is required"
       : fieldValues.HolidayName.length > 20
       ? "Must be less than 20 characters"
       : "";
 
-    temp.Description = fieldValues.Description ? "" : "This feild is required";
+    temp.Description = !fieldValues.Description
+      ? "This feild is required"
+      : !fieldValues.Description.trim()
+      ? "This feild is required"
+      : "";
 
     setErrors({ ...temp });
     return Object.values(temp).every((x) => x === "");

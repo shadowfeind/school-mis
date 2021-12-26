@@ -160,7 +160,7 @@ const AssignFacultySubject = () => {
           return item;
         } else {
           return item.filter((x) =>
-            x.EventName.toLowerCase().includes(e.target.value)
+            x.SubjectName.toLowerCase().includes(e.target.value)
           );
         }
       },

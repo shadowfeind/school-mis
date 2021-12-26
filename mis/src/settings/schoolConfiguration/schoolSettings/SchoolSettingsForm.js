@@ -121,6 +121,7 @@ const SchoolSettingsForm = ({ college, setOpenPopup }) => {
 
     if (validate()) {
       if (values.IDHRCompany === 0) {
+        console.log(values);
         dispatch(schoolSettingCreateAction(values));
       } else {
         dispatch(updateSingleScholSettingAction(values));

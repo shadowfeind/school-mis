@@ -44,7 +44,7 @@ export const schoolSettingCreateAction = (position) => async (dispatch) => {
         "Content-Type": "application/json",
       },
     };
-
+ 
     const { data } = await axios.post(
       `${API_URL}/api/ReactHRCompany/PostHRCompany`,
       jsonData,

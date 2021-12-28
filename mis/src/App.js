@@ -8,7 +8,7 @@ import {
   makeStyles,
   ThemeProvider,
 } from "@material-ui/core";
-import { HashRouter as Router, Route, Switch } from "react-router-dom";
+import { HashRouter as Router, Route } from "react-router-dom";
 
 //settings lazy loading
 const Settings = lazy(() => import("./settings/Settings"));
@@ -83,47 +83,36 @@ const App = () => {
           <Header />
           {/* Examination route start */}
           <Suspense fallback={<div></div>}>
-            <Switch>
-              <Route path={"/examination"} component={AcademicGrading} />
-              <Route path={"/exam-division"} component={ExamDivision} />
-              <Route
-                path={"/exam-mark-approval"}
-                component={ExamMarkApproval}
-              />
-              <Route path={"/exam-schedule"} component={ExamSchedule} />
-              <Route path={"/print-admit-card"} component={PrintAdminCard} />
-              <Route path={"/exam-mark-entry"} component={ExamMarkEntry} />
-              <Route
-                path={"/generatepublish-result"}
-                component={GeneratePublishResult}
-              />
-              <Route path={"/exam-result"} component={ExamResult} />
-              <Route
-                path={"/student-attendance"}
-                component={StudentAttendance}
-              />
-              <Route path={"/level-test"} component={LevelTest} />
-              <Route
-                path={"/student-Registration"}
-                component={StudentRegistration}
-              />
-              <Route path={"/academic-grading"} component={AcademicGrading} />
-              {/* Examination route end */}
-              {/* settings route start */}
-              <Route
-                path={"/employee-management"}
-                component={EmployeeManagement}
-              />
-              <Route
-                path={"/academic-configuration"}
-                component={AcademicConfiguration}
-              />
-              <Route
-                path={"/student-management"}
-                component={StudentManagement}
-              />
-              <Route exact path={"/"} component={Settings} />
-            </Switch>
+            <Route path={"/examination"} component={AcademicGrading} />
+            <Route path={"/exam-division"} component={ExamDivision} />
+            <Route path={"/exam-mark-approval"} component={ExamMarkApproval} />
+            <Route path={"/exam-schedule"} component={ExamSchedule} />
+            <Route path={"/print-admit-card"} component={PrintAdminCard} />
+            <Route path={"/exam-mark-entry"} component={ExamMarkEntry} />
+            <Route
+              path={"/generatepublish-result"}
+              component={GeneratePublishResult}
+            />
+            <Route path={"/exam-result"} component={ExamResult} />
+            <Route path={"/student-attendance"} component={StudentAttendance} />
+            <Route path={"/level-test"} component={LevelTest} />
+            <Route
+              path={"/student-Registration"}
+              component={StudentRegistration}
+            />
+            <Route path={"/academic-grading"} component={AcademicGrading} />
+            {/* Examination route end */}
+            {/* settings route start */}
+            <Route
+              path={"/employee-management"}
+              component={EmployeeManagement}
+            />
+            <Route
+              path={"/academic-configuration"}
+              component={AcademicConfiguration}
+            />
+            <Route path={"/student-management"} component={StudentManagement} />
+            <Route exact path={"/"} component={Settings} />
           </Suspense>
           {/* settings route end */}
         </div>

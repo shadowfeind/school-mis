@@ -43,9 +43,6 @@ const useStyles = makeStyles({
       color: "#000",
       textDecoration: "none",
     },
-    "& li:hover": {
-      borderBottom: "1px solid #000",
-    },
   },
 
   wrapIcon: {
@@ -70,7 +67,7 @@ const Header = () => {
                   <a>Dashboard</a>
                 </li>
                 <li>
-                  <NavLink to={"/"} activeStyle={isActive}>
+                  <NavLink exact to={"/"} activeStyle={isActive}>
                     Setings
                   </NavLink>
                 </li>

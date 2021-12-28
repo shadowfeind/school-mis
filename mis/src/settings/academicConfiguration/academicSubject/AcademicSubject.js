@@ -153,6 +153,7 @@ const AcademicSubject = () => {
   }
 
   useEffect(() => {
+    dispatch({ type: "GET_LINK", payload: "/" });
     if (!academicSubject) {
       dispatch(getAllAcademicSubjectAction());
     }

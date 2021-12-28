@@ -151,6 +151,7 @@ const Role = () => {
   };
 
   useEffect(() => {
+    dispatch({ type: "GET_LINK", payload: "/" });
     if (!role) {
       dispatch(getAllRolesAction());
     }

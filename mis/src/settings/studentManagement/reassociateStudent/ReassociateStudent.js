@@ -136,6 +136,7 @@ const ReassociateStudent = () => {
     setProgramValue(6);
   };
   useEffect(() => {
+    dispatch({ type: "GET_LINK", payload: "/" });
     if (!allReassociateStudents) {
       dispatch(getAllReassociateStudentsAction());
     }

@@ -176,6 +176,7 @@ const AcademicYearCalendar = () => {
   };
 
   useEffect(() => {
+    dispatch({ type: "GET_LINK", payload: "/" });
     if (!academicYearCalendar) {
       dispatch(getAllAcademicYearCalendarAction());
     }

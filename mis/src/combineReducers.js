@@ -112,7 +112,68 @@ import {
   getReassociateStudentsListsReducer,
 } from "./settings/studentManagement/reassociateStudent/ReassociateStudentReducers";
 
+//examination reducers link start
+import {
+  createAcademicGradingReducer,
+  getAllAcademicGradingReducer,
+  getSingleAcademicGradingforEditReducer,
+  getSingleAcademicGradingReducer,
+  updateSingleAcademicGradingReducer,
+} from "./examination/academicGrading/AcademicGradingReducers";
+import {
+  createExamDivisionReducer,
+  getAllExamDivisionReducer,
+  getSingleExamDivisionEditReducer,
+  getSingleExamDivisionReducer,
+  updateSingleExamDivisionReducer,
+} from "./examination/examDivision/ExamDivisionReducers";
+import {
+  getExamApprovalSearchDataReducer,
+  getInitialExamApprovalDataReducer,
+} from "./examination/examMarkApproval/ExamMarkApprovalReducers";
+import {
+  getAllAcademicStudentExamdataReducer,
+  getEventReducer,
+  getEventScheduleReducer,
+  getExamEntryBulkReducer,
+  getExamEntrySearchDataReducer,
+} from "./examination/examMarkEntry/ExamMarkEntryReducers";
+import {
+  getEventForExamMarkReducer,
+  getExamResultListReducer,
+  getInitialExamResultDataReducer,
+  getInitialExamResultStudentOptionsReducer,
+} from "./examination/examResult/ExamResultReducers";
+import {
+  getAllExamScheduleInitialDataReducer,
+  getExamScheduleListReducer,
+} from "./examination/examSchedule/ExamScheduleReducers";
+import {
+  getAllGeneratePublishReducer,
+  getAllGeneratePublishResultReducer,
+  getAllGenerateReducer,
+} from "./examination/generatePublishResult/GeneratePublishResultReducers";
+import { getInitialLevelTestDataReducer } from "./examination/levelTest/LevelTestReducers";
+import {
+  getActiveStudentsForAdmitCardDataReducer,
+  getInitialAdmitCardDataReducer,
+  printStudentsAdmitCardDataReducer,
+  searchStudentsForAdmitCardDataReducer,
+} from "./examination/printAdminCard/PrintAdminCardReducers";
+import { getAllStudentAttendanceInitialDataReducer } from "./examination/studentAttendance/StudentAttendanceReducers";
+import {
+  createSingleStudentRegistrationReducer,
+  getCreateSingleStudentRegistrationDataReducer,
+  getInitialStudentRegistrationDataReducer,
+  getSingleStudentRegistrationDataReducer,
+  getStudentRegistrationDataReducer,
+  singleStudentRegistrationCreateReducer,
+  singleStudentRegistrationEditReducer,
+} from "./examination/studentRegistration/StudentRegistrationReducers";
+import { navLinkReducer } from "./routesConfig/Route";
+//examination reducers link end
 export const reducers = combineReducers({
+  navLink: navLinkReducer,
   schoolSettings: getAllSchoolSettings,
   createSchoolSettings: createSchoolSettingsReducer,
   getSingleSchoolSettings: getSingleSchoolSettingsReducer,
@@ -191,4 +252,46 @@ export const reducers = combineReducers({
   getReassociateStudentsLists: getReassociateStudentsListsReducer,
   getReassociateStudentsLevelup: getReassociateStudentsLevelupReducer,
   getReassociateStudentsLevelupPost: getReassociateStudentsLevelupPostReducer,
+  //examination reducers start
+  getAllAcademicStudentExamdata: getAllAcademicStudentExamdataReducer,
+  getEvent: getEventReducer,
+  getEventSchedule: getEventScheduleReducer,
+  getExamEntrySearchData: getExamEntrySearchDataReducer,
+  getExamEntryBulk: getExamEntryBulkReducer,
+  getAllStudentAttendanceInitialData: getAllStudentAttendanceInitialDataReducer,
+  getInitialExamApprovalData: getInitialExamApprovalDataReducer,
+  getExamApprovalSearchData: getExamApprovalSearchDataReducer,
+  getInitialStudentRegistrationData: getInitialStudentRegistrationDataReducer,
+  getStudentRegistrationData: getStudentRegistrationDataReducer,
+  getSingleStudentRegistrationData: getSingleStudentRegistrationDataReducer,
+  singleStudentRegistrationCreate: singleStudentRegistrationCreateReducer,
+  singleStudentRegistrationEdit: singleStudentRegistrationEditReducer,
+  getInitialLevelTestData: getInitialLevelTestDataReducer,
+  getInitialAdmitCardData: getInitialAdmitCardDataReducer,
+  getActiveStudentsForAdmitCardData: getActiveStudentsForAdmitCardDataReducer,
+  searchStudentsForAdmitCardData: searchStudentsForAdmitCardDataReducer,
+  printStudentsAdmitCardData: printStudentsAdmitCardDataReducer,
+  getInitialExamResultData: getInitialExamResultDataReducer,
+  getEventForExamMark: getEventForExamMarkReducer,
+  getInitialExamResultStudentOptions: getInitialExamResultStudentOptionsReducer,
+  getExamResultList: getExamResultListReducer,
+  getCreateSingleStudentRegistrationData:
+    getCreateSingleStudentRegistrationDataReducer,
+  createSingleStudentRegistration: createSingleStudentRegistrationReducer,
+  academicGrading: getAllAcademicGradingReducer,
+  getSingleAcademicGrading: getSingleAcademicGradingReducer,
+  createAcademicGrading: createAcademicGradingReducer,
+  getSingleAcademicGradingforEdit: getSingleAcademicGradingforEditReducer,
+  updateSingleAcademicGrading: updateSingleAcademicGradingReducer,
+  getAllGeneratePublish: getAllGeneratePublishReducer,
+  getAllGenerate: getAllGenerateReducer,
+  getAllGeneratePublishResult: getAllGeneratePublishResultReducer,
+  getAllExamDivision: getAllExamDivisionReducer,
+  getSingleExamDivision: getSingleExamDivisionReducer,
+  createExamDivision: createExamDivisionReducer,
+  getSingleExamDivisionEdit: getSingleExamDivisionEditReducer,
+  updateSingleExamDivision: updateSingleExamDivisionReducer,
+  getAllExamScheduleInitialData: getAllExamScheduleInitialDataReducer,
+  getExamScheduleList: getExamScheduleListReducer,
+  //examination reducers end
 });

@@ -145,6 +145,7 @@ const AcademicYear = () => {
   };
 
   useEffect(() => {
+    dispatch({ type: "GET_LINK", payload: "/" });
     if (!academicYear) {
       dispatch(getAllAcademicYearAction());
     }

@@ -154,6 +154,7 @@ const SchoolSettings = () => {
   };
 
   useEffect(() => {
+    dispatch({ type: "GET_LINK", payload: "/" });
     if (!schoolSettings) {
       dispatch(getAllSchoolSettingsAction());
     }

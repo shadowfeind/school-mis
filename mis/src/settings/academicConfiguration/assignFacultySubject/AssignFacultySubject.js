@@ -133,6 +133,7 @@ const AssignFacultySubject = () => {
   };
 
   useEffect(() => {
+    dispatch({ type: "GET_LINK", payload: "/" });
     if (!allAcademicSubjects) {
       dispatch(getALLAssignFacultySubject());
     }

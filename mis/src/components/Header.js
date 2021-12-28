@@ -9,6 +9,7 @@ import {
 } from "@material-ui/core";
 
 import { NotificationsNone } from "@material-ui/icons";
+import { NavLink } from "react-router-dom";
 
 const useStyles = makeStyles({
   root: {
@@ -46,9 +47,7 @@ const useStyles = makeStyles({
       borderBottom: "1px solid #000",
     },
   },
-  activeList: {
-    borderBottom: "1px solid #000",
-  },
+
   wrapIcon: {
     verticalAlign: "middle",
     display: "inline-flex",
@@ -57,6 +56,9 @@ const useStyles = makeStyles({
 
 const Header = () => {
   const classes = useStyles();
+  const isActive = {
+    borderBottom: "1px solid #000",
+  };
   return (
     <div>
       <AppBar position="static" className={classes.root}>
@@ -65,32 +67,29 @@ const Header = () => {
             <Grid item>
               <ul className={classes.list}>
                 <li>
-                  <a href="http://103.90.86.151:85/#/">Dashboard</a>
-                </li>
-                <li className={classes.activeList}>
-                  {" "}
-                  <a href="http://103.90.86.151:85/#/settings">Setings</a>
+                  <a>Dashboard</a>
                 </li>
                 <li>
-                  <a href="http://103.90.86.151:85/#/registration">
-                    Registration
-                  </a>
+                  <NavLink to={"/"} activeStyle={isActive}>
+                    Setings
+                  </NavLink>
                 </li>
                 <li>
-                  <a href="http://103.90.86.151:85/#/Attendance">Attendance</a>
+                  <a>Registration</a>
                 </li>
                 <li>
-                  <a href="http://103.90.86.151:85/#/user_profile">
-                    User Profile
-                  </a>
+                  <a>Attendance</a>
                 </li>
                 <li>
-                  <a href="http://103.90.86.151:85/#/examination">
+                  <a>User Profile</a>
+                </li>
+                <li>
+                  <NavLink to={"/examination"} activeStyle={isActive}>
                     Examination
-                  </a>
+                  </NavLink>
                 </li>
                 <li>
-                  <a href="http://103.90.86.151:85/#/assignment">Assignment</a>
+                  <a>Assignment</a>
                 </li>
               </ul>
             </Grid>

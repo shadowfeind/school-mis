@@ -16,10 +16,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Notification from "../../../components/Notification";
 import ConfirmDialog from "../../../components/ConfirmDialog";
 
-import {
-  getAllStudentProfileAction
-} from "./StudentProfileActions";
-
+import { getAllStudentProfileAction } from "./StudentProfileActions";
 
 const useStyles = makeStyles((theme) => ({
   searchInput: {
@@ -32,16 +29,15 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const tableHeader=[
-  {id:"RollNo", label:"Roll No"},
-  {id:"RegNo", label:"Reg No"},
-  {id:"FullName", label:"Full Name"},
-  {id:"Program", label:"Program"},
-  {id:"Email", label:"Email"},
-  {id:"Mobile", label:"Mobile"},
-  {id:"Status", label:"Status"},
+const tableHeader = [
+  { id: "RollNo", label: "Roll No" },
+  { id: "RegNo", label: "Reg No" },
+  { id: "FullName", label: "Full Name" },
+  { id: "Program", label: "Program" },
+  { id: "Email", label: "Email" },
+  { id: "Mobile", label: "Mobile" },
+  { id: "Status", label: "Status" },
 ];
-
 
 const StudentProfile = () => {
   const [tableData, setTableData] = useState([]);
@@ -66,17 +62,16 @@ const StudentProfile = () => {
 
   const dispatch = useDispatch();
 
-  const { loading, studentProfile } = useSelector((state) => state.studentProfile);
+  const { loading, studentProfile } = useSelector(
+    (state) => state.studentProfile
+  );
 
-  const updateCollegeHandler = (id) => {
-    
-  };
+  const updateCollegeHandler = (id) => {};
 
-  const deleteCollegeHandler=(id)=>{
-
-  };
+  const deleteCollegeHandler = (id) => {};
 
   useEffect(() => {
+    dispatch({ type: "GET_LINK", payload: "/" });
     if (!studentProfile) {
       dispatch(getAllStudentProfileAction());
     }
@@ -150,13 +145,8 @@ const StudentProfile = () => {
         </TableContainer>
         <TblPagination />
       </CustomContainer>
-      
-      
     </>
   );
 };
 
 export default StudentProfile;
-
-
-

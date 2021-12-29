@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { ExaminationRoute } from "../routesConfig/ExaminationRoute";
+import { RegistrationRoute } from "../routesConfig/RegistrationRoute";
 import { SettingsRoute } from "../routesConfig/SettingsRoute";
 
 const useStyles = makeStyles({
@@ -59,6 +60,12 @@ const SideMenu = () => {
     if (routeCheck !== "examination") {
       setRouteCheck("examination");
       setRouteLinks(ExaminationRoute);
+    }
+  }
+  if (navLink === "registration") {
+    if (routeCheck !== "registration") {
+      setRouteCheck("registration");
+      setRouteLinks(RegistrationRoute);
     }
   }
   return (

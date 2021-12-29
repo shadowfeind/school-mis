@@ -151,7 +151,7 @@ const StudentRegistration = () => {
   }
 
   useEffect(() => {
-    dispatch({ type: "GET_LINK", payload: "examination" });
+    dispatch({ type: "GET_LINK", payload: "registration" });
     if (!studentRegistrationInitialData) {
       dispatch(getInitialStudentRegistrationDataAction());
     }

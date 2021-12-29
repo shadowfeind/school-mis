@@ -10,6 +10,12 @@ import {
 } from "@material-ui/core";
 import { HashRouter as Router, Route } from "react-router-dom";
 
+const CounterConfiguration = lazy(() =>
+  import("./registration/counterConfiguration/CounterConfiguration")
+);
+const AdmissionConfiguration = lazy(() =>
+  import("./registration/admissionConfiguration/AdmissionConfiguration")
+);
 //settings lazy loading
 const Settings = lazy(() => import("./settings/Settings"));
 const EmployeeManagement = lazy(() =>
@@ -51,7 +57,7 @@ const StudentAttendance = lazy(() =>
 );
 const LevelTest = lazy(() => import("./examination/levelTest/LevelTest"));
 const StudentRegistration = lazy(() =>
-  import("./examination/studentRegistration/StudentRegistration")
+  import("./registration/studentRegistration/StudentRegistration")
 );
 
 const theme = createTheme({
@@ -94,12 +100,10 @@ const App = () => {
               component={GeneratePublishResult}
             />
             <Route path={"/exam-result"} component={ExamResult} />
-            <Route path={"/student-attendance"} component={StudentAttendance} />
+
             <Route path={"/level-test"} component={LevelTest} />
-            <Route
-              path={"/student-Registration"}
-              component={StudentRegistration}
-            />
+
+            <Route path={"/student-attendance"} component={StudentAttendance} />
             <Route path={"/academic-grading"} component={AcademicGrading} />
             {/* Examination route end */}
             {/* settings route start */}
@@ -112,9 +116,20 @@ const App = () => {
               component={AcademicConfiguration}
             />
             <Route path={"/student-management"} component={StudentManagement} />
+            {/* settings route end */}
+            {/* registration route starts */}
+            <Route path={"/registration"} component={CounterConfiguration} />
+            <Route
+              path={"/admission-configuration"}
+              component={AdmissionConfiguration}
+            />
+            <Route
+              path={"/student-Registration"}
+              component={StudentRegistration}
+            />
+            {/* registration route ends */}
             <Route exact path={"/"} component={Settings} />
           </Suspense>
-          {/* settings route end */}
         </div>
         <CssBaseline />
       </ThemeProvider>

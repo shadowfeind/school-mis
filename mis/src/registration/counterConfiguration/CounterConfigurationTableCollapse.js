@@ -11,32 +11,28 @@ const useStyles = makeStyles({
     fontSize: "12px",
   },
 });
-
-const AssignFacultySubjectTableCollepse = ({
+const CounterConfigurationTableCollapse = ({
   item,
-  updateFacultySubjectHandler,
-  deleteCollegeHandler,
+  updateCounterConfig,
+  year,
+  program,
 }) => {
   const classes = useStyles();
-
   return (
     <TableRow>
-      <TableCell>{item.SubjectName}</TableCell>
-      <TableCell>{item.SubjectCode}</TableCell>
-      <TableCell>{item.IsOptional ? "True" : "False"}</TableCell>
-      <TableCell>{item.IsCompulsory ? "True" : "False"}</TableCell>
-      <TableCell>{item.IsTheoritical ? "True" : "False"}</TableCell>
-      <TableCell>{item.IsPractical ? "True" : "False"}</TableCell>
-      <TableCell>{item.IsActive ? "True" : "False"}</TableCell>
-      <TableCell>{item.CreditHour}</TableCell>
+      <TableCell>{item.CounterYear}</TableCell>
+      <TableCell>{item.CounterFor}</TableCell>
+      <TableCell>{item.Prefix}</TableCell>
+      <TableCell>{item.Middle}</TableCell>
+      <TableCell>{item.CurrentCount}</TableCell>
+      <TableCell>{item.Status}</TableCell>
+
       <TableCell>
         <Button
           variant="contained"
           color="primary"
           className={classes.button}
-          onClick={() =>
-            updateFacultySubjectHandler(item.IDAcademicFacultySubjectLink)
-          }
+          onClick={() => updateCounterConfig(item.IDCounter, year, program)}
         >
           <EditIcon style={{ fontSize: 12 }} />
         </Button>
@@ -53,4 +49,4 @@ const AssignFacultySubjectTableCollepse = ({
   );
 };
 
-export default AssignFacultySubjectTableCollepse;
+export default CounterConfigurationTableCollapse;

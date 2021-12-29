@@ -69,10 +69,4 @@ export const ExaminationRoute = [
     icon: Accessible,
     exact: false,
   },
-  {
-    name: "Student Registration",
-    route: "/student-Registration",
-    icon: ChromeReaderMode,
-    exact: false,
-  },
 ];

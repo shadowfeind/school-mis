@@ -169,8 +169,16 @@ import {
   getStudentRegistrationDataReducer,
   singleStudentRegistrationCreateReducer,
   singleStudentRegistrationEditReducer,
-} from "./examination/studentRegistration/StudentRegistrationReducers";
+} from "./registration/studentRegistration/StudentRegistrationReducers";
 import { navLinkReducer } from "./routesConfig/Route";
+import {
+  counterConfigCreateReducer,
+  CounterConfigEditReducer,
+  getCounterConfigInitialDataForCreateReducer,
+  getCounterConfigInitialDataForEditReducer,
+  getCounterConfigInitialDataReducer,
+  getCounterConfigListReducer,
+} from "./registration/counterConfiguration/CounterConfigurationReducers";
 //examination reducers link end
 export const reducers = combineReducers({
   navLink: navLinkReducer,
@@ -261,11 +269,6 @@ export const reducers = combineReducers({
   getAllStudentAttendanceInitialData: getAllStudentAttendanceInitialDataReducer,
   getInitialExamApprovalData: getInitialExamApprovalDataReducer,
   getExamApprovalSearchData: getExamApprovalSearchDataReducer,
-  getInitialStudentRegistrationData: getInitialStudentRegistrationDataReducer,
-  getStudentRegistrationData: getStudentRegistrationDataReducer,
-  getSingleStudentRegistrationData: getSingleStudentRegistrationDataReducer,
-  singleStudentRegistrationCreate: singleStudentRegistrationCreateReducer,
-  singleStudentRegistrationEdit: singleStudentRegistrationEditReducer,
   getInitialLevelTestData: getInitialLevelTestDataReducer,
   getInitialAdmitCardData: getInitialAdmitCardDataReducer,
   getActiveStudentsForAdmitCardData: getActiveStudentsForAdmitCardDataReducer,
@@ -275,9 +278,6 @@ export const reducers = combineReducers({
   getEventForExamMark: getEventForExamMarkReducer,
   getInitialExamResultStudentOptions: getInitialExamResultStudentOptionsReducer,
   getExamResultList: getExamResultListReducer,
-  getCreateSingleStudentRegistrationData:
-    getCreateSingleStudentRegistrationDataReducer,
-  createSingleStudentRegistration: createSingleStudentRegistrationReducer,
   academicGrading: getAllAcademicGradingReducer,
   getSingleAcademicGrading: getSingleAcademicGradingReducer,
   createAcademicGrading: createAcademicGradingReducer,
@@ -294,4 +294,21 @@ export const reducers = combineReducers({
   getAllExamScheduleInitialData: getAllExamScheduleInitialDataReducer,
   getExamScheduleList: getExamScheduleListReducer,
   //examination reducers end
+  //registration reducers starts
+  getCounterConfigInitialData: getCounterConfigInitialDataReducer,
+  getCounterConfigInitialDataForCreate:
+    getCounterConfigInitialDataForCreateReducer,
+  counterConfigCreate: counterConfigCreateReducer,
+  getCounterConfigList: getCounterConfigListReducer,
+  getCounterConfigInitialDataForEdit: getCounterConfigInitialDataForEditReducer,
+  counterConfigEdit: CounterConfigEditReducer,
+  getInitialStudentRegistrationData: getInitialStudentRegistrationDataReducer,
+  getStudentRegistrationData: getStudentRegistrationDataReducer,
+  getSingleStudentRegistrationData: getSingleStudentRegistrationDataReducer,
+  singleStudentRegistrationCreate: singleStudentRegistrationCreateReducer,
+  singleStudentRegistrationEdit: singleStudentRegistrationEditReducer,
+  getCreateSingleStudentRegistrationData:
+    getCreateSingleStudentRegistrationDataReducer,
+  createSingleStudentRegistration: createSingleStudentRegistrationReducer,
+  //registration reducers ends
 });

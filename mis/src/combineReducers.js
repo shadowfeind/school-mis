@@ -179,6 +179,14 @@ import {
   getCounterConfigInitialDataReducer,
   getCounterConfigListReducer,
 } from "./registration/counterConfiguration/CounterConfigurationReducers";
+import {
+  createSingleAdmissionConfigReducer,
+  getAdmissionConfigInitialDataReducer,
+  getAdmissionConfigListDataReducer,
+  getCreateSingleAdmissionConfigReducer,
+  getSingleAdmissionConfigReducer,
+  updateSingleAdmissionConfigReducer,
+} from "./registration/admissionConfiguration/AdmissionConfigurationReducers";
 //examination reducers link end
 export const reducers = combineReducers({
   navLink: navLinkReducer,
@@ -310,5 +318,11 @@ export const reducers = combineReducers({
   getCreateSingleStudentRegistrationData:
     getCreateSingleStudentRegistrationDataReducer,
   createSingleStudentRegistration: createSingleStudentRegistrationReducer,
+  getAdmissionConfigInitialData: getAdmissionConfigInitialDataReducer,
+  getAdmissionConfigListData: getAdmissionConfigListDataReducer,
+  getSingleAdmissionConfig: getSingleAdmissionConfigReducer,
+  updateSingleAdmissionConfig: updateSingleAdmissionConfigReducer,
+  getCreateSingleAdmissionConfig: getCreateSingleAdmissionConfigReducer,
+  createSingleAdmissionConfig: createSingleAdmissionConfigReducer,
   //registration reducers ends
 });

@@ -6,6 +6,8 @@ import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import { makeStyles } from "@material-ui/core";
 
+const StudentIdCard = lazy(() => import("./studentIdCard/StudentIdCard"));
+
 const ReassociateStudent = lazy(() =>
   import("./reassociateStudent/ReassociateStudent")
 );
@@ -86,6 +88,9 @@ const StudentManagement = () => {
       <Suspense fallback={<div></div>}>
         <TabPanel value={value} index={0}>
           <StudentProfile />
+        </TabPanel>
+        <TabPanel value={value} index={1}>
+          <StudentIdCard />
         </TabPanel>
         <TabPanel value={value} index={2}>
           <ReassociateStudent />

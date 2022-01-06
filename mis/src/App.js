@@ -10,6 +10,10 @@ import {
 } from "@material-ui/core";
 import { HashRouter as Router, Route } from "react-router-dom";
 
+const TeacherMapping = lazy(() =>
+  import("./settings/teacherMapping/TeacherMapping")
+);
+
 const CounterConfiguration = lazy(() =>
   import("./registration/counterConfiguration/CounterConfiguration")
 );
@@ -127,6 +131,7 @@ const App = () => {
               path={"/student-Registration"}
               component={StudentRegistration}
             />
+            <Route path={"/teacher-mapping"} component={TeacherMapping} />
             {/* registration route ends */}
             <Route exact path={"/"} component={Settings} />
           </Suspense>

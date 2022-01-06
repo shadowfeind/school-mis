@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Button, TableRow, TableCell, makeStyles } from "@material-ui/core";
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
@@ -12,26 +12,26 @@ const useStyles = makeStyles({
   },
 });
 
-const PositionTableCollapse = ({
-  item,
-  updateCollegeHandler,
-  deleteCollegeHandler,
-}) => {
+const TeacherFacultySubjectTableCollapse = ({ item, updateTeacherHandler }) => {
   const classes = useStyles();
-
   return (
     <TableRow>
-      <TableCell>{item.PositionHead}</TableCell>
-      <TableCell>{item.PositionDescription}</TableCell>
-      <TableCell>{item.IsActive ? "Active" : "InActive"}</TableCell>
-      <TableCell>{item.Created_On}</TableCell>
-      <TableCell>{item.Updated_On}</TableCell>
+      <TableCell>{item.IDHRTeacherFacultySubjectMappingHeader}</TableCell>
+      <TableCell>{item.IDAcademicFacultySubjectLink}</TableCell>
+      <TableCell>{item.Created_On.slice(0, 10)}</TableCell>
+      <TableCell>{item.Summary}</TableCell>
+      <TableCell>{item.IsActive ? "Active" : "Not Active"}</TableCell>
       <TableCell>
         <Button
           variant="contained"
           color="primary"
           className={classes.button}
-          onClick={() => updateCollegeHandler(item.IDHRPosition)}
+          onClick={() =>
+            updateTeacherHandler(
+              item.IDHRTeacherFacultySubjectMappingHeader,
+              item.IDTeacher
+            )
+          }
         >
           <EditIcon style={{ fontSize: 12 }} />
         </Button>
@@ -39,7 +39,7 @@ const PositionTableCollapse = ({
           variant="contained"
           color="secondary"
           className={classes.button}
-          onClick={() => deleteCollegeHandler(item.IDHRPosition)}
+          //   onClick={() => deleteCollegeHandler(item.IDAcademicSubject)}
         >
           <DeleteIcon style={{ fontSize: 12 }} />
         </Button>
@@ -48,4 +48,4 @@ const PositionTableCollapse = ({
   );
 };
 
-export default PositionTableCollapse;
+export default TeacherFacultySubjectTableCollapse;

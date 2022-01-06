@@ -27,6 +27,7 @@ import {
   SCHOOL_SETTINGS_CREATE_RESET,
   UPDATE_SINGLE_SCHOOL_SETTINGS_RESET,
 } from "./SchoolSettingsConstants";
+import { USER_SESSION } from "../../../constants";
 
 const useStyles = makeStyles((theme) => ({
   searchInput: {
@@ -154,6 +155,9 @@ const SchoolSettings = () => {
   };
 
   useEffect(() => {
+    // if (!USER_SESSION) {
+    //   window.location.href = "http://google.com";
+    // }
     dispatch({ type: "GET_LINK", payload: "/" });
     if (!schoolSettings) {
       dispatch(getAllSchoolSettingsAction());

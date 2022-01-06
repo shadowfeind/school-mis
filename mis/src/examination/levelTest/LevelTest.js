@@ -209,7 +209,7 @@ const LevelTest = () => {
                 name="EventName"
                 label="Event Name"
                 value={event}
-                onChange={(e) => eventHandler(e.target.value)}
+                onChange={(e) => setEvent(e.target.value)}
                 options={ddlEvent ? ddlEvent : test}
               />
             </Grid>

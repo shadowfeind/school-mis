@@ -1,6 +1,6 @@
 import React from "react";
 
-const AdmitCardDesign = ({ student, imagePath, classname, examDate }) => {
+const StudentCardDesign = ({ student, imagePath, classname, examDate }) => {
   return (
     <div
       style={{
@@ -21,7 +21,7 @@ const AdmitCardDesign = ({ student, imagePath, classname, examDate }) => {
       </div>
       <div style={{ textAlign: "center" }}>
         <h6>
-          <strong>Name:</strong> {student.FullName}
+          <strong>Name:</strong> {student.StudentFullName}
         </h6>
         <h6>
           <strong>Class:</strong> {classname}
@@ -30,11 +30,11 @@ const AdmitCardDesign = ({ student, imagePath, classname, examDate }) => {
           <strong>Symbol No:</strong> {student.UniversityRegistrationNumber}
         </h6>
         <h6>
-          <strong>Exam Date:</strong> {examDate.slice(0, 10)}
+          <strong>Section:</strong> {examDate.slice(0, 10)}
         </h6>
       </div>
     </div>
   );
 };
 
-export default AdmitCardDesign;
+export default StudentCardDesign;

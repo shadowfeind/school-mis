@@ -160,7 +160,11 @@ import {
   printStudentsAdmitCardDataReducer,
   searchStudentsForAdmitCardDataReducer,
 } from "./examination/printAdminCard/PrintAdminCardReducers";
-import { getAllStudentAttendanceInitialDataReducer } from "./examination/studentAttendance/StudentAttendanceReducers";
+import {
+  getAllStudentAttendanceInitialDataReducer,
+  getAllStudentAttendanceReducer,
+  getBulkStudentAttendanceReducer,
+} from "./examination/studentAttendance/StudentAttendanceReducers";
 import {
   createSingleStudentRegistrationReducer,
   getCreateSingleStudentRegistrationDataReducer,
@@ -187,6 +191,18 @@ import {
   getSingleAdmissionConfigReducer,
   updateSingleAdmissionConfigReducer,
 } from "./registration/admissionConfiguration/AdmissionConfigurationReducers";
+import {
+  getActiveStudentsForStudentIdCardDataReducer,
+  getInitialStudentIdCardDataReducer,
+} from "./settings/studentManagement/studentIdCard/StudentIdCardReducers";
+import {
+  createSingleTeacherFacSubReducer,
+  createTeacherFacSubInitDataReducer,
+  getAllTeacherFacSubInitialDataReducer,
+  getAllTeacherFacSubListDataReducer,
+  getSingleTeacherFacSubDataReducer,
+  singleTeacherFacSubEditReducer,
+} from "./settings/teacherMapping/teacherFacultySubject/TeacherFacultySubjectReducers";
 //examination reducers link end
 export const reducers = combineReducers({
   navLink: navLinkReducer,
@@ -264,10 +280,19 @@ export const reducers = combineReducers({
   assignFacultySubjectEdit: assignFacultySubjectEditReducer,
   assignFacultySubjectEditPost: assignFacultySubjectEditPostReducer,
   studentProfile: getAllStudentProfile,
+  getInitialStudentIdCardData: getInitialStudentIdCardDataReducer,
+  getActiveStudentsForStudentIdCardData:
+    getActiveStudentsForStudentIdCardDataReducer,
   getAllReassociateStudents: getAllReassociateStudentsReducer,
   getReassociateStudentsLists: getReassociateStudentsListsReducer,
   getReassociateStudentsLevelup: getReassociateStudentsLevelupReducer,
   getReassociateStudentsLevelupPost: getReassociateStudentsLevelupPostReducer,
+  getAllTeacherFacSubInitialData: getAllTeacherFacSubInitialDataReducer,
+  getAllTeacherFacSubListData: getAllTeacherFacSubListDataReducer,
+  getSingleTeacherFacSubData: getSingleTeacherFacSubDataReducer,
+  singleTeacherFacSubEdit: singleTeacherFacSubEditReducer,
+  createTeacherFacSubInitData: createTeacherFacSubInitDataReducer,
+  createSingleTeacherFacSub: createSingleTeacherFacSubReducer,
   //examination reducers start
   getAllAcademicStudentExamdata: getAllAcademicStudentExamdataReducer,
   getEvent: getEventReducer,
@@ -275,6 +300,8 @@ export const reducers = combineReducers({
   getExamEntrySearchData: getExamEntrySearchDataReducer,
   getExamEntryBulk: getExamEntryBulkReducer,
   getAllStudentAttendanceInitialData: getAllStudentAttendanceInitialDataReducer,
+  getAllStudentAttendance: getAllStudentAttendanceReducer,
+  getBulkStudentAttendance: getBulkStudentAttendanceReducer,
   getInitialExamApprovalData: getInitialExamApprovalDataReducer,
   getExamApprovalSearchData: getExamApprovalSearchDataReducer,
   getInitialLevelTestData: getInitialLevelTestDataReducer,

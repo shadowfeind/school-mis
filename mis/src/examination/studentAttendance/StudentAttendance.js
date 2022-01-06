@@ -15,16 +15,20 @@ import CustomContainer from "../../components/CustomContainer";
 import { useDispatch, useSelector } from "react-redux";
 import Notification from "../../components/Notification";
 import ConfirmDialog from "../../components/ConfirmDialog";
-import { getAllStudentAttendanceInitialDataAction } from "./StudentAttendanceActions";
+import {
+  getBulkStudentAttendanceAction,
+  getAllStudentAttendanceAction,
+  getAllStudentAttendanceInitialDataAction,
+} from "./StudentAttendanceActions";
 import SelectControl from "../../components/controls/SelectControl";
+import { GET_EVENT_RESET } from "../examMarkEntry/ExamMarkEntryConstants";
+import { getEventAction } from "../examMarkEntry/ExamMarkEntryActions";
 import {
-  GET_EVENT_RESET,
-  GET_EXAM_SCHEDULE_HEADER_RESET,
-} from "../examMarkEntry/ExamMarkEntryConstants";
-import {
-  getEventAction,
-  getEventScheduleAction,
-} from "../examMarkEntry/ExamMarkEntryActions";
+  GET_ALL_STUDEN_ATTENDANCE_INITIAL_DATA_RESET,
+  GET_ALL_STUDEN_ATTENDANCE_RESET,
+  GET_BULK_STUDENT_ATTENDANCE_RESET,
+} from "./StudentAttendanceConstants";
+import StudentAttendanceTableCollapse from "./StudentAttendanceTableCollapse";
 
 const useStyles = makeStyles((theme) => ({
   searchInput: {
@@ -42,6 +46,14 @@ const useStyles = makeStyles((theme) => ({
 
 const test = [{ Key: "", Value: "" }];
 
+const tableHeader = [
+  { id: "RollNo", label: "Roll No" },
+  { id: "FullName", label: "Full Name" },
+  { id: "MobileNumber", label: "Mobile Number" },
+  { id: "", label: "EmailID)" },
+  { id: "Actions", label: "Actions", disablesorting: true },
+];
+
 /*
  * get event name , exam schedule and getBulk has same api
  * as exam mark entry so i have used same reducers and actions
@@ -54,14 +66,14 @@ const StudentAttendance = () => {
   const [ddlShift, setDdlShift] = useState([]);
   const [ddlSection, setDdlSection] = useState([]);
   const [ddlEvent, setDdlEvent] = useState([]);
-  const [ddlSchedule, setDdlSchedule] = useState([]);
+
   const [programValue, setProgramValue] = useState(6);
   const [classId, setClassId] = useState();
   const [acaYear, setAcaYear] = useState(55);
   const [shift, setShift] = useState(2);
   const [section, setSection] = useState(1);
   const [event, setEvent] = useState();
-  const [schedule, setSchedule] = useState();
+
   const dispatch = useDispatch();
   const classes = useStyles();
 
@@ -83,12 +95,12 @@ const StudentAttendance = () => {
     subTitle: "",
   });
 
-  // const {
-  //   TableContainer,
-  //   TblHead,
-  //   TblPagination,
-  //   tableDataAfterPagingAndSorting,
-  // } = useCustomTable(tableData, tableHeader, filterFn);
+  const {
+    TableContainer,
+    TblHead,
+    TblPagination,
+    tableDataAfterPagingAndSorting,
+  } = useCustomTable(tableData, tableHeader, filterFn);
 
   const handleSearch = (e) => {
     setFilterFn({
@@ -97,33 +109,56 @@ const StudentAttendance = () => {
           return item;
         } else {
           return item.filter((x) =>
-            x.EventName.toLowerCase().includes(e.target.value)
+            x.FullName.toLowerCase().includes(e.target.value)
           );
         }
       },
     });
   };
 
-  const { studentAttendanceInitData } = useSelector(
-    (state) => state.getAllStudentAttendanceInitialData
-  );
+  const { studentAttendanceInitData, error: studentAttendanceInitDataError } =
+    useSelector((state) => state.getAllStudentAttendanceInitialData);
 
   const { allEvents, success: getEventSuccess } = useSelector(
     (state) => state.getEvent
   );
 
-  const { allSchedule, success: getScheduleSuccess } = useSelector(
-    (state) => state.getEventSchedule
-  );
+  const { allStudentAttendance, error: allStudentAttendanceError } =
+    useSelector((state) => state.getAllStudentAttendance);
+
+  const { bulkStudentAttendance, error: bulkStudentAttendanceError } =
+    useSelector((state) => state.getBulkStudentAttendance);
 
   if (getEventSuccess) {
     setDdlEvent(allEvents);
     dispatch({ type: GET_EVENT_RESET });
   }
 
-  if (getScheduleSuccess) {
-    setDdlSchedule(allSchedule);
-    dispatch({ type: GET_EXAM_SCHEDULE_HEADER_RESET });
+  if (studentAttendanceInitDataError) {
+    setNotify({
+      isOpen: true,
+      message: studentAttendanceInitDataError,
+      type: "error",
+    });
+    dispatch({ type: GET_ALL_STUDEN_ATTENDANCE_INITIAL_DATA_RESET });
+  }
+
+  if (allStudentAttendanceError) {
+    setNotify({
+      isOpen: true,
+      message: allStudentAttendanceError,
+      type: "error",
+    });
+    dispatch({ type: GET_ALL_STUDEN_ATTENDANCE_RESET });
+  }
+
+  if (bulkStudentAttendanceError) {
+    setNotify({
+      isOpen: true,
+      message: bulkStudentAttendanceError,
+      type: "error",
+    });
+    dispatch({ type: GET_BULK_STUDENT_ATTENDANCE_RESET });
   }
 
   useEffect(() => {
@@ -144,6 +179,12 @@ const StudentAttendance = () => {
     }
   }, [studentAttendanceInitData, dispatch]);
 
+  useEffect(() => {
+    if (allStudentAttendance) {
+      setTableData(allStudentAttendance.dbModelLst);
+    }
+  }, [allStudentAttendance]);
+
   const handleYearChange = (value) => {
     setAcaYear(value);
     if (classId) {
@@ -156,11 +197,34 @@ const StudentAttendance = () => {
     dispatch(getEventAction(acaYear, programValue, value));
   };
 
-  const eventHandler = (value) => {
-    setEvent(value);
-    dispatch(
-      getEventScheduleAction(acaYear, programValue, classId, section, value)
-    );
+  const handleStudentSearch = () => {
+    if ((acaYear, programValue, classId, section, shift, event)) {
+      dispatch(
+        getAllStudentAttendanceAction(
+          acaYear,
+          programValue,
+          classId,
+          section,
+          shift,
+          event
+        )
+      );
+    }
+  };
+
+  const handleBulkEdit = () => {
+    if ((acaYear, programValue, classId, section, shift, event)) {
+      dispatch(
+        getBulkStudentAttendanceAction(
+          acaYear,
+          programValue,
+          classId,
+          section,
+          shift,
+          event
+        )
+      );
+    }
   };
 
   return (
@@ -174,7 +238,7 @@ const StudentAttendance = () => {
                 label="Academic Year"
                 value={acaYear}
                 onChange={(e) => handleYearChange(e.target.value)}
-                options={academicYearDdl}
+                options={academicYearDdl ? academicYearDdl : test}
               />
             </Grid>
             <Grid item xs={3}>
@@ -183,7 +247,7 @@ const StudentAttendance = () => {
                 label="Program/Faculty"
                 value={programValue}
                 // onChange={handleInputChange}
-                options={programDdl}
+                options={programDdl ? programDdl : test}
               />
             </Grid>
             <Grid item xs={3}>
@@ -192,7 +256,7 @@ const StudentAttendance = () => {
                 label="Classes"
                 value={classId}
                 onChange={(e) => handleClassIdChange(e.target.value)}
-                options={ddlClass}
+                options={ddlClass ? ddlClass : test}
               />
             </Grid>
             <Grid item xs={3}>
@@ -201,7 +265,7 @@ const StudentAttendance = () => {
                 label="Shift"
                 value={shift}
                 onChange={(e) => setShift(e.target.value)}
-                options={ddlShift}
+                options={ddlShift ? ddlShift : test}
               />
             </Grid>
             <Grid item xs={3}>
@@ -211,7 +275,7 @@ const StudentAttendance = () => {
                 label="Section"
                 value={section}
                 onChange={(e) => setSection(e.target.value)}
-                options={ddlSection}
+                options={ddlSection ? ddlSection : test}
               />
             </Grid>
             <Grid item xs={3}>
@@ -220,18 +284,8 @@ const StudentAttendance = () => {
                 name="EventName"
                 label="Event Name"
                 value={event}
-                onChange={(e) => eventHandler(e.target.value)}
+                onChange={(e) => setEvent(e.target.value)}
                 options={ddlEvent ? ddlEvent : test}
-              />
-            </Grid>
-            <Grid item xs={3}>
-              <div style={{ height: "10px" }}></div>
-              <SelectControl
-                name="ExamScheduleHeader"
-                label="Exam Schedule Header"
-                value={schedule}
-                onChange={(e) => setSchedule(e.target.value)}
-                options={ddlSchedule ? ddlSchedule : test}
               />
             </Grid>
 
@@ -241,16 +295,16 @@ const StudentAttendance = () => {
                 color="primary"
                 type="submit"
                 style={{ margin: "10px 0 0 10px" }}
-                // onClick={handleBulkEdit}
+                onClick={handleBulkEdit}
               >
-                EDIT
+                BULK EDIT
               </Button>
               <Button
                 variant="contained"
                 color="primary"
                 type="submit"
                 style={{ margin: "10px 0 0 10px" }}
-                // onClick={handleExamMarkEntrySearch}
+                onClick={handleStudentSearch}
               >
                 SEARCH
               </Button>
@@ -272,19 +326,26 @@ const StudentAttendance = () => {
             onChange={handleSearch}
           />
         </Toolbar>
-        {/* {searchData && (
-      <TableContainer className={classes.table}>
-        <TblHead />
+        {allStudentAttendance && (
+          <TableContainer className={classes.table}>
+            <TblHead />
 
-        <TableBody>
-          {tableDataAfterPagingAndSorting().map((item) => (
-            <ExamMarkEntryTableCollapse item={item} key={item.$id} />
-          ))}
-        </TableBody>
-      </TableContainer>
-    )} */}
+            <TableBody>
+              {tableDataAfterPagingAndSorting().map((item) => (
+                <StudentAttendanceTableCollapse
+                  item={item}
+                  key={item.$id}
+                  attendance={
+                    allStudentAttendance &&
+                    allStudentAttendance.StudentAttendanceDays
+                  }
+                />
+              ))}
+            </TableBody>
+          </TableContainer>
+        )}
 
-        {/* {searchData && <TblPagination />} */}
+        {allStudentAttendance && <TblPagination />}
       </CustomContainer>
       <Popup
         openPopup={openPopup}

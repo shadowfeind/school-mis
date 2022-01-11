@@ -33,12 +33,12 @@ export const ExaminationRoute = [
     icon: PeopleOutline,
     exact: false,
   },
-  {
-    name: "Exam Mark Entry",
-    route: "/exam-mark-entry",
-    icon: Face,
-    exact: false,
-  },
+  // {
+  //   name: "Exam Mark Entry",
+  //   route: "/exam-mark-entry",
+  //   icon: Face,
+  //   exact: false,
+  // },
   {
     name: "Exam Mark Approval",
     route: "/exam-mark-approval",

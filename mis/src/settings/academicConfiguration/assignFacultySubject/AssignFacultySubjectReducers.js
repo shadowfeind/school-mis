@@ -7,11 +7,16 @@ import {
   ASSIGN_FACULTY_SUBJECT_EDIT_REQUEST,
   ASSIGN_FACULTY_SUBJECT_EDIT_RESET,
   ASSIGN_FACULTY_SUBJECT_EDIT_SUCCESS,
+  ASSIGN_FACULTY_SUBJECT_GENERATE_FAIL,
+  ASSIGN_FACULTY_SUBJECT_GENERATE_REQUEST,
+  ASSIGN_FACULTY_SUBJECT_GENERATE_RESET,
+  ASSIGN_FACULTY_SUBJECT_GENERATE_SUCCESS,
   ASSIGN_FACULTY_SUBJECT_GET_CREATE_FAIL,
   ASSIGN_FACULTY_SUBJECT_GET_CREATE_REQUEST,
   ASSIGN_FACULTY_SUBJECT_GET_CREATE_SUCCESS,
   ASSIGN_FACULTY_SUBJECT_GET_FAIL,
   ASSIGN_FACULTY_SUBJECT_GET_REQUEST,
+  ASSIGN_FACULTY_SUBJECT_GET_RESET,
   ASSIGN_FACULTY_SUBJECT_GET_SUCCESS,
   ASSIGN_FACULTY_SUBJECT_POST_FAIL,
   ASSIGN_FACULTY_SUBJECT_POST_REQUEST,
@@ -64,6 +69,8 @@ export const getAssignFacultySubjectOptionReducer = (state = {}, action) => {
       return { loading: false, academicSubjects: action.payload };
     case ASSIGN_FACULTY_SUBJECT_GET_FAIL:
       return { loading: false, error: action.payload };
+    case ASSIGN_FACULTY_SUBJECT_GET_RESET:
+      return {};
     default:
       return state;
   }
@@ -123,6 +130,21 @@ export const assignFacultySubjectEditPostReducer = (state = {}, action) => {
     case ASSIGN_FACULTY_SUBJECT_EDIT_POST_FAIL:
       return { loading: false, error: action.payload };
     case ASSIGN_FACULTY_SUBJECT_EDIT_POST_RESET:
+      return {};
+    default:
+      return state;
+  }
+};
+
+export const assignFacultySubjectGenerateReducer = (state = {}, action) => {
+  switch (action.type) {
+    case ASSIGN_FACULTY_SUBJECT_GENERATE_REQUEST:
+      return { loading: true };
+    case ASSIGN_FACULTY_SUBJECT_GENERATE_SUCCESS:
+      return { loading: false, assignFacSubGenerate: action.payload };
+    case ASSIGN_FACULTY_SUBJECT_GENERATE_FAIL:
+      return { loading: false, error: action.payload };
+    case ASSIGN_FACULTY_SUBJECT_GENERATE_RESET:
       return {};
     default:
       return state;

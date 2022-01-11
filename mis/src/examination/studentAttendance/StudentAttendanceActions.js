@@ -10,6 +10,9 @@ import {
   GET_BULK_STUDENT_ATTENDANCE_FAIL,
   GET_BULK_STUDENT_ATTENDANCE_REQUEST,
   GET_BULK_STUDENT_ATTENDANCE_SUCCESS,
+  POST_BULK_STUDENT_ATTENDANCE_FAIL,
+  POST_BULK_STUDENT_ATTENDANCE_REQUEST,
+  POST_BULK_STUDENT_ATTENDANCE_SUCCESS,
 } from "./StudentAttendanceConstants";
 
 export const getAllStudentAttendanceInitialDataAction =
@@ -60,7 +63,7 @@ export const getBulkStudentAttendanceAction =
       dispatch({ type: GET_BULK_STUDENT_ATTENDANCE_REQUEST });
 
       const { data } =
-        await axios.get(`${API_URL}/api/GetBulk/${year}/${program}/${classId}/${section}/${shift}/${event}/0/
+        await axios.get(`${API_URL}/api/GetBulkAttendance/${year}/${program}/${classId}/${section}/${shift}/${event}
       `);
 
       dispatch({
@@ -70,6 +73,39 @@ export const getBulkStudentAttendanceAction =
     } catch (error) {
       dispatch({
         type: GET_BULK_STUDENT_ATTENDANCE_FAIL,
+        payload: error.message ? error.message : error.Message,
+      });
+    }
+  };
+
+export const postBulkStudentAttendanceAction =
+  (students, search) => async (dispatch) => {
+    try {
+      dispatch({ type: POST_BULK_STUDENT_ATTENDANCE_REQUEST });
+
+      const jsonData = JSON.stringify({
+        dbModelPresentAbsentLst: students,
+        searchFilterModel: search,
+      });
+
+      // console.log(jsonData);
+
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      };
+
+      await axios.post(
+        `${API_URL}/api/StudentAttendance/PostStudentAttendance`,
+        jsonData,
+        config
+      );
+
+      dispatch({ type: POST_BULK_STUDENT_ATTENDANCE_SUCCESS });
+    } catch (error) {
+      dispatch({
+        type: POST_BULK_STUDENT_ATTENDANCE_FAIL,
         payload: error.message ? error.message : error.Message,
       });
     }

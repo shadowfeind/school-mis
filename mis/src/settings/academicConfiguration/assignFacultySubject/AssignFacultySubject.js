@@ -23,11 +23,14 @@ import {
   getAssignFacultySubjectOptionAction,
   getListAssignFacultySubject,
   getAssignFacultySubjectEditAction,
+  getAssignFacultySubjectGenerateAction,
 } from "./AssignFacultySubjectActions";
 import AssignFacultySubjectTableCollepse from "./AssignFacultySubjectTableCollapse";
 import AssignFacultySubjectFormCreate from "./AssignFacultySubjectFormCreate";
 import {
   ASSIGN_FACULTY_SUBJECT_EDIT_POST_RESET,
+  ASSIGN_FACULTY_SUBJECT_GENERATE_RESET,
+  ASSIGN_FACULTY_SUBJECT_GET_RESET,
   ASSIGN_FACULTY_SUBJECT_POST_RESET,
 } from "./AssignFacultySubjectConstants";
 import AssignFacultySubjectFormEdit from "./AssignFacultySubjectFormEdit";
@@ -116,6 +119,9 @@ const AssignFacultySubject = () => {
     (state) => state.assignFacultySubjectEditPost
   );
 
+  const { assignFacSubGenerate, error: assignFacSubGenerateError } =
+    useSelector((state) => state.assignFacultySubjectGenerate);
+
   if (singleFacultyEditSuccess) {
     setNotify({
       isOpen: true,
@@ -124,6 +130,15 @@ const AssignFacultySubject = () => {
     });
     dispatch({ type: ASSIGN_FACULTY_SUBJECT_EDIT_POST_RESET });
   }
+  if (assignFacSubGenerateError) {
+    setNotify({
+      isOpen: true,
+      message: assignFacSubGenerateError,
+      type: "error",
+    });
+    dispatch({ type: ASSIGN_FACULTY_SUBJECT_GENERATE_RESET });
+  }
+
   const deleteCollegeHandler = (id) => {
     setConfirmDialog({
       isOpen: true,
@@ -207,6 +222,7 @@ const AssignFacultySubject = () => {
     dispatch(
       getAssignFacultySubjectOptionAction(acaYear, programValue, classId)
     );
+    dispatch({ type: ASSIGN_FACULTY_SUBJECT_GENERATE_RESET });
     setOpenPopup(true);
   };
 
@@ -218,7 +234,6 @@ const AssignFacultySubject = () => {
         formCheck
       )
     );
-    // console.log(formCheck);
     setOpenPopup(false);
   };
 
@@ -241,6 +256,14 @@ const AssignFacultySubject = () => {
       type: "error",
     });
   }
+
+  const generateHandler = () => {
+    dispatch(
+      getAssignFacultySubjectGenerateAction(acaYear, programValue, classId)
+    );
+    dispatch({ type: ASSIGN_FACULTY_SUBJECT_GET_RESET });
+    setOpenPopup(true);
+  };
   return (
     <>
       <CustomContainer>
@@ -283,6 +306,16 @@ const AssignFacultySubject = () => {
                 type="submit"
               >
                 CREATE
+              </Button>
+              <Button
+                variant="contained"
+                color="primary"
+                type="submit"
+                style={{ margin: "10px 0 0 10px" }}
+                onClick={generateHandler}
+                type="submit"
+              >
+                GENERATE
               </Button>
               <Button
                 variant="contained"
@@ -338,6 +371,10 @@ const AssignFacultySubject = () => {
         <AssignFacultySubjectFormCreate
           subjectOptions={
             academicSubjects && academicSubjects.ddlSubjectModelLst
+          }
+          assignFacSubGenerate={
+            assignFacSubGenerate &&
+            assignFacSubGenerate.ddlSubjectFromClassSubject
           }
           setFormCheck={setFormCheck}
           formCheckSubmitHandler={formCheckSubmitHandler}

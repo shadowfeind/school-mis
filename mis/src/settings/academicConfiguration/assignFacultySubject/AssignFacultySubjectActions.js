@@ -7,6 +7,9 @@ import {
   ASSIGN_FACULTY_SUBJECT_EDIT_POST_SUCCESS,
   ASSIGN_FACULTY_SUBJECT_EDIT_REQUEST,
   ASSIGN_FACULTY_SUBJECT_EDIT_SUCCESS,
+  ASSIGN_FACULTY_SUBJECT_GENERATE_FAIL,
+  ASSIGN_FACULTY_SUBJECT_GENERATE_REQUEST,
+  ASSIGN_FACULTY_SUBJECT_GENERATE_SUCCESS,
   ASSIGN_FACULTY_SUBJECT_GET_FAIL,
   ASSIGN_FACULTY_SUBJECT_GET_REQUEST,
   ASSIGN_FACULTY_SUBJECT_GET_SUCCESS,
@@ -183,6 +186,27 @@ export const academicFacultySubjectPostEditAction =
     } catch (error) {
       dispatch({
         type: ASSIGN_FACULTY_SUBJECT_EDIT_POST_FAIL,
+        payload: error.message ? error.message : error.Message,
+      });
+    }
+  };
+
+export const getAssignFacultySubjectGenerateAction =
+  (year, program, classId) => async (dispatch) => {
+    try {
+      dispatch({ type: ASSIGN_FACULTY_SUBJECT_GENERATE_REQUEST });
+
+      const { data } = await axios.get(
+        `${API_URL}/api/GetGenerateBulkSubject/${year}/${program}/${classId}/GetGenerateBulkSubject`
+      );
+
+      dispatch({
+        type: ASSIGN_FACULTY_SUBJECT_GENERATE_SUCCESS,
+        payload: data,
+      });
+    } catch (error) {
+      dispatch({
+        type: ASSIGN_FACULTY_SUBJECT_GENERATE_FAIL,
         payload: error.message ? error.message : error.Message,
       });
     }

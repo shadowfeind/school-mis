@@ -2,9 +2,17 @@ import {
   GET_ALL_EXAM_APPROVAL_SEARCHDATA_FAIL,
   GET_ALL_EXAM_APPROVAL_SEARCHDATA_REQUEST,
   GET_ALL_EXAM_APPROVAL_SEARCHDATA_SUCCESS,
+  GET_BULK_EXAM_APPROVAL_FAIL,
+  GET_BULK_EXAM_APPROVAL_REQUEST,
+  GET_BULK_EXAM_APPROVAL_RESET,
+  GET_BULK_EXAM_APPROVAL_SUCCESS,
   GET_INITIAL_EXAM_APPORVAL_DATA_FAIL,
   GET_INITIAL_EXAM_APPORVAL_DATA_REQUEST,
   GET_INITIAL_EXAM_APPORVAL_DATA_SUCCESS,
+  POST_BULK_EXAM_APPROVAL_FAIL,
+  POST_BULK_EXAM_APPROVAL_REQUEST,
+  POST_BULK_EXAM_APPROVAL_RESET,
+  POST_BULK_EXAM_APPROVAL_SUCCESS,
 } from "./ExamMarkApprovalConstants";
 
 export const getInitialExamApprovalDataReducer = (state = {}, action) => {
@@ -28,6 +36,36 @@ export const getExamApprovalSearchDataReducer = (state = {}, action) => {
       return { loading: false, searchData: action.payload, success: true };
     case GET_ALL_EXAM_APPROVAL_SEARCHDATA_FAIL:
       return { loading: false, error: action.payload };
+    default:
+      return state;
+  }
+};
+
+export const getBulkExamApprovalSearchDataReducer = (state = {}, action) => {
+  switch (action.type) {
+    case GET_BULK_EXAM_APPROVAL_REQUEST:
+      return { loading: true };
+    case GET_BULK_EXAM_APPROVAL_SUCCESS:
+      return { loading: false, bulkData: action.payload, success: true };
+    case GET_BULK_EXAM_APPROVAL_FAIL:
+      return { loading: false, error: action.payload };
+    case GET_BULK_EXAM_APPROVAL_RESET:
+      return {};
+    default:
+      return state;
+  }
+};
+
+export const postBulkExamApprovalReducer = (state = {}, action) => {
+  switch (action.type) {
+    case POST_BULK_EXAM_APPROVAL_REQUEST:
+      return { loading: true };
+    case POST_BULK_EXAM_APPROVAL_SUCCESS:
+      return { loading: false, success: true };
+    case POST_BULK_EXAM_APPROVAL_FAIL:
+      return { loading: false, error: action.payload };
+    case POST_BULK_EXAM_APPROVAL_RESET:
+      return {};
     default:
       return state;
   }

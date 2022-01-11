@@ -98,6 +98,7 @@ import {
 import {
   assignFacultySubjectEditPostReducer,
   assignFacultySubjectEditReducer,
+  assignFacultySubjectGenerateReducer,
   assignFacultySubjectPostReducer,
   getAllAssignFacultySubjectReducer,
   getAssignFacultySubjectOptionReducer,
@@ -128,8 +129,10 @@ import {
   updateSingleExamDivisionReducer,
 } from "./examination/examDivision/ExamDivisionReducers";
 import {
+  getBulkExamApprovalSearchDataReducer,
   getExamApprovalSearchDataReducer,
   getInitialExamApprovalDataReducer,
+  postBulkExamApprovalReducer,
 } from "./examination/examMarkApproval/ExamMarkApprovalReducers";
 import {
   getAllAcademicStudentExamdataReducer,
@@ -153,7 +156,11 @@ import {
   getAllGeneratePublishResultReducer,
   getAllGenerateReducer,
 } from "./examination/generatePublishResult/GeneratePublishResultReducers";
-import { getInitialLevelTestDataReducer } from "./examination/levelTest/LevelTestReducers";
+import {
+  getBulkLevelTestDataReducer,
+  getInitialLevelTestDataReducer,
+  postBulkLevelTestDataReducer,
+} from "./examination/levelTest/LevelTestReducers";
 import {
   getActiveStudentsForAdmitCardDataReducer,
   getInitialAdmitCardDataReducer,
@@ -164,6 +171,7 @@ import {
   getAllStudentAttendanceInitialDataReducer,
   getAllStudentAttendanceReducer,
   getBulkStudentAttendanceReducer,
+  postBulkStudentAttendanceReducer,
 } from "./examination/studentAttendance/StudentAttendanceReducers";
 import {
   createSingleStudentRegistrationReducer,
@@ -203,6 +211,38 @@ import {
   getSingleTeacherFacSubDataReducer,
   singleTeacherFacSubEditReducer,
 } from "./settings/teacherMapping/teacherFacultySubject/TeacherFacultySubjectReducers";
+import {
+  getAllPersonalInformation,
+  getSinglePersonalInformationReducer,
+} from "./userProfile/personalinformation/PersonalInformationReducers";
+import { getAllContactAddressReducer } from "./userProfile/contactAddress/ContactAddressReducers";
+import {
+  getAllContactNumberReducer,
+  getSingleContactNumberReducer,
+} from "./userProfile/contactNumber/ContactNumberReducers";
+import { getAllEducationReducer } from "./userProfile/education/EducationReducers";
+import {
+  getAllEmailReducer,
+  getSingleEmailReducer,
+} from "./userProfile/email/EmailReducers";
+import { getAllFamilyMemberReducer } from "./userProfile/familyMember/FamilyMemberReducers";
+import {
+  getAllGuardianReducer,
+  getSingleGuardianReducer,
+} from "./userProfile/gurdian/GuardianReducers";
+import { getAllHobbyReducer } from "./userProfile/hobby/HobbyReducers";
+import { getAllJobHistoryReducer } from "./userProfile/jobHistory/JobHistoryReducers";
+import { getAllSkillReducer } from "./userProfile/skill/SkillReducers";
+import { getAllTrainingReducer } from "./userProfile/training/TrainingReducers";
+import { getAllUploadPhotoReducer } from "./userProfile/uploadPhoto/UploadPhotoReducers";
+import {
+  getAllClassSubjectReducer,
+  getClassSubjectListReducer,
+  getSingleClassSubjectReducer,
+  getToCreateClassSubjectReducer,
+  postToCreateClassSubjectReducer,
+  updateSingleClassSubjectReducer,
+} from "./settings/academicConfiguration/classSubject/ClassSubjectReducers";
 //examination reducers link end
 export const reducers = combineReducers({
   navLink: navLinkReducer,
@@ -279,6 +319,7 @@ export const reducers = combineReducers({
   getSingleassignFacultySubject: getSingleassignFacultySubjectReducer,
   assignFacultySubjectEdit: assignFacultySubjectEditReducer,
   assignFacultySubjectEditPost: assignFacultySubjectEditPostReducer,
+  assignFacultySubjectGenerate: assignFacultySubjectGenerateReducer,
   studentProfile: getAllStudentProfile,
   getInitialStudentIdCardData: getInitialStudentIdCardDataReducer,
   getActiveStudentsForStudentIdCardData:
@@ -293,6 +334,12 @@ export const reducers = combineReducers({
   singleTeacherFacSubEdit: singleTeacherFacSubEditReducer,
   createTeacherFacSubInitData: createTeacherFacSubInitDataReducer,
   createSingleTeacherFacSub: createSingleTeacherFacSubReducer,
+  getAllClassSubject: getAllClassSubjectReducer,
+  getClassSubjectList: getClassSubjectListReducer,
+  getSingleClassSubject: getSingleClassSubjectReducer,
+  updateSingleClassSubject: updateSingleClassSubjectReducer,
+  getToCreateClassSubject: getToCreateClassSubjectReducer,
+  postToCreateClassSubject: postToCreateClassSubjectReducer,
   //examination reducers start
   getAllAcademicStudentExamdata: getAllAcademicStudentExamdataReducer,
   getEvent: getEventReducer,
@@ -302,9 +349,14 @@ export const reducers = combineReducers({
   getAllStudentAttendanceInitialData: getAllStudentAttendanceInitialDataReducer,
   getAllStudentAttendance: getAllStudentAttendanceReducer,
   getBulkStudentAttendance: getBulkStudentAttendanceReducer,
+  postBulkStudentAttendance: postBulkStudentAttendanceReducer,
   getInitialExamApprovalData: getInitialExamApprovalDataReducer,
   getExamApprovalSearchData: getExamApprovalSearchDataReducer,
+  postBulkExamApproval: postBulkExamApprovalReducer,
+  getBulkExamApprovalSearchData: getBulkExamApprovalSearchDataReducer,
   getInitialLevelTestData: getInitialLevelTestDataReducer,
+  getBulkLevelTestData: getBulkLevelTestDataReducer,
+  postBulkLevelTestData: postBulkLevelTestDataReducer,
   getInitialAdmitCardData: getInitialAdmitCardDataReducer,
   getActiveStudentsForAdmitCardData: getActiveStudentsForAdmitCardDataReducer,
   searchStudentsForAdmitCardData: searchStudentsForAdmitCardDataReducer,
@@ -352,4 +404,23 @@ export const reducers = combineReducers({
   getCreateSingleAdmissionConfig: getCreateSingleAdmissionConfigReducer,
   createSingleAdmissionConfig: createSingleAdmissionConfigReducer,
   //registration reducers ends
+  //user profile reducers starts
+  //PID PersonalInformation
+  getAllPersonalInformation: getAllPersonalInformation,
+  getSinglePersonalInformation: getSinglePersonalInformationReducer,
+  getAllContactAddress: getAllContactAddressReducer,
+  getAllContactNumber: getAllContactNumberReducer,
+  getSingleContactNumber: getSingleContactNumberReducer,
+  getAllEducation: getAllEducationReducer,
+  getAllEmail: getAllEmailReducer,
+  getSingleEmail: getSingleEmailReducer,
+  getAllFamilyMember: getAllFamilyMemberReducer,
+  getAllGuardian: getAllGuardianReducer,
+  getSingleGuardian: getSingleGuardianReducer,
+  getAllHobby: getAllHobbyReducer,
+  getAllJobHistory: getAllJobHistoryReducer,
+  getAllSkill: getAllSkillReducer,
+  getAllTraining: getAllTrainingReducer,
+  getAllUploadPhoto: getAllUploadPhotoReducer,
+  //user profile reducers ends
 });

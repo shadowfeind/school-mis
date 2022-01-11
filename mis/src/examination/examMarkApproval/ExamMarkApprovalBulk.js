@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   Table,
   TableBody,
@@ -14,6 +14,8 @@ import {
 } from "@material-ui/core";
 import { withStyles, makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
+import { postBulkExamMarkApprovalAction } from "./ExamMarkApprovalActions";
+import { useDispatch } from "react-redux";
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -38,45 +40,39 @@ const useStyles = makeStyles({
   },
 });
 
-const ExamMarkApprovalBulk = ({ bulkData, statusData }) => {
+const ExamMarkApprovalBulk = ({ bulkData, statusData, search }) => {
+  const [bulk, setBulk] = useState([]);
   const classes = useStyles();
-  const inputHandler = (subject, value) => {
-    setFormCheck((prev) => {
-      const exists = prev.find(
-        (u) => u.IDAcademicSubject === subject.IDAcademicSubject
-      );
-      if (exists) {
-        const newSubject = { ...subject, CreditHour: Number(value) };
-        // console.log(newSubject);
-        let newArr = [...prev];
-        prev.map((data, index) => {
-          newArr[index].CreditHour = Number(value);
-        });
-        return [...newArr];
-      }
-      return [...prev];
+  const dispatch = useDispatch();
+
+  const onChangeHandler = (subject, value, name, index) => {
+    setBulk((prev) => {
+      const newReassoc = {
+        ...subject,
+        [name]: Number(value),
+      };
+
+      let newArray = [...prev];
+      newArray[index] = newReassoc;
+
+      return [...newArray];
     });
   };
 
-  const handleChange = (subject) => {
-    setFormCheck((prev) => {
-      const exists = prev.find(
-        (u) => u.IDAcademicSubject === subject.IDAcademicSubject
-      );
-      if (exists) {
-        let newArr = prev.filter(
-          (u) => u.IDAcademicSubject !== subject.IDAcademicSubject
-        );
-        return [...newArr];
-      }
-      let newCreditHour = Number(
-        document.getElementById(`subject_${subject.IDAcademicSubject}`).value
-      );
-      const newSubject = { ...subject, CreditHour: newCreditHour };
-      // console.log(newSubject);
-      return [...prev, newSubject];
-    });
+  const formCheckSubmitHandler = () => {
+    dispatch(postBulkExamMarkApprovalAction(bulk, search));
   };
+
+  useEffect(() => {
+    if (bulkData) {
+      bulkData.forEach((bulk) => {
+        if (bulk.StudentExamStatus === null) {
+          bulk.StudentExamStatus = 1;
+        }
+      });
+      setBulk(bulkData);
+    }
+  }, [bulkData]);
   return (
     <>
       <TableContainer component={Paper}>
@@ -85,23 +81,16 @@ const ExamMarkApprovalBulk = ({ bulkData, statusData }) => {
             <TableRow>
               <StyledTableCell>Roll No.</StyledTableCell>
               <StyledTableCell align="right">FullName</StyledTableCell>
-              <StyledTableCell align="right">Subject Name</StyledTableCell>
               <StyledTableCell align="right">Mark Obtained(TH)</StyledTableCell>
               <StyledTableCell align="right">Mark Obtained(PT)</StyledTableCell>
-              <StyledTableCell align="right">
-                Mark Obtained(Pre Term)
-              </StyledTableCell>
               <StyledTableCell align="right">Status</StyledTableCell>
               <StyledTableCell align="right">Full Mark</StyledTableCell>
               <StyledTableCell align="right">Full Mark(PT)</StyledTableCell>
-              <StyledTableCell align="right">
-                Full Mark(Pre Term)
-              </StyledTableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {bulkData &&
-              bulkData.map((subject) => (
+            {bulk &&
+              bulk.map((subject, index) => (
                 <StyledTableRow key={subject.IDHREmployee}>
                   <StyledTableCell component="th" scope="row">
                     {subject.RollNo}
@@ -109,40 +98,43 @@ const ExamMarkApprovalBulk = ({ bulkData, statusData }) => {
                   <StyledTableCell align="right">
                     {subject.FullName}
                   </StyledTableCell>
-                  <StyledTableCell align="right">
-                    {subject.SubjectName}
-                  </StyledTableCell>
+
                   <StyledTableCell align="right">
                     <TextField
                       id={`theory_${subject.IDHREmployee}`}
+                      name="ObtainedMark"
                       defaultValue={subject.ObtainedMark}
                       type="number"
                       label="Obtained Mark"
                       variant="outlined"
                       inputProps={{ tabIndex: "1" }}
-                      //   onChange={(e) => inputHandler(subject, e.target.value)}
+                      onChange={(e) =>
+                        onChangeHandler(
+                          subject,
+                          e.target.value,
+                          e.target.name,
+                          index
+                        )
+                      }
                     />
                   </StyledTableCell>
                   <StyledTableCell align="right">
                     <TextField
                       id={`practical_${subject.IDHREmployee}`}
                       defaultValue={subject.ObtainedMarkPractical}
+                      name="ObtainedMarkPractical"
                       type="number"
                       label="Obtained Practical Mark"
                       variant="outlined"
                       inputProps={{ tabIndex: "2" }}
-                      //   onChange={(e) => inputHandler(subject, e.target.value)}
-                    />
-                  </StyledTableCell>
-                  <StyledTableCell align="right">
-                    <TextField
-                      id={`preterm_${subject.IDHREmployee}`}
-                      defaultValue={subject.ObtainedMarkPreTerm}
-                      type="number"
-                      label="Obtained PreTerm Mark"
-                      variant="outlined"
-                      inputProps={{ tabIndex: "3" }}
-                      //   onChange={(e) => inputHandler(subject, e.target.value)}
+                      onChange={(e) =>
+                        onChangeHandler(
+                          subject,
+                          e.target.value,
+                          e.target.name,
+                          index
+                        )
+                      }
                     />
                   </StyledTableCell>
                   <StyledTableCell align="right">
@@ -155,11 +147,17 @@ const ExamMarkApprovalBulk = ({ bulkData, statusData }) => {
                       </InputLabel>
                       <Select
                         native
-                        defaultValue={subject.Section}
+                        defaultValue={subject.StudentExamStatus}
+                        name="StudentExamStatus"
                         id={`status_${subject.IDHREmployee}`}
-                        // onChange={(e) =>
-                        //   sectionHandler(e.target.value, subject)
-                        // }
+                        onChange={(e) =>
+                          onChangeHandler(
+                            subject,
+                            e.target.value,
+                            e.target.name,
+                            index
+                          )
+                        }
                       >
                         {statusData.map((section) => (
                           <option value={section.Key}>{section.Value}</option>
@@ -172,9 +170,6 @@ const ExamMarkApprovalBulk = ({ bulkData, statusData }) => {
                   </StyledTableCell>
                   <StyledTableCell align="right">
                     {subject.FullMarkPractical}
-                  </StyledTableCell>
-                  <StyledTableCell align="right">
-                    {subject.FullMarkPreTerm}
                   </StyledTableCell>
                 </StyledTableRow>
               ))}
@@ -201,7 +196,7 @@ const ExamMarkApprovalBulk = ({ bulkData, statusData }) => {
               color="primary"
               type="submit"
               style={{ margin: "10px 0 0 10px" }}
-              //   onClick={formCheckSubmitHandler}
+              onClick={formCheckSubmitHandler}
             >
               SUBMIT
             </Button>

@@ -17,6 +17,7 @@ import Notification from "../../components/Notification";
 import ConfirmDialog from "../../components/ConfirmDialog";
 import SelectControl from "../../components/controls/SelectControl";
 import {
+  getBulkExamApprovalSearchDataAction,
   getExamApprovalSearchDataAction,
   getInitialExamApprovalDataAction,
 } from "./ExamMarkApprovalActions";
@@ -31,6 +32,7 @@ import {
 } from "../examMarkEntry/ExamMarkEntryConstants";
 import ExamMarkApprovalTableCollapse from "./ExamMarkApprovalTableCollapse";
 import ExamMarkApprovalBulk from "./ExamMarkApprovalBulk";
+import { POST_BULK_EXAM_APPROVAL_RESET } from "./ExamMarkApprovalConstants";
 
 const useStyles = makeStyles((theme) => ({
   searchInput: {
@@ -138,7 +140,14 @@ const ExamMarkApproval = () => {
     (state) => state.getExamApprovalSearchData
   );
 
-  const { bulkData } = useSelector((state) => state.getExamEntryBulk);
+  const { bulkData } = useSelector(
+    (state) => state.getBulkExamApprovalSearchData
+  );
+
+  const {
+    success: postBulkExamApprovalSuccess,
+    error: postBulkExamApprovalError,
+  } = useSelector((state) => state.postBulkExamApproval);
 
   if (getEventSuccess) {
     setDdlEvent(allEvents);
@@ -148,6 +157,24 @@ const ExamMarkApproval = () => {
   if (getScheduleSuccess) {
     setDdlSchedule(allSchedule);
     dispatch({ type: GET_EXAM_SCHEDULE_HEADER_RESET });
+  }
+  if (postBulkExamApprovalSuccess) {
+    setNotify({
+      isOpen: true,
+      message: "Succesfully Edited",
+      type: "success",
+    });
+    dispatch({ type: POST_BULK_EXAM_APPROVAL_RESET });
+    setOpenPopup(false);
+  }
+  if (postBulkExamApprovalError) {
+    setNotify({
+      isOpen: true,
+      message: postBulkExamApprovalError,
+      type: "error",
+    });
+    dispatch({ type: POST_BULK_EXAM_APPROVAL_RESET });
+    setOpenPopup(false);
   }
 
   const handleYearChange = (value) => {
@@ -194,32 +221,36 @@ const ExamMarkApproval = () => {
   }, [searchData]);
 
   const handleExamApprovalSearch = () => {
-    dispatch(
-      getExamApprovalSearchDataAction(
-        acaYear,
-        programValue,
-        classId,
-        section,
-        shift,
-        event,
-        schedule
-      )
-    );
+    if ((acaYear, programValue, classId, section, shift, event, schedule)) {
+      dispatch(
+        getExamApprovalSearchDataAction(
+          acaYear,
+          programValue,
+          classId,
+          section,
+          shift,
+          event,
+          schedule
+        )
+      );
+    }
   };
 
   const handleBulkEdit = () => {
-    dispatch(
-      getExamEntryBulkAction(
-        acaYear,
-        programValue,
-        classId,
-        section,
-        shift,
-        event,
-        schedule
-      )
-    );
-    setOpenPopup(true);
+    if ((acaYear, programValue, classId, section, shift, event, schedule)) {
+      dispatch(
+        getBulkExamApprovalSearchDataAction(
+          acaYear,
+          programValue,
+          classId,
+          section,
+          shift,
+          event,
+          schedule
+        )
+      );
+      setOpenPopup(true);
+    }
   };
 
   return (
@@ -302,7 +333,7 @@ const ExamMarkApproval = () => {
                 style={{ margin: "10px 0 0 10px" }}
                 onClick={handleBulkEdit}
               >
-                EDIT
+                BULKEDIT
               </Button>
               <Button
                 variant="contained"
@@ -312,15 +343,6 @@ const ExamMarkApproval = () => {
                 onClick={handleExamApprovalSearch}
               >
                 SEARCH
-              </Button>
-              <Button
-                variant="contained"
-                color="primary"
-                type="submit"
-                style={{ margin: "10px 0 0 10px" }}
-                // onClick={handleExamApprovalSearch}
-              >
-                APPROVE
               </Button>
             </Grid>
           </Grid>
@@ -363,6 +385,7 @@ const ExamMarkApproval = () => {
           statusData={
             bulkData && bulkData.searchFilterModel.ddlStudentExamStatus
           }
+          search={bulkData && bulkData.searchFilterModel}
           bulkData={bulkData && bulkData.dbModelLsts}
         />
       </Popup>

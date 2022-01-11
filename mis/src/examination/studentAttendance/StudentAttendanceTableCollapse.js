@@ -38,7 +38,7 @@ const StudentAttendanceTableCollapse = ({ item, attendance }) => {
         <TableCell>{item.MobileNumber}</TableCell>
         <TableCell>{item.EmailID}</TableCell>
         <TableCell>
-          <Button
+          {/* <Button
             variant="contained"
             color="primary"
             className={classes.button}
@@ -53,7 +53,7 @@ const StudentAttendanceTableCollapse = ({ item, attendance }) => {
             // onClick={() => deleteCollegeHandler(item.IDHRCompany)}
           >
             <DeleteIcon style={{ fontSize: 12 }} />
-          </Button>
+          </Button> */}
           <Button
             variant="contained"
             onClick={() => setOpen(!open)}

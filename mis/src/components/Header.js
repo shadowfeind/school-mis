@@ -80,7 +80,7 @@ const Header = () => {
                   <a>Attendance</a>
                 </li>
                 <li>
-                  <a>User Profile</a>
+                  <NavLink to={"/user-profile"}>User Profile</NavLink>
                 </li>
                 <li>
                   <NavLink to={"/examination"} activeStyle={isActive}>

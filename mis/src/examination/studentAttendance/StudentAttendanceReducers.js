@@ -11,6 +11,10 @@ import {
   GET_BULK_STUDENT_ATTENDANCE_REQUEST,
   GET_BULK_STUDENT_ATTENDANCE_RESET,
   GET_BULK_STUDENT_ATTENDANCE_SUCCESS,
+  POST_BULK_STUDENT_ATTENDANCE_FAIL,
+  POST_BULK_STUDENT_ATTENDANCE_REQUEST,
+  POST_BULK_STUDENT_ATTENDANCE_RESET,
+  POST_BULK_STUDENT_ATTENDANCE_SUCCESS,
 } from "./StudentAttendanceConstants";
 
 export const getAllStudentAttendanceInitialDataReducer = (
@@ -55,6 +59,21 @@ export const getBulkStudentAttendanceReducer = (state = {}, action) => {
     case GET_BULK_STUDENT_ATTENDANCE_FAIL:
       return { loading: false, error: action.payload };
     case GET_BULK_STUDENT_ATTENDANCE_RESET:
+      return {};
+    default:
+      return state;
+  }
+};
+
+export const postBulkStudentAttendanceReducer = (state = {}, action) => {
+  switch (action.type) {
+    case POST_BULK_STUDENT_ATTENDANCE_REQUEST:
+      return { loading: true };
+    case POST_BULK_STUDENT_ATTENDANCE_SUCCESS:
+      return { loading: false, success: true };
+    case POST_BULK_STUDENT_ATTENDANCE_FAIL:
+      return { loading: false, error: action.payload };
+    case POST_BULK_STUDENT_ATTENDANCE_RESET:
       return {};
     default:
       return state;

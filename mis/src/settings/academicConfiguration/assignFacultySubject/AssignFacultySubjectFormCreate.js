@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   Table,
   TableBody,
@@ -38,9 +38,11 @@ const useStyles = makeStyles({
 
 const AssignFacultySubjectFormCreate = ({
   subjectOptions,
+  assignFacSubGenerate,
   setFormCheck,
   formCheckSubmitHandler,
 }) => {
+  const [subjects, setSubjects] = useState([]);
   const classes = useStyles();
   const inputHandler = (subject, value) => {
     setFormCheck((prev) => {
@@ -79,6 +81,14 @@ const AssignFacultySubjectFormCreate = ({
       return [...prev, newSubject];
     });
   };
+
+  useEffect(() => {
+    if (subjectOptions) {
+      setSubjects(subjectOptions);
+    } else {
+      setSubjects(assignFacSubGenerate);
+    }
+  }, [subjectOptions, assignFacSubGenerate]);
   return (
     <>
       <TableContainer component={Paper}>
@@ -96,8 +106,8 @@ const AssignFacultySubjectFormCreate = ({
             </TableRow>
           </TableHead>
           <TableBody>
-            {subjectOptions &&
-              subjectOptions.map((subject) => (
+            {subjects &&
+              subjects.map((subject) => (
                 <StyledTableRow key={subject.IDAcademicSubject}>
                   <StyledTableCell component="th" scope="row">
                     {subject.SubjectName}

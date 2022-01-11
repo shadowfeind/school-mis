@@ -16,9 +16,17 @@ import { useDispatch, useSelector } from "react-redux";
 import Notification from "../../components/Notification";
 import ConfirmDialog from "../../components/ConfirmDialog";
 import SelectControl from "../../components/controls/SelectControl";
-import { getInitialLevelTestDataAction } from "./LevelTestActions";
+import {
+  getBulkLevelTestDataAction,
+  getInitialLevelTestDataAction,
+} from "./LevelTestActions";
 import { getEventAction } from "../examMarkEntry/ExamMarkEntryActions";
 import { GET_EVENT_RESET } from "../examMarkEntry/ExamMarkEntryConstants";
+import {
+  GET_BULK_LEVEL_TEST_DATA_RESET,
+  POST_BULK_LEVEL_TEST_DATA_RESET,
+} from "./LevelTestConstants";
+import LevelTestBulkEdit from "./LevelTestBulkEdit";
 
 const useStyles = makeStyles((theme) => ({
   searchInput: {
@@ -117,9 +125,45 @@ const LevelTest = () => {
     (state) => state.getEvent
   );
 
+  const { bulkDatas, error: getbulkDatasError } = useSelector(
+    (state) => state.getBulkLevelTestData
+  );
+
+  const {
+    success: postBulkLevelTestDataSuccess,
+    error: postBulkLevelTestDataError,
+  } = useSelector((state) => state.postBulkLevelTestData);
+
   if (getEventSuccess) {
     setDdlEvent(allEvents);
     dispatch({ type: GET_EVENT_RESET });
+  }
+
+  if (getbulkDatasError) {
+    setNotify({
+      isOpen: true,
+      message: getbulkDatasError,
+      type: "error",
+    });
+    dispatch({ type: GET_BULK_LEVEL_TEST_DATA_RESET });
+  }
+  if (postBulkLevelTestDataError) {
+    setNotify({
+      isOpen: true,
+      message: postBulkLevelTestDataError,
+      type: "error",
+    });
+    setOpenPopup(false);
+    dispatch({ type: POST_BULK_LEVEL_TEST_DATA_RESET });
+  }
+  if (postBulkLevelTestDataSuccess) {
+    setNotify({
+      isOpen: true,
+      message: "Successfully Edited",
+      type: "success",
+    });
+    setOpenPopup(false);
+    dispatch({ type: POST_BULK_LEVEL_TEST_DATA_RESET });
   }
 
   useEffect(() => {
@@ -150,6 +194,22 @@ const LevelTest = () => {
   const handleClassIdChange = (value) => {
     setClassId(value);
     dispatch(getEventAction(acaYear, programValue, value));
+  };
+
+  const handleBulkEdit = () => {
+    if ((acaYear, programValue, classId, section, shift, event)) {
+      dispatch(
+        getBulkLevelTestDataAction(
+          acaYear,
+          programValue,
+          classId,
+          section,
+          shift,
+          event
+        )
+      );
+      setOpenPopup(true);
+    }
   };
 
   return (
@@ -220,19 +280,19 @@ const LevelTest = () => {
                 color="primary"
                 type="submit"
                 style={{ margin: "10px 0 0 10px" }}
-                // onClick={handleBulkEdit}
+                onClick={handleBulkEdit}
               >
-                EDIT
+                BULKEDIT
               </Button>
-              <Button
+              {/* <Button
                 variant="contained"
                 color="primary"
                 type="submit"
                 style={{ margin: "10px 0 0 10px" }}
-                // onClick={handleExamApprovalSearch}
+                onClick={handleExamApprovalSearch}
               >
                 SEARCH
-              </Button>
+              </Button> */}
             </Grid>
           </Grid>
         </Toolbar>
@@ -270,12 +330,10 @@ const LevelTest = () => {
         setOpenPopup={setOpenPopup}
         title="Bulk Edit"
       >
-        {/* <ExamMarkApprovalBulk
-      statusData={
-        bulkData && bulkData.searchFilterModel.ddlStudentExamStatus
-      }
-      bulkData={bulkData && bulkData.dbModelLsts}
-    /> */}
+        <LevelTestBulkEdit
+          search={bulkDatas && bulkDatas.searchFilterModel}
+          bulkData={bulkDatas && bulkDatas.dbModelLst}
+        />
       </Popup>
       <Notification notify={notify} setNotify={setNotify} />
       <ConfirmDialog

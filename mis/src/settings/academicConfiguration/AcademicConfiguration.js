@@ -6,6 +6,7 @@ import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import { makeStyles } from "@material-ui/core";
 
+const ClassSubject = lazy(() => import("./classSubject/ClassSubject"));
 const AcademicClass = lazy(() => import("./academicClass/AcademicClass"));
 const AcademicFaculty = lazy(() => import("./academicFaculty/AcademicFaculty"));
 const AcademicProgram = lazy(() => import("./academicProgram/AcademicProgram"));
@@ -127,6 +128,11 @@ const AcademicConfiguration = () => {
             label="School Board"
             {...a11yProps(9)}
           />
+          <Tab
+            style={{ fontSize: "11px", color: "#fff" }}
+            label="Class Subject"
+            {...a11yProps(10)}
+          />
         </Tabs>
       </AppBar>
       <Suspense fallback={<div></div>}>
@@ -159,6 +165,9 @@ const AcademicConfiguration = () => {
         </TabPanel>
         <TabPanel value={value} index={9}>
           <SchoolBoard />
+        </TabPanel>
+        <TabPanel value={value} index={10}>
+          <ClassSubject />
         </TabPanel>
       </Suspense>
     </div>

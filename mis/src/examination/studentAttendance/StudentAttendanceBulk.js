@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   Table,
   TableBody,
@@ -14,6 +14,8 @@ import {
 } from "@material-ui/core";
 import { withStyles, makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
+import { useDispatch } from "react-redux";
+import { postBulkStudentAttendanceAction } from "./StudentAttendanceActions";
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -38,45 +40,33 @@ const useStyles = makeStyles({
   },
 });
 
-const StudentAttendanceBulk = ({ bulkData, statusData }) => {
+const StudentAttendanceBulk = ({ bulkData, search }) => {
+  const [bulk, setBulk] = useState([]);
   const classes = useStyles();
-  // const inputHandler = (subject, value) => {
-  //   setFormCheck((prev) => {
-  //     const exists = prev.find(
-  //       (u) => u.IDAcademicSubject === subject.IDAcademicSubject
-  //     );
-  //     if (exists) {
-  //       const newSubject = { ...subject, CreditHour: Number(value) };
-  //       // console.log(newSubject);
-  //       let newArr = [...prev];
-  //       prev.map((data, index) => {
-  //         newArr[index].CreditHour = Number(value);
-  //       });
-  //       return [...newArr];
-  //     }
-  //     return [...prev];
-  //   });
-  // };
+  const dispatch = useDispatch();
 
-  // const handleChange = (subject) => {
-  //   setFormCheck((prev) => {
-  //     const exists = prev.find(
-  //       (u) => u.IDAcademicSubject === subject.IDAcademicSubject
-  //     );
-  //     if (exists) {
-  //       let newArr = prev.filter(
-  //         (u) => u.IDAcademicSubject !== subject.IDAcademicSubject
-  //       );
-  //       return [...newArr];
-  //     }
-  //     let newCreditHour = Number(
-  //       document.getElementById(`subject_${subject.IDAcademicSubject}`).value
-  //     );
-  //     const newSubject = { ...subject, CreditHour: newCreditHour };
-  //     // console.log(newSubject);
-  //     return [...prev, newSubject];
-  //   });
-  // };
+  const onChangeHandler = (subject, value, name, index) => {
+    setBulk((prev) => {
+      const newReassoc = {
+        ...subject,
+        [name]: Number(value),
+      };
+
+      let newArray = [...prev];
+      newArray[index] = newReassoc;
+
+      return [...newArray];
+    });
+  };
+
+  const formCheckSubmitHandler = () => {
+    dispatch(postBulkStudentAttendanceAction(bulk, search));
+  };
+  useEffect(() => {
+    if (bulkData) {
+      setBulk(bulkData);
+    }
+  }, [bulkData]);
   return (
     <>
       <TableContainer component={Paper}>
@@ -90,8 +80,8 @@ const StudentAttendanceBulk = ({ bulkData, statusData }) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {bulkData &&
-              bulkData.map((subject) => (
+            {bulk &&
+              bulk.map((subject, index) => (
                 <StyledTableRow key={subject.IDHREmployee}>
                   <StyledTableCell component="th" scope="row">
                     {subject.RollNo}
@@ -100,71 +90,42 @@ const StudentAttendanceBulk = ({ bulkData, statusData }) => {
                     {subject.FullName}
                   </StyledTableCell>
                   <StyledTableCell align="right">
-                    {subject.SubjectName}
-                  </StyledTableCell>
-                  <StyledTableCell align="right">
                     <TextField
                       id={`theory_${subject.IDHREmployee}`}
-                      defaultValue={subject.ObtainedMark}
+                      defaultValue={subject.PresentDay}
                       type="number"
-                      label="Obtained Mark"
+                      label="Present Day"
                       variant="outlined"
+                      name="PresentDay"
                       inputProps={{ tabIndex: "1" }}
-                      //   onChange={(e) => inputHandler(subject, e.target.value)}
+                      onChange={(e) =>
+                        onChangeHandler(
+                          subject,
+                          e.target.value,
+                          e.target.name,
+                          index
+                        )
+                      }
                     />
                   </StyledTableCell>
                   <StyledTableCell align="right">
                     <TextField
                       id={`practical_${subject.IDHREmployee}`}
-                      defaultValue={subject.ObtainedMarkPractical}
+                      defaultValue={subject.AbsentDay}
                       type="number"
-                      label="Obtained Practical Mark"
+                      label="Absent Day"
                       variant="outlined"
+                      name="AbsentDay"
                       inputProps={{ tabIndex: "2" }}
-                      //   onChange={(e) => inputHandler(subject, e.target.value)}
+                      onChange={(e) =>
+                        onChangeHandler(
+                          subject,
+                          e.target.value,
+                          e.target.name,
+                          index
+                        )
+                      }
                     />
-                  </StyledTableCell>
-                  <StyledTableCell align="right">
-                    <TextField
-                      id={`preterm_${subject.IDHREmployee}`}
-                      defaultValue={subject.ObtainedMarkPreTerm}
-                      type="number"
-                      label="Obtained PreTerm Mark"
-                      variant="outlined"
-                      inputProps={{ tabIndex: "3" }}
-                      //   onChange={(e) => inputHandler(subject, e.target.value)}
-                    />
-                  </StyledTableCell>
-                  <StyledTableCell align="right">
-                    <FormControl
-                      variant="filled"
-                      className={classes.formControl}
-                    >
-                      <InputLabel htmlFor="filled-age-native-simple">
-                        Status
-                      </InputLabel>
-                      <Select
-                        native
-                        defaultValue={subject.Section}
-                        id={`status_${subject.IDHREmployee}`}
-                        // onChange={(e) =>
-                        //   sectionHandler(e.target.value, subject)
-                        // }
-                      >
-                        {statusData.map((section) => (
-                          <option value={section.Key}>{section.Value}</option>
-                        ))}
-                      </Select>
-                    </FormControl>
-                  </StyledTableCell>
-                  <StyledTableCell align="right">
-                    {subject.FullMark}
-                  </StyledTableCell>
-                  <StyledTableCell align="right">
-                    {subject.FullMarkPractical}
-                  </StyledTableCell>
-                  <StyledTableCell align="right">
-                    {subject.FullMarkPreTerm}
                   </StyledTableCell>
                 </StyledTableRow>
               ))}
@@ -191,7 +152,7 @@ const StudentAttendanceBulk = ({ bulkData, statusData }) => {
               color="primary"
               type="submit"
               style={{ margin: "10px 0 0 10px" }}
-              //   onClick={formCheckSubmitHandler}
+              onClick={formCheckSubmitHandler}
             >
               SUBMIT
             </Button>

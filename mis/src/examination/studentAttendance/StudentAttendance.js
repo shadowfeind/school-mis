@@ -27,8 +27,10 @@ import {
   GET_ALL_STUDEN_ATTENDANCE_INITIAL_DATA_RESET,
   GET_ALL_STUDEN_ATTENDANCE_RESET,
   GET_BULK_STUDENT_ATTENDANCE_RESET,
+  POST_BULK_STUDENT_ATTENDANCE_RESET,
 } from "./StudentAttendanceConstants";
 import StudentAttendanceTableCollapse from "./StudentAttendanceTableCollapse";
+import StudentAttendanceBulk from "./StudentAttendanceBulk";
 
 const useStyles = makeStyles((theme) => ({
   searchInput: {
@@ -129,6 +131,11 @@ const StudentAttendance = () => {
   const { bulkStudentAttendance, error: bulkStudentAttendanceError } =
     useSelector((state) => state.getBulkStudentAttendance);
 
+  const {
+    success: postBulkStudentAttendanceSuccess,
+    error: postBulkStudentAttendanceError,
+  } = useSelector((state) => state.postBulkStudentAttendance);
+
   if (getEventSuccess) {
     setDdlEvent(allEvents);
     dispatch({ type: GET_EVENT_RESET });
@@ -159,6 +166,25 @@ const StudentAttendance = () => {
       type: "error",
     });
     dispatch({ type: GET_BULK_STUDENT_ATTENDANCE_RESET });
+  }
+  if (postBulkStudentAttendanceSuccess) {
+    setNotify({
+      isOpen: true,
+      message: "Created Successfully Created",
+      type: "success",
+    });
+    dispatch({ type: POST_BULK_STUDENT_ATTENDANCE_RESET });
+    setOpenPopup(false);
+  }
+
+  if (postBulkStudentAttendanceError) {
+    setNotify({
+      isOpen: true,
+      message: postBulkStudentAttendanceError,
+      type: "error",
+    });
+    dispatch({ type: POST_BULK_STUDENT_ATTENDANCE_RESET });
+    setOpenPopup(false);
   }
 
   useEffect(() => {
@@ -225,6 +251,7 @@ const StudentAttendance = () => {
         )
       );
     }
+    setOpenPopup(true);
   };
 
   return (
@@ -352,12 +379,15 @@ const StudentAttendance = () => {
         setOpenPopup={setOpenPopup}
         title="Bulk Edit"
       >
-        {/* <ExamMarkEntryBulk
-      statusData={
-        bulkData && bulkData.searchFilterModel.ddlStudentExamStatus
-      }
-      bulkData={bulkData && bulkData.dbModelLsts}
-    /> */}
+        <StudentAttendanceBulk
+          bulkData={
+            bulkStudentAttendance &&
+            bulkStudentAttendance.dbModelPresentAbsentLst
+          }
+          search={
+            bulkStudentAttendance && bulkStudentAttendance.searchFilterModel
+          }
+        />
       </Popup>
       <Notification notify={notify} setNotify={setNotify} />
       <ConfirmDialog

@@ -3,6 +3,10 @@ import {
   GET_ALL_UPLOADPHOTO_REQUEST,
   GET_ALL_UPLOADPHOTO_RESET,
   GET_ALL_UPLOADPHOTO_SUCCESS,
+  UPLOADPHOTO_FAIL,
+  UPLOADPHOTO_REQUEST,
+  UPLOADPHOTO_RESET,
+  UPLOADPHOTO_SUCCESS,
 } from "./UploadPhotoConstants";
 
 export const getAllUploadPhotoReducer = (state = {}, action) => {
@@ -10,10 +14,25 @@ export const getAllUploadPhotoReducer = (state = {}, action) => {
     case GET_ALL_UPLOADPHOTO_REQUEST:
       return { loading: true };
     case GET_ALL_UPLOADPHOTO_SUCCESS:
-      return { loading: false, getAllUploadPhoto: action.payload };
+      return { loading: false, photo: action.payload };
     case GET_ALL_UPLOADPHOTO_FAIL:
       return { loading: false, error: action.payload };
     case GET_ALL_UPLOADPHOTO_RESET:
+      return {};
+    default:
+      return state;
+  }
+};
+
+export const uploadPhotoReducer = (state = {}, action) => {
+  switch (action.type) {
+    case UPLOADPHOTO_REQUEST:
+      return { loading: true };
+    case UPLOADPHOTO_SUCCESS:
+      return { loading: false, success: true };
+    case UPLOADPHOTO_FAIL:
+      return { loading: false, error: action.payload };
+    case UPLOADPHOTO_RESET:
       return {};
     default:
       return state;

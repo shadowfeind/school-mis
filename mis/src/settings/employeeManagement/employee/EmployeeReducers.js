@@ -1,3 +1,4 @@
+import { TrafficRounded } from "@material-ui/icons";
 import {
   GET_ALL_EMPLOYEE_FAIL,
   GET_ALL_EMPLOYEE_REQUEST,
@@ -19,6 +20,14 @@ import {
   UPDATE_SINGLE_EMPLOYEE_RESET,
   GET_ALL_EMPLOYEE_RESET,
   GET_ALL_EMPLOYEE_CREATE_RESET,
+  GET_RESETPASSWORD_DATA_SINGLE_EMPLOYEE_REQUEST,
+  GET_RESETPASSWORD_DATA_SINGLE_EMPLOYEE_SUCCESS,
+  GET_RESETPASSWORD_DATA_SINGLE_EMPLOYEE_FAIL,
+  GET_RESETPASSWORD_DATA_SINGLE_EMPLOYEE_RESET,
+  RESETPASSWORD_FOR_SINGLE_EMPLOYEE_REQUEST,
+  RESETPASSWORD_FOR_SINGLE_EMPLOYEE_SUCCESS,
+  RESETPASSWORD_FOR_SINGLE_EMPLOYEE_FAIL,
+  RESETPASSWORD_FOR_SINGLE_EMPLOYEE_RESET,
 } from "./EmployeeConstants";
 
 export const getAllEmployee = (state = {}, action) => {
@@ -90,6 +99,39 @@ export const updateSingleEmployeeReducer = (state = {}, action) => {
     case UPDATE_SINGLE_EMPLOYEE_FAIL:
       return { loading: false, error: action.payload };
     case UPDATE_SINGLE_EMPLOYEE_RESET:
+      return {};
+    default:
+      return state;
+  }
+};
+
+export const getResetPasswordDataSingleEmployeeReducer = (
+  state = {},
+  action
+) => {
+  switch (action.type) {
+    case GET_RESETPASSWORD_DATA_SINGLE_EMPLOYEE_REQUEST:
+      return { loading: true };
+    case GET_RESETPASSWORD_DATA_SINGLE_EMPLOYEE_SUCCESS:
+      return { loading: false, resetPasswordData: action.payload };
+    case GET_RESETPASSWORD_DATA_SINGLE_EMPLOYEE_FAIL:
+      return { loading: false, error: action.payload };
+    case GET_RESETPASSWORD_DATA_SINGLE_EMPLOYEE_RESET:
+      return {};
+    default:
+      return state;
+  }
+};
+
+export const resetPasswordForSingleEmployeeReducer = (state = {}, action) => {
+  switch (action.type) {
+    case RESETPASSWORD_FOR_SINGLE_EMPLOYEE_REQUEST:
+      return { loading: true };
+    case RESETPASSWORD_FOR_SINGLE_EMPLOYEE_SUCCESS:
+      return { loading: false, success: true };
+    case RESETPASSWORD_FOR_SINGLE_EMPLOYEE_FAIL:
+      return { loading: false, error: action.payload };
+    case RESETPASSWORD_FOR_SINGLE_EMPLOYEE_RESET:
       return {};
     default:
       return state;

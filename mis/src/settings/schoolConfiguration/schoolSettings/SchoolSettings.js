@@ -155,10 +155,6 @@ const SchoolSettings = () => {
   };
 
   useEffect(() => {
-    // if (!USER_SESSION) {
-    //   window.location.href = "http://google.com";
-    // }
-    dispatch({ type: "GET_LINK", payload: "/" });
     if (!schoolSettings) {
       dispatch(getAllSchoolSettingsAction());
     }

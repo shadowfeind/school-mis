@@ -1,5 +1,5 @@
 import axios from "axios";
-import { API_URL } from "../../constants";
+import { API_URL, tokenConfig } from "../../constants";
 import {
   GET_ALL_EXAM_APPROVAL_SEARCHDATA_FAIL,
   GET_ALL_EXAM_APPROVAL_SEARCHDATA_REQUEST,
@@ -7,6 +7,9 @@ import {
   GET_BULK_EXAM_APPROVAL_FAIL,
   GET_BULK_EXAM_APPROVAL_REQUEST,
   GET_BULK_EXAM_APPROVAL_SUCCESS,
+  GET_EXAM_APPROVAL_SCHEULE_HEADER_FAIL,
+  GET_EXAM_APPROVAL_SCHEULE_HEADER_REQUEST,
+  GET_EXAM_APPROVAL_SCHEULE_HEADER_SUCCESS,
   GET_INITIAL_EXAM_APPORVAL_DATA_FAIL,
   GET_INITIAL_EXAM_APPORVAL_DATA_REQUEST,
   GET_INITIAL_EXAM_APPORVAL_DATA_SUCCESS,
@@ -19,9 +22,11 @@ export const getInitialExamApprovalDataAction = () => async (dispatch) => {
   try {
     dispatch({ type: GET_INITIAL_EXAM_APPORVAL_DATA_REQUEST });
 
-    const { data } =
-      await axios.get(`${API_URL}/api/AcademicStudentExamData/GetAllAcademicStudentExamData
-      `);
+    const { data } = await axios.get(
+      `${API_URL}/api/AcademicStudentExamData/GetAllAcademicStudentExamData
+      `,
+      tokenConfig
+    );
 
     dispatch({
       type: GET_INITIAL_EXAM_APPORVAL_DATA_SUCCESS,
@@ -35,15 +40,38 @@ export const getInitialExamApprovalDataAction = () => async (dispatch) => {
   }
 };
 
+export const getExamApprovalScheduleHeaderAction =
+  (year, program, classId, section, event) => async (dispatch) => {
+    try {
+      dispatch({ type: GET_EXAM_APPROVAL_SCHEULE_HEADER_REQUEST });
+
+      const { data } = await axios.get(
+        `${API_URL}/api/ApproveAcademicStudentExamData/GetActiveExamScheduleListForExamMarkEntry?idAcademicYear=${year}&idFacultyProgramLink=${program}&level=${classId}&section=${section}&idAcademicYearCalendar=${event}&roleID=2`,
+        tokenConfig
+      );
+
+      dispatch({
+        type: GET_EXAM_APPROVAL_SCHEULE_HEADER_SUCCESS,
+        payload: data,
+      });
+    } catch (error) {
+      dispatch({
+        type: GET_EXAM_APPROVAL_SCHEULE_HEADER_FAIL,
+        payload: error.message ? error.message : error.Message,
+      });
+    }
+  };
+
 export const getExamApprovalSearchDataAction =
   (year, program, classId, section, shift, event, schedule) =>
   async (dispatch) => {
     try {
       dispatch({ type: GET_ALL_EXAM_APPROVAL_SEARCHDATA_REQUEST });
 
-      const { data } =
-        await axios.get(`${API_URL}/api/GetListExamMarkApproval/${year}/${program}/${classId}/${section}/${shift}/${event}/${schedule}/1
-    `);
+      const { data } = await axios.get(
+        `${API_URL}/api/ApproveAcademicStudentExamData/GetListExamMarkApproval?idAcademicYear=${year}&idFacultyProgramLink=${program}&level=${classId}&section=${section}&idShift=${shift}&idAcademicYearCalendar=${event}&idAcademicExamSchedule=${schedule}&searchKey=1`,
+        tokenConfig
+      );
 
       dispatch({
         type: GET_ALL_EXAM_APPROVAL_SEARCHDATA_SUCCESS,
@@ -63,9 +91,10 @@ export const getBulkExamApprovalSearchDataAction =
     try {
       dispatch({ type: GET_BULK_EXAM_APPROVAL_REQUEST });
 
-      const { data } =
-        await axios.get(`${API_URL}/api/GetBulkMarkApproval/${year}/${program}/${classId}/${section}/${shift}/${event}/${schedule}/1/GetBulkAmrkApproval
-    `);
+      const { data } = await axios.get(
+        `${API_URL}/api/ApproveAcademicStudentExamData/GetBulkMarkApproval?idAcademicYear=${year}&idFacultyProgramLink=${program}&level=${classId}&section=${section}&idShift=${shift}&idAcademicYearCalendar=${event}&idAcademicExamSchedule=${schedule}&searchKey=1`,
+        tokenConfig
+      );
 
       dispatch({
         type: GET_BULK_EXAM_APPROVAL_SUCCESS,
@@ -91,16 +120,16 @@ export const postBulkExamMarkApprovalAction =
 
       console.log(jsonData);
 
-      const config = {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      };
+      // const config = {
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      // };
 
       await axios.post(
         `${API_URL}/api/ApproveAcademicStudentExamData/PostApproveAcademicStudentExamData`,
         jsonData,
-        config
+        tokenConfig
       );
 
       dispatch({ type: POST_BULK_EXAM_APPROVAL_SUCCESS });

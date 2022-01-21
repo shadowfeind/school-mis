@@ -1,5 +1,5 @@
 import axios from "axios";
-import { API_URL } from "../../../constants";
+import { API_URL, tokenConfig } from "../../../constants";
 import {
   GET_ALL_SCHOOL_BOARD_FAIL,
   GET_ALL_SCHOOL_BOARD_REQUEST,
@@ -19,7 +19,10 @@ export const getAllSchoolBoardAction = () => async (dispatch) => {
   try {
     dispatch({ type: GET_ALL_SCHOOL_BOARD_REQUEST });
 
-    const { data } = await axios.get(`${API_URL}/api/University/GetUniversity`);
+    const { data } = await axios.get(
+      `${API_URL}/api/University/GetUniversity`,
+      tokenConfig
+    );
 
     dispatch({ type: GET_ALL_SCHOOL_BOARD_SUCCESS, payload: data });
   } catch (error) {
@@ -36,16 +39,16 @@ export const SchoolBoardCreateAction = (schoolBoard) => async (dispatch) => {
 
     const jsonData = JSON.stringify({ dbModel: schoolBoard });
 
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
+    // const config = {
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    // };
 
     const { data } = await axios.post(
       `${API_URL}/api/University/PostUniversity`,
       jsonData,
-      config
+      tokenConfig
     );
 
     dispatch({ type: SCHOOL_BOARD_CREATE_SUCCESS, payload: data });
@@ -62,7 +65,8 @@ export const getSingleSchoolBoardAction = (id) => async (dispatch) => {
     dispatch({ type: GET_SINGLE_SCHOOL_BOARD_REQUEST });
 
     const { data } = await axios.get(
-      `${API_URL}/api/University/GetUniversityById/${id}`
+      `${API_URL}/api/University/GetUniversityById/${id}`,
+      tokenConfig
     );
 
     dispatch({ type: GET_SINGLE_SCHOOL_BOARD_SUCCESS, payload: data });
@@ -81,16 +85,16 @@ export const updateSingleSchoolBoardAction =
 
       const jsonData = JSON.stringify({ dbModel: schoolBoard });
 
-      const config = {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      };
+      // const config = {
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      // };
 
       const { data } = await axios.put(
         `${API_URL}/api/University/PutUniversity`,
         jsonData,
-        config
+        tokenConfig
       );
 
       dispatch({ type: UPDATE_SINGLE_SCHOOL_BOARD_SUCCESS, payload: data });

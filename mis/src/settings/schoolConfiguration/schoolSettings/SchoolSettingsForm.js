@@ -81,8 +81,6 @@ const SchoolSettingsForm = ({ college, setOpenPopup }) => {
       : "";
     temp.AlternatePhoneNo = !fieldValues.AlternatePhoneNo
       ? "This feild is required"
-      : !fieldValues.AlternatePhoneNo.trim()
-      ? "This feild is required"
       : fieldValues.AlternatePhoneNo.length > 20
       ? "AlternatePhoneNo cannot be greater than 20 characters"
       : "";
@@ -121,8 +119,9 @@ const SchoolSettingsForm = ({ college, setOpenPopup }) => {
 
     if (validate()) {
       if (values.IDHRCompany === 0) {
+        alert("working");
         console.log(values);
-        dispatch(schoolSettingCreateAction(values));
+        // dispatch(schoolSettingCreateAction(values));
       } else {
         dispatch(updateSingleScholSettingAction(values));
       }

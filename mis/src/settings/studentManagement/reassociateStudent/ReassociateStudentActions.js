@@ -1,5 +1,5 @@
 import axios from "axios";
-import { API_URL } from "../../../constants";
+import { API_URL, tokenConfig } from "../../../constants";
 import {
   GET_ALL_REASSOCIATE_STUDENTS_FAIL,
   GET_ALL_REASSOCIATE_STUDENTS_REQUEST,
@@ -19,7 +19,10 @@ export const getAllReassociateStudentsAction = () => async (dispatch) => {
   try {
     dispatch({ type: GET_ALL_REASSOCIATE_STUDENTS_REQUEST });
 
-    const { data } = await axios.get(`${API_URL}/api/ReassociateStudent/Get`);
+    const { data } = await axios.get(
+      `${API_URL}/api/ReassociateStudent/Get`,
+      tokenConfig
+    );
 
     dispatch({ type: GET_ALL_REASSOCIATE_STUDENTS_SUCCESS, payload: data });
   } catch (error) {
@@ -36,7 +39,8 @@ export const getReassociateStudentsListsAction =
       dispatch({ type: GET_REASSOCIATE_STUDENTS_LISTS_REQUEST });
 
       const { data } = await axios.get(
-        `${API_URL}/api/GetAllReassociateStudent/${year}/${program}/${shift}/${classId}/${section}/getList`
+        `${API_URL}/api/GetAllReassociateStudent/${year}/${program}/${shift}/${classId}/${section}/getList`,
+        tokenConfig
       );
 
       dispatch({ type: GET_REASSOCIATE_STUDENTS_LISTS_SUCCESS, payload: data });
@@ -54,7 +58,8 @@ export const getReassociateStudentsLevelupAction =
       dispatch({ type: GET_REASSOCIATE_STUDENTS_LEVEL_UP_REQUEST });
 
       const { data } = await axios.get(
-        `${API_URL}/api/GetBulkLevelUp/${year}/${program}/${shift}/${classId}/${section}/getBulkLevelUpList`
+        `${API_URL}/api/GetBulkLevelUp/${year}/${program}/${shift}/${classId}/${section}/getBulkLevelUpList`,
+        tokenConfig
       );
 
       dispatch({
@@ -79,17 +84,17 @@ export const getReassociateStudentsLevelupPostAction =
         searchFilterModel,
       });
 
-      const config = {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      };
+      // const config = {
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      // };
 
       const { data } = await axios.post(
         `${API_URL}/api/ReassociateStudent/PostBulkLevelUp?mode=1
         `,
         jsonData,
-        config
+        tokenConfig
       );
 
       dispatch({

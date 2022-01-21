@@ -1,5 +1,5 @@
 import axios from "axios";
-import { API_URL } from "../../../constants";
+import { API_URL, tokenConfig } from "../../../constants";
 import {
   GET_ALL_ROLE_FAIL,
   GET_ALL_ROLE_REQUEST,
@@ -19,7 +19,10 @@ export const getAllRolesAction = () => async (dispatch) => {
   try {
     dispatch({ type: GET_ALL_ROLE_REQUEST });
 
-    const { data } = await axios.get(`${API_URL}/api/HRRole/GetHRRole`);
+    const { data } = await axios.get(
+      `${API_URL}/api/HRRole/GetHRRole`,
+      tokenConfig
+    );
 
     dispatch({ type: GET_ALL_ROLE_SUCCESS, payload: data });
   } catch (error) {
@@ -36,16 +39,16 @@ export const roleCreateAction = (role) => async (dispatch) => {
 
     const jsonData = JSON.stringify({ hrRoleModel: role });
 
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
+    // const config = {
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    // };
 
     const { data } = await axios.post(
       `${API_URL}/api/HRRole/PostHRPosition`,
       jsonData,
-      config
+      tokenConfig
     );
 
     dispatch({ type: ROLE_CREATE_SUCCESS, payload: data });
@@ -62,7 +65,8 @@ export const getSingleRoleAction = (id) => async (dispatch) => {
     dispatch({ type: GET_SINGLE_ROLE_REQUEST });
 
     const { data } = await axios.get(
-      `${API_URL}/api/HRRole/GetHRRoleById/${id}`
+      `${API_URL}/api/HRRole/GetHRRoleById/${id}`,
+      tokenConfig
     );
 
     dispatch({ type: GET_SINGLE_ROLE_SUCCESS, payload: data });
@@ -80,16 +84,16 @@ export const updateSingleRoleAction = (role) => async (dispatch) => {
 
     const jsonData = JSON.stringify({ hrRoleModel: role });
 
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
+    // const config = {
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    // };
 
     const { data } = await axios.put(
       `${API_URL}/api/HRRole/PutHRPosition`,
       jsonData,
-      config
+      tokenConfig
     );
 
     dispatch({ type: UPDATE_SINGLE_ROLE_SUCCESS, payload: data });

@@ -18,6 +18,7 @@ import ConfirmDialog from "../../components/ConfirmDialog";
 import SelectControl from "../../components/controls/SelectControl";
 import {
   getBulkExamApprovalSearchDataAction,
+  getExamApprovalScheduleHeaderAction,
   getExamApprovalSearchDataAction,
   getInitialExamApprovalDataAction,
 } from "./ExamMarkApprovalActions";
@@ -32,7 +33,10 @@ import {
 } from "../examMarkEntry/ExamMarkEntryConstants";
 import ExamMarkApprovalTableCollapse from "./ExamMarkApprovalTableCollapse";
 import ExamMarkApprovalBulk from "./ExamMarkApprovalBulk";
-import { POST_BULK_EXAM_APPROVAL_RESET } from "./ExamMarkApprovalConstants";
+import {
+  GET_EXAM_APPROVAL_SCHEULE_HEADER_RESET,
+  POST_BULK_EXAM_APPROVAL_RESET,
+} from "./ExamMarkApprovalConstants";
 
 const useStyles = makeStyles((theme) => ({
   searchInput: {
@@ -136,6 +140,10 @@ const ExamMarkApproval = () => {
     (state) => state.getEventSchedule
   );
 
+  const { scheduleHeader, error: scheduleHeaderError } = useSelector(
+    (state) => state.getExamApprovalScheduleHeader
+  );
+
   const { searchData } = useSelector(
     (state) => state.getExamApprovalSearchData
   );
@@ -154,9 +162,9 @@ const ExamMarkApproval = () => {
     dispatch({ type: GET_EVENT_RESET });
   }
 
-  if (getScheduleSuccess) {
-    setDdlSchedule(allSchedule);
-    dispatch({ type: GET_EXAM_SCHEDULE_HEADER_RESET });
+  if (scheduleHeader) {
+    setDdlSchedule(scheduleHeader);
+    dispatch({ type: GET_EXAM_APPROVAL_SCHEULE_HEADER_RESET });
   }
   if (postBulkExamApprovalSuccess) {
     setNotify({
@@ -192,7 +200,13 @@ const ExamMarkApproval = () => {
   const eventHandler = (value) => {
     setEvent(value);
     dispatch(
-      getEventScheduleAction(acaYear, programValue, classId, section, value)
+      getExamApprovalScheduleHeaderAction(
+        acaYear,
+        programValue,
+        classId,
+        section,
+        value
+      )
     );
   };
 

@@ -1,10 +1,11 @@
-import React, { Suspense, lazy } from "react";
+import React, { Suspense, lazy, useEffect } from "react";
 import AppBar from "@material-ui/core/AppBar";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import { makeStyles } from "@material-ui/core";
+import { useDispatch } from "react-redux";
 
 const StudentIdCard = lazy(() => import("./studentIdCard/StudentIdCard"));
 
@@ -50,6 +51,11 @@ const useStyles = makeStyles((theme) => ({
 const StudentManagement = () => {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch({ type: "GET_LINK", payload: "/settings" });
+  }, [dispatch]);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);

@@ -157,7 +157,6 @@ const EmployeeType = () => {
   };
 
   useEffect(() => {
-    dispatch({ type: "GET_LINK", payload: "/" });
     if (!employeeCategoryRole) {
       dispatch(getAllEmployeeCategoryRoleAction());
     }

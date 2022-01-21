@@ -158,7 +158,6 @@ const AcademicProgram = () => {
   };
 
   useEffect(() => {
-    dispatch({ type: "GET_LINK", payload: "/" });
     if (!academicProgram) {
       dispatch(getAllAcademicProgramAction());
     }

@@ -1,5 +1,5 @@
 import axios from "axios";
-import { API_URL } from "../../constants";
+import { API_URL, tokenConfig } from "../../constants";
 import {
   CREATE_SINGLE_STUDENT_REGISTRATION_FAIL,
   CREATE_SINGLE_STUDENT_REGISTRATION_REQUEST,
@@ -29,9 +29,11 @@ export const getInitialStudentRegistrationDataAction =
     try {
       dispatch({ type: GET_INITIAL_STUDENT_REGISTRATION_DATA_REQUEST });
 
-      const { data } =
-        await axios.get(`${API_URL}/api/StudentRegistration/GetAllStudentRegistration
-        `);
+      const { data } = await axios.get(
+        `${API_URL}/api/StudentRegistration/GetAllStudentRegistration
+        `,
+        tokenConfig
+      );
 
       dispatch({
         type: GET_INITIAL_STUDENT_REGISTRATION_DATA_SUCCESS,
@@ -50,9 +52,11 @@ export const getStudentRegistrationDataAction =
     try {
       dispatch({ type: GET_STUDENT_REGISTRATION_DATA_REQUEST });
 
-      const { data } =
-        await axios.get(`${API_URL}/api/GetListStudentRegistration/${year}/${program}/${classId}
-        `);
+      const { data } = await axios.get(
+        `${API_URL}/api/GetListStudentRegistration/${year}/${program}/${classId}
+        `,
+        tokenConfig
+      );
 
       dispatch({
         type: GET_STUDENT_REGISTRATION_DATA_SUCCESS,
@@ -71,9 +75,11 @@ export const getSingleStudentRegistrationDataAction =
     try {
       dispatch({ type: GET_SINGLE_STUDENT_REGISTRATION_DATA_REQUEST });
 
-      const { data } =
-        await axios.get(`${API_URL}/api/GetSingleForDatailStudentRegistration/${id}/${year}/${program}/${classId}
-        `);
+      const { data } = await axios.get(
+        `${API_URL}/api/GetSingleForDatailStudentRegistration/${id}/${year}/${program}/${classId}
+        `,
+        tokenConfig
+      );
 
       dispatch({
         type: GET_SINGLE_STUDENT_REGISTRATION_DATA_SUCCESS,
@@ -91,9 +97,11 @@ export const singleStudentRegistrationCreateAction = () => async (dispatch) => {
   try {
     dispatch({ type: SINGLE_STUDENT_REGISTRATION_CREATE_REQUEST });
 
-    const { data } =
-      await axios.get(`${API_URL}/api/GetSingleToCreateStudentRegistration
-        `);
+    const { data } = await axios.get(
+      `${API_URL}/api/GetSingleToCreateStudentRegistration
+        `,
+      tokenConfig
+    );
 
     dispatch({
       type: SINGLE_STUDENT_REGISTRATION_CREATE_SUCCESS,
@@ -117,16 +125,16 @@ export const singleStudentRegistrationEditAction =
       let formData = new FormData();
       formData.append("ImageUploaded", image);
 
-      const config = {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      };
+      // const config = {
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      // };
 
       const { data } = await axios.put(
         `${API_URL}/api/StudentRegistrationImage/Put`,
         formData,
-        config
+        tokenConfig
       );
 
       if (data) {
@@ -142,7 +150,7 @@ export const singleStudentRegistrationEditAction =
         await axios.put(
           `${API_URL}/api/StudentRegistration/Put`,
           jsonData,
-          config
+          tokenConfig
         );
       }
 
@@ -165,8 +173,11 @@ export const getCreateSingleStudentRegistrationDataAction =
     try {
       dispatch({ type: GET_CREATE_SINGLE_STUDENT_REGISTRATION_DATA_REQUEST });
 
-      const { data } = await axios.get(`${API_URL}/api/GetSingleToCreate
-          `);
+      const { data } = await axios.get(
+        `${API_URL}/api/GetSingleToCreate
+          `,
+        tokenConfig
+      );
 
       dispatch({
         type: GET_CREATE_SINGLE_STUDENT_REGISTRATION_DATA_SUCCESS,
@@ -190,16 +201,16 @@ export const createSingleStudentRegistrationAction =
       let formData = new FormData();
       formData.append("ImageUploaded", image);
 
-      const config = {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      };
+      // const config = {
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      // };
 
       const { data } = await axios.put(
         `${API_URL}/api/StudentRegistrationImage/Put`,
         formData,
-        config
+        tokenConfig
       );
 
       if (data) {
@@ -214,7 +225,7 @@ export const createSingleStudentRegistrationAction =
         await axios.post(
           `${API_URL}/api/StudentRegistration/Post`,
           jsonData,
-          config
+          tokenConfig
         );
       }
 

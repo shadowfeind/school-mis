@@ -3,23 +3,24 @@ import React from "react";
 const AdmitCardDesign = ({ student, imagePath, classname, examDate }) => {
   return (
     <div
-      style={{
-        width: "270px",
-        height: "320px",
-        padding: "10px",
-        margin: "10px",
-        border: "1px solid #000",
-        borderRadius: "10px",
-      }}
+    // style={{
+    //   width: "350px",
+    //   height: "353.5px",
+    //   padding: "10px",
+    //   margin: "10px",
+    //   border: "1px solid #000",
+    //   borderRadius: "10px",
+    //   textAlign: "center",
+    // }}
     >
-      <div style={{ textAlign: "center" }}>
-        <h1>School Logo</h1>
+      <div className="admitCard">
+        <img
+          src="https://i.ibb.co/MfvhYfw/testlogo.png"
+          height="60px"
+          style={{ marginTop: "15px" }}
+        />
         <h4>Admit Card</h4>
-        <h5 style={{ backgroundColor: "$f3f3f3", padding: "5px" }}>
-          {student.EventName}
-        </h5>
-      </div>
-      <div style={{ textAlign: "center" }}>
+        <h5>{student.EventName}</h5>
         <h6>
           <strong>Name:</strong> {student.FullName}
         </h6>

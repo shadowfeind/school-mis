@@ -1,5 +1,5 @@
 import axios from "axios";
-import { API_URL } from "../../../constants";
+import { API_URL, tokenConfig } from "../../../constants";
 import {
   GET_ACTIVE_STUDENTS_FOR_STUDENT_ID_CARD_FAIL,
   GET_ACTIVE_STUDENTS_FOR_STUDENT_ID_CARD_REQUEST,
@@ -13,9 +13,11 @@ export const getInitialStudentIdCardDataAction = () => async (dispatch) => {
   try {
     dispatch({ type: GET_INITIAL_STUDENT_ID_CARD_DATA_REQUEST });
 
-    const { data } =
-      await axios.get(`${API_URL}/api/StudentIdCard/GetAllStudentIdCard
-        `);
+    const { data } = await axios.get(
+      `${API_URL}/api/StudentIdCard/GetAllStudentIdCard
+        `,
+      tokenConfig
+    );
 
     dispatch({
       type: GET_INITIAL_STUDENT_ID_CARD_DATA_SUCCESS,
@@ -34,9 +36,11 @@ export const getActiveStudentsForStudentIdCardDataAction =
     try {
       dispatch({ type: GET_ACTIVE_STUDENTS_FOR_STUDENT_ID_CARD_REQUEST });
 
-      const { data } =
-        await axios.get(`${API_URL}/api/GetListStudentIdCard/${year}/${program}/${classId}/${shift}/${id}/${section}/${date}
-        `);
+      const { data } = await axios.get(
+        `${API_URL}/api/GetListStudentIdCard/${year}/${program}/${classId}/${shift}/${id}/${section}/${date}
+        `,
+        tokenConfig
+      );
 
       dispatch({
         type: GET_ACTIVE_STUDENTS_FOR_STUDENT_ID_CARD_SUCCESS,

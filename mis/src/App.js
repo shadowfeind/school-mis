@@ -10,6 +10,10 @@ import {
 } from "@material-ui/core";
 import { HashRouter as Router, Route } from "react-router-dom";
 
+const Dashboard = lazy(() => import("./dashboard/Dashboard"));
+const AccessControl = lazy(() =>
+  import("./settings/accessControl/AccessControl")
+);
 const ClassSubject = lazy(() =>
   import("./settings/academicConfiguration/classSubject/ClassSubject")
 );
@@ -91,9 +95,9 @@ const App = () => {
   return (
     <Router>
       <ThemeProvider theme={theme}>
+        <Header />
         <SideMenu />
         <div className={classes.appMain}>
-          <Header />
           {/* Examination route start */}
           <Suspense fallback={<div></div>}>
             <Route path={"/examination"} component={AcademicGrading} />
@@ -137,8 +141,10 @@ const App = () => {
             <Route path={"/teacher-mapping"} component={TeacherMapping} />
             <Route path={"/user-profile"} component={UserProfile} />
             <Route path={"/class-subject"} component={ClassSubject} />
+            <Route path={"/access-control"} component={AccessControl} />
             {/* registration route ends */}
-            <Route exact path={"/"} component={Settings} />
+            <Route path={"/settings"} component={Settings} />
+            <Route exact path={"/"} component={Dashboard} />
           </Suspense>
         </div>
         <CssBaseline />

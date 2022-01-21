@@ -136,7 +136,6 @@ const Holiday = () => {
   };
 
   useEffect(() => {
-    dispatch({ type: "GET_LINK", payload: "/" });
     if (!holiday) {
       dispatch(getAllHolidayAction());
     }

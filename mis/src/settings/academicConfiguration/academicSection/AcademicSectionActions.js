@@ -1,5 +1,5 @@
 import axios from "axios";
-import { API_URL } from "../../../constants";
+import { API_URL, tokenConfig } from "../../../constants";
 import {
   ACADEMIC_SECTION_CREATE_FAIL,
   ACADEMIC_SECTION_CREATE_REQUEST,
@@ -20,7 +20,8 @@ export const getAllAcademicSectionAction = () => async (dispatch) => {
     dispatch({ type: GET_ALL_ACADEMIC_SECTION_REQUEST });
 
     const { data } = await axios.get(
-      `${API_URL}/api/AcademicRoom/GetAcademicRoom`
+      `${API_URL}/api/AcademicRoom/GetAcademicRoom`,
+      tokenConfig
     );
 
     dispatch({ type: GET_ALL_ACADEMIC_SECTION_SUCCESS, payload: data });
@@ -39,16 +40,16 @@ export const AcademicSectionCreateAction =
 
       const jsonData = JSON.stringify({ dbModel: academicSection });
 
-      const config = {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      };
+      // const config = {
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      // };
 
       const { data } = await axios.post(
         `${API_URL}/api/AcademicRoom/PostAcademicRoom`,
         jsonData,
-        config
+        tokenConfig
       );
 
       dispatch({ type: ACADEMIC_SECTION_CREATE_SUCCESS, payload: data });
@@ -65,7 +66,8 @@ export const getSingleAcademicSectionAction = (id) => async (dispatch) => {
     dispatch({ type: GET_SINGLE_ACADEMIC_SECTION_REQUEST });
 
     const { data } = await axios.get(
-      `${API_URL}/api/AcademicRoom/GetAcademicRoomById/${id}`
+      `${API_URL}/api/AcademicRoom/GetAcademicRoomById/${id}`,
+      tokenConfig
     );
 
     dispatch({ type: GET_SINGLE_ACADEMIC_SECTION_SUCCESS, payload: data });
@@ -84,16 +86,16 @@ export const updateSingleAcademicSectionAction =
 
       const jsonData = JSON.stringify({ dbModel: academicSection });
 
-      const config = {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      };
+      // const config = {
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      // };
 
       const { data } = await axios.put(
         `${API_URL}/api/AcademicRoom/PutAcademicRoom`,
         jsonData,
-        config
+        tokenConfig
       );
 
       dispatch({ type: UPDATE_SINGLE_ACADEMIC_SECTION_SUCCESS, payload: data });

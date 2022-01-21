@@ -6,6 +6,7 @@ import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import { makeStyles } from "@material-ui/core";
 import { USER_SESSION } from "../constants";
+import { useDispatch } from "react-redux";
 
 const SchoolSettings = lazy(() =>
   import("./schoolConfiguration/schoolSettings/SchoolSettings")
@@ -54,12 +55,17 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Settings = () => {
+  const dispatch = useDispatch();
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+
+  useEffect(() => {
+    dispatch({ type: "GET_LINK", payload: "/settings" });
+  }, [dispatch]);
   // useEffect(() => {
   //   if (!USER_SESSION) {
   //     window.location.href = "http://google.com";

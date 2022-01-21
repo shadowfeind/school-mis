@@ -1,5 +1,5 @@
 import axios from "axios";
-import { API_URL } from "../../../constants";
+import { API_URL, tokenConfig } from "../../../constants";
 import {
   ACADEMIC_CLASS_CREATE_FAIL,
   ACADEMIC_CLASS_CREATE_REQUEST,
@@ -20,7 +20,8 @@ export const getAllAcademicClassAction = () => async (dispatch) => {
     dispatch({ type: GET_ALL_ACADEMIC_CLASS_REQUEST });
 
     const { data } = await axios.get(
-      `${API_URL}/api/AcademicClass/GetAcademicClass`
+      `${API_URL}/api/AcademicClass/GetAcademicClass`,
+      tokenConfig
     );
 
     dispatch({ type: GET_ALL_ACADEMIC_CLASS_SUCCESS, payload: data });
@@ -39,16 +40,16 @@ export const academicClassCreateAction =
 
       const jsonData = JSON.stringify({ dbModel: academicClass });
 
-      const config = {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      };
+      // const config = {
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      // };
 
       const { data } = await axios.post(
         `${API_URL}/api/AcademicClass/PostHRPosition`,
         jsonData,
-        config
+        tokenConfig
       );
 
       dispatch({ type: ACADEMIC_CLASS_CREATE_SUCCESS, payload: data });
@@ -65,7 +66,8 @@ export const getSingleAcademicClassAction = (id) => async (dispatch) => {
     dispatch({ type: GET_SINGLE_ACADEMIC_CLASS_REQUEST });
 
     const { data } = await axios.get(
-      `${API_URL}/api/AcademicClass/GetAcademicClassById/${id}`
+      `${API_URL}/api/AcademicClass/GetAcademicClassById/${id}`,
+      tokenConfig
     );
 
     dispatch({ type: GET_SINGLE_ACADEMIC_CLASS_SUCCESS, payload: data });
@@ -84,16 +86,16 @@ export const updateSingleAcademicClassAction =
 
       const jsonData = JSON.stringify({ dbModel: academicClass });
 
-      const config = {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      };
+      // const config = {
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      // };
 
       const { data } = await axios.put(
         `${API_URL}/api/AcademicClass/PutHRPosition`,
         jsonData,
-        config
+        tokenConfig
       );
 
       dispatch({ type: UPDATE_SINGLE_ACADEMIC_CLASS_SUCCESS, payload: data });

@@ -1,5 +1,5 @@
 import axios from "axios";
-import { API_URL } from "../../../constants";
+import { API_URL, tokenConfig } from "../../../constants";
 import {
   ASSIGN_FACULTY_SUBJECT_EDIT_FAIL,
   ASSIGN_FACULTY_SUBJECT_EDIT_POST_FAIL,
@@ -32,7 +32,8 @@ export const getALLAssignFacultySubject = () => async (dispatch) => {
     dispatch({ type: GET_ALL_ASSIGN_FACULTY_SUBJECT_REQUEST });
 
     const { data } = await axios.get(
-      `${API_URL}/api/AcaFacultySubjectLink/GetAcademicFacultySubjectLink`
+      `${API_URL}/api/AcaFacultySubjectLink/GetAcademicFacultySubjectLink`,
+      tokenConfig
     );
 
     dispatch({ type: GET_ALL_ASSIGN_FACULTY_SUBJECT_SUCCESS, payload: data });
@@ -50,7 +51,8 @@ export const getListAssignFacultySubject =
       dispatch({ type: GET_LIST_ASSIGN_FACULTY_SUBJECT_REQUEST });
 
       const { data } = await axios.get(
-        `${API_URL}/api/GetListAcademicFacultySubjectLink/${year}/${program}/${classId}/getList`
+        `${API_URL}/api/AcaFacultySubjectLink/GetListAcademicFacultySubjectLink?idAcademicYear=${year}&idFacultyProgramLink=${program}&idClass=${classId}`,
+        tokenConfig
       );
 
       dispatch({
@@ -71,7 +73,8 @@ export const getSingleAssignFacultySubjectAction =
       dispatch({ type: GET_SINGLE_ASSIGN_FACULTY_SUBJECT_REQUEST });
 
       const { data } = await axios.get(
-        `${API_URL}/api/GetAcademicFacultySubjectLinkById/${id}/${year}/${program}/${classId}/edit`
+        `${API_URL}/api/GetAcademicFacultySubjectLinkById/${id}/${year}/${program}/${classId}/edit`,
+        tokenConfig
       );
 
       dispatch({
@@ -92,7 +95,8 @@ export const getAssignFacultySubjectOptionAction =
       dispatch({ type: ASSIGN_FACULTY_SUBJECT_GET_REQUEST });
 
       const { data } = await axios.get(
-        `${API_URL}/api/GetAcademicFacultySubjectLinkById/${year}/${program}/${classId}/create`
+        `${API_URL}/api/GetAcademicFacultySubjectLinkById/${year}/${program}/${classId}/create`,
+        tokenConfig
       );
 
       dispatch({ type: ASSIGN_FACULTY_SUBJECT_GET_SUCCESS, payload: data });
@@ -116,16 +120,16 @@ export const AcademicFacultyCreateAction =
         actionType: 0,
       });
 
-      const config = {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      };
+      // const config = {
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      // };
 
       const { data } = await axios.post(
         `${API_URL}/api/AcaFacultySubjectLink/PostAcademicFacultySubjectLinkA`,
         jsonData,
-        config
+        tokenConfig
       );
 
       dispatch({ type: ASSIGN_FACULTY_SUBJECT_POST_SUCCESS, payload: data });
@@ -143,7 +147,8 @@ export const getAssignFacultySubjectEditAction =
       dispatch({ type: ASSIGN_FACULTY_SUBJECT_EDIT_REQUEST });
 
       const { data } = await axios.get(
-        `${API_URL}/api/GetSingleEditAcademicFacultySubjectLinkByParams/${id}/${year}/${program}/${classId}/singleEdit`
+        `${API_URL}/api/AcaFacultySubjectLink/GetAcademicFacultySubjectLinkByParams/${id}?idAcademicYear=${year}&idFacultyProgramLink=${program}&level=${classId}`,
+        tokenConfig
       );
 
       dispatch({ type: ASSIGN_FACULTY_SUBJECT_EDIT_SUCCESS, payload: data });
@@ -167,16 +172,16 @@ export const academicFacultySubjectPostEditAction =
         dbModel,
       });
 
-      const config = {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      };
+      // const config = {
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      // };
 
       const { data } = await axios.put(
         `${API_URL}/api/AcaFacultySubjectLink/Put`,
         jsonData,
-        config
+        tokenConfig
       );
 
       dispatch({
@@ -197,7 +202,8 @@ export const getAssignFacultySubjectGenerateAction =
       dispatch({ type: ASSIGN_FACULTY_SUBJECT_GENERATE_REQUEST });
 
       const { data } = await axios.get(
-        `${API_URL}/api/GetGenerateBulkSubject/${year}/${program}/${classId}/GetGenerateBulkSubject`
+        `${API_URL}/api/AcaFacultySubjectLink/GetGenerateBulkSubject?idAcademicYear=${year}&idFacultyProgramLink=${program}&idClass=${classId}`,
+        tokenConfig
       );
 
       dispatch({

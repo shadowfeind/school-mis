@@ -1,5 +1,5 @@
 import axios from "axios";
-import { API_URL } from "../../constants";
+import { API_URL, tokenConfig } from "../../constants";
 import {
   GET_ACTIVE_STUDENTS_FOR_ADMIT_CARD_FAIL,
   GET_ACTIVE_STUDENTS_FOR_ADMIT_CARD_REQUEST,
@@ -20,9 +20,11 @@ export const getInitialStudentRegistrationDataAction =
     try {
       dispatch({ type: GET_INITIAL_ADMIT_CARD_DATA_REQUEST });
 
-      const { data } =
-        await axios.get(`${API_URL}/api/ExamAdmitCard/GetAllExamAdmitCard
-        `);
+      const { data } = await axios.get(
+        `${API_URL}/api/ExamAdmitCard/GetAllExamAdmitCard
+        `,
+        tokenConfig
+      );
 
       dispatch({
         type: GET_INITIAL_ADMIT_CARD_DATA_SUCCESS,
@@ -41,9 +43,11 @@ export const getActiveStudentsForAdmitCardDataAction =
     try {
       dispatch({ type: GET_ACTIVE_STUDENTS_FOR_ADMIT_CARD_REQUEST });
 
-      const { data } =
-        await axios.get(`${API_URL}/api/GetActiveStudentsOnly/${year}/${program}/${classId}/${shift}
-        `);
+      const { data } = await axios.get(
+        `${API_URL}/api/ExamAdmitCard/GetActiveStudentsOnly?idAcademicYear=${year}&idFacultyProgramLink=${program}&level=${classId}&idShift=${shift}
+        `,
+        tokenConfig
+      );
 
       dispatch({
         type: GET_ACTIVE_STUDENTS_FOR_ADMIT_CARD_SUCCESS,
@@ -62,9 +66,10 @@ export const searchStudentsForAdmitCardDataAction =
     try {
       dispatch({ type: SEARCH_STUDENTS_FOR_ADMIT_CARD_REQUEST });
 
-      const { data } =
-        await axios.get(`${API_URL}/api/GetListExamAdmitCard/${year}/${program}/${classId}/${section}/${shift}/${event}/${id}/0
-        `);
+      const { data } = await axios.get(
+        `${API_URL}/api/ExamAdmitCard/GetListExamAdmitCard?idAcademicYear=${year}&idFacultyProgramLink=${program}&level=${classId}&section=${section}&idShift=${shift}&idAcademicYearCalendar=${event}&idStudent=${id}&searchKey=1`,
+        tokenConfig
+      );
 
       dispatch({
         type: SEARCH_STUDENTS_FOR_ADMIT_CARD_SUCCESS,
@@ -84,9 +89,10 @@ export const printStudentsAdmitCardDataAction =
     try {
       dispatch({ type: PRINT_STUDENTS_ADMIT_CARD_REQUEST });
 
-      const { data } =
-        await axios.get(`${API_URL}/api/GetBulkToPrintExamAdmitCard/${year}/${program}/${classId}/${section}/${shift}/${event}/${id}/${date}
-        `);
+      const { data } = await axios.get(
+        `${API_URL}/api/ExamAdmitCard/GetBulkToPrintExamAdmitCard?idAcademicYear=${year}&idFacultyProgramLink=${program}&level=${classId}&section=${section}&idShift=${shift}&idAcademicYearCalendar=${event}&idStudent=${id}&examDate=2022/02/02`,
+        tokenConfig
+      );
 
       dispatch({
         type: PRINT_STUDENTS_ADMIT_CARD_SUCCESS,

@@ -156,7 +156,6 @@ const AcademicClass = () => {
   };
 
   useEffect(() => {
-    dispatch({ type: "GET_LINK", payload: "/" });
     if (!academicClass) {
       dispatch(getAllAcademicClassAction());
     }

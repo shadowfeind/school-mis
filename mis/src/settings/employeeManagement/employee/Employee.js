@@ -26,9 +26,12 @@ import {
   EMPLOYEE_CREATE_RESET,
   GET_ALL_EMPLOYEE_CREATE_RESET,
   GET_ALL_EMPLOYEE_RESET,
+  GET_RESETPASSWORD_DATA_SINGLE_EMPLOYEE_RESET,
   GET_SINGLE_EMPLOYEE_RESET,
+  RESETPASSWORD_FOR_SINGLE_EMPLOYEE_RESET,
   UPDATE_SINGLE_EMPLOYEE_RESET,
 } from "./EmployeeConstants";
+import EmployeeReset from "./EmployeeReset";
 
 const useStyles = makeStyles((theme) => ({
   searchInput: {
@@ -68,6 +71,8 @@ const Employee = () => {
     title: "",
     subTitle: "",
   });
+  const [selectedIndex, setSelectedIndex] = useState("");
+  const [openResetPopup, setOpenResetPopup] = useState(false);
 
   const classes = useStyles();
 
@@ -81,6 +86,11 @@ const Employee = () => {
   const { singleEmployee, error: singleEmployeeError } = useSelector(
     (state) => state.getSingleEmployee
   );
+
+  const {
+    success: resetPasswordForSingleEmployeeSuccess,
+    error: resetPasswordForSingleEmployeeError,
+  } = useSelector((state) => state.resetPasswordForSingleEmployee);
 
   const {
     success: updateSingleEmployeeSuccess,
@@ -141,6 +151,25 @@ const Employee = () => {
     setOpenPopup(false);
     dispatch({ type: UPDATE_SINGLE_EMPLOYEE_RESET });
   }
+  if (resetPasswordForSingleEmployeeSuccess) {
+    dispatch(getAllEmployeeAction());
+    setNotify({
+      isOpen: true,
+      message: "Password Reset Successfully",
+      type: "success",
+    });
+    setOpenResetPopup(false);
+    dispatch({ type: RESETPASSWORD_FOR_SINGLE_EMPLOYEE_RESET });
+  }
+  if (resetPasswordForSingleEmployeeError) {
+    setNotify({
+      isOpen: true,
+      message: resetPasswordForSingleEmployeeError,
+      type: "error",
+    });
+    setOpenResetPopup(false);
+    dispatch({ type: RESETPASSWORD_FOR_SINGLE_EMPLOYEE_RESET });
+  }
 
   const updateCollegeHandler = (id) => {
     dispatch(getSingleEmployeeAction(id));
@@ -156,7 +185,6 @@ const Employee = () => {
   };
 
   useEffect(() => {
-    dispatch({ type: "GET_LINK", payload: "/" });
     if (!employee) {
       dispatch(getAllEmployeeAction());
     }
@@ -224,12 +252,16 @@ const Employee = () => {
           <TblHead />
 
           <TableBody>
-            {tableDataAfterPagingAndSorting().map((item) => (
+            {tableDataAfterPagingAndSorting().map((item, index) => (
               <EmployeeTableCollapse
                 item={item}
                 key={item.$id}
+                index={index}
+                selectedIndex={selectedIndex}
+                setSelectedIndex={setSelectedIndex}
                 updateCollegeHandler={updateCollegeHandler}
                 deleteCollegeHandler={deleteCollegeHandler}
+                setOpenResetPopup={setOpenResetPopup}
               />
             ))}
           </TableBody>
@@ -244,6 +276,16 @@ const Employee = () => {
         <EmployeeForm
           employee={singleEmployee && singleEmployee.hrEmployeeModel}
           setOpenPopup={setOpenPopup}
+        />
+      </Popup>
+      <Popup
+        openPopup={openResetPopup}
+        setOpenPopup={setOpenResetPopup}
+        title="Reset Employee Details"
+      >
+        <EmployeeReset
+          employeeDetails={singleEmployee && singleEmployee.hrEmployeeModel}
+          setOpenResetPopup={setOpenResetPopup}
         />
       </Popup>
       <Notification notify={notify} setNotify={setNotify} />

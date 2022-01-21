@@ -1,5 +1,5 @@
 import axios from "axios";
-import { API_URL } from "../../constants";
+import { API_URL, tokenConfig } from "../../constants";
 import {
   GET_ALL_ACADEMIC_GRADING_REQUEST,
   GET_ALL_ACADEMIC_GRADING_SUCCESS,
@@ -26,7 +26,8 @@ export const getAllAcademicGradingAction = () => async (dispatch) => {
     dispatch({ type: GET_ALL_ACADEMIC_GRADING_REQUEST });
 
     const { data } = await axios.get(
-      `${API_URL}/api/FacultyGradingSystem/GetAllAcademicGrading`
+      `${API_URL}/api/FacultyGradingSystem/GetAllAcademicGrading`,
+      tokenConfig
     );
     dispatch({ type: GET_ALL_ACADEMIC_GRADING_SUCCESS, payload: data });
   } catch (error) {
@@ -42,7 +43,8 @@ export const getSingleAcademicGradingAction = () => async (dispatch) => {
     dispatch({ type: GET_SINGLE_ACADEMIC_GRADING_REQUEST });
 
     const { data } = await axios.get(
-      `${API_URL}/api/GetToCreateFacultyGradingSystem/6/singleGetToCreate/`
+      `${API_URL}/api/GetToCreateFacultyGradingSystem/6/singleGetToCreate/`,
+      tokenConfig
     );
     dispatch({ type: GET_SINGLE_ACADEMIC_GRADING_SUCCESS, payload: data });
   } catch (error) {
@@ -62,16 +64,16 @@ export const createAcademicGradingAction =
       dispatch({ type: CREATE_ACADEMIC_GRADING_REQUEST });
       const jsonData = JSON.stringify({ dbModel: academicGrading });
 
-      const config = {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      };
+      // const config = {
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      // };
 
       const { data } = await axios.post(
         `${API_URL}/api/FacultyGradingSystem/PostFacultyGradingSystem`,
         jsonData,
-        config
+        tokenConfig
       );
       dispatch({ type: CREATE_ACADEMIC_GRADING_SUCCESS, payload: data });
     } catch (error) {
@@ -91,7 +93,8 @@ export const getSingleAcademicGradingforEditAction =
       dispatch({ type: GET_SINGLE_ACADEMIC_GRADING_EDIT_REQUEST });
 
       const { data } = await axios.get(
-        `${API_URL}/api/GetToEditSingleFacultyGradingSystem/${IDFacultyGradingSystem}/6/singleEdit`
+        `${API_URL}/api/GetToEditSingleFacultyGradingSystem/${IDFacultyGradingSystem}/6/singleEdit`,
+        tokenConfig
       );
       dispatch({
         type: GET_SINGLE_ACADEMIC_GRADING_EDIT_SUCCESS,
@@ -118,16 +121,16 @@ export const updateSingleAcademicGradingAction =
 
       const jsonData = JSON.stringify({ dbModel: academicGradingEdit });
 
-      const config = {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      };
+      // const config = {
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      // };
 
       const { data } = await axios.put(
         `${API_URL}/api/FacultyGradingSystem/PutFacultyGradingSystem`,
         jsonData,
-        config
+        tokenConfig
       );
       dispatch({ type: UPDATE_SINGLE_ACADEMIC_GRADING_SUCCESS, payload: data });
     } catch (error) {

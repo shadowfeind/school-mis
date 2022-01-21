@@ -1,5 +1,5 @@
 import axios from "axios";
-import { API_URL } from "../../../constants";
+import { API_URL, tokenConfig } from "../../../constants";
 import {
   ACADEMIC_YEAR_CREATE_FAIL,
   ACADEMIC_YEAR_CREATE_REQUEST,
@@ -20,7 +20,8 @@ export const getAllAcademicYearAction = () => async (dispatch) => {
     dispatch({ type: GET_ALL_ACADEMIC_YEAR_REQUEST });
 
     const { data } = await axios.get(
-      `${API_URL}/api/AcademicYear/GetAcademicYear`
+      `${API_URL}/api/AcademicYear/GetAcademicYear`,
+      tokenConfig
     );
 
     dispatch({ type: GET_ALL_ACADEMIC_YEAR_SUCCESS, payload: data });
@@ -42,16 +43,16 @@ export const AcademicYearCreateAction =
         postedChekboxLst: { CheckBoxListID: checkboxState },
       });
 
-      const config = {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      };
+      // const config = {
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      // };
 
       const { data } = await axios.post(
         `${API_URL}/api/AcademicYear/PostYear`,
         jsonData,
-        config
+        tokenConfig
       );
 
       dispatch({ type: ACADEMIC_YEAR_CREATE_SUCCESS, payload: data });
@@ -68,7 +69,8 @@ export const getAcademicYearOptionAction = () => async (dispatch) => {
     dispatch({ type: GET_ACADEMIC_YEAR_OPTION_REQUEST });
 
     const { data } = await axios.get(
-      `${API_URL}/api/GetToCreateAcademicYear/0/0/create`
+      `${API_URL}/api/GetToCreateAcademicYear/0/0/create`,
+      tokenConfig
     );
 
     dispatch({ type: GET_ACADEMIC_YEAR_OPTION_SUCCESS, payload: data });
@@ -85,7 +87,8 @@ export const getSingleAcademicYearAction = (id) => async (dispatch) => {
     dispatch({ type: GET_SINGLE_ACADEMIC_YEAR_REQUEST });
 
     const { data } = await axios.get(
-      `${API_URL}/api/AcademicYear/GetAcademicYearById/${id}`
+      `${API_URL}/api/AcademicYear/GetAcademicYearById/${id}`,
+      tokenConfig
     );
 
     dispatch({ type: GET_SINGLE_ACADEMIC_YEAR_SUCCESS, payload: data });
@@ -105,16 +108,16 @@ export const updateSingleAcademicYearAction =
 
       const jsonData = JSON.stringify({ dbModel: academicYear });
 
-      const config = {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      };
+      // const config = {
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      // };
 
       const { data } = await axios.put(
         `${API_URL}/api/AcademicYear`,
         jsonData,
-        config
+        tokenConfig
       );
 
       dispatch({ type: UPDATE_SINGLE_ACADEMIC_YEAR_SUCCESS, payload: data });

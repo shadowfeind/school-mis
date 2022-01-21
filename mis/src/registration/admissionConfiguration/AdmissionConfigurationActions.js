@@ -1,5 +1,5 @@
 import axios from "axios";
-import { API_URL } from "../../constants";
+import { API_URL, tokenConfig } from "../../constants";
 import {
   CREATE_SINGLE_ADMISSION_CONFIG_FAIL,
   CREATE_SINGLE_ADMISSION_CONFIG_REQUEST,
@@ -26,7 +26,8 @@ export const getAdmissionConfigInitialDataAction = () => async (dispatch) => {
     dispatch({ type: GET_ADMISSION_CONFIG_INITIAL_DATA_REQUEST });
 
     const { data } = await axios.get(
-      `${API_URL}/api/AdmFacultyConfiguration/GetAllAdmFacultyConfiguration`
+      `${API_URL}/api/AdmFacultyConfiguration/GetAllAdmFacultyConfiguration`,
+      tokenConfig
     );
 
     dispatch({
@@ -47,7 +48,8 @@ export const getAdmissionConfigListDataAction =
       dispatch({ type: GET_ADMISSION_CONFIG_LIST_DATA_REQUEST });
 
       const { data } = await axios.get(
-        `${API_URL}/api/GetListAdmFacultyConfiguration/${year}/${program}/GetList`
+        `${API_URL}/api/GetListAdmFacultyConfiguration/${year}/${program}/GetList`,
+        tokenConfig
       );
 
       dispatch({
@@ -68,7 +70,8 @@ export const getSingleAdmissionConfigAction =
       dispatch({ type: GET_SINGLE_ADMISSION_CONFIG_REQUEST });
 
       const { data } = await axios.get(
-        `${API_URL}/api/SingleGetToEditAdmFacultyConfiguration/${id}/${year}/${program}`
+        `${API_URL}/api/SingleGetToEditAdmFacultyConfiguration/${id}/${year}/${program}`,
+        tokenConfig
       );
 
       dispatch({
@@ -89,16 +92,16 @@ export const updateSingleAdmissionConfigAction =
       dispatch({ type: UPDATE_SINGLE_ADMISSION_CONFIG_REQUEST });
       const jsonData = JSON.stringify({ dbModel: admConfig });
 
-      const config = {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      };
+      // const config = {
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      // };
 
       const { data } = await axios.put(
         `${API_URL}/api/AdmFacultyConfiguration/Put?actionType=0`,
         jsonData,
-        config
+        tokenConfig
       );
 
       dispatch({
@@ -119,7 +122,8 @@ export const getCreateSingleAdmissionConfigAction =
       dispatch({ type: GET_CREATE_SINGLE_ADMISSION_CONFIG_REQUEST });
 
       const { data } = await axios.get(
-        `${API_URL}/api/SingleGetToCreateAdmFacultyConfiguration/${year}/${program}/singleGetToCreate`
+        `${API_URL}/api/SingleGetToCreateAdmFacultyConfiguration/${year}/${program}/singleGetToCreate`,
+        tokenConfig
       );
 
       dispatch({
@@ -143,16 +147,16 @@ export const createSingleAdmissionConfigAction =
         dbModel: admConfig,
       });
 
-      const config = {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      };
+      // const config = {
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      // };
 
       const { data } = await axios.post(
         `${API_URL}/api/AdmFacultyConfiguration/Post`,
         jsonData,
-        config
+        tokenConfig
       );
 
       dispatch({

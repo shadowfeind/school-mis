@@ -1,9 +1,12 @@
 import axios from "axios";
-import { API_URL } from "../../constants";
+import { API_URL, tokenConfig } from "../../constants";
 import {
   GET_EVENT_FOR_EXAM_MARK_FAIL,
   GET_EVENT_FOR_EXAM_MARK_REQUEST,
   GET_EVENT_FOR_EXAM_MARK_SUCCESS,
+  GET_EXAM_LEDGER_HEADER_FAIL,
+  GET_EXAM_LEDGER_HEADER_REQUEST,
+  GET_EXAM_LEDGER_HEADER_SUCCESS,
   GET_EXAM_RESULT_LIST_FAIL,
   GET_EXAM_RESULT_LIST_REQUEST,
   GET_EXAM_RESULT_LIST_SUCCESS,
@@ -13,14 +16,20 @@ import {
   GET_INITIAL_EXAM_RESULT_STUDENT_OPTIONS_FAIL,
   GET_INITIAL_EXAM_RESULT_STUDENT_OPTIONS_REQUEST,
   GET_INITIAL_EXAM_RESULT_STUDENT_OPTIONS_SUCCESS,
+  PRINT_EXAM_RESULT_FAIL,
+  PRINT_EXAM_RESULT_REQUEST,
+  PRINT_EXAM_RESULT_SUCCESS,
 } from "./ExamResultConstants";
 
 export const getInitialExamResultDataAction = () => async (dispatch) => {
   try {
     dispatch({ type: GET_INITIAL_EXAM_RESULT_DATA_REQUEST });
 
-    const { data } = await axios.get(`${API_URL}/api/ExamResult/GetAllExamResult
-        `);
+    const { data } = await axios.get(
+      `${API_URL}/api/ExamResult/GetAllExamResult
+        `,
+      tokenConfig
+    );
 
     dispatch({
       type: GET_INITIAL_EXAM_RESULT_DATA_SUCCESS,
@@ -39,9 +48,11 @@ export const getEventForExamMarkAction =
     try {
       dispatch({ type: GET_EVENT_FOR_EXAM_MARK_REQUEST });
 
-      const { data } =
-        await axios.get(`${API_URL}/api/GetActiveAcademicYearCalendar/${year}/${program}/${classId}
-          `);
+      const { data } = await axios.get(
+        `${API_URL}/api/GetActiveAcademicYearCalendar/${year}/${program}/${classId}
+          `,
+        tokenConfig
+      );
 
       dispatch({
         type: GET_EVENT_FOR_EXAM_MARK_SUCCESS,
@@ -60,9 +71,11 @@ export const getStudentOptionsForExamMarkAction =
     try {
       dispatch({ type: GET_INITIAL_EXAM_RESULT_STUDENT_OPTIONS_REQUEST });
 
-      const { data } =
-        await axios.get(`${API_URL}/api/GetStudent/${year}/${program}/${classId}/${shift}
-          `);
+      const { data } = await axios.get(
+        `${API_URL}/api/GetStudent/${year}/${program}/${classId}/${shift}
+          `,
+        tokenConfig
+      );
 
       dispatch({
         type: GET_INITIAL_EXAM_RESULT_STUDENT_OPTIONS_SUCCESS,
@@ -82,9 +95,11 @@ export const getExamResultListAction =
     try {
       dispatch({ type: GET_EXAM_RESULT_LIST_REQUEST });
 
-      const { data } =
-        await axios.get(`${API_URL}/api/GetListExamResult/${year}/${program}/${classId}/${section}/${shift}/${event}/${studentId}
-          `);
+      const { data } = await axios.get(
+        `${API_URL}/api/GetListExamResult/${year}/${program}/${classId}/${shift}/${section}/${event}/${studentId}
+          `,
+        tokenConfig
+      );
 
       dispatch({
         type: GET_EXAM_RESULT_LIST_SUCCESS,
@@ -93,6 +108,54 @@ export const getExamResultListAction =
     } catch (error) {
       dispatch({
         type: GET_EXAM_RESULT_LIST_FAIL,
+        payload: error.message ? error.message : error.Message,
+      });
+    }
+  };
+
+export const getExamLedgerHeaderAction =
+  (year, program, classId, section, shift, event, studentId) =>
+  async (dispatch) => {
+    try {
+      dispatch({ type: GET_EXAM_LEDGER_HEADER_REQUEST });
+
+      const { data } = await axios.get(
+        `${API_URL}/api/GetPrintLedger/${year}/${program}/${classId}/${section}/${shift}/${event}/${studentId}?searchKey=1
+          `,
+        tokenConfig
+      );
+
+      dispatch({
+        type: GET_EXAM_LEDGER_HEADER_SUCCESS,
+        payload: data,
+      });
+    } catch (error) {
+      dispatch({
+        type: GET_EXAM_LEDGER_HEADER_FAIL,
+        payload: error.message ? error.message : error.Message,
+      });
+    }
+  };
+
+export const printExamResultAction =
+  (year, program, classId, section, shift, event, studentId) =>
+  async (dispatch) => {
+    try {
+      dispatch({ type: PRINT_EXAM_RESULT_REQUEST });
+
+      const { data } = await axios.get(
+        `${API_URL}/api/GetPrintLedger/${year}/${program}/${classId}/${section}/${shift}/${event}/${studentId}?searchKey=1
+          `,
+        tokenConfig
+      );
+
+      dispatch({
+        type: PRINT_EXAM_RESULT_SUCCESS,
+        payload: data,
+      });
+    } catch (error) {
+      dispatch({
+        type: PRINT_EXAM_RESULT_FAIL,
         payload: error.message ? error.message : error.Message,
       });
     }

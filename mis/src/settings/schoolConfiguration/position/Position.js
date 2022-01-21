@@ -158,7 +158,6 @@ const Position = () => {
   };
 
   useEffect(() => {
-    dispatch({ type: "GET_LINK", payload: "/" });
     if (!position) {
       dispatch(getAllPositionAction());
     }

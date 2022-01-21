@@ -15,6 +15,8 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUp";
 import Collapse from "@material-ui/core/Collapse";
+import { useDispatch } from "react-redux";
+import { getSingleEmployeeAction } from "./EmployeeActions";
 
 const useStyles = makeStyles({
   button: {
@@ -29,10 +31,26 @@ const EmployeeTableCollapse = ({
   item,
   updateCollegeHandler,
   deleteCollegeHandler,
+  index,
+  selectedIndex,
+  setSelectedIndex,
+  setOpenResetPopup,
 }) => {
-  const [open, setOpen] = useState(false);
+  const dispatch = useDispatch();
+  const handleClick = (index, id) => {
+    if (selectedIndex === index) {
+      setSelectedIndex("");
+    } else {
+      setSelectedIndex(index);
+    }
+  };
 
   const classes = useStyles();
+
+  const handleReset = (id) => {
+    dispatch(getSingleEmployeeAction(id));
+    setOpenResetPopup(true);
+  };
 
   return (
     <>
@@ -61,11 +79,11 @@ const EmployeeTableCollapse = ({
           </Button>
           <Button
             variant="contained"
-            onClick={() => setOpen(!open)}
+            onClick={() => handleClick(index)}
             className={classes.button}
           >
             {" "}
-            {open ? (
+            {selectedIndex ? (
               <KeyboardArrowUpIcon style={{ fontSize: 12 }} />
             ) : (
               <KeyboardArrowDownIcon style={{ fontSize: 12 }} />
@@ -75,7 +93,7 @@ const EmployeeTableCollapse = ({
       </TableRow>
       <TableRow key={item.$id * 0.001}>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={12}>
-          <Collapse in={open} timeout="auto" unmountOnExit>
+          <Collapse in={index === selectedIndex} timeout="auto" unmountOnExit>
             <Box margin={1}>
               <Typography variant="p" gutterBottom component="div">
                 Details
@@ -102,6 +120,16 @@ const EmployeeTableCollapse = ({
                 </Grid>
                 <Grid item md={6} style={{}}>
                   <List>
+                    <ListItem>
+                      <Button
+                        variant="contained"
+                        color="secondary"
+                        className={classes.button}
+                        onClick={() => handleReset(item.IDHREmployee)}
+                      >
+                        Reset Password
+                      </Button>
+                    </ListItem>
                     <ListItem>
                       <strong>Email ID</strong>: {item.EmailID}
                     </ListItem>

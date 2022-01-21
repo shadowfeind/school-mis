@@ -1,5 +1,5 @@
 import axios from "axios";
-import { API_URL } from "../../../constants";
+import { API_URL, tokenConfig } from "../../../constants";
 import {
   GET_ALL_POSITION_FAIL,
   GET_ALL_POSITION_REQUEST,
@@ -19,8 +19,11 @@ export const getAllPositionAction = () => async (dispatch) => {
   try {
     dispatch({ type: GET_ALL_POSITION_REQUEST });
 
-    const { data } = await axios.get(`${API_URL}/api/HRPosition/GetHRPosition
-    `);
+    const { data } = await axios.get(
+      `${API_URL}/api/HRPosition/GetHRPosition
+    `,
+      tokenConfig
+    );
 
     dispatch({ type: GET_ALL_POSITION_SUCCESS, payload: data });
   } catch (error) {
@@ -37,16 +40,16 @@ export const positionCreateAction = (position) => async (dispatch) => {
 
     const jsonData = JSON.stringify({ dbModel: position });
 
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
+    // const config = {
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    // };
 
     const { data } = await axios.post(
       `${API_URL}/api/HRPosition/PostHRPosition`,
       jsonData,
-      config
+      tokenConfig
     );
 
     dispatch({ type: POSITION_CREATE_SUCCESS, payload: data });
@@ -81,16 +84,16 @@ export const updateSinglePositionAction = (position) => async (dispatch) => {
 
     const jsonData = JSON.stringify({ dbModel: position });
 
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
+    // const config = {
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    // };
 
     const { data } = await axios.put(
       `${API_URL}/api/HRPosition/PutHRPosition`,
       jsonData,
-      config
+      tokenConfig
     );
 
     dispatch({ type: UPDATE_SINGLE_POSITION_SUCCESS, payload: data });

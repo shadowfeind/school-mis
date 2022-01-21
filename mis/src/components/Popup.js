@@ -21,7 +21,7 @@ const useStyles = makeStyles({
 const Popup = ({ title, children, openPopup, setOpenPopup }) => {
   const classes = useStyles();
   return (
-    <Dialog maxWidth="xl" open={openPopup}>
+    <Dialog maxWidth="lg" open={openPopup}>
       <DialogTitle>
         <div style={{ display: "flex", justifyContent: "center" }}>
           <h5 style={{ flexGrow: 1, margin: "10px 0" }}>{title}</h5>{" "}

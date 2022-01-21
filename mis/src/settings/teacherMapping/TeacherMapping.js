@@ -54,7 +54,7 @@ const TeacherMapping = () => {
     setValue(newValue);
   };
   useEffect(() => {
-    dispatch({ type: "GET_LINK", payload: "/" });
+    dispatch({ type: "GET_LINK", payload: "/settings" });
   }, [dispatch]);
   return (
     <div>

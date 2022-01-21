@@ -1,5 +1,5 @@
 import axios from "axios";
-import { API_URL } from "../../../constants";
+import { API_URL, tokenConfig } from "../../../constants";
 import {
   ACADEMIC_FACULTY_CREATE_FAIL,
   ACADEMIC_FACULTY_CREATE_REQUEST,
@@ -23,7 +23,8 @@ export const getAllAcademicFacultyAction = () => async (dispatch) => {
     dispatch({ type: GET_ALL_ACADEMIC_FACULTY_REQUEST });
 
     const { data } = await axios.get(
-      `${API_URL}/api/AcademicFaculty/GetAcademicFaculty`
+      `${API_URL}/api/AcademicFaculty/GetAcademicFaculty`,
+      tokenConfig
     );
 
     dispatch({ type: GET_ALL_ACADEMIC_FACULTY_SUCCESS, payload: data });
@@ -45,16 +46,16 @@ export const AcademicFacultyCreateAction =
         postedChekboxLst: { CheckBoxListID: checkboxState },
       });
 
-      const config = {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      };
+      // const config = {
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      // };
 
       const { data } = await axios.post(
         `${API_URL}/api/AcademicFaculty/PostAcademicFaculty`,
         jsonData,
-        config
+        tokenConfig
       );
 
       dispatch({ type: ACADEMIC_FACULTY_CREATE_SUCCESS, payload: data });
@@ -71,7 +72,8 @@ export const getAcademicFacultyOptionAction = () => async (dispatch) => {
     dispatch({ type: GET_ACADEMIC_FACULTY_OPTION_REQUEST });
 
     const { data } = await axios.get(
-      `${API_URL}/api/GetToCreateAcademicFaculty/0/0/create`
+      `${API_URL}/api/GetToCreateAcademicFaculty/0/0/create`,
+      tokenConfig
     );
 
     dispatch({ type: GET_ACADEMIC_FACULTY_OPTION_SUCCESS, payload: data });
@@ -88,7 +90,8 @@ export const getSingleAcademicFacultyAction = (id) => async (dispatch) => {
     dispatch({ type: GET_SINGLE_ACADEMIC_FACULTY_REQUEST });
 
     const { data } = await axios.get(
-      `${API_URL}/api/AcademicFaculty/GetAcademicFacultyById/${id}`
+      `${API_URL}/api/AcademicFaculty/GetAcademicFacultyById/${id}`,
+      tokenConfig
     );
 
     dispatch({ type: GET_SINGLE_ACADEMIC_FACULTY_SUCCESS, payload: data });
@@ -107,16 +110,16 @@ export const updateSingleAcademicFacultyAction =
 
       const jsonData = JSON.stringify({ dbModel: academicFaculty });
 
-      const config = {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      };
+      // const config = {
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      // };
 
       const { data } = await axios.put(
         `${API_URL}/api/AcademicFaculty`,
         jsonData,
-        config
+        tokenConfig
       );
 
       dispatch({ type: UPDATE_SINGLE_ACADEMIC_FACULTY_SUCCESS, payload: data });

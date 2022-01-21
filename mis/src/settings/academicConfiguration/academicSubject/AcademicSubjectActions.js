@@ -1,5 +1,5 @@
 import axios from "axios";
-import { API_URL } from "../../../constants";
+import { API_URL, tokenConfig } from "../../../constants";
 import {
   GET_All_ACADEMIC_SUBJECT_REQUEST,
   GET_ALL_ACADEMIC_SUBJECT_SUCCES,
@@ -20,7 +20,8 @@ export const getAllAcademicSubjectAction = () => async (dispatch) => {
   try {
     dispatch({ type: GET_All_ACADEMIC_SUBJECT_REQUEST });
     const { data } = await axios.get(
-      `${API_URL}/api/AcademicSubject/GetAcademicSubject`
+      `${API_URL}/api/AcademicSubject/GetAcademicSubject`,
+      tokenConfig
     );
 
     dispatch({ type: GET_ALL_ACADEMIC_SUBJECT_SUCCES, payload: data });
@@ -36,7 +37,8 @@ export const getSingleAcademicSubjectAction = (id) => async (dispatch) => {
   try {
     dispatch({ type: GET_SINGLE_ACADEMIC_SUBJECT_REQUEST });
     const { data } = await axios.get(
-      `${API_URL}/api/AcademicSubject/GetAcademicSubject/${id}`
+      `${API_URL}/api/AcademicSubject/GetAcademicSubject/${id}`,
+      tokenConfig
     );
 
     dispatch({ type: GET_SINGLE_ACADEMIC_SUBJECT_SUCCESS, payload: data });
@@ -54,16 +56,16 @@ export const academicSubjectCreateAction =
       dispatch({ type: ACADEMIC_SUBJECT_CREATE_REQUEST });
 
       const jsonData = JSON.stringify({ dbModel: academicSubject });
-      const config = {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      };
+      // const config = {
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      // };
 
       const { data } = await axios.post(
         `${API_URL}/api/AcademicSubject/PostAcademicSubject`,
         jsonData,
-        config
+        tokenConfig
       );
 
       dispatch({ type: ACADEMIC_SUBJECT_CREATE_SUCCESS, payload: data });
@@ -82,16 +84,16 @@ export const updateSingleAcademicSubjectAction =
 
       const jsonData = JSON.stringify({ dbModel: academicSubject });
 
-      const config = {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      };
+      // const config = {
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      // };
 
       const { data } = await axios.put(
         `${API_URL}/api/AcademicSubject/PutAcademicSubject`,
         jsonData,
-        config
+        tokenConfig
       );
       dispatch({ type: UPDATE_SINGLE_ACADEMIC_SUBJECT_SUCCESS, payload: data });
     } catch (error) {

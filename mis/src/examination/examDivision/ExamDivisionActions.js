@@ -1,5 +1,5 @@
 import axios from "axios";
-import { API_URL } from "../../constants";
+import { API_URL, tokenConfig } from "../../constants";
 
 import {
   GET_ALL_EXAM_DIVISION_REQUEST,
@@ -27,7 +27,8 @@ export const getAllExamDivisionAction = () => async (dispatch) => {
   try {
     dispatch({ type: GET_ALL_EXAM_DIVISION_REQUEST });
     const { data } = await axios.get(
-      `${API_URL}/api/AcademicExamDivision/GetAllExamDivision`
+      `${API_URL}/api/AcademicExamDivision/GetAllExamDivision`,
+      tokenConfig
     );
 
     dispatch({ type: GET_ALL_EXAM_DIVISION_SUCCESS, payload: data });
@@ -47,7 +48,8 @@ export const getSingleExamDivisionAction = () => async (dispatch) => {
     dispatch({ type: GET_SINGLE_EXAM_DIVISION_REQUEST });
 
     const { data } = await axios.get(
-      `${API_URL}/api/GetToCreateAcademicExamDivision/6/singleGetToCreate`
+      `${API_URL}/api/GetToCreateAcademicExamDivision/6/singleGetToCreate`,
+      tokenConfig
     );
 
     dispatch({ type: GET_SINGLE_EXAM_DIVISION_SUCCESS, payload: data });
@@ -68,16 +70,16 @@ export const createExamDivisionAction = (examDivision) => async (dispatch) => {
 
     const jsonData = JSON.stringify({ dbModel: examDivision });
 
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
+    // const config = {
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    // };
 
     const { data } = await axios.post(
       `${API_URL}/api/AcademicExamDivision/PostAcademicExamDivision`,
       jsonData,
-      config
+      tokenConfig
     );
 
     dispatch({ type: CREATE_EXAM_DIVISION_SUCCESS, payload: data });
@@ -98,7 +100,8 @@ export const getSingleExamDivisionEditAction =
       dispatch({ type: GET_SINGLE_EXAM_DIVISION_EDIT_REQUEST });
 
       const { data } = await axios.get(
-        `${API_URL}/api/GetToEditSingleAcademicExamDivision/${IDAcademicExamDivision}/${idFacultyProgramLink}/singleEdit`
+        `${API_URL}/api/GetToEditSingleAcademicExamDivision/${IDAcademicExamDivision}/${idFacultyProgramLink}/singleEdit`,
+        tokenConfig
       );
 
       dispatch({ type: GET_SINGLE_EXAM_DIVISION_EDIT_SUCCESS, payload: data });
@@ -120,16 +123,16 @@ export const updateSingleExamDivisionAction =
 
       const jsonData = JSON.stringify({ dbModel: examDivision });
 
-      const config = {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      };
+      // const config = {
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      // };
 
       const { data } = await axios.put(
         ` ${API_URL}/api/AcademicExamDivision/PutAcademicExamDivision`,
         jsonData,
-        config
+        tokenConfig
       );
 
       dispatch({ type: UPDATE_SINGLE_EXAM_DIVISION_SUCCESS, payload: data });

@@ -6,6 +6,10 @@ import {
   GET_BULK_EXAM_APPROVAL_REQUEST,
   GET_BULK_EXAM_APPROVAL_RESET,
   GET_BULK_EXAM_APPROVAL_SUCCESS,
+  GET_EXAM_APPROVAL_SCHEULE_HEADER_FAIL,
+  GET_EXAM_APPROVAL_SCHEULE_HEADER_REQUEST,
+  GET_EXAM_APPROVAL_SCHEULE_HEADER_RESET,
+  GET_EXAM_APPROVAL_SCHEULE_HEADER_SUCCESS,
   GET_INITIAL_EXAM_APPORVAL_DATA_FAIL,
   GET_INITIAL_EXAM_APPORVAL_DATA_REQUEST,
   GET_INITIAL_EXAM_APPORVAL_DATA_SUCCESS,
@@ -36,6 +40,21 @@ export const getExamApprovalSearchDataReducer = (state = {}, action) => {
       return { loading: false, searchData: action.payload, success: true };
     case GET_ALL_EXAM_APPROVAL_SEARCHDATA_FAIL:
       return { loading: false, error: action.payload };
+    default:
+      return state;
+  }
+};
+
+export const getExamApprovalScheduleHeaderReducer = (state = {}, action) => {
+  switch (action.type) {
+    case GET_EXAM_APPROVAL_SCHEULE_HEADER_REQUEST:
+      return { loading: true };
+    case GET_EXAM_APPROVAL_SCHEULE_HEADER_SUCCESS:
+      return { loading: false, scheduleHeader: action.payload, success: true };
+    case GET_EXAM_APPROVAL_SCHEULE_HEADER_FAIL:
+      return { loading: false, error: action.payload };
+    case GET_EXAM_APPROVAL_SCHEULE_HEADER_RESET:
+      return {};
     default:
       return state;
   }

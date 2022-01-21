@@ -15,15 +15,23 @@ import ConfirmDialog from "../../components/ConfirmDialog";
 import SelectControl from "../../components/controls/SelectControl";
 import {
   getEventForExamMarkAction,
+  getExamLedgerHeaderAction,
   getExamResultListAction,
   getInitialExamResultDataAction,
   getStudentOptionsForExamMarkAction,
+  printExamResultAction,
 } from "./ExamResultActions";
 import {
   GET_EVENT_FOR_EXAM_MARK_RESET,
+  GET_EXAM_LEDGER_HEADER_RESET,
+  GET_EXAM_RESULT_LIST_RESET,
   GET_INITIAL_EXAM_RESULT_STUDENT_OPTIONS_RESET,
 } from "./ExamResultConstants";
 import ExamResultTableCollapse from "./ExamResultTableCollapse";
+import ExamResultDesign from "./ExamResultDesign";
+import { testExamJson } from "./testExamResult";
+import ExamResultModel from "./ExamResultModel";
+import ExamAnnualResultTable from "./ExamAnnualResultTable";
 
 const useStyles = makeStyles((theme) => ({
   searchInput: {
@@ -59,6 +67,8 @@ const ExamResult = () => {
   const dispatch = useDispatch();
   const classes = useStyles();
   const [openPopup, setOpenPopup] = useState(false);
+  const [showDataTable, setShowDatatable] = useState(false); //to avoid data changing when chaning select control
+  const [showAnnualLedger, setShowAnnualLedger] = useState(false);
 
   const [notify, setNotify] = useState({
     isOpen: false,
@@ -82,6 +92,19 @@ const ExamResult = () => {
     studentOptionsForExamMark,
     success: studentOptionsForExamMarkSuccess,
   } = useSelector((state) => state.getInitialExamResultStudentOptions);
+
+  const { examResultList, error: getexamResultListError } = useSelector(
+    (state) => state.getExamResultList
+  );
+
+  if (getexamResultListError) {
+    setNotify({
+      isOpen: true,
+      message: getexamResultListError,
+      type: "error",
+    });
+    dispatch({ type: GET_EXAM_RESULT_LIST_RESET });
+  }
 
   if (getExamMarkEventSuccess) {
     setDdlEvent(allEventsForExamMark);
@@ -112,6 +135,7 @@ const ExamResult = () => {
   }, [examResultInitialDatas, dispatch]);
 
   const handleYearChange = (value) => {
+    setShowDatatable(false);
     setAcaYear(value);
     if (classId) {
       dispatch(getEventForExamMarkAction(value, programValue, classId));
@@ -122,6 +146,7 @@ const ExamResult = () => {
   };
 
   const handleClassIdChange = (value) => {
+    setShowDatatable(false);
     setClassId(value);
     dispatch(getEventForExamMarkAction(acaYear, programValue, value));
     dispatch(
@@ -130,14 +155,26 @@ const ExamResult = () => {
   };
 
   const handleShiftChange = (value) => {
+    setShowDatatable(false);
     setShift(value);
     dispatch(
       getStudentOptionsForExamMarkAction(acaYear, programValue, classId, value)
     );
   };
 
-  const handleExamResultSearch = () => {
-    if ((acaYear, programValue, classId, shift, section, event, student)) {
+  const studentHandler = (e) => {
+    setShowDatatable(false);
+    setStudent(e.target.value);
+  };
+
+  const eventHandler = (e) => {
+    setShowDatatable(false);
+    setEvent(e.target.value);
+  };
+
+  const handleLedgerSearch = () => {
+    setShowAnnualLedger(false);
+    if ((acaYear, programValue, classId, shift, section, event)) {
       dispatch(
         getExamResultListAction(
           acaYear,
@@ -149,9 +186,33 @@ const ExamResult = () => {
           student
         )
       );
+      setShowDatatable(true);
     }
   };
 
+  const handleBulkPrint = () => {
+    setShowDatatable(false);
+    setShowAnnualLedger(false);
+    if ((acaYear, programValue, classId, section, shift, event)) {
+      dispatch(
+        printExamResultAction(
+          acaYear,
+          programValue,
+          classId,
+          section,
+          shift,
+          event,
+          student
+        )
+      );
+    }
+    setOpenPopup(true);
+  };
+
+  const handleAnnualLedgerSearch = () => {
+    setShowDatatable(false);
+    setShowAnnualLedger(true);
+  };
   return (
     <>
       <CustomContainer>
@@ -209,7 +270,7 @@ const ExamResult = () => {
                 name="EventName"
                 label="Event Name"
                 value={event}
-                onChange={(e) => setEvent(e.target.value)}
+                onChange={(e) => eventHandler(e)}
                 options={ddlEvent ? ddlEvent : test}
               />
             </Grid>
@@ -219,7 +280,7 @@ const ExamResult = () => {
                 name="Student"
                 label="Student"
                 value={student}
-                onChange={(e) => setStudent(e.target.value)}
+                onChange={(e) => studentHandler(e)}
                 options={ddlStudent ? ddlStudent : test}
               />
             </Grid>
@@ -230,7 +291,7 @@ const ExamResult = () => {
                 color="primary"
                 type="submit"
                 style={{ margin: "10px 0 0 10px" }}
-                onClick={handleExamResultSearch}
+                onClick={handleLedgerSearch}
               >
                 SEARCH
               </Button>
@@ -239,39 +300,42 @@ const ExamResult = () => {
                 color="primary"
                 type="submit"
                 style={{ margin: "10px 0 0 10px" }}
-                // onClick={handleExamApprovalSearch}
+                onClick={handleBulkPrint}
               >
-                APPROVE
+                PRINT RESULT
+              </Button>
+              <Button
+                variant="contained"
+                color="primary"
+                type="submit"
+                style={{ margin: "10px 0 0 10px" }}
+                onClick={handleAnnualLedgerSearch}
+              >
+                ANNUAL LEDGER
               </Button>
             </Grid>
           </Grid>
         </Toolbar>
-        <ExamResultTableCollapse />
-        {/* {searchData && (
-      <TableContainer className={classes.table}>
-        <TblHead />
-
-        <TableBody>
-          {tableDataAfterPagingAndSorting().map((item) => (
-            <ExamMarkApprovalTableCollapse item={item} key={item.$id} />
-          ))}
-        </TableBody>
-      </TableContainer>
-    )}
-
-    {searchData && <TblPagination />} */}
+        {examResultList && (
+          <ExamResultTableCollapse
+            ledgerHeader={
+              examResultList &&
+              examResultList.ddlAcademicFacultySubjectLinkSubModel
+            }
+            student={examResultList && examResultList.dbModelLst}
+            mark={examResultList && examResultList.dbMarkModelLst}
+            showDataTable={showDataTable}
+            result={examResultList && examResultList.dbModelResultLst}
+            rank={examResultList && examResultList.dbModelRankLst}
+            // ledgerHeader={testExamJson.ddlAcademicFacultySubjectLinkSubModel}
+            // student={testExamJson.dbModelLst}
+            // mark={testExamJson.dbMarkModelLst}
+          />
+        )}
+        {showAnnualLedger && <ExamAnnualResultTable />}
       </CustomContainer>
-      <Popup
-        openPopup={openPopup}
-        setOpenPopup={setOpenPopup}
-        title="Bulk Edit"
-      >
-        {/* <ExamMarkApprovalBulk
-      statusData={
-        bulkData && bulkData.searchFilterModel.ddlStudentExamStatus
-      }
-      bulkData={bulkData && bulkData.dbModelLsts}
-    /> */}
+      <Popup openPopup={openPopup} setOpenPopup={setOpenPopup} title="">
+        <ExamResultModel />
       </Popup>
       <Notification notify={notify} setNotify={setNotify} />
       <ConfirmDialog

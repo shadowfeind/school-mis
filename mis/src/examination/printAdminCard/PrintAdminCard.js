@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import {
   Button,
   InputAdornment,
@@ -28,7 +28,8 @@ import { GET_ACTIVE_STUDENTS_FOR_ADMIT_CARD_RESET } from "./PrintAdminCardConsta
 import PrintAdminCardTableCollapse from "./PrintAdminCardTableCollapse";
 import DatePickerControl from "../../components/controls/DatePickerControl";
 import PrintAdminCardPrint from "./PrintAdminCardPrint";
-import AdmitCardDesign from "./AdmitCardDesign";
+import { useReactToPrint } from "react-to-print";
+import "./customPrint.css";
 
 const useStyles = makeStyles((theme) => ({
   searchInput: {
@@ -74,7 +75,7 @@ const PrintAdminCard = () => {
   const [section, setSection] = useState(1);
   const [event, setEvent] = useState();
   const [student, setStudent] = useState(0);
-  const [date, setDate] = useState("12-22-2022");
+  const [date, setDate] = useState(Date.now());
   const dispatch = useDispatch();
   const classes = useStyles();
 
@@ -258,6 +259,11 @@ const PrintAdminCard = () => {
     setOpenPopup(true);
   };
 
+  const componentRef = useRef();
+  const printPdf = useReactToPrint({
+    content: () => componentRef.current,
+  });
+
   return (
     <>
       <CustomContainer>
@@ -397,6 +403,8 @@ const PrintAdminCard = () => {
           }
           classname={printStudentsAdmitCard && printStudentsAdmitCard.ClassName}
           examDate={printStudentsAdmitCard && printStudentsAdmitCard.examDate}
+          print={printPdf}
+          componentRef={componentRef}
         />
       </Popup>
 

@@ -145,7 +145,6 @@ const AcademicYear = () => {
   };
 
   useEffect(() => {
-    dispatch({ type: "GET_LINK", payload: "/" });
     if (!academicYear) {
       dispatch(getAllAcademicYearAction());
     }
@@ -156,7 +155,7 @@ const AcademicYear = () => {
 
   useEffect(() => {
     dispatch(getAcademicYearOptionAction());
-  }, []);
+  }, [dispatch]);
 
   const {
     TableContainer,
@@ -189,7 +188,7 @@ const AcademicYear = () => {
         <Toolbar>
           <InputControl
             className={classes.searchInput}
-            label="Search Academic Faculty"
+            label="Search Academic Year"
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">

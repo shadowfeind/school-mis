@@ -1,5 +1,5 @@
 import axios from "axios";
-import { API_URL } from "../../../constants";
+import { API_URL, tokenConfig } from "../../../constants";
 import {
   EMPLOYEE_TYPE_CREATE_FAIL,
   EMPLOYEE_TYPE_CREATE_REQUEST,
@@ -20,7 +20,8 @@ export const getAllEmployeeTypeAction = () => async (dispatch) => {
     dispatch({ type: GET_ALL_EMPLOYEE_TYPE_REQUEST });
 
     const { data } = await axios.get(
-      `${API_URL}/api/HREmployeeType/GetHREmployeeType`
+      `${API_URL}/api/HREmployeeType/GetHREmployeeType`,
+      tokenConfig
     );
 
     dispatch({ type: GET_ALL_EMPLOYEE_TYPE_SUCCESS, payload: data });
@@ -38,16 +39,16 @@ export const employeeTypeCreateAction = (employeeType) => async (dispatch) => {
 
     const jsonData = JSON.stringify({ hrEmployeeTypeModel: employeeType });
 
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
+    // const config = {
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    // };
 
     const { data } = await axios.post(
       `${API_URL}/api/HREmployeeType/PostHREmployeeType`,
       jsonData,
-      config
+      tokenConfig
     );
 
     dispatch({ type: EMPLOYEE_TYPE_CREATE_SUCCESS, payload: data });
@@ -64,7 +65,8 @@ export const getSingleEmployeeTypeAction = (id) => async (dispatch) => {
     dispatch({ type: GET_SINGLE_EMPLOYEE_TYPE_REQUEST });
 
     const { data } = await axios.get(
-      `${API_URL}/api/HREmployeeType/GetHREmployeeTypeById/${id}`
+      `${API_URL}/api/HREmployeeType/GetHREmployeeTypeById/${id}`,
+      tokenConfig
     );
 
     dispatch({ type: GET_SINGLE_EMPLOYEE_TYPE_SUCCESS, payload: data });
@@ -83,16 +85,16 @@ export const updateSingleEmployeeTypeAction =
 
       const jsonData = JSON.stringify({ hrEmployeeTypeModel: employeeType });
 
-      const config = {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      };
+      // const config = {
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      // };
 
       const { data } = await axios.put(
         `${API_URL}/api/HREmployeeType/PutHREmployeeType`,
         jsonData,
-        config
+        tokenConfig
       );
 
       dispatch({ type: UPDATE_SINGLE_EMPLOYEE_TYPE_SUCCESS, payload: data });

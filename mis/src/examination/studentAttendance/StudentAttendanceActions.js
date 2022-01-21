@@ -1,5 +1,5 @@
 import axios from "axios";
-import { API_URL } from "../../constants";
+import { API_URL, tokenConfig } from "../../constants";
 import {
   GET_ALL_STUDEN_ATTENDANCE_FAIL,
   GET_ALL_STUDEN_ATTENDANCE_INITIAL_DATA_FAIL,
@@ -20,9 +20,11 @@ export const getAllStudentAttendanceInitialDataAction =
     try {
       dispatch({ type: GET_ALL_STUDEN_ATTENDANCE_INITIAL_DATA_REQUEST });
 
-      const { data } =
-        await axios.get(`${API_URL}/api/StudentAttendance/GetAllStudentAttendance
-      `);
+      const { data } = await axios.get(
+        `${API_URL}/api/StudentAttendance/GetAllStudentAttendance
+      `,
+        tokenConfig
+      );
 
       dispatch({
         type: GET_ALL_STUDEN_ATTENDANCE_INITIAL_DATA_SUCCESS,
@@ -41,9 +43,11 @@ export const getAllStudentAttendanceAction =
     try {
       dispatch({ type: GET_ALL_STUDEN_ATTENDANCE_REQUEST });
 
-      const { data } =
-        await axios.get(`${API_URL}/api/GetListStudentAttendance/${year}/${program}/${classId}/${section}/${shift}/${event}/0/GetListStudentAttendance
-      `);
+      const { data } = await axios.get(
+        `${API_URL}/api/GetListStudentAttendance/${year}/${program}/${classId}/${section}/${shift}/${event}/0/GetListStudentAttendance
+      `,
+        tokenConfig
+      );
 
       dispatch({
         type: GET_ALL_STUDEN_ATTENDANCE_SUCCESS,
@@ -62,9 +66,11 @@ export const getBulkStudentAttendanceAction =
     try {
       dispatch({ type: GET_BULK_STUDENT_ATTENDANCE_REQUEST });
 
-      const { data } =
-        await axios.get(`${API_URL}/api/GetBulkAttendance/${year}/${program}/${classId}/${section}/${shift}/${event}
-      `);
+      const { data } = await axios.get(
+        `${API_URL}/api/GetBulkAttendance/${year}/${program}/${classId}/${section}/${shift}/${event}
+      `,
+        tokenConfig
+      );
 
       dispatch({
         type: GET_BULK_STUDENT_ATTENDANCE_SUCCESS,
@@ -90,16 +96,16 @@ export const postBulkStudentAttendanceAction =
 
       // console.log(jsonData);
 
-      const config = {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      };
+      // const config = {
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      // };
 
       await axios.post(
         `${API_URL}/api/StudentAttendance/PostStudentAttendance`,
         jsonData,
-        config
+        tokenConfig
       );
 
       dispatch({ type: POST_BULK_STUDENT_ATTENDANCE_SUCCESS });

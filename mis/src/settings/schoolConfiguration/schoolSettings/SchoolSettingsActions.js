@@ -1,5 +1,5 @@
 import axios from "axios";
-import { API_URL } from "../../../constants";
+import { API_URL, tokenConfig } from "../../../constants";
 import {
   GET_ALL_SCHOOL_SETTINGS_FAIL,
   GET_ALL_SCHOOL_SETTINGS_REQUEST,
@@ -21,7 +21,8 @@ export const getAllSchoolSettingsAction = () => async (dispatch) => {
 
     const { data } = await axios.get(
       `${API_URL}/api/ReactHRCompany/GetHRCompany
-      `
+      `,
+      tokenConfig
     );
 
     dispatch({ type: GET_ALL_SCHOOL_SETTINGS_SUCCESS, payload: data });
@@ -39,16 +40,16 @@ export const schoolSettingCreateAction = (position) => async (dispatch) => {
 
     const jsonData = JSON.stringify({ dbModel: position });
 
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
+    // const config = {
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    // };
 
     const { data } = await axios.post(
       `${API_URL}/api/ReactHRCompany/PostHRCompany`,
       jsonData,
-      config
+      tokenConfig
     );
 
     dispatch({ type: SCHOOL_SETTINGS_CREATE_SUCCESS, payload: data });
@@ -65,7 +66,8 @@ export const getSingleSchoolSettingAction = (id) => async (dispatch) => {
     dispatch({ type: GET_SINGLE_SCHOOL_SETTINGS_REQUEST });
 
     const { data } = await axios.get(
-      `${API_URL}/api/ReactHRCompany/GetHRCompany/${id}`
+      `${API_URL}/api/ReactHRCompany/GetHRCompany/${id}`,
+      tokenConfig
     );
 
     dispatch({ type: GET_SINGLE_SCHOOL_SETTINGS_SUCCESS, payload: data });
@@ -84,16 +86,16 @@ export const updateSingleScholSettingAction =
 
       const jsonData = JSON.stringify({ dbModel: position });
 
-      const config = {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      };
+      // const config = {
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      // };
 
       const { data } = await axios.put(
         `${API_URL}/api/ReactHRCompany/PutHRCompany`,
         jsonData,
-        config
+        tokenConfig
       );
 
       dispatch({ type: UPDATE_SINGLE_SCHOOL_SETTINGS_SUCCESS, payload: data });

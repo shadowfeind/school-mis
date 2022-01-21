@@ -92,7 +92,6 @@ const StudentIdCard = () => {
   }
 
   useEffect(() => {
-    dispatch({ type: "GET_LINK", payload: "/" });
     if (!studentIdCardInitialData) {
       dispatch(getInitialStudentIdCardDataAction());
     }

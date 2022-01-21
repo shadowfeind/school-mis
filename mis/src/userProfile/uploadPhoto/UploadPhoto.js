@@ -1,21 +1,15 @@
 import React, { useEffect, useState } from "react";
-import {
-  Button,
-  InputAdornment,
-  makeStyles,
-  TableBody,
-  Toolbar,
-} from "@material-ui/core";
-import useCustomTable from "../../customHooks/useCustomTable";
-import InputControl from "../../components/controls/InputControl";
-import { Search } from "@material-ui/icons";
-import AddIcon from "@material-ui/icons/Add";
-import Popup from "../../components/Popup";
+import { Button, makeStyles } from "@material-ui/core";
 import CustomContainer from "../../components/CustomContainer";
 import { useDispatch, useSelector } from "react-redux";
 import Notification from "../../components/Notification";
-import { GET_ALL_UPLOADPHOTO_RESET } from "./UploadPhotoConstants";
+import {
+  GET_ALL_UPLOADPHOTO_RESET,
+  UPLOADPHOTO_RESET,
+} from "./UploadPhotoConstants";
 import { getAllUploadPhotoAction } from "./UploadPhotoActions";
+import { API_URL } from "../../constants";
+import UploadPhotoForm from "./UploadPhotoForm";
 
 const useStyles = makeStyles((theme) => ({
   searchInput: {
@@ -28,23 +22,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const tableHeader = [
-  { id: "NewsHead", label: "News Head" },
-  { id: "NewsDescription", label: "News Description" },
-  { id: "IsActive", label: "IsActive" },
-  { id: "Created_On", label: "Created On" },
-  { id: "Updated_On", label: "Updated On" },
-  { id: "actions", label: "Actions", disableSorting: true },
-];
-
 const UploadPhoto = () => {
-  const [tableData, setTableData] = useState([]);
-  const [filterFn, setFilterFn] = useState({
-    fn: (item) => {
-      return item;
-    },
-  });
-  const [openPopup, setOpenPopup] = useState(false);
   const [notify, setNotify] = useState({
     isOpen: false,
     message: "",
@@ -55,8 +33,9 @@ const UploadPhoto = () => {
 
   const dispatch = useDispatch();
 
-  const { getAllUploadPhoto, error } = useSelector(
-    (state) => state.getAllUploadPhoto
+  const { photo, error } = useSelector((state) => state.getAllUploadPhoto);
+  const { success: uploadPhotoSuccess, error: uploadPhotoError } = useSelector(
+    (state) => state.uploadPhoto
   );
   if (error) {
     setNotify({
@@ -66,17 +45,39 @@ const UploadPhoto = () => {
     });
     dispatch({ type: GET_ALL_UPLOADPHOTO_RESET });
   }
+  if (uploadPhotoSuccess) {
+    setNotify({
+      isOpen: true,
+      message: "Successfully Uploaded",
+      type: "success",
+    });
+    dispatch(getAllUploadPhotoAction());
+    dispatch({ type: UPLOADPHOTO_RESET });
+  }
+  if (uploadPhotoError) {
+    setNotify({
+      isOpen: true,
+      message: uploadPhotoError,
+      type: "error",
+    });
+    dispatch({ type: UPLOADPHOTO_RESET });
+  }
 
   useEffect(() => {
     dispatch({ type: "GET_LINK", payload: "/" });
-    if (!getAllUploadPhoto) {
+    if (!photo) {
       dispatch(getAllUploadPhotoAction());
     }
-    if (getAllUploadPhoto) {
-      setTableData(getAllUploadPhoto.hrUploadPhotoModelLst);
-    }
-  }, [dispatch, getAllUploadPhoto]);
-  return <CustomContainer>upload Photo</CustomContainer>;
+  }, [dispatch, photo]);
+  return (
+    <CustomContainer>
+      upload Photo
+      <br />
+      {/* {photo && <img src={`${API_URL}${photo.dbModel.FullPath}`} />} */}
+      <UploadPhotoForm photo={photo && `${API_URL}${photo.dbModel.FullPath}`} />
+      <Notification notify={notify} setNotify={setNotify} />
+    </CustomContainer>
+  );
 };
 
 export default UploadPhoto;

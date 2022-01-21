@@ -1,5 +1,5 @@
 import axios from "axios";
-import { API_URL } from "../../../constants";
+import { API_URL, tokenConfig } from "../../../constants";
 import {
   EMPLOYEE_CATEGORY_ROLE_CREATE_FAIL,
   EMPLOYEE_CATEGORY_ROLE_CREATE_REQUEST,
@@ -20,7 +20,8 @@ export const getAllEmployeeCategoryRoleAction = () => async (dispatch) => {
     dispatch({ type: GET_ALL_EMPLOYEE_CATEGORY_ROLE_REQUEST });
 
     const { data } = await axios.get(
-      `${API_URL}/api/HREmployeeCategoryRole/GetHREmployeeCategoryRoleViewModelLst`
+      `${API_URL}/api/HREmployeeCategoryRole/GetHREmployeeCategoryRoleViewModelLst`,
+      tokenConfig
     );
 
     dispatch({ type: GET_ALL_EMPLOYEE_CATEGORY_ROLE_SUCCESS, payload: data });
@@ -39,16 +40,16 @@ export const employeeCategoryRoleCreateAction =
 
       const jsonData = JSON.stringify({ dbModel: employeeCategoryRole });
 
-      const config = {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      };
+      // const config = {
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      // };
 
       const { data } = await axios.post(
         `${API_URL}/api/HREmployeeCategoryRole/PostHREmployeeCategoryRole`,
         jsonData,
-        config
+        tokenConfig
       );
 
       dispatch({ type: EMPLOYEE_CATEGORY_ROLE_CREATE_SUCCESS, payload: data });
@@ -65,7 +66,8 @@ export const getSingleEmployeeCategoryRoleAction = (id) => async (dispatch) => {
     dispatch({ type: GET_SINGLE_EMPLOYEE_CATEGORY_ROLE_REQUEST });
 
     const { data } = await axios.get(
-      `${API_URL}/api/HREmployeeCategoryRole/GetHREmployeeCategoryRoleById/${id}`
+      `${API_URL}/api/HREmployeeCategoryRole/GetHREmployeeCategoryRoleById/${id}`,
+      tokenConfig
     );
 
     dispatch({
@@ -87,16 +89,16 @@ export const updateSingleEmployeeCategoryRoleAction =
 
       const jsonData = JSON.stringify({ dbModel: categoryRole });
 
-      const config = {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      };
+      // const config = {
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      // };
 
       const { data } = await axios.put(
         `${API_URL}/api/HREmployeeCategoryRole/PutHREmployeeCategoryRole`,
         jsonData,
-        config
+        tokenConfig
       );
 
       dispatch({

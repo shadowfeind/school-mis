@@ -1,5 +1,5 @@
 import axios from "axios";
-import { API_URL } from "../../constants";
+import { API_URL, tokenConfig } from "../../constants";
 import {
   GET_ALL_EXAM_SCHEDULE_INITIAL_DATA_FAIL,
   GET_ALL_EXAM_SCHEDULE_INITIAL_DATA_REQUEST,
@@ -13,8 +13,11 @@ export const getAllExamScheduleInitialDataAction = () => async (dispatch) => {
   try {
     dispatch({ type: GET_ALL_EXAM_SCHEDULE_INITIAL_DATA_REQUEST });
 
-    const { data } = await axios.get(`${API_URL}/api/AcademicExamSchedule/GetAll
-        `);
+    const { data } = await axios.get(
+      `${API_URL}/api/AcademicExamSchedule/GetAll
+        `,
+      tokenConfig
+    );
 
     dispatch({
       type: GET_ALL_EXAM_SCHEDULE_INITIAL_DATA_SUCCESS,
@@ -33,9 +36,11 @@ export const getExamScheduleListAction =
     try {
       dispatch({ type: GET_EXAM_SCHEDULE_LIST_REQUEST });
 
-      const { data } =
-        await axios.get(`${API_URL}/api/GetListAcademicExamSchedule/${year}/${program}/${classId}/${event}/0
-          `);
+      const { data } = await axios.get(
+        `${API_URL}/api/GetListAcademicExamSchedule/${year}/${program}/${classId}/${event}/0
+          `,
+        tokenConfig
+      );
 
       dispatch({
         type: GET_EXAM_SCHEDULE_LIST_SUCCESS,

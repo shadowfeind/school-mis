@@ -1,5 +1,5 @@
 import axios from "axios";
-import { API_URL } from "../../constants";
+import { API_URL, tokenConfig } from "../../constants";
 import {
   GET_BULK_LEVEL_TEST_DATA_FAIL,
   GET_BULK_LEVEL_TEST_DATA_REQUEST,
@@ -16,8 +16,11 @@ export const getInitialLevelTestDataAction = () => async (dispatch) => {
   try {
     dispatch({ type: GET_INITIAL_LEVEL_TEST_DATA_REQUEST });
 
-    const { data } = await axios.get(`${API_URL}/api/LevelTest/GetAllLevelTest
-        `);
+    const { data } = await axios.get(
+      `${API_URL}/api/LevelTest/GetAllLevelTest
+        `,
+      tokenConfig
+    );
 
     dispatch({
       type: GET_INITIAL_LEVEL_TEST_DATA_SUCCESS,
@@ -36,9 +39,11 @@ export const getBulkLevelTestDataAction =
     try {
       dispatch({ type: GET_BULK_LEVEL_TEST_DATA_REQUEST });
 
-      const { data } =
-        await axios.get(`${API_URL}/api/GetBulkLevelTest/${year}/${program}/${classId}/${section}/${shift}/${event}/GetBulkLevelTest?searchKey=1
-        `);
+      const { data } = await axios.get(
+        `${API_URL}/api/GetBulkLevelTest/${year}/${program}/${classId}/${section}/${shift}/${event}/GetBulkLevelTest?searchKey=1
+        `,
+        tokenConfig
+      );
 
       dispatch({
         type: GET_BULK_LEVEL_TEST_DATA_SUCCESS,
@@ -64,16 +69,16 @@ export const postBulkLevelTestAction =
 
       console.log(jsonData);
 
-      const config = {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      };
+      // const config = {
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      // };
 
       await axios.post(
         `${API_URL}/api/LevelTest/PostLevelTest`,
         jsonData,
-        config
+        tokenConfig
       );
 
       dispatch({ type: POST_BULK_LEVEL_TEST_DATA_SUCCESS });

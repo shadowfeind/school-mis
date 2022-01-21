@@ -154,7 +154,6 @@ const SchoolBoard = () => {
   };
 
   useEffect(() => {
-    dispatch({ type: "GET_LINK", payload: "/" });
     if (!schoolBoard) {
       dispatch(getAllSchoolBoardAction());
     }

@@ -1,5 +1,5 @@
 import axios from "axios";
-import { API_URL } from "../../constants";
+import { API_URL, tokenConfig } from "../../constants";
 import {
   COUNTER_CONFIG_CREATE_FAIL,
   COUNTER_CONFIG_CREATE_REQUEST,
@@ -26,7 +26,8 @@ export const getCounterConfigInitialDataAction = () => async (dispatch) => {
     dispatch({ type: GET_COUNTER_CONFIG_INITIAL_DATA_REQUEST });
 
     const { data } = await axios.get(
-      `${API_URL}/api/AdmCounter/GetAllCounterConfiguration`
+      `${API_URL}/api/AdmCounter/GetAllCounterConfiguration`,
+      tokenConfig
     );
 
     dispatch({ type: GET_COUNTER_CONFIG_INITIAL_DATA_SUCCESS, payload: data });
@@ -44,7 +45,8 @@ export const getCounterConfigInitialDataForCreateAction =
       dispatch({ type: GET_COUNTER_CONFIG_INITIAL_DATA_FOR_CREATE_REQUEST });
 
       const { data } = await axios.get(
-        `${API_URL}/api/SingleGetToCreateCounterConfiguration/${year}/${program}/singleGetToCreate`
+        `${API_URL}/api/SingleGetToCreateCounterConfiguration/${year}/${program}/singleGetToCreate`,
+        tokenConfig
       );
 
       dispatch({
@@ -68,16 +70,16 @@ export const counterConfigCreateAction =
         dbModel: counterConfig,
       });
 
-      const config = {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      };
+      // const config = {
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      // };
 
       const { data } = await axios.post(
         `${API_URL}/api/AdmCounter/Post`,
         jsonData,
-        config
+        tokenConfig
       );
 
       dispatch({
@@ -98,7 +100,8 @@ export const getCounterConfigListAction =
       dispatch({ type: GET_COUNTER_CONFIG_LIST_REQUEST });
 
       const { data } = await axios.get(
-        `${API_URL}/api/GetListCounterConfiguration/${year}/${program}/GetList`
+        `${API_URL}/api/GetListCounterConfiguration/${year}/${program}/GetList`,
+        tokenConfig
       );
 
       dispatch({
@@ -119,7 +122,8 @@ export const getCounterConfigInitialDataForEditAction =
       dispatch({ type: GET_COUNTER_CONFIG_INITIAL_DATA_FOR_EDIT_REQUEST });
 
       const { data } = await axios.get(
-        `${API_URL}/api/SingleGetToEditCounterConfiguration/${id}/${year}/${program}/singleGetToEdit`
+        `${API_URL}/api/SingleGetToEditCounterConfiguration/${id}/${year}/${program}/singleGetToEdit`,
+        tokenConfig
       );
 
       dispatch({
@@ -142,16 +146,16 @@ export const counterConfigEditAction = (counterConfig) => async (dispatch) => {
       dbModel: counterConfig,
     });
 
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
+    // const config = {
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    // };
 
     const { data } = await axios.put(
       `${API_URL}/api/AdmCounter/Put`,
       jsonData,
-      config
+      tokenConfig
     );
 
     dispatch({

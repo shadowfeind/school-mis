@@ -8,7 +8,12 @@ import {
   RecordVoiceOver,
 } from "@material-ui/icons";
 export const SettingsRoute = [
-  { name: "School Configuration", route: "/", icon: PostAdd, exact: true },
+  {
+    name: "School Configuration",
+    route: "/settings",
+    icon: PostAdd,
+    exact: true,
+  },
   {
     name: "Employee Management",
     route: "/employee-management",

@@ -2,6 +2,7 @@ import { makeStyles, Typography } from "@material-ui/core";
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
+import { DashboardRoute } from "../routesConfig/DashboardRoute";
 import { ExaminationRoute } from "../routesConfig/ExaminationRoute";
 import { RegistrationRoute } from "../routesConfig/RegistrationRoute";
 import { SettingsRoute } from "../routesConfig/SettingsRoute";
@@ -49,10 +50,15 @@ const SideMenu = () => {
     textDecoration: "none",
   };
   const { navLink } = useSelector((state) => state.navLink);
-
   if (navLink === "/") {
     if (routeCheck !== "/") {
       setRouteCheck("/");
+      setRouteLinks(DashboardRoute);
+    }
+  }
+  if (navLink === "/settings") {
+    if (routeCheck !== "/settings") {
+      setRouteCheck("/settings");
       setRouteLinks(SettingsRoute);
     }
   }
@@ -70,12 +76,6 @@ const SideMenu = () => {
   }
   return (
     <div className={classes.sideMenu}>
-      <Typography
-        variant="h5"
-        style={{ color: "#fff", textAlign: "center", padding: " 17px 0" }}
-      >
-        Dashboard
-      </Typography>
       {routeLinks &&
         routeLinks.map((r) => (
           <NavLink

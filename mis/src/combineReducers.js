@@ -33,7 +33,9 @@ import {
   createEmployeeReducer,
   getAllEmployee,
   getAllEmployeeCreateReducer,
+  getResetPasswordDataSingleEmployeeReducer,
   getSingleEmployeeReducer,
+  resetPasswordForSingleEmployeeReducer,
   updateSingleEmployeeReducer,
 } from "./settings/employeeManagement/employee/EmployeeReducers";
 import {
@@ -105,7 +107,15 @@ import {
   getListAssignFacultySubjectReducer,
   getSingleassignFacultySubjectReducer,
 } from "./settings/academicConfiguration/assignFacultySubject/AssignFacultySubjectReducers";
-import { getAllStudentProfile } from "./settings/studentManagement/studentProfile/StudentProfileReducers";
+import {
+  getAllStudentProfile,
+  getListStudentProfileReducer,
+  getSingleStudentProfileDetailsReducer,
+  getSingleStudentProfileEditDataReducer,
+  getSingleStudentProfilePasswordresetDataReducer,
+  resetSingleStudentProfilePasswordReducer,
+  updateSingleStudentProfileReducer,
+} from "./settings/studentManagement/studentProfile/StudentProfileReducers";
 import {
   getAllReassociateStudentsReducer,
   getReassociateStudentsLevelupPostReducer,
@@ -130,6 +140,7 @@ import {
 } from "./examination/examDivision/ExamDivisionReducers";
 import {
   getBulkExamApprovalSearchDataReducer,
+  getExamApprovalScheduleHeaderReducer,
   getExamApprovalSearchDataReducer,
   getInitialExamApprovalDataReducer,
   postBulkExamApprovalReducer,
@@ -143,9 +154,11 @@ import {
 } from "./examination/examMarkEntry/ExamMarkEntryReducers";
 import {
   getEventForExamMarkReducer,
+  getExamLedgerHeaderReducer,
   getExamResultListReducer,
   getInitialExamResultDataReducer,
   getInitialExamResultStudentOptionsReducer,
+  printExamResultReducer,
 } from "./examination/examResult/ExamResultReducers";
 import {
   getAllExamScheduleInitialDataReducer,
@@ -234,7 +247,10 @@ import { getAllHobbyReducer } from "./userProfile/hobby/HobbyReducers";
 import { getAllJobHistoryReducer } from "./userProfile/jobHistory/JobHistoryReducers";
 import { getAllSkillReducer } from "./userProfile/skill/SkillReducers";
 import { getAllTrainingReducer } from "./userProfile/training/TrainingReducers";
-import { getAllUploadPhotoReducer } from "./userProfile/uploadPhoto/UploadPhotoReducers";
+import {
+  getAllUploadPhotoReducer,
+  uploadPhotoReducer,
+} from "./userProfile/uploadPhoto/UploadPhotoReducers";
 import {
   getAllClassSubjectReducer,
   getClassSubjectListReducer,
@@ -243,6 +259,10 @@ import {
   postToCreateClassSubjectReducer,
   updateSingleClassSubjectReducer,
 } from "./settings/academicConfiguration/classSubject/ClassSubjectReducers";
+import {
+  getInitialRoleForPermissionReducer,
+  getlistPermissionByRoleReducer,
+} from "./settings/accessControl/PermissionByRole/PermissionByRoleReducers";
 //examination reducers link end
 export const reducers = combineReducers({
   navLink: navLinkReducer,
@@ -271,6 +291,8 @@ export const reducers = combineReducers({
   createEmployee: createEmployeeReducer,
   getSingleEmployee: getSingleEmployeeReducer,
   updateSingleEmployee: updateSingleEmployeeReducer,
+  getResetPasswordDataSingleEmployee: getResetPasswordDataSingleEmployeeReducer,
+  resetPasswordForSingleEmployee: resetPasswordForSingleEmployeeReducer,
   role: getAllRoles,
   createRole: createRoleReducer,
   getSingleRole: getSingleRoleReducer,
@@ -315,12 +337,19 @@ export const reducers = combineReducers({
   getAllAssignFacultySubject: getAllAssignFacultySubjectReducer,
   getAssignFacultySubjectOption: getAssignFacultySubjectOptionReducer,
   getListAssignFacultySubject: getListAssignFacultySubjectReducer,
+  resetSingleStudentProfilePassword: resetSingleStudentProfilePasswordReducer,
+  getSingleStudentProfileEditData: getSingleStudentProfileEditDataReducer,
   assignFacultySubjectPost: assignFacultySubjectPostReducer,
   getSingleassignFacultySubject: getSingleassignFacultySubjectReducer,
   assignFacultySubjectEdit: assignFacultySubjectEditReducer,
   assignFacultySubjectEditPost: assignFacultySubjectEditPostReducer,
   assignFacultySubjectGenerate: assignFacultySubjectGenerateReducer,
   studentProfile: getAllStudentProfile,
+  getListStudentProfile: getListStudentProfileReducer,
+  getSingleStudentProfileDetails: getSingleStudentProfileDetailsReducer,
+  getSingleStudentProfilePasswordresetData:
+    getSingleStudentProfilePasswordresetDataReducer,
+  updateSingleStudentProfile: updateSingleStudentProfileReducer,
   getInitialStudentIdCardData: getInitialStudentIdCardDataReducer,
   getActiveStudentsForStudentIdCardData:
     getActiveStudentsForStudentIdCardDataReducer,
@@ -340,6 +369,8 @@ export const reducers = combineReducers({
   updateSingleClassSubject: updateSingleClassSubjectReducer,
   getToCreateClassSubject: getToCreateClassSubjectReducer,
   postToCreateClassSubject: postToCreateClassSubjectReducer,
+  getInitialRoleForPermission: getInitialRoleForPermissionReducer,
+  getlistPermissionByRole: getlistPermissionByRoleReducer,
   //examination reducers start
   getAllAcademicStudentExamdata: getAllAcademicStudentExamdataReducer,
   getEvent: getEventReducer,
@@ -351,6 +382,7 @@ export const reducers = combineReducers({
   getBulkStudentAttendance: getBulkStudentAttendanceReducer,
   postBulkStudentAttendance: postBulkStudentAttendanceReducer,
   getInitialExamApprovalData: getInitialExamApprovalDataReducer,
+  getExamApprovalScheduleHeader: getExamApprovalScheduleHeaderReducer,
   getExamApprovalSearchData: getExamApprovalSearchDataReducer,
   postBulkExamApproval: postBulkExamApprovalReducer,
   getBulkExamApprovalSearchData: getBulkExamApprovalSearchDataReducer,
@@ -365,6 +397,8 @@ export const reducers = combineReducers({
   getEventForExamMark: getEventForExamMarkReducer,
   getInitialExamResultStudentOptions: getInitialExamResultStudentOptionsReducer,
   getExamResultList: getExamResultListReducer,
+  printExamResult: printExamResultReducer,
+  getExamLedgerHeader: getExamLedgerHeaderReducer,
   academicGrading: getAllAcademicGradingReducer,
   getSingleAcademicGrading: getSingleAcademicGradingReducer,
   createAcademicGrading: createAcademicGradingReducer,
@@ -422,5 +456,6 @@ export const reducers = combineReducers({
   getAllSkill: getAllSkillReducer,
   getAllTraining: getAllTrainingReducer,
   getAllUploadPhoto: getAllUploadPhotoReducer,
+  uploadPhoto: uploadPhotoReducer,
   //user profile reducers ends
 });

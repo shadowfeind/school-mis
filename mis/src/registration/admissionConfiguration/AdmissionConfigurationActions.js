@@ -48,7 +48,7 @@ export const getAdmissionConfigListDataAction =
       dispatch({ type: GET_ADMISSION_CONFIG_LIST_DATA_REQUEST });
 
       const { data } = await axios.get(
-        `${API_URL}/api/GetListAdmFacultyConfiguration/${year}/${program}/GetList`,
+        `${API_URL}/api/AdmFacultyConfiguration/GetListAdmFacultyConfiguration?idAcademicYear=${year}&idFacultyProgramLink=${program}`,
         tokenConfig
       );
 
@@ -70,7 +70,7 @@ export const getSingleAdmissionConfigAction =
       dispatch({ type: GET_SINGLE_ADMISSION_CONFIG_REQUEST });
 
       const { data } = await axios.get(
-        `${API_URL}/api/SingleGetToEditAdmFacultyConfiguration/${id}/${year}/${program}`,
+        `${API_URL}/api/AdmFacultyConfiguration/SingleGetToEditAdmFacultyConfiguration/${id}?idAcademicYear=${year}&idFacultyProgramLink=${program}`,
         tokenConfig
       );
 
@@ -122,7 +122,7 @@ export const getCreateSingleAdmissionConfigAction =
       dispatch({ type: GET_CREATE_SINGLE_ADMISSION_CONFIG_REQUEST });
 
       const { data } = await axios.get(
-        `${API_URL}/api/SingleGetToCreateAdmFacultyConfiguration/${year}/${program}/singleGetToCreate`,
+        `${API_URL}/api/AdmFacultyConfiguration/SingleGetToCreateAdmFacultyConfiguration?idAcademicYear=${year}&idFacultyProgramLink=${program}`,
         tokenConfig
       );
 

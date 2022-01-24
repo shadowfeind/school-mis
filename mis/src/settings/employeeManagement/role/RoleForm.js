@@ -67,7 +67,7 @@ const RoleForm = ({ role, setOpenPopup }) => {
         <Grid item xs={6}>
           <InputControl
             name="RoleName"
-            label="Role Name"
+            label="Role Name*"
             value={values.RoleName}
             onChange={handleInputChange}
             errors={errors.RoleName}
@@ -83,7 +83,7 @@ const RoleForm = ({ role, setOpenPopup }) => {
         <Grid item xs={6}>
           <InputControl
             name="Description"
-            label="Description"
+            label="Description*"
             value={values.Description}
             onChange={handleInputChange}
             errors={errors.Description}

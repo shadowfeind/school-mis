@@ -69,7 +69,7 @@ const AcademicSectinoForm = ({ academicSection, setOpenPopup }) => {
         <Grid item xs={6}>
           <InputControl
             name="RoomName"
-            label="Room Name"
+            label="Room Name*"
             value={values.RoomName}
             onChange={handleInputChange}
             errors={errors.RoomName}
@@ -77,7 +77,7 @@ const AcademicSectinoForm = ({ academicSection, setOpenPopup }) => {
 
           <InputControl
             name="RoomLocation"
-            label="Room Location"
+            label="Room Location*"
             value={values.RoomLocation}
             onChange={handleInputChange}
             errors={errors.RoomLocation}
@@ -94,7 +94,7 @@ const AcademicSectinoForm = ({ academicSection, setOpenPopup }) => {
         <Grid item xs={6}>
           <InputControl
             name="RoomCapacity"
-            label="RoomCapacity"
+            label="RoomCapacity*"
             value={values.RoomCapacity}
             onChange={handleInputChange}
             errors={errors.RoomCapacity}

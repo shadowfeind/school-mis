@@ -70,7 +70,7 @@ const HolidayForm = ({ holiday, setOpenPopup }) => {
         <Grid item xs={6}>
           <InputControl
             name="HolidayName"
-            label="Holiday Name"
+            label="Holiday Name*"
             value={values.HolidayName}
             onChange={handleInputChange}
             errors={errors.HolidayName}
@@ -91,7 +91,7 @@ const HolidayForm = ({ holiday, setOpenPopup }) => {
         </Grid>
         <Grid item xs={6}>
           <InputControl
-            name="Description"
+            name="Description*"
             label="Description"
             value={values.Description}
             onChange={handleInputChange}

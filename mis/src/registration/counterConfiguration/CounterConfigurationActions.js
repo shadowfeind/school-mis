@@ -45,7 +45,7 @@ export const getCounterConfigInitialDataForCreateAction =
       dispatch({ type: GET_COUNTER_CONFIG_INITIAL_DATA_FOR_CREATE_REQUEST });
 
       const { data } = await axios.get(
-        `${API_URL}/api/SingleGetToCreateCounterConfiguration/${year}/${program}/singleGetToCreate`,
+        `${API_URL}/api/AdmCounter/SingleGetToCreateCounterConfiguration?idAcademicYear=${year}&idFacultyProgramLink=${program}`,
         tokenConfig
       );
 
@@ -100,7 +100,7 @@ export const getCounterConfigListAction =
       dispatch({ type: GET_COUNTER_CONFIG_LIST_REQUEST });
 
       const { data } = await axios.get(
-        `${API_URL}/api/GetListCounterConfiguration/${year}/${program}/GetList`,
+        `${API_URL}/api/AdmCounter/GetListCounterConfiguration?idAcademicYear=${year}&idFacultyProgramLink=${program}`,
         tokenConfig
       );
 
@@ -122,7 +122,7 @@ export const getCounterConfigInitialDataForEditAction =
       dispatch({ type: GET_COUNTER_CONFIG_INITIAL_DATA_FOR_EDIT_REQUEST });
 
       const { data } = await axios.get(
-        `${API_URL}/api/SingleGetToEditCounterConfiguration/${id}/${year}/${program}/singleGetToEdit`,
+        `${API_URL}/api/AdmCounter/SingleGetToEditCounterConfiguration/${id}?idAcademicYear=${year}&idFacultyProgramLink=${program}`,
         tokenConfig
       );
 

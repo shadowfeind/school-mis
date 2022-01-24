@@ -49,8 +49,7 @@ export const getEventForExamMarkAction =
       dispatch({ type: GET_EVENT_FOR_EXAM_MARK_REQUEST });
 
       const { data } = await axios.get(
-        `${API_URL}/api/GetActiveAcademicYearCalendar/${year}/${program}/${classId}
-          `,
+        `${API_URL}/api/ExamResult/GetAcademicYearCalendar?idAcademicYear=${year}&idFacultyProgramLink=${program}&level=${classId}`,
         tokenConfig
       );
 
@@ -72,8 +71,7 @@ export const getStudentOptionsForExamMarkAction =
       dispatch({ type: GET_INITIAL_EXAM_RESULT_STUDENT_OPTIONS_REQUEST });
 
       const { data } = await axios.get(
-        `${API_URL}/api/GetStudent/${year}/${program}/${classId}/${shift}
-          `,
+        `${API_URL}/api/ExamResult/GetStudent?idAcademicYear=${year}&idFacultyProgramLink=${program}&level=${classId}&idShift=${shift}`,
         tokenConfig
       );
 
@@ -96,8 +94,7 @@ export const getExamResultListAction =
       dispatch({ type: GET_EXAM_RESULT_LIST_REQUEST });
 
       const { data } = await axios.get(
-        `${API_URL}/api/GetListExamResult/${year}/${program}/${classId}/${shift}/${section}/${event}/${studentId}
-          `,
+        `${API_URL}/api/ExamResult/GetListExamResult?idAcademicYear=${year}&idFacultyProgramLink=${program}&level=${classId}&section=${section}&idShift=${shift}&idAcademicYearCalendar=${event}&idStudent=${studentId}`,
         tokenConfig
       );
 
@@ -120,8 +117,7 @@ export const getExamLedgerHeaderAction =
       dispatch({ type: GET_EXAM_LEDGER_HEADER_REQUEST });
 
       const { data } = await axios.get(
-        `${API_URL}/api/GetPrintLedger/${year}/${program}/${classId}/${section}/${shift}/${event}/${studentId}?searchKey=1
-          `,
+        `${API_URL}/api/ExamResult/GetPrintLedger?idAcademicYear=${year}&idFacultyProgramLink=${program}&level=${classId}&section=${section}&idShift=${shift}&idAcademicYearCalendar=${event}&idStudent=${studentId}&searchKey=1`,
         tokenConfig
       );
 
@@ -144,8 +140,7 @@ export const printExamResultAction =
       dispatch({ type: PRINT_EXAM_RESULT_REQUEST });
 
       const { data } = await axios.get(
-        `${API_URL}/api/GetPrintLedger/${year}/${program}/${classId}/${section}/${shift}/${event}/${studentId}?searchKey=1
-          `,
+        `${API_URL}/api/ExamResult/GetPrintLedger?idAcademicYear=${year}&idFacultyProgramLink=${program}&level=${classId}&section=${section}&idShift=${shift}&idAcademicYearCalendar=${event}&idStudent=${studentId}&searchKey=1`,
         tokenConfig
       );
 

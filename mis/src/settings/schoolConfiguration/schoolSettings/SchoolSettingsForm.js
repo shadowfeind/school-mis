@@ -23,9 +23,9 @@ const initialFormValues = {
   FaxNo: "",
   AlternateFaxNo: "",
   EmailID: "",
-  WebSite: "",
-  Vision: "",
-  Mission: "",
+  WebSite: "test.com",
+  Vision: "test",
+  Mission: "test",
   IsSystemDefined: false,
   IsActive: false,
   Created_On: "2012-12-12T00:00:00",
@@ -41,6 +41,13 @@ const SchoolSettingsForm = ({ college, setOpenPopup }) => {
       : !fieldValues.CompanyName.trim()
       ? "This feild is required"
       : fieldValues.CompanyName.length > 200
+      ? "Company Name must be less than 200 characters"
+      : "";
+    temp.WebSite = !fieldValues.WebSite
+      ? "This feild is required"
+      : !fieldValues.WebSite.trim()
+      ? "This feild is required"
+      : fieldValues.WebSite.length > 200
       ? "Company Name must be less than 200 characters"
       : "";
     temp.ShortForm = !fieldValues.ShortForm
@@ -74,8 +81,6 @@ const SchoolSettingsForm = ({ college, setOpenPopup }) => {
       : "";
     temp.PhoneNo = !fieldValues.PhoneNo
       ? "This feild is required"
-      : !fieldValues.PhoneNo.trim()
-      ? "This feild is required"
       : fieldValues.PhoneNo.length > 20
       ? "PhoneNo cannot be greater than 20 characters"
       : "";
@@ -85,8 +90,6 @@ const SchoolSettingsForm = ({ college, setOpenPopup }) => {
       ? "AlternatePhoneNo cannot be greater than 20 characters"
       : "";
     temp.FaxNo = !fieldValues.FaxNo
-      ? "This feild is required"
-      : !fieldValues.FaxNo.trim()
       ? "This feild is required"
       : fieldValues.FaxNo.length > 20
       ? "FaxNo cannot be greater than 20 characters"
@@ -119,9 +122,7 @@ const SchoolSettingsForm = ({ college, setOpenPopup }) => {
 
     if (validate()) {
       if (values.IDHRCompany === 0) {
-        alert("working");
-        console.log(values);
-        // dispatch(schoolSettingCreateAction(values));
+        dispatch(schoolSettingCreateAction(values));
       } else {
         dispatch(updateSingleScholSettingAction(values));
       }
@@ -139,14 +140,14 @@ const SchoolSettingsForm = ({ college, setOpenPopup }) => {
         <Grid item xs={6}>
           <InputControl
             name="CompanyName"
-            label="Company Name"
+            label="Company Name*"
             value={values.CompanyName}
             onChange={handleInputChange}
             errors={errors.CompanyName}
           />
           <InputControl
             name="ShortForm"
-            label="Short Form"
+            label="Short Form*"
             value={values.ShortForm}
             onChange={handleInputChange}
             errors={errors.ShortForm}
@@ -160,21 +161,21 @@ const SchoolSettingsForm = ({ college, setOpenPopup }) => {
           />
           <InputControl
             name="RegNo"
-            label="Reg No"
+            label="Reg No*"
             value={values.RegNo}
             onChange={handleInputChange}
             errors={errors.RegNo}
           />
           <DatePickerControl
             name="DOE"
-            label="DOE"
+            label="DOE*"
             value={values.DOE}
             onChange={handleInputChange}
             errors={errors.DOE}
           />
           <InputControl
             name="PhoneNo"
-            label="Phone No"
+            label="Phone No*"
             value={values.PhoneNo}
             onChange={handleInputChange}
             errors={errors.PhoneNo}
@@ -183,7 +184,7 @@ const SchoolSettingsForm = ({ college, setOpenPopup }) => {
           />
           <InputControl
             name="AlternatePhoneNo"
-            label="Alternative Phone No"
+            label="Alternative Phone No*"
             value={values.AlternatePhoneNo}
             onChange={handleInputChange}
             errors={errors.AlternatePhoneNo}
@@ -191,7 +192,7 @@ const SchoolSettingsForm = ({ college, setOpenPopup }) => {
           />
           <InputControl
             name="POBox"
-            label="POBox"
+            label="PO Box*"
             value={values.POBox}
             errors={errors.POBox}
             onChange={handleInputChange}
@@ -201,14 +202,15 @@ const SchoolSettingsForm = ({ college, setOpenPopup }) => {
         <Grid item xs={6}>
           <InputControl
             name="FaxNo"
-            label="Fax No"
+            label="Fax No*"
             value={values.FaxNo}
             onChange={handleInputChange}
             errors={errors.FaxNo}
+            type="number"
           />
           <InputControl
             name="PanNo"
-            label="Pan No"
+            label="Pan No*"
             value={values.PanNo}
             errors={errors.PanNo}
             onChange={handleInputChange}
@@ -220,10 +222,11 @@ const SchoolSettingsForm = ({ college, setOpenPopup }) => {
             value={values.AlternateFaxNo}
             onChange={handleInputChange}
             errors={errors.AlternateFaxNo}
+            type="number"
           />
           <InputControl
             name="EmailID"
-            label="Email ID"
+            label="Email ID*"
             value={values.EmailID}
             onChange={handleInputChange}
             errors={errors.EmailID}
@@ -231,9 +234,10 @@ const SchoolSettingsForm = ({ college, setOpenPopup }) => {
           />
           <InputControl
             name="WebSite"
-            label="WebSite"
+            label="WebSite*"
             value={values.WebSite}
             onChange={handleInputChange}
+            errors={errors.WebSite}
           />
           <InputControl
             name="Vision"

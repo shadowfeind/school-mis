@@ -21,8 +21,8 @@ const initialFormValues = {
   LevelMOU: "Trimester",
   TotalSection: 2,
   TotalLevel: 2,
-  IDFacultyCoordinator: 10854,
-  IsActive: false,
+  IDFacultyCoordinator: 10965,
+  IsActive: true,
   Created_On: "2021-09-23",
   Updated_On: "2021-09-23",
 };
@@ -95,7 +95,7 @@ const AcademicFacultyForm = ({ academicFaculty, selected, setOpenPopup }) => {
         <Grid item xs={6}>
           <InputControl
             name="Header"
-            label="Faculty Header"
+            label="Faculty Header*"
             value={values.Header}
             onChange={handleInputChange}
             errors={errors.Header}

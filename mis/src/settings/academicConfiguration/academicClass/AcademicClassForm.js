@@ -14,7 +14,7 @@ const initialFormValues = {
   IDHRCompany: 2,
   ClassName: "",
   ClassLocation: "",
-  IsActive: false,
+  IsActive: true,
   Created_On: "2021-09-23T03:44:16.140Z",
   Updated_On: "2021-09-23T03:44:16.141Z",
 };
@@ -64,7 +64,7 @@ const AcademicClassForm = ({ academicClass, setOpenPopup }) => {
         <Grid item xs={6}>
           <InputControl
             name="ClassName"
-            label="Class Name"
+            label="Class Name*"
             value={values.ClassName}
             onChange={handleInputChange}
             errors={errors.ClassName}

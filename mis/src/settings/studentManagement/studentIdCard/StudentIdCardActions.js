@@ -37,8 +37,7 @@ export const getActiveStudentsForStudentIdCardDataAction =
       dispatch({ type: GET_ACTIVE_STUDENTS_FOR_STUDENT_ID_CARD_REQUEST });
 
       const { data } = await axios.get(
-        `${API_URL}/api/GetListStudentIdCard/${year}/${program}/${classId}/${shift}/${id}/${section}/${date}
-        `,
+        `${API_URL}/api/StudentIdCard/GetListStudentIdCard?IdAcademicYear=${year}&IdFacultyProgramLink=${program}&level=${classId}&idShift=${shift}&idStudent=${id}&section=${section}&ValidityDate=${date}`,
         tokenConfig
       );
 

@@ -103,7 +103,7 @@ const AcademicYearCalendarForm = ({
           />
           <InputControl
             name="EventName"
-            label="Event Name"
+            label="Event Name*"
             value={values.EventName}
             onChange={handleInputChange}
             variant="outlined"
@@ -132,7 +132,7 @@ const AcademicYearCalendarForm = ({
           />
           <InputControl
             name="EventDescription"
-            label="Event Description"
+            label="Event Description*"
             value={values.EventDescription}
             variant="outlined"
             onChange={handleInputChange}

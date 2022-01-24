@@ -19,7 +19,7 @@ const initialFormValues = {
   IDHRCompany: 2,
   AcademicProgramName: "",
   Description: "",
-  IsActive: false,
+  IsActive: true,
   Created_On: "2021-09-23",
   Updated_On: "2021-09-23",
 };
@@ -86,14 +86,14 @@ const AcademicProgramForm = ({ academicProgram, selected, setOpenPopup }) => {
         <Grid item xs={6}>
           <InputControl
             name="AcademicProgramName"
-            label="Academic Program Name"
+            label="Academic Program Name*"
             value={values.AcademicProgramName}
             onChange={handleInputChange}
             errors={errors.AcademicProgramName}
           />
           <InputControl
             name="Description"
-            label="Description"
+            label="Description*"
             value={values.Description}
             onChange={handleInputChange}
             errors={errors.Description}

@@ -40,8 +40,7 @@ export const getBulkLevelTestDataAction =
       dispatch({ type: GET_BULK_LEVEL_TEST_DATA_REQUEST });
 
       const { data } = await axios.get(
-        `${API_URL}/api/GetBulkLevelTest/${year}/${program}/${classId}/${section}/${shift}/${event}/GetBulkLevelTest?searchKey=1
-        `,
+        `${API_URL}/api/LevelTest/GetBulkLevelTest?idAcademicYear=${year}&idFacultyProgramLink=${program}&level=${classId}&section=${section}&idShift=${shift}&idAcademicYearCalendar=${event}&searchKey=1`,
         tokenConfig
       );
 

@@ -72,7 +72,7 @@ export const getAcademicProgramOptionAction = () => async (dispatch) => {
     dispatch({ type: GET_ACADEMIC_PROGRAM_OPTION_REQUEST });
 
     const { data } = await axios.get(
-      `${API_URL}/api/GetToCreateAcademicProgram/0/0/create`,
+      `${API_URL}/api/AcademicProgram/GetToCreateAcademicProgram?company=0&searchKey=0`,
       tokenConfig
     );
 

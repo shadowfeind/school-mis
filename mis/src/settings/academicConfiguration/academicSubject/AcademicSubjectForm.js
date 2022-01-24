@@ -84,7 +84,7 @@ const AcademicSubjectForm = ({ academicSubject }) => {
         <Grid item xs={6}>
           <InputControl
             name="SubjectName"
-            label="Subject Name"
+            label="Subject Name*"
             value={values.SubjectName}
             onChange={handleInputChange}
             errors={errors.SubjectName}
@@ -94,7 +94,7 @@ const AcademicSubjectForm = ({ academicSubject }) => {
         <Grid item xs={6}>
           <InputControl
             name="SubjectCode"
-            label="Subject Code"
+            label="Subject Code*"
             value={values.SubjectCode}
             onChange={handleInputChange}
             errors={errors.SubjectCode}
@@ -106,7 +106,7 @@ const AcademicSubjectForm = ({ academicSubject }) => {
         <Grid item xs={12}>
           <InputControl
             name="SubjectDescription"
-            label="Subject Description"
+            label="Subject Description*"
             value={values.SubjectDescription}
             onChange={handleInputChange}
             errors={errors.SubjectDescription}

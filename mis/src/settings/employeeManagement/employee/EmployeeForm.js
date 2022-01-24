@@ -70,6 +70,11 @@ const EmployeeForm = ({ employee, setOpenPopup }) => {
       : !fieldValues.FirstName.trim()
       ? "This feild is required"
       : "";
+    temp.LastName = !fieldValues.LastName
+      ? "This feild is required"
+      : !fieldValues.LastName.trim()
+      ? "This feild is required"
+      : "";
 
     setErrors({ ...temp });
     return Object.values(temp).every((x) => x === "");
@@ -133,9 +138,10 @@ const EmployeeForm = ({ employee, setOpenPopup }) => {
           />
           <InputControl
             name="LastName"
-            label="Last Name"
+            label="Last Name*"
             value={values.LastName}
             onChange={handleInputChange}
+            errors={errors.FirstName}
           />
           <InputControl
             name="EmailID"

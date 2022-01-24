@@ -33,7 +33,7 @@ export const getAllAcademicGradingAction = () => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: GET_ALL_ACADEMIC_GRADING_FAIL,
-      payload: error.message,
+      payload: error.message ? error.message : error.Message,
     });
   }
 };
@@ -50,10 +50,7 @@ export const getSingleAcademicGradingAction = () => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: GET_SINGLE_ACADEMIC_GRADING_FAIL,
-      payload:
-        error.message && error.response.data.message
-          ? error.response.data.message
-          : error.message,
+      payload: error.message ? error.message : error.Message,
     });
   }
 };
@@ -79,10 +76,7 @@ export const createAcademicGradingAction =
     } catch (error) {
       dispatch({
         type: CREATE_ACADEMIC_GRADING_FAIL,
-        payload:
-          error.message && error.response.data.message
-            ? error.response.data.message
-            : error.message,
+        payload: error.message ? error.message : error.Message,
       });
     }
   };
@@ -103,10 +97,7 @@ export const getSingleAcademicGradingforEditAction =
     } catch (error) {
       dispatch({
         type: GET_SINGLE_ACADEMIC_GRADING_EDIT_FAIL,
-        payload:
-          error.message && error.response.data.message
-            ? error.response.data.message
-            : error.message,
+        payload: error.message ? error.message : error.Message,
       });
     }
   };
@@ -136,10 +127,7 @@ export const updateSingleAcademicGradingAction =
     } catch (error) {
       dispatch({
         type: UPDATE_SINGLE_ACADEMIC_GRADING_FAIL,
-        payload:
-          error.message && error.response.data.message
-            ? error.response.data.message
-            : error.message,
+        payload: error.message ? error.message : error.Message,
       });
     }
   };

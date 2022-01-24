@@ -387,6 +387,9 @@ const StudentAttendance = () => {
           search={
             bulkStudentAttendance && bulkStudentAttendance.searchFilterModel
           }
+          workingDayTotal={
+            bulkStudentAttendance && bulkStudentAttendance.WorkingDayTotal
+          }
         />
       </Popup>
       <Notification notify={notify} setNotify={setNotify} />

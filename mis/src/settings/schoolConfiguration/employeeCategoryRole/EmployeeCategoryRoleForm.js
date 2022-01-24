@@ -13,7 +13,7 @@ const initialFormValues = {
   IDHREmployeeCategoryRole: 0,
   Heading: "",
   Description: "",
-  IsActive: false,
+  IsActive: true,
   Created_On: "2012-12-12T00:00:00",
   Updated_On: "2015-04-09T14:20:39.947",
 };
@@ -66,7 +66,7 @@ const EmployeeCategoryRoleForm = ({ employeeCategoryRole, setOpenPopup }) => {
         <Grid item xs={6}>
           <InputControl
             name="Heading"
-            label="Heading"
+            label="Heading*"
             value={values.Heading}
             onChange={handleInputChange}
             errors={errors.Heading}
@@ -83,7 +83,7 @@ const EmployeeCategoryRoleForm = ({ employeeCategoryRole, setOpenPopup }) => {
         <Grid item xs={6}>
           <InputControl
             name="Description"
-            label="Description"
+            label="Description*"
             value={values.Description}
             onChange={handleInputChange}
             errors={errors.Description}

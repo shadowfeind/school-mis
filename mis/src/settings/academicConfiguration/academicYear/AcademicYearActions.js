@@ -69,7 +69,7 @@ export const getAcademicYearOptionAction = () => async (dispatch) => {
     dispatch({ type: GET_ACADEMIC_YEAR_OPTION_REQUEST });
 
     const { data } = await axios.get(
-      `${API_URL}/api/GetToCreateAcademicYear/0/0/create`,
+      `${API_URL}/api/AcademicYear/GetToCreateAcademicYear?company=0&searchKey=0`,
       tokenConfig
     );
 

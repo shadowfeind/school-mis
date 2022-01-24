@@ -11,11 +11,13 @@ import InputControl from "../../../components/controls/InputControl";
 import { Search } from "@material-ui/icons";
 import AddIcon from "@material-ui/icons/Add";
 import Popup from "../../../components/Popup";
+import LoadingComp from "../../../components/LoadingComp";
 import CustomContainer from "../../../components/CustomContainer";
 import { useDispatch, useSelector } from "react-redux";
 import Notification from "../../../components/Notification";
 import ConfirmDialog from "../../../components/ConfirmDialog";
 import SchoolSettingsTableCollapse from "./SchoolSettingsTableCollapse";
+
 import SchoolSettingsForm from "./SchoolSettingsForm";
 import {
   getAllSchoolSettingsAction,
@@ -27,7 +29,6 @@ import {
   SCHOOL_SETTINGS_CREATE_RESET,
   UPDATE_SINGLE_SCHOOL_SETTINGS_RESET,
 } from "./SchoolSettingsConstants";
-import { USER_SESSION } from "../../../constants";
 
 const useStyles = makeStyles((theme) => ({
   searchInput: {
@@ -72,7 +73,7 @@ const SchoolSettings = () => {
 
   const dispatch = useDispatch();
 
-  const { error, schoolSettings } = useSelector(
+  const { error, schoolSettings, loading } = useSelector(
     (state) => state.schoolSettings
   );
 
@@ -216,7 +217,7 @@ const SchoolSettings = () => {
         </Toolbar>
         <TableContainer className={classes.table}>
           <TblHead />
-
+          {loading && <LoadingComp />}
           <TableBody>
             {tableDataAfterPagingAndSorting().map((item) => (
               <SchoolSettingsTableCollapse
@@ -236,7 +237,7 @@ const SchoolSettings = () => {
         title="School Settings Form"
       >
         <SchoolSettingsForm
-          college={singleSchoolSetting ? singleSchoolSetting.dbModel : {}}
+          college={singleSchoolSetting && singleSchoolSetting.dbModel}
           setOpenPopup={setOpenPopup}
         />
       </Popup>

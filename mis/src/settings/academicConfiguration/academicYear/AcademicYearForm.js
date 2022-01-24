@@ -94,7 +94,7 @@ const AcademicYearForm = ({ academicYear, selected, setOpenPopup }) => {
         <Grid item xs={6}>
           <InputControl
             name="AcademicYearName"
-            label="Academic Year Name"
+            label="Academic Year Name*"
             value={values.AcademicYearName}
             onChange={handleInputChange}
             errors={errors.AcademicYearName}
@@ -102,7 +102,7 @@ const AcademicYearForm = ({ academicYear, selected, setOpenPopup }) => {
 
           <InputControl
             name="AcademicYearCode"
-            label="Academic Year Code"
+            label="Academic Year Code*"
             value={values.AcademicYearCode}
             onChange={handleInputChange}
             errors={errors.AcademicYearCode}
@@ -110,7 +110,7 @@ const AcademicYearForm = ({ academicYear, selected, setOpenPopup }) => {
 
           <InputControl
             name="AcademicYear"
-            label="Academic Year"
+            label="Academic Year*"
             value={values.AcademicYear}
             onChange={handleInputChange}
             errors={errors.AcademicYear}
@@ -118,14 +118,14 @@ const AcademicYearForm = ({ academicYear, selected, setOpenPopup }) => {
 
           <DatePickerControl
             name="StartDate"
-            label="Start Date"
+            label="Start Date*"
             value={values.StartDate}
             onChange={handleInputChange}
           />
 
           <DatePickerControl
             name="EndDate"
-            label="End Date"
+            label="End Date*"
             value={values.EndDate}
             onChange={handleInputChange}
           />

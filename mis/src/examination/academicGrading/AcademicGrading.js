@@ -145,6 +145,7 @@ const AcademicGrading = () => {
       message: updateSingleAcademicGradingError,
       type: "error",
     });
+    dispatch({ type: UPDATE_SINGLE_ACADEMIC_GADING_RESET });
   }
 
   if (singleAcademicGradingError) {
@@ -153,6 +154,7 @@ const AcademicGrading = () => {
       message: singleAcademicGradingError,
       type: "error",
     });
+    dispatch({ type: GET_SINGLE_ACADEMIC_GRADING_EDIT_RESET });
   }
 
   const updateCollegeHandler = (IDFacultyGradingSystem) => {

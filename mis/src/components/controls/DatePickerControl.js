@@ -19,6 +19,7 @@ const DatePickerControl = ({ name, label, value, onChange }) => {
         disableToolbar
         variant="inline"
         inputVariant="outlined"
+        format="dd-MM-yyyy"
         label={label}
         name={name}
         value={value}

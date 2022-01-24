@@ -53,8 +53,7 @@ export const getStudentRegistrationDataAction =
       dispatch({ type: GET_STUDENT_REGISTRATION_DATA_REQUEST });
 
       const { data } = await axios.get(
-        `${API_URL}/api/GetListStudentRegistration/${year}/${program}/${classId}
-        `,
+        `${API_URL}/api/StudentRegistration/GetListStudentRegistration?idAcademicYear=${year}&idFacultyProgramLink=${program}&idClass=${classId}`,
         tokenConfig
       );
 
@@ -76,8 +75,7 @@ export const getSingleStudentRegistrationDataAction =
       dispatch({ type: GET_SINGLE_STUDENT_REGISTRATION_DATA_REQUEST });
 
       const { data } = await axios.get(
-        `${API_URL}/api/GetSingleForDatailStudentRegistration/${id}/${year}/${program}/${classId}
-        `,
+        `${API_URL}/api/StudentRegistration/GetSingleForDatailStudentRegistration/${id}?idAcademicYear=${year}&idFacultyProgramLink=${program}&idClass=${classId}`,
         tokenConfig
       );
 
@@ -98,8 +96,7 @@ export const singleStudentRegistrationCreateAction = () => async (dispatch) => {
     dispatch({ type: SINGLE_STUDENT_REGISTRATION_CREATE_REQUEST });
 
     const { data } = await axios.get(
-      `${API_URL}/api/GetSingleToCreateStudentRegistration
-        `,
+      `${API_URL}/api/StudentRegistration/GetSingleToCreate`,
       tokenConfig
     );
 
@@ -174,8 +171,7 @@ export const getCreateSingleStudentRegistrationDataAction =
       dispatch({ type: GET_CREATE_SINGLE_STUDENT_REGISTRATION_DATA_REQUEST });
 
       const { data } = await axios.get(
-        `${API_URL}/api/GetSingleToCreate
-          `,
+        `${API_URL}/api/StudentRegistration/GetSingleToCreate`,
         tokenConfig
       );
 

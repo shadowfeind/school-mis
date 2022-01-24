@@ -47,7 +47,7 @@ export const getAllEmployeeCreateAction = () => async (dispatch) => {
     dispatch({ type: GET_ALL_EMPLOYEE_CREATE_REQUEST });
 
     const { data } = await axios.get(
-      `${API_URL}/api/HREmployee/0/0/0/0/0/create`,
+      `${API_URL}/api/HREmployee/GetToCreateHREmployee?company=0&idBranch=0&idDepartment=0&idFilterUser=0&searchKey=0`,
       tokenConfig
     );
 

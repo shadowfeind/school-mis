@@ -66,7 +66,8 @@ export const getSinglePositionAction = (id) => async (dispatch) => {
     dispatch({ type: GET_SINGLE_POSITION_REQUEST });
 
     const { data } = await axios.get(
-      `${API_URL}/api/HRPosition/GetPositionById/${id}`
+      `${API_URL}/api/HRPosition/GetPositionById/${id}`,
+      tokenConfig
     );
 
     dispatch({ type: GET_SINGLE_POSITION_SUCCESS, payload: data });

@@ -14,7 +14,7 @@ const initialFormValues = {
   IDHRCompany: 2,
   PositionHead: "",
   PositionDescription: "",
-  IsActive: false,
+  IsActive: true,
   Created_On: "2021-09-23",
   Updated_On: "2021-09-23",
 };
@@ -68,7 +68,7 @@ const PositionForm = ({ position, setOpenPopup }) => {
         <Grid item xs={6}>
           <InputControl
             name="PositionHead"
-            label="Position Head"
+            label="Position Head*"
             value={values.PositionHead}
             onChange={handleInputChange}
             errors={errors.PositionHead}
@@ -86,7 +86,7 @@ const PositionForm = ({ position, setOpenPopup }) => {
         <Grid item xs={6}>
           <InputControl
             name="PositionDescription"
-            label="Position Description"
+            label="Position Description*"
             value={values.PositionDescription}
             onChange={handleInputChange}
             errors={errors.PositionDescription}

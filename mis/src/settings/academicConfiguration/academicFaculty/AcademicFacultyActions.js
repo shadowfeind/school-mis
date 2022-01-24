@@ -72,7 +72,7 @@ export const getAcademicFacultyOptionAction = () => async (dispatch) => {
     dispatch({ type: GET_ACADEMIC_FACULTY_OPTION_REQUEST });
 
     const { data } = await axios.get(
-      `${API_URL}/api/GetToCreateAcademicFaculty/0/0/create`,
+      `${API_URL}/api/AcademicFaculty/GetToCreateAcademicFaculty?company=0&searchKey=0`,
       tokenConfig
     );
 

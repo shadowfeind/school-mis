@@ -39,7 +39,7 @@ export const getReassociateStudentsListsAction =
       dispatch({ type: GET_REASSOCIATE_STUDENTS_LISTS_REQUEST });
 
       const { data } = await axios.get(
-        `${API_URL}/api/GetAllReassociateStudent/${year}/${program}/${shift}/${classId}/${section}/getList`,
+        `${API_URL}/api/ReassociateStudent/GetAllReassociateStudent?idAcademicYear=${year}&idFacultyProgramLink=${program}&idShift=${shift}&idClass=${classId}&classSection=${section}`,
         tokenConfig
       );
 
@@ -58,7 +58,7 @@ export const getReassociateStudentsLevelupAction =
       dispatch({ type: GET_REASSOCIATE_STUDENTS_LEVEL_UP_REQUEST });
 
       const { data } = await axios.get(
-        `${API_URL}/api/GetBulkLevelUp/${year}/${program}/${shift}/${classId}/${section}/getBulkLevelUpList`,
+        `${API_URL}/api/ReassociateStudent/GetBulkLevelUp?idAcademicYear=${year}&idFacultyProgramLink=${program}&idShift=${shift}&level=${classId}&classSection=${section}`,
         tokenConfig
       );
 

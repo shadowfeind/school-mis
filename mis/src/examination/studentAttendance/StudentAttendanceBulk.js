@@ -40,8 +40,9 @@ const useStyles = makeStyles({
   },
 });
 
-const StudentAttendanceBulk = ({ bulkData, search }) => {
+const StudentAttendanceBulk = ({ bulkData, search, workingDayTotal }) => {
   const [bulk, setBulk] = useState([]);
+  const [workingDays, setWorkingDays] = useState(0);
   const classes = useStyles();
   const dispatch = useDispatch();
 
@@ -60,15 +61,26 @@ const StudentAttendanceBulk = ({ bulkData, search }) => {
   };
 
   const formCheckSubmitHandler = () => {
-    dispatch(postBulkStudentAttendanceAction(bulk, search));
+    dispatch(postBulkStudentAttendanceAction(bulk, search, workingDays));
   };
   useEffect(() => {
     if (bulkData) {
       setBulk(bulkData);
+      setWorkingDays(workingDayTotal);
     }
   }, [bulkData]);
   return (
     <>
+      <div style={{ width: "300px", margin: "15px auto" }}>
+        <TextField
+          type="number"
+          label="WorkingDayTotal"
+          variant="outlined"
+          name="WorkingDayTotal"
+          value={workingDays}
+          onChange={(e) => setWorkingDays(e.target.value)}
+        />
+      </div>
       <TableContainer component={Paper}>
         <Table className={classes.table} aria-label="customized table">
           <TableHead>

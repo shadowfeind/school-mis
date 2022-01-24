@@ -35,10 +35,7 @@ export const getAllExamDivisionAction = () => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: GET_ALL_EXAM_DIVISION_FAIL,
-      payload:
-        error.message && error.response.data.message
-          ? error.response.data.message
-          : error.message,
+      payload: error.message ? error.message : error.Message,
     });
   }
 };
@@ -56,10 +53,7 @@ export const getSingleExamDivisionAction = () => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: GET_SINGLE_EXAM_DIVISION_FAIL,
-      payload:
-        error.message && error.response.data.message
-          ? error.response.data.message
-          : error.message,
+      payload: error.message ? error.message : error.Message,
     });
   }
 };
@@ -86,10 +80,7 @@ export const createExamDivisionAction = (examDivision) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: CREATE_EXAM_DIVISION_FAIL,
-      payload:
-        error.message && error.response.data.message
-          ? error.response.data.message
-          : error.message,
+      payload: error.message ? error.message : error.Message,
     });
   }
 };
@@ -108,10 +99,7 @@ export const getSingleExamDivisionEditAction =
     } catch (error) {
       dispatch({
         type: GET_SINGLE_EXAM_DIVISION_EDIT_FAIL,
-        payload:
-          error.message && error.response.data.message
-            ? error.response.data.message
-            : error.message,
+        payload: error.message ? error.message : error.Message,
       });
     }
   };
@@ -139,10 +127,7 @@ export const updateSingleExamDivisionAction =
     } catch (error) {
       dispatch({
         type: UPDATE_SINGLE_EXAM_DIVISION_FAIL,
-        payload:
-          error.message && error.response.data.message
-            ? error.response.data.message
-            : error.message,
+        payload: error.message ? error.message : error.Message,
       });
     }
   };

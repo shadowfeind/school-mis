@@ -37,8 +37,7 @@ export const getExamScheduleListAction =
       dispatch({ type: GET_EXAM_SCHEDULE_LIST_REQUEST });
 
       const { data } = await axios.get(
-        `${API_URL}/api/GetListAcademicExamSchedule/${year}/${program}/${classId}/${event}/0
-          `,
+        `${API_URL}/api/AcademicExamSchedule/GetListAcademicExamSchedule?idAcademicYear=${year}&idFacultyProgramLink=${program}&level=${classId}&idAcademicYearCalendar=${event}&searchKey=1`,
         tokenConfig
       );
 

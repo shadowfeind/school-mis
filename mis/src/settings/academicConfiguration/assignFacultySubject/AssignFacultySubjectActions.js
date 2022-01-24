@@ -94,11 +94,15 @@ export const getAssignFacultySubjectOptionAction =
     try {
       dispatch({ type: ASSIGN_FACULTY_SUBJECT_GET_REQUEST });
 
+      // const { data } = await axios.get(
+      //   `${API_URL}/api/GetAcademicFacultySubjectLinkById/${year}/${program}/${classId}/create`,
+      //   tokenConfig
+      // );
+
       const { data } = await axios.get(
-        `${API_URL}/api/GetAcademicFacultySubjectLinkById/${year}/${program}/${classId}/create`,
+        `${API_URL}/api/AcaFacultySubjectLink/GetAcademicFacultySubjectLinkToCreate?idAcademicYear=${year}&idFacultyProgramLink=${program}&idClass=${classId}`,
         tokenConfig
       );
-
       dispatch({ type: ASSIGN_FACULTY_SUBJECT_GET_SUCCESS, payload: data });
     } catch (error) {
       dispatch({
@@ -147,7 +151,7 @@ export const getAssignFacultySubjectEditAction =
       dispatch({ type: ASSIGN_FACULTY_SUBJECT_EDIT_REQUEST });
 
       const { data } = await axios.get(
-        `${API_URL}/api/AcaFacultySubjectLink/GetAcademicFacultySubjectLinkByParams/${id}?idAcademicYear=${year}&idFacultyProgramLink=${program}&level=${classId}`,
+        `${API_URL}/api/AcaFacultySubjectLink/GetSingleEditAcademicFacultySubjectLinkByParams/${id}?idAcademicYear=${year}&idFacultyProgramLink=${program}&level=${classId}`,
         tokenConfig
       );
 

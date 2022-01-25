@@ -29,6 +29,7 @@ import {
 } from "./StudentMonthlyPresentSheetActions";
 import DatePickerControl from "../../components/controls/DatePickerControl";
 import StudentMonthlyPresentSheetTableCollapse from "./StudentMonthlyPresentSheetTableCollapse";
+import StudentMonthlyPresentSheetUpdateForm from "./StudentMonthlyPresentSheetUpdateForm";
 
 const useStyles = makeStyles((theme) => ({
   searchInput: {
@@ -95,6 +96,11 @@ const StudentMonthlyPresentSheet = () => {
 
   const { getListStudentPresent, error: getListStudentPresentError } =
     useSelector((state) => state.getListStudentPresent);
+
+  const {
+    getListForUpdateStudentPresent,
+    error: getListForUpdateStudentPresentError,
+  } = useSelector((state) => state.getListForUpdateStudentPresent);
 
   if (allStudentMonthlyPresentSheetDataError) {
     setNotify({
@@ -221,6 +227,7 @@ const StudentMonthlyPresentSheet = () => {
           date
         )
       );
+      setOpenPopup(true);
     }
   };
 
@@ -389,7 +396,13 @@ const StudentMonthlyPresentSheet = () => {
         openPopup={openPopup}
         setOpenPopup={setOpenPopup}
         title="Bulk Edit"
-      ></Popup>
+      >
+        <StudentMonthlyPresentSheetUpdateForm
+          students={
+            getListForUpdateStudentPresent && getListForUpdateStudentPresent
+          }
+        />
+      </Popup>
       <Notification notify={notify} setNotify={setNotify} />
       <ConfirmDialog
         confirmDialog={confirmDialog}

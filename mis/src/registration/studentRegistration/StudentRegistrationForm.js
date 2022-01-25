@@ -176,6 +176,7 @@ const StudentRegistrationForm = ({
   const dispatch = useDispatch();
   const validate = (fieldValues = values) => {
     let temp = { ...errors };
+    temp.idAcademicYear = !fieldValues.idAcademicYear.length !== 0 ? "" : "";
     temp.RegistrationKey = !fieldValues.RegistrationKey
       ? "This feild is required"
       : !fieldValues.RegistrationKey.trim()
@@ -216,9 +217,7 @@ const StudentRegistrationForm = ({
       : !fieldValues.LocalGuardianName.trim()
       ? "This feild is required"
       : "";
-    temp.LocalGuardianName = !fieldValues.Gender
-      ? "This feild is required"
-      : "";
+    temp.Gender = !fieldValues.Gender ? "This feild is required" : "";
     temp.ClassLocation =
       fieldValues.ClassLocation && fieldValues.ClassLocation.length > 200
         ? "Must be less than 501 characters"
@@ -271,6 +270,12 @@ const StudentRegistrationForm = ({
     }
   }, [singleStudent]);
 
+  useEffect(() => {
+    if (getCreateSingleStudentData) {
+      setValues({ ...getCreateSingleStudentData.dbModel });
+    }
+  }, [getCreateSingleStudentData]);
+
   const gender = [{ Key: "", Value: "" }];
 
   const handleImage = (event) => {
@@ -288,7 +293,7 @@ const StudentRegistrationForm = ({
         <Grid item xs={6}>
           <SelectControl
             name="idAcademicYear"
-            label="Academic Year"
+            label="Academic Year*"
             value={values.idAcademicYear}
             onChange={handleInputChange}
             options={
@@ -298,11 +303,12 @@ const StudentRegistrationForm = ({
                 ? getCreateSingleStudentData.ddlAcademicYear
                 : gender
             }
+            errors={errors.idAcademicYear}
           />
 
           <SelectControl
             name="IDLevel"
-            label="Class"
+            label="Class*"
             value={values.IDLevel}
             onChange={handleInputChange}
             options={
@@ -315,7 +321,7 @@ const StudentRegistrationForm = ({
           />
           <InputControl
             name="RegistrationKey"
-            label="Registration No."
+            label="Registration No.*"
             value={values.RegistrationKey}
             onChange={handleInputChange}
             errors={errors.RegistrationKey}
@@ -324,7 +330,7 @@ const StudentRegistrationForm = ({
         <Grid item xs={6}>
           <SelectControl
             name="idFacultyProgramLink"
-            label="Faculty Path"
+            label="Faculty Path*"
             value={values.idFacultyProgramLink}
             onChange={handleInputChange}
             options={
@@ -337,7 +343,7 @@ const StudentRegistrationForm = ({
           />
           <SelectControl
             name="Section"
-            label="Section"
+            label="Section*"
             value={values.Section}
             onChange={handleInputChange}
             options={
@@ -350,7 +356,7 @@ const StudentRegistrationForm = ({
           />
           <InputControl
             name="RollNo"
-            label="Roll No."
+            label="Roll No.*"
             value={values.RollNo}
             onChange={handleInputChange}
             errors={errors.RollNo}
@@ -362,7 +368,7 @@ const StudentRegistrationForm = ({
         <Grid item xs={6}>
           <InputControl
             name="FirstName"
-            label="First Name"
+            label="First Name*"
             value={values.FirstName}
             onChange={handleInputChange}
             errors={errors.FirstName}
@@ -375,14 +381,14 @@ const StudentRegistrationForm = ({
           />
           <InputControl
             name="LastName"
-            label="Last Name"
+            label="Last Name*"
             value={values.LastName}
             onChange={handleInputChange}
             errors={errors.LastName}
           />
           <SelectControl
             name="Gender"
-            label="Gender"
+            label="Gender*"
             value={values.Gender}
             onChange={handleInputChange}
             options={
@@ -396,7 +402,7 @@ const StudentRegistrationForm = ({
           />
           <DatePickerControl
             name="DOB"
-            label="Date Of Birth"
+            label="Date Of Birth*"
             value={values.DOB}
             onChange={handleInputChange}
           />
@@ -449,7 +455,7 @@ const StudentRegistrationForm = ({
           />
           <InputControl
             name="EmailAddress"
-            label="Email Address"
+            label="Email Address*"
             value={values.EmailAddress}
             onChange={handleInputChange}
             type="email"
@@ -462,7 +468,7 @@ const StudentRegistrationForm = ({
         <Grid item xs={6}>
           <InputControl
             name="FatherName"
-            label="Father Name"
+            label="Father Name*"
             value={values.FatherName}
             onChange={handleInputChange}
             errors={errors.FatherName}
@@ -485,7 +491,7 @@ const StudentRegistrationForm = ({
         <Grid item xs={6}>
           <InputControl
             name="LocalGuardianName"
-            label="Local Guardian Name"
+            label="Local Guardian Name*"
             value={values.LocalGuardianName}
             onChange={handleInputChange}
             errors={errors.LocalGuardianName}

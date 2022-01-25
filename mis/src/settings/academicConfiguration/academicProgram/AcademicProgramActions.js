@@ -118,7 +118,7 @@ export const updateSingleAcademicProgramAction =
       // };
 
       const { data } = await axios.put(
-        `${API_URL}/api/AcademicProgram`,
+        `${API_URL}/api/AcademicProgram/PostAcademicProgram`,
         jsonData,
         tokenConfig
       );

@@ -10,7 +10,9 @@ import { useDispatch } from "react-redux";
 const TeacherFacultySubject = lazy(() =>
   import("./teacherFacultySubject/TeacherFacultySubject")
 );
-
+const SearchTeacherFacultySubject = lazy(() =>
+  import("./searchTeacherFacultySubject/SearchTeacherFacultySubject")
+);
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -74,11 +76,19 @@ const TeacherMapping = () => {
             label="Teacher Faculty Subject"
             {...a11yProps(0)}
           />
+          <Tab
+            style={{ fontSize: "11px", color: "#fff" }}
+            label="Search Teacher Faculty Subject"
+            {...a11yProps(1)}
+          />
         </Tabs>
       </AppBar>
       <Suspense fallback={<div></div>}>
         <TabPanel value={value} index={0}>
           <TeacherFacultySubject />
+        </TabPanel>
+        <TabPanel value={value} index={1}>
+          <SearchTeacherFacultySubject />
         </TabPanel>
       </Suspense>
     </div>

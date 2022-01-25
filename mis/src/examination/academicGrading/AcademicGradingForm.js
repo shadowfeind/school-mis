@@ -73,7 +73,7 @@ const AcademicGradingForm = ({ academicGradingEdit, setOpenPopup }) => {
         <Grid item xs={6}>
           <InputControl
             name="LetterGrade"
-            label="Grade"
+            label="Grade*"
             value={values.LetterGrade}
             onChange={handleInputChange}
             errors={errors.LetterGrade}
@@ -81,7 +81,7 @@ const AcademicGradingForm = ({ academicGradingEdit, setOpenPopup }) => {
 
           <InputControl
             name="GradeComment"
-            label="Comment"
+            label="Comment*"
             value={values.GradeComment}
             onChange={handleInputChange}
             errors={errors.GradeComment}
@@ -91,7 +91,7 @@ const AcademicGradingForm = ({ academicGradingEdit, setOpenPopup }) => {
         <Grid item xs={6}>
           <InputControl
             name="HonorPoint"
-            label="Honor Point"
+            label="Honor Point*"
             type="number"
             value={values.HonorPoint}
             onChange={handleInputChange}

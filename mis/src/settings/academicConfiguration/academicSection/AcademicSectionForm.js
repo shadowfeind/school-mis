@@ -15,7 +15,7 @@ const initialFormValues = {
   RoomName: "",
   RoomLocation: "",
   RoomCapacity: 30,
-  IsActive: false,
+  IsActive: true,
   Created_On: "2021-09-23T03:44:16.140Z",
   Updated_On: "2021-09-23T03:44:16.141Z",
 };

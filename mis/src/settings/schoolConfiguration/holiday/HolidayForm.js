@@ -17,7 +17,7 @@ const initialFormValues = {
   Description: "",
   FromDate: "2021-10-08T00:00:00",
   ToDate: "2021-10-15T00:00:00",
-  IsActive: false,
+  IsActive: true,
   Created_On: "2012-12-12T00:00:00",
   Updated_On: "2015-04-09T14:20:39.947",
 };
@@ -90,9 +90,16 @@ const HolidayForm = ({ holiday, setOpenPopup }) => {
           />
         </Grid>
         <Grid item xs={6}>
-          <InputControl
+          {/* <InputControl
             name="Description*"
             label="Description"
+            value={values.Description}
+            onChange={handleInputChange}
+            errors={errors.Description}
+          /> */}
+          <InputControl
+            name="Description"
+            label="Description*"
             value={values.Description}
             onChange={handleInputChange}
             errors={errors.Description}

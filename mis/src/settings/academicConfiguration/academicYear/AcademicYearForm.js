@@ -21,7 +21,7 @@ const initialFormValues = {
   AcademicYearCode: "",
   StartDate: "2017-03-11T00:00:00",
   EndDate: "2018-03-31T00:00:00",
-  IsActive: false,
+  IsActive: true,
   Created_On: "2021-09-23",
   Updated_On: "2021-09-23",
 };

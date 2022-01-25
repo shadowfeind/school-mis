@@ -210,8 +210,20 @@ export const createSingleStudentRegistrationAction =
       );
 
       if (data) {
-        console.log(data);
         const newData = { ...studentReg, photoName: data };
+        const jsonData = JSON.stringify({
+          dbModel: newData,
+          idAcademicYear: studentReg.idAcademicYear,
+        });
+        console.log(jsonData);
+
+        await axios.post(
+          `${API_URL}/api/StudentRegistration/Post`,
+          jsonData,
+          tokenConfig
+        );
+      } else {
+        const newData = { ...studentReg, photoName: "" };
         const jsonData = JSON.stringify({
           dbModel: newData,
           idAcademicYear: studentReg.idAcademicYear,

@@ -14,7 +14,7 @@ const initialFormValues = {
   IDHRCompany: 2,
   UniversityName: "",
   Description: "",
-  IsActive: false,
+  IsActive: true,
   Created_On: "2021-09-23",
   Updated_On: "2021-09-23",
 };
@@ -68,7 +68,7 @@ const SchoolBoardForm = ({ schoolBoard, setOpenPopup }) => {
         <Grid item xs={6}>
           <InputControl
             name="UniversityName"
-            label="University Name"
+            label="University Name*"
             value={values.UniversityName}
             onChange={handleInputChange}
             errors={errors.UniversityName}
@@ -85,7 +85,7 @@ const SchoolBoardForm = ({ schoolBoard, setOpenPopup }) => {
         <Grid item xs={6}>
           <InputControl
             name="Description"
-            label="Description"
+            label="Description*"
             value={values.Description}
             onChange={handleInputChange}
             errors={errors.Description}

@@ -263,6 +263,10 @@ import {
   getInitialRoleForPermissionReducer,
   getlistPermissionByRoleReducer,
 } from "./settings/accessControl/PermissionByRole/PermissionByRoleReducers";
+import {
+  getAllSearchTeacherFacSubInitialDataReducer,
+  getAllSearchTeacherFacSubListDataReducer,
+} from "./settings/teacherMapping/searchTeacherFacultySubject/SearchTeacherFacultySubjectReducers";
 //examination reducers link end
 export const reducers = combineReducers({
   navLink: navLinkReducer,
@@ -357,6 +361,9 @@ export const reducers = combineReducers({
   getReassociateStudentsLists: getReassociateStudentsListsReducer,
   getReassociateStudentsLevelup: getReassociateStudentsLevelupReducer,
   getReassociateStudentsLevelupPost: getReassociateStudentsLevelupPostReducer,
+  getAllSearchTeacherFacSubInitialData:
+    getAllSearchTeacherFacSubInitialDataReducer,
+  getAllSearchTeacherFacSubListData: getAllSearchTeacherFacSubListDataReducer,
   getAllTeacherFacSubInitialData: getAllTeacherFacSubInitialDataReducer,
   getAllTeacherFacSubListData: getAllTeacherFacSubListDataReducer,
   getSingleTeacherFacSubData: getSingleTeacherFacSubDataReducer,

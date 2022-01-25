@@ -18,6 +18,7 @@ import Collapse from "@material-ui/core/Collapse";
 import { useDispatch } from "react-redux";
 import { getSingleStudentRegistrationDataAction } from "./StudentRegistrationActions";
 import { API_URL } from "../../constants";
+import { GET_CREATE_SINGLE_STUDENT_REGISTRATION_DATA_RESET } from "./StudentRegistrationConstants";
 
 const useStyles = makeStyles({
   button: {
@@ -58,6 +59,7 @@ const StudentRegistrationTableCollapse = ({
     dispatch(
       getSingleStudentRegistrationDataAction(id, year, program, classId)
     );
+    dispatch({ type: GET_CREATE_SINGLE_STUDENT_REGISTRATION_DATA_RESET });
     setOpenPopup(true);
   };
 
@@ -69,7 +71,7 @@ const StudentRegistrationTableCollapse = ({
         <TableCell>{item.RollNo}</TableCell>
         <TableCell>{item.RegistrationKey}</TableCell>
         <TableCell>
-          `${item.FirstName} ${item.LastName}`
+          {item.FirstName} {item.LastName}
         </TableCell>
         <TableCell>{item.MobileNo}</TableCell>
         <TableCell>{item.EmailAddress}</TableCell>

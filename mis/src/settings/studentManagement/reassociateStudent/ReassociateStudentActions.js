@@ -91,8 +91,7 @@ export const getReassociateStudentsLevelupPostAction =
       // };
 
       const { data } = await axios.post(
-        `${API_URL}/api/ReassociateStudent/PostBulkLevelUp?mode=1
-        `,
+        `${API_URL}/api/ReassociateStudent/PostBulkLevelUp?mode=1`,
         jsonData,
         tokenConfig
       );

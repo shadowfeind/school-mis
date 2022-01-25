@@ -60,11 +60,11 @@ const StudentRegistration = () => {
   const [ddlClass, setDdlClass] = useState([]);
   const [academicYearDdl, setAcademicYearDdl] = useState([]);
   const [programDdl, setProgramDdl] = useState([]);
-  const [programValue, setProgramValue] = useState(6);
-  const [classId, setClassId] = useState(14);
-  const [acaYear, setAcaYear] = useState(55);
+  const [programValue, setProgramValue] = useState();
+  const [classId, setClassId] = useState();
+  const [acaYear, setAcaYear] = useState();
   const [selectedIndex, setSelectedIndex] = useState("");
-
+const [errors, setErrors] = useState([]);
   const [tableData, setTableData] = useState([]);
   const [filterFn, setFilterFn] = useState({
     fn: (item) => {
@@ -172,8 +172,18 @@ const StudentRegistration = () => {
     }
   }, [studentRegistration]);
 
+  const validate=()=>{
+    let temp ={};
+    temp.acaYear = !acaYear ? "This feild is required" : "";
+    temp.programValue = !programValue ? "This feild is required" : "";
+    temp.classId = !classId ? "This feild is required" : "";
+    
+    setErrors({ ...temp });
+    return Object.values(temp).every((x) => x === "");
+  }
+
   const handleStudentSearch = () => {
-    if ((acaYear, programValue, classId)) {
+    if (validate()) {
       dispatch(
         getStudentRegistrationDataAction(acaYear, programValue, classId)
       );
@@ -181,10 +191,12 @@ const StudentRegistration = () => {
   };
 
   const handleCreate = () => {
-    dispatch({ type: GET_SINGLE_STUDENT_REGISTRATION_DATA_RESET });
+    if(validate()){
     dispatch(getCreateSingleStudentRegistrationDataAction());
     setOpenPopup(true);
+    dispatch({ type: GET_SINGLE_STUDENT_REGISTRATION_DATA_RESET });
   };
+};
 
   return (
     <>
@@ -198,6 +210,7 @@ const StudentRegistration = () => {
                 value={acaYear}
                 onChange={(e) => setAcaYear(e.target.value)}
                 options={academicYearDdl}
+                errors={errors.acaYear}
               />
             </Grid>
             <Grid item xs={3}>
@@ -205,7 +218,9 @@ const StudentRegistration = () => {
                 name="Program/Faculty"
                 label="Program/Faculty"
                 value={programValue}
+                onChange={(e) => setProgramValue(e.target.value)}
                 options={programDdl}
+                errors={errors.programValue}
               />
             </Grid>
             <Grid item xs={3}>
@@ -215,6 +230,7 @@ const StudentRegistration = () => {
                 value={classId}
                 onChange={(e) => setClassId(e.target.value)}
                 options={ddlClass}
+                errors={errors.classId}
               />
             </Grid>
 

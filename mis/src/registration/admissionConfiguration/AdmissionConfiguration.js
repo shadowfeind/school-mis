@@ -56,9 +56,10 @@ const tableHeader = [
 const AdmissionConfiguration = () => {
   const [academicYearDdl, setAcademicYearDdl] = useState([]);
   const [programDdl, setProgramDdl] = useState([]);
-  const [acaYear, setAcaYear] = useState(55);
-  const [programValue, setProgramValue] = useState(6);
+  const [acaYear, setAcaYear] = useState();
+  const [programValue, setProgramValue] = useState();
   const [tableData, setTableData] = useState([]);
+  const [errors, setErrors] = useState([]);
   const [filterFn, setFilterFn] = useState({
     fn: (item) => {
       return item;
@@ -222,9 +223,20 @@ const AdmissionConfiguration = () => {
     }
   }, [getAdmissionConfigListData]);
 
+  const validate=()=>{
+    let temp={};
+    temp.acaYear = !acaYear ? "This feild is required" : "";
+    temp.programValue = !programValue ? "This feild is required" : "";
+    
+    setErrors({ ...temp });
+    return Object.values(temp).every((x) => x === "");
+  }
+
   const listSearchHandler = () => {
+    if(validate()){
     dispatch(getAdmissionConfigListDataAction(acaYear, programValue));
   };
+};
 
   const updateAdmissionConfig = (id, year, program) => {
     dispatch({ type: GET_CREATE_SINGLE_ADMISSION_CONFIG_RESET });
@@ -233,10 +245,12 @@ const AdmissionConfiguration = () => {
   };
 
   const handleCreateClick = () => {
-    dispatch({ type: GET_SINGLE_ADMISSION_CONFIG_RESET });
+    if(validate()){
     dispatch(getCreateSingleAdmissionConfigAction(acaYear, programValue));
     setOpenPopup(true);
+    dispatch({ type: GET_SINGLE_ADMISSION_CONFIG_RESET });
   };
+};
 
   return (
     <>
@@ -250,6 +264,7 @@ const AdmissionConfiguration = () => {
                 onChange={(e) => setAcaYear(e.target.value)}
                 options={academicYearDdl}
                 value={acaYear}
+                errors={errors.acaYear}
               />
             </Grid>
             <Grid item xs={3}>
@@ -257,8 +272,9 @@ const AdmissionConfiguration = () => {
                 name="program"
                 label="Program/Faculty"
                 value={programValue}
-                // onChange={(e) => handleProgramChange(e)}
+                onChange={(e) => setProgramValue(e.target.value)}
                 options={programDdl}
+                errors={errors.programValue}
               />
             </Grid>
 

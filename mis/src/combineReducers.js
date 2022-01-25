@@ -267,6 +267,10 @@ import {
   getAllSearchTeacherFacSubInitialDataReducer,
   getAllSearchTeacherFacSubListDataReducer,
 } from "./settings/teacherMapping/searchTeacherFacultySubject/SearchTeacherFacultySubjectReducers";
+import {
+  getAllStudentMonthlyPresentSheetReducer,
+  getSubjectOptionsForSelectReducer,
+} from "./attendance/studentMonthlyPresentSheet/StudentMonthlyPresentSheetReducers";
 //examination reducers link end
 export const reducers = combineReducers({
   navLink: navLinkReducer,
@@ -465,4 +469,8 @@ export const reducers = combineReducers({
   getAllUploadPhoto: getAllUploadPhotoReducer,
   uploadPhoto: uploadPhotoReducer,
   //user profile reducers ends
+  //attendance reducers starts
+  getAllStudentMonthlyPresentSheet: getAllStudentMonthlyPresentSheetReducer,
+  getSubjectOptionsForSelect: getSubjectOptionsForSelectReducer,
+  //attendance reducers ends
 });

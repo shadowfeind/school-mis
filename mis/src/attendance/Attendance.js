@@ -7,17 +7,12 @@ import Box from "@material-ui/core/Box";
 import { makeStyles } from "@material-ui/core";
 import { useDispatch } from "react-redux";
 
-const SchoolSettings = lazy(() =>
-  import("./schoolConfiguration/schoolSettings/SchoolSettings")
+const StudentMonthlyPresentSheet = lazy(() =>
+  import("./studentMonthlyPresentSheet/StudentMonthlyPresentSheet")
 );
-const Position = lazy(() => import("./schoolConfiguration/position/Position"));
-const EmployeeType = lazy(() =>
-  import("./schoolConfiguration/employeeType/EmployeeType")
+const TotalStudentAttendance = lazy(() =>
+  import("./totalStudentAttendance/TotalStudentAttendance")
 );
-const EmployeeCategoryRole = lazy(() =>
-  import("./schoolConfiguration/employeeCategoryRole/EmployeeCategoryRole")
-);
-const Holiday = lazy(() => import("./schoolConfiguration/holiday/Holiday"));
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -53,7 +48,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Settings = () => {
+const Attendance = () => {
   const dispatch = useDispatch();
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
@@ -63,7 +58,7 @@ const Settings = () => {
   };
 
   useEffect(() => {
-    dispatch({ type: "GET_LINK", payload: "/settings" });
+    dispatch({ type: "GET_LINK", payload: "attendance" });
   }, [dispatch]);
 
   return (
@@ -81,50 +76,26 @@ const Settings = () => {
         >
           <Tab
             style={{ fontSize: "11px", color: "#fff" }}
-            label="School Settings"
+            label="Student Monthly Present Sheet"
             {...a11yProps(0)}
           />
           <Tab
             style={{ fontSize: "11px", color: "#fff" }}
-            label="Position"
+            label="Total Student Attendance"
             {...a11yProps(1)}
-          />
-          <Tab
-            style={{ fontSize: "11px", color: "#fff" }}
-            label="Employee Type"
-            {...a11yProps(2)}
-          />
-          <Tab
-            style={{ fontSize: "11px", color: "#fff" }}
-            label="Employee Category Role"
-            {...a11yProps(3)}
-          />
-          <Tab
-            style={{ fontSize: "11px", color: "#fff" }}
-            label="Holiday"
-            {...a11yProps(4)}
           />
         </Tabs>
       </AppBar>
       <Suspense fallback={<div></div>}>
         <TabPanel value={value} index={0}>
-          <SchoolSettings />
+          <StudentMonthlyPresentSheet />
         </TabPanel>
         <TabPanel value={value} index={1}>
-          <Position />
-        </TabPanel>
-        <TabPanel value={value} index={2}>
-          <EmployeeType />
-        </TabPanel>
-        <TabPanel value={value} index={3}>
-          <EmployeeCategoryRole />
-        </TabPanel>
-        <TabPanel value={value} index={4}>
-          <Holiday />
+          <TotalStudentAttendance />
         </TabPanel>
       </Suspense>
     </div>
   );
 };
 
-export default Settings;
+export default Attendance;

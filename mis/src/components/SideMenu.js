@@ -2,6 +2,7 @@ import { makeStyles, Typography } from "@material-ui/core";
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
+import { AttendanceRoute } from "../routesConfig/AttendanceRoute";
 import { DashboardRoute } from "../routesConfig/DashboardRoute";
 import { ExaminationRoute } from "../routesConfig/ExaminationRoute";
 import { RegistrationRoute } from "../routesConfig/RegistrationRoute";
@@ -72,6 +73,12 @@ const SideMenu = () => {
     if (routeCheck !== "registration") {
       setRouteCheck("registration");
       setRouteLinks(RegistrationRoute);
+    }
+  }
+  if (navLink === "attendance") {
+    if (routeCheck !== "attendance") {
+      setRouteCheck("attendance");
+      setRouteLinks(AttendanceRoute);
     }
   }
   return (

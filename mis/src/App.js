@@ -10,6 +10,7 @@ import {
 } from "@material-ui/core";
 import { HashRouter as Router, Route } from "react-router-dom";
 
+const Attendance = lazy(() => import("./attendance/Attendance"));
 const Dashboard = lazy(() => import("./dashboard/Dashboard"));
 const AccessControl = lazy(() =>
   import("./settings/accessControl/AccessControl")
@@ -128,6 +129,9 @@ const App = () => {
             />
             <Route path={"/student-management"} component={StudentManagement} />
             {/* settings route end */}
+            {/* attendance route starts */}
+            <Route path={"/attendance"} component={Attendance} />
+            {/* attendance route end */}
             {/* registration route starts */}
             <Route path={"/registration"} component={CounterConfiguration} />
             <Route

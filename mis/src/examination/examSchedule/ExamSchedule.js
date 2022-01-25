@@ -62,10 +62,11 @@ const ExamSchedule = () => {
   const [academicYearDdl, setAcademicYearDdl] = useState([]);
   const [programDdl, setProgramDdl] = useState([]);
   const [ddlEvent, setDdlEvent] = useState([]);
-  const [programValue, setProgramValue] = useState(6);
-  const [classId, setClassId] = useState(null);
-  const [acaYear, setAcaYear] = useState(55);
-  const [event, setEvent] = useState(null);
+  const [programValue, setProgramValue] = useState();
+  const [classId, setClassId] = useState();
+  const [acaYear, setAcaYear] = useState();
+  const [event, setEvent] = useState();
+  const [errors, setErrors] = useState([]);
   const dispatch = useDispatch();
   const classes = useStyles();
 
@@ -154,6 +155,18 @@ const ExamSchedule = () => {
       setTableData(examScheduleList.dbModelLst);
     }
   }, [examScheduleList]);
+
+  const validate=()=>{
+    let temp ={};
+    temp.acaYear = !acaYear ? "This feild is required" : "";
+    temp.programValue = !programValue ? "This feild is required" : "";
+    temp.classId = !classId ? "This feild is required" : "";
+    temp.event = !event ? "This feild is required" : "";
+    
+    setErrors({ ...temp });
+    return Object.values(temp).every((x) => x === "");
+  }
+
   const handleClassIdChange = (value) => {
     setClassId(value);
     dispatch(getEventAction(acaYear, programValue, value));
@@ -167,7 +180,7 @@ const ExamSchedule = () => {
   };
 
   const handleExamScheduleSearch = () => {
-    if ((acaYear, programValue, classId, event)) {
+    if (validate()) {
       dispatch(
         getExamScheduleListAction(acaYear, programValue, classId, event)
       );
@@ -190,6 +203,7 @@ const ExamSchedule = () => {
                 value={acaYear}
                 onChange={(e) => handleYearChange(e.target.value)}
                 options={academicYearDdl}
+                errors={errors.acaYear}
               />
             </Grid>
             <Grid item xs={3}>
@@ -197,8 +211,9 @@ const ExamSchedule = () => {
                 name="Program/Faculty"
                 label="Program/Faculty"
                 value={programValue}
-                // onChange={handleInputChange}
+                onChange={(e) => setProgramValue(e.target.value)}
                 options={programDdl}
+                errors={errors.programValue}
               />
             </Grid>
             <Grid item xs={3}>
@@ -208,6 +223,7 @@ const ExamSchedule = () => {
                 value={classId}
                 onChange={(e) => handleClassIdChange(e.target.value)}
                 options={ddlClass}
+                errors={errors.classId}
               />
             </Grid>
 
@@ -218,6 +234,7 @@ const ExamSchedule = () => {
                 value={event}
                 onChange={(e) => setEvent(e.target.value)}
                 options={ddlEvent ? ddlEvent : test}
+                errors={errors.event}
               />
             </Grid>
 

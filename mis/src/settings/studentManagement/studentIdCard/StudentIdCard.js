@@ -47,13 +47,14 @@ const StudentIdCard = () => {
   const [ddlShift, setDdlShift] = useState([]);
   const [ddlSection, setDdlSection] = useState([]);
   const [ddlStudent, setDdlStudent] = useState([]);
-  const [programValue, setProgramValue] = useState(6);
+  const [programValue, setProgramValue] = useState();
   const [classId, setClassId] = useState();
-  const [acaYear, setAcaYear] = useState(55);
-  const [shift, setShift] = useState(2);
-  const [section, setSection] = useState(1);
+  const [acaYear, setAcaYear] = useState();
+  const [shift, setShift] = useState();
+  const [section, setSection] = useState();
   const [student, setStudent] = useState(0);
   const [date, setDate] = useState("12-22-2022");
+  const [errors, setErrors] = useState([]);
   const dispatch = useDispatch();
   const classes = useStyles();
 
@@ -108,6 +109,32 @@ const StudentIdCard = () => {
     }
   }, [studentIdCardInitialData, dispatch]);
 
+  const validate=()=>{
+    let temp ={};
+    temp.acaYear = !acaYear ? "This feild is required" : "";
+    temp.programValue = !programValue ? "This feild is required" : "";
+    temp.classId = !classId ? "This feild is required" : "";
+    temp.shift1 = !shift ? "This feild is required" : "";
+    temp.section = !section ? "This feild is required" : "";
+    temp.date = !date ? "This feild is required" : "";
+
+    setErrors({ ...temp });
+    return Object.values(temp).every((x) => x === "");
+  }
+
+  const handleProgramValue =(value=>{
+    setProgramValue(value);
+    if ((acaYear, classId, shift)) {
+      dispatch(
+        getActiveStudentsForAdmitCardDataAction(
+          value,
+          acaYear,
+          classId,
+          shift
+        )
+      );
+    }
+  })
   const handleYearChange = (value) => {
     setAcaYear(value);
     if ((programValue, classId, shift)) {
@@ -156,7 +183,7 @@ const StudentIdCard = () => {
   };
 
   const handleStudentSearch = () => {
-    if ((acaYear, programValue, classId, shift, student, section, date)) {
+    if (validate()) {
       dispatch(
         getActiveStudentsForStudentIdCardDataAction(
           acaYear,
@@ -183,6 +210,7 @@ const StudentIdCard = () => {
                 value={acaYear}
                 onChange={(e) => handleYearChange(e.target.value)}
                 options={academicYearDdl}
+                errors={errors.acaYear}
               />
             </Grid>
             <Grid item xs={3}>
@@ -190,8 +218,9 @@ const StudentIdCard = () => {
                 name="Program/Faculty"
                 label="Program/Faculty"
                 value={programValue}
-                // onChange={handleInputChange}
+                onChange={(e) => handleProgramValue(e.target.value)}
                 options={programDdl}
+                errors={errors.programValue}
               />
             </Grid>
             <Grid item xs={3}>
@@ -201,6 +230,7 @@ const StudentIdCard = () => {
                 value={classId}
                 onChange={(e) => handleClassIdChange(e.target.value)}
                 options={ddlClass}
+                errors={errors.classId}
               />
             </Grid>
             <Grid item xs={3}>
@@ -210,6 +240,7 @@ const StudentIdCard = () => {
                 value={shift}
                 onChange={(e) => handleShift(e.target.value)}
                 options={ddlShift}
+                errors={errors.shift1}
               />
             </Grid>
             <Grid item xs={3}>
@@ -220,6 +251,7 @@ const StudentIdCard = () => {
                 value={section}
                 onChange={(e) => setSection(e.target.value)}
                 options={ddlSection}
+                errors={errors.section}
               />
             </Grid>
 
@@ -231,6 +263,7 @@ const StudentIdCard = () => {
                 value={student}
                 onChange={(e) => setStudent(e.target.value)}
                 options={ddlStudent ? ddlStudent : test}
+                errors={errors.student}
               />
             </Grid>
             <Grid item xs={3}>
@@ -240,6 +273,7 @@ const StudentIdCard = () => {
                 label="Pick Exam Date"
                 value={date}
                 onChange={(e) => handleDate(e.target.value)}
+                errors={errors.date}
               />
             </Grid>
 

@@ -4,6 +4,9 @@ import {
   GET_ALL_STUDEN_MONTHLY_PRESENT_SHEET_FAIL,
   GET_ALL_STUDEN_MONTHLY_PRESENT_SHEET_REQUEST,
   GET_ALL_STUDEN_MONTHLY_PRESENT_SHEET_SUCCESS,
+  GET_ENGLISH_DATE_FAIL,
+  GET_ENGLISH_DATE_REQUEST,
+  GET_ENGLISH_DATE_SUCCESS,
   GET_SUBJECT_OPTIONS_FOR_SELECT_FAIL,
   GET_SUBJECT_OPTIONS_FOR_SELECT_REQUEST,
   GET_SUBJECT_OPTIONS_FOR_SELECT_SUCCESS,
@@ -51,3 +54,24 @@ export const getSubjectOptionsForSelectAction =
       });
     }
   };
+
+export const getEnglishDateAction = (year, month) => async (dispatch) => {
+  try {
+    dispatch({ type: GET_ENGLISH_DATE_REQUEST });
+
+    const { data } = await axios.get(
+      `${API_URL}/api/StudentPresentSheet/GetEngDate?year=${year}&month=${month}`,
+      tokenConfig
+    );
+
+    dispatch({
+      type: GET_ENGLISH_DATE_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: GET_ENGLISH_DATE_FAIL,
+      payload: error.message ? error.message : error.Message,
+    });
+  }
+};

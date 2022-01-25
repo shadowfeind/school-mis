@@ -215,21 +215,26 @@ const SchoolSettings = () => {
             Add{" "}
           </Button>
         </Toolbar>
-        <TableContainer className={classes.table}>
-          <TblHead />
-          {loading && <LoadingComp />}
-          <TableBody>
-            {tableDataAfterPagingAndSorting().map((item) => (
-              <SchoolSettingsTableCollapse
-                item={item}
-                key={item.$id}
-                updateCollegeHandler={updateCollegeHandler}
-                deleteCollegeHandler={deleteCollegeHandler}
-              />
-            ))}
-          </TableBody>
-        </TableContainer>
-        <TblPagination />
+        {loading ? (
+          <LoadingComp />
+        ) : (
+          <>
+            <TableContainer className={classes.table}>
+              <TblHead />
+              <TableBody>
+                {tableDataAfterPagingAndSorting().map((item) => (
+                  <SchoolSettingsTableCollapse
+                    item={item}
+                    key={item.$id}
+                    updateCollegeHandler={updateCollegeHandler}
+                    deleteCollegeHandler={deleteCollegeHandler}
+                  />
+                ))}
+              </TableBody>
+            </TableContainer>
+            <TblPagination />{" "}
+          </>
+        )}
       </CustomContainer>
       <Popup
         openPopup={openPopup}

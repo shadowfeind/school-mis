@@ -14,8 +14,21 @@ import { useDispatch, useSelector } from "react-redux";
 import Notification from "../../components/Notification";
 import ConfirmDialog from "../../components/ConfirmDialog";
 import SelectControl from "../../components/controls/SelectControl";
-import { GET_ALL_STUDEN_MONTHLY_PRESENT_SHEET_RESET } from "./StudentMonthlyPresentSheetConstants";
-import { getAllStudentPresentSheetDataAction } from "./StudentMonthlyPresentSheetActions";
+import {
+  GET_ALL_STUDEN_MONTHLY_PRESENT_SHEET_RESET,
+  GET_ENGLISH_DATE_RESET,
+  GET_LIST_STUDENT_PRESENT_RESET,
+  GET_SUBJECT_OPTIONS_FOR_SELECT_RESET,
+} from "./StudentMonthlyPresentSheetConstants";
+import {
+  getAllStudentPresentSheetDataAction,
+  getEnglishDateAction,
+  getListForUpdateStudentPresentAction,
+  getListStudentPresentAction,
+  getSubjectOptionsForSelectAction,
+} from "./StudentMonthlyPresentSheetActions";
+import DatePickerControl from "../../components/controls/DatePickerControl";
+import StudentMonthlyPresentSheetTableCollapse from "./StudentMonthlyPresentSheetTableCollapse";
 
 const useStyles = makeStyles((theme) => ({
   searchInput: {
@@ -50,6 +63,7 @@ const StudentMonthlyPresentSheet = () => {
   const [nepMonth, setNepMonth] = useState();
   const [nepYear, setNepYear] = useState();
   const [errors, setErrors] = useState({});
+  const [date, setDate] = useState();
 
   const dispatch = useDispatch();
   const classes = useStyles();
@@ -71,6 +85,17 @@ const StudentMonthlyPresentSheet = () => {
     error: allStudentMonthlyPresentSheetDataError,
   } = useSelector((state) => state.getAllStudentMonthlyPresentSheet);
 
+  const { subjectOptions, error: subjectOptionsError } = useSelector(
+    (state) => state.getSubjectOptionsForSelect
+  );
+
+  const { engDate, error: engDateError } = useSelector(
+    (state) => state.getEnglishDate
+  );
+
+  const { getListStudentPresent, error: getListStudentPresentError } =
+    useSelector((state) => state.getListStudentPresent);
+
   if (allStudentMonthlyPresentSheetDataError) {
     setNotify({
       isOpen: true,
@@ -78,6 +103,31 @@ const StudentMonthlyPresentSheet = () => {
       type: "error",
     });
     dispatch({ type: GET_ALL_STUDEN_MONTHLY_PRESENT_SHEET_RESET });
+  }
+  if (subjectOptionsError) {
+    setNotify({
+      isOpen: true,
+      message: subjectOptionsError,
+      type: "error",
+    });
+    dispatch({ type: GET_SUBJECT_OPTIONS_FOR_SELECT_RESET });
+  }
+  //eng date api not working
+  //   if (engDateError) {
+  //     setNotify({
+  //       isOpen: true,
+  //       message: engDateError,
+  //       type: "error",
+  //     });
+  //     dispatch({ type: GET_ENGLISH_DATE_RESET });
+  //   }
+  if (getListStudentPresentError) {
+    setNotify({
+      isOpen: true,
+      message: engDateError,
+      type: "error",
+    });
+    dispatch({ type: GET_LIST_STUDENT_PRESENT_RESET });
   }
 
   useEffect(() => {
@@ -99,8 +149,28 @@ const StudentMonthlyPresentSheet = () => {
       setDdlSection(
         allStudentMonthlyPresentSheetData.searchFilterModel.ddlSection
       );
+      setDdlNepMonth(
+        allStudentMonthlyPresentSheetData.searchFilterModel.ddlnpMonth
+      );
+      setDdlNepYear(
+        allStudentMonthlyPresentSheetData.searchFilterModel.ddlnpYear
+      );
+      setDate(
+        allStudentMonthlyPresentSheetData.searchFilterModel.currentDate.slice(
+          0,
+          10
+        )
+      );
+      setNepMonth(allStudentMonthlyPresentSheetData.searchFilterModel.npMonth);
+      setNepYear(allStudentMonthlyPresentSheetData.searchFilterModel.npYear);
     }
   }, [allStudentMonthlyPresentSheetData, dispatch]);
+
+  useEffect(() => {
+    if (subjectOptions) {
+      setDdlSubject(subjectOptions);
+    }
+  }, [subjectOptions]);
 
   const validate = () => {
     let temp = {};
@@ -112,6 +182,7 @@ const StudentMonthlyPresentSheet = () => {
     temp.subject = !subject ? "This feild is required" : "";
     temp.nepMonth = !nepMonth ? "This feild is required" : "";
     temp.nepYear = !nepYear ? "This feild is required" : "";
+    temp.date = !date ? "This feild is required" : "";
 
     setErrors({ ...temp });
     return Object.values(temp).every((x) => x === "");
@@ -119,7 +190,71 @@ const StudentMonthlyPresentSheet = () => {
 
   const handleSearchAttendance = () => {
     if (validate()) {
-      alert("working");
+      dispatch(
+        getListStudentPresentAction(
+          acaYear,
+          programValue,
+          classId,
+          subject,
+          section,
+          shift,
+          nepYear,
+          nepMonth,
+          date
+        )
+      );
+    }
+  };
+
+  const handleUpdate = () => {
+    if (validate()) {
+      dispatch(
+        getListForUpdateStudentPresentAction(
+          acaYear,
+          programValue,
+          classId,
+          subject,
+          section,
+          shift,
+          nepYear,
+          nepMonth,
+          date
+        )
+      );
+    }
+  };
+
+  const handleYearChange = (value) => {
+    setAcaYear(value);
+    if ((programValue, classId)) {
+      dispatch(getSubjectOptionsForSelectAction(value, programValue, classId));
+    }
+  };
+
+  const handleProgramChange = (value) => {
+    setProgramValue(value);
+    if ((acaYear, classId)) {
+      dispatch(getSubjectOptionsForSelectAction(acaYear, value, classId));
+    }
+  };
+
+  const handleClassIdChange = (value) => {
+    setClassId(value);
+    if ((acaYear, programValue)) {
+      dispatch(getSubjectOptionsForSelectAction(acaYear, programValue, value));
+    }
+  };
+
+  const nepMonthHandler = (value) => {
+    setNepMonth(value);
+    if (nepYear) {
+      dispatch(getEnglishDateAction(value, nepYear));
+    }
+  };
+  const nepYearHandler = (value) => {
+    setNepYear(value);
+    if (nepMonth) {
+      dispatch(getEnglishDateAction(nepMonth, value));
     }
   };
 
@@ -143,7 +278,7 @@ const StudentMonthlyPresentSheet = () => {
                 name="Program/Faculty"
                 label="Program/Faculty"
                 value={programValue}
-                // onChange={handleInputChange}
+                onChange={(e) => handleProgramChange(e.target.value)}
                 options={programDdl ? programDdl : test}
                 errors={errors.programValue}
               />
@@ -190,14 +325,45 @@ const StudentMonthlyPresentSheet = () => {
                 errors={errors.subject}
               />
             </Grid>
-
+            <Grid item xs={3}>
+              <div style={{ height: "10px" }}></div>
+              <SelectControl
+                name="NepaliMonth"
+                label="Nepali Month"
+                value={nepMonth}
+                onChange={(e) => nepMonthHandler(e.target.value)}
+                options={ddlNepMonth ? ddlNepMonth : test}
+                errors={errors.nepMonth}
+              />
+            </Grid>
+            <Grid item xs={3}>
+              <div style={{ height: "10px" }}></div>
+              <SelectControl
+                name="NepaliYear"
+                label="Nepali Year"
+                value={nepYear}
+                onChange={(e) => nepYearHandler(e.target.value)}
+                options={ddlNepYear ? ddlNepYear : test}
+                errors={errors.nepYear}
+              />
+            </Grid>
+            <Grid item xs={3}>
+              <div style={{ height: "10px" }}></div>
+              <DatePickerControl
+                name="CurrentYear"
+                label="Current Year"
+                value={date}
+                onChange={(e) => setDate(e.target.value)}
+                errors={errors.date}
+              />
+            </Grid>
             <Grid item xs={3}>
               <Button
                 variant="contained"
                 color="primary"
                 type="submit"
                 style={{ margin: "10px 0 0 10px" }}
-                // onClick={handleBulkEdit}
+                onClick={handleUpdate}
               >
                 UPDATE
               </Button>
@@ -213,25 +379,17 @@ const StudentMonthlyPresentSheet = () => {
             </Grid>
           </Grid>
         </Toolbar>
+        {getListStudentPresent && (
+          <StudentMonthlyPresentSheetTableCollapse
+            students={getListStudentPresent && getListStudentPresent}
+          />
+        )}
       </CustomContainer>
       <Popup
         openPopup={openPopup}
         setOpenPopup={setOpenPopup}
         title="Bulk Edit"
-      >
-        {/* <StudentAttendanceBulk
-      bulkData={
-        bulkStudentAttendance &&
-        bulkStudentAttendance.dbModelPresentAbsentLst
-      }
-      search={
-        bulkStudentAttendance && bulkStudentAttendance.searchFilterModel
-      }
-      workingDayTotal={
-        bulkStudentAttendance && bulkStudentAttendance.WorkingDayTotal
-      }
-    /> */}
-      </Popup>
+      ></Popup>
       <Notification notify={notify} setNotify={setNotify} />
       <ConfirmDialog
         confirmDialog={confirmDialog}

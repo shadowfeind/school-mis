@@ -7,6 +7,12 @@ import {
   GET_ENGLISH_DATE_FAIL,
   GET_ENGLISH_DATE_REQUEST,
   GET_ENGLISH_DATE_SUCCESS,
+  GET_LIST_FOR_UPDATE_STUDENT_PRESENT_FAIL,
+  GET_LIST_FOR_UPDATE_STUDENT_PRESENT_REQUEST,
+  GET_LIST_FOR_UPDATE_STUDENT_PRESENT_SUCCESS,
+  GET_LIST_STUDENT_PRESENT_FAIL,
+  GET_LIST_STUDENT_PRESENT_REQUEST,
+  GET_LIST_STUDENT_PRESENT_SUCCESS,
   GET_SUBJECT_OPTIONS_FOR_SELECT_FAIL,
   GET_SUBJECT_OPTIONS_FOR_SELECT_REQUEST,
   GET_SUBJECT_OPTIONS_FOR_SELECT_SUCCESS,
@@ -75,3 +81,69 @@ export const getEnglishDateAction = (year, month) => async (dispatch) => {
     });
   }
 };
+
+export const getListStudentPresentAction =
+  (
+    year,
+    program,
+    classId,
+    subject,
+    section,
+    shift,
+    npYear,
+    npMonth,
+    currentDate
+  ) =>
+  async (dispatch) => {
+    try {
+      dispatch({ type: GET_LIST_STUDENT_PRESENT_REQUEST });
+
+      const { data } = await axios.get(
+        `${API_URL}/api/StudentPresentSheet/GetListStudentPresentSheet?currentDate=${currentDate}&npYear=${npYear}&npMonth=${npMonth}&idAcademicYear=${year}&idFacultyProgramLink=${program}&level=${classId}&idSubject=${subject}&section=${section}&idShift=${shift}&searchKey=1`,
+        tokenConfig
+      );
+
+      dispatch({
+        type: GET_LIST_STUDENT_PRESENT_SUCCESS,
+        payload: data,
+      });
+    } catch (error) {
+      dispatch({
+        type: GET_LIST_STUDENT_PRESENT_FAIL,
+        payload: error.message ? error.message : error.Message,
+      });
+    }
+  };
+
+export const getListForUpdateStudentPresentAction =
+  (
+    year,
+    program,
+    classId,
+    subject,
+    section,
+    shift,
+    npYear,
+    npMonth,
+    currentDate
+  ) =>
+  async (dispatch) => {
+    try {
+      dispatch({ type: GET_LIST_FOR_UPDATE_STUDENT_PRESENT_REQUEST });
+
+      const { data } = await axios.get(
+        `${API_URL}/api/StudentPresentSheet/GetSingleToCreateStudentPresentSheet?currentDate=${currentDate}&npYear=${npYear}&npMonth=${npMonth}&idAcademicYear=${year}&idFacultyProgramLink=${program}&level=${classId}&idSubject=${subject}&section=${section}&idShift=${shift}&searchKey=1`,
+        tokenConfig
+      );
+
+      dispatch({
+        type: GET_LIST_FOR_UPDATE_STUDENT_PRESENT_SUCCESS,
+        payload: data,
+      });
+    } catch (error) {
+      dispatch({
+        type: GET_LIST_FOR_UPDATE_STUDENT_PRESENT_FAIL,
+        payload: error.message ? error.message : error.Message,
+      });
+    }
+  };

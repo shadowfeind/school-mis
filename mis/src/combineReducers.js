@@ -270,6 +270,8 @@ import {
 import {
   getAllStudentMonthlyPresentSheetReducer,
   getEnglishDateReducer,
+  getListForUpdateStudentPresentReducer,
+  getListStudentPresentReducer,
   getSubjectOptionsForSelectReducer,
 } from "./attendance/studentMonthlyPresentSheet/StudentMonthlyPresentSheetReducers";
 //examination reducers link end
@@ -474,5 +476,7 @@ export const reducers = combineReducers({
   getAllStudentMonthlyPresentSheet: getAllStudentMonthlyPresentSheetReducer,
   getSubjectOptionsForSelect: getSubjectOptionsForSelectReducer,
   getEnglishDate: getEnglishDateReducer,
+  getListStudentPresent: getListStudentPresentReducer,
+  getListForUpdateStudentPresent: getListForUpdateStudentPresentReducer,
   //attendance reducers ends
 });

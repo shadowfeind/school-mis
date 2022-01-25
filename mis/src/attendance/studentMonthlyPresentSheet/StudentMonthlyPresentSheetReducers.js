@@ -7,6 +7,14 @@ import {
   GET_ENGLISH_DATE_REQUEST,
   GET_ENGLISH_DATE_RESET,
   GET_ENGLISH_DATE_SUCCESS,
+  GET_LIST_FOR_UPDATE_STUDENT_PRESENT_FAIL,
+  GET_LIST_FOR_UPDATE_STUDENT_PRESENT_REQUEST,
+  GET_LIST_FOR_UPDATE_STUDENT_PRESENT_RESET,
+  GET_LIST_FOR_UPDATE_STUDENT_PRESENT_SUCCESS,
+  GET_LIST_STUDENT_PRESENT_FAIL,
+  GET_LIST_STUDENT_PRESENT_REQUEST,
+  GET_LIST_STUDENT_PRESENT_RESET,
+  GET_LIST_STUDENT_PRESENT_SUCCESS,
   GET_SUBJECT_OPTIONS_FOR_SELECT_FAIL,
   GET_SUBJECT_OPTIONS_FOR_SELECT_REQUEST,
   GET_SUBJECT_OPTIONS_FOR_SELECT_RESET,
@@ -61,6 +69,42 @@ export const getEnglishDateReducer = (state = {}, action) => {
     case GET_ENGLISH_DATE_FAIL:
       return { loading: false, error: action.payload };
     case GET_ENGLISH_DATE_RESET:
+      return {};
+    default:
+      return state;
+  }
+};
+
+export const getListStudentPresentReducer = (state = {}, action) => {
+  switch (action.type) {
+    case GET_LIST_STUDENT_PRESENT_REQUEST:
+      return { loading: true };
+    case GET_LIST_STUDENT_PRESENT_SUCCESS:
+      return {
+        loading: false,
+        getListStudentPresent: action.payload,
+      };
+    case GET_LIST_STUDENT_PRESENT_FAIL:
+      return { loading: false, error: action.payload };
+    case GET_LIST_STUDENT_PRESENT_RESET:
+      return {};
+    default:
+      return state;
+  }
+};
+
+export const getListForUpdateStudentPresentReducer = (state = {}, action) => {
+  switch (action.type) {
+    case GET_LIST_FOR_UPDATE_STUDENT_PRESENT_REQUEST:
+      return { loading: true };
+    case GET_LIST_FOR_UPDATE_STUDENT_PRESENT_SUCCESS:
+      return {
+        loading: false,
+        getListForUpdateStudentPresent: action.payload,
+      };
+    case GET_LIST_FOR_UPDATE_STUDENT_PRESENT_FAIL:
+      return { loading: false, error: action.payload };
+    case GET_LIST_FOR_UPDATE_STUDENT_PRESENT_RESET:
       return {};
     default:
       return state;

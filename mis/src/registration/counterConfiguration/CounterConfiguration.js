@@ -59,9 +59,10 @@ const tableHeader = [
 const CounterConfiguration = () => {
   const [academicYearDdl, setAcademicYearDdl] = useState([]);
   const [programDdl, setProgramDdl] = useState([]);
-  const [acaYear, setAcaYear] = useState(55);
-  const [programValue, setProgramValue] = useState(6);
+  const [acaYear, setAcaYear] = useState();
+  const [programValue, setProgramValue] = useState();
   const [tableData, setTableData] = useState([]);
+  const [errors, setErrors] = useState([]);
   const [filterFn, setFilterFn] = useState({
     fn: (item) => {
       return item;
@@ -195,15 +196,28 @@ const CounterConfiguration = () => {
     }
   }, [counterConfigList]);
 
+  const validate=()=>{
+    let temp ={};
+    temp.acaYear = !acaYear ? "This feild is required" : "";
+    temp.programValue = !programValue ? "This feild is required" : "";
+    
+    setErrors({ ...temp });
+    return Object.values(temp).every((x) => x === "");
+  }
+
   const handleCreateClick = () => {
+    if(validate()){
     dispatch(getCounterConfigInitialDataForCreateAction(acaYear, programValue));
     dispatch({ type: GET_COUNTER_CONFIG_INITIAL_DATA_FOR_EDIT_RESET });
     setOpenPopup(true);
+    }
   };
 
   const listSearchHandler = () => {
+    if(validate()){
     dispatch(getCounterConfigListAction(acaYear, programValue));
   };
+};
 
   const updateCounterConfig = (id, year, program) => {
     dispatch(getCounterConfigInitialDataForEditAction(id, year, program));
@@ -222,6 +236,7 @@ const CounterConfiguration = () => {
                 onChange={(e) => setAcaYear(e.target.value)}
                 options={academicYearDdl}
                 value={acaYear}
+                errors={errors.acaYear}
               />
             </Grid>
             <Grid item xs={3}>
@@ -229,8 +244,9 @@ const CounterConfiguration = () => {
                 name="program"
                 label="Program/Faculty"
                 value={programValue}
-                // onChange={(e) => handleProgramChange(e)}
+                onChange={(e) => setProgramValue(e.target.value)}
                 options={programDdl}
+                errors={errors.programValue}
               />
             </Grid>
 

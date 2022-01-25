@@ -68,14 +68,15 @@ const PrintAdminCard = () => {
   const [ddlSection, setDdlSection] = useState([]);
   const [ddlEvent, setDdlEvent] = useState([]);
   const [ddlStudent, setDdlStudent] = useState([]);
-  const [programValue, setProgramValue] = useState(6);
+  const [programValue, setProgramValue] = useState();
   const [classId, setClassId] = useState();
-  const [acaYear, setAcaYear] = useState(55);
-  const [shift, setShift] = useState(2);
-  const [section, setSection] = useState(1);
+  const [acaYear, setAcaYear] = useState();
+  const [shift, setShift] = useState();
+  const [section, setSection] = useState();
   const [event, setEvent] = useState();
   const [student, setStudent] = useState(0);
   const [date, setDate] = useState(Date.now());
+  const [errors, setErrors] = useState([]);
   const dispatch = useDispatch();
   const classes = useStyles();
 
@@ -173,6 +174,19 @@ const PrintAdminCard = () => {
     }
   }, [searchStudentsForAdmitCard]);
 
+  const validate=()=>{
+    let temp ={};
+    temp.acaYear = !acaYear ? "This feild is required" : "";
+    temp.programValue = !programValue ? "This feild is required" : "";
+    temp.classId = !classId ? "This feild is required" : "";
+    temp.section = !section ? "This feild is required" : "";
+    temp.shift1 = !shift ? "This feild is required" : "";
+    temp.event = !event ? "This feild is required" : "";
+    
+    setErrors({ ...temp });
+    return Object.values(temp).every((x) => x === "");
+  }
+
   const handleShift = (value) => {
     setShift(value);
 
@@ -187,6 +201,20 @@ const PrintAdminCard = () => {
       );
     }
   };
+
+  const handleProgramValue =(value=>{
+    setProgramValue(value);
+    if ((acaYear, classId, shift)) {
+      dispatch(
+        getActiveStudentsForAdmitCardDataAction(
+          value,
+          acaYear,
+          classId,
+          shift
+        )
+      );
+    }
+  })
 
   const handleYearChange = (value) => {
     setAcaYear(value);
@@ -225,6 +253,7 @@ const PrintAdminCard = () => {
   };
 
   const handleStudentSearch = () => {
+    if(validate()){
     dispatch(
       searchStudentsForAdmitCardDataAction(
         acaYear,
@@ -236,6 +265,7 @@ const PrintAdminCard = () => {
         student
       )
     );
+      };
   };
 
   const handleDate = (date) => {
@@ -244,6 +274,7 @@ const PrintAdminCard = () => {
   };
 
   const handleBulkPrint = () => {
+    if(validate()){
     dispatch(
       printStudentsAdmitCardDataAction(
         acaYear,
@@ -257,6 +288,7 @@ const PrintAdminCard = () => {
       )
     );
     setOpenPopup(true);
+      };
   };
 
   const componentRef = useRef();
@@ -276,6 +308,7 @@ const PrintAdminCard = () => {
                 value={acaYear}
                 onChange={(e) => handleYearChange(e.target.value)}
                 options={academicYearDdl}
+                errors={errors.acaYear}
               />
             </Grid>
             <Grid item xs={3}>
@@ -283,8 +316,9 @@ const PrintAdminCard = () => {
                 name="Program/Faculty"
                 label="Program/Faculty"
                 value={programValue}
-                // onChange={handleInputChange}
+                onChange={(e) => handleProgramValue(e.target.value)}
                 options={programDdl}
+                errors={errors.programValue}
               />
             </Grid>
             <Grid item xs={3}>
@@ -294,6 +328,7 @@ const PrintAdminCard = () => {
                 value={classId}
                 onChange={(e) => handleClassIdChange(e.target.value)}
                 options={ddlClass}
+                errors={errors.classId}
               />
             </Grid>
             <Grid item xs={3}>
@@ -303,6 +338,7 @@ const PrintAdminCard = () => {
                 value={shift}
                 onChange={(e) => handleShift(e.target.value)}
                 options={ddlShift}
+                errors={errors.shift1}
               />
             </Grid>
             <Grid item xs={3}>
@@ -313,6 +349,7 @@ const PrintAdminCard = () => {
                 value={section}
                 onChange={(e) => setSection(e.target.value)}
                 options={ddlSection}
+                errors={errors.section}
               />
             </Grid>
             <Grid item xs={3}>
@@ -323,6 +360,7 @@ const PrintAdminCard = () => {
                 value={event}
                 onChange={(e) => setEvent(e.target.value)}
                 options={ddlEvent ? ddlEvent : test}
+                errors={errors.event}
               />
             </Grid>
             <Grid item xs={3}>
@@ -333,6 +371,7 @@ const PrintAdminCard = () => {
                 value={student}
                 onChange={(e) => setStudent(e.target.value)}
                 options={ddlStudent ? ddlStudent : test}
+                errors={errors.student}
               />
             </Grid>
             <Grid item xs={3}>
@@ -342,6 +381,7 @@ const PrintAdminCard = () => {
                 label="Pick Exam Date"
                 value={date}
                 onChange={(e) => handleDate(e.target.value)}
+                errors={errors.date}
               />
             </Grid>
 

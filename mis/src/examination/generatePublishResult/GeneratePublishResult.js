@@ -63,12 +63,13 @@ const GeneratePublishResult = () => {
   const [ddlShift, setDdlShift] = useState([]);
   const [ddlSection, setDdlSection] = useState([]);
   const [ddlEvent, setDdlEvent] = useState([]);
-  const [programValue, setProgramValue] = useState(6);
+  const [programValue, setProgramValue] = useState();
   const [classId, setClassId] = useState();
-  const [acaYear, setAcaYear] = useState(55);
-  const [shift, setShift] = useState(2);
-  const [section, setSection] = useState(1);
+  const [acaYear, setAcaYear] = useState();
+  const [shift, setShift] = useState();
+  const [section, setSection] = useState();
   const [event, setEvent] = useState();
+  const [errors, setErrors] = useState([]);
   const dispatch = useDispatch();
   const classes = useStyles();
 
@@ -138,6 +139,20 @@ const GeneratePublishResult = () => {
     dispatch({ type: GET_ALL_GENERATE_PUBLISH_RESET });
   }
 
+  const handleProgramValue =(value=>{
+    setProgramValue(value);
+    if ((acaYear, classId, shift)) {
+      dispatch(
+        getEventAction(
+          value,
+          acaYear,
+          classId,
+          shift
+        )
+      );
+    }
+  })
+
   const handleYearChange = (value) => {
     setAcaYear(value);
     if (classId) {
@@ -174,9 +189,21 @@ const GeneratePublishResult = () => {
   }, [allGenerate, allGeneratePublishResult]);
 
   //get event from exam mark entry
+  const validate=()=>{
+    let temp ={};
+    temp.acaYear = !acaYear ? "This feild is required" : "";
+    temp.programValue = !programValue ? "This feild is required" : "";
+    temp.classId = !classId ? "This feild is required" : "";
+    temp.shift1 = !shift ? "This feild is required" : "";
+    temp.section = !section ? "This feild is required" : "";
+    temp.event = !event ? "This feild is required" : "";
+
+    setErrors({ ...temp });
+    return Object.values(temp).every((x) => x === "");
+  }
 
   const handleGeneralSearch = () => {
-    if ((acaYear, programValue, classId, section, shift, event)) {
+    if (validate()) {
       dispatch({ type: GET_ALL_GENERATE_PUBLISH_RESULT_RESET });
       dispatch(
         getAllGenerateAction(
@@ -192,7 +219,7 @@ const GeneratePublishResult = () => {
   };
 
   const handleGeneralPublishResult = () => {
-    if ((acaYear, programValue, classId, section, shift, event)) {
+    if (validate()) {
       dispatch({ type: GET_ALL_GENERATE_RESET });
       dispatch(
         getAllGenerateAction(
@@ -219,6 +246,7 @@ const GeneratePublishResult = () => {
                 value={acaYear}
                 onChange={(e) => handleYearChange(e.target.value)}
                 options={academicYearDdl}
+                errors={errors.acaYear}
               />
             </Grid>
             <Grid item xs={3}>
@@ -226,8 +254,10 @@ const GeneratePublishResult = () => {
                 name="Program/Faculty"
                 label="Program/Faculty"
                 value={programValue}
-                // onChange={handleInputChange}
+                onChange={(e) => handleProgramValue(e.target.value)}
                 options={programDdl}
+                errors={errors.programValue}
+
               />
             </Grid>
             <Grid item xs={3}>
@@ -237,6 +267,8 @@ const GeneratePublishResult = () => {
                 value={classId}
                 onChange={(e) => handleClassIdChange(e.target.value)}
                 options={ddlClass}
+                errors={errors.classId}
+
               />
             </Grid>
             <Grid item xs={3}>
@@ -246,6 +278,8 @@ const GeneratePublishResult = () => {
                 value={shift}
                 onChange={(e) => setShift(e.target.value)}
                 options={ddlShift}
+                errors={errors.shift1}
+
               />
             </Grid>
             <Grid item xs={3}>
@@ -256,6 +290,8 @@ const GeneratePublishResult = () => {
                 value={section}
                 onChange={(e) => setSection(e.target.value)}
                 options={ddlSection}
+                errors={errors.section}
+
               />
             </Grid>
             <Grid item xs={3}>
@@ -266,6 +302,8 @@ const GeneratePublishResult = () => {
                 value={event}
                 onChange={(e) => setEvent(e.target.value)}
                 options={ddlEvent ? ddlEvent : test}
+                errors={errors.event}
+
               />
             </Grid>
 

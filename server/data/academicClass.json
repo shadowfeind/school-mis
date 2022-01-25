@@ -1,0 +1,171 @@
+{
+  "$id": "1",
+  "ddlFacultyProgramLink": null,
+  "searchFilterModel": {
+    "$id": "2",
+    "feeCollectionModel": null,
+    "studentDueModel": null,
+    "company": 0,
+    "ddlCompany": null,
+    "searchString": "",
+    "baseUrl": "/Setup/AcademicClass",
+    "baseUrlExtended": null,
+    "searchParamCode": "company_searchkey_param",
+    "idSessionUser": 0,
+    "pidRefForEdit": null,
+    "idRole": 0,
+    "ddlRole": null,
+    "studentLedgerModel": null,
+    "StartDate": "0001-01-01T00:00:00",
+    "EndDate": "0001-01-01T00:00:00"
+  },
+  "dbModelLst": [
+    {
+      "$id": "3",
+      "IDClass": 1,
+      "IDHRCompany": 2,
+      "ClassName": "PG",
+      "ClassLocation": null,
+      "IsActive": false,
+      "Created_On": "0001-01-01T00:00:00",
+      "Updated_On": "0001-01-01T00:00:00"
+    },
+    {
+      "$id": "4",
+      "IDClass": 2,
+      "IDHRCompany": 2,
+      "ClassName": "Nursery",
+      "ClassLocation": null,
+      "IsActive": false,
+      "Created_On": "0001-01-01T00:00:00",
+      "Updated_On": "0001-01-01T00:00:00"
+    },
+    {
+      "$id": "5",
+      "IDClass": 3,
+      "IDHRCompany": 2,
+      "ClassName": "LKG",
+      "ClassLocation": null,
+      "IsActive": false,
+      "Created_On": "0001-01-01T00:00:00",
+      "Updated_On": "0001-01-01T00:00:00"
+    },
+    {
+      "$id": "6",
+      "IDClass": 4,
+      "IDHRCompany": 2,
+      "ClassName": "UKG",
+      "ClassLocation": null,
+      "IsActive": false,
+      "Created_On": "0001-01-01T00:00:00",
+      "Updated_On": "0001-01-01T00:00:00"
+    },
+    {
+      "$id": "7",
+      "IDClass": 5,
+      "IDHRCompany": 2,
+      "ClassName": "ONE",
+      "ClassLocation": null,
+      "IsActive": false,
+      "Created_On": "0001-01-01T00:00:00",
+      "Updated_On": "0001-01-01T00:00:00"
+    },
+    {
+      "$id": "8",
+      "IDClass": 6,
+      "IDHRCompany": 2,
+      "ClassName": "TWO",
+      "ClassLocation": null,
+      "IsActive": false,
+      "Created_On": "0001-01-01T00:00:00",
+      "Updated_On": "0001-01-01T00:00:00"
+    },
+    {
+      "$id": "9",
+      "IDClass": 7,
+      "IDHRCompany": 2,
+      "ClassName": "THREE",
+      "ClassLocation": null,
+      "IsActive": false,
+      "Created_On": "0001-01-01T00:00:00",
+      "Updated_On": "0001-01-01T00:00:00"
+    },
+    {
+      "$id": "10",
+      "IDClass": 8,
+      "IDHRCompany": 2,
+      "ClassName": "FOUR",
+      "ClassLocation": null,
+      "IsActive": false,
+      "Created_On": "0001-01-01T00:00:00",
+      "Updated_On": "0001-01-01T00:00:00"
+    },
+    {
+      "$id": "11",
+      "IDClass": 9,
+      "IDHRCompany": 2,
+      "ClassName": "FIVE",
+      "ClassLocation": null,
+      "IsActive": false,
+      "Created_On": "0001-01-01T00:00:00",
+      "Updated_On": "0001-01-01T00:00:00"
+    },
+    {
+      "$id": "12",
+      "IDClass": 10,
+      "IDHRCompany": 2,
+      "ClassName": "SIX",
+      "ClassLocation": null,
+      "IsActive": false,
+      "Created_On": "0001-01-01T00:00:00",
+      "Updated_On": "0001-01-01T00:00:00"
+    },
+    {
+      "$id": "13",
+      "IDClass": 11,
+      "IDHRCompany": 2,
+      "ClassName": "SEVEN",
+      "ClassLocation": null,
+      "IsActive": false,
+      "Created_On": "0001-01-01T00:00:00",
+      "Updated_On": "0001-01-01T00:00:00"
+    },
+    {
+      "$id": "14",
+      "IDClass": 12,
+      "IDHRCompany": 2,
+      "ClassName": "EIGHT",
+      "ClassLocation": null,
+      "IsActive": false,
+      "Created_On": "0001-01-01T00:00:00",
+      "Updated_On": "0001-01-01T00:00:00"
+    },
+    {
+      "$id": "15",
+      "IDClass": 13,
+      "IDHRCompany": 2,
+      "ClassName": "NINE",
+      "ClassLocation": null,
+      "IsActive": false,
+      "Created_On": "0001-01-01T00:00:00",
+      "Updated_On": "0001-01-01T00:00:00"
+    },
+    {
+      "$id": "16",
+      "IDClass": 14,
+      "IDHRCompany": 2,
+      "ClassName": "TEN",
+      "ClassLocation": null,
+      "IsActive": false,
+      "Created_On": "0001-01-01T00:00:00",
+      "Updated_On": "0001-01-01T00:00:00"
+    }
+  ],
+  "messageModel": {
+    "$id": "17",
+    "title": "List Academic Classes",
+    "area": "Setup",
+    "controller": "AcademicClass",
+    "action": "Index"
+  }
+}

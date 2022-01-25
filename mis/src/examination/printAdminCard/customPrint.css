@@ -1,0 +1,44 @@
+/* .admitCard {
+  width: 350px;
+  height: 353.5px;
+  padding: 10px;
+  margin: 10px;
+  border: 1px solid #000;
+  border-radius: 10px;
+  text-align: center;
+} */
+
+.admitCard {
+  width: 350px !important;
+  height: 353.5px !important;
+  padding: 10px !important;
+  margin: 10px !important;
+  border: 1px solid #000 !important;
+  border-radius: 10px !important;
+  text-align: center !important;
+}
+
+@media print {
+  /* styling goes here */
+  #test-print-blueberry {
+    padding-left: 3%;
+  }
+  @-moz-document url-prefix() {
+    /* #test-print-blueberry {
+     margin-top: 0.25;
+   } */
+    * {
+      box-sizing: border-box !important;
+      margin-top: 0 !important;
+    }
+    .admitCard {
+      width: 350px !important;
+      height: 354.5px !important;
+      padding: 10px !important;
+      margin: 10px !important;
+      border: 1px solid #000 !important;
+      border-radius: 10px !important;
+      text-align: center !important;
+    }
+  }
+}

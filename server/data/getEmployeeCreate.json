@@ -1,0 +1,477 @@
+{
+  "$id": "1",
+  "rollNo": null,
+  "hrEmployeeModel": {
+    "$id": "2",
+    "IDHREmployee": 0,
+    "LoginIDHREmployee": null,
+    "IDHRCompany": 2,
+    "WebLoginAccess": false,
+    "Title": null,
+    "FirstName": null,
+    "MiddleName": null,
+    "LastName": null,
+    "ShortName": null,
+    "UniversityRegistrationNumber": null,
+    "DOJ": "0001-01-01T00:00:00",
+    "IDHRBranch": 0,
+    "IDHRDepartment": 0,
+    "IDHREmployeeType": 0,
+    "Position": 0,
+    "EmailID": null,
+    "AlternateEmailID": null,
+    "SkypeID": null,
+    "BankAC": null,
+    "OfficeNumber": null,
+    "OfficeNumberExtension": null,
+    "HomeNumber": null,
+    "MobileNumber": null,
+    "OtherNumber": null,
+    "sha1_password": null,
+    "md5_password": null,
+    "IDHRRole": 0,
+    "imagename": null,
+    "thumbimagename": null,
+    "Sex": null,
+    "Married": null,
+    "DOB": "0001-01-01T00:00:00",
+    "BloodGroup": null,
+    "SpeakingLanguage": null,
+    "ReadingWritingLanguage": null,
+    "ComputerLiteracyLevel": null,
+    "ComputerLiteracyArea": null,
+    "JoinedPosition": null,
+    "Status": "Active",
+    "PermanentAddressLine1": null,
+    "PermanentAddressDistrict": null,
+    "PermanentAddressZone": null,
+    "PermanentAddressCountry": null,
+    "TemporaryAddressLine1": null,
+    "TemporaryAddressDistrict": null,
+    "TemporaryAddressZone": null,
+    "TemporaryAddressCountry": null,
+    "IsNewlyAdded": true,
+    "IDHREmployeeCategoryRole": 1,
+    "Created_By": 0,
+    "IDAcademicRegistration": 0,
+    "FatherName": null,
+    "FatherContactNo": null,
+    "FatherOccupation": null,
+    "FatherWorkingDesignation": null,
+    "FatherWorkingOrganization": null,
+    "FatherEmail": null,
+    "MotherName": null,
+    "MotherContactNo": null,
+    "MotherOccupation": null,
+    "MotherWorkingDesignation": null,
+    "MotherWorkingOrganization": null,
+    "MotherEmail": null,
+    "LocalGuardianName": null,
+    "LocalGuardianContactNo": null,
+    "LocalGuardianOccupation": null,
+    "LocalGuardianWorkingDesignation": null,
+    "LocalGuardianWorkingOrganization": null,
+    "LocalGuardianEmail": null,
+    "Religion": null,
+    "TemporaryTownVillage": null,
+    "TemporaryWardNo": null,
+    "PermanentTownVillage": null,
+    "PermanentWardNo": null,
+    "RollNo": null,
+    "RoleName": null,
+    "IsActive": true,
+    "Created_On": "0001-01-01T00:00:00",
+    "Updated_On": "0001-01-01T00:00:00"
+  },
+  "ddlTitle": [
+    {
+      "$id": "3",
+      "Key": "Mr",
+      "Value": "Mr"
+    },
+    {
+      "$id": "4",
+      "Key": "Ms",
+      "Value": "Ms"
+    },
+    {
+      "$id": "5",
+      "Key": "Er",
+      "Value": "Er"
+    },
+    {
+      "$id": "6",
+      "Key": "Dr",
+      "Value": "Dr"
+    }
+  ],
+  "ddlBranch": [
+    {
+      "$id": "7",
+      "Key": 1,
+      "Value": "Main School"
+    }
+  ],
+  "ddlDepartment": [
+    {
+      "$id": "8",
+      "Key": 1,
+      "Value": "Root Department"
+    }
+  ],
+  "ddlEmployeeType": [
+    {
+      "$id": "9",
+      "Key": 1,
+      "Value": "Intern"
+    },
+    {
+      "$id": "10",
+      "Key": 2,
+      "Value": "Full Time Faculty"
+    },
+    {
+      "$id": "11",
+      "Key": 3,
+      "Value": "Part Time Faculty"
+    },
+    {
+      "$id": "12",
+      "Key": 6,
+      "Value": "Full Time Staff"
+    },
+    {
+      "$id": "13",
+      "Key": 7,
+      "Value": "Part Time Staff"
+    },
+    {
+      "$id": "14",
+      "Key": 9,
+      "Value": "Test employee"
+    },
+    {
+      "$id": "15",
+      "Key": 10,
+      "Value": "Inter"
+    },
+    {
+      "$id": "16",
+      "Key": 11,
+      "Value": "Intern"
+    },
+    {
+      "$id": "17",
+      "Key": 12,
+      "Value": "Full Time "
+    },
+    {
+      "$id": "18",
+      "Key": 13,
+      "Value": "Full Time Faculty"
+    },
+    {
+      "$id": "19",
+      "Key": 14,
+      "Value": "Part Time Staff"
+    },
+    {
+      "$id": "20",
+      "Key": 15,
+      "Value": "Intern"
+    },
+    {
+      "$id": "21",
+      "Key": 16,
+      "Value": "Full Time Test"
+    },
+    {
+      "$id": "22",
+      "Key": 17,
+      "Value": "testingIntern"
+    }
+  ],
+  "ddlRole": [
+    {
+      "$id": "23",
+      "Key": 2,
+      "Value": "ROOT_USER"
+    },
+    {
+      "$id": "24",
+      "Key": 5,
+      "Value": "NORMAL_TEACHER"
+    },
+    {
+      "$id": "25",
+      "Key": 6,
+      "Value": "NORMAL_STAFF"
+    },
+    {
+      "$id": "26",
+      "Key": 8,
+      "Value": "STUDENT"
+    },
+    {
+      "$id": "27",
+      "Key": 1011,
+      "Value": "FULL TIME STAFF"
+    },
+    {
+      "$id": "28",
+      "Key": 1013,
+      "Value": "PRINCIPAL"
+    },
+    {
+      "$id": "29",
+      "Key": 1014,
+      "Value": "EXAMINATION"
+    },
+    {
+      "$id": "30",
+      "Key": 1015,
+      "Value": "ACCOUNT"
+    }
+  ],
+  "ddlGender": [
+    {
+      "$id": "31",
+      "Key": "Male",
+      "Value": "Male"
+    },
+    {
+      "$id": "32",
+      "Key": "Female",
+      "Value": "Female"
+    }
+  ],
+  "ddlStaff": null,
+  "ddlSalaryScale": [],
+  "ddlPosition": [
+    {
+      "$id": "33",
+      "Key": 1,
+      "Value": "Prof."
+    },
+    {
+      "$id": "34",
+      "Key": 7,
+      "Value": "IT Administrator"
+    },
+    {
+      "$id": "35",
+      "Key": 8,
+      "Value": "Officer"
+    },
+    {
+      "$id": "36",
+      "Key": 9,
+      "Value": "Senior Officer "
+    },
+    {
+      "$id": "37",
+      "Key": 10,
+      "Value": "Manager"
+    },
+    {
+      "$id": "38",
+      "Key": 11,
+      "Value": "Incharge"
+    },
+    {
+      "$id": "39",
+      "Key": 12,
+      "Value": "Junior Officer"
+    },
+    {
+      "$id": "40",
+      "Key": 13,
+      "Value": "Senior Assistant"
+    },
+    {
+      "$id": "41",
+      "Key": 14,
+      "Value": "Junior Assistant"
+    },
+    {
+      "$id": "42",
+      "Key": 15,
+      "Value": "Assistant"
+    },
+    {
+      "$id": "43",
+      "Key": 16,
+      "Value": "Messenger"
+    },
+    {
+      "$id": "44",
+      "Key": 17,
+      "Value": "Electrician"
+    },
+    {
+      "$id": "45",
+      "Key": 18,
+      "Value": "Program Director"
+    },
+    {
+      "$id": "46",
+      "Key": 19,
+      "Value": "Program Coordinator"
+    },
+    {
+      "$id": "47",
+      "Key": 20,
+      "Value": "Research Assistant"
+    },
+    {
+      "$id": "48",
+      "Key": 21,
+      "Value": "Office Helper"
+    },
+    {
+      "$id": "49",
+      "Key": 22,
+      "Value": "Driver"
+    },
+    {
+      "$id": "50",
+      "Key": 23,
+      "Value": "Examination Officer"
+    },
+    {
+      "$id": "51",
+      "Key": 24,
+      "Value": "Finance & Admin Head"
+    },
+    {
+      "$id": "52",
+      "Key": 25,
+      "Value": "Displine Incharge/ECA Cood"
+    },
+    {
+      "$id": "53",
+      "Key": 26,
+      "Value": "Library Head"
+    },
+    {
+      "$id": "54",
+      "Key": 27,
+      "Value": "Library officer"
+    },
+    {
+      "$id": "55",
+      "Key": 29,
+      "Value": "Assistant"
+    },
+    {
+      "$id": "56",
+      "Key": 30,
+      "Value": "Messanger"
+    },
+    {
+      "$id": "57",
+      "Key": 31,
+      "Value": "Driver"
+    },
+    {
+      "$id": "58",
+      "Key": 32,
+      "Value": "test"
+    },
+    {
+      "$id": "59",
+      "Key": 34,
+      "Value": "test"
+    },
+    {
+      "$id": "60",
+      "Key": 35,
+      "Value": "Final Test Head"
+    },
+    {
+      "$id": "61",
+      "Key": 36,
+      "Value": "SURESH MANDAR SANU"
+    },
+    {
+      "$id": "62",
+      "Key": 37,
+      "Value": "kiran rai"
+    },
+    {
+      "$id": "63",
+      "Key": 38,
+      "Value": "kiran"
+    },
+    {
+      "$id": "64",
+      "Key": 41,
+      "Value": "Testqq"
+    }
+  ],
+  "ddlIsActive": [
+    {
+      "$id": "65",
+      "Key": false,
+      "Value": "No"
+    },
+    {
+      "$id": "66",
+      "Key": true,
+      "Value": "Yes"
+    }
+  ],
+  "ddlEmployeeCategoryRole": [
+    {
+      "$id": "67",
+      "Key": 1,
+      "Value": "Staff1"
+    },
+    {
+      "$id": "68",
+      "Key": 2,
+      "Value": "Teacher"
+    }
+  ],
+  "searchFilterModel": {
+    "$id": "69",
+    "enableCRUD": false,
+    "IDReporteeFilter": 0,
+    "ddlReportee": null,
+    "fromDate": "0001-01-01T00:00:00",
+    "toDate": "0001-01-01T00:00:00",
+    "fiscalYear": null,
+    "ddlFiscalYear": null,
+    "IDHREmployeeCategoryRole": 0,
+    "ddlEmployeeCategoryRole": null,
+    "IDDepartmentFilter": 0,
+    "ddlDepartmentTree": null,
+    "IDBranchFilter": 0,
+    "ddlBranchTree": null,
+    "IDUserFilter": 0,
+    "ddlStaff": null,
+    "feeCollectionModel": null,
+    "studentDueModel": null,
+    "company": 2,
+    "ddlCompany": null,
+    "searchString": null,
+    "baseUrl": null,
+    "baseUrlExtended": null,
+    "searchParamCode": null,
+    "idSessionUser": 0,
+    "pidRefForEdit": null,
+    "idRole": 0,
+    "ddlRole": null,
+    "studentLedgerModel": null,
+    "StartDate": "0001-01-01T00:00:00",
+    "EndDate": "0001-01-01T00:00:00"
+  },
+  "searchFilterModelStudent": null,
+  "messageModel": {
+    "$id": "70",
+    "title": "Add Employee",
+    "area": "Setup",
+    "controller": "HREmployee",
+    "action": "Index"
+  }
+}

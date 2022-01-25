@@ -6,10 +6,14 @@ module.exports = {
   output: {
     path: path.join(__dirname, "dist"),
     filename: "index.bundle.js",
+    chunkFilename: "[name].[chunkhash].js",
+    publicPath: "",
   },
   devServer: {
     port: 3010,
+    contentBase: path.join(__dirname, "../"),
     watchContentBase: true,
+    historyApiFallback: true,
   },
   devtool: "eval-source-map",
   module: {

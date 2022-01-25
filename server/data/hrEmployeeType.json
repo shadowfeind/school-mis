@@ -1,0 +1,86 @@
+{
+  "$id": "1",
+  "pagingModel": null,
+  "searchFilterModel": {
+    "$id": "2",
+    "feeCollectionModel": null,
+    "studentDueModel": null,
+    "company": 0,
+    "ddlCompany": null,
+    "searchString": "",
+    "baseUrl": "/Setup/HRPosition",
+    "baseUrlExtended": null,
+    "searchParamCode": "company_searchkey_param",
+    "idSessionUser": 0,
+    "pidRefForEdit": null,
+    "idRole": 0,
+    "ddlRole": null,
+    "studentLedgerModel": null,
+    "StartDate": "0001-01-01T00:00:00",
+    "EndDate": "0001-01-01T00:00:00"
+  },
+  "hrEmployeeTypeModelLst": [
+    {
+      "$id": "3",
+      "IDHREmployeeType": 1,
+      "IDHRCompany": 2,
+      "EmployeeTypeName": "Intern",
+      "Description": "Intern",
+      "IsTaxApplicable": false,
+      "IsActive": false,
+      "Created_On": "0001-01-01T00:00:00",
+      "Updated_On": "0001-01-01T00:00:00"
+    },
+    {
+      "$id": "4",
+      "IDHREmployeeType": 2,
+      "IDHRCompany": 2,
+      "EmployeeTypeName": "Full Time Faculty",
+      "Description": "Full Time Faculty",
+      "IsTaxApplicable": false,
+      "IsActive": false,
+      "Created_On": "0001-01-01T00:00:00",
+      "Updated_On": "0001-01-01T00:00:00"
+    },
+    {
+      "$id": "5",
+      "IDHREmployeeType": 3,
+      "IDHRCompany": 2,
+      "EmployeeTypeName": "Part Time Faculty",
+      "Description": "Part Time Faculty",
+      "IsTaxApplicable": false,
+      "IsActive": false,
+      "Created_On": "0001-01-01T00:00:00",
+      "Updated_On": "0001-01-01T00:00:00"
+    },
+    {
+      "$id": "6",
+      "IDHREmployeeType": 6,
+      "IDHRCompany": 2,
+      "EmployeeTypeName": "Full Time Staff",
+      "Description": "Full Time Staff",
+      "IsTaxApplicable": false,
+      "IsActive": false,
+      "Created_On": "0001-01-01T00:00:00",
+      "Updated_On": "0001-01-01T00:00:00"
+    },
+    {
+      "$id": "7",
+      "IDHREmployeeType": 7,
+      "IDHRCompany": 2,
+      "EmployeeTypeName": "Part Time Staff",
+      "Description": "Part Time Staff",
+      "IsTaxApplicable": false,
+      "IsActive": false,
+      "Created_On": "0001-01-01T00:00:00",
+      "Updated_On": "0001-01-01T00:00:00"
+    }
+  ],
+  "messageModel": {
+    "$id": "8",
+    "title": "List Employee Type",
+    "area": "Setup",
+    "controller": "HREmployeeType",
+    "action": "Index"
+  }
+}

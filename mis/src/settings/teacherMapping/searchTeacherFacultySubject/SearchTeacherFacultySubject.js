@@ -69,7 +69,8 @@ const SearchTeacherFacultySubject = () => {
   });
   const [creationAccountSection, setCreationAccountSection] = useState([]);
   const [creationAccountSectionValue, setCreationAccountSectionValue] =
-    useState(6);
+    useState();
+    const [errors, setErrors] = useState([]);
   const dispatch = useDispatch();
   const classes = useStyles();
 
@@ -78,7 +79,7 @@ const SearchTeacherFacultySubject = () => {
   );
   const {
     searchTeacherFacListData,
-    currentQuery,
+
     error: searchTeacherFacListDataError,
   } = useSelector((state) => state.getAllSearchTeacherFacSubListData);
 
@@ -125,13 +126,20 @@ const SearchTeacherFacultySubject = () => {
       setTableData(searchTeacherFacListData.dbModelLst);
     }
   }, [searchTeacherFacListData]);
-
+  const validate=()=>{
+    let temp ={};
+    temp.creationAccountSectionValue = !creationAccountSectionValue ? "This feild is required" : "";
+    setErrors({ ...temp });
+    return Object.values(temp).every((x) => x === "");
+  }
   const test = [{ Key: "", Value: "" }];
 
   const listSearchHandler = () => {
+    if(validate()){
     dispatch(
       getAllSearchTeacherFacSubListDataAction(creationAccountSectionValue)
     );
+    }
   };
   return (
     <>
@@ -145,6 +153,7 @@ const SearchTeacherFacultySubject = () => {
                 value={creationAccountSectionValue}
                 onChange={(e) => setCreationAccountSectionValue(e.target.value)}
                 options={creationAccountSection ? creationAccountSection : test}
+                errors={errors.creationAccountSectionValue}
               />
             </Grid>
             <Grid item xs={4}>

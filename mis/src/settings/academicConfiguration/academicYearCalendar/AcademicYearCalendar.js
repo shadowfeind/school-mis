@@ -75,9 +75,10 @@ const AcademicYearCalendar = () => {
   const [ddlClass, setDdlClass] = useState([]);
   const [academicYearDdl, setAcademicYearDdl] = useState([]);
   const [programDdl, setProgramDdl] = useState([]);
-  const [programValue, setProgramValue] = useState(6);
-  const [classId, setClassId] = useState(14);
-  const [acaYear, setAcaYear] = useState(55);
+  const [programValue, setProgramValue] = useState();
+  const [classId, setClassId] = useState();
+  const [acaYear, setAcaYear] = useState();
+  const [errors, setErrors] = useState({});
 
   const classes = useStyles();
 
@@ -203,6 +204,15 @@ const AcademicYearCalendar = () => {
     tableDataAfterPagingAndSorting,
   } = useCustomTable(tableData, tableHeader, filterFn);
 
+  const validate=()=>{
+    let temp ={};
+    temp.acaYear = !acaYear ? "This feild is required" : "";
+    temp.programValue = !programValue ? "This feild is required" : "";
+    temp.classId = !classId ? "This feild is required" : "";
+    
+    setErrors({ ...temp });
+    return Object.values(temp).every((x) => x === "");
+  }
   const handleSearch = (e) => {
     setFilterFn({
       fn: (item) => {
@@ -229,12 +239,17 @@ const AcademicYearCalendar = () => {
   }, [academicYearCalendarProgram]);
 
   const handleCreate = () => {
+    if(validate()){
     dispatch(createAcademicYearCalendarAction(acaYear, programValue, classId));
     setOpenPopup(true);
+    }
   };
 
   const handleAcademicYearCalendarSearch = () => {
-    dispatch(academicYearCalendarSearchAction(acaYear, programValue, classId));
+    
+    if(validate()){
+      dispatch(academicYearCalendarSearchAction(acaYear, programValue, classId));
+    }
   };
 
   return (
@@ -249,6 +264,7 @@ const AcademicYearCalendar = () => {
                 value={acaYear}
                 onChange={(e) => handleSelectChange(e.target.value)}
                 options={academicYearDdl}
+                errors={errors.acaYear}
               />
             </Grid>
             <Grid item xs={3}>
@@ -256,8 +272,9 @@ const AcademicYearCalendar = () => {
                 name="Sex"
                 label="Program/Faculty"
                 value={programValue}
-                // onChange={handleInputChange}
+                onChange={(e) => setProgramValue(e.target.value)}
                 options={programDdl}
+                errors={errors.programValue}
               />
             </Grid>
             <Grid item xs={3}>
@@ -267,6 +284,8 @@ const AcademicYearCalendar = () => {
                 value={classId}
                 onChange={(e) => setClassId(e.target.value)}
                 options={ddlClass}
+                errors={errors.classId}
+
               />
             </Grid>
             <Grid item xs={3}>

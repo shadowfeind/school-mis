@@ -35,6 +35,7 @@ import {
 import StudentProfileTableCollapse from "./StudentProfileTableCollapse";
 import StudentProfileReset from "./StudentProfileReset";
 import StudentProfileForm from "./StudentProfileForm";
+import { validate } from "@material-ui/pickers";
 
 const useStyles = makeStyles((theme) => ({
   searchInput: {
@@ -59,17 +60,18 @@ const tableHeader = [
 
 const StudentProfile = () => {
   const [academicYear, setAcademicYear] = useState([]);
-  const [academicYearValue, setAcademicYearValue] = useState(55);
+  const [academicYearValue, setAcademicYearValue] = useState();
   const [shift, setShift] = useState([]);
-  const [shiftValue, setShiftValue] = useState(2);
+  const [shiftValue, setShiftValue] = useState();
   const [program, setProgram] = useState([]);
-  const [programValue, setProgramValue] = useState(6);
+  const [programValue, setProgramValue] = useState();
   const [section, setSection] = useState([]);
-  const [sectionValue, setSectionValue] = useState(1);
+  const [sectionValue, setSectionValue] = useState();
   const [classOpt, setClassOpt] = useState([]);
-  const [classOptValue, setClassOptValue] = useState(14);
+  const [classOptValue, setClassOptValue] = useState();
   const [tableData, setTableData] = useState([]);
   const [selectedIndex, setSelectedIndex] = useState("");
+  const [errors, setErrors] = useState([]);
   const [filterFn, setFilterFn] = useState({
     fn: (item) => {
       return item;
@@ -230,7 +232,19 @@ const StudentProfile = () => {
       setTableData([...listStudentProfile.dbModelLst]);
     }
   }, [listStudentProfile]);
+  
+const validate=()=>{
+  let temp={};
+  temp.academicYearValue = !academicYearValue ? "This feild is required" : "";
+  temp.programValue = !programValue ? "This feild is required" : "";
+  temp.shiftValue = !shiftValue ? "This feild is required" : "";
+  temp.classOptValue = !classOptValue ? "This feild is required" : "";
+  temp.sectionValue = !sectionValue ? "This feild is required" : "";
+  
+  setErrors({ ...temp });
+  return Object.values(temp).every((x) => x === "");
 
+}
   const {
     TableContainer,
     TblHead,
@@ -253,7 +267,7 @@ const StudentProfile = () => {
   };
 
   const listSearchHandler = () => {
-    if (studentProfile) {
+    if (validate()) {
       dispatch(
         getListStudentProfileAction(
           academicYearValue,
@@ -295,6 +309,7 @@ const StudentProfile = () => {
                 value={academicYearValue}
                 onChange={(e) => setAcademicYearValue(e.target.value)}
                 options={academicYear}
+                errors={errors.academicYearValue}
               />
             </Grid>
             <Grid item xs={2}>
@@ -302,7 +317,9 @@ const StudentProfile = () => {
                 name="ddlFacultyProgramLink"
                 label="Program / Faculty"
                 value={programValue}
+                onChange={(e) => setProgramValue(e.target.value)}
                 options={program}
+                errors={errors.programValue}
               />
             </Grid>
             <Grid item xs={2}>
@@ -312,6 +329,7 @@ const StudentProfile = () => {
                 value={classOptValue}
                 onChange={(e) => setClassOptValue(e.target.value)}
                 options={classOpt}
+                errors={errors.classOptValue}
               />
             </Grid>
 
@@ -322,6 +340,7 @@ const StudentProfile = () => {
                 value={sectionValue}
                 onChange={(e) => setSectionValue(e.target.value)}
                 options={section}
+                errors={errors.sectionValue}
               />
             </Grid>
             <Grid item xs={2}>
@@ -331,6 +350,7 @@ const StudentProfile = () => {
                 value={shiftValue}
                 onChange={(e) => setShiftValue(e.target.value)}
                 options={shift}
+                errors={errors.shiftValue}
               />
             </Grid>
             <Grid item xs={3}>

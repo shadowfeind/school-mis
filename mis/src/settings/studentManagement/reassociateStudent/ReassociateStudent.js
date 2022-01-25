@@ -72,16 +72,17 @@ const ReassociateStudent = () => {
     subTitle: "",
   });
   const [academicYear, setAcademicYear] = useState([]);
-  const [academicYearValue, setAcademicYearValue] = useState(55);
+  const [academicYearValue, setAcademicYearValue] = useState();
   const [shift, setShift] = useState([]);
-  const [shiftValue, setShiftValue] = useState(2);
+  const [shiftValue, setShiftValue] = useState();
   const [program, setProgram] = useState([]);
-  const [programValue, setProgramValue] = useState(6);
+  const [programValue, setProgramValue] = useState();
   const [section, setSection] = useState([]);
-  const [sectionValue, setSectionValue] = useState(1);
+  const [sectionValue, setSectionValue] = useState();
   const [classOpt, setClassOpt] = useState([]);
-  const [classOptValue, setClassOptValue] = useState(14);
+  const [classOptValue, setClassOptValue] = useState();
   const [formCheck, setFormCheck] = useState([]);
+  const [errors, setErrors] = useState([]);
 
   const dispatch = useDispatch();
   const classes = useStyles();
@@ -133,7 +134,6 @@ const ReassociateStudent = () => {
   }
   const handleAcademicYearChange = (e) => {
     setAcademicYearValue(e.target.value);
-    setProgramValue(6);
   };
   useEffect(() => {
     if (!allReassociateStudents) {
@@ -156,7 +156,20 @@ const ReassociateStudent = () => {
     }
   }, [reassociateStudentLists]);
 
+  const validate=()=>{
+    let temp ={};
+    temp.academicYearValue = !academicYearValue ? "This feild is required" : "";
+    temp.programValue = !programValue ? "This feild is required" : "";
+    temp.shiftValue = !shiftValue ? "This feild is required" : "";
+    temp.classOptValue = !classOptValue ? "This feild is required" : "";
+    temp.sectionValue = !sectionValue ? "This feild is required" : "";
+    
+    setErrors({ ...temp });
+    return Object.values(temp).every((x) => x === "");
+  }
+
   const listSearchHandler = () => {
+    if(validate()){
     dispatch(
       getReassociateStudentsListsAction(
         academicYearValue,
@@ -166,8 +179,10 @@ const ReassociateStudent = () => {
         sectionValue
       )
     );
+      }
   };
   const handleLevelup = () => {
+    if(validate()){
     dispatch(
       getReassociateStudentsLevelupAction(
         academicYearValue,
@@ -178,6 +193,7 @@ const ReassociateStudent = () => {
       )
     );
     setOpenPopup(true);
+      }
   };
 
   const formCheckSubmitHandler = () => {
@@ -206,14 +222,18 @@ const ReassociateStudent = () => {
                 value={academicYearValue}
                 onChange={(e) => handleAcademicYearChange(e)}
                 options={academicYear}
+                errors={errors.academicYearValue}
               />
             </Grid>
-            <Grid item xs={2}>
+            <Grid item xs={3}>
               <SelectControl
                 name="ddlFacultyProgramLink"
                 label="Program / Faculty"
                 value={programValue}
+                onChange={(e) => setProgramValue(e.target.value)}
                 options={program}
+                errors={errors.programValue}
+
               />
             </Grid>
             <Grid item xs={2}>
@@ -223,6 +243,8 @@ const ReassociateStudent = () => {
                 value={classOptValue}
                 onChange={(e) => setClassOptValue(e.target.value)}
                 options={classOpt}
+                errors={errors.classOptValue}
+
               />
             </Grid>
 
@@ -233,6 +255,8 @@ const ReassociateStudent = () => {
                 value={sectionValue}
                 onChange={(e) => setSectionValue(e.target.value)}
                 options={section}
+                errors={errors.sectionValue}
+
               />
             </Grid>
             <Grid item xs={2}>
@@ -242,6 +266,8 @@ const ReassociateStudent = () => {
                 value={shiftValue}
                 onChange={(e) => setShiftValue(e.target.value)}
                 options={shift}
+                errors={errors.shiftValue}
+
               />
             </Grid>
             <Grid item xs={3}>

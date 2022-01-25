@@ -83,10 +83,11 @@ const AssignFacultySubject = () => {
   const [ddlClass, setDdlClass] = useState([]);
   const [academicYearDdl, setAcademicYearDdl] = useState([]);
   const [programDdl, setProgramDdl] = useState([]);
-  const [programValue, setProgramValue] = useState(6);
-  const [classId, setClassId] = useState(14);
-  const [acaYear, setAcaYear] = useState(55);
+  const [programValue, setProgramValue] = useState();
+  const [classId, setClassId] = useState();
+  const [acaYear, setAcaYear] = useState();
   const [formCheck, setFormCheck] = useState([]);
+  const [errors, setErrors] = useState([]);
 
   const classes = useStyles();
 
@@ -194,7 +195,9 @@ const AssignFacultySubject = () => {
   };
 
   const listSearchHandler = () => {
+    if (validate()){
     dispatch(getListAssignFacultySubject(acaYear, programValue, classId));
+    }
   };
 
   useEffect(() => {
@@ -208,6 +211,16 @@ const AssignFacultySubject = () => {
     }
   }, [academicSubjectsList]);
 
+  const validate =()=>{
+    let temp={};
+    temp.acaYear = !acaYear ? "This feild is required" : "";
+    temp.programValue = !programValue ? "This feild is required" : "";
+    temp.classId = !classId ? "This feild is required" : "";
+    
+    setErrors({ ...temp });
+    return Object.values(temp).every((x) => x === "");
+  }
+
   const handleAcademicYearChange = (e) => {
     handleSelectChange(e.target.value);
     setAcaYear(e.target.value);
@@ -218,11 +231,13 @@ const AssignFacultySubject = () => {
   };
 
   const handleCreateClick = () => {
+    if(validate()){
     dispatch(
       getAssignFacultySubjectOptionAction(acaYear, programValue, classId)
     );
     dispatch({ type: ASSIGN_FACULTY_SUBJECT_GENERATE_RESET });
     setOpenPopup(true);
+    }
   };
 
   const formCheckSubmitHandler = () => {
@@ -257,11 +272,13 @@ const AssignFacultySubject = () => {
   }
 
   const generateHandler = () => {
+    if(validate()){
     dispatch(
       getAssignFacultySubjectGenerateAction(acaYear, programValue, classId)
     );
     dispatch({ type: ASSIGN_FACULTY_SUBJECT_GET_RESET });
     setOpenPopup(true);
+    }
   };
   return (
     <>
@@ -275,6 +292,7 @@ const AssignFacultySubject = () => {
                 onChange={(e) => handleAcademicYearChange(e)}
                 options={academicYearDdl}
                 value={acaYear}
+                errors={errors.acaYear}
               />
             </Grid>
             <Grid item xs={3}>
@@ -283,16 +301,19 @@ const AssignFacultySubject = () => {
                 label="Program/Faculty"
                 value={programValue}
                 // onChange={(e) => handleProgramChange(e)}
+                onChange={(e) => setProgramValue(e.target.value)}
                 options={programDdl}
+                errors={errors.programValue}
               />
             </Grid>
             <Grid item xs={3}>
               <SelectControl
                 name="classes"
                 label="Classes"
-                onChange={(e) => handleClassChange(e)}
+                onChange={(e) => setClassId(e.target.value)}
                 options={ddlClass}
                 value={classId}
+                errors={errors.classId}
               />
             </Grid>
             <Grid item xs={3}>

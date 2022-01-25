@@ -81,8 +81,9 @@ const ClassSubject = () => {
     subTitle: "",
   });
   const [ddlClass, setDdlClass] = useState([]);
-  const [classId, setClassId] = useState(14);
+  const [classId, setClassId] = useState();
   const [formCheck, setFormCheck] = useState([]);
+  const [errors, setErrors] = useState([]);
   const classes = useStyles();
 
   const dispatch = useDispatch();
@@ -211,13 +212,24 @@ const ClassSubject = () => {
     }
   }, [dispatch, allClassSubjects]);
 
+  const validate =()=>{
+    let temp ={};
+    temp.classId = !classId ? "This feild is required" : "";
+    
+    setErrors({ ...temp });
+    return Object.values(temp).every((x) => x === "");
+  }
   const listSearchHandler = () => {
+    if(validate()){
     dispatch(getClassSubjectListAction(classId));
+    }
   };
 
   const handleCreateClick = () => {
+    if(validate()){
     dispatch(getToCreateClassSubjectAction(classId));
     setOpenPopup(true);
+    }
   };
 
   const updateClassSubject = (id) => {
@@ -253,6 +265,7 @@ const ClassSubject = () => {
                 onChange={(e) => setClassId(e.target.value)}
                 options={ddlClass}
                 value={classId}
+                errors={errors.classId}
               />
             </Grid>
             <Grid item xs={3}>

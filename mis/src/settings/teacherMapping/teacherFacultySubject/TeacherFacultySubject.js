@@ -75,15 +75,16 @@ const TeacherFacultySubject = () => {
     subTitle: "",
   });
   const [academicYear, setAcademicYear] = useState([]);
-  const [academicYearValue, setAcademicYearValue] = useState(55);
+  const [academicYearValue, setAcademicYearValue] = useState();
   const [shift, setShift] = useState([]);
-  const [shiftValue, setShiftValue] = useState(2);
+  const [shiftValue, setShiftValue] = useState();
   const [program, setProgram] = useState([]);
-  const [programValue, setProgramValue] = useState(6);
+  const [programValue, setProgramValue] = useState();
   const [section, setSection] = useState([]);
-  const [sectionValue, setSectionValue] = useState(1);
+  const [sectionValue, setSectionValue] = useState();
   const [classOpt, setClassOpt] = useState([]);
-  const [classOptValue, setClassOptValue] = useState(14);
+  const [classOptValue, setClassOptValue] = useState();
+  const [errors, setErrors] = useState([]);
   const dispatch = useDispatch();
   const classes = useStyles();
 
@@ -233,8 +234,20 @@ const TeacherFacultySubject = () => {
     //     }
     //   },
     // });
+    setFilterFn({
+      fn: (item) => {
+        if (e.target.value === "") {
+          return item;
+        } else {
+          return item.filter((x) =>
+            x.EventName.toLowerCase().includes(e.target.value)
+          );
+        }
+      },
+    });
   };
 
+    
   useEffect(() => {
     if (!teacherFacInitData) {
       dispatch(getAllTeacherFacSubInitialDataAction());
@@ -254,6 +267,18 @@ const TeacherFacultySubject = () => {
     }
   }, [teacherFacListData]);
 
+  const validate=()=>{
+    let temp ={};
+    temp.academicYearValue = !academicYearValue ? "This feild is required" : "";
+    temp.programValue = !programValue ? "This feild is required" : "";
+    temp.classOptValue = !classOptValue ? "This feild is required" : "";
+    temp.sectionValue = !sectionValue ? "This feild is required" : "";
+    temp.shiftValue = !shiftValue ? "This feild is required" : "";
+    
+    setErrors({ ...temp });
+    return Object.values(temp).every((x) => x === "");
+  }
+
   const test = [{ Key: "", Value: "" }];
 
   const updateTeacherHandler = (id, teacherId) => {
@@ -272,6 +297,7 @@ const TeacherFacultySubject = () => {
   };
 
   const listSearchHandler = () => {
+    if(validate()){
     dispatch(
       getAllTeacherFacSubListDataAction(
         academicYearValue,
@@ -281,10 +307,11 @@ const TeacherFacultySubject = () => {
         shiftValue
       )
     );
+      }
   };
 
   const handleCreate = () => {
-    dispatch({ type: GET_SINGLE_TEACHER_FAC_SUB_DATA_RESET });
+    if(validate()){
     dispatch(
       createTeacherFacSubInitDataAction(
         academicYearValue,
@@ -294,7 +321,9 @@ const TeacherFacultySubject = () => {
         shiftValue
       )
     );
+    dispatch({ type: GET_SINGLE_TEACHER_FAC_SUB_DATA_RESET });
     setOpenPopup(true);
+      }
   };
 
   return (
@@ -309,6 +338,7 @@ const TeacherFacultySubject = () => {
                 value={academicYearValue}
                 onChange={(e) => setAcademicYearValue(e.target.value)}
                 options={academicYear ? academicYear : test}
+                errors={errors.academicYearValue}
               />
             </Grid>
             <Grid item xs={2}>
@@ -316,7 +346,9 @@ const TeacherFacultySubject = () => {
                 name="ddlFacultyProgramLink"
                 label="Program / Faculty"
                 value={programValue}
+                onChange={(e) => setProgramValue(e.target.value)}
                 options={program ? program : test}
+                errors={errors.programValue}
               />
             </Grid>
             <Grid item xs={2}>
@@ -326,6 +358,7 @@ const TeacherFacultySubject = () => {
                 value={classOptValue}
                 onChange={(e) => setClassOptValue(e.target.value)}
                 options={classOpt ? classOpt : test}
+                errors={errors.classOptValue}
               />
             </Grid>
 
@@ -336,6 +369,7 @@ const TeacherFacultySubject = () => {
                 value={sectionValue}
                 onChange={(e) => setSectionValue(e.target.value)}
                 options={section ? section : test}
+                errors={errors.sectionValue}
               />
             </Grid>
             <Grid item xs={2}>
@@ -345,6 +379,7 @@ const TeacherFacultySubject = () => {
                 value={shiftValue}
                 onChange={(e) => setShiftValue(e.target.value)}
                 options={shift ? shift : test}
+                errors={errors.shiftValue}
               />
             </Grid>
             <Grid item xs={3}>

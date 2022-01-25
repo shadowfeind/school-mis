@@ -11,23 +11,27 @@ import {
 } from "react-spinners";
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    width: "635%",
+  loading: {
+    width: "100%",
+    height: "10vh",
+    alignItems: "center",
+    display: "flex",
+    justifyContent: "center",
   },
 }));
 
 const LoadingComp = () => {
   const classes = useStyles();
   return (
-    <div className={classes.root}>
+    <div className={classes.loading}>
       {/* <CircleLoader />
       <ClimbingBoxLoader />
       <BounceLoader />
       <BeatLoader />
       <BarLoader width={100} />
       <ClipLoader /> */}
-      {/* <CircularProgress color="secondary" /> */}
-      <LinearProgress color="secondary" />
+      <CircularProgress color="secondary" />
+      {/* <LinearProgress color="secondary" /> */}
     </div>
   );
 };

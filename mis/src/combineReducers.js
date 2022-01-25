@@ -269,6 +269,7 @@ import {
 } from "./settings/teacherMapping/searchTeacherFacultySubject/SearchTeacherFacultySubjectReducers";
 import {
   getAllStudentMonthlyPresentSheetReducer,
+  getEnglishDateReducer,
   getSubjectOptionsForSelectReducer,
 } from "./attendance/studentMonthlyPresentSheet/StudentMonthlyPresentSheetReducers";
 //examination reducers link end
@@ -472,5 +473,6 @@ export const reducers = combineReducers({
   //attendance reducers starts
   getAllStudentMonthlyPresentSheet: getAllStudentMonthlyPresentSheetReducer,
   getSubjectOptionsForSelect: getSubjectOptionsForSelectReducer,
+  getEnglishDate: getEnglishDateReducer,
   //attendance reducers ends
 });

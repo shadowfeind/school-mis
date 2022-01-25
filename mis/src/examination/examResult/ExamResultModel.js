@@ -15,7 +15,6 @@ const ExamResultModel = () => {
         let studentAttendance = examReport.StudentAttendanceDay.filter(
           (s) => s.IDHREmployee === student.IDHREmployee
         );
-        console.log(levelTest);
         return (
           <ExamResultDesign
             key={student.$id}

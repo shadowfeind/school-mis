@@ -274,7 +274,10 @@ import {
   getListStudentPresentReducer,
   getSubjectOptionsForSelectReducer,
 } from "./attendance/studentMonthlyPresentSheet/StudentMonthlyPresentSheetReducers";
-import { getAllTotalStudentAttendanceReducer } from "./attendance/totalStudentAttendance/TotalStudentAttendanceReducers";
+import {
+  getAllTotalStudentAttendanceReducer,
+  getListTotalStudentAttendanceReducer,
+} from "./attendance/totalStudentAttendance/TotalStudentAttendanceReducers";
 //examination reducers link end
 export const reducers = combineReducers({
   navLink: navLinkReducer,
@@ -480,5 +483,6 @@ export const reducers = combineReducers({
   getListStudentPresent: getListStudentPresentReducer,
   getListForUpdateStudentPresent: getListForUpdateStudentPresentReducer,
   getAllTotalStudentAttendance: getAllTotalStudentAttendanceReducer,
+  getListTotalStudentAttendance: getListTotalStudentAttendanceReducer,
   //attendance reducers ends
 });

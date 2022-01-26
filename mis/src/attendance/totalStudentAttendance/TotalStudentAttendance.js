@@ -6,9 +6,16 @@ import { useDispatch, useSelector } from "react-redux";
 import Notification from "../../components/Notification";
 import ConfirmDialog from "../../components/ConfirmDialog";
 import SelectControl from "../../components/controls/SelectControl";
-import { getAllTotalStudentAttendanceAction } from "./TotalStudentAttendanceActions";
+import {
+  getAllTotalStudentAttendanceAction,
+  getListTotalStudentAttendanceAction,
+} from "./TotalStudentAttendanceActions";
 import { GET_ALL_TOTAL_STUDENT_ATTENDANCE_RESET } from "./TotalStudentAttendanceConstant";
 import DatePickerControl from "../../components/controls/DatePickerControl";
+import {
+  getEnglishDateAction,
+  getSubjectOptionsForSelectAction,
+} from "../studentMonthlyPresentSheet/StudentMonthlyPresentSheetActions";
 
 const useStyles = makeStyles((theme) => ({
   searchInput: {
@@ -65,6 +72,14 @@ const TotalStudentAttendance = () => {
     error: allStudentAttendanceDataError,
   } = useSelector((state) => state.getAllTotalStudentAttendance);
 
+  const { subjectOptions, error: subjectOptionsError } = useSelector(
+    (state) => state.getSubjectOptionsForSelect
+  );
+
+  const { engDate, error: engDateError } = useSelector(
+    (state) => state.getEnglishDate
+  );
+
   if (allStudentAttendanceDataError) {
     setNotify({
       isOpen: true,
@@ -102,6 +117,12 @@ const TotalStudentAttendance = () => {
     }
   }, [allTotalStudentAttendanceData, dispatch]);
 
+  useEffect(() => {
+    if (subjectOptions) {
+      setDdlSubject(subjectOptions);
+    }
+  }, [subjectOptions]);
+
   const validate = () => {
     let temp = {};
     temp.acaYear = !acaYear ? "This feild is required" : "";
@@ -120,19 +141,53 @@ const TotalStudentAttendance = () => {
 
   const handleSearchAttendance = () => {
     if (validate()) {
-      // dispatch(
-      //   getListStudentPresentAction(
-      //     acaYear,
-      //     programValue,
-      //     classId,
-      //     subject,
-      //     section,
-      //     shift,
-      //     nepYear,
-      //     nepMonth,
-      //     date
-      //   )
-      // );
+      dispatch(
+        getListTotalStudentAttendanceAction(
+          acaYear,
+          programValue,
+          classId,
+          subject,
+          section,
+          shift,
+          nepYear,
+          nepMonth,
+          date
+        )
+      );
+    }
+  };
+
+  const handleYearChange = (value) => {
+    setAcaYear(value);
+    if ((programValue, classId)) {
+      dispatch(getSubjectOptionsForSelectAction(value, programValue, classId));
+    }
+  };
+
+  const handleProgramChange = (value) => {
+    setProgramValue(value);
+    if ((acaYear, classId)) {
+      dispatch(getSubjectOptionsForSelectAction(acaYear, value, classId));
+    }
+  };
+
+  const handleClassIdChange = (value) => {
+    setClassId(value);
+    if ((acaYear, programValue)) {
+      dispatch(getSubjectOptionsForSelectAction(acaYear, programValue, value));
+    }
+  };
+
+  const nepMonthHandler = (value) => {
+    setNepMonth(value);
+    if (nepYear) {
+      dispatch(getEnglishDateAction(value, nepYear));
+    }
+  };
+  const nepYearHandler = (value) => {
+    setNepYear(value);
+    if (nepMonth) {
+      dispatch(getEnglishDateAction(nepMonth, value));
     }
   };
 
@@ -146,7 +201,7 @@ const TotalStudentAttendance = () => {
                 name="Academic Year"
                 label="Academic Year"
                 value={acaYear}
-                // onChange={(e) => handleYearChange(e.target.value)}
+                onChange={(e) => handleYearChange(e.target.value)}
                 options={academicYearDdl ? academicYearDdl : test}
                 errors={errors.acaYear}
               />
@@ -156,7 +211,7 @@ const TotalStudentAttendance = () => {
                 name="Program/Faculty"
                 label="Program/Faculty"
                 value={programValue}
-                // onChange={(e) => handleProgramChange(e.target.value)}
+                onChange={(e) => handleProgramChange(e.target.value)}
                 options={programDdl ? programDdl : test}
                 errors={errors.programValue}
               />
@@ -166,7 +221,7 @@ const TotalStudentAttendance = () => {
                 name="Classes"
                 label="Classes"
                 value={classId}
-                // onChange={(e) => handleClassIdChange(e.target.value)}
+                onChange={(e) => handleClassIdChange(e.target.value)}
                 options={ddlClass ? ddlClass : test}
                 errors={errors.classId}
               />
@@ -176,7 +231,7 @@ const TotalStudentAttendance = () => {
                 name="Shift"
                 label="Shift"
                 value={shift}
-                // onChange={(e) => setShift(e.target.value)}
+                onChange={(e) => setShift(e.target.value)}
                 options={ddlShift ? ddlShift : test}
                 errors={errors.shift}
               />
@@ -187,7 +242,7 @@ const TotalStudentAttendance = () => {
                 name="Section"
                 label="Section"
                 value={section}
-                // onChange={(e) => setSection(e.target.value)}
+                onChange={(e) => setSection(e.target.value)}
                 options={ddlSection ? ddlSection : test}
                 errors={errors.section}
               />
@@ -198,7 +253,7 @@ const TotalStudentAttendance = () => {
                 name="Sujbect"
                 label="Subject Name"
                 value={subject}
-                // onChange={(e) => setSubject(e.target.value)}
+                onChange={(e) => setSubject(e.target.value)}
                 options={ddlSubject ? ddlSubject : test}
                 errors={errors.subject}
               />
@@ -209,7 +264,7 @@ const TotalStudentAttendance = () => {
                 name="NepaliMonth"
                 label="Nepali Month"
                 value={nepMonth}
-                // onChange={(e) => nepMonthHandler(e.target.value)}
+                onChange={(e) => nepMonthHandler(e.target.value)}
                 options={ddlNepMonth ? ddlNepMonth : test}
                 errors={errors.nepMonth}
               />
@@ -220,7 +275,7 @@ const TotalStudentAttendance = () => {
                 name="NepaliYear"
                 label="Nepali Year"
                 value={nepYear}
-                // onChange={(e) => nepYearHandler(e.target.value)}
+                onChange={(e) => nepYearHandler(e.target.value)}
                 options={ddlNepYear ? ddlNepYear : test}
                 errors={errors.nepYear}
               />
@@ -231,7 +286,7 @@ const TotalStudentAttendance = () => {
                 name="CurrentYear"
                 label="Current Year"
                 value={date}
-                // onChange={(e) => setDate(e.target.value)}
+                onChange={(e) => setDate(e.target.value)}
                 errors={errors.date}
               />
             </Grid>

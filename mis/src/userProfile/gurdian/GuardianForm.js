@@ -3,6 +3,7 @@ import { Button, Grid } from "@material-ui/core";
 import InputControl from "../../components/controls/InputControl";
 import { useForm, Form } from "../../customHooks/useForm";
 import { useDispatch } from "react-redux";
+import { updateSingleGuardianAction } from "./GuardianActions";
 
 const initialFormValues = {
   IDHREmployee: 0,
@@ -175,8 +176,8 @@ const GuardianForm = ({ guardianForm, setOpenPopup }) => {
     e.preventDefault();
 
     if (validate()) {
-      // dispatch(updateSinglePositionAction(values));
-      alert("working");
+      dispatch(updateSingleGuardianAction(values));
+      // alert("working");
     }
   };
   useEffect(() => {

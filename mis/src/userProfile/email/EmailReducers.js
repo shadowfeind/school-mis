@@ -1,15 +1,17 @@
-import {
-  GET_ALL_EMAIL_FAIL,
-  GET_ALL_EMAIL_REQUEST,
-  GET_ALL_EMAIL_RESET,
-  GET_ALL_EMAIL_SUCCESS,
-  GET_SINGLE_EMAIL_FAIL,
+import { GET_ALL_EMAIL_FAIL, 
+  GET_ALL_EMAIL_REQUEST, 
+  GET_ALL_EMAIL_RESET, 
+  GET_ALL_EMAIL_SUCCESS, 
+  GET_SINGLE_EMAIL_FAIL, 
   GET_SINGLE_EMAIL_REQUEST,
   GET_SINGLE_EMAIL_RESET,
   GET_SINGLE_EMAIL_SUCCESS,
-} from "./EmailConstants";
+  UPDATE_SINGLE_EMAIL_FAIL,
+  UPDATE_SINGLE_EMAIL_REQUEST,
+  UPDATE_SINGLE_EMAIL_RESET,
+  UPDATE_SINGLE_EMAIL_SUCCESS} from "./EmailConstants";
 
-export const getAllEmailReducer = (state = {}, action) => {
+export const getAllEmail = (state = {}, action) => {
   switch (action.type) {
     case GET_ALL_EMAIL_REQUEST:
       return { loading: true };
@@ -33,6 +35,21 @@ export const getSingleEmailReducer = (state = {}, action) => {
     case GET_SINGLE_EMAIL_FAIL:
       return { loading: false, error: action.payload };
     case GET_SINGLE_EMAIL_RESET:
+      return {};
+    default:
+      return state;
+  }
+};
+
+export const updateSingleEmailReducer = (state = {}, action) => {
+  switch (action.type) {
+    case UPDATE_SINGLE_EMAIL_REQUEST:
+      return { loading: true };
+    case UPDATE_SINGLE_EMAIL_SUCCESS:
+      return { loading: false, updatedEmail: action.payload, success: true };
+    case UPDATE_SINGLE_EMAIL_FAIL:
+      return { loading: false, error: action.payload };
+    case UPDATE_SINGLE_EMAIL_RESET:
       return {};
     default:
       return state;

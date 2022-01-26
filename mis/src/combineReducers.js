@@ -227,21 +227,28 @@ import {
 import {
   getAllPersonalInformation,
   getSinglePersonalInformationReducer,
+  updateSinglePersonalInformationReducer,
 } from "./userProfile/personalinformation/PersonalInformationReducers";
-import { getAllContactAddressReducer } from "./userProfile/contactAddress/ContactAddressReducers";
+import { getAllContactAddress, getAllContactAddressReducer, getSingleContactAddressReducer, updateSingleContactAddressReducer } from "./userProfile/contactAddress/ContactAddressReducers";
 import {
+  getAllContactNumber,
   getAllContactNumberReducer,
   getSingleContactNumberReducer,
+  updateSingleContactNumberReducer,
 } from "./userProfile/contactNumber/ContactNumberReducers";
 import { getAllEducationReducer } from "./userProfile/education/EducationReducers";
 import {
+  getAllEmail,
   getAllEmailReducer,
   getSingleEmailReducer,
+  updateSingleEmailReducer,
 } from "./userProfile/email/EmailReducers";
-import { getAllFamilyMemberReducer } from "./userProfile/familyMember/FamilyMemberReducers";
+import { createSingleFamilyMemberReducer, familyMemberCreateReducer, getAllFamilyMember, getAllFamilyMemberCreateReducer, getAllFamilyMemberReducer } from "./userProfile/familyMember/FamilyMemberReducers";
 import {
+  getAllGuardian,
   getAllGuardianReducer,
   getSingleGuardianReducer,
+  updateSingleGuardianReducer,
 } from "./userProfile/gurdian/GuardianReducers";
 import { getAllHobbyReducer } from "./userProfile/hobby/HobbyReducers";
 import { getAllJobHistoryReducer } from "./userProfile/jobHistory/JobHistoryReducers";
@@ -460,19 +467,39 @@ export const reducers = combineReducers({
   //PID PersonalInformation
   getAllPersonalInformation: getAllPersonalInformation,
   getSinglePersonalInformation: getSinglePersonalInformationReducer,
-  getAllContactAddress: getAllContactAddressReducer,
-  getAllContactNumber: getAllContactNumberReducer,
+  updateSinglePersonalInformation : updateSinglePersonalInformationReducer,
+  //PID ContactAddress
+  getAllContactAddress : getAllContactAddress,
+  getSingleContactAddress: getSingleContactAddressReducer,
+  updateSingleContactAddress: updateSingleContactAddressReducer,
+  //PiD Contactnumber
+  getAllContactNumber: getAllContactNumber,
   getSingleContactNumber: getSingleContactNumberReducer,
+  updateSingleContactNumber : updateSingleContactNumberReducer,
+  //PID Education
   getAllEducation: getAllEducationReducer,
-  getAllEmail: getAllEmailReducer,
+  //PID Email
+  getAllEmail: getAllEmail,
   getSingleEmail: getSingleEmailReducer,
-  getAllFamilyMember: getAllFamilyMemberReducer,
-  getAllGuardian: getAllGuardianReducer,
-  getSingleGuardian: getSingleGuardianReducer,
+  updateSingleEmail: updateSingleEmailReducer,
+  //PID FamilyMember
+  getAllFamilyMember: getAllFamilyMember,
+  getAllFamilyMemberCreate :getAllFamilyMemberCreateReducer,
+  createSingleFamilyMember : createSingleFamilyMemberReducer,
+familyMemberCreate : familyMemberCreateReducer,
+//PID Guardian
+getAllGuardian: getAllGuardian,
+getSingleGuardian: getSingleGuardianReducer,
+updateSingleGuardian : updateSingleGuardianReducer,
+  //PID Hobby
   getAllHobby: getAllHobbyReducer,
+  //PID JobHistory
   getAllJobHistory: getAllJobHistoryReducer,
+  //PID Skill
   getAllSkill: getAllSkillReducer,
+  //PID Training
   getAllTraining: getAllTrainingReducer,
+  //PID uploadPhoto
   getAllUploadPhoto: getAllUploadPhotoReducer,
   uploadPhoto: uploadPhotoReducer,
   //user profile reducers ends

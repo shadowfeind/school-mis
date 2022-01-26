@@ -3,6 +3,7 @@ import { Button, Grid } from "@material-ui/core";
 import InputControl from "../../components/controls/InputControl";
 import { useForm, Form } from "../../customHooks/useForm";
 import { useDispatch } from "react-redux";
+import { updateSingleContactNumberAction } from "./ContactNumberActions";
 
 const initialFormValues = {
   IDHREmployee: 0,
@@ -60,8 +61,7 @@ const ContactNumberForm = ({ contactNumber, setOpenPopup }) => {
     e.preventDefault();
 
     if (validate()) {
-      // dispatch(updateSinglePositionAction(values));
-      alert("working");
+      dispatch(updateSingleContactNumberAction(values));
     }
   };
 

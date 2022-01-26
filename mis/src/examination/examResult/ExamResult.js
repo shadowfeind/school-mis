@@ -222,7 +222,7 @@ const ExamResult = () => {
   const handleBulkPrint = () => {
     setShowDatatable(false);
     setShowAnnualLedger(false);
-    if (validate(acaYear, programValue, classId, section, shift, event)) {
+    if (validate()) {
       dispatch(
         printExamResultAction(
           acaYear,

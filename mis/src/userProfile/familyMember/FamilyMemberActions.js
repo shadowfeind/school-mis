@@ -94,6 +94,7 @@ export const familyMemberCreateAction = (familyMemberCreate) => async (dispatch)
       jsonData,
       tokenConfig
     );
+    // console.log(jsonData);
 
     dispatch({ type: FAMILYMEMBER_CREATE_SUCCESS, payload: data });
   } catch (error) {

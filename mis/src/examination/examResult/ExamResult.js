@@ -63,7 +63,7 @@ const ExamResult = () => {
   const [shift, setShift] = useState();
   const [section, setSection] = useState();
   const [event, setEvent] = useState();
-  const [student, setStudent] = useState();
+  const [student, setStudent] = useState(0);
   const [errors, setErrors] = useState([]);
   const dispatch = useDispatch();
   const classes = useStyles();
@@ -143,7 +143,6 @@ const ExamResult = () => {
     temp.shift1 = !shift ? "This feild is required" : "";
     temp.section = !section ? "This feild is required" : "";
     temp.event = !event ? "This feild is required" : "";
-    temp.student = !student ? "This feild is required" : "";
 
     setErrors({ ...temp });
     return Object.values(temp).every((x) => x === "");
@@ -191,19 +190,25 @@ const ExamResult = () => {
     );
   };
 
-  const studentHandler = (e) => {
+  const studentHandler = (value) => {
     setShowDatatable(false);
-    setStudent(e.target.value);
+    setStudent(value);
   };
 
-  const eventHandler = (e) => {
+  const eventHandler = (value) => {
     setShowDatatable(false);
-    setEvent(e.target.value);
+    setEvent(value);
   };
 
   const handleLedgerSearch = () => {
     setShowAnnualLedger(false);
-    if (validate()) {
+    if (validate(acaYear,
+      programValue,
+      classId,
+      section,
+      shift,
+      event,
+      student)) {
       dispatch(
         getExamResultListAction(
           acaYear,
@@ -222,7 +227,13 @@ const ExamResult = () => {
   const handleBulkPrint = () => {
     setShowDatatable(false);
     setShowAnnualLedger(false);
-    if (validate()) {
+    if (validate(acaYear,
+      programValue,
+      classId,
+      section,
+      shift,
+      event,
+      student)) {
       dispatch(
         printExamResultAction(
           acaYear,

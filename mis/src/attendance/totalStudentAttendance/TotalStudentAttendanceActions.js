@@ -31,23 +31,13 @@ export const getAllTotalStudentAttendanceAction = () => async (dispatch) => {
 };
 
 export const getListTotalStudentAttendanceAction =
-  (
-    year,
-    program,
-    classId,
-    subject,
-    section,
-    shift,
-    npYear,
-    npMonth,
-    currentDate
-  ) =>
+  (year, program, classId, subject, section, shift, startDate, endDate) =>
   async (dispatch) => {
     try {
       dispatch({ type: GET_LIST_TOTAL_STUDENT_ATTENDANCE_REQUEST });
 
       const { data } = await axios.get(
-        `${API_URL}/api/TotalStudentAttendance/GetListTotalStudentAttendance?currentDate=${currentDate}&npYear=${npYear}&npMonth=${npMonth}&idAcademicYear=${year}&idFacultyProgramLink=${program}&level=${classId}&idSubject=${subject}&section=${section}&idShift=${shift}&searchKey=1`,
+        `${API_URL}/api/TotalStudentAttendance/GetListTotalStudentAttendance?startDate=${startDate}&endDate=${endDate}&idAcademicYear=${year}&idFacultyProgramLink=${program}&level=${classId}&idSubject=${subject}&section=${section}&idShift=${shift}&searchKey=1`,
         tokenConfig
       );
 

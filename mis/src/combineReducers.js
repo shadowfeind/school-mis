@@ -236,7 +236,7 @@ import {
   getSingleContactNumberReducer,
   updateSingleContactNumberReducer,
 } from "./userProfile/contactNumber/ContactNumberReducers";
-import { getAllEducationReducer } from "./userProfile/education/EducationReducers";
+import { createSingleEducationReducer, educationCreateReducer, getAllEducation, getAllEducationCreateReducer, getAllEducationReducer } from "./userProfile/education/EducationReducers";
 import {
   getAllEmail,
   getAllEmailReducer,
@@ -250,10 +250,10 @@ import {
   getSingleGuardianReducer,
   updateSingleGuardianReducer,
 } from "./userProfile/gurdian/GuardianReducers";
-import { getAllHobbyReducer } from "./userProfile/hobby/HobbyReducers";
-import { getAllJobHistoryReducer } from "./userProfile/jobHistory/JobHistoryReducers";
-import { getAllSkillReducer } from "./userProfile/skill/SkillReducers";
-import { getAllTrainingReducer } from "./userProfile/training/TrainingReducers";
+import { createSingleHobbyReducer, getAllHobby, getAllHobbyCreateReducer, getAllHobbyReducer, hobbyCreateReducer } from "./userProfile/hobby/HobbyReducers";
+import { createSingleJobHistoryReducer, getAllJobHistory, getAllJobHistoryCreateReducer, getAllJobHistoryReducer, jobHistoryCreateReducer } from "./userProfile/jobHistory/JobHistoryReducers";
+import { createSingleSkillReducer, getAllSkill, getAllSkillCreateReducer, getAllSkillReducer, skillCreateReducer } from "./userProfile/skill/SkillReducers";
+import { createSingleTrainingReducer, getAllTraining, getAllTrainingCreateReducer, getAllTrainingReducer, trainingCreateReducer } from "./userProfile/training/TrainingReducers";
 import {
   getAllUploadPhotoReducer,
   uploadPhotoReducer,
@@ -477,7 +477,10 @@ export const reducers = combineReducers({
   getSingleContactNumber: getSingleContactNumberReducer,
   updateSingleContactNumber : updateSingleContactNumberReducer,
   //PID Education
-  getAllEducation: getAllEducationReducer,
+  getAllEducation: getAllEducation,
+  getAllEducationCreate: getAllEducationCreateReducer,
+  createSingleEducation : createSingleEducationReducer,
+  educationCreate : educationCreateReducer,
   //PID Email
   getAllEmail: getAllEmail,
   getSingleEmail: getSingleEmailReducer,
@@ -492,13 +495,25 @@ getAllGuardian: getAllGuardian,
 getSingleGuardian: getSingleGuardianReducer,
 updateSingleGuardian : updateSingleGuardianReducer,
   //PID Hobby
-  getAllHobby: getAllHobbyReducer,
+  getAllHobby : getAllHobby,
+  getAllHobbyCreate : getAllHobbyCreateReducer,
+  createSingleHobby: createSingleHobbyReducer,
+  hobbyCreate : hobbyCreateReducer,
   //PID JobHistory
-  getAllJobHistory: getAllJobHistoryReducer,
+  getAllJobHistory: getAllJobHistory,
+  getAllJobHistoryCreate: getAllJobHistoryCreateReducer,
+  createSingleJobHistory: createSingleJobHistoryReducer,
+  jobHistoryCreate : jobHistoryCreateReducer,
   //PID Skill
-  getAllSkill: getAllSkillReducer,
+  getAllSkill : getAllSkill,
+  getAllSkillCreate: getAllSkillCreateReducer,
+  createSingleSkill : createSingleSkillReducer,
+  skillCreate: skillCreateReducer,
   //PID Training
-  getAllTraining: getAllTrainingReducer,
+  getAllTraining : getAllTraining,
+  getAllTrainingCreate : getAllTrainingCreateReducer,
+  createSingleTraining: createSingleTrainingReducer,
+  trainingCreate: trainingCreateReducer,
   //PID uploadPhoto
   getAllUploadPhoto: getAllUploadPhotoReducer,
   uploadPhoto: uploadPhotoReducer,

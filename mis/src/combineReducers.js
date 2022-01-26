@@ -274,6 +274,7 @@ import {
   getListStudentPresentReducer,
   getSubjectOptionsForSelectReducer,
 } from "./attendance/studentMonthlyPresentSheet/StudentMonthlyPresentSheetReducers";
+import { getAllTotalStudentAttendanceReducer } from "./attendance/totalStudentAttendance/TotalStudentAttendanceReducers";
 //examination reducers link end
 export const reducers = combineReducers({
   navLink: navLinkReducer,
@@ -478,5 +479,6 @@ export const reducers = combineReducers({
   getEnglishDate: getEnglishDateReducer,
   getListStudentPresent: getListStudentPresentReducer,
   getListForUpdateStudentPresent: getListForUpdateStudentPresentReducer,
+  getAllTotalStudentAttendance: getAllTotalStudentAttendanceReducer,
   //attendance reducers ends
 });

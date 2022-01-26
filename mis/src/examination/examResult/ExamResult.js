@@ -57,13 +57,14 @@ const ExamResult = () => {
   const [ddlSection, setDdlSection] = useState([]);
   const [ddlEvent, setDdlEvent] = useState([]);
   const [ddlStudent, setDdlStudent] = useState([]);
-  const [programValue, setProgramValue] = useState(6);
+  const [programValue, setProgramValue] = useState();
   const [classId, setClassId] = useState();
-  const [acaYear, setAcaYear] = useState(55);
-  const [shift, setShift] = useState(2);
-  const [section, setSection] = useState(1);
+  const [acaYear, setAcaYear] = useState();
+  const [shift, setShift] = useState();
+  const [section, setSection] = useState();
   const [event, setEvent] = useState();
   const [student, setStudent] = useState();
+  const [errors, setErrors] = useState([]);
   const dispatch = useDispatch();
   const classes = useStyles();
   const [openPopup, setOpenPopup] = useState(false);
@@ -134,6 +135,34 @@ const ExamResult = () => {
     }
   }, [examResultInitialDatas, dispatch]);
 
+  const validate=()=>{
+    let temp ={};
+    temp.acaYear = !acaYear ? "This feild is required" : "";
+    temp.programValue = !programValue ? "This feild is required" : "";
+    temp.classId = !classId ? "This feild is required" : "";
+    temp.shift1 = !shift ? "This feild is required" : "";
+    temp.section = !section ? "This feild is required" : "";
+    temp.event = !event ? "This feild is required" : "";
+    temp.student = !student ? "This feild is required" : "";
+
+    setErrors({ ...temp });
+    return Object.values(temp).every((x) => x === "");
+  }
+
+  const handleProgramValue =(value=>{
+    setProgramValue(value);
+    if ((acaYear, classId, shift)) {
+      dispatch(
+        getExamApprovalScheduleHeaderAction(
+          value,
+          acaYear,
+          classId,
+          shift
+        )
+      );
+    }
+  })
+
   const handleYearChange = (value) => {
     setShowDatatable(false);
     setAcaYear(value);
@@ -174,7 +203,7 @@ const ExamResult = () => {
 
   const handleLedgerSearch = () => {
     setShowAnnualLedger(false);
-    if ((acaYear, programValue, classId, shift, section, event)) {
+    if (validate()) {
       dispatch(
         getExamResultListAction(
           acaYear,
@@ -193,7 +222,7 @@ const ExamResult = () => {
   const handleBulkPrint = () => {
     setShowDatatable(false);
     setShowAnnualLedger(false);
-    if ((acaYear, programValue, classId, section, shift, event)) {
+    if (validate(acaYear, programValue, classId, section, shift, event)) {
       dispatch(
         printExamResultAction(
           acaYear,
@@ -210,9 +239,11 @@ const ExamResult = () => {
   };
 
   const handleAnnualLedgerSearch = () => {
+    if(validate()){
     setShowDatatable(false);
     setShowAnnualLedger(true);
   };
+};
   return (
     <>
       <CustomContainer>
@@ -225,6 +256,7 @@ const ExamResult = () => {
                 value={acaYear}
                 onChange={(e) => handleYearChange(e.target.value)}
                 options={academicYearDdl}
+                errors={errors.acaYear}
               />
             </Grid>
             <Grid item xs={3}>
@@ -232,8 +264,9 @@ const ExamResult = () => {
                 name="Program/Faculty"
                 label="Program/Faculty"
                 value={programValue}
-                // onChange={handleInputChange}
+                onChange={(e) => handleProgramValue(e.target.value)}
                 options={programDdl}
+                errors={errors.programValue}
               />
             </Grid>
             <Grid item xs={3}>
@@ -243,6 +276,7 @@ const ExamResult = () => {
                 value={classId}
                 onChange={(e) => handleClassIdChange(e.target.value)}
                 options={ddlClass}
+                errors={errors.classId}
               />
             </Grid>
             <Grid item xs={3}>
@@ -252,6 +286,7 @@ const ExamResult = () => {
                 value={shift}
                 onChange={(e) => handleShiftChange(e.target.value)}
                 options={ddlShift}
+                errors={errors.shift1}
               />
             </Grid>
             <Grid item xs={3}>
@@ -260,8 +295,9 @@ const ExamResult = () => {
                 name="Section"
                 label="Section"
                 value={section}
-                // onChange={(e) => setSection(e.target.value)}
+                onChange={(e) => setSection(e.target.value)}
                 options={ddlSection}
+                errors={errors.section}
               />
             </Grid>
             <Grid item xs={3}>
@@ -270,8 +306,9 @@ const ExamResult = () => {
                 name="EventName"
                 label="Event Name"
                 value={event}
-                onChange={(e) => eventHandler(e)}
+                onChange={(e) => eventHandler(e.target.value)}
                 options={ddlEvent ? ddlEvent : test}
+                errors={errors.event}
               />
             </Grid>
             <Grid item xs={3}>
@@ -280,8 +317,9 @@ const ExamResult = () => {
                 name="Student"
                 label="Student"
                 value={student}
-                onChange={(e) => studentHandler(e)}
+                onChange={(e) => studentHandler(e.target.value)}
                 options={ddlStudent ? ddlStudent : test}
+                errors={errors.student}
               />
             </Grid>
 

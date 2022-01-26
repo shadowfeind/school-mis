@@ -14,7 +14,7 @@ const initialFormValues = {
   IDHRCompany: 2,
   RoomName: "",
   RoomLocation: "",
-  RoomCapacity: 30,
+  RoomCapacity: "",
   IsActive: true,
   Created_On: "2021-09-23T03:44:16.140Z",
   Updated_On: "2021-09-23T03:44:16.141Z",

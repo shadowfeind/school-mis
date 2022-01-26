@@ -15,13 +15,13 @@ import SelectControl from "../../../components/controls/SelectControl";
 
 const initialFormValues = {
   IDFaculty: 0,
-  IDHRCompany: 2,
+  IDHRCompany: 0,
   Header: "",
-  TotalSeat: 60,
-  LevelMOU: "Trimester",
-  TotalSection: 2,
-  TotalLevel: 2,
-  IDFacultyCoordinator: 10965,
+  TotalSeat: "",
+  LevelMOU: "",
+  TotalSection: "",
+  TotalLevel: "",
+  IDFacultyCoordinator: "",
   IsActive: true,
   Created_On: "2021-09-23",
   Updated_On: "2021-09-23",
@@ -48,7 +48,9 @@ const AcademicFacultyForm = ({ academicFaculty, selected, setOpenPopup }) => {
     temp.TotalSection = !fieldValues.TotalSection
       ? "This feild is required"
       : "";
-
+      temp.TotalLevel = !fieldValues.TotalLevel
+      ? "This feild is required"
+      : "";
     temp.IDFacultyCoordinator = !fieldValues.IDFacultyCoordinator
       ? "This feild is required"
       : "";

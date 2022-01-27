@@ -179,6 +179,8 @@ const StudentRegistrationForm = ({
     temp.idAcademicYear = !fieldValues.idAcademicYear.length !== 0 ? "" : "";
     temp.RegistrationKey = !fieldValues.RegistrationKey
       ? "This feild is required"
+      :!fieldValues.RegistrationKey
+      ?"This Registration Number Already Exist"
       : !fieldValues.RegistrationKey.trim()
       ? "This feild is required"
       : "";

@@ -64,7 +64,7 @@ export const getSingleAnnouncementAction = (id) => async (dispatch) => {
     dispatch({ type:GET_SINGLE_ANNOUNCEMENT_REQUEST });
 
     const { data } = await axios.get(
-      `${API_URL}/api/Announcement/GetSingleCreateAnnouncement?searchKey=1`,
+      `${API_URL}/api/Announcement/GetSingleEditAnnouncement/1?searchKey=1`,
       tokenConfig
     );
 

@@ -38,7 +38,7 @@ const useStyles = makeStyles({
   },
 });
 
-const StudentMonthlyPresentSheetUpdateForm = ({ students }) => {
+const StudentMonthlyPresentSheetUpdateForm = ({ students, presentStudent }) => {
   const [stuAttendance, setStuAttendance] = useState([]);
   const classes = useStyles();
 
@@ -60,31 +60,33 @@ const StudentMonthlyPresentSheetUpdateForm = ({ students }) => {
               <StyledTableCell>Email</StyledTableCell>
 
               <StyledTableCell>
-                <Checkbox />
+                <Checkbox checked={true} />
               </StyledTableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {stuAttendance &&
-              stuAttendance.map((s) => (
-                <StyledTableRow key={s.IDHREmployee}>
-                  <StyledTableCell component="th" scope="row">
-                    {s.RollNo}
-                  </StyledTableCell>
-                  <StyledTableCell component="th" scope="row">
-                    {s.FullName}
-                  </StyledTableCell>
-                  <StyledTableCell component="th" scope="row">
-                    {s.MobileNumber}
-                  </StyledTableCell>
-                  <StyledTableCell component="th" scope="row">
-                    {s.EmailID}
-                  </StyledTableCell>
-                  <StyledTableCell component="th" scope="row">
-                    <Checkbox />
-                  </StyledTableCell>
-                </StyledTableRow>
-              ))}
+              stuAttendance
+                .sort((a, b) => a.RollNo - b.RollNo)
+                .map((s) => (
+                  <StyledTableRow key={s.IDHREmployee}>
+                    <StyledTableCell component="th" scope="row">
+                      {s.RollNo}
+                    </StyledTableCell>
+                    <StyledTableCell component="th" scope="row">
+                      {s.FullName}
+                    </StyledTableCell>
+                    <StyledTableCell component="th" scope="row">
+                      {s.MobileNumber}
+                    </StyledTableCell>
+                    <StyledTableCell component="th" scope="row">
+                      {s.EmailID}
+                    </StyledTableCell>
+                    <StyledTableCell component="th" scope="row">
+                      <Checkbox checked={true} />
+                    </StyledTableCell>
+                  </StyledTableRow>
+                ))}
           </TableBody>
           <div
             style={{

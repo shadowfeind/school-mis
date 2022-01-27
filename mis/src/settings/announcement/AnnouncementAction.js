@@ -45,7 +45,7 @@ export const getAllAnnouncementAction = () => async (dispatch) => {
       // };
 
       const { data } = await axios.post(
-        `${API_URL}/api/HREmployeeCategoryRole/PostHREmployeeCategoryRole`,
+        `${API_URL}/api/Announcement/Post`,
         jsonData,
         tokenConfig
       );
@@ -64,7 +64,7 @@ export const getSingleAnnouncementAction = (id) => async (dispatch) => {
     dispatch({ type:GET_SINGLE_ANNOUNCEMENT_REQUEST });
 
     const { data } = await axios.get(
-      `${API_URL}/api/HREmployeeCategoryRole/GetHREmployeeCategoryRoleById/${id}`,
+      `${API_URL}/api/Announcement/GetSingleCreateAnnouncement?searchKey=1`,
       tokenConfig
     );
 
@@ -94,7 +94,7 @@ export const updateSingleAnnouncementAction =
       // };
 
       const { data } = await axios.put(
-        `${API_URL}/api/HREmployeeCategoryRole/PutHREmployeeCategoryRole`,
+        `${API_URL}/api/Announcement/Put`,
         jsonData,
         tokenConfig
       );

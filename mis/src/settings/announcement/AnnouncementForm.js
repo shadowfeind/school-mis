@@ -36,7 +36,7 @@ const AnnouncementForm = ({ announcement, setOpenPopup }) => {
 
     temp.NewsDescription = !fieldValues.NewsDescription
       ? "This feild is required"
-      : !fieldValues.NewsHeading.length > 20
+      : !fieldValues.NewsDescription.length > 20
       ? "Must be less than 20 characters"
       : !fieldValues.NewsDescription.trim()
       ? "This feild is required"
@@ -75,11 +75,11 @@ const AnnouncementForm = ({ announcement, setOpenPopup }) => {
       <Grid container style={{ fontSize: "12px" }}>
         <Grid item xs={6}>
           <InputControl
-            name="NewsHead"
-            label="News Head*"
-            value={values.NewsHead}
+            name="NewsHeading"
+            label="News Heading*"
+            value={values.NewsHeading}
             onChange={handleInputChange}
-            errors={errors.NewsHead}
+            errors={errors.NewsHeading}
           />
 
           <CheckBoxControl

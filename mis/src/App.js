@@ -29,6 +29,7 @@ const CounterConfiguration = lazy(() =>
 const AdmissionConfiguration = lazy(() =>
   import("./registration/admissionConfiguration/AdmissionConfiguration")
 );
+
 //settings lazy loading
 const Settings = lazy(() => import("./settings/Settings"));
 const EmployeeManagement = lazy(() =>
@@ -40,7 +41,9 @@ const AcademicConfiguration = lazy(() =>
 const StudentManagement = lazy(() =>
   import("./settings/studentManagement/StudentManagement")
 );
-
+const Announcement = lazy(() =>
+  import("./settings/announcement/Announcement")
+);
 //examination lazy loading
 
 const AcademicGrading = lazy(() =>
@@ -145,6 +148,7 @@ const App = () => {
               component={StudentRegistration}
             />
             <Route path={"/teacher-mapping"} component={TeacherMapping} />
+            <Route path={"/announcement"} component={Announcement} />
             <Route path={"/user-profile"} component={UserProfile} />
             <Route path={"/class-subject"} component={ClassSubject} />
             <Route path={"/access-control"} component={AccessControl} />

@@ -285,6 +285,7 @@ import {
   getAllTotalStudentAttendanceReducer,
   getListTotalStudentAttendanceReducer,
 } from "./attendance/totalStudentAttendance/TotalStudentAttendanceReducers";
+import { createAnnouncementReducer, getAllAnnouncement, getSingleAnnouncementReducer, updateSingleAnnouncementReducer } from "./settings/announcement/AnnouncementReducers";
 //examination reducers link end
 export const reducers = combineReducers({
   navLink: navLinkReducer,
@@ -515,7 +516,6 @@ updateSingleGuardian : updateSingleGuardianReducer,
   createSingleTraining: createSingleTrainingReducer,
   trainingCreate: trainingCreateReducer,
   //PID uploadPhoto
-  getAllUploadPhoto: getAllUploadPhotoReducer,
   uploadPhoto: uploadPhotoReducer,
   //user profile reducers ends
   //attendance reducers starts
@@ -527,4 +527,9 @@ updateSingleGuardian : updateSingleGuardianReducer,
   getAllTotalStudentAttendance: getAllTotalStudentAttendanceReducer,
   getListTotalStudentAttendance: getListTotalStudentAttendanceReducer,
   //attendance reducers ends
+  //announcement
+  announcement: getAllAnnouncement,
+  createAnnouncement: createAnnouncementReducer,
+  getSingleAnnouncement: getSingleAnnouncementReducer,
+  updateSingleAnnouncement: updateSingleAnnouncementReducer,
 });

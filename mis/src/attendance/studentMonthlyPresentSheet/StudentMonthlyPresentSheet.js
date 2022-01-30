@@ -13,6 +13,7 @@ import {
   GET_LIST_FOR_UPDATE_STUDENT_PRESENT_RESET,
   GET_LIST_STUDENT_PRESENT_RESET,
   GET_SUBJECT_OPTIONS_FOR_SELECT_RESET,
+  POST_LIST_STUDENT_PRESENT_RESET,
 } from "./StudentMonthlyPresentSheetConstants";
 import {
   getAllStudentPresentSheetDataAction,
@@ -106,6 +107,11 @@ const StudentMonthlyPresentSheet = () => {
     (state) => state.getListForPresentStudent
   );
 
+  const {
+    success: postListStudentPresentSuccess,
+    error: postListStudentPresentError,
+  } = useSelector((state) => state.postListStudentPresent);
+
   if (allStudentMonthlyPresentSheetDataError) {
     setNotify({
       isOpen: true,
@@ -121,6 +127,36 @@ const StudentMonthlyPresentSheet = () => {
       type: "error",
     });
     dispatch({ type: GET_SUBJECT_OPTIONS_FOR_SELECT_RESET });
+  }
+  if (postListStudentPresentError) {
+    setNotify({
+      isOpen: true,
+      message: postListStudentPresentError,
+      type: "error",
+    });
+    dispatch({ type: POST_LIST_STUDENT_PRESENT_RESET });
+  }
+  if (postListStudentPresentSuccess) {
+    setNotify({
+      isOpen: true,
+      message: "Successfully Posted",
+      type: "success",
+    });
+    dispatch({ type: POST_LIST_STUDENT_PRESENT_RESET });
+    setOpenPopup(false);
+    dispatch(
+      getListStudentPresentAction(
+        acaYear,
+        programValue,
+        classId,
+        subject,
+        section,
+        shift,
+        nepYear,
+        nepMonth,
+        date
+      )
+    );
   }
   //eng date api not working
   //   if (engDateError) {
@@ -431,7 +467,6 @@ const StudentMonthlyPresentSheet = () => {
           students={
             getListForUpdateStudentPresent && getListForUpdateStudentPresent
           }
-          presentStudent={presentStudent && presentStudent}
         />
       </Popup>
       <Notification notify={notify} setNotify={setNotify} />

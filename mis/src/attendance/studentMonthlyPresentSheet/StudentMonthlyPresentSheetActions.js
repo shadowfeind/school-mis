@@ -19,6 +19,9 @@ import {
   GET_SUBJECT_OPTIONS_FOR_SELECT_FAIL,
   GET_SUBJECT_OPTIONS_FOR_SELECT_REQUEST,
   GET_SUBJECT_OPTIONS_FOR_SELECT_SUCCESS,
+  POST_LIST_STUDENT_PRESENT_FAIL,
+  POST_LIST_STUDENT_PRESENT_REQUEST,
+  POST_LIST_STUDENT_PRESENT_SUCCESS,
 } from "./StudentMonthlyPresentSheetConstants";
 
 export const getAllStudentPresentSheetDataAction = () => async (dispatch) => {
@@ -168,6 +171,33 @@ export const getListForPresentStudentAction =
     } catch (error) {
       dispatch({
         type: GET_LIST_FOR_PRESENT_STUDENT_FAIL,
+        payload: error.message ? error.message : error.Message,
+      });
+    }
+  };
+
+export const postStudentPresentListAction =
+  (attendance, searchFilterModel) => async (dispatch) => {
+    try {
+      dispatch({ type: POST_LIST_STUDENT_PRESENT_REQUEST });
+
+      const jsonData = JSON.stringify({
+        dbStudentClassAttendanceModelAttendanceLst: attendance,
+        searchFilterModel,
+      });
+
+      console.log(jsonData);
+
+      const { data } = await axios.post(
+        `${API_URL}/api/StudentPresentSheet/PostStudentPresentSheet`,
+        jsonData,
+        tokenConfig
+      );
+
+      dispatch({ type: POST_LIST_STUDENT_PRESENT_SUCCESS, payload: data });
+    } catch (error) {
+      dispatch({
+        type: POST_LIST_STUDENT_PRESENT_FAIL,
         payload: error.message ? error.message : error.Message,
       });
     }

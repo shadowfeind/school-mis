@@ -9,12 +9,16 @@ import SelectControl from "../../components/controls/SelectControl";
 import {
   GET_ALL_STUDEN_MONTHLY_PRESENT_SHEET_RESET,
   GET_ENGLISH_DATE_RESET,
+  GET_LIST_FOR_PRESENT_STUDENT_RESET,
+  GET_LIST_FOR_UPDATE_STUDENT_PRESENT_RESET,
   GET_LIST_STUDENT_PRESENT_RESET,
   GET_SUBJECT_OPTIONS_FOR_SELECT_RESET,
+  POST_LIST_STUDENT_PRESENT_RESET,
 } from "./StudentMonthlyPresentSheetConstants";
 import {
   getAllStudentPresentSheetDataAction,
   getEnglishDateAction,
+  getListForPresentStudentAction,
   getListForUpdateStudentPresentAction,
   getListStudentPresentAction,
   getSubjectOptionsForSelectAction,
@@ -22,6 +26,11 @@ import {
 import DatePickerControl from "../../components/controls/DatePickerControl";
 import StudentMonthlyPresentSheetTableCollapse from "./StudentMonthlyPresentSheetTableCollapse";
 import StudentMonthlyPresentSheetUpdateForm from "./StudentMonthlyPresentSheetUpdateForm";
+import {
+  MuiPickersUtilsProvider,
+  KeyboardDatePicker,
+} from "@material-ui/pickers";
+import DateFnsUtils from "@date-io/date-fns";
 
 const useStyles = makeStyles((theme) => ({
   searchInput: {
@@ -94,6 +103,15 @@ const StudentMonthlyPresentSheet = () => {
     error: getListForUpdateStudentPresentError,
   } = useSelector((state) => state.getListForUpdateStudentPresent);
 
+  const { presentStudent, error: presentStudentError } = useSelector(
+    (state) => state.getListForPresentStudent
+  );
+
+  const {
+    success: postListStudentPresentSuccess,
+    error: postListStudentPresentError,
+  } = useSelector((state) => state.postListStudentPresent);
+
   if (allStudentMonthlyPresentSheetDataError) {
     setNotify({
       isOpen: true,
@@ -110,6 +128,36 @@ const StudentMonthlyPresentSheet = () => {
     });
     dispatch({ type: GET_SUBJECT_OPTIONS_FOR_SELECT_RESET });
   }
+  if (postListStudentPresentError) {
+    setNotify({
+      isOpen: true,
+      message: postListStudentPresentError,
+      type: "error",
+    });
+    dispatch({ type: POST_LIST_STUDENT_PRESENT_RESET });
+  }
+  if (postListStudentPresentSuccess) {
+    setNotify({
+      isOpen: true,
+      message: "Successfully Posted",
+      type: "success",
+    });
+    dispatch({ type: POST_LIST_STUDENT_PRESENT_RESET });
+    setOpenPopup(false);
+    dispatch(
+      getListStudentPresentAction(
+        acaYear,
+        programValue,
+        classId,
+        subject,
+        section,
+        shift,
+        nepYear,
+        nepMonth,
+        date
+      )
+    );
+  }
   //eng date api not working
   //   if (engDateError) {
   //     setNotify({
@@ -122,10 +170,26 @@ const StudentMonthlyPresentSheet = () => {
   if (getListStudentPresentError) {
     setNotify({
       isOpen: true,
-      message: engDateError,
+      message: getListStudentPresentError,
       type: "error",
     });
     dispatch({ type: GET_LIST_STUDENT_PRESENT_RESET });
+  }
+  if (getListForUpdateStudentPresentError) {
+    setNotify({
+      isOpen: true,
+      message: getListForUpdateStudentPresentError,
+      type: "error",
+    });
+    dispatch({ type: GET_LIST_FOR_UPDATE_STUDENT_PRESENT_RESET });
+  }
+  if (presentStudentError) {
+    setNotify({
+      isOpen: true,
+      message: presentStudentError,
+      type: "error",
+    });
+    dispatch({ type: GET_LIST_FOR_PRESENT_STUDENT_RESET });
   }
 
   useEffect(() => {
@@ -219,6 +283,7 @@ const StudentMonthlyPresentSheet = () => {
           date
         )
       );
+      dispatch(getListForPresentStudentAction(date, programValue, subject));
       setOpenPopup(true);
     }
   };
@@ -348,13 +413,22 @@ const StudentMonthlyPresentSheet = () => {
             </Grid>
             <Grid item xs={3}>
               <div style={{ height: "10px" }}></div>
-              <DatePickerControl
-                name="CurrentYear"
-                label="Current Year"
-                value={date}
-                onChange={(e) => setDate(e.target.value)}
-                errors={errors.date}
-              />
+
+              <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                <KeyboardDatePicker
+                  disableToolbar
+                  variant="inline"
+                  inputVariant="outlined"
+                  format="dd-MM-yyyy"
+                  name="CurrentYear"
+                  label="Current Year"
+                  value={date}
+                  onChange={(e) => {
+                    const newDate = new Date(e);
+                    setDate(newDate.toLocaleDateString().slice(0, 10));
+                  }}
+                />
+              </MuiPickersUtilsProvider>
             </Grid>
             <Grid item xs={3}>
               <Button

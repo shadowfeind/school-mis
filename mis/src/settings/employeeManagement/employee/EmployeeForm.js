@@ -86,6 +86,11 @@ const EmployeeForm = ({ employee, setOpenPopup }) => {
       : !fieldValues.LastName.trim()
       ? "This feild is required"
       : "";
+      temp.MobileNumber = !fieldValues.MobileNumber
+      ? "This feild is required"
+      : !fieldValues.MobileNumber<7
+      ? "Mobile No. must be atleast 7."
+      : "";
 
     setErrors({ ...temp });
     return Object.values(temp).every((x) => x === "");
@@ -244,6 +249,7 @@ const EmployeeForm = ({ employee, setOpenPopup }) => {
             value={values.MobileNumber}
             onChange={handleInputChange}
             type="number"
+            errors={errors.MobileNumber}
           />
           <SelectControl
             name="Married"

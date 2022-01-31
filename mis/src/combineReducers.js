@@ -163,6 +163,7 @@ import {
 import {
   getAllExamScheduleInitialDataReducer,
   getExamScheduleListReducer,
+  getSingleExamScheduleCreateReducer,
 } from "./examination/examSchedule/ExamScheduleReducers";
 import {
   getAllGeneratePublishReducer,
@@ -243,7 +244,7 @@ import {
   getSingleEmailReducer,
   updateSingleEmailReducer,
 } from "./userProfile/email/EmailReducers";
-import { createSingleFamilyMemberReducer, familyMemberCreateReducer, getAllFamilyMember, getAllFamilyMemberCreateReducer, getAllFamilyMemberReducer } from "./userProfile/familyMember/FamilyMemberReducers";
+import { createFamilyMemberReducer, createSingleFamilyMemberReducer, familyMemberCreateReducer, getAllFamilyMember, getAllFamilyMemberCreateReducer, getAllFamilyMemberReducer, getSingleFamilyMemberReducer, updateSingleFamilyMemberReducer } from "./userProfile/familyMember/FamilyMemberReducers";
 import {
   getAllGuardian,
   getAllGuardianReducer,
@@ -286,13 +287,10 @@ import {
   getListTotalStudentAttendanceReducer,
 } from "./attendance/totalStudentAttendance/TotalStudentAttendanceReducers";
 import { createAnnouncementReducer, getAllAnnouncement, getSingleAnnouncementReducer, updateSingleAnnouncementReducer } from "./settings/announcement/AnnouncementReducers";
+import { getAllAssignStudentSubjectReducer } from "./settings/academicConfiguration/assignStudenSubject/AssignStudentSubjectReducers";
 //examination reducers link end
 export const reducers = combineReducers({
   navLink: navLinkReducer,
-  schoolSettings: getAllSchoolSettings,
-  createSchoolSettings: createSchoolSettingsReducer,
-  getSingleSchoolSettings: getSingleSchoolSettingsReducer,
-  updateSingleSchoolSettings: updateSingleSchoolSettingsReducer,
   position: getAllPosition,
   createPosition: createPositionReducer,
   getSinglePosition: getSinglePositionReducer,
@@ -440,6 +438,7 @@ export const reducers = combineReducers({
   updateSingleExamDivision: updateSingleExamDivisionReducer,
   getAllExamScheduleInitialData: getAllExamScheduleInitialDataReducer,
   getExamScheduleList: getExamScheduleListReducer,
+  getSingleExamScheduleCreate: getSingleExamScheduleCreateReducer,
   //examination reducers end
   //registration reducers starts
   getCounterConfigInitialData: getCounterConfigInitialDataReducer,
@@ -486,11 +485,18 @@ export const reducers = combineReducers({
   getAllEmail: getAllEmail,
   getSingleEmail: getSingleEmailReducer,
   updateSingleEmail: updateSingleEmailReducer,
+  //SchoolSetting reducer Start
+  schoolSettings: getAllSchoolSettings,
+  createSchoolSettings: createSchoolSettingsReducer,
+  getSingleSchoolSettings: getSingleSchoolSettingsReducer,
+  updateSingleSchoolSettings: updateSingleSchoolSettingsReducer,
+ //Reducer Ends
   //PID FamilyMember
   getAllFamilyMember: getAllFamilyMember,
-  getAllFamilyMemberCreate :getAllFamilyMemberCreateReducer,
-  createSingleFamilyMember : createSingleFamilyMemberReducer,
-familyMemberCreate : familyMemberCreateReducer,
+  getSingleFamilyMember :getSingleFamilyMemberReducer,
+  updateSingleFamilyMember : updateSingleFamilyMemberReducer,
+createFamilyMember : createFamilyMemberReducer,
+getAllFamilyMemberCreate:getAllFamilyMemberCreateReducer,
 //PID Guardian
 getAllGuardian: getAllGuardian,
 getSingleGuardian: getSingleGuardianReducer,
@@ -532,4 +538,6 @@ updateSingleGuardian : updateSingleGuardianReducer,
   createAnnouncement: createAnnouncementReducer,
   getSingleAnnouncement: getSingleAnnouncementReducer,
   updateSingleAnnouncement: updateSingleAnnouncementReducer,
+//Assign Student Subject
+// assignStudentSubject : getAllAssignStudentSubjectReducer,
 });

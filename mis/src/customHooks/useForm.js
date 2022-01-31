@@ -10,7 +10,7 @@ export const useForm = (initialFormValues) => {
     setValues((prev) => ({ ...prev, [name]: value }));
   };
 
-  return { values, setValues, handleInputChange, errors, setErrors };
+  return { values, setValues, handleInputChange,errors, setErrors };
 };
 
 const useStyles = makeStyles({

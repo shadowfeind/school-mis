@@ -13,7 +13,15 @@ import { GET_ALL_FAMILYMEMBER_FAIL,
   FAMILYMEMBER_CREATE_REQUEST,
   FAMILYMEMBER_CREATE_SUCCESS,
   FAMILYMEMBER_CREATE_FAIL,
-  FAMILYMEMBER_CREATE_RESET,  
+  FAMILYMEMBER_CREATE_RESET,
+  GET_SINGLE_FAMILYMEMBER_REQUEST,
+  GET_SINGLE_FAMILYMEMBER_SUCCESS,
+  GET_SINGLE_FAMILYMEMBER_FAIL,
+  GET_SINGLE_FAMILYMEMBER_RESET,
+  UPDATE_SINGLE_FAMILYMEMBER_REQUEST,
+  UPDATE_SINGLE_FAMILYMEMBER_SUCCESS,
+  UPDATE_SINGLE_FAMILYMEMBER_FAIL,
+  UPDATE_SINGLE_FAMILYMEMBER_RESET,  
 } from "./FamilyMemberConstants";
 
 export const getAllFamilyMember = (state = {}, action) => {
@@ -31,27 +39,12 @@ export const getAllFamilyMember = (state = {}, action) => {
   }
 };
 
-export const createSingleFamilyMemberReducer = (state = {}, action) => {
-  switch (action.type) {
-    case CREATE_SINGLE_FAMILYMEMBER_REQUEST:
-      return { loading: true };
-    case CREATE_SINGLE_FAMILYMEMBER_SUCCESS:
-      return { loading: false, createdFamilyMember: action.payload, success: true };
-    case CREATE_SINGLE_FAMILYMEMBER_FAIL:
-      return { loading: false, error: action.payload };
-    case CREATE_SINGLE_FAMILYMEMBER_RESET:
-      return {};
-    default:
-      return state;
-  }
-};
-
 export const getAllFamilyMemberCreateReducer = (state = {}, action) => {
   switch (action.type) {
     case GET_ALL_FAMILYMEMBER_CREATE_REQUEST:
       return { loading: true };
     case GET_ALL_FAMILYMEMBER_CREATE_SUCCESS:
-      return { loading: false, getAllFamilyMemberCreate: action.payload };
+      return { loading: false, familyMemberCreate: action.payload };
     case GET_ALL_FAMILYMEMBER_CREATE_FAIL:
       return { loading: false, error: action.payload };
     case GET_ALL_FAMILYMEMBER_CREATE_RESET:
@@ -61,13 +54,43 @@ export const getAllFamilyMemberCreateReducer = (state = {}, action) => {
   }
 };
 
+export const getSingleFamilyMemberReducer = (state = {}, action) => {
+  switch (action.type) {
+    case GET_SINGLE_FAMILYMEMBER_REQUEST:
+      return { loading: true };
+    case GET_SINGLE_FAMILYMEMBER_SUCCESS:
+      return { loading: false, SingleFamilyMember: action.payload, success: true };
+    case GET_SINGLE_FAMILYMEMBER_FAIL:
+      return { loading: false, error: action.payload };
+    case GET_SINGLE_FAMILYMEMBER_RESET:
+      return {};
+    default:
+      return state;
+  }
+};
 
-export const familyMemberCreateReducer = (state = {}, action) => {
+export const updateSingleFamilyMemberReducer = (state = {}, action) => {
+  switch (action.type) {
+    case UPDATE_SINGLE_FAMILYMEMBER_REQUEST:
+      return { loading: true };
+    case UPDATE_SINGLE_FAMILYMEMBER_SUCCESS:
+      return { loading: false, updatedFamilyMember: action.payload };
+    case UPDATE_SINGLE_FAMILYMEMBER_FAIL:
+      return { loading: false, error: action.payload };
+    case UPDATE_SINGLE_FAMILYMEMBER_RESET:
+      return {};
+    default:
+      return state;
+  }
+};
+
+
+export const createFamilyMemberReducer = (state = {}, action) => {
 switch (action.type) {
   case FAMILYMEMBER_CREATE_REQUEST:
     return { loading: true };
   case FAMILYMEMBER_CREATE_SUCCESS:
-    return { loading: false, familyMemberCreate: action.payload, success: true };
+    return { loading: false, createFamilyMember: action.payload, success: true };
   case FAMILYMEMBER_CREATE_FAIL:
     return { loading: false, error: action.payload };
   case FAMILYMEMBER_CREATE_RESET:

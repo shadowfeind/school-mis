@@ -5,7 +5,7 @@ import { useForm, Form } from "../../customHooks/useForm";
 import { useDispatch } from "react-redux";
 import SelectControl from "../../components/controls/SelectControl";
 import DatePickerControl from "../../components/controls/DatePickerControl"
-import { createSingleFamilyMemberAction, familyMemberCreateAction, getAllFamilyMemberCreateAction } from "./FamilyMemberActions";
+import { createSingleFamilyMemberAction, familyMemberCreateAction, getAllFamilyMemberCreateAction, updateSingleFamilyMemberAction } from "./FamilyMemberActions";
 
 const initialFormValues = {
   IDHRFamilyMember: 0,
@@ -160,7 +160,7 @@ const FamilyMemberForm = ({ familyMember, setOpenPopup }) => {
       if (values.IDHRFamilyMember === 0) {
         dispatch(familyMemberCreateAction(values));
       } else {
-      dispatch(createSingleFamilyMemberAction(values));
+      dispatch(updateSingleFamilyMemberAction(values));
     }
   }
   };

@@ -22,32 +22,32 @@ const ContactNumberForm = ({ contactNumber, setOpenPopup }) => {
 
     temp.OfficeNumber = !fieldValues.OfficeNumber
       ? "This feild is required"
-      : fieldValues.OfficeNumber.length > 20
-      ? "Must be less than 20 characters"
+      : fieldValues.OfficeNumber.length < 7
+      ? "Must be less than 7 characters"
       : "";
 
     temp.OfficeNumberExtension = !fieldValues.OfficeNumberExtension
       ? "This feild is required"
-      : fieldValues.OfficeNumberExtension.length > 20
-      ? "Must be less than 20 characters"
+      : fieldValues.OfficeNumberExtension.length < 7
+      ? "Must be less than 7 characters"
       : "";
 
     temp.HomeNumber = !fieldValues.HomeNumber
       ? "This feild is required"
-      : fieldValues.HomeNumber.length > 20
-      ? "Must be less than 20 characters"
+      : fieldValues.HomeNumber.length < 7
+      ? "Must be less than 7 characters"
       : "";
 
     temp.MobileNumber = !fieldValues.MobileNumber
       ? "This feild is required"
-      : fieldValues.MobileNumber.length > 20
-      ? "Must be less than 20 characters"
+      : fieldValues.MobileNumber.length < 7
+      ? "Must be less than 7 characters"
       : "";
 
     temp.OtherNumber = !fieldValues.OtherNumber
       ? "This feild is required"
-      : fieldValues.OtherNumber.length > 20
-      ? "Must be less than 20 characters"
+      : fieldValues.OtherNumber.length < 7
+      ? "Must be less than 7 characters"
       : "";
 
     setErrors({ ...temp });

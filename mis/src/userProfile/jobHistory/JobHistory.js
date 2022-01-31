@@ -135,7 +135,7 @@ const JobHistory = () => {
     }
 
     const updateCollegeHandler = (id) => {
-      dispatch(getAllJobHistoryCreateReducer());
+      dispatch(getAllJobHistoryCreateAction());
       setOpenPopup(true);
     };
   

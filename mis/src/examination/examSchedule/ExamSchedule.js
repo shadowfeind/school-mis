@@ -16,14 +16,16 @@ import { useDispatch, useSelector } from "react-redux";
 import Notification from "../../components/Notification";
 import ConfirmDialog from "../../components/ConfirmDialog";
 import SelectControl from "../../components/controls/SelectControl";
-import { GET_ALL_EXAM_SCHEDULE_INITIAL_DATA_RESET } from "./ExamScheduleConstants";
+import { GET_ALL_EXAM_SCHEDULE_INITIAL_DATA_RESET, GET_SINGLE_EXAM_SCHEDULE_CREATE_RESET } from "./ExamScheduleConstants";
 import {
   getAllExamScheduleInitialDataAction,
   getExamScheduleListAction,
+  getSingleExamScheduleCreateAction,
 } from "./ExamScheduleActions";
 import { getEventAction } from "../examMarkEntry/ExamMarkEntryActions";
 import { GET_EVENT_RESET } from "../examMarkEntry/ExamMarkEntryConstants";
 import ExamScheduleTableCollapse from "./ExamScheduleTableCollapse";
+import ExamScheduleForm from "./ExamScheduleForm";
 
 //event api came from exam mark entry
 
@@ -111,7 +113,8 @@ const ExamSchedule = () => {
 
   const { examScheduleInitialData, error: examScheduleInitialDataError } =
     useSelector((state) => state.getAllExamScheduleInitialData);
-
+    const { singleExamScheduleCreate, error: singleExamScheduleCreateError } =
+    useSelector((state) => state.getSingleExamScheduleCreate);
   const { allEvents, success: getEventSuccess } = useSelector(
     (state) => state.getEvent
   );
@@ -124,7 +127,14 @@ const ExamSchedule = () => {
     setDdlEvent(allEvents);
     dispatch({ type: GET_EVENT_RESET });
   }
-
+  if (singleExamScheduleCreateError) {
+    setNotify({
+      isOpen: true,
+      message: singleExamScheduleCreateError,
+      type: "error",
+    });
+    dispatch({ type: GET_SINGLE_EXAM_SCHEDULE_CREATE_RESET });
+  }
   if (examScheduleInitialDataError) {
     setNotify({
       isOpen: true,
@@ -186,11 +196,25 @@ const ExamSchedule = () => {
       );
     }
   };
-
-  const updateExamSchedule = () => {
+  const handleCreate = () => {
+    dispatch({ type: GET_SINGLE_EXAM_SCHEDULE_CREATE_RESET });
     setOpenPopup(true);
   };
-
+  // const updateExamSchedule = (id) => {
+  //   dispatch(getSingleExamScheduleCreateAction(id))
+  //   setOpenPopup(true);
+  // };
+  const updateCollegeHandler = (id) => {
+    dispatch(getSingleExamScheduleCreateAction(id));
+    setOpenPopup(true);
+  };
+  const deleteCollegeHandler = (id) => {
+    setConfirmDialog({
+      isOpen: true,
+      title: "Are you sure you want to Delete this record?",
+      subTitle: "You cannot undo this action",
+    });
+  };
   return (
     <>
       <CustomContainer>
@@ -244,7 +268,7 @@ const ExamSchedule = () => {
                 color="primary"
                 type="submit"
                 style={{ margin: "10px 0 0 10px" }}
-                // onClick={handleCreate}
+                onClick={handleCreate}
               >
                 CREATE
               </Button>
@@ -281,7 +305,9 @@ const ExamSchedule = () => {
 
             <TableBody>
               {tableDataAfterPagingAndSorting().map((item) => (
-                <ExamScheduleTableCollapse item={item} key={item.$id} />
+                <ExamScheduleTableCollapse item={item} key={item.$id}
+                 updateCollegeHandler={updateCollegeHandler}
+                deleteCollegeHandler={deleteCollegeHandler} />
               ))}
             </TableBody>
           </TableContainer>
@@ -294,6 +320,10 @@ const ExamSchedule = () => {
         setOpenPopup={setOpenPopup}
         title="Exam Schedule Form"
       >
+      <ExamScheduleForm
+          employee={singleExamScheduleCreate && singleExamScheduleCreate.dbModelLsts}
+          setOpenPopup={setOpenPopup}
+        />
         {/* <ExamMarkEntryBulk
       statusData={
         bulkData && bulkData.searchFilterModel.ddlStudentExamStatus

@@ -15,7 +15,7 @@ import CustomContainer from "../../components/CustomContainer";
 import { useDispatch, useSelector } from "react-redux";
 import Notification from "../../components/Notification";
 import ConfirmDialog from "../../components/ConfirmDialog";
-import { getAllFamilyMemberAction, getAllFamilyMemberCreateAction } from "./FamilyMemberActions";
+import { createSingleFamilyMemberAction, getAllFamilyMemberAction, getAllFamilyMemberCreateAction, getSingleFamilyMemberAction } from "./FamilyMemberActions";
 import {
   CREATE_SINGLE_FAMILYMEMBER_RESET,
   CREATE_SINGLE_FAMILYMEMBER_SUCCESS,
@@ -25,6 +25,8 @@ import {
   GET_ALL_FAMILYMEMBER_CREATE_SUCCESS,
   GET_ALL_FAMILYMEMBER_RESET,
   GET_SINGLE_FAMILYMEMBER_RESET,
+  UPDATE_SINGLE_FAMILYMEMBER_RESET,
+  UPDATE_SINGLE_FAMILYMEMBER_SUCCESS,
 } from "./FamilyMemberConstants";
 import ListFamilyMember from "../listComponent/ListFamilyMember";
 import FamilyMemberForm from "./FamilyMemberForm";
@@ -76,12 +78,12 @@ const FamilyMember = () => {
   const { getAllFamilyMember, error } = useSelector(
     (state) => state.getAllFamilyMember
   );
-  const { familyMemberCreate, error: familyMemberCreateError } = useSelector(
-    (state) => state.familyMemberCreate
+  const { singleFamilyMember, error: singleFamilyMemberError } = useSelector(
+    (state) => state.getSingleFamilyMember
   );
-  const { createSingleFamilyMember, error: createSingleFamilyMemberError } = useSelector((state)=> state.createSingleFamilyMember)
-  const { getAllFamilyMemberCreate, error: getAllFamilyMemberCreateError } = useSelector(
-    (state) => state.getAllFamilyMemberCreate
+  const { createFamilyMember, error: createFamilyMemberError } = useSelector((state)=> state.createFamilyMember)
+  const { updateSingleFamilyMember, error: updateSingleFamilyMemberError } = useSelector(
+    (state) => state.updateSingleFamilyMember
   );
   if (error) {
     setNotify({
@@ -92,16 +94,18 @@ const FamilyMember = () => {
     dispatch({ type: GET_ALL_FAMILYMEMBER_RESET });
   }
   
-  if (getAllFamilyMemberCreateError) {
+  if (createFamilyMemberError) {
     setNotify({
       isOpen: true,
-      message: getAllFamilyMemberCreateError,
+      message: createFamilyMemberError,
       type: "error",
     });
-    dispatch({ type: GET_ALL_FAMILYMEMBER_CREATE_RESET });
+    dispatch({ type: FAMILYMEMBER_CREATE_RESET });
+    setOpenPopup(false);
   }
 
-  if (familyMemberCreate) {
+  if (createFamilyMember) {
+    dispatch(getAllFamilyMemberAction());
     setNotify({
       isOpen: true,
       message: "Created Succesfully",
@@ -111,36 +115,29 @@ const FamilyMember = () => {
     dispatch({type: FAMILYMEMBER_CREATE_SUCCESS});
     dispatch({ type: FAMILYMEMBER_CREATE_RESET });
   }
-  if (familyMemberCreateError) {
+  if (updateSingleFamilyMemberError) {
     setNotify({
       isOpen: true,
-      message: familyMemberCreateError,
+      message: updateSingleFamilyMemberError,
       type: "error",
     });
-    dispatch({ type: FAMILYMEMBER_CREATE_RESET });
+    dispatch({ type: UPDATE_SINGLE_FAMILYMEMBER_RESET });
   }
 
-  if (createSingleFamilyMember) {
+  if (updateSingleFamilyMember) {
+    dispatch(getAllFamilyMemberAction());
     setNotify({
       isOpen: true,
       message: "Successfully Updated",
       type: "success",
     });
-    dispatch({type: CREATE_SINGLE_FAMILYMEMBER_SUCCESS})
-    dispatch({ type: CREATE_SINGLE_FAMILYMEMBER_RESET });
+    dispatch({type: UPDATE_SINGLE_FAMILYMEMBER_SUCCESS});
+    dispatch({ type: UPDATE_SINGLE_FAMILYMEMBER_RESET });
     setOpenPopup(false);
-  }
-  if(createSingleFamilyMemberError){
-    setNotify({
-      isOpen: true,
-      message: error,
-      type : "error",
-    });
-    dispatch ({type: CREATE_SINGLE_FAMILYMEMBER_RESET});
   }
 
   const updateCollegeHandler = (id) => {
-    dispatch(getAllFamilyMemberCreateReducer(id));
+    dispatch(getSingleFamilyMemberAction(id));
     setOpenPopup(true);
   };
 
@@ -153,13 +150,13 @@ const FamilyMember = () => {
   };
 
   const addHandler = () => {
-    dispatch({ type: GET_ALL_FAMILYMEMBER_CREATE_RESET });
+    dispatch({ type: GET_SINGLE_FAMILYMEMBER_RESET });
     dispatch(getAllFamilyMemberCreateAction())
     setOpenPopup(true);
   };
 
   useEffect(() => {
-    dispatch({ type: "GET_LINK", payload: "/" });
+    // dispatch({ type: "GET_LINK", payload: "/" });
     if (!getAllFamilyMember) {
       dispatch(getAllFamilyMemberAction());
     }
@@ -167,9 +164,6 @@ const FamilyMember = () => {
       setTableData(getAllFamilyMember.dbModelLst);
     }
   }, [dispatch, getAllFamilyMember]);
-  useEffect(() => {
-    dispatch(getAllFamilyMemberCreateAction());
-  }, []);
 
   const {
     TableContainer,
@@ -177,6 +171,10 @@ const FamilyMember = () => {
     TblPagination,
     tableDataAfterPagingAndSorting,
   } = useCustomTable(tableData, tableHeader, filterFn);
+
+  useEffect(()=>{
+  dispatch(getAllFamilyMemberCreateAction())
+},[]);
 
   return (
     <CustomContainer>
@@ -216,7 +214,7 @@ const FamilyMember = () => {
       >
         {" "}
         <FamilyMemberForm
-          familyMember={getAllFamilyMemberCreate && getAllFamilyMemberCreate}
+          familyMember={singleFamilyMember && singleFamilyMember}
           setOpenPopup={setOpenPopup}
         />
       </Popup>

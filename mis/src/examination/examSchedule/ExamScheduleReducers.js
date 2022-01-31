@@ -6,6 +6,10 @@ import {
   GET_EXAM_SCHEDULE_LIST_FAIL,
   GET_EXAM_SCHEDULE_LIST_REQUEST,
   GET_EXAM_SCHEDULE_LIST_SUCCESS,
+  GET_SINGLE_EXAM_SCHEDULE_CREATE_FAIL,
+  GET_SINGLE_EXAM_SCHEDULE_CREATE_REQUEST,
+  GET_SINGLE_EXAM_SCHEDULE_CREATE_RESET,
+  GET_SINGLE_EXAM_SCHEDULE_CREATE_SUCCESS,
 } from "./ExamScheduleConstants";
 
 export const getAllExamScheduleInitialDataReducer = (state = {}, action) => {
@@ -31,6 +35,21 @@ export const getExamScheduleListReducer = (state = {}, action) => {
       return { loading: false, examScheduleList: action.payload };
     case GET_EXAM_SCHEDULE_LIST_FAIL:
       return { loading: false, error: action.payload };
+    default:
+      return state;
+  }
+};
+
+export const getSingleExamScheduleCreateReducer = (state = {}, action) => {
+  switch (action.type) {
+    case GET_SINGLE_EXAM_SCHEDULE_CREATE_REQUEST:
+      return { loading: true };
+    case GET_SINGLE_EXAM_SCHEDULE_CREATE_SUCCESS:
+      return { loading: false, singleExamScheduleCreate: action.payload };
+    case GET_SINGLE_EXAM_SCHEDULE_CREATE_FAIL:
+      return { loading: false, error: action.payload };
+    case GET_SINGLE_EXAM_SCHEDULE_CREATE_RESET:
+      return {};
     default:
       return state;
   }

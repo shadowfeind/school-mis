@@ -14,13 +14,12 @@ import Popup from "../../components/Popup";
 import CustomContainer from "../../components/CustomContainer";
 import { useDispatch, useSelector } from "react-redux";
 import Notification from "../../components/Notification";
-import {
-  getAllContactNumberAction,
-  getSingleContactNumberAction,
-} from "./ContactNumberActions";
+import { getAllContactNumberAction, getSingleContactNumberAction } from "./ContactNumberActions";
 import {
   GET_ALL_CONTACTNUMBER_RESET,
+  GET_ALL_CONTACTNUMBER_SUCCESS,
   GET_SINGLE_CONTACTNUMBER_RESET,
+  UPDATE_SINGLE_CONTACTNUMBER_RESET,
 } from "./ContactNumberConstants";
 import ListContactNumber from "../listComponent/ListContactNumber";
 import ContactNumberForm from "./ContactNumberForm";
@@ -30,6 +29,7 @@ const useStyles = makeStyles((theme) => ({
     width: "75%",
     fontSize: "12px",
   },
+ 
 }));
 
 const ContactNumber = () => {
@@ -45,12 +45,16 @@ const ContactNumber = () => {
   const dispatch = useDispatch();
 
   const { getAllContactNumber, error } = useSelector(
-    (state) => state.getAllContactNumber
-  );
+    (state) => state.getAllContactNumber)
 
-  const { singleContactNumber, error: singleContactNumberError } = useSelector(
-    (state) => state.getSingleContactNumber
+    const { singleContactNumber, error: singleContactNumberError} = useSelector(
+      (state) => state.getSingleContactNumber
   );
+  const {
+    success: updateSingleContactNumberSuccess,
+    error: updateSingleContactNumberError,
+  } = useSelector((state) => state.updateSingleContactNumber);
+  
   if (error) {
     setNotify({
       isOpen: true,
@@ -59,7 +63,25 @@ const ContactNumber = () => {
     });
     dispatch({ type: GET_ALL_CONTACTNUMBER_RESET });
   }
-
+  if (updateSingleContactNumberSuccess) {
+    setNotify({
+      isOpen: true,
+      message: "Successfully Updated",
+      type: "success",
+    });
+    dispatch({type: GET_ALL_CONTACTNUMBER_SUCCESS})
+    dispatch({ type: UPDATE_SINGLE_CONTACTNUMBER_RESET });
+    setOpenPopup(false);
+  }
+  if (updateSingleContactNumberError) {
+    setNotify({
+      isOpen: true,
+      message: updateSingleContactNumberError,
+      type: "error",
+    });
+    dispatch({ type: UPDATE_SINGLE_CONTACTNUMBER_RESET });
+    setOpenPopup(false);
+  }
   const editHandler = () => {
     dispatch(getSingleContactNumberAction());
     setOpenPopup(true);
@@ -71,6 +93,8 @@ const ContactNumber = () => {
       dispatch(getAllContactNumberAction());
     }
   }, [dispatch, getAllContactNumber]);
+
+
 
   return (
     <CustomContainer>
@@ -94,10 +118,7 @@ const ContactNumber = () => {
         setOpenPopup={setOpenPopup}
         title="Contact Number Edit Form"
       >
-        <ContactNumberForm
-          contactNumber={singleContactNumber && singleContactNumber.dbModel}
-          setOpenPopup={setOpenPopup}
-        />
+        <ContactNumberForm contactNumber={singleContactNumber && singleContactNumber.dbModel} setOpenPopup={setOpenPopup} />
       </Popup>
       <Notification notify={notify} setNotify={setNotify} />
     </CustomContainer>

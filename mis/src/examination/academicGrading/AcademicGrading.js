@@ -157,12 +157,12 @@ const AcademicGrading = () => {
     dispatch({ type: GET_SINGLE_ACADEMIC_GRADING_EDIT_RESET });
   }
 
-  const updateCollegeHandler = (IDFacultyGradingSystem) => {
-    dispatch(getSingleAcademicGradingforEditAction(IDFacultyGradingSystem));
+  const updateCollegeHandler = (IDFacultyGradingSystem, program) => {
+    dispatch(getSingleAcademicGradingforEditAction(IDFacultyGradingSystem,program));
     setOpenPopup(true);
   };
 
-  const deleteCollegeHandler = (IDFacultyGradingSystem) => {};
+  const deleteCollegeHandler = (IDFacultyGradingSystem,program) => {};
 
   useEffect(() => {
     dispatch({ type: "GET_LINK", payload: "examination" });

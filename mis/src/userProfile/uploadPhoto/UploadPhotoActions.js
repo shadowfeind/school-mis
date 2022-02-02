@@ -1,5 +1,5 @@
 import axios from "axios";
-import { API_URL } from "../../constants";
+import { API_URL,tokenConfig } from "../../constants";
 
 import {
   GET_ALL_UPLOADPHOTO_FAIL,
@@ -10,23 +10,23 @@ import {
   UPLOADPHOTO_SUCCESS,
 } from "./UploadPhotoConstants";
 
-export const getAllUploadPhotoAction = () => async (dispatch) => {
-  try {
-    dispatch({ type: GET_ALL_UPLOADPHOTO_REQUEST });
+// export const getAllUploadPhotoAction = () => async (dispatch) => {
+//   try {
+//     dispatch({ type: GET_ALL_UPLOADPHOTO_REQUEST });
 
-    const { data } = await axios.get(
-      `${API_URL}/api/PID_PhotoUpload/GetAllPIDPhotoUpload
-      `
-    );
+//     const { data } = await axios.get(
+//       `${API_URL}/api/PID_PhotoUpload/GetAllPIDPhotoUpload
+//       `
+//     );
 
-    dispatch({ type: GET_ALL_UPLOADPHOTO_SUCCESS, payload: data });
-  } catch (error) {
-    dispatch({
-      type: GET_ALL_UPLOADPHOTO_FAIL,
-      payload: error.message ? error.message : error.Message,
-    });
-  }
-};
+//     dispatch({ type: GET_ALL_UPLOADPHOTO_SUCCESS, payload: data });
+//   } catch (error) {
+//     dispatch({
+//       type: GET_ALL_UPLOADPHOTO_FAIL,
+//       payload: error.message ? error.message : error.Message,
+//     });
+//   }
+// };
 
 export const uploadPhotoActionAction = (image) => async (dispatch) => {
   try {
@@ -35,16 +35,16 @@ export const uploadPhotoActionAction = (image) => async (dispatch) => {
     let formData = new FormData();
     formData.append("ImageUploaded", image);
 
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
+    // const config = {
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    // };
 
     const { data } = await axios.put(
       `${API_URL}/api/PID_PhotoUploadImage/Put`,
       formData,
-      config
+      tokenConfig
     );
 
     if (data) {
@@ -53,7 +53,7 @@ export const uploadPhotoActionAction = (image) => async (dispatch) => {
         dbModel: newData,
       });
 
-      await axios.put(`${API_URL}/api/PID_PhotoUpload/Put`, jsonData, config);
+      await axios.put(`${API_URL}/api/PID_PhotoUploadImage/Put`, jsonData, tokenConfig);
     }
 
     dispatch({

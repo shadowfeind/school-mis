@@ -179,6 +179,8 @@ const StudentRegistrationForm = ({
     temp.idAcademicYear = !fieldValues.idAcademicYear.length !== 0 ? "" : "";
     temp.RegistrationKey = !fieldValues.RegistrationKey
       ? "This feild is required"
+      :!fieldValues.RegistrationKey
+      ?"This Registration Number Already Exist"
       : !fieldValues.RegistrationKey.trim()
       ? "This feild is required"
       : "";
@@ -199,8 +201,8 @@ const StudentRegistrationForm = ({
       : "";
     temp.MobileNo = !fieldValues.MobileNo
       ? "This feild is required"
-      : !fieldValues.MobileNo.trim()
-      ? "This feild is required"
+      : !fieldValues.MobileNo<10
+      ? "Number must be atleast 10."
       : "";
     temp.EmailAddress = !fieldValues.EmailAddress
       ? "This feild is required"
@@ -218,6 +220,15 @@ const StudentRegistrationForm = ({
       ? "This feild is required"
       : "";
     temp.Gender = !fieldValues.Gender ? "This feild is required" : "";
+    temp.FatherContactNo = !fieldValues.FatherContactNo ? "This feild is required" 
+    : !fieldValues.FatherContactNo.length<10
+    ? "Must be atleast 10 number"
+    : "";
+    temp.LocalGuardianContactNo = !fieldValues.LocalGuardianContactNo ? "This feild is required" 
+    : !fieldValues.LocalGuardianContactNo.length<10
+    ? "Must be atleast 10 number"
+    : "";
+    
     temp.ClassLocation =
       fieldValues.ClassLocation && fieldValues.ClassLocation.length > 200
         ? "Must be less than 501 characters"
@@ -479,6 +490,7 @@ const StudentRegistrationForm = ({
             value={values.FatherContactNo}
             onChange={handleInputChange}
             type="number"
+            errors={errors.FatherContactNo}
           />
           <InputControl
             name="FatherEmail"
@@ -503,6 +515,7 @@ const StudentRegistrationForm = ({
             value={values.LocalGuardianContactNo}
             onChange={handleInputChange}
             type="number"
+            errors={errors.LocalGuardianContactNo}
           />
 
           <InputControl

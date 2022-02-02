@@ -30,8 +30,9 @@ const AcademicClassForm = ({ academicClass, setOpenPopup }) => {
       : fieldValues.ClassName.length > 20
       ? "Must be less than 21 characters"
       : "";
-    temp.ClassLocation =
-      fieldValues.ClassLocation && fieldValues.ClassLocation.length > 200
+    temp.ClassLocation = !fieldValues.ClassLocation 
+        ?"This field is required" 
+        : ! fieldValues.ClassLocation.length > 200
         ? "Must be less than 501 characters"
         : "";
 

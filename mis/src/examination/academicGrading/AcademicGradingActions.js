@@ -82,12 +82,12 @@ export const createAcademicGradingAction =
   };
 
 export const getSingleAcademicGradingforEditAction =
-  (IDFacultyGradingSystem) => async (dispatch) => {
+  (IDFacultyGradingSystem,program) => async (dispatch) => {
     try {
       dispatch({ type: GET_SINGLE_ACADEMIC_GRADING_EDIT_REQUEST });
 
       const { data } = await axios.get(
-        `${API_URL}/api/GetToEditSingleFacultyGradingSystem/${IDFacultyGradingSystem}/6/singleEdit`,
+        `${API_URL}/api/FacultyGradingSystem/GetToEditSingleFacultyGradingSystem/${IDFacultyGradingSystem}?idFacultyProgramLink=${program}`,
         tokenConfig
       );
       dispatch({

@@ -3,6 +3,7 @@ import { Button, Grid } from "@material-ui/core";
 import InputControl from "../../components/controls/InputControl";
 import { useForm, Form } from "../../customHooks/useForm";
 import { useDispatch } from "react-redux";
+import { updateSingleGuardianAction } from "./GuardianActions";
 
 const initialFormValues = {
   IDHREmployee: 0,
@@ -42,8 +43,8 @@ const GuardianForm = ({ guardianForm, setOpenPopup }) => {
 
     temp.FatherContactNo = !fieldValues.FatherContactNo
       ? "This feild is required"
-      : fieldValues.FatherContactNo.length > 20
-      ? "Must be less than 20 characters"
+      : fieldValues.FatherContactNo.length < 7
+      ? "Must be atleast 7 characters"
       : "";
 
     temp.FatherOccupation = !fieldValues.FatherOccupation
@@ -80,8 +81,8 @@ const GuardianForm = ({ guardianForm, setOpenPopup }) => {
 
     temp.MotherContactNo = !fieldValues.MotherContactNo
       ? "This feild is required"
-      : fieldValues.MotherContactNo.length > 20
-      ? "Must be less than 20 characters"
+      : fieldValues.MotherContactNo.length < 7
+      ? "Must be atleast 7 characters"
       : "";
 
     temp.MotherOccupation = !fieldValues.MotherOccupation
@@ -126,8 +127,8 @@ const GuardianForm = ({ guardianForm, setOpenPopup }) => {
 
     temp.LocalGuardianContactNo = !fieldValues.LocalGuardianContactNo
       ? "This feild is required"
-      : fieldValues.LocalGuardianContactNo.length > 20
-      ? "Must be less than 20 characters"
+      : fieldValues.LocalGuardianContactNo.length < 7
+      ? "Must be atleast 7 characters"
       : "";
 
     temp.LocalGuardianOccupation = !fieldValues.LocalGuardianOccupation
@@ -175,8 +176,8 @@ const GuardianForm = ({ guardianForm, setOpenPopup }) => {
     e.preventDefault();
 
     if (validate()) {
-      // dispatch(updateSinglePositionAction(values));
-      alert("working");
+      dispatch(updateSingleGuardianAction(values));
+      // alert("working");
     }
   };
   useEffect(() => {

@@ -13,27 +13,27 @@ import {
 const initialFormValues = {
   IDHRCompany: 2,
   IDHREmployee: 0,
-  IDHREmployeeCategoryRole: 1,
+  IDHREmployeeCategoryRole: 0,
   LoginIDHREmployee: "",
   FirstName: "",
   MiddleName: "",
   LastName: "",
   EmailID: "",
-  Sex: "male",
+  Sex: "",
   DOJ: "2021-09-27T10:59:00.89",
-  IDHREmployeeType: 1,
-  IDHRBranch: 1,
-  Position: 1,
-  WebLoginAccess: false,
+  IDHREmployeeType: "",
+  IDHRBranch: "",
+  Position: "",
+  WebLoginAccess: "",
   ShortName: "",
-  Title: "Mr",
+  Title: "",
   DOB: "2000-09-27T10:59:00.89",
   MobileNumber: "",
-  Married: "no",
-  IDHRRole: 2,
+  Married: "",
+  IDHRRole: "",
   BankAC: "",
-  IDHRDepartment: 1,
-  JoinedPosition: 1,
+  IDHRDepartment: "",
+  JoinedPosition: "",
   IsNewlyAdded: 1,
   IsActive: 1,
   Created_By: 0,
@@ -65,6 +65,17 @@ const EmployeeForm = ({ employee, setOpenPopup }) => {
       : !fieldValues.LoginIDHREmployee.trim()
       ? "This feild is required"
       : "";
+      temp.IDHREmployeeCategoryRole = !fieldValues.IDHREmployeeCategoryRole ? "This feild is required" :"";
+      temp.IDHRDepartment = !fieldValues.IDHRDepartment ? "This feild is required" :"";
+      temp.JoinedPosition = !fieldValues.JoinedPosition ? "This feild is required" :"";
+      temp.Married = !fieldValues.Married ? "This feild is required" :"";
+      temp.IDHRRole = !fieldValues.IDHRRole ? "This feild is required" :"";
+      temp.WebLoginAccess = !fieldValues.WebLoginAccess ? "This feild is required" :"";
+      temp.Sex = !fieldValues.Sex ? "This feild is required" :"";
+      temp.IDHRBranch = !fieldValues.IDHRBranch ? "This feild is required" :"";
+      temp.IDHREmployeeType = !fieldValues.IDHREmployeeType ? "This feild is required" :"";
+      temp.Title = !fieldValues.Title ? "This feild is required" :"";
+      temp.Position = !fieldValues.Position ? "This feild is required" :"";
     temp.FirstName = !fieldValues.FirstName
       ? "This feild is required"
       : !fieldValues.FirstName.trim()
@@ -74,6 +85,11 @@ const EmployeeForm = ({ employee, setOpenPopup }) => {
       ? "This feild is required"
       : !fieldValues.LastName.trim()
       ? "This feild is required"
+      : "";
+      temp.MobileNumber = !fieldValues.MobileNumber
+      ? "This feild is required"
+      : !fieldValues.MobileNumber<7
+      ? "Mobile No. must be atleast 7."
       : "";
 
     setErrors({ ...temp });
@@ -121,6 +137,7 @@ const EmployeeForm = ({ employee, setOpenPopup }) => {
             value={values.IDHREmployeeCategoryRole}
             options={ddlEmployeeCategoryRole}
             onChange={handleInputChange}
+            errors={errors.IDHREmployeeCategoryRole}
           />
           <InputControl
             name="LoginIDHREmployee"
@@ -148,6 +165,7 @@ const EmployeeForm = ({ employee, setOpenPopup }) => {
             label="Email Address"
             value={values.EmailID}
             onChange={handleInputChange}
+            errors={errors.EmailID}
           />
           <SelectControl
             name="Sex"
@@ -155,12 +173,14 @@ const EmployeeForm = ({ employee, setOpenPopup }) => {
             value={values.Sex}
             onChange={handleInputChange}
             options={gender}
+            errors={errors.Sex}
           />
           <DatePickerControl
             name="DOJ"
             label="Date Of Joining"
             value={values.DOJ}
             onChange={handleInputChange}
+            errors={errors.DOJ}
           />
           <SelectControl
             name="IDHREmployeeType"
@@ -168,6 +188,7 @@ const EmployeeForm = ({ employee, setOpenPopup }) => {
             value={values.IDHREmployeeType}
             onChange={handleInputChange}
             options={ddlEmployeeType}
+            errors={errors.IDHREmployeeType}
           />
           <SelectControl
             name="IDHRBranch"
@@ -175,6 +196,7 @@ const EmployeeForm = ({ employee, setOpenPopup }) => {
             value={values.IDHRBranch}
             onChange={handleInputChange}
             options={ddlBranch}
+            errors={errors.IDHRBranch}
           />
           <SelectControl
             name="Position"
@@ -182,6 +204,7 @@ const EmployeeForm = ({ employee, setOpenPopup }) => {
             value={values.Position}
             onChange={handleInputChange}
             options={ddlPosition}
+            errors={errors.Position}
           />
           <SelectControl
             name="WebLoginAccess"
@@ -189,6 +212,7 @@ const EmployeeForm = ({ employee, setOpenPopup }) => {
             value={values.WebLoginAccess}
             onChange={handleInputChange}
             options={loginAccess}
+            errors={errors.WebLoginAccess}
           />
         </Grid>
         <Grid item xs={6}>
@@ -204,6 +228,7 @@ const EmployeeForm = ({ employee, setOpenPopup }) => {
             value={values.Title}
             onChange={handleInputChange}
             options={ddlTitle}
+            errors={errors.Title}
           />
 
           <InputControl
@@ -224,6 +249,7 @@ const EmployeeForm = ({ employee, setOpenPopup }) => {
             value={values.MobileNumber}
             onChange={handleInputChange}
             type="number"
+            errors={errors.MobileNumber}
           />
           <SelectControl
             name="Married"
@@ -231,6 +257,7 @@ const EmployeeForm = ({ employee, setOpenPopup }) => {
             value={values.Married}
             onChange={handleInputChange}
             options={married}
+            errors={errors.Married}
           />
           <SelectControl
             name="IDHRRole"
@@ -238,6 +265,7 @@ const EmployeeForm = ({ employee, setOpenPopup }) => {
             value={values.IDHRRole}
             onChange={handleInputChange}
             options={ddlRole}
+            errors={errors.IDHRRole}
           />
           <InputControl
             name="BankAC"
@@ -251,6 +279,7 @@ const EmployeeForm = ({ employee, setOpenPopup }) => {
             value={values.IDHRDepartment}
             onChange={handleInputChange}
             options={ddlDepartment}
+            errors={errors.IDHRDepartment}
           />
           <SelectControl
             name="JoinedPosition"
@@ -258,6 +287,7 @@ const EmployeeForm = ({ employee, setOpenPopup }) => {
             value={values.JoinedPosition}
             onChange={handleInputChange}
             options={ddlPosition}
+            errors={errors.JoinedPosition}
           />
         </Grid>
       </Grid>

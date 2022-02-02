@@ -7,7 +7,7 @@ import {
   GET_ALL_UPLOADPHOTO_RESET,
   UPLOADPHOTO_RESET,
 } from "./UploadPhotoConstants";
-import { getAllUploadPhotoAction } from "./UploadPhotoActions";
+import { getAllUploadPhotoAction, uploadPhotoActionAction } from "./UploadPhotoActions";
 import { API_URL } from "../../constants";
 import UploadPhotoForm from "./UploadPhotoForm";
 
@@ -33,25 +33,25 @@ const UploadPhoto = () => {
 
   const dispatch = useDispatch();
 
-  const { photo, error } = useSelector((state) => state.getAllUploadPhoto);
+  // const { photo, error } = useSelector((state) => state.getAllUploadPhoto);
   const { success: uploadPhotoSuccess, error: uploadPhotoError } = useSelector(
     (state) => state.uploadPhoto
   );
-  if (error) {
-    setNotify({
-      isOpen: true,
-      message: error,
-      type: "error",
-    });
-    dispatch({ type: GET_ALL_UPLOADPHOTO_RESET });
-  }
+  // if (error) {
+  //   setNotify({
+  //     isOpen: true,
+  //     message: error,
+  //     type: "error",
+  //   });
+  //   dispatch({ type: GET_ALL_UPLOADPHOTO_RESET });
+  // }
   if (uploadPhotoSuccess) {
     setNotify({
       isOpen: true,
       message: "Successfully Uploaded",
       type: "success",
     });
-    dispatch(getAllUploadPhotoAction());
+    dispatch(uploadPhotoActionAction());
     dispatch({ type: UPLOADPHOTO_RESET });
   }
   if (uploadPhotoError) {
@@ -65,16 +65,16 @@ const UploadPhoto = () => {
 
   useEffect(() => {
     dispatch({ type: "GET_LINK", payload: "/" });
-    if (!photo) {
-      dispatch(getAllUploadPhotoAction());
+    if (!uploadPhotoSuccess) {
+      dispatch(uploadPhotoActionAction());
     }
-  }, [dispatch, photo]);
+  }, [dispatch, uploadPhotoSuccess]);
   return (
     <CustomContainer>
       upload Photo
       <br />
       {/* {photo && <img src={`${API_URL}${photo.dbModel.FullPath}`} />} */}
-      <UploadPhotoForm photo={photo && `${API_URL}${photo.dbModel.FullPath}`} />
+      <UploadPhotoForm uploadPhotoSuccess={uploadPhotoSuccess && `${API_URL}${uploadPhotoSuccess.dbModel.FullPath}`} />
       <Notification notify={notify} setNotify={setNotify} />
     </CustomContainer>
   );

@@ -35,7 +35,6 @@ import {
 import StudentProfileTableCollapse from "./StudentProfileTableCollapse";
 import StudentProfileReset from "./StudentProfileReset";
 import StudentProfileForm from "./StudentProfileForm";
-import { validate } from "@material-ui/pickers";
 
 const useStyles = makeStyles((theme) => ({
   searchInput: {
@@ -71,7 +70,7 @@ const StudentProfile = () => {
   const [classOptValue, setClassOptValue] = useState();
   const [tableData, setTableData] = useState([]);
   const [selectedIndex, setSelectedIndex] = useState("");
-  const [errors, setErrors] = useState([]);
+  const [errors, setErrors] = useState({});
   const [filterFn, setFilterFn] = useState({
     fn: (item) => {
       return item;
@@ -232,19 +231,18 @@ const StudentProfile = () => {
       setTableData([...listStudentProfile.dbModelLst]);
     }
   }, [listStudentProfile]);
-  
-const validate=()=>{
-  let temp={};
-  temp.academicYearValue = !academicYearValue ? "This feild is required" : "";
-  temp.programValue = !programValue ? "This feild is required" : "";
-  temp.shiftValue = !shiftValue ? "This feild is required" : "";
-  temp.classOptValue = !classOptValue ? "This feild is required" : "";
-  temp.sectionValue = !sectionValue ? "This feild is required" : "";
-  
-  setErrors({ ...temp });
-  return Object.values(temp).every((x) => x === "");
 
-}
+  const validate = () => {
+    let temp = {};
+    temp.academicYearValue = !academicYearValue ? "This feild is required" : "";
+    temp.programValue = !programValue ? "This feild is required" : "";
+    temp.shiftValue = !shiftValue ? "This feild is required" : "";
+    temp.classOptValue = !classOptValue ? "This feild is required" : "";
+    temp.sectionValue = !sectionValue ? "This feild is required" : "";
+
+    setErrors({ ...temp });
+    return Object.values(temp).every((x) => x === "");
+  };
   const {
     TableContainer,
     TblHead,

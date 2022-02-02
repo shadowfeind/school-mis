@@ -1,21 +1,37 @@
 import React, { useEffect, useState } from "react";
-import { Button, makeStyles, Toolbar, Grid } from "@material-ui/core";
-import Popup from "../../components/Popup";
+import {
+  Button,
+  makeStyles,
+  Toolbar,
+  TableBody,
+  Grid,
+  InputAdornment,
+} from "@material-ui/core";
 import CustomContainer from "../../components/CustomContainer";
 import { useDispatch, useSelector } from "react-redux";
 import Notification from "../../components/Notification";
 import ConfirmDialog from "../../components/ConfirmDialog";
 import SelectControl from "../../components/controls/SelectControl";
+import { Search } from "@material-ui/icons";
 import {
   getAllTotalStudentAttendanceAction,
   getListTotalStudentAttendanceAction,
 } from "./TotalStudentAttendanceActions";
-import { GET_ALL_TOTAL_STUDENT_ATTENDANCE_RESET } from "./TotalStudentAttendanceConstant";
-import DatePickerControl from "../../components/controls/DatePickerControl";
 import {
-  getEnglishDateAction,
-  getSubjectOptionsForSelectAction,
-} from "../studentMonthlyPresentSheet/StudentMonthlyPresentSheetActions";
+  GET_ALL_TOTAL_STUDENT_ATTENDANCE_RESET,
+  GET_LIST_TOTAL_STUDENT_ATTENDANCE_RESET,
+} from "./TotalStudentAttendanceConstant";
+import DatePickerControl from "../../components/controls/DatePickerControl";
+import { getSubjectOptionsForSelectAction } from "../studentMonthlyPresentSheet/StudentMonthlyPresentSheetActions";
+import { GET_SUBJECT_OPTIONS_FOR_SELECT_RESET } from "../studentMonthlyPresentSheet/StudentMonthlyPresentSheetConstants";
+import useCustomTable from "../../customHooks/useCustomTable";
+import TotalStudentAttendanceTableCollapse from "./TotalStudentAttendanceTableCollapse";
+import InputControl from "../../components/controls/InputControl";
+import {
+  MuiPickersUtilsProvider,
+  KeyboardDatePicker,
+} from "@material-ui/pickers";
+import DateFnsUtils from "@date-io/date-fns";
 
 const useStyles = makeStyles((theme) => ({
   searchInput: {
@@ -31,6 +47,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const tableHeader = [
+  { id: "Total", label: "Total Attendance" },
+  { id: "FullName", label: "FullName" },
+  { id: "RollNo", label: "RollNo" },
+  { id: "MobileNumber", label: "Created On" },
+  { id: "EmailID", label: "Updated On" },
+];
+
 const TotalStudentAttendance = () => {
   const [ddlClass, setDdlClass] = useState([]);
   const [academicYearDdl, setAcademicYearDdl] = useState([]);
@@ -38,8 +62,6 @@ const TotalStudentAttendance = () => {
   const [ddlShift, setDdlShift] = useState([]);
   const [ddlSection, setDdlSection] = useState([]);
   const [ddlSubject, setDdlSubject] = useState([]);
-  const [ddlNepMonth, setDdlNepMonth] = useState([]);
-  const [ddlNepYear, setDdlNepYear] = useState([]);
 
   const [programValue, setProgramValue] = useState();
   const [classId, setClassId] = useState();
@@ -47,15 +69,20 @@ const TotalStudentAttendance = () => {
   const [shift, setShift] = useState();
   const [section, setSection] = useState();
   const [subject, setSubject] = useState();
-  const [nepMonth, setNepMonth] = useState();
-  const [nepYear, setNepYear] = useState();
   const [errors, setErrors] = useState({});
-  const [date, setDate] = useState();
+  const [startDate, setStartDate] = useState();
+  const [endDate, setEndDate] = useState();
+
+  const [tableData, setTableData] = useState([]);
+  const [filterFn, setFilterFn] = useState({
+    fn: (item) => {
+      return item;
+    },
+  });
 
   const dispatch = useDispatch();
   const classes = useStyles();
 
-  const [openPopup, setOpenPopup] = useState(false);
   const [notify, setNotify] = useState({
     isOpen: false,
     message: "",
@@ -68,6 +95,27 @@ const TotalStudentAttendance = () => {
   });
 
   const {
+    TableContainer,
+    TblHead,
+    TblPagination,
+    tableDataAfterPagingAndSorting,
+  } = useCustomTable(tableData, tableHeader, filterFn);
+
+  const handleSearch = (e) => {
+    setFilterFn({
+      fn: (item) => {
+        if (e.target.value === "") {
+          return item;
+        } else {
+          return item.filter((x) =>
+            x.PositionHead.toLowerCase().includes(e.target.value)
+          );
+        }
+      },
+    });
+  };
+
+  const {
     allTotalStudentAttendanceData,
     error: allStudentAttendanceDataError,
   } = useSelector((state) => state.getAllTotalStudentAttendance);
@@ -76,9 +124,10 @@ const TotalStudentAttendance = () => {
     (state) => state.getSubjectOptionsForSelect
   );
 
-  const { engDate, error: engDateError } = useSelector(
-    (state) => state.getEnglishDate
-  );
+  const {
+    listTotalStudentAttendanceData,
+    error: listTotalStudentAttendanceDataError,
+  } = useSelector((state) => state.getListTotalStudentAttendance);
 
   if (allStudentAttendanceDataError) {
     setNotify({
@@ -87,6 +136,22 @@ const TotalStudentAttendance = () => {
       type: "error",
     });
     dispatch({ type: GET_ALL_TOTAL_STUDENT_ATTENDANCE_RESET });
+  }
+  if (subjectOptionsError) {
+    setNotify({
+      isOpen: true,
+      message: subjectOptionsError,
+      type: "error",
+    });
+    dispatch({ type: GET_SUBJECT_OPTIONS_FOR_SELECT_RESET });
+  }
+  if (listTotalStudentAttendanceDataError) {
+    setNotify({
+      isOpen: true,
+      message: listTotalStudentAttendanceDataError,
+      type: "error",
+    });
+    dispatch({ type: GET_LIST_TOTAL_STUDENT_ATTENDANCE_RESET });
   }
 
   useEffect(() => {
@@ -105,15 +170,12 @@ const TotalStudentAttendance = () => {
         allTotalStudentAttendanceData.searchFilterModel.ddlAcademicShift
       );
       setDdlSection(allTotalStudentAttendanceData.searchFilterModel.ddlSection);
-      setDdlNepMonth(
-        allTotalStudentAttendanceData.searchFilterModel.ddlnpMonth
-      );
-      setDdlNepYear(allTotalStudentAttendanceData.searchFilterModel.ddlnpYear);
-      setDate(
+      setStartDate(
         allTotalStudentAttendanceData.searchFilterModel.currentDate.slice(0, 10)
       );
-      setNepMonth(allTotalStudentAttendanceData.searchFilterModel.npMonth);
-      setNepYear(allTotalStudentAttendanceData.searchFilterModel.npYear);
+      setEndDate(
+        allTotalStudentAttendanceData.searchFilterModel.currentDate.slice(0, 10)
+      );
     }
   }, [allTotalStudentAttendanceData, dispatch]);
 
@@ -123,6 +185,14 @@ const TotalStudentAttendance = () => {
     }
   }, [subjectOptions]);
 
+  useEffect(() => {
+    if (listTotalStudentAttendanceData) {
+      setTableData(
+        listTotalStudentAttendanceData.dbStudentClassAttendanceModelLst
+      );
+    }
+  }, [listTotalStudentAttendanceData]);
+
   const validate = () => {
     let temp = {};
     temp.acaYear = !acaYear ? "This feild is required" : "";
@@ -131,9 +201,6 @@ const TotalStudentAttendance = () => {
     temp.shift = !shift ? "This feild is required" : "";
     temp.section = !section ? "This feild is required" : "";
     temp.subject = !subject ? "This feild is required" : "";
-    temp.nepMonth = !nepMonth ? "This feild is required" : "";
-    temp.nepYear = !nepYear ? "This feild is required" : "";
-    temp.date = !date ? "This feild is required" : "";
 
     setErrors({ ...temp });
     return Object.values(temp).every((x) => x === "");
@@ -149,9 +216,8 @@ const TotalStudentAttendance = () => {
           subject,
           section,
           shift,
-          nepYear,
-          nepMonth,
-          date
+          startDate,
+          endDate
         )
       );
     }
@@ -175,19 +241,6 @@ const TotalStudentAttendance = () => {
     setClassId(value);
     if ((acaYear, programValue)) {
       dispatch(getSubjectOptionsForSelectAction(acaYear, programValue, value));
-    }
-  };
-
-  const nepMonthHandler = (value) => {
-    setNepMonth(value);
-    if (nepYear) {
-      dispatch(getEnglishDateAction(value, nepYear));
-    }
-  };
-  const nepYearHandler = (value) => {
-    setNepYear(value);
-    if (nepMonth) {
-      dispatch(getEnglishDateAction(nepMonth, value));
     }
   };
 
@@ -258,37 +311,42 @@ const TotalStudentAttendance = () => {
                 errors={errors.subject}
               />
             </Grid>
+
             <Grid item xs={3}>
               <div style={{ height: "10px" }}></div>
-              <SelectControl
-                name="NepaliMonth"
-                label="Nepali Month"
-                value={nepMonth}
-                onChange={(e) => nepMonthHandler(e.target.value)}
-                options={ddlNepMonth ? ddlNepMonth : test}
-                errors={errors.nepMonth}
-              />
+              <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                <KeyboardDatePicker
+                  disableToolbar
+                  variant="inline"
+                  inputVariant="outlined"
+                  format="dd-MM-yyyy"
+                  name="StartDate"
+                  label="Start Year"
+                  value={startDate}
+                  onChange={(e) => {
+                    const newDate = new Date(e);
+                    setStartDate(newDate.toLocaleDateString().slice(0, 10));
+                  }}
+                />
+              </MuiPickersUtilsProvider>
             </Grid>
             <Grid item xs={3}>
               <div style={{ height: "10px" }}></div>
-              <SelectControl
-                name="NepaliYear"
-                label="Nepali Year"
-                value={nepYear}
-                onChange={(e) => nepYearHandler(e.target.value)}
-                options={ddlNepYear ? ddlNepYear : test}
-                errors={errors.nepYear}
-              />
-            </Grid>
-            <Grid item xs={3}>
-              <div style={{ height: "10px" }}></div>
-              <DatePickerControl
-                name="CurrentYear"
-                label="Current Year"
-                value={date}
-                onChange={(e) => setDate(e.target.value)}
-                errors={errors.date}
-              />
+              <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                <KeyboardDatePicker
+                  disableToolbar
+                  variant="inline"
+                  inputVariant="outlined"
+                  format="dd-MM-yyyy"
+                  name="EndDate"
+                  label="End Year"
+                  value={endDate}
+                  onChange={(e) => {
+                    const newDate = new Date(e);
+                    setEndDate(newDate.toLocaleDateString().slice(0, 10));
+                  }}
+                />
+              </MuiPickersUtilsProvider>
             </Grid>
             <Grid item xs={3}>
               <Button
@@ -300,26 +358,44 @@ const TotalStudentAttendance = () => {
               >
                 SEARCH
               </Button>
+              <div style={{ height: "10px" }}></div>
             </Grid>
           </Grid>
         </Toolbar>
-        {/* {getListStudentPresent && (
-      <StudentMonthlyPresentSheetTableCollapse
-        students={getListStudentPresent && getListStudentPresent}
-      />
-    )} */}
+        <Toolbar>
+          <InputControl
+            className={classes.searchInput}
+            label="Search Student"
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <Search />
+                </InputAdornment>
+              ),
+            }}
+            onChange={handleSearch}
+          />
+        </Toolbar>
+        {listTotalStudentAttendanceData && (
+          <TableContainer className={classes.table}>
+            <TblHead />
+
+            <TableBody>
+              {tableDataAfterPagingAndSorting().map((item) => (
+                <TotalStudentAttendanceTableCollapse
+                  item={item}
+                  key={item.$id}
+                  attendance={
+                    listTotalStudentAttendanceData &&
+                    listTotalStudentAttendanceData.dbModelTotalStudentAttendanceCountLst
+                  }
+                />
+              ))}
+            </TableBody>
+          </TableContainer>
+        )}
+        {listTotalStudentAttendanceData && <TblPagination />}
       </CustomContainer>
-      <Popup
-        openPopup={openPopup}
-        setOpenPopup={setOpenPopup}
-        title="Bulk Edit"
-      >
-        {/* <StudentMonthlyPresentSheetUpdateForm
-      students={
-        getListForUpdateStudentPresent && getListForUpdateStudentPresent
-      }
-    /> */}
-      </Popup>
       <Notification notify={notify} setNotify={setNotify} />
       <ConfirmDialog
         confirmDialog={confirmDialog}

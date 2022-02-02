@@ -14,6 +14,8 @@ import {
 } from "@material-ui/core";
 import { withStyles, makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
+import { useDispatch } from "react-redux";
+import { postStudentPresentListAction } from "./StudentMonthlyPresentSheetActions";
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -40,13 +42,46 @@ const useStyles = makeStyles({
 
 const StudentMonthlyPresentSheetUpdateForm = ({ students }) => {
   const [stuAttendance, setStuAttendance] = useState([]);
+  const [checked, setChecked] = useState(false);
   const classes = useStyles();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (students) {
-      setStuAttendance([...students.dbStudentClassAttendanceModelLst]);
+      setStuAttendance([
+        ...students.dbStudentClassAttendanceModelAttendanceLst,
+      ]);
     }
   }, [students]);
+
+  const handleAllSelectChange = (e) => {
+    if (e.target.checked) {
+      let tempAttendance = stuAttendance.map((x) => {
+        return { ...x, IsPresent: true };
+      });
+      setStuAttendance(tempAttendance);
+      setChecked(!checked);
+    } else {
+      let tempAttendance = stuAttendance.map((x) => {
+        return { ...x, IsPresent: false };
+      });
+      setStuAttendance(tempAttendance);
+      setChecked(!checked);
+    }
+  };
+
+  const handleChange = (checked, id) => {
+    let tempAttendance = stuAttendance.map((x) =>
+      x.IDHREmployee === id ? { ...x, IsPresent: checked } : x
+    );
+    setStuAttendance(tempAttendance);
+  };
+
+  const formCheckSubmitHandler = () => {
+    dispatch(
+      postStudentPresentListAction(stuAttendance, students.searchFilterModel)
+    );
+  };
 
   return (
     <>
@@ -60,31 +95,40 @@ const StudentMonthlyPresentSheetUpdateForm = ({ students }) => {
               <StyledTableCell>Email</StyledTableCell>
 
               <StyledTableCell>
-                <Checkbox />
+                <label>Select All</label>
+                <Checkbox checked={checked} onChange={handleAllSelectChange} />
               </StyledTableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {stuAttendance &&
-              stuAttendance.map((s) => (
-                <StyledTableRow key={s.IDHREmployee}>
-                  <StyledTableCell component="th" scope="row">
-                    {s.RollNo}
-                  </StyledTableCell>
-                  <StyledTableCell component="th" scope="row">
-                    {s.FullName}
-                  </StyledTableCell>
-                  <StyledTableCell component="th" scope="row">
-                    {s.MobileNumber}
-                  </StyledTableCell>
-                  <StyledTableCell component="th" scope="row">
-                    {s.EmailID}
-                  </StyledTableCell>
-                  <StyledTableCell component="th" scope="row">
-                    <Checkbox />
-                  </StyledTableCell>
-                </StyledTableRow>
-              ))}
+              stuAttendance
+                .sort((a, b) => a.RollNo - b.RollNo)
+                .map((s) => (
+                  <StyledTableRow key={s.IDHREmployee}>
+                    <StyledTableCell component="th" scope="row">
+                      {s.RollNo}
+                    </StyledTableCell>
+                    <StyledTableCell component="th" scope="row">
+                      {s.FullName}
+                    </StyledTableCell>
+                    <StyledTableCell component="th" scope="row">
+                      {s.MobileNumber}
+                    </StyledTableCell>
+                    <StyledTableCell component="th" scope="row">
+                      {s.EmailID}
+                    </StyledTableCell>
+                    <StyledTableCell component="th" scope="row">
+                      <Checkbox
+                        checked={s?.IsPresent || false}
+                        name="IsPresent"
+                        onChange={(e) =>
+                          handleChange(e.target.checked, s.IDHREmployee)
+                        }
+                      />
+                    </StyledTableCell>
+                  </StyledTableRow>
+                ))}
           </TableBody>
           <div
             style={{
@@ -108,7 +152,7 @@ const StudentMonthlyPresentSheetUpdateForm = ({ students }) => {
               color="primary"
               type="submit"
               style={{ margin: "10px 0 0 10px" }}
-              //   onClick={formCheckSubmitHandler}
+              onClick={formCheckSubmitHandler}
             >
               SUBMIT
             </Button>

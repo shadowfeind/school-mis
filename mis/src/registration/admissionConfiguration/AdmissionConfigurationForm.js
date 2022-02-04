@@ -70,6 +70,13 @@ const AdmissionConfigurationForm = ({
   const dispatch = useDispatch();
   const validate = (fieldValues = values) => {
     let temp = { ...errors };
+    temp.AdmissionStartDate = !fieldValues.AdmissionStartDate
+    ? "This field is Required"
+    : "";
+    temp.AdmissionEndDate = !fieldValues.AdmissionEndDate
+    ? "This field is Required"
+    : "";
+
     setErrors({ ...temp });
     return Object.values(temp).every((x) => x === "");
   };
@@ -110,6 +117,7 @@ const AdmissionConfigurationForm = ({
             label="Admission Start Date"
             value={values.AdmissionStartDate}
             onChange={handleInputChange}
+            errors={errors.AdmissionStartDate}
           />
         </Grid>
         <Grid item xs={6}>
@@ -118,6 +126,7 @@ const AdmissionConfigurationForm = ({
             label="Admission End Date"
             value={values.AdmissionEndDate}
             onChange={handleInputChange}
+            errors={errors.AdmissionEndDate}
           />
         </Grid>
       </Grid>

@@ -118,6 +118,15 @@ const StudentProfileForm = ({ studentData, setOpenPopup }) => {
       : !fieldValues.FirstName.trim()
       ? "This feild is required"
       : "";
+      temp.Sex = !fieldValues.Sex
+      ? "This feild is required"
+      : "";
+      temp.DOB = !fieldValues.DOB
+      ? "This feild is required"
+      : "";
+      temp.MobileNumber = !fieldValues.MobileNumber
+      ? "This feild is required"
+      : "";
 
     setErrors({ ...temp });
     return Object.values(temp).every((x) => x === "");
@@ -186,6 +195,7 @@ const StudentProfileForm = ({ studentData, setOpenPopup }) => {
             value={values.Sex}
             onChange={handleInputChange}
             options={gender}
+            errors={errors.Sex}
           />
 
           <SelectControl
@@ -208,6 +218,7 @@ const StudentProfileForm = ({ studentData, setOpenPopup }) => {
             label="Date Of Birth"
             value={values.DOB}
             onChange={handleInputChange}
+            errors={errors.DOB}
           />
           <InputControl
             name="MobileNumber"
@@ -215,6 +226,7 @@ const StudentProfileForm = ({ studentData, setOpenPopup }) => {
             value={values.MobileNumber}
             onChange={handleInputChange}
             type="number"
+            errors={errors.MobileNumber}
           />
           <InputControl
             name="OtherNumber"

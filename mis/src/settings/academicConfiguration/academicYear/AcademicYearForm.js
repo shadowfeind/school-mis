@@ -53,6 +53,12 @@ const AcademicYearForm = ({ academicYear, selected, setOpenPopup }) => {
       : !fieldValues.AcademicYear.trim()
       ? "This feild is required"
       : "";
+      temp.StartDate = !fieldValues.StartDate
+      ? "This feild is required"
+      : "";
+      temp.EndDate = !fieldValues.EndDate
+      ? "This feild is required"
+      : "";
 
     setErrors({ ...temp });
     return Object.values(temp).every((x) => x === "");
@@ -121,6 +127,7 @@ const AcademicYearForm = ({ academicYear, selected, setOpenPopup }) => {
             label="Start Date*"
             value={values.StartDate}
             onChange={handleInputChange}
+            errors={errors.StartDate}
           />
 
           <DatePickerControl
@@ -128,6 +135,7 @@ const AcademicYearForm = ({ academicYear, selected, setOpenPopup }) => {
             label="End Date*"
             value={values.EndDate}
             onChange={handleInputChange}
+            errors={errors.EndDate}
           />
 
           <CheckBoxControl

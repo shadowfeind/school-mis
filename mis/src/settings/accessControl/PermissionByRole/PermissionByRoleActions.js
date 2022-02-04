@@ -36,7 +36,7 @@ export const getListPermissionByRoleAction =
       dispatch({ type: GET_LIST_PERMISSION_BY_ROLE_REQUEST });
 
       const { data } = await axios.get(
-        `${API_URL}/api/GetListPermissionByRole/${companyId}/${id}/GetListPermissionByRoel`,
+        `${API_URL}/api/PermissionByRole/GetListPermissionByRole?/${companyId}/${id}`,
         tokenConfig
       );
 

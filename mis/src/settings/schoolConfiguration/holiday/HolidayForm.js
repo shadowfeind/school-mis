@@ -41,6 +41,14 @@ const HolidayForm = ({ holiday, setOpenPopup }) => {
       ? "This feild is required"
       : "";
 
+      temp.FromDate = !fieldValues.FromDate
+      ? "This feild is required"
+      : "";
+
+      temp.ToDate = !fieldValues.ToDate
+      ? "This feild is required"
+      : "";
+
     setErrors({ ...temp });
     return Object.values(temp).every((x) => x === "");
   };
@@ -81,6 +89,7 @@ const HolidayForm = ({ holiday, setOpenPopup }) => {
             label="FromDate"
             value={values.FromDate}
             onChange={handleInputChange}
+            errors={errors.FromDate}
           />
           <CheckBoxControl
             name="IsActive"
@@ -109,6 +118,7 @@ const HolidayForm = ({ holiday, setOpenPopup }) => {
             label="ToDate"
             value={values.ToDate}
             onChange={handleInputChange}
+            errors={errors.ToDate}
           />
         </Grid>
       </Grid>

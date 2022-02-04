@@ -76,6 +76,8 @@ const EmployeeForm = ({ employee, setOpenPopup }) => {
       temp.IDHREmployeeType = !fieldValues.IDHREmployeeType ? "This feild is required" :"";
       temp.Title = !fieldValues.Title ? "This feild is required" :"";
       temp.Position = !fieldValues.Position ? "This feild is required" :"";
+      temp.DOB = !fieldValues.DOB ? "This feild is required" :"";
+      temp.DOJ = !fieldValues.DOJ ? "This feild is required" :"";
     temp.FirstName = !fieldValues.FirstName
       ? "This feild is required"
       : !fieldValues.FirstName.trim()
@@ -242,6 +244,7 @@ const EmployeeForm = ({ employee, setOpenPopup }) => {
             label="Date Of Birth"
             value={values.DOB}
             onChange={handleInputChange}
+            errors={errors.DOB}
           />
           <InputControl
             name="MobileNumber"

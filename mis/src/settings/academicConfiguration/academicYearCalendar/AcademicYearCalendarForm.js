@@ -40,6 +40,8 @@ const AcademicYearCalendarForm = ({
       : fieldValues.EventDescription.length > 200
       ? "Must be less than 101 characters"
       : "";
+      temp.FromDate = fieldValues.FromDate ? "" : "This feild is required";
+      temp.ToDate = !fieldValues.ToDate ? "" : "This feild is required";
 
     setErrors({ ...temp });
     return Object.values(temp).every((x) => x === "");
@@ -100,6 +102,7 @@ const AcademicYearCalendarForm = ({
             label="From Date"
             value={values.FromDate}
             onChange={handleInputChange}
+            errors={errors.FromDate}
           />
           <InputControl
             name="EventName"

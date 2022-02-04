@@ -16,7 +16,10 @@ import { useDispatch, useSelector } from "react-redux";
 import Notification from "../../components/Notification";
 import ConfirmDialog from "../../components/ConfirmDialog";
 import SelectControl from "../../components/controls/SelectControl";
-import { GET_ALL_EXAM_SCHEDULE_INITIAL_DATA_RESET, GET_SINGLE_EXAM_SCHEDULE_CREATE_RESET } from "./ExamScheduleConstants";
+import {
+  GET_ALL_EXAM_SCHEDULE_INITIAL_DATA_RESET,
+  GET_SINGLE_EXAM_SCHEDULE_CREATE_RESET,
+} from "./ExamScheduleConstants";
 import {
   getAllExamScheduleInitialDataAction,
   getExamScheduleListAction,
@@ -113,7 +116,7 @@ const ExamSchedule = () => {
 
   const { examScheduleInitialData, error: examScheduleInitialDataError } =
     useSelector((state) => state.getAllExamScheduleInitialData);
-    const { singleExamScheduleCreate, error: singleExamScheduleCreateError } =
+  const { singleExamScheduleCreate, error: singleExamScheduleCreateError } =
     useSelector((state) => state.getSingleExamScheduleCreate);
   const { allEvents, success: getEventSuccess } = useSelector(
     (state) => state.getEvent
@@ -166,16 +169,16 @@ const ExamSchedule = () => {
     }
   }, [examScheduleList]);
 
-  const validate=()=>{
-    let temp ={};
+  const validate = () => {
+    let temp = {};
     temp.acaYear = !acaYear ? "This feild is required" : "";
     temp.programValue = !programValue ? "This feild is required" : "";
     temp.classId = !classId ? "This feild is required" : "";
     temp.event = !event ? "This feild is required" : "";
-    
+
     setErrors({ ...temp });
     return Object.values(temp).every((x) => x === "");
-  }
+  };
 
   const handleClassIdChange = (value) => {
     setClassId(value);
@@ -305,9 +308,12 @@ const ExamSchedule = () => {
 
             <TableBody>
               {tableDataAfterPagingAndSorting().map((item) => (
-                <ExamScheduleTableCollapse item={item} key={item.$id}
-                 updateCollegeHandler={updateCollegeHandler}
-                deleteCollegeHandler={deleteCollegeHandler} />
+                <ExamScheduleTableCollapse
+                  item={item}
+                  key={item.$id}
+                  updateCollegeHandler={updateCollegeHandler}
+                  deleteCollegeHandler={deleteCollegeHandler}
+                />
               ))}
             </TableBody>
           </TableContainer>
@@ -320,10 +326,10 @@ const ExamSchedule = () => {
         setOpenPopup={setOpenPopup}
         title="Exam Schedule Form"
       >
-      <ExamScheduleForm
+        {/* <ExamScheduleForm
           employee={singleExamScheduleCreate && singleExamScheduleCreate.dbModelLsts}
           setOpenPopup={setOpenPopup}
-        />
+        /> */}
         {/* <ExamMarkEntryBulk
       statusData={
         bulkData && bulkData.searchFilterModel.ddlStudentExamStatus

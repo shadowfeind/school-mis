@@ -86,12 +86,6 @@ export const updateSingleAcademicClassAction =
 
       const jsonData = JSON.stringify({ dbModel: academicClass });
 
-      // const config = {
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //   },
-      // };
-
       const { data } = await axios.put(
         `${API_URL}/api/AcademicClass/PutHRPosition`,
         jsonData,

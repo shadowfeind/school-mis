@@ -220,6 +220,9 @@ const StudentRegistrationForm = ({
       ? "This feild is required"
       : "";
     temp.Gender = !fieldValues.Gender ? "This feild is required" : "";
+    temp.DOB = !fieldValues.DOB ? "This feild is required" : "";
+    temp.IDLevel = !fieldValues.IDLevel ? "This feild is required" : "";
+    temp.Section = !fieldValues.Section ? "This feild is required" : "";
     temp.FatherContactNo = !fieldValues.FatherContactNo ? "This feild is required" 
     : !fieldValues.FatherContactNo.length<10
     ? "Must be atleast 10 number"
@@ -329,6 +332,7 @@ const StudentRegistrationForm = ({
                 ? getCreateSingleStudentData.ddlClass
                 : gender
             }
+            errors={errors.IDLevel}
           />
           <InputControl
             name="RegistrationKey"
@@ -364,6 +368,7 @@ const StudentRegistrationForm = ({
                 ? getCreateSingleStudentData.ddlSection
                 : gender
             }
+            errors={errors.Section}
           />
           <InputControl
             name="RollNo"
@@ -416,6 +421,7 @@ const StudentRegistrationForm = ({
             label="Date Of Birth*"
             value={values.DOB}
             onChange={handleInputChange}
+            errors={errors.DOB}
           />
           <InputControl
             name="PlaceOfBirth"

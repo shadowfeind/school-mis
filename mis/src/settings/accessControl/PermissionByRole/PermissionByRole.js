@@ -127,7 +127,7 @@ const PermissionByRole = () => {
 
   useEffect(() => {
     if (listPermissionByRole) {
-      //   setTableData([...listPermissionByRole]);
+        setTableData([...listPermissionByRole]);
     }
   }, [listPermissionByRole]);
 
@@ -193,7 +193,7 @@ const PermissionByRole = () => {
             onChange={handleSearch}
           />
         </Toolbar>
-        {/* {academicSearch && (
+        {listPermissionByRole && (
       <TableContainer className={classes.table}>
         <TblHead />
 
@@ -210,7 +210,7 @@ const PermissionByRole = () => {
       </TableContainer>
     )}
 
-    {academicSearch && <TblPagination />} */}
+    {listPermissionByRole && <TblPagination />}
       </CustomContainer>
       <Popup
         openPopup={openPopup}

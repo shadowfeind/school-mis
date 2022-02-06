@@ -45,7 +45,8 @@ const ExamScheduleForm = (examSchedule, setOpenPopup) => {
       temp.ApplyGroup = !fieldValues.ApplyGroup ? "This feild is required" :"";
       temp.ExamScheduleFromDate = !fieldValues.ExamScheduleFromDate ? "This feild is required" :"";
       temp.ExamScheduleToDate = !fieldValues.ExamScheduleToDate ? "This feild is required" :"";
-      temp.DisplayName = !fieldValues.DisplayName ? "This feild is required" :"";
+      temp.DisplayName = !fieldValues.DisplayName ? "This feild is required" :
+      temp.DisplayName = fieldValues.DisplayName < 2 ? "Input Only 2 Characters" :"";
       temp.SubjectOrder = !fieldValues.SubjectOrder ? "This feild is required" :"";
       temp.PassMark = !fieldValues.PassMark ? "This feild is required" :"";
       temp.GroupNumber = !fieldValues.GroupNumber ? "This feild is required" :"";

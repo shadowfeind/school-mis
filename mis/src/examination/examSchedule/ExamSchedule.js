@@ -18,19 +18,21 @@ import ConfirmDialog from "../../components/ConfirmDialog";
 import SelectControl from "../../components/controls/SelectControl";
 import {
   GET_ALL_EXAM_SCHEDULE_INITIAL_DATA_RESET,
+  GET_EVENT_FOR_EXAM_SCHEDULE_RESET,
   GET_SINGLE_EXAM_SCHEDULE_CREATE_RESET,
+  GET_SINGLE_EXAM_SCHEDULE_EDIT_RESET,
+  POST_SINGLE_EXAM_SCHEDULE_CREATE_RESET,
+  SINGLE_EXAM_SCHEDULE_EDIT_RESET,
 } from "./ExamScheduleConstants";
 import {
   getAllExamScheduleInitialDataAction,
+  getEventForExamScheduleAction,
   getExamScheduleListAction,
   getSingleExamScheduleCreateAction,
+  getSingleExamScheduleEditAction,
 } from "./ExamScheduleActions";
-import { getEventAction } from "../examMarkEntry/ExamMarkEntryActions";
-import { GET_EVENT_RESET } from "../examMarkEntry/ExamMarkEntryConstants";
 import ExamScheduleTableCollapse from "./ExamScheduleTableCollapse";
 import ExamScheduleForm from "./ExamScheduleForm";
-
-//event api came from exam mark entry
 
 const useStyles = makeStyles((theme) => ({
   searchInput: {
@@ -50,7 +52,6 @@ const test = [{ Key: "", Value: "" }];
 
 const tableHeader = [
   { id: "EventName", label: "Event Name" },
-  // { id: "StudentName", label: "Subject" },
   { id: "ExamType", label: "Type" },
   { id: "DisplayName", label: "Display Name" },
   { id: "ExamScheduleFromDate", label: "From Date" },
@@ -118,18 +119,26 @@ const ExamSchedule = () => {
     useSelector((state) => state.getAllExamScheduleInitialData);
   const { singleExamScheduleCreate, error: singleExamScheduleCreateError } =
     useSelector((state) => state.getSingleExamScheduleCreate);
-  const { allEvents, success: getEventSuccess } = useSelector(
-    (state) => state.getEvent
+  const { eventExamSchedule, error: eventExamScheduleError } = useSelector(
+    (state) => state.getEventForExamSchedule
   );
 
   const { examScheduleList } = useSelector(
     (state) => state.getExamScheduleList
   );
+  const {
+    success: postSingleExamScheduleCreateSuccess,
+    error: postSingleExamScheduleCreateError,
+  } = useSelector((state) => state.postSingleExamScheduleCreate);
 
-  if (getEventSuccess) {
-    setDdlEvent(allEvents);
-    dispatch({ type: GET_EVENT_RESET });
-  }
+  const { singleExamScheduleEdit, error: singleExamScheduleEditError } =
+    useSelector((state) => state.getSingleExamScheduleEdit);
+
+  const {
+    success: singleExamScheduleEditSuccess,
+    error: putSingleExamScheduleEditError,
+  } = useSelector((state) => state.singleExamScheduleEdit);
+
   if (singleExamScheduleCreateError) {
     setNotify({
       isOpen: true,
@@ -138,6 +147,57 @@ const ExamSchedule = () => {
     });
     dispatch({ type: GET_SINGLE_EXAM_SCHEDULE_CREATE_RESET });
   }
+  if (putSingleExamScheduleEditError) {
+    setNotify({
+      isOpen: true,
+      message: putSingleExamScheduleEditError,
+      type: "error",
+    });
+    dispatch({ type: SINGLE_EXAM_SCHEDULE_EDIT_RESET });
+  }
+  if (singleExamScheduleEditSuccess) {
+    setNotify({
+      isOpen: true,
+      message: "Successfully Updated",
+      type: "success",
+    });
+    dispatch({ type: SINGLE_EXAM_SCHEDULE_EDIT_RESET });
+    setOpenPopup(false);
+    dispatch(
+      getExamScheduleListAction(
+        examScheduleList.searchFilterModel.idAcademicYear,
+        examScheduleList.searchFilterModel.idFacultyProgramLink,
+        examScheduleList.searchFilterModel.level,
+        examScheduleList.searchFilterModel.idAcademicYearCalendar
+      )
+    );
+  }
+  if (singleExamScheduleEditError) {
+    setNotify({
+      isOpen: true,
+      message: singleExamScheduleEditError,
+      type: "error",
+    });
+    dispatch({ type: GET_SINGLE_EXAM_SCHEDULE_EDIT_RESET });
+  }
+  if (postSingleExamScheduleCreateError) {
+    setNotify({
+      isOpen: true,
+      message: postSingleExamScheduleCreateError,
+      type: "error",
+    });
+    dispatch({ type: POST_SINGLE_EXAM_SCHEDULE_CREATE_RESET });
+  }
+  if (postSingleExamScheduleCreateSuccess) {
+    setNotify({
+      isOpen: true,
+      message: "Successfully Created",
+      type: "success",
+    });
+    dispatch({ type: POST_SINGLE_EXAM_SCHEDULE_CREATE_RESET });
+    setOpenPopup(false);
+    dispatch(getExamScheduleListAction(acaYear, programValue, classId, event));
+  }
   if (examScheduleInitialDataError) {
     setNotify({
       isOpen: true,
@@ -145,6 +205,14 @@ const ExamSchedule = () => {
       type: "error",
     });
     dispatch({ type: GET_ALL_EXAM_SCHEDULE_INITIAL_DATA_RESET });
+  }
+  if (eventExamScheduleError) {
+    setNotify({
+      isOpen: true,
+      message: eventExamScheduleError,
+      type: "error",
+    });
+    dispatch({ type: GET_EVENT_FOR_EXAM_SCHEDULE_RESET });
   }
 
   useEffect(() => {
@@ -169,6 +237,12 @@ const ExamSchedule = () => {
     }
   }, [examScheduleList]);
 
+  useEffect(() => {
+    if (eventExamSchedule) {
+      setDdlEvent(eventExamSchedule);
+    }
+  }, [eventExamSchedule]);
+
   const validate = () => {
     let temp = {};
     temp.acaYear = !acaYear ? "This feild is required" : "";
@@ -182,13 +256,13 @@ const ExamSchedule = () => {
 
   const handleClassIdChange = (value) => {
     setClassId(value);
-    dispatch(getEventAction(acaYear, programValue, value));
+    dispatch(getEventForExamScheduleAction(acaYear, programValue, value));
   };
 
   const handleYearChange = (value) => {
     setAcaYear(value);
     if (classId) {
-      dispatch(getEventAction(value, programValue, classId));
+      dispatch(getEventForExamScheduleAction(value, programValue, classId));
     }
   };
 
@@ -200,15 +274,25 @@ const ExamSchedule = () => {
     }
   };
   const handleCreate = () => {
-    dispatch({ type: GET_SINGLE_EXAM_SCHEDULE_CREATE_RESET });
-    setOpenPopup(true);
+    if (validate()) {
+      dispatch(
+        getSingleExamScheduleCreateAction(acaYear, programValue, classId, event)
+      );
+      setOpenPopup(true);
+    }
   };
-  // const updateExamSchedule = (id) => {
-  //   dispatch(getSingleExamScheduleCreateAction(id))
-  //   setOpenPopup(true);
-  // };
+
   const updateCollegeHandler = (id) => {
-    dispatch(getSingleExamScheduleCreateAction(id));
+    dispatch({ type: GET_SINGLE_EXAM_SCHEDULE_CREATE_RESET });
+    dispatch(
+      getSingleExamScheduleEditAction(
+        id,
+        examScheduleList.searchFilterModel.idAcademicYear,
+        examScheduleList.searchFilterModel.idFacultyProgramLink,
+        examScheduleList.searchFilterModel.level,
+        examScheduleList.searchFilterModel.idAcademicYearCalendar
+      )
+    );
     setOpenPopup(true);
   };
   const deleteCollegeHandler = (id) => {
@@ -326,16 +410,13 @@ const ExamSchedule = () => {
         setOpenPopup={setOpenPopup}
         title="Exam Schedule Form"
       >
-        {/* <ExamScheduleForm
-          employee={singleExamScheduleCreate && singleExamScheduleCreate.dbModelLsts}
+        <ExamScheduleForm
+          examScheduleCreate={
+            singleExamScheduleCreate && singleExamScheduleCreate
+          }
+          examScheduleEdit={singleExamScheduleEdit && singleExamScheduleEdit}
           setOpenPopup={setOpenPopup}
-        /> */}
-        {/* <ExamMarkEntryBulk
-      statusData={
-        bulkData && bulkData.searchFilterModel.ddlStudentExamStatus
-      }
-      bulkData={bulkData && bulkData.dbModelLsts}
-    /> */}
+        />
       </Popup>
       <Notification notify={notify} setNotify={setNotify} />
       <ConfirmDialog

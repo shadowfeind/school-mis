@@ -44,6 +44,12 @@ export const SettingsRoute = [
     icon: Settings,
     exact: false,
   },
+  {
+    name: "Class Schedule",
+    route: "/class-schedule",
+    icon: ChromeReaderMode,
+    exact: false,
+  },
   { name: "Notice", route: "/notice", icon: PostAdd, exact: false },
   {
     name: "Announcement",

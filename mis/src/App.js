@@ -11,6 +11,9 @@ import {
 
 import { HashRouter as Router, Route } from "react-router-dom";
 
+const ClassSchedule = lazy(() =>
+  import("./settings/classSchedule/ClassSchedule")
+);
 const Attendance = lazy(() => import("./attendance/Attendance"));
 const Dashboard = lazy(() => import("./dashboard/Dashboard"));
 const AccessControl = lazy(() =>
@@ -41,9 +44,7 @@ const AcademicConfiguration = lazy(() =>
 const StudentManagement = lazy(() =>
   import("./settings/studentManagement/StudentManagement")
 );
-const Announcement = lazy(() =>
-  import("./settings/announcement/Announcement")
-);
+const Announcement = lazy(() => import("./settings/announcement/Announcement"));
 //examination lazy loading
 
 const AcademicGrading = lazy(() =>
@@ -153,6 +154,9 @@ const App = () => {
             <Route path={"/class-subject"} component={ClassSubject} />
             <Route path={"/access-control"} component={AccessControl} />
             {/* registration route ends */}
+            {/* class schedule starts */}
+            <Route path={"/class-schedule"} component={ClassSchedule} />
+            {/* class schedule ends */}
             <Route path={"/settings"} component={Settings} />
             <Route exact path={"/"} component={Dashboard} />
           </Suspense>

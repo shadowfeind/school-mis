@@ -162,8 +162,12 @@ import {
 } from "./examination/examResult/ExamResultReducers";
 import {
   getAllExamScheduleInitialDataReducer,
+  getEventForExamScheduleReducer,
   getExamScheduleListReducer,
   getSingleExamScheduleCreateReducer,
+  getSingleExamScheduleEditReducer,
+  postSingleExamScheduleCreateReducer,
+  singleExamScheduleEditReducer,
 } from "./examination/examSchedule/ExamScheduleReducers";
 import {
   getAllGeneratePublishReducer,
@@ -230,31 +234,75 @@ import {
   getSinglePersonalInformationReducer,
   updateSinglePersonalInformationReducer,
 } from "./userProfile/personalinformation/PersonalInformationReducers";
-import { getAllContactAddress, getAllContactAddressReducer, getSingleContactAddressReducer, updateSingleContactAddressReducer } from "./userProfile/contactAddress/ContactAddressReducers";
+import {
+  getAllContactAddress,
+  getAllContactAddressReducer,
+  getSingleContactAddressReducer,
+  updateSingleContactAddressReducer,
+} from "./userProfile/contactAddress/ContactAddressReducers";
 import {
   getAllContactNumber,
   getAllContactNumberReducer,
   getSingleContactNumberReducer,
   updateSingleContactNumberReducer,
 } from "./userProfile/contactNumber/ContactNumberReducers";
-import { createSingleEducationReducer, educationCreateReducer, getAllEducation, getAllEducationCreateReducer, getAllEducationReducer } from "./userProfile/education/EducationReducers";
+import {
+  createSingleEducationReducer,
+  educationCreateReducer,
+  getAllEducation,
+  getAllEducationCreateReducer,
+  getAllEducationReducer,
+} from "./userProfile/education/EducationReducers";
 import {
   getAllEmail,
   getAllEmailReducer,
   getSingleEmailReducer,
   updateSingleEmailReducer,
 } from "./userProfile/email/EmailReducers";
-import { createFamilyMemberReducer, createSingleFamilyMemberReducer, familyMemberCreateReducer, getAllFamilyMember, getAllFamilyMemberCreateReducer, getAllFamilyMemberReducer, getSingleFamilyMemberReducer, updateSingleFamilyMemberReducer } from "./userProfile/familyMember/FamilyMemberReducers";
+import {
+  createFamilyMemberReducer,
+  createSingleFamilyMemberReducer,
+  familyMemberCreateReducer,
+  getAllFamilyMember,
+  getAllFamilyMemberCreateReducer,
+  getAllFamilyMemberReducer,
+  getSingleFamilyMemberReducer,
+  updateSingleFamilyMemberReducer,
+} from "./userProfile/familyMember/FamilyMemberReducers";
 import {
   getAllGuardian,
   getAllGuardianReducer,
   getSingleGuardianReducer,
   updateSingleGuardianReducer,
 } from "./userProfile/gurdian/GuardianReducers";
-import { createSingleHobbyReducer, getAllHobby, getAllHobbyCreateReducer, getAllHobbyReducer, hobbyCreateReducer } from "./userProfile/hobby/HobbyReducers";
-import { createSingleJobHistoryReducer, getAllJobHistory, getAllJobHistoryCreateReducer, getAllJobHistoryReducer, jobHistoryCreateReducer } from "./userProfile/jobHistory/JobHistoryReducers";
-import { createSingleSkillReducer, getAllSkill, getAllSkillCreateReducer, getAllSkillReducer, skillCreateReducer } from "./userProfile/skill/SkillReducers";
-import { createSingleTrainingReducer, getAllTraining, getAllTrainingCreateReducer, getAllTrainingReducer, trainingCreateReducer } from "./userProfile/training/TrainingReducers";
+import {
+  createSingleHobbyReducer,
+  getAllHobby,
+  getAllHobbyCreateReducer,
+  getAllHobbyReducer,
+  hobbyCreateReducer,
+} from "./userProfile/hobby/HobbyReducers";
+import {
+  createSingleJobHistoryReducer,
+  getAllJobHistory,
+  getAllJobHistoryCreateReducer,
+  getAllJobHistoryReducer,
+  jobHistoryCreateReducer,
+} from "./userProfile/jobHistory/JobHistoryReducers";
+import {
+  createSingleSkillReducer,
+  getAllSkill,
+  getAllSkillCreateReducer,
+  getAllSkillReducer,
+  skillCreateReducer,
+} from "./userProfile/skill/SkillReducers";
+import {
+  createSingleTrainingReducer,
+  getAllTraining,
+  getAllTrainingCreateReducer,
+  getAllTrainingReducer,
+  trainingCreateReducer,
+} from "./userProfile/training/TrainingReducers";
 import {
   getAllUploadPhotoReducer,
   uploadPhotoReducer,
@@ -288,8 +336,19 @@ import {
   getAllTotalStudentAttendanceReducer,
   getListTotalStudentAttendanceReducer,
 } from "./attendance/totalStudentAttendance/TotalStudentAttendanceReducers";
-import { createAnnouncementReducer, getAllAnnouncement, getSingleAnnouncementReducer, updateSingleAnnouncementReducer } from "./settings/announcement/AnnouncementReducers";
+import {
+  createAnnouncementReducer,
+  getAllAnnouncement,
+  getSingleAnnouncementReducer,
+  updateSingleAnnouncementReducer,
+} from "./settings/announcement/AnnouncementReducers";
 import { getAllAssignStudentSubjectReducer } from "./settings/academicConfiguration/assignStudenSubject/AssignStudentSubjectReducers";
+import {
+  getAllPgClassScheduleReducer,
+  getEditClassScheduleReducer,
+  getListClassScheduleReducer,
+  putClassScheduleReducer,
+} from "./settings/classSchedule/pg/ClassPgScheduleReducers";
 //examination reducers link end
 export const reducers = combineReducers({
   navLink: navLinkReducer,
@@ -439,8 +498,12 @@ export const reducers = combineReducers({
   getSingleExamDivisionEdit: getSingleExamDivisionEditReducer,
   updateSingleExamDivision: updateSingleExamDivisionReducer,
   getAllExamScheduleInitialData: getAllExamScheduleInitialDataReducer,
+  getEventForExamSchedule: getEventForExamScheduleReducer,
   getExamScheduleList: getExamScheduleListReducer,
   getSingleExamScheduleCreate: getSingleExamScheduleCreateReducer,
+  postSingleExamScheduleCreate: postSingleExamScheduleCreateReducer,
+  getSingleExamScheduleEdit: getSingleExamScheduleEditReducer,
+  singleExamScheduleEdit: singleExamScheduleEditReducer,
   //examination reducers end
   //registration reducers starts
   getCounterConfigInitialData: getCounterConfigInitialDataReducer,
@@ -469,20 +532,20 @@ export const reducers = combineReducers({
   //PID PersonalInformation
   getAllPersonalInformation: getAllPersonalInformation,
   getSinglePersonalInformation: getSinglePersonalInformationReducer,
-  updateSinglePersonalInformation : updateSinglePersonalInformationReducer,
+  updateSinglePersonalInformation: updateSinglePersonalInformationReducer,
   //PID ContactAddress
-  getAllContactAddress : getAllContactAddress,
+  getAllContactAddress: getAllContactAddress,
   getSingleContactAddress: getSingleContactAddressReducer,
   updateSingleContactAddress: updateSingleContactAddressReducer,
   //PiD Contactnumber
   getAllContactNumber: getAllContactNumber,
   getSingleContactNumber: getSingleContactNumberReducer,
-  updateSingleContactNumber : updateSingleContactNumberReducer,
+  updateSingleContactNumber: updateSingleContactNumberReducer,
   //PID Education
   getAllEducation: getAllEducation,
   getAllEducationCreate: getAllEducationCreateReducer,
-  createSingleEducation : createSingleEducationReducer,
-  educationCreate : educationCreateReducer,
+  createSingleEducation: createSingleEducationReducer,
+  educationCreate: educationCreateReducer,
   //PID Email
   getAllEmail: getAllEmail,
   getSingleEmail: getSingleEmailReducer,
@@ -492,35 +555,35 @@ export const reducers = combineReducers({
   createSchoolSettings: createSchoolSettingsReducer,
   getSingleSchoolSettings: getSingleSchoolSettingsReducer,
   updateSingleSchoolSettings: updateSingleSchoolSettingsReducer,
- //Reducer Ends
+  //Reducer Ends
   //PID FamilyMember
   getAllFamilyMember: getAllFamilyMember,
-  getSingleFamilyMember :getSingleFamilyMemberReducer,
-  updateSingleFamilyMember : updateSingleFamilyMemberReducer,
-createFamilyMember : createFamilyMemberReducer,
-getAllFamilyMemberCreate:getAllFamilyMemberCreateReducer,
-//PID Guardian
-getAllGuardian: getAllGuardian,
-getSingleGuardian: getSingleGuardianReducer,
-updateSingleGuardian : updateSingleGuardianReducer,
+  getSingleFamilyMember: getSingleFamilyMemberReducer,
+  updateSingleFamilyMember: updateSingleFamilyMemberReducer,
+  createFamilyMember: createFamilyMemberReducer,
+  getAllFamilyMemberCreate: getAllFamilyMemberCreateReducer,
+  //PID Guardian
+  getAllGuardian: getAllGuardian,
+  getSingleGuardian: getSingleGuardianReducer,
+  updateSingleGuardian: updateSingleGuardianReducer,
   //PID Hobby
-  getAllHobby : getAllHobby,
-  getAllHobbyCreate : getAllHobbyCreateReducer,
+  getAllHobby: getAllHobby,
+  getAllHobbyCreate: getAllHobbyCreateReducer,
   createSingleHobby: createSingleHobbyReducer,
-  hobbyCreate : hobbyCreateReducer,
+  hobbyCreate: hobbyCreateReducer,
   //PID JobHistory
   getAllJobHistory: getAllJobHistory,
   getAllJobHistoryCreate: getAllJobHistoryCreateReducer,
   createSingleJobHistory: createSingleJobHistoryReducer,
-  jobHistoryCreate : jobHistoryCreateReducer,
+  jobHistoryCreate: jobHistoryCreateReducer,
   //PID Skill
-  getAllSkill : getAllSkill,
+  getAllSkill: getAllSkill,
   getAllSkillCreate: getAllSkillCreateReducer,
-  createSingleSkill : createSingleSkillReducer,
+  createSingleSkill: createSingleSkillReducer,
   skillCreate: skillCreateReducer,
   //PID Training
-  getAllTraining : getAllTraining,
-  getAllTrainingCreate : getAllTrainingCreateReducer,
+  getAllTraining: getAllTraining,
+  getAllTrainingCreate: getAllTrainingCreateReducer,
   createSingleTraining: createSingleTrainingReducer,
   trainingCreate: trainingCreateReducer,
   //PID uploadPhoto
@@ -542,6 +605,12 @@ updateSingleGuardian : updateSingleGuardianReducer,
   createAnnouncement: createAnnouncementReducer,
   getSingleAnnouncement: getSingleAnnouncementReducer,
   updateSingleAnnouncement: updateSingleAnnouncementReducer,
-//Assign Student Subject
-// assignStudentSubject : getAllAssignStudentSubjectReducer,
+  //Assign Student Subject
+  // assignStudentSubject : getAllAssignStudentSubjectReducer,
+  //class schedule reducers starts
+  getAllPgClassSchedule: getAllPgClassScheduleReducer,
+  getListClassSchedule: getListClassScheduleReducer,
+  getEditClassSchedule: getEditClassScheduleReducer,
+  putClassSchedule: putClassScheduleReducer,
+  //class schedule reducers ends
 });

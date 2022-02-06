@@ -179,8 +179,8 @@ const StudentRegistrationForm = ({
     temp.idAcademicYear = !fieldValues.idAcademicYear.length !== 0 ? "" : "";
     temp.RegistrationKey = !fieldValues.RegistrationKey
       ? "This feild is required"
-      :!fieldValues.RegistrationKey
-      ?"This Registration Number Already Exist"
+      : !fieldValues.RegistrationKey
+      ? "This Registration Number Already Exist"
       : !fieldValues.RegistrationKey.trim()
       ? "This feild is required"
       : "";
@@ -199,11 +199,7 @@ const StudentRegistrationForm = ({
       : !fieldValues.LastName.trim()
       ? "This feild is required"
       : "";
-    temp.MobileNo = !fieldValues.MobileNo
-      ? "This feild is required"
-      : !fieldValues.MobileNo<10
-      ? "Number must be atleast 10."
-      : "";
+    temp.MobileNo = !fieldValues.MobileNo ? "This feild is required" : "";
     temp.EmailAddress = !fieldValues.EmailAddress
       ? "This feild is required"
       : !fieldValues.EmailAddress.trim()
@@ -223,15 +219,13 @@ const StudentRegistrationForm = ({
     temp.DOB = !fieldValues.DOB ? "This feild is required" : "";
     temp.IDLevel = !fieldValues.IDLevel ? "This feild is required" : "";
     temp.Section = !fieldValues.Section ? "This feild is required" : "";
-    temp.FatherContactNo = !fieldValues.FatherContactNo ? "This feild is required" 
-    : !fieldValues.FatherContactNo.length<10
-    ? "Must be atleast 10 number"
-    : "";
-    temp.LocalGuardianContactNo = !fieldValues.LocalGuardianContactNo ? "This feild is required" 
-    : !fieldValues.LocalGuardianContactNo.length<10
-    ? "Must be atleast 10 number"
-    : "";
-    
+    temp.FatherContactNo = !fieldValues.FatherContactNo
+      ? "This feild is required"
+      : "";
+    temp.LocalGuardianContactNo = !fieldValues.LocalGuardianContactNo
+      ? "This feild is required"
+      : "";
+
     temp.ClassLocation =
       fieldValues.ClassLocation && fieldValues.ClassLocation.length > 200
         ? "Must be less than 501 characters"

@@ -19,8 +19,7 @@ import {
 } from "../pg/ClassPgScheduleActions";
 import ClassPgScheduleForm from "../pg/ClassPgScheduleForm";
 
-
-const ClassUkgSchedule = () => {
+const ClassLkgSchedule = () => {
   const [url, setUrl] = useState("");
   const [openPopup, setOpenPopup] = useState(false);
 
@@ -29,6 +28,7 @@ const ClassUkgSchedule = () => {
     message: "",
     type: "",
   });
+
   const [confirmDialog, setConfirmDialog] = useState({
     isOpen: false,
     title: "",
@@ -44,68 +44,67 @@ const ClassUkgSchedule = () => {
   const { success: putClassScheduleSuccess, error: putClassScheduleError } =
     useSelector((state) => state.putClassSchedule);
 
-    if (putClassScheduleError) {
-      setNotify({
-        isOpen: true,
-        message: putClassScheduleError,
-        type: "error",
-      });
-      dispatch({ type: PUT_CLASS_SCHEDULE_RESET });
-    }
-  
-    if (putClassScheduleSuccess) {
-      setNotify({
-        isOpen: true,
-        message: "Successfully Update",
-        type: "success",
-      });
-      setOpenPopup(false);
-      dispatch({ type: PUT_CLASS_SCHEDULE_RESET });
-      dispatch(getAllPgClassScheuleAction());
-    }
-  
-    if (editClassScheduleError) {
-      setNotify({
-        isOpen: true,
-        message: editClassScheduleError,
-        type: "error",
-      });
-      dispatch({ type: GET_EDIT_CLASS_SCHEDULE_RESET });
-    }
-    if (allClassScheduleListError) {
-      setNotify({
-        isOpen: true,
-        message: allClassScheduleListError,
-        type: "error",
-      });
-      dispatch({ type: GET_LIST_CLASS_SCHEDULE_RESET });
-    }
+  if (putClassScheduleError) {
+    setNotify({
+      isOpen: true,
+      message: putClassScheduleError,
+      type: "error",
+    });
+    dispatch({ type: PUT_CLASS_SCHEDULE_RESET });
+  }
 
-    useEffect(() => {
-      dispatch(getListClassScheuleAction(4));
-    }, []);
-  
-    useEffect(() => {
-      if (allClassScheduleList) {
-        setUrl(`${API_URL}${allClassScheduleList.FullPath}`);
-      }
-    }, [allClassScheduleList]);
-  
-    const editHandler = () => {
-      if (allClassScheduleList) {
-        dispatch(
-          getEditClassScheuleAction(
-            allClassScheduleList.dbModelLst[0].Id,
-            allClassScheduleList.searchFilterModel.company
-          )
-        );
-        setOpenPopup(true);
-      }
-    };
+  if (putClassScheduleSuccess) {
+    setNotify({
+      isOpen: true,
+      message: "Successfully Update",
+      type: "success",
+    });
+    setOpenPopup(false);
+    dispatch({ type: PUT_CLASS_SCHEDULE_RESET });
 
+    dispatch(getAllPgClassScheuleAction());
+  }
+
+  if (editClassScheduleError) {
+    setNotify({
+      isOpen: true,
+      message: editClassScheduleError,
+      type: "error",
+    });
+    dispatch({ type: GET_EDIT_CLASS_SCHEDULE_RESET });
+  }
+  if (allClassScheduleListError) {
+    setNotify({
+      isOpen: true,
+      message: allClassScheduleListError,
+      type: "error",
+    });
+    dispatch({ type: GET_LIST_CLASS_SCHEDULE_RESET });
+  }
+  useEffect(() => {
+    dispatch(getListClassScheuleAction(3));
+  }, []);
+
+  useEffect(() => {
+    if (allClassScheduleList) {
+      setUrl(`${API_URL}${allClassScheduleList.FullPath}`);
+    }
+  }, [allClassScheduleList]);
+
+  const editHandler = () => {
+    if (allClassScheduleList) {
+      dispatch(
+        getEditClassScheuleAction(
+          allClassScheduleList.dbModelLst[0].Id,
+          allClassScheduleList.searchFilterModel.company
+        )
+      );
+      setOpenPopup(true);
+    }
+  };
   return (
     <>
-       <CustomContainer>
+      <CustomContainer>
         <Toolbar>
           {allClassScheduleList && (
             <Button
@@ -136,7 +135,7 @@ const ClassUkgSchedule = () => {
         setConfirmDialog={setConfirmDialog}
       />
     </>
-  )
+  );
 };
 
-export default ClassUkgSchedule;
+export default ClassLkgSchedule;

@@ -11,7 +11,7 @@ const ClassPgSchedule = lazy(() => import("./pg/ClassPgSchedule"));
 const ClassNurserySchedule = lazy(() =>
   import("./nursery/ClassNurserySchedule")
 );
-const ClassLkgSchedule = lazy(() => import("./lgk/ClassLkgSchedule"));
+const ClassLkgSchedule = lazy(() => import("./lkg/ClassLkgSchedule"));
 const ClassUkgSchedule = lazy(() => import("./ukg/ClassUkgSchedule"));
 const ClassOneSchedule = lazy(() => import("./one/ClassOneSchedule"));
 const ClassTwoSchedule = lazy(() => import("./two/ClassTwoSchedule"));

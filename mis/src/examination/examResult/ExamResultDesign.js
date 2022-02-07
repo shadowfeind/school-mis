@@ -8,6 +8,7 @@ const ExamResultDesign = ({
   levelTest,
   studentAttendance,
 }) => {
+  console.log("student Attendance", studentAttendance);
   return (
     <div className="resultContainer">
       <img src="https://i.ibb.co/NjC9r8Z/Creation-Header.png" width="740px" />
@@ -223,9 +224,21 @@ const ExamResultDesign = ({
                 <thead>
                   <tr>
                     <td>Attendance:</td>
-                    <td>Working Days: 52.00</td>
-                    <td>Present Days: 45.00</td>
-                    <td>Absent Days: 7.00</td>
+                    <td>
+                      Working Days:{" "}
+                      {studentAttendance.length > 0 &&
+                        studentAttendance[0].WorkingDay}
+                    </td>
+                    <td>
+                      Present Days:{" "}
+                      {studentAttendance.length > 0 &&
+                        studentAttendance[0].PresentDay}
+                    </td>
+                    <td>
+                      Absent Days:{" "}
+                      {studentAttendance.length > 0 &&
+                        studentAttendance[0].AbsentDay}
+                    </td>
                   </tr>
                 </thead>
               </table>

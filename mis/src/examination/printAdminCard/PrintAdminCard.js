@@ -75,7 +75,8 @@ const PrintAdminCard = () => {
   const [section, setSection] = useState();
   const [event, setEvent] = useState();
   const [student, setStudent] = useState(0);
-  const [date, setDate] = useState(Date.now());
+  const [date, setDate] = useState("2022-01-28");
+  const [dateValue, setDateValue] = useState();
   const [errors, setErrors] = useState([]);
   const dispatch = useDispatch();
   const classes = useStyles();
@@ -174,18 +175,18 @@ const PrintAdminCard = () => {
     }
   }, [searchStudentsForAdmitCard]);
 
-  const validate=()=>{
-    let temp ={};
+  const validate = () => {
+    let temp = {};
     temp.acaYear = !acaYear ? "This feild is required" : "";
     temp.programValue = !programValue ? "This feild is required" : "";
     temp.classId = !classId ? "This feild is required" : "";
     temp.section = !section ? "This feild is required" : "";
     temp.shift1 = !shift ? "This feild is required" : "";
     temp.event = !event ? "This feild is required" : "";
-    
+
     setErrors({ ...temp });
     return Object.values(temp).every((x) => x === "");
-  }
+  };
 
   const handleShift = (value) => {
     setShift(value);
@@ -202,19 +203,14 @@ const PrintAdminCard = () => {
     }
   };
 
-  const handleProgramValue =(value=>{
+  const handleProgramValue = (value) => {
     setProgramValue(value);
     if ((acaYear, classId, shift)) {
       dispatch(
-        getActiveStudentsForAdmitCardDataAction(
-          value,
-          acaYear,
-          classId,
-          shift
-        )
+        getActiveStudentsForAdmitCardDataAction(value, acaYear, classId, shift)
       );
     }
-  })
+  };
 
   const handleYearChange = (value) => {
     setAcaYear(value);
@@ -253,42 +249,43 @@ const PrintAdminCard = () => {
   };
 
   const handleStudentSearch = () => {
-    if(validate()){
-    dispatch(
-      searchStudentsForAdmitCardDataAction(
-        acaYear,
-        programValue,
-        classId,
-        section,
-        shift,
-        event,
-        student
-      )
-    );
-      };
+    if (validate()) {
+      dispatch(
+        searchStudentsForAdmitCardDataAction(
+          acaYear,
+          programValue,
+          classId,
+          section,
+          shift,
+          event,
+          student
+        )
+      );
+    }
   };
 
   const handleDate = (date) => {
+    setDateValue(date);
     const newDate = `${date.getMonth()}-${date.getDay()}-${date.getFullYear()}`;
     setDate(newDate);
   };
 
   const handleBulkPrint = () => {
-    if(validate()){
-    dispatch(
-      printStudentsAdmitCardDataAction(
-        acaYear,
-        programValue,
-        classId,
-        section,
-        shift,
-        event,
-        student,
-        date
-      )
-    );
-    setOpenPopup(true);
-      };
+    if (validate()) {
+      dispatch(
+        printStudentsAdmitCardDataAction(
+          acaYear,
+          programValue,
+          classId,
+          section,
+          shift,
+          event,
+          student,
+          date
+        )
+      );
+      setOpenPopup(true);
+    }
   };
 
   const componentRef = useRef();
@@ -379,7 +376,7 @@ const PrintAdminCard = () => {
               <DatePickerControl
                 name="DOJ"
                 label="Pick Exam Date"
-                value={date}
+                value={dateValue}
                 onChange={(e) => handleDate(e.target.value)}
                 errors={errors.date}
               />

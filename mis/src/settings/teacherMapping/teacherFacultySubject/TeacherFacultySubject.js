@@ -48,8 +48,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const tableHeader = [
-  { id: "IDHRTeacherFacultySubjectMappingHeader", label: "Teacher Name" },
-  { id: "IDAcademicFacultySubjectLink", label: "Subject" },
+  { id: "TeacherName", label: "Teacher Name" },
+  { id: "SubjectName", label: "Subject" },
   { id: "Created_On", label: "Created On" },
   { id: "Summary", label: "Summary" },
   { id: "IsActive", label: "IsActive" },
@@ -220,34 +220,19 @@ const TeacherFacultySubject = () => {
   } = useCustomTable(tableData, tableHeader, filterFn);
 
   const handleSearch = (e) => {
-    //not working because it is Number
-    // setFilterFn({
-    //   fn: (item) => {
-    //     if (e.target.value === "") {
-    //       return item;
-    //     } else {
-    //       return item.filter((x) =>
-    //         x.IDHRTeacherFacultySubjectMappingHeader.toLowerCase().includes(
-    //           e.target.value
-    //         )
-    //       );
-    //     }
-    //   },
-    // });
     setFilterFn({
       fn: (item) => {
         if (e.target.value === "") {
           return item;
         } else {
           return item.filter((x) =>
-            x.EventName.toLowerCase().includes(e.target.value)
+            x.TeacherName.toLowerCase().includes(e.target.value)
           );
         }
       },
     });
   };
 
-    
   useEffect(() => {
     if (!teacherFacInitData) {
       dispatch(getAllTeacherFacSubInitialDataAction());
@@ -267,17 +252,17 @@ const TeacherFacultySubject = () => {
     }
   }, [teacherFacListData]);
 
-  const validate=()=>{
-    let temp ={};
+  const validate = () => {
+    let temp = {};
     temp.academicYearValue = !academicYearValue ? "This feild is required" : "";
     temp.programValue = !programValue ? "This feild is required" : "";
     temp.classOptValue = !classOptValue ? "This feild is required" : "";
     temp.sectionValue = !sectionValue ? "This feild is required" : "";
     temp.shiftValue = !shiftValue ? "This feild is required" : "";
-    
+
     setErrors({ ...temp });
     return Object.values(temp).every((x) => x === "");
-  }
+  };
 
   const test = [{ Key: "", Value: "" }];
 
@@ -297,33 +282,33 @@ const TeacherFacultySubject = () => {
   };
 
   const listSearchHandler = () => {
-    if(validate()){
-    dispatch(
-      getAllTeacherFacSubListDataAction(
-        academicYearValue,
-        programValue,
-        classOptValue,
-        sectionValue,
-        shiftValue
-      )
-    );
-      }
+    if (validate()) {
+      dispatch(
+        getAllTeacherFacSubListDataAction(
+          academicYearValue,
+          programValue,
+          classOptValue,
+          sectionValue,
+          shiftValue
+        )
+      );
+    }
   };
 
   const handleCreate = () => {
-    if(validate()){
-    dispatch(
-      createTeacherFacSubInitDataAction(
-        academicYearValue,
-        programValue,
-        classOptValue,
-        sectionValue,
-        shiftValue
-      )
-    );
-    dispatch({ type: GET_SINGLE_TEACHER_FAC_SUB_DATA_RESET });
-    setOpenPopup(true);
-      }
+    if (validate()) {
+      dispatch(
+        createTeacherFacSubInitDataAction(
+          academicYearValue,
+          programValue,
+          classOptValue,
+          sectionValue,
+          shiftValue
+        )
+      );
+      dispatch({ type: GET_SINGLE_TEACHER_FAC_SUB_DATA_RESET });
+      setOpenPopup(true);
+    }
   };
 
   return (

@@ -56,14 +56,14 @@ const StudentMonthlyPresentSheet = () => {
   const [ddlNepMonth, setDdlNepMonth] = useState([]);
   const [ddlNepYear, setDdlNepYear] = useState([]);
 
-  const [programValue, setProgramValue] = useState();
-  const [classId, setClassId] = useState();
-  const [acaYear, setAcaYear] = useState();
-  const [shift, setShift] = useState();
-  const [section, setSection] = useState();
-  const [subject, setSubject] = useState();
-  const [nepMonth, setNepMonth] = useState();
-  const [nepYear, setNepYear] = useState();
+  const [programValue, setProgramValue] = useState("");
+  const [classId, setClassId] = useState("");
+  const [acaYear, setAcaYear] = useState("");
+  const [shift, setShift] = useState("");
+  const [section, setSection] = useState("");
+  const [subject, setSubject] = useState("");
+  const [nepMonth, setNepMonth] = useState("");
+  const [nepYear, setNepYear] = useState("");
   const [errors, setErrors] = useState({});
   const [date, setDate] = useState();
 

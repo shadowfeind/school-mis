@@ -24,10 +24,6 @@ const ClassPgSchedule = () => {
   const [url, setUrl] = useState("");
   const [openPopup, setOpenPopup] = useState(false);
 
-  function onDocumentLoadSuccess({ numPages }) {
-    setNumPages(numPages);
-  }
-
   const [notify, setNotify] = useState({
     isOpen: false,
     message: "",
@@ -75,7 +71,8 @@ const ClassPgSchedule = () => {
     });
     setOpenPopup(false);
     dispatch({ type: PUT_CLASS_SCHEDULE_RESET });
-    dispatch(getListClassScheuleAction(pgClassSchedule.dbModelLst[0].Id));
+    // dispatch(getListClassScheuleAction(pgClassSchedule.dbModelLst[0].Id));
+    dispatch(getAllPgClassScheuleAction());
   }
   if (editClassScheduleError) {
     setNotify({

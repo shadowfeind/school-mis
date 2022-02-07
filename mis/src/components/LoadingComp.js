@@ -30,7 +30,7 @@ const LoadingComp = () => {
       <BeatLoader />
       <BarLoader width={100} />
       <ClipLoader /> */}
-      <CircularProgress color="primary" />
+      <CircularProgress color="primary" style={{ fontSize: 70 }} />
       {/* <LinearProgress color="secondary" /> */}
     </div>
   );

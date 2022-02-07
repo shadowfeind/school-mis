@@ -189,19 +189,12 @@ export const getCreateSingleStudentRegistrationDataAction =
   };
 
 export const createSingleStudentRegistrationAction =
-  (studentReg, image, year, program, classId, searchFilterModel) =>
-  async (dispatch) => {
+  (studentReg, image) => async (dispatch) => {
     try {
       dispatch({ type: CREATE_SINGLE_STUDENT_REGISTRATION_REQUEST });
 
       let formData = new FormData();
       formData.append("ImageUploaded", image);
-
-      // const config = {
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //   },
-      // };
 
       const { data } = await axios.put(
         `${API_URL}/api/StudentRegistrationImage/Put`,

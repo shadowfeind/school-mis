@@ -5,7 +5,10 @@ import { useForm, Form } from "../../customHooks/useForm";
 import { useDispatch, useSelector } from "react-redux";
 import DatePickerControl from "../../components/controls/DatePickerControl";
 import SelectControl from "../../components/controls/SelectControl";
-import { Timelapse } from "@material-ui/icons";
+import {
+  postSingleExamScheduleCreateAction,
+  singleExamScheduleEditAction,
+} from "./ExamScheduleActions";
 
 const initialFormValues = {
   IDAcademicExamSchedule: 0,
@@ -13,8 +16,8 @@ const initialFormValues = {
   IDAcademicYearCalendar: 0,
   IDAcademicFacultySubjectLink: 0,
   ExamType: "",
-  ExamScheduleFromDate: "2022-01-28T07:12:28.958Z",
-  ExamScheduleToDate: "2022-01-28T07:12:28.958Z",
+  ExamScheduleFromDate: "",
+  ExamScheduleToDate: "",
   ExamScheduleFromTime: "",
   ExamScheduleToTime: "",
   FullMark: 0,
@@ -31,26 +34,37 @@ const initialFormValues = {
   Updated_On: "2022-01-28T07:12:28.958Z",
 };
 
-const ExamScheduleForm = (examSchedule, setOpenPopup) => {
+const ExamScheduleForm = ({
+  examScheduleCreate,
+  examScheduleEdit,
+  setOpenPopup,
+}) => {
   const dispatch = useDispatch();
   const validate = (fieldValues = values) => {
     let temp = { ...errors };
-    temp.IDAcademicFacultySubjectLink = !fieldValues.IDAcademicFacultySubjectLink
-      ? "This feild is required"
-      : !fieldValues.IDAcademicFacultySubjectLink.trim()
+    temp.IDAcademicFacultySubjectLink =
+      !fieldValues.IDAcademicFacultySubjectLink ? "This feild is required" : "";
+    temp.ExamType = !fieldValues.ExamType ? "This feild is required" : "";
+    temp.FullMark = !fieldValues.FullMark ? "This feild is required" : "";
+    temp.ApplyGroup = !fieldValues.ApplyGroup ? "This feild is required" : "";
+    temp.ExamScheduleFromDate = !fieldValues.ExamScheduleFromDate
       ? "This feild is required"
       : "";
-      temp.ExamType = !fieldValues.ExamType ? "This feild is required" :"";
-      temp.FullMark = !fieldValues.FullMark ? "This feild is required" :"";
-      temp.ApplyGroup = !fieldValues.ApplyGroup ? "This feild is required" :"";
-      temp.ExamScheduleFromDate = !fieldValues.ExamScheduleFromDate ? "This feild is required" :"";
-      temp.ExamScheduleToDate = !fieldValues.ExamScheduleToDate ? "This feild is required" :"";
-      temp.DisplayName = !fieldValues.DisplayName ? "This feild is required" :"";
-      temp.SubjectOrder = !fieldValues.SubjectOrder ? "This feild is required" :"";
-      temp.PassMark = !fieldValues.PassMark ? "This feild is required" :"";
-      temp.GroupNumber = !fieldValues.GroupNumber ? "This feild is required" :"";
-      temp.ExamScheduleFromTime = !fieldValues.ExamScheduleFromTime ? "This feild is required" :"";
-      temp.ExamScheduleToTime = !fieldValues.ExamScheduleToTime ? "This feild is required" :"";
+    temp.ExamScheduleToDate = !fieldValues.ExamScheduleToDate
+      ? "This feild is required"
+      : "";
+    temp.DisplayName = !fieldValues.DisplayName ? "This feild is required" : "";
+    temp.SubjectOrder = !fieldValues.SubjectOrder
+      ? "This feild is required"
+      : "";
+    temp.PassMark = !fieldValues.PassMark ? "This feild is required" : "";
+    temp.GroupNumber = !fieldValues.GroupNumber ? "This feild is required" : "";
+    temp.ExamScheduleFromTime = !fieldValues.ExamScheduleFromTime
+      ? "This feild is required"
+      : "";
+    temp.ExamScheduleToTime = !fieldValues.ExamScheduleToTime
+      ? "This feild is required"
+      : "";
 
     setErrors({ ...temp });
     return Object.values(temp).every((x) => x === "");
@@ -60,146 +74,193 @@ const ExamScheduleForm = (examSchedule, setOpenPopup) => {
 
     if (validate()) {
       if (values.IDAcademicExamSchedule === 0) {
-        dispatch(getSingleExamScheduleCreateAction(values));
-      } 
+        dispatch(
+          postSingleExamScheduleCreateAction(
+            values,
+            examScheduleCreate.searchFilterModel
+          )
+        );
+      } else {
+        dispatch(
+          singleExamScheduleEditAction(
+            values,
+            examScheduleEdit.searchFilterModel
+          )
+        );
+      }
     }
   };
   const { values, setValues, handleInputChange, errors, setErrors } =
     useForm(initialFormValues);
-    useEffect(() => {
-      if (examSchedule) {
-        setValues({ ...examSchedule });
-      }
-    }, [examSchedule]);
 
-  return(
-<>
-<Form onSubmit={handleSubmit}>
-      <Grid container style={{ fontSize: "12px" }}>
-        <Grid item xs={6}>
-          <SelectControl
-            name="IDAcademicFacultySubjectLink"
-            label="Subject"
-            value={values.IDAcademicFacultySubjectLink}
-            options={ddlSubject}
-            onChange={handleInputChange}
-            errors={errors.IDAcademicFacultySubjectLink}
-          />
-          <SelectControl
-            name="ExamType"
-            label="Exam Type*"
-            value={values.ExamType}
-            options={ddlExamType}
-            onChange={handleInputChange}
-            errors={errors.ExamType}
-          />
-          <InputControl
-            name="FullMark"
-            label="Full Marks*"
-            value={values.FullMark}
-            onChange={handleInputChange}
-            errors={errors.FullMark}
-            type="number"
-          />
-          <SelectControl
-            name="ApplyGroup"
-            label="Apply Group"
-            value={values.ApplyGroup}
-            options={ddlIsActive}
-            onChange={handleInputChange}
-            errors={errors.ApplyGroup}
-          />
-          <DatePickerControl
-            name="ExamScheduleFromDate"
-            label="Start Date"
-            value={values.ExamScheduleFromDate}
-            onChange={handleInputChange}
-            errors={errors.ExamScheduleFromDate}
-          />
-          <DatePickerControl
-            name="ExamScheduleToDate"
-            label="End Date"
-            value={values.ExamScheduleToDate}
-            onChange={handleInputChange}
-            errors={errors.ExamScheduleToDate}
-          />
+  useEffect(() => {
+    if (examScheduleCreate) {
+      setValues({ ...examScheduleCreate.dbModel });
+    }
+    if (examScheduleEdit) {
+      setValues({ ...examScheduleEdit.dbModel });
+    }
+  }, [examScheduleCreate, examScheduleEdit]);
+
+  const test = [{ Key: "", Value: "" }];
+
+  return (
+    <>
+      <Form onSubmit={handleSubmit}>
+        <Grid container style={{ fontSize: "12px" }}>
+          <Grid item xs={6}>
+            <SelectControl
+              name="IDAcademicFacultySubjectLink"
+              label="Subject"
+              value={values.IDAcademicFacultySubjectLink}
+              options={
+                examScheduleCreate
+                  ? examScheduleCreate.ddlSubject
+                  : examScheduleEdit
+                  ? examScheduleEdit.ddlSubject
+                  : test
+              }
+              onChange={handleInputChange}
+              errors={errors.IDAcademicFacultySubjectLink}
+            />
+            <SelectControl
+              name="ExamType"
+              label="Exam Type*"
+              value={values.ExamType}
+              options={
+                examScheduleCreate
+                  ? examScheduleCreate.ddlExamType
+                  : examScheduleEdit
+                  ? examScheduleEdit.ddlExamType
+                  : test
+              }
+              onChange={handleInputChange}
+              errors={errors.ExamType}
+            />
+            {values.ExamType == "P" && (
+              <InputControl
+                name="FullMarkPractical"
+                label="Full Marks Practical"
+                value={values.FullMarkPractical}
+                onChange={handleInputChange}
+                errors={errors.FullMarkPractical}
+                type="number"
+              />
+            )}
+            <InputControl
+              name="FullMark"
+              label="Full Marks*"
+              value={values.FullMark}
+              onChange={handleInputChange}
+              errors={errors.FullMark}
+              type="number"
+            />
+            <SelectControl
+              name="ApplyGroup"
+              label="Apply Group"
+              value={values.ApplyGroup}
+              options={
+                examScheduleCreate
+                  ? examScheduleCreate.ddlIsActive
+                  : examScheduleEdit
+                  ? examScheduleEdit.ddlIsActive
+                  : test
+              }
+              onChange={handleInputChange}
+              errors={errors.ApplyGroup}
+            />
+            <DatePickerControl
+              name="ExamScheduleFromDate"
+              label="Start Date"
+              value={values.ExamScheduleFromDate}
+              onChange={handleInputChange}
+              errors={errors.ExamScheduleFromDate}
+            />
+            <InputControl
+              name="ExamScheduleFromTime"
+              label="From"
+              value={values.ExamScheduleFromTime}
+              onChange={handleInputChange}
+              errors={errors.ExamScheduleFromTime}
+              type="time"
+            />
           </Grid>
           <Grid item xs={6}>
-          <InputControl
-            name="DisplayName"
-            label="Display Name"
-            value={values.DisplayName}
-            onChange={handleInputChange}
-            errors={errors.DisplayName}
-          />
-          <InputControl
-            name="SubjectOrder"
-            label="Subject Order"
-            value={values.SubjectOrder}
-            onChange={handleInputChange}
-            errors={errors.SubjectOrder}
-          />
-          <InputControl
-            name="PassMark"
-            label="Pass Mark"
-            value={values.PassMark}
-            onChange={handleInputChange}
-            errors={errors.PassMark}
-            type = "number"
-          />
-          <InputControl
-            name="GroupNumber"
-            label="Group Number"
-            value={values.GroupNumber}
-            onChange={handleInputChange}
-            errors={errors.GroupNumber}
-          />
-         <Timelapse
-            name="ExamScheduleFromTime"
-            label="Start Time"
-            value={values.ExamScheduleFromTime}
-            onChange={handleInputChange}
-            errors={errors.ExamScheduleFromTime}
-          />
-          <Timelapse
-            name="ExamScheduleToTime"
-            label="End Time"
-            value={values.ExamScheduleToTime}
-            onChange={handleInputChange}
-            errors={errors.ExamScheduleToTime}
-          />
+            <InputControl
+              name="DisplayName"
+              label="Display Name"
+              value={values.DisplayName}
+              onChange={handleInputChange}
+              errors={errors.DisplayName}
+            />
+            <InputControl
+              name="SubjectOrder"
+              label="Subject Order"
+              value={values.SubjectOrder}
+              onChange={handleInputChange}
+              errors={errors.SubjectOrder}
+            />
+            <InputControl
+              name="PassMark"
+              label="Pass Mark"
+              value={values.PassMark}
+              onChange={handleInputChange}
+              errors={errors.PassMark}
+              type="number"
+            />
+            <InputControl
+              name="GroupNumber"
+              label="Group Number"
+              value={values.GroupNumber}
+              onChange={handleInputChange}
+              errors={errors.GroupNumber}
+            />
+            <DatePickerControl
+              name="ExamScheduleToDate"
+              label="End Time"
+              value={values.ExamScheduleToDate}
+              onChange={handleInputChange}
+              errors={errors.ExamScheduleToDate}
+            />
+            <InputControl
+              name="ExamScheduleToTime"
+              label="To"
+              value={values.ExamScheduleToTime}
+              onChange={handleInputChange}
+              errors={errors.ExamScheduleToTime}
+              type="time"
+            />
+          </Grid>
         </Grid>
-      </Grid>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "end",
-          paddingTop: "10px",
-          marginTop: "10px",
-          borderTop: "1px solid #f3f3f3",
-        }}
-      >
-        <Button
-          variant="contained"
-          color="secondary"
-          onClick={() => setOpenPopup(false)}
-          style={{ margin: "10px 0 0 10px" }}
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "end",
+            paddingTop: "10px",
+            marginTop: "10px",
+            borderTop: "1px solid #f3f3f3",
+          }}
         >
-          CANCEL
-        </Button>
-        <Button
-          variant="contained"
-          color="primary"
-          type="submit"
-          style={{ margin: "10px 0 0 10px" }}
-        >
-          SUBMIT
-        </Button>
-      </div>
-    </Form>
-</>
-  )
-
+          <Button
+            variant="contained"
+            color="secondary"
+            onClick={() => setOpenPopup(false)}
+            style={{ margin: "10px 0 0 10px" }}
+          >
+            CANCEL
+          </Button>
+          <Button
+            variant="contained"
+            color="primary"
+            type="submit"
+            style={{ margin: "10px 0 0 10px" }}
+          >
+            SUBMIT
+          </Button>
+        </div>
+      </Form>
+    </>
+  );
 };
 
 export default ExamScheduleForm;

@@ -349,6 +349,7 @@ import {
   getListClassScheduleReducer,
   putClassScheduleReducer,
 } from "./settings/classSchedule/pg/ClassPgScheduleReducers";
+import { getAllOldQuestionsReducer, getListOldQuestionsReducer, getSingleCreateOldQuestionsReducer, getSingleEditOldQuestionsReducer, getSubjectOldQuestionsReducer, postFileUploadOldQuestionsReducer, postOldQuestionsReducer, putOldQuestionsReducer } from "./settings/oldQuestions/OldQuestionsReducers";
 //examination reducers link end
 export const reducers = combineReducers({
   navLink: navLinkReducer,
@@ -613,4 +614,13 @@ export const reducers = combineReducers({
   getEditClassSchedule: getEditClassScheduleReducer,
   putClassSchedule: putClassScheduleReducer,
   //class schedule reducers ends
+  //old question reducers start
+  getAllOldQuestions : getAllOldQuestionsReducer,
+  getListOldQuestions : getListOldQuestionsReducer,
+  getSubjectOldQuestions : getSubjectOldQuestionsReducer,
+  getSingleCreateOldQuestions : getSingleCreateOldQuestionsReducer,
+  getSingleEditOldQuestions : getSingleEditOldQuestionsReducer,
+  putOldQuestions : putOldQuestionsReducer, 
+  postOldQuestions : postOldQuestionsReducer,
+  //old question reducers ends
 });

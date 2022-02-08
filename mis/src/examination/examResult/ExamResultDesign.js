@@ -1,5 +1,5 @@
-import { Grid } from "@material-ui/core";
 import React from "react";
+import { Grid } from "@material-ui/core";
 import "./examResult.css";
 
 const ExamResultDesign = ({
@@ -7,8 +7,59 @@ const ExamResultDesign = ({
   subjects,
   levelTest,
   studentAttendance,
+  dbModelLst,
+  forDate,
+  examTerm,
 }) => {
-  console.log("student Attendance", studentAttendance);
+  let trackSubject = [];
+
+  const gpaToGrade = (x) => {
+    if (x > 3.6) {
+      return "A+";
+    } else if (x > 3.2 && x <= 3.6) {
+      return "A";
+    } else if (x > 2.8 && x <= 3.2) {
+      return "B+";
+    } else if (x > 2.4 && x <= 2.8) {
+      return "B";
+    } else if (x > 2.0 && x <= 2.4) {
+      return "C+";
+    } else if (x > 1.6 && x <= 2.0) {
+      return "C";
+    } else if (x > 1.2 && x <= 1.6) {
+      return "D+";
+    } else if (x > 0.8 && x <= 1.2) {
+      return "D";
+    } else if (x > 0 && x <= 0.8) {
+      return "E";
+    } else {
+      return "N";
+    }
+  };
+
+  const gpaToRemarks = (x) => {
+    if (x > 3.6) {
+      return "OUTSTANDING";
+    } else if (x > 3.2 && x <= 3.6) {
+      return "EXCELLENT";
+    } else if (x > 2.8 && x <= 3.2) {
+      return "VERY GOOD";
+    } else if (x > 2.4 && x <= 2.8) {
+      return "GOOD";
+    } else if (x > 2.0 && x <= 2.4) {
+      return "SATISFACTORY";
+    } else if (x > 1.6 && x <= 2.0) {
+      return "ACCEPTABLE";
+    } else if (x > 1.2 && x <= 1.6) {
+      return "PARTIALLY ACCEPTABLE";
+    } else if (x > 0.8 && x <= 1.2) {
+      return "INSUFFICIENT";
+    } else if (x > 0 && x <= 0.8) {
+      return "VERY INSUFFICIENT";
+    } else {
+      return "NOT QUALIFIED";
+    }
+  };
   return (
     <div className="resultContainer">
       <img src="https://i.ibb.co/NjC9r8Z/Creation-Header.png" width="740px" />
@@ -36,7 +87,9 @@ const ExamResultDesign = ({
             </h5>
           </Grid>
         </Grid>
-        <h2>FIRST TERM EXAMINATION : 2077</h2>
+        <h2>
+          {examTerm.Value} : {forDate.PublishDate.slice(0, 4)}
+        </h2>
         <div className="uppderTableResult">
           <table style={{ margin: "15px 0" }}>
             <thead>
@@ -63,16 +116,104 @@ const ExamResultDesign = ({
             <tbody>
               {subjects.map((s, i) => {
                 let count = i + 1;
+                let resultTH = (s.ObtainedMark * 100) / s.FullMark;
+                let resultPR =
+                  (s.ObtainedMarkPractical * 100) / s.FullMarkPractical;
+                let resultTotal =
+                  ((s.ObtainedMark + s.ObtainedMarkPractical) /
+                    (s.FullMark + s.FullMarkPractical)) *
+                  100;
+                const gradeCalc = (marksCalc) => {
+                  if (marksCalc >= 90) {
+                    return "A+";
+                  } else if (marksCalc >= 80 && marksCalc < 90) {
+                    return "A";
+                  } else if (marksCalc >= 70 && marksCalc < 80) {
+                    return "B+";
+                  } else if (marksCalc >= 60 && marksCalc < 70) {
+                    return "B";
+                  } else if (marksCalc >= 50 && marksCalc < 60) {
+                    return "C+";
+                  } else if (marksCalc >= 40 && marksCalc < 50) {
+                    return "C";
+                  } else if (marksCalc >= 30 && marksCalc < 40) {
+                    return "D+";
+                  } else if (marksCalc >= 20 && marksCalc < 30) {
+                    return "D";
+                  } else if (marksCalc >= 1 && marksCalc < 20) {
+                    return "E";
+                  } else {
+                    return "N";
+                  }
+                };
+
+                let gradePointTotal =
+                  ((s.ObtainedMark + s.ObtainedMarkPractical) /
+                    (s.FullMark + s.FullMarkPractical)) *
+                  100;
+
+                const pointCalc = (marked) => {
+                  if (marked >= 90) {
+                    return "4.00";
+                  } else if (marked >= 80 && marked < 90) {
+                    return "3.60";
+                  } else if (marked >= 70 && marked < 80) {
+                    return "3.20";
+                  } else if (marked >= 60 && marked < 70) {
+                    return "2.80";
+                  } else if (marked >= 50 && marked < 60) {
+                    return "2.40";
+                  } else if (marked >= 40 && marked < 50) {
+                    return "2.00";
+                  } else if (marked >= 30 && marked < 40) {
+                    return "1.60";
+                  } else if (marked >= 20 && marked < 30) {
+                    return "1.20";
+                  } else if (marked >= 1 && marked < 20) {
+                    return "0.80";
+                  } else {
+                    return "0.00";
+                  }
+                };
+                let filteredSubjects = dbModelLst.filter(
+                  (x) =>
+                    (x.SubjectCode === s.SubjectCode) &
+                    (x.Status === "Approved")
+                );
+                let highestThMarks = filteredSubjects.sort(
+                  (a, b) => b.ObtainedMark - a.ObtainedMark
+                );
+                let highestPrMarks = filteredSubjects.sort(
+                  (a, b) => b.ObtainedMarkPractical - a.ObtainedMarkPractical
+                );
+
+                let totalHighestMarks;
+                if ((highestThMarks.length > 0) & (highestPrMarks.length > 0)) {
+                  totalHighestMarks =
+                    highestThMarks[0].ObtainedMark +
+                    highestPrMarks[0].ObtainedMarkPractical;
+                } else {
+                  totalHighestMarks = 0;
+                }
+
+                console.log(totalHighestMarks);
+                //to calculate GPA tracking grade poing
+                let subTracker = {
+                  name: s.SubjectCode,
+                  totalMarks: Number(pointCalc(gradePointTotal)),
+                };
+                trackSubject.push(subTracker);
+
                 return (
                   <tr key={s.$id}>
                     <td>{count}</td>
                     <td>{s.SubjectName}</td>
                     <td> 4.0</td>
-                    <td> B+</td>
-                    <td> A+</td>
-                    <td> A</td>
-                    <td> 3.60</td>
-                    <td height={30}>A </td>
+                    <td> {gradeCalc(resultTH)}</td>
+                    <td> {gradeCalc(resultPR)}</td>
+                    <td> {gradeCalc(resultTotal)}</td>
+                    <td> {pointCalc(gradePointTotal)}</td>
+                    <td height={30}>{gradeCalc(totalHighestMarks)} </td>
                   </tr>
                 );
               })}
@@ -119,7 +260,11 @@ const ExamResultDesign = ({
               </tr>
               <tr>
                 <td colSpan={6}>GRADE POINT AVERAGE (GPA)</td>
-                <td>3.90</td>
+                <td>
+                  {trackSubject.reduce((acc, cur) => {
+                    return acc + cur.totalMarks;
+                  }, 0) / trackSubject.length}
+                </td>
                 <td></td>
               </tr>
             </tbody>
@@ -219,7 +364,7 @@ const ExamResultDesign = ({
             </Grid>
           </Grid>
           <Grid container>
-            <Grid xs={6}>
+            <Grid item xs={6}>
               <table style={{ marginRight: "40px" }}>
                 <thead>
                   <tr>
@@ -251,9 +396,27 @@ const ExamResultDesign = ({
                     <td>Remarks:</td>
                   </tr>
                   <tr>
-                    <td>Grade: A+</td>
-                    <td>G.P.A: 3.90</td>
-                    <td>OUTSTANDING</td>
+                    <td>
+                      Grade:{" "}
+                      {gpaToGrade(
+                        trackSubject.reduce((acc, cur) => {
+                          return acc + cur.totalMarks;
+                        }, 0) / trackSubject.length
+                      )}
+                    </td>
+                    <td>
+                      G.P.A:{" "}
+                      {trackSubject.reduce((acc, cur) => {
+                        return acc + cur.totalMarks;
+                      }, 0) / trackSubject.length}
+                    </td>
+                    <td>
+                      {gpaToRemarks(
+                        trackSubject.reduce((acc, cur) => {
+                          return acc + cur.totalMarks;
+                        }, 0) / trackSubject.length
+                      )}
+                    </td>
                   </tr>
                 </thead>
               </table>
@@ -262,7 +425,7 @@ const ExamResultDesign = ({
           <div className="signatureContainer">
             <Grid container>
               <Grid item xs={3}>
-                <h4>16-Jan-2022</h4>
+                <h4>{forDate.PublishDate.slice(0, 10)}</h4>
                 <h6>Result Date</h6>
               </Grid>
               <Grid item xs={3}>

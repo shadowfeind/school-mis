@@ -76,7 +76,7 @@ const PrintAdminCard = () => {
   const [event, setEvent] = useState();
   const [student, setStudent] = useState(0);
   const [date, setDate] = useState("2022-01-28");
-  const [dateValue, setDateValue] = useState();
+  const [dateValue, setDateValue] = useState("2022-01-28");
   const [errors, setErrors] = useState([]);
   const dispatch = useDispatch();
   const classes = useStyles();

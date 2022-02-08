@@ -2,6 +2,12 @@ import React from "react";
 import ExamResultDesign from "./ExamResultDesign";
 
 const ExamResultModel = ({ examReport }) => {
+  const examTerm =
+    examReport &&
+    examReport.ddlAcademicYearCalendar.filter(
+      (x) => x.Key === examReport.idAcademicYearCalendar
+    );
+
   return (
     <>
       {examReport &&
@@ -23,6 +29,9 @@ const ExamResultModel = ({ examReport }) => {
               subjects={subjects}
               levelTest={levelTest}
               studentAttendance={studentAttendance}
+              dbModelLst={examReport.dbModelLst}
+              forDate={examReport.footerModel}
+              examTerm={examTerm[0]}
             />
           );
         })}

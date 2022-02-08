@@ -169,9 +169,11 @@ const ExamResult = () => {
   };
 
   const handleDate = (date) => {
-    setDateValue(date);
-    const newDate = `${date.getFullYear()}-${date.getMonth()}-${date.getDay()}`;
-    setDate(newDate);
+    if (date) {
+      setDateValue(date);
+      const newDate = `${date.getFullYear()}-${date.getMonth()}-${date.getDay()}`;
+      setDate(newDate);
+    }
   };
 
   const handleProgramValue = (value) => {

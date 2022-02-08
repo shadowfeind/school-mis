@@ -265,9 +265,11 @@ const PrintAdminCard = () => {
   };
 
   const handleDate = (date) => {
-    setDateValue(date);
-    const newDate = `${date.getMonth()}-${date.getDay()}-${date.getFullYear()}`;
-    setDate(newDate);
+    if (date) {
+      setDateValue(date);
+      const newDate = `${date.getMonth()}-${date.getDay()}-${date.getFullYear()}`;
+      setDate(newDate);
+    }
   };
 
   const handleBulkPrint = () => {

@@ -16,9 +16,6 @@ import {
   GET_SUBJECT_OF_OLD_QUESTIONS_FAIL,
   GET_SUBJECT_OF_OLD_QUESTIONS_REQUEST,
   GET_SUBJECT_OF_OLD_QUESTIONS_SUCCESS,
-  POST_FILE_UPLOAD_OLD_QUESTIONS_FAIL,
-  POST_FILE_UPLOAD_OLD_QUESTIONS_REQUEST,
-  POST_FILE_UPLOAD_OLD_QUESTIONS_SUCCESS,
   POST_OLD_QUESTIONS_FAIL,
   POST_OLD_QUESTIONS_REQUEST,
   POST_OLD_QUESTIONS_SUCCESS,
@@ -136,107 +133,15 @@ export const getSingleEditOldQuestionsAction = (id) => async (dispatch) => {
   }
 };
 
-export const putOldQuestionsAction = (oldQuestions) => async (dispatch) => {
-  try {
-    dispatch({ type: PUT_OLD_QUESTIONS_REQUEST });
-
-    const jsonData = JSON.stringify({
-      dbModel: oldQuestions,
-    });
-
-    // const config = {
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    // };
-
-    await axios.put(
-      `${API_URL}/api/OldQuestion/PutOldQuestion`,
-      jsonData,
-      tokenConfig
-    );
-
-    dispatch({
-      type: PUT_OLD_QUESTIONS_SUCCESS,
-    });
-  } catch (error) {
-    dispatch({
-      type: PUT_OLD_QUESTIONS_FAIL,
-      payload: error.message ? error.message : error.Message,
-    });
-  }
-};
-
-// export const postOldQuestionsAction = (oldQuestions) => async (dispatch) => {
-//   try {
-//     dispatch({ type: POST_OLD_QUESTIONS_REQUEST });
-
-//     const jsonData = JSON.stringify({
-//       dbModel: { ...oldQuestions },
-//     });
-
-//     // const config = {
-//     //   headers: {
-//     //     "Content-Type": "application/json",
-//     //   },
-//     // };
-
-//     await axios.post(
-//       `${API_URL}/api/OldQuestion/PostOldQuestion`,
-//       jsonData,
-//       tokenConfig
-//     );
-
-//     dispatch({
-//       type: POST_OLD_QUESTIONS_SUCCESS,
-//     });
-//   } catch (error) {
-//     dispatch({
-//       type: POST_OLD_QUESTIONS_FAIL,
-//       payload: error.message ? error.message : error.Message,
-//     });
-//   }
-// };
-
-// export const postFileUploadOldQuestionsAction =
-//   (oldQuestions) => async (dispatch) => {
-//     try {
-//       dispatch({ type: POST_FILE_UPLOAD_OLD_QUESTIONS_REQUEST });
-
-//       const jsonData = JSON.stringify({
-//         dbModel: { ...oldQuestions },
-//       });
-
-//       // const config = {
-//       //   headers: {
-//       //     "Content-Type": "application/json",
-//       //   },
-//       // };
-
-//       await axios.post(
-//         `${API_URL}/api/OldQuestion/FileUpload`,
-//         jsonData,
-//         tokenConfig
-//       );
-
-//       dispatch({
-//         type: POST_FILE_UPLOAD_OLD_QUESTIONS_SUCCESS,
-//       });
-//     } catch (error) {
-//       dispatch({
-//         type: POST_FILE_UPLOAD_OLD_QUESTIONS_FAIL,
-//         payload: error.message ? error.message : error.Message,
-//       });
-//     }
-//   };
-
 export const postOldQuestionsAction =
-  (oldQuestions, image, searchFilterModel) => async (dispatch) => {
+  (oldQuestions, image) => async (dispatch) => {
     try {
       dispatch({ type: POST_OLD_QUESTIONS_REQUEST });
 
       let formData = new FormData();
       formData.append("ImageUploaded", image);
+
+      console.log(image)
 
       const { data } = await axios.post(
         `${API_URL}/api/OldQuestion/FileUpload`,
@@ -245,27 +150,53 @@ export const postOldQuestionsAction =
       );
 
       if (data) {
-        const newData = { ...oldQuestions, OldQuestionName: data };
+        const newData = { ...oldQuestions, DocumentFile: data };
         const jsonData = JSON.stringify({
           dbModel: newData,
           searchFilterModel,
         });
+
+        // await axios.post(
+        //   `${API_URL}/api/OldQuestion/PostOldQuestion`,
+        //   jsonData,
+        //   tokenConfig
+        // );
         console.log(jsonData);
-
-        await axios.post(
-          `${API_URL}/api/OldQuestion/PostOldQuestion`,
-          jsonData,
-          tokenConfig
-        );
       }
-
       dispatch({
         type: POST_OLD_QUESTIONS_SUCCESS,
-        payload: data,
+        payload: data
       });
     } catch (error) {
       dispatch({
         type: POST_OLD_QUESTIONS_FAIL,
+        payload: error.message ? error.message : error.Message,
+      });
+    }
+  };
+
+  export const putOldQuestionsAction =
+  (singleEditOldQuestions) => async (dispatch) => {
+    try {
+      dispatch({ type: PUT_OLD_QUESTIONS_REQUEST });
+
+      const jsonData = JSON.stringify({ dbModel: singleEditOldQuestions });
+
+      // const config = {
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      // };
+
+      const { data } = await axios.put(
+        `${API_URL}/api/OldQuestion/PutOldQuestion`,
+        jsonData,
+        tokenConfig
+      );
+      dispatch({ type: PUT_OLD_QUESTIONS_SUCCESS, payload: data });
+    } catch (error) {
+      dispatch({
+        type: PUT_OLD_QUESTIONS_FAIL,
         payload: error.message ? error.message : error.Message,
       });
     }

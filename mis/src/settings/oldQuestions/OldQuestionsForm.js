@@ -4,7 +4,7 @@ import InputControl from "../../components/controls/InputControl";
 import { useForm, Form } from "../../customHooks/useForm";
 import { useDispatch } from "react-redux";
 import SelectControl from "../../components/controls/SelectControl";
-import { getSingleCreateOldQuestionsAction, postFileUploadOldQuestionsAction, postOldQuestionsAction } from "./OldQuestionsActions";
+import { getSingleCreateOldQuestionsAction, getSingleEditOldQuestionsAction, postFileUploadOldQuestionsAction, postOldQuestionsAction } from "./OldQuestionsActions";
 import { API_URL } from "../../constants";
 
 const initialFormValues = {
@@ -25,7 +25,7 @@ const initialFormValues = {
 
 const OldQuestionsForm =({singleCreateOldQuestions,
     setOpenPopup,
-    getSingleCreateOldQuestions,
+    singleEditOldQuestions,
 })=>{
     const [image, setImage] = useState(null);
   const [imgSrc, setImgSrc] = useState(null);
@@ -57,23 +57,26 @@ const OldQuestionsForm =({singleCreateOldQuestions,
         e.preventDefault();
     
         if (validate()) {
+          if(values.IDHREmployee === 0) {
+            dispatch(getSingleCreateOldQuestionsAction(values,
+              image));
+          }else{
             dispatch(
-                postOldQuestionsAction(
+              getSingleEditOldQuestionsAction(
                 values,
-                image
+                image,
+                singleEditOldQuestions.Id,
               )
             );
+                }
         }
       };
 
-    // useEffect(() => {
-    //     if (singleEditOldQuestions) {
-    //       setValues(singleEditOldQuestions.dbModel);
-    //     }
-    //   }, [singleEditOldQuestions]);
+   
 
     const handleImage = (event) => {
         let imageFile = event.target.files[0];
+        console.log(imageFile);
         const reader = new FileReader();
         reader.onload = (x) => {
           setImgSrc(x.target.result);
@@ -86,8 +89,15 @@ const OldQuestionsForm =({singleCreateOldQuestions,
           setValues({ ...singleCreateOldQuestions.dbModel });
         }
       }, [singleCreateOldQuestions]);
+      useEffect(() => {
+        if (singleEditOldQuestions) {
+          setValues({...singleEditOldQuestions.dbModel});
+        }
+      }, [singleEditOldQuestions]);
     
     const test  = [{ Key: "", Value: "" }];
+
+    
 
     return (
       
@@ -116,7 +126,7 @@ const OldQuestionsForm =({singleCreateOldQuestions,
             label="IsActive"
             value={values.IsActive}
             onChange={handleInputChange}
-            options={singleCreateOldQuestions ? singleCreateOldQuestions.ddlIsActive : test}
+            options={singleCreateOldQuestions ? singleCreateOldQuestions.ddlIsActive : singleEditOldQuestions ? singleEditOldQuestions.ddlIsActive : test}
             errors={errors.IsActive}
           />
           </Grid>

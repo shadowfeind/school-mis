@@ -620,7 +620,7 @@ export const reducers = combineReducers({
   getSubjectOldQuestions : getSubjectOldQuestionsReducer,
   getSingleCreateOldQuestions : getSingleCreateOldQuestionsReducer,
   getSingleEditOldQuestions : getSingleEditOldQuestionsReducer,
-  putOldQuestions : putOldQuestionsReducer, 
   postOldQuestions : postOldQuestionsReducer,
+  putOldQuestions : putOldQuestionsReducer,
   //old question reducers ends
 });

@@ -13,7 +13,7 @@ const useStyles = makeStyles({
 
   const OldQuestionsTableCollapse = ({
       item,
-      updateCounterConfig,
+      updateOldQuestions,
       classId,
       subject,
 }) => {
@@ -30,7 +30,7 @@ const useStyles = makeStyles({
           variant="contained"
           color="primary"
           className={classes.button}
-        //   onClick={() => updateCounterConfig(item.IDCounter, classId, subject)}
+          onClick={() => updateOldQuestions(item.Id)}
         >
           <EditIcon style={{ fontSize: 12 }} />
         </Button>

@@ -19,13 +19,20 @@ import SelectControl from "../../components/controls/SelectControl";
 import {
   GET_ALL_OLD_QUESTIONS_RESET,
   GET_SINGLE_TO_CREATE_OLD_QUESTIONS_RESET,
+  GET_SINGLE_TO_EDIT_OLD_QUESTIONS_RESET,
   GET_SUBJECT_OF_OLD_QUESTIONS_RESET,
+  POST_OLD_QUESTIONS_RESET,
+  PUT_OLD_QUESTIONS_RESET,
 } from "./OldQuestionsConstants";
 import {
   getAllOldQuestionsAction,
   getListOldQuestionsAction,
   getSingleCreateOldQuestionsAction,
+  getSingleEditOldQuestionsAction,
   getSubjectOldQuestionsAction,
+  postOldQuestionsAction,
+  puOldQuestionsAction,
+  putOldQuestionsAction,
 } from "./OldQuestionsActions";
 import OldQuestionsTableCollapse from "./OldQuestionsTableCollapse";
 import OldQuestionsForm from "./OldQuestionsForm";
@@ -94,7 +101,7 @@ const OldQuestions = () => {
           return item;
         } else {
           return item.filter((x) =>
-            x.Prefix.toLowerCase().includes(e.target.value)
+            x.OldQuestionName.toLowerCase().includes(e.target.value)
           );
         }
       },
@@ -108,8 +115,20 @@ const OldQuestions = () => {
     (state) => state.getSubjectOldQuestions
   );
 
+  const { singleEditOldQuestions, error: singleEditOldQuestionsError } = useSelector(
+    (state) => state.getSingleEditOldQuestions
+  );
+
   const { singleCreateOldQuestions } = useSelector(
     (state) => state.getSingleCreateOldQuestions
+  );
+
+  const { success:postOldQuestionsSuccess ,error: postOldQuestionsError } = useSelector(
+    (state) => state.postOldQuestions
+  );
+
+  const { success:putOldQuestionsSuccess ,error: putOldQuestionsError } = useSelector(
+    (state) => state.putOldQuestions
   );
 
   const { listOldQuestions } = useSelector(
@@ -132,6 +151,50 @@ const OldQuestions = () => {
     });
     dispatch({ type: GET_SUBJECT_OF_OLD_QUESTIONS_RESET });
   }
+
+  if (singleEditOldQuestionsError) {
+    setNotify({
+      isOpen: true,
+      message: singleEditOldQuestionsError,
+      type: "error",
+    });
+    dispatch({ type: GET_SINGLE_TO_EDIT_OLD_QUESTIONS_RESET });
+  }
+  if (postOldQuestionsError) {
+    setNotify({
+      isOpen: true,
+      message: postOldQuestionsError,
+      type: "error",
+    });
+    dispatch({ type: POST_OLD_QUESTIONS_RESET });
+  }
+  if (putOldQuestionsError) {
+    setNotify({
+      isOpen: true,
+      message: putOldQuestionsError,
+      type: "error",
+    });
+    dispatch({ type: PUT_OLD_QUESTIONS_RESET });
+  }
+  if (postOldQuestionsSuccess) {
+    setNotify({
+      isOpen: true,
+      message: "Successfully Created",
+      type: "success",
+    });
+    setOpenPopup(false);
+    dispatch({ type: POST_OLD_QUESTIONS_RESET });
+  }
+  if (putOldQuestionsSuccess) {
+    setNotify({
+      isOpen: true,
+      message: "Successfully Updated",
+      type: "success",
+    });
+    setOpenPopup(false);
+    dispatch({ type: PUT_OLD_QUESTIONS_RESET });
+  }
+
   useEffect(() => {
     if (!allOldQuestions) {
       dispatch(getAllOldQuestionsAction());
@@ -172,8 +235,14 @@ const OldQuestions = () => {
     if(validate()){
     dispatch(getSingleCreateOldQuestionsAction(classId, facultySubject));
     setOpenPopup(true);
-    dispatch({ type: GET_SINGLE_TO_CREATE_OLD_QUESTIONS_RESET });
+    dispatch({ type: GET_SINGLE_TO_EDIT_OLD_QUESTIONS_RESET });
   };
+};
+
+const updateOldQuestions = (id) => {
+  dispatch({ type:GET_SINGLE_TO_CREATE_OLD_QUESTIONS_RESET });
+  dispatch(getSingleEditOldQuestionsAction(id));
+  setOpenPopup(true);
 };
 
   const handleClassIdChange = (value) => {
@@ -234,7 +303,7 @@ const OldQuestions = () => {
         <Toolbar>
           <InputControl
             className={classes.searchInput}
-            label="Search Academic Faculty"
+            label="Search Old Questions"
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
@@ -254,15 +323,7 @@ const OldQuestions = () => {
                 <OldQuestionsTableCollapse
                   item={item}
                   key={item.$id}
-                //   updateCounterConfig={updateCounterConfig}
-                //   classId={
-                //     listOldQuestions && listOldQuestions.searchFilterModel.level
-                //   }
-                //   subject={
-                //     listOldQuestions &&
-                //     listOldQuestions.searchFilterModel.idSubject
-                //   }
-                  //   deleteCollegeHandler={deleteCollegeHandler}
+                  updateOldQuestions={updateOldQuestions}
                 />
               ))}
             </TableBody>
@@ -276,9 +337,9 @@ const OldQuestions = () => {
         title="Old Questions Form"
       >
         <OldQuestionsForm
-        //   singleStudent={singleStudentRegistration && singleStudentRegistration}
-        singleCreateOldQuestions={singleCreateOldQuestions}
-          setOpenPopup={setOpenPopup}
+        singleEditOldQuestions={singleEditOldQuestions && singleEditOldQuestions}
+        singleCreateOldQuestions={singleCreateOldQuestions && singleCreateOldQuestions}
+        setOpenPopup={setOpenPopup}
         />
       </Popup>
       <Notification notify={notify} setNotify={setNotify} />

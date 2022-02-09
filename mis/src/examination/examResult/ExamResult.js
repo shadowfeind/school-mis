@@ -13,6 +13,8 @@ import {
   getInitialExamResultDataAction,
   getStudentOptionsForExamMarkAction,
   printExamResultAction,
+  printExamResultCountAction,
+  printFinalResultAction,
 } from "./ExamResultActions";
 import {
   GET_EVENT_FOR_EXAM_MARK_RESET,
@@ -20,11 +22,13 @@ import {
   GET_EXAM_RESULT_LIST_RESET,
   GET_INITIAL_EXAM_RESULT_STUDENT_OPTIONS_RESET,
   PRINT_EXAM_RESULT_RESET,
+  PRINT_FINAL_RESULT_RESET,
 } from "./ExamResultConstants";
 import ExamResultTableCollapse from "./ExamResultTableCollapse";
 import ExamResultModel from "./ExamResultModel";
 import ExamAnnualResultTable from "./ExamAnnualResultTable";
 import DatePickerControl from "../../components/controls/DatePickerControl";
+import FinalExamResult from "./FinalExamResult";
 
 // NOTE
 //exam ledger header is exam ledger
@@ -66,6 +70,7 @@ const ExamResult = () => {
   const dispatch = useDispatch();
   const classes = useStyles();
   const [openPopup, setOpenPopup] = useState(false);
+  const [openPopupFinal, setOpenPopupFinal] = useState(false);
   const [showDataTable, setShowDatatable] = useState(false); //to avoid data changing when chaning select control
   const [showAnnualLedger, setShowAnnualLedger] = useState(false);
 
@@ -101,6 +106,9 @@ const ExamResult = () => {
   const { examLedgerHeader, error: examLedgerHeaderError } = useSelector(
     (state) => state.getExamLedgerHeader
   );
+  const { printFinalResult, error: printFinalResultError } = useSelector(
+    (state) => state.printFinalResult
+  );
 
   if (getexamResultListError) {
     setNotify({
@@ -109,6 +117,14 @@ const ExamResult = () => {
       type: "error",
     });
     dispatch({ type: GET_EXAM_RESULT_LIST_RESET });
+  }
+  if (printFinalResultError) {
+    setNotify({
+      isOpen: true,
+      message: printFinalResultError,
+      type: "error",
+    });
+    dispatch({ type: PRINT_FINAL_RESULT_RESET });
   }
   if (examLedgerHeaderError) {
     setNotify({
@@ -282,6 +298,40 @@ const ExamResult = () => {
       setShowAnnualLedger(true);
     }
   };
+
+  const handleCountPrint = () => {
+    if (validate()) {
+      dispatch(
+        printExamResultCountAction(
+          acaYear,
+          programValue,
+          classId,
+          section,
+          shift,
+          event,
+          student
+        )
+      );
+    }
+  };
+
+  const handlePrintFinalResult = () => {
+    if (validate()) {
+      dispatch(
+        printFinalResultAction(
+          acaYear,
+          programValue,
+          classId,
+          section,
+          shift,
+          event,
+          student,
+          date
+        )
+      );
+      setOpenPopupFinal(true);
+    }
+  };
   return (
     <>
       <CustomContainer>
@@ -371,7 +421,7 @@ const ExamResult = () => {
               />
             </Grid>
 
-            <Grid item xs={6}>
+            <Grid item xs={12}>
               <Button
                 variant="contained"
                 color="primary"
@@ -395,9 +445,27 @@ const ExamResult = () => {
                 color="primary"
                 type="submit"
                 style={{ margin: "10px 0 0 10px" }}
+                onClick={handleCountPrint}
+              >
+                PRINT RESULT COUNT
+              </Button>
+              <Button
+                variant="contained"
+                color="primary"
+                type="submit"
+                style={{ margin: "10px 0 0 10px" }}
                 onClick={handleAnnualLedgerSearch}
               >
                 ANNUAL LEDGER
+              </Button>
+              <Button
+                variant="contained"
+                color="primary"
+                type="submit"
+                style={{ margin: "10px 0 0 10px" }}
+                onClick={handlePrintFinalResult}
+              >
+                PRINT FINAL RESULT
               </Button>
             </Grid>
           </Grid>
@@ -421,6 +489,13 @@ const ExamResult = () => {
       </CustomContainer>
       <Popup openPopup={openPopup} setOpenPopup={setOpenPopup} title="">
         <ExamResultModel examReport={printExamResult && printExamResult} />
+      </Popup>
+      <Popup
+        openPopup={openPopupFinal}
+        setOpenPopup={setOpenPopupFinal}
+        title=""
+      >
+        <FinalExamResult result={printFinalResult} />
       </Popup>
       <Notification notify={notify} setNotify={setNotify} />
       <ConfirmDialog

@@ -208,7 +208,6 @@ export const createSingleStudentRegistrationAction =
           dbModel: newData,
           idAcademicYear: studentReg.idAcademicYear,
         });
-        console.log(jsonData);
 
         await axios.post(
           `${API_URL}/api/StudentRegistration/Post`,

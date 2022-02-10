@@ -183,6 +183,7 @@ const OldQuestions = () => {
       type: "success",
     });
     setOpenPopup(false);
+    dispatch(getListOldQuestionsAction(classId , facultySubject));
     dispatch({ type: POST_OLD_QUESTIONS_RESET });
   }
   if (putOldQuestionsSuccess) {
@@ -192,8 +193,13 @@ const OldQuestions = () => {
       type: "success",
     });
     setOpenPopup(false);
+    dispatch(getListOldQuestionsAction(classId , facultySubject));
     dispatch({ type: PUT_OLD_QUESTIONS_RESET });
   }
+
+  useEffect(() => {
+    dispatch({ type: "GET_LINK", payload: "/settings" });
+  }, [dispatch]);
 
   useEffect(() => {
     if (!allOldQuestions) {

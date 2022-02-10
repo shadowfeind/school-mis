@@ -4,7 +4,7 @@ import InputControl from "../../components/controls/InputControl";
 import { useForm, Form } from "../../customHooks/useForm";
 import { useDispatch } from "react-redux";
 import SelectControl from "../../components/controls/SelectControl";
-import { getSingleCreateOldQuestionsAction, getSingleEditOldQuestionsAction, postFileUploadOldQuestionsAction, postOldQuestionsAction } from "./OldQuestionsActions";
+import { getSingleCreateOldQuestionsAction, getSingleEditOldQuestionsAction, postFileUploadOldQuestionsAction, postOldQuestionsAction, putOldQuestionsAction } from "./OldQuestionsActions";
 import { API_URL } from "../../constants";
 
 const initialFormValues = {
@@ -58,11 +58,11 @@ const OldQuestionsForm =({singleCreateOldQuestions,
     
         if (validate()) {
           if(values.IDHREmployee === 0) {
-            dispatch(getSingleCreateOldQuestionsAction(values,
+            dispatch(postOldQuestionsAction(values,
               image));
           }else{
             dispatch(
-              getSingleEditOldQuestionsAction(
+              putOldQuestionsAction(
                 values,
                 image,
                 singleEditOldQuestions.Id,

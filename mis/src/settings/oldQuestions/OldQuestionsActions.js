@@ -141,7 +141,7 @@ export const postOldQuestionsAction =
       let formData = new FormData();
       formData.append("ImageUploaded", image);
 
-      console.log(image)
+      // console.log(image)
 
       const { data } = await axios.post(
         `${API_URL}/api/OldQuestion/FileUpload`,
@@ -153,15 +153,15 @@ export const postOldQuestionsAction =
         const newData = { ...oldQuestions, DocumentFile: data };
         const jsonData = JSON.stringify({
           dbModel: newData,
-          searchFilterModel,
+          
         });
 
-        // await axios.post(
-        //   `${API_URL}/api/OldQuestion/PostOldQuestion`,
-        //   jsonData,
-        //   tokenConfig
-        // );
-        console.log(jsonData);
+        await axios.post(
+          `${API_URL}/api/OldQuestion/PostOldQuestion`,
+          jsonData,
+          tokenConfig
+        );
+        // console.log(jsonData);
       }
       dispatch({
         type: POST_OLD_QUESTIONS_SUCCESS,
@@ -176,23 +176,35 @@ export const postOldQuestionsAction =
   };
 
   export const putOldQuestionsAction =
-  (singleEditOldQuestions) => async (dispatch) => {
+  (singleEditOldQuestions,image) => async (dispatch) => {
     try {
       dispatch({ type: PUT_OLD_QUESTIONS_REQUEST });
 
-      const jsonData = JSON.stringify({ dbModel: singleEditOldQuestions });
+      let formData = new FormData();
+      formData.append("ImageUploaded", image);
 
-      // const config = {
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //   },
-      // };
+      // console.log(image)
 
-      const { data } = await axios.put(
-        `${API_URL}/api/OldQuestion/PutOldQuestion`,
-        jsonData,
+      const { data } = await axios.post(
+        `${API_URL}/api/OldQuestion/FileUpload`,
+        formData,
         tokenConfig
       );
+
+      if (data) {
+        const newData = { ...singleEditOldQuestions, DocumentFile: data };
+        const jsonData = JSON.stringify({
+          dbModel: newData,
+          
+        });
+
+        await axios.put(
+          `${API_URL}/api/OldQuestion/PutOldQuestion`,
+          jsonData,
+          tokenConfig
+        );
+        // console.log(jsonData);
+      }
       dispatch({ type: PUT_OLD_QUESTIONS_SUCCESS, payload: data });
     } catch (error) {
       dispatch({

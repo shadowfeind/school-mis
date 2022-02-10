@@ -134,10 +134,10 @@ const OldQuestionsForm =({singleCreateOldQuestions,
           <InputControl
             name="ImageUploaded"
             // label="Select Profile Photo"
-            // value={values.ClassLocation}
+            // value={values.DocumentFile}
             onChange={(e) => handleImage(e)}
             type="file"
-            // errors={errors.ClassLocation}
+            // errors={errors.DocumentFile}
           />
 
           <img

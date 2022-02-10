@@ -63,4 +63,10 @@ export const SettingsRoute = [
     icon: ChromeReaderMode,
     exact: false,
   },
+  {
+    name: "Syllabus",
+    route: "/syllabus",
+    icon: ChromeReaderMode,
+    exact: false,
+  },
 ];

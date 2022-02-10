@@ -1,6 +1,9 @@
 import React from "react";
 import { Button, TableRow, TableCell, makeStyles } from "@material-ui/core";
 import EditIcon from "@material-ui/icons/Edit";
+import { downloadOldQuestionsAction } from "./OldQuestionsActions";
+import CloudDownloadIcon from "@material-ui/icons/CloudDownload";
+import { useDispatch } from "react-redux";
 
 const useStyles = makeStyles({
     button: {
@@ -17,7 +20,12 @@ const useStyles = makeStyles({
       classId,
       subject,
 }) => {
+  const dispatch = useDispatch();
     const classes = useStyles();
+
+    const downloadHandler = (id) => {
+      dispatch(downloadOldQuestionsAction(id));
+    };
     return (
       <TableRow>
         <TableCell>{item.OldQuestionName}</TableCell>
@@ -34,6 +42,14 @@ const useStyles = makeStyles({
         >
           <EditIcon style={{ fontSize: 12 }} />
         </Button>
+        <Button
+            variant="contained"
+            color="default"
+            className={classes.button}
+            onClick={() => downloadHandler(item.Id)}
+          >
+            <CloudDownloadIcon style={{ fontSize: 12 }} />
+          </Button>
       </TableCell>
         </TableRow>
   );

@@ -349,7 +349,8 @@ import {
   getListClassScheduleReducer,
   putClassScheduleReducer,
 } from "./settings/classSchedule/pg/ClassPgScheduleReducers";
-import { getAllOldQuestionsReducer, getListOldQuestionsReducer, getSingleCreateOldQuestionsReducer, getSingleEditOldQuestionsReducer, getSubjectOldQuestionsReducer, postFileUploadOldQuestionsReducer, postOldQuestionsReducer, putOldQuestionsReducer } from "./settings/oldQuestions/OldQuestionsReducers";
+import { downloadOldQuestionsReducer, getAllOldQuestionsReducer, getListOldQuestionsReducer, getSingleCreateOldQuestionsReducer, getSingleEditOldQuestionsReducer, getSubjectOldQuestionsReducer, postFileUploadOldQuestionsReducer, postOldQuestionsReducer, putOldQuestionsReducer } from "./settings/oldQuestions/OldQuestionsReducers";
+import { getAllSyllabusReducer, getListSyllabusReducer, getSingleToEditSyllabusReducer, getSubjectSyllabusReducer, putSyllabusReducer } from "./settings/syllabus/SyllabusReducers";
 //examination reducers link end
 export const reducers = combineReducers({
   navLink: navLinkReducer,
@@ -622,5 +623,11 @@ export const reducers = combineReducers({
   getSingleEditOldQuestions : getSingleEditOldQuestionsReducer,
   postOldQuestions : postOldQuestionsReducer,
   putOldQuestions : putOldQuestionsReducer,
+  downloadOldQuestions: downloadOldQuestionsReducer,
   //old question reducers ends
+  //Syllabus Reducers Start
+  getAllSyllabus : getAllSyllabusReducer,
+  getSingleToEditSyllabus : getSingleToEditSyllabusReducer,
+  getListSyllabus : getListSyllabusReducer,
+  putSyllabus : putSyllabusReducer,
 });

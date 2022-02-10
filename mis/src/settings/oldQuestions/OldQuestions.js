@@ -17,6 +17,7 @@ import Notification from "../../components/Notification";
 import ConfirmDialog from "../../components/ConfirmDialog";
 import SelectControl from "../../components/controls/SelectControl";
 import {
+  DOWNLOAD_OLD_QUESTIONS_RESET,
   GET_ALL_OLD_QUESTIONS_RESET,
   GET_SINGLE_TO_CREATE_OLD_QUESTIONS_RESET,
   GET_SINGLE_TO_EDIT_OLD_QUESTIONS_RESET,
@@ -135,6 +136,19 @@ const OldQuestions = () => {
     (state) => state.getListOldQuestions
   );
 
+  const {
+    success: downloadOldQuestionsSuccess,
+    file: downloadFile,
+    error: downloadOldQuestionsError,
+  } = useSelector((state) => state.downloadOldQuestions);
+
+  if (downloadFile) {
+    
+    var blob = new Blob([downloadFile]);
+    var url = window.URL.createObjectURL(blob);
+    debugger;
+    window.open(url, "_blank");
+  }
   if (allOldQuestionsError) {
     setNotify({
       isOpen: true,
@@ -142,6 +156,14 @@ const OldQuestions = () => {
       type: "error",
     });
     dispatch({ type: GET_ALL_OLD_QUESTIONS_RESET });
+  }
+  if (downloadOldQuestionsError) {
+    setNotify({
+      isOpen: true,
+      message: downloadOldQuestionsError,
+      type: "error",
+    });
+    dispatch({ type: DOWNLOAD_OLD_QUESTIONS_RESET });
   }
   if (subjectOldQuestionsError) {
     setNotify({

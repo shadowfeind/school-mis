@@ -79,6 +79,9 @@ const StudentRegistration = lazy(() =>
 const OldQuestions = lazy(() =>
   import("./settings/oldQuestions/OldQuestions")
 );
+const Syllabus = lazy(() =>
+  import("./settings/syllabus/Syllabus")
+);
 
 const theme = createTheme({
   palette: {
@@ -152,6 +155,7 @@ const App = () => {
               component={StudentRegistration}
             />
             <Route path={"/old-questions"} component={OldQuestions} />
+            <Route path={"/syllabus"} component={Syllabus} />
             <Route path={"/teacher-mapping"} component={TeacherMapping} />
             <Route path={"/announcement"} component={Announcement} />
             <Route path={"/user-profile"} component={UserProfile} />

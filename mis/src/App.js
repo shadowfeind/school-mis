@@ -80,7 +80,7 @@ const OldQuestions = lazy(() =>
   import("./settings/oldQuestions/OldQuestions")
 );
 const Syllabus = lazy(() =>
-  import("./settings/syllabus/Syllabus")
+  import("./settings/syllabus/SyllabusMain")
 );
 
 const theme = createTheme({

@@ -1,5 +1,5 @@
 import axios from "axios";
-import { API_URL, tokenConfig } from "../../constants";
+import { API_URL, tokenConfig } from "../../../constants";
 import {
   GET_ALL_SYLLABUS_FAIL,
   GET_ALL_SYLLABUS_REQUEST,

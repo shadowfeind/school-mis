@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Button, Grid } from "@material-ui/core";
-import InputControl from "../../components/controls/InputControl";
-import { useForm, Form } from "../../customHooks/useForm";
+import InputControl from "../../../components/controls/InputControl";
+import { useForm, Form } from "../../../customHooks/useForm";
 import { useDispatch, useSelector } from "react-redux";
-import SelectControl from "../../components/controls/SelectControl";
-import { API_URL } from "../../constants";
+import SelectControl from "../../../components/controls/SelectControl";
+import { API_URL } from "../../../constants";
 import { putSyllabusAction } from "./SyllabusActions";
 
 const initialFormValues = {

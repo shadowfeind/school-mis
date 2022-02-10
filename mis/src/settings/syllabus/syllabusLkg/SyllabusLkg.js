@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import ConfirmDialog from "../../components/ConfirmDialog";
-import Notification from "../../components/Notification";
-import { API_URL } from "../../constants";
-import CustomContainer from "../../components/CustomContainer";
+import ConfirmDialog from "../../../components/ConfirmDialog";
+import Notification from "../../../components/Notification";
+import { API_URL } from "../../../constants";
+import CustomContainer from "../../../components/CustomContainer";
 import { Button, Toolbar } from "@material-ui/core";
 import AddIcon from "@material-ui/icons/Add";
-import Popup from "../../components/Popup";
-import { GET_ALL_SYLLABUS_RESET, GET_LIST_SYLLABUS_RESET, GET_SINGLE_TO_EDIT_SYLLABUS_RESET, PUT_SYLLABUS_RESET } from "./SyllabusConstants";
-import { getAllSyllabusAction, getListSyllabusAction, getSingleEditAction } from "./SyllabusActions";
-import SyllabusForm from "./SyllabusForms";
+import Popup from "../../../components/Popup";
+import SyllabusForm from "../syllabusPg/SyllabusForms";
+import { GET_ALL_SYLLABUS_RESET, GET_LIST_SYLLABUS_RESET, GET_SINGLE_TO_EDIT_SYLLABUS_RESET, PUT_SYLLABUS_RESET } from "../syllabusPg/SyllabusConstants";
+import { getAllSyllabusAction, getListSyllabusAction, getSingleEditAction } from "../syllabusPg/SyllabusActions";
 
 
-const Syllabus =()=>{
+const SyllabusLkg =()=>{
 
     const [url, setUrl] = useState("");
     const [openPopup, setOpenPopup] = useState(false);
@@ -89,7 +89,7 @@ const Syllabus =()=>{
               dispatch(getAllSyllabusAction());
             }
             if (allSyllabus) {
-              dispatch(getListSyllabusAction(allSyllabus.dbModelLst[0].Id));
+              dispatch(getListSyllabusAction(3));
             }
           }, [allSyllabus]);
         
@@ -151,4 +151,4 @@ const Syllabus =()=>{
       );
 }
 
-export default Syllabus;
+export default SyllabusLkg;

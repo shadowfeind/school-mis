@@ -350,7 +350,7 @@ import {
   putClassScheduleReducer,
 } from "./settings/classSchedule/pg/ClassPgScheduleReducers";
 import { downloadOldQuestionsReducer, getAllOldQuestionsReducer, getListOldQuestionsReducer, getSingleCreateOldQuestionsReducer, getSingleEditOldQuestionsReducer, getSubjectOldQuestionsReducer, postFileUploadOldQuestionsReducer, postOldQuestionsReducer, putOldQuestionsReducer } from "./settings/oldQuestions/OldQuestionsReducers";
-import { getAllSyllabusReducer, getListSyllabusReducer, getSingleToEditSyllabusReducer, getSubjectSyllabusReducer, putSyllabusReducer } from "./settings/syllabus/SyllabusReducers";
+import { getAllSyllabusReducer, getListSyllabusReducer, getSingleToEditSyllabusReducer, getSubjectSyllabusReducer, putSyllabusReducer } from "./settings/syllabus/syllabusPg/SyllabusReducers";
 //examination reducers link end
 export const reducers = combineReducers({
   navLink: navLinkReducer,

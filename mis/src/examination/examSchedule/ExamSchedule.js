@@ -395,6 +395,7 @@ const ExamSchedule = () => {
                 <ExamScheduleTableCollapse
                   item={item}
                   key={item.$id}
+                  subjects={examScheduleList.ddlSubject}
                   updateCollegeHandler={updateCollegeHandler}
                   deleteCollegeHandler={deleteCollegeHandler}
                 />

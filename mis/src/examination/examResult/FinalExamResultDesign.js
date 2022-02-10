@@ -1,7 +1,7 @@
 import React from "react";
 import { Grid } from "@material-ui/core";
 import "./examResult.css";
-import { gpaToGrade, gradeCalc, pointCalc } from "./Helpers";
+import { gpaToGrade, gpaToRemarks, gradeCalc, pointCalc } from "./Helpers";
 
 const FinalExamResultDesign = ({
   student,
@@ -11,9 +11,19 @@ const FinalExamResultDesign = ({
   finalTerm,
   subjectList,
   attendance,
+  currentStudentRank,
+  studentClass,
+  studentSection,
+  studentYear,
+  resultDate,
 }) => {
   let avgGpa = [];
-  console.log(attendance);
+  let tdToRender = [];
+
+  for (let i = subjectList.length; i <= 12; i++) {
+    tdToRender.push(i);
+  }
+
   return (
     <div className="resultContainer">
       <img src="https://i.ibb.co/NjC9r8Z/Creation-Header.png" width="740px" />
@@ -27,13 +37,17 @@ const FinalExamResultDesign = ({
             </h5>
             <h5>
               Section&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;
-              <span className="spanResult">A</span>
+              <span className="spanResult">
+                {studentSection && studentSection[0].Value}
+              </span>
             </h5>
           </Grid>
           <Grid item xs={6}>
             <h5>
               Class&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;
-              <span className="spanResult">NINE</span>
+              <span className="spanResult">
+                {studentClass && studentClass[0].Value}
+              </span>
             </h5>
             <h5>
               Roll No&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;
@@ -41,7 +55,7 @@ const FinalExamResultDesign = ({
             </h5>
           </Grid>
         </Grid>
-        <h2></h2>
+        <h2>ANNUAL RESULT : {studentYear && studentYear[0].Value}</h2>
         <div className="uppderTableResult">
           <table style={{ margin: "15px 0" }}>
             <thead>
@@ -179,6 +193,21 @@ const FinalExamResultDesign = ({
                     </tr>
                   );
                 })}
+              {/* to render empty td */}
+              {tdToRender &&
+                tdToRender.map((x) => (
+                  <tr key={x}>
+                    <td height={30}></td>
+                    <td height={30}> </td>
+                    <td height={30}> </td>
+                    <td height={30}> </td>
+                    <td height={30}> </td>
+                    <td height={30}> </td>
+                    <td height={30}> </td>
+                    <td height={30}> </td>
+                    <td height={30}> </td>
+                  </tr>
+                ))}
 
               <tr>
                 <td colSpan={8}>GRADE POINT AVERAGE (GPA)</td>
@@ -297,7 +326,12 @@ const FinalExamResultDesign = ({
                           }, 0) / avgGpa.length
                         ).toFixed(2)}
                     </td>
-                    <td>Rank:</td>
+                    <td>
+                      Rank:{" "}
+                      {currentStudentRank.length > 0
+                        ? currentStudentRank[0].Value
+                        : ""}
+                    </td>
                   </tr>
                 </thead>
               </table>
@@ -306,8 +340,14 @@ const FinalExamResultDesign = ({
               <table style={{ marginLeft: "40px" }}>
                 <thead>
                   <tr>
-                    <td colSpan={2}>Result:</td>
-                    <td>Remarks:</td>
+                    <td>
+                      Remarks:{" "}
+                      {gpaToRemarks(
+                        avgGpa.reduce((acc, cur) => {
+                          return acc + cur;
+                        }, 0) / avgGpa.length
+                      )}
+                    </td>
                   </tr>
                 </thead>
               </table>
@@ -316,7 +356,7 @@ const FinalExamResultDesign = ({
           <div className="signatureContainer">
             <Grid container>
               <Grid item xs={3}>
-                <h4></h4>
+                <h4>{resultDate && resultDate.slice(0, 10)}</h4>
                 <h6>Result Date</h6>
               </Grid>
               <Grid item xs={3}>

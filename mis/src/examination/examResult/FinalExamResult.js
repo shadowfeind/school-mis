@@ -34,6 +34,25 @@ const FinalExamResult = ({ result }) => {
           let attendance = result.StudentAttendanceDay.filter(
             (x) => x.IDHREmployee === student.IDHREmployee
           );
+          let crrentStudentId = result.dbModelResultLst.filter(
+            (x) => x.Key === student.IDHREmployee
+          );
+          let currentStudentRank = [];
+          if (crrentStudentId.length > 0 && crrentStudentId.value !== "Fail") {
+            currentStudentRank = result.dbModelRankLst.filter(
+              (x) => x.Key === student.IDHREmployee
+            );
+          }
+          let studentClass = result.ddlLevel.filter(
+            (x) => x.Key === result.level
+          );
+          let studentSection = result.ddlSection.filter(
+            (x) => x.Key === result.classSection
+          );
+          let studentYear = result.ddlAcademicYear.filter(
+            (x) => x.Key === result.idAcademicYear
+          );
+
           return (
             <FinalExamResultDesign
               student={student}
@@ -44,6 +63,11 @@ const FinalExamResult = ({ result }) => {
               finalTerm={finalTerm}
               subjectList={subjectList}
               attendance={attendance}
+              currentStudentRank={currentStudentRank}
+              studentClass={studentClass}
+              studentSection={studentSection}
+              studentYear={studentYear}
+              resultDate={result.footerModel.PublishDate}
             />
           );
         })}

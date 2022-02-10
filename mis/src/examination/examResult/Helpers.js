@@ -69,3 +69,27 @@ export const gpaToGrade = (x) => {
     return "N";
   }
 };
+
+export const gpaToRemarks = (x) => {
+  if (x > 3.6) {
+    return "OUTSTANDING";
+  } else if (x > 3.2 && x <= 3.6) {
+    return "EXCELLENT";
+  } else if (x > 2.8 && x <= 3.2) {
+    return "VERY GOOD";
+  } else if (x > 2.4 && x <= 2.8) {
+    return "GOOD";
+  } else if (x > 2.0 && x <= 2.4) {
+    return "SATISFACTORY";
+  } else if (x > 1.6 && x <= 2.0) {
+    return "ACCEPTABLE";
+  } else if (x > 1.2 && x <= 1.6) {
+    return "PARTIALLY ACCEPTABLE";
+  } else if (x > 0.8 && x <= 1.2) {
+    return "INSUFFICIENT";
+  } else if (x > 0 && x <= 0.8) {
+    return "VERY INSUFFICIENT";
+  } else {
+    return "NOT QUALIFIED";
+  }
+};

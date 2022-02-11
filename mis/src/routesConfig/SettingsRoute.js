@@ -57,4 +57,16 @@ export const SettingsRoute = [
     icon: RecordVoiceOver,
     exact: false,
   },
+  {
+    name: "Old Questions",
+    route: "/old-questions",
+    icon: ChromeReaderMode,
+    exact: false,
+  },
+  {
+    name: "Syllabus",
+    route: "/syllabus",
+    icon: ChromeReaderMode,
+    exact: false,
+  },
 ];

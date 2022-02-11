@@ -13,6 +13,9 @@ import {
   UPDATE_SINGLE_POSITION_FAIL,
   UPDATE_SINGLE_POSITION_SUCCESS,
   UPDATE_SINGLE_POSITION_REQUEST,
+  DELETE_POSITION_REQUEST,
+  DELETE_POSITION_SUCCESS,
+  DELETE_POSITION_FAIL,
 } from "./PositionConstatns";
 
 export const getAllPositionAction = () => async (dispatch) => {
@@ -101,6 +104,33 @@ export const updateSinglePositionAction = (position) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: UPDATE_SINGLE_POSITION_FAIL,
+      payload: error.message ? error.message : error.Message,
+    });
+  }
+};
+
+export const deletePositionAction = (position) => async (dispatch) => {
+  try {
+    dispatch({ type: DELETE_POSITION_REQUEST });
+
+    const jsonData = JSON.stringify({ dbModel: position });
+
+    // const config = {
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    // };
+
+    const { data } = await axios.delete(
+      `${API_URL}/api/HRPosition/DeletePosition`,
+      jsonData,
+      tokenConfig
+    );
+
+    dispatch({ type: DELETE_POSITION_SUCCESS});
+  } catch (error) {
+    dispatch({
+      type: DELETE_POSITION_FAIL,
       payload: error.message ? error.message : error.Message,
     });
   }

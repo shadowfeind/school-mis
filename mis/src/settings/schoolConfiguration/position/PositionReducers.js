@@ -1,4 +1,8 @@
 import {
+  DELETE_POSITION_FAIL,
+  DELETE_POSITION_REQUEST,
+  DELETE_POSITION_RESET,
+  DELETE_POSITION_SUCCESS,
   GET_ALL_POSITION_FAIL,
   GET_ALL_POSITION_REQUEST,
   GET_ALL_POSITION_RESET,
@@ -76,3 +80,19 @@ export const updateSinglePositionReducer = (state = {}, action) => {
       return state;
   }
 };
+
+export const deletePositionReducer = (state = {}, action) => {
+  switch (action.type) {
+    case DELETE_POSITION_REQUEST:
+      return { loading: true };
+    case DELETE_POSITION_SUCCESS:
+      return { loading: false, success: true };
+    case DELETE_POSITION_FAIL:
+      return { loading: false, error: action.payload };
+    case DELETE_POSITION_RESET:
+      return {};
+    default:
+      return state;
+  }
+};
+

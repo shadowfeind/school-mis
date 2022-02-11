@@ -174,6 +174,17 @@ const ExamMarkApproval = () => {
       type: "success",
     });
     dispatch({ type: POST_BULK_EXAM_APPROVAL_RESET });
+    dispatch(
+      getExamApprovalSearchDataAction(
+        acaYear,
+        programValue,
+        classId,
+        section,
+        shift,
+        event,
+        schedule
+      )
+    );
     setOpenPopup(false);
   }
   if (postBulkExamApprovalError) {
@@ -186,19 +197,14 @@ const ExamMarkApproval = () => {
     setOpenPopup(false);
   }
 
-  const handleProgramValue =(value=>{
+  const handleProgramValue = (value) => {
     setProgramValue(value);
     if ((acaYear, classId, shift)) {
       dispatch(
-        getExamApprovalScheduleHeaderAction(
-          value,
-          acaYear,
-          classId,
-          shift
-        )
+        getExamApprovalScheduleHeaderAction(value, acaYear, classId, shift)
       );
     }
-  })
+  };
 
   const handleYearChange = (value) => {
     setAcaYear(value);
@@ -249,8 +255,8 @@ const ExamMarkApproval = () => {
     }
   }, [searchData]);
 
-  const validate=()=>{
-    let temp ={};
+  const validate = () => {
+    let temp = {};
     temp.acaYear = !acaYear ? "This feild is required" : "";
     temp.programValue = !programValue ? "This feild is required" : "";
     temp.classId = !classId ? "This feild is required" : "";
@@ -261,7 +267,7 @@ const ExamMarkApproval = () => {
 
     setErrors({ ...temp });
     return Object.values(temp).every((x) => x === "");
-  }
+  };
 
   const handleExamApprovalSearch = () => {
     if (validate()) {
@@ -319,7 +325,6 @@ const ExamMarkApproval = () => {
                 onChange={(e) => handleProgramValue(e.target.value)}
                 options={programDdl}
                 errors={errors.programValue}
-
               />
             </Grid>
             <Grid item xs={3}>
@@ -330,7 +335,6 @@ const ExamMarkApproval = () => {
                 onChange={(e) => handleClassIdChange(e.target.value)}
                 options={ddlClass}
                 errors={errors.classId}
-
               />
             </Grid>
             <Grid item xs={3}>
@@ -341,7 +345,6 @@ const ExamMarkApproval = () => {
                 onChange={(e) => setShift(e.target.value)}
                 options={ddlShift}
                 errors={errors.shift1}
-
               />
             </Grid>
             <Grid item xs={3}>
@@ -353,7 +356,6 @@ const ExamMarkApproval = () => {
                 onChange={(e) => setSection(e.target.value)}
                 options={ddlSection}
                 errors={errors.section}
-
               />
             </Grid>
             <Grid item xs={3}>
@@ -365,7 +367,6 @@ const ExamMarkApproval = () => {
                 onChange={(e) => eventHandler(e.target.value)}
                 options={ddlEvent ? ddlEvent : test}
                 errors={errors.event}
-
               />
             </Grid>
             <Grid item xs={3}>
@@ -377,7 +378,6 @@ const ExamMarkApproval = () => {
                 onChange={(e) => setSchedule(e.target.value)}
                 options={ddlSchedule ? ddlSchedule : test}
                 errors={errors.schedule}
-
               />
             </Grid>
 

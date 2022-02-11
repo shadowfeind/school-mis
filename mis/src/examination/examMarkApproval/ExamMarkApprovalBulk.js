@@ -103,12 +103,13 @@ const ExamMarkApprovalBulk = ({ bulkData, statusData, search }) => {
                     <TextField
                       id={`theory_${subject.IDHREmployee}`}
                       name="ObtainedMark"
-                      defaultValue={subject.ObtainedMark}
+                      value={subject.ObtainedMark}
                       type="number"
                       label="Obtained Mark"
                       variant="outlined"
                       inputProps={{ tabIndex: "1" }}
                       onChange={(e) =>
+                        e.target.value <= subject.FullMark &&
                         onChangeHandler(
                           subject,
                           e.target.value,
@@ -121,13 +122,14 @@ const ExamMarkApprovalBulk = ({ bulkData, statusData, search }) => {
                   <StyledTableCell align="right">
                     <TextField
                       id={`practical_${subject.IDHREmployee}`}
-                      defaultValue={subject.ObtainedMarkPractical}
+                      value={subject.ObtainedMarkPractical}
                       name="ObtainedMarkPractical"
                       type="number"
                       label="Obtained Practical Mark"
                       variant="outlined"
                       inputProps={{ tabIndex: "2" }}
                       onChange={(e) =>
+                        e.target.value <= subject.FullMarkPractical &&
                         onChangeHandler(
                           subject,
                           e.target.value,
@@ -159,9 +161,12 @@ const ExamMarkApprovalBulk = ({ bulkData, statusData, search }) => {
                           )
                         }
                       >
-                        {statusData.map((section) => (
-                          <option value={section.Key}>{section.Value}</option>
-                        ))}
+                        {statusData &&
+                          statusData.map((section) => (
+                            <option key={section.Value} value={section.Key}>
+                              {section.Value}
+                            </option>
+                          ))}
                       </Select>
                     </FormControl>
                   </StyledTableCell>
@@ -174,34 +179,34 @@ const ExamMarkApprovalBulk = ({ bulkData, statusData, search }) => {
                 </StyledTableRow>
               ))}
           </TableBody>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "end",
-              paddingTop: "10px",
-              marginTop: "10px",
-              borderTop: "1px solid #f3f3f3",
-            }}
-          >
-            <Button
-              variant="contained"
-              color="secondary"
-              // onClick={() => setOpenPopup(false)}
-              style={{ margin: "10px 0 0 10px" }}
-            >
-              CANCEL
-            </Button>
-            <Button
-              variant="contained"
-              color="primary"
-              type="submit"
-              style={{ margin: "10px 0 0 10px" }}
-              onClick={formCheckSubmitHandler}
-            >
-              SUBMIT
-            </Button>
-          </div>
         </Table>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "end",
+            paddingTop: "10px",
+            marginTop: "10px",
+            borderTop: "1px solid #f3f3f3",
+          }}
+        >
+          <Button
+            variant="contained"
+            color="secondary"
+            // onClick={() => setOpenPopup(false)}
+            style={{ margin: "10px 0 0 10px" }}
+          >
+            CANCEL
+          </Button>
+          <Button
+            variant="contained"
+            color="primary"
+            type="submit"
+            style={{ margin: "10px 0 0 10px" }}
+            onClick={formCheckSubmitHandler}
+          >
+            SUBMIT
+          </Button>
+        </div>
       </TableContainer>
     </>
   );

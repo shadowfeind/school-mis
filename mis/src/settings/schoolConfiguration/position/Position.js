@@ -18,6 +18,7 @@ import ConfirmDialog from "../../../components/ConfirmDialog";
 import PositionForm from "./PositionForm";
 
 import {
+  deletePositionAction,
   getAllPositionAction,
   getSinglePositionAction,
 } from "./PositionActions";
@@ -27,6 +28,7 @@ import {
   POSITION_CREATE_RESET,
   UPDATE_SINGLE_POSITION_RESET,
   GET_ALL_POSITION_RESET,
+  DELETE_POSITION_RESET,
 } from "./PositionConstatns";
 
 const useStyles = makeStyles((theme) => ({
@@ -86,6 +88,11 @@ const Position = () => {
     error: updateSinglePositionError,
   } = useSelector((state) => state.updateSinglePosition);
 
+  const {
+    success: deletePositionSuccess,
+    error: deletePositionError,
+  } = useSelector((state) => state.deletePosition);
+
   if (error) {
     dispatch({ type: GET_ALL_POSITION_RESET });
     setNotify({
@@ -115,6 +122,15 @@ const Position = () => {
     dispatch({ type: POSITION_CREATE_RESET });
   }
 
+  if (deletePositionError) {
+    setNotify({
+      isOpen: true,
+      message: deletePositionError,
+      type: "error",
+    });
+    dispatch({ type: DELETE_POSITION_RESET });
+  }
+
   if (singlePositionError) {
     setNotify({
       isOpen: true,
@@ -135,6 +151,17 @@ const Position = () => {
     dispatch({ type: UPDATE_SINGLE_POSITION_RESET });
   }
 
+  if (deletePositionSuccess) {
+    dispatch(getAllPositionAction());
+    setNotify({
+      isOpen: true,
+      message: "Deleted Succesfully",
+      type: "success",
+    });
+    setOpenPopup(false);
+    dispatch({ type: DELETE_POSITION_RESET });
+  }
+
   if (updateSinglePositionError) {
     setNotify({
       isOpen: true,
@@ -150,11 +177,13 @@ const Position = () => {
   };
 
   const deleteCollegeHandler = (id) => {
+    dispatch(getSinglePositionAction(id));
     setConfirmDialog({
       isOpen: true,
       title: "Are you sure you want to Delete this record?",
       subTitle: "You cannot undo this action",
     });
+    dispatch(deletePositionAction(id));
   };
 
   useEffect(() => {
@@ -240,6 +269,7 @@ const Position = () => {
       >
         <PositionForm
           position={singlePosition && singlePosition.dbModel}
+          positionDelete = {deletePositionSuccess && deletePositionSuccess.dbModel}
           setOpenPopup={setOpenPopup}
         />
       </Popup>

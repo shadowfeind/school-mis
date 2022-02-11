@@ -7,6 +7,7 @@ import {
 } from "./settings/schoolConfiguration/schoolSettings/SchoolSettingsReducers";
 import {
   createPositionReducer,
+  deletePositionReducer,
   getAllPosition,
   getSinglePositionReducer,
   updateSinglePositionReducer,
@@ -358,6 +359,7 @@ export const reducers = combineReducers({
   createPosition: createPositionReducer,
   getSinglePosition: getSinglePositionReducer,
   updateSinglePosition: updateSinglePositionReducer,
+  deletePosition : deletePositionReducer,
   employeeType: getAllEmployeeType,
   createEmployeeType: createEmployeeTypeReducer,
   getSingleEmployeeType: getSingleEmployeeTypeReducer,

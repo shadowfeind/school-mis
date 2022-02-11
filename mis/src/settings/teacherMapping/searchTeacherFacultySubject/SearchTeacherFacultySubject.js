@@ -41,12 +41,12 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const tableHeader = [
-    { id: "IDHRTeacherFacultySubjectMappingHeader", label: "Teacher Name" },
-    { id: "IDAcademicFacultySubjectLink", label: "Subject" },
-    { id: "Created_On", label: "Created On" },
-    { id: "Summary", label: "Summary" },
-    { id: "IsActive", label: "IsActive" },
-  ];
+  { id: "TeacherName", label: "Teacher Name" },
+  { id: "SubjectName", label: "Subject" },
+  { id: "Created_On", label: "Created On" },
+  { id: "Summary", label: "Summary" },
+  { id: "IsActive", label: "IsActive" },
+];
 
 const SearchTeacherFacultySubject = () => {
   const [tableData, setTableData] = useState([]);
@@ -70,7 +70,7 @@ const SearchTeacherFacultySubject = () => {
   const [creationAccountSection, setCreationAccountSection] = useState([]);
   const [creationAccountSectionValue, setCreationAccountSectionValue] =
     useState();
-    const [errors, setErrors] = useState([]);
+  const [errors, setErrors] = useState([]);
   const dispatch = useDispatch();
   const classes = useStyles();
 
@@ -108,7 +108,6 @@ const SearchTeacherFacultySubject = () => {
     tableDataAfterPagingAndSorting,
   } = useCustomTable(tableData, tableHeader, filterFn);
 
-
   const handleSearch = (e) => {};
   useEffect(() => {
     if (!searchTeacherFacInitData) {
@@ -126,19 +125,21 @@ const SearchTeacherFacultySubject = () => {
       setTableData(searchTeacherFacListData.dbModelLst);
     }
   }, [searchTeacherFacListData]);
-  const validate=()=>{
-    let temp ={};
-    temp.creationAccountSectionValue = !creationAccountSectionValue ? "This feild is required" : "";
+  const validate = () => {
+    let temp = {};
+    temp.creationAccountSectionValue = !creationAccountSectionValue
+      ? "This feild is required"
+      : "";
     setErrors({ ...temp });
     return Object.values(temp).every((x) => x === "");
-  }
+  };
   const test = [{ Key: "", Value: "" }];
 
   const listSearchHandler = () => {
-    if(validate()){
-    dispatch(
-      getAllSearchTeacherFacSubListDataAction(creationAccountSectionValue)
-    );
+    if (validate()) {
+      dispatch(
+        getAllSearchTeacherFacSubListDataAction(creationAccountSectionValue)
+      );
     }
   };
   return (
@@ -166,21 +167,23 @@ const SearchTeacherFacultySubject = () => {
               >
                 SEARCH
               </Button>
-            </Grid> 
+            </Grid>
           </Grid>
         </Toolbar>
-        {searchTeacherFacInitData && (<TableContainer className={classes.table}>
+        {searchTeacherFacInitData && (
+          <TableContainer className={classes.table}>
             <TblHead />
             <TableBody>
               {tableDataAfterPagingAndSorting().map((item) => (
                 <SearchTeacherFacultySubjectTableCollapse
                   item={item}
                   key={item.$id}
-                //   updateTeacherHandler={updateTeacherHandler}
+                  //   updateTeacherHandler={updateTeacherHandler}
                 />
               ))}
             </TableBody>
-          </TableContainer>)}
+          </TableContainer>
+        )}
       </CustomContainer>
       <Notification notify={notify} setNotify={setNotify} />
     </>

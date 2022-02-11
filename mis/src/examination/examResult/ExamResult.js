@@ -1,12 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  Button,
-  InputAdornment,
-  makeStyles,
-  TableBody,
-  Toolbar,
-  Grid,
-} from "@material-ui/core";
+import { Button, makeStyles, Toolbar, Grid } from "@material-ui/core";
 import Popup from "../../components/Popup";
 import CustomContainer from "../../components/CustomContainer";
 import { useDispatch, useSelector } from "react-redux";
@@ -20,19 +13,29 @@ import {
   getInitialExamResultDataAction,
   getStudentOptionsForExamMarkAction,
   printExamResultAction,
+  printExamResultCountAction,
+  printFinalResultAction,
 } from "./ExamResultActions";
 import {
   GET_EVENT_FOR_EXAM_MARK_RESET,
   GET_EXAM_LEDGER_HEADER_RESET,
   GET_EXAM_RESULT_LIST_RESET,
   GET_INITIAL_EXAM_RESULT_STUDENT_OPTIONS_RESET,
+  PRINT_EXAM_RESULT_COUNT_RESET,
+  PRINT_EXAM_RESULT_RESET,
+  PRINT_FINAL_RESULT_RESET,
 } from "./ExamResultConstants";
 import ExamResultTableCollapse from "./ExamResultTableCollapse";
-import ExamResultDesign from "./ExamResultDesign";
-import { testExamJson } from "./testExamResult";
 import ExamResultModel from "./ExamResultModel";
 import ExamAnnualResultTable from "./ExamAnnualResultTable";
+import DatePickerControl from "../../components/controls/DatePickerControl";
+import FinalExamResult from "./FinalExamResult";
+import ExamResultWithMarksModel from "./ExamResultWithMarksModel";
+import ExamResultCount from "./ExamResultCount";
 
+// NOTE
+//exam ledger header is exam ledger
+//NOTE
 const useStyles = makeStyles((theme) => ({
   searchInput: {
     width: "75%",
@@ -57,17 +60,22 @@ const ExamResult = () => {
   const [ddlSection, setDdlSection] = useState([]);
   const [ddlEvent, setDdlEvent] = useState([]);
   const [ddlStudent, setDdlStudent] = useState([]);
-  const [programValue, setProgramValue] = useState();
-  const [classId, setClassId] = useState();
-  const [acaYear, setAcaYear] = useState();
-  const [shift, setShift] = useState();
-  const [section, setSection] = useState();
-  const [event, setEvent] = useState();
+  const [programValue, setProgramValue] = useState("");
+  const [classId, setClassId] = useState("");
+  const [acaYear, setAcaYear] = useState("");
+  const [shift, setShift] = useState("");
+  const [section, setSection] = useState("");
+  const [event, setEvent] = useState("");
   const [student, setStudent] = useState(0);
+  const [date, setDate] = useState("2022-01-28");
+  const [dateValue, setDateValue] = useState("2022-01-28");
   const [errors, setErrors] = useState([]);
   const dispatch = useDispatch();
   const classes = useStyles();
   const [openPopup, setOpenPopup] = useState(false);
+  const [openPopupResultMark, setOpenPopupResultMark] = useState(false);
+  const [openPopupFinal, setOpenPopupFinal] = useState(false);
+  const [openPopupCount, setOpenPopupCount] = useState(false);
   const [showDataTable, setShowDatatable] = useState(false); //to avoid data changing when chaning select control
   const [showAnnualLedger, setShowAnnualLedger] = useState(false);
 
@@ -97,6 +105,17 @@ const ExamResult = () => {
   const { examResultList, error: getexamResultListError } = useSelector(
     (state) => state.getExamResultList
   );
+  const { printExamResult, error: printExamResultError } = useSelector(
+    (state) => state.printExamResult
+  );
+  const { examLedgerHeader, error: examLedgerHeaderError } = useSelector(
+    (state) => state.getExamLedgerHeader
+  );
+  const { printFinalResult, error: printFinalResultError } = useSelector(
+    (state) => state.printFinalResult
+  );
+  const { printExamResultCount, error: printExamResultCountError } =
+    useSelector((state) => state.printExamResultCount);
 
   if (getexamResultListError) {
     setNotify({
@@ -105,6 +124,38 @@ const ExamResult = () => {
       type: "error",
     });
     dispatch({ type: GET_EXAM_RESULT_LIST_RESET });
+  }
+  if (printExamResultCountError) {
+    setNotify({
+      isOpen: true,
+      message: printExamResultCountError,
+      type: "error",
+    });
+    dispatch({ type: PRINT_EXAM_RESULT_COUNT_RESET });
+  }
+  if (printFinalResultError) {
+    setNotify({
+      isOpen: true,
+      message: printFinalResultError,
+      type: "error",
+    });
+    dispatch({ type: PRINT_FINAL_RESULT_RESET });
+  }
+  if (examLedgerHeaderError) {
+    setNotify({
+      isOpen: true,
+      message: examLedgerHeaderError,
+      type: "error",
+    });
+    dispatch({ type: GET_EXAM_LEDGER_HEADER_RESET });
+  }
+  if (printExamResultError) {
+    setNotify({
+      isOpen: true,
+      message: printExamResultError,
+      type: "error",
+    });
+    dispatch({ type: PRINT_EXAM_RESULT_RESET });
   }
 
   if (getExamMarkEventSuccess) {
@@ -135,8 +186,8 @@ const ExamResult = () => {
     }
   }, [examResultInitialDatas, dispatch]);
 
-  const validate=()=>{
-    let temp ={};
+  const validate = () => {
+    let temp = {};
     temp.acaYear = !acaYear ? "This feild is required" : "";
     temp.programValue = !programValue ? "This feild is required" : "";
     temp.classId = !classId ? "This feild is required" : "";
@@ -146,21 +197,24 @@ const ExamResult = () => {
 
     setErrors({ ...temp });
     return Object.values(temp).every((x) => x === "");
-  }
+  };
 
-  const handleProgramValue =(value=>{
+  const handleDate = (date) => {
+    if (date) {
+      setDateValue(date);
+      const newDate = `${date.getFullYear()}-${date.getMonth()}-${date.getDay()}`;
+      setDate(newDate);
+    }
+  };
+
+  const handleProgramValue = (value) => {
     setProgramValue(value);
     if ((acaYear, classId, shift)) {
       dispatch(
-        getExamApprovalScheduleHeaderAction(
-          value,
-          acaYear,
-          classId,
-          shift
-        )
+        getExamApprovalScheduleHeaderAction(value, acaYear, classId, shift)
       );
     }
-  })
+  };
 
   const handleYearChange = (value) => {
     setShowDatatable(false);
@@ -202,20 +256,16 @@ const ExamResult = () => {
 
   const handleLedgerSearch = () => {
     setShowAnnualLedger(false);
-    if (validate(acaYear,
-      programValue,
-      classId,
-      section,
-      shift,
-      event,
-      student)) {
+    if (
+      validate(acaYear, programValue, classId, section, shift, event, student)
+    ) {
       dispatch(
         getExamResultListAction(
           acaYear,
           programValue,
           classId,
-          shift,
           section,
+          shift,
           event,
           student
         )
@@ -227,15 +277,29 @@ const ExamResult = () => {
   const handleBulkPrint = () => {
     setShowDatatable(false);
     setShowAnnualLedger(false);
-    if (validate(acaYear,
-      programValue,
-      classId,
-      section,
-      shift,
-      event,
-      student)) {
+    if (
+      validate(acaYear, programValue, classId, section, shift, event, student)
+    ) {
       dispatch(
         printExamResultAction(
+          acaYear,
+          programValue,
+          classId,
+          section,
+          shift,
+          event,
+          student,
+          date
+        )
+      );
+    }
+    setOpenPopup(true);
+  };
+
+  const handleAnnualLedgerSearch = () => {
+    if (validate()) {
+      dispatch(
+        getExamLedgerHeaderAction(
           acaYear,
           programValue,
           classId,
@@ -245,16 +309,65 @@ const ExamResult = () => {
           student
         )
       );
+      setShowDatatable(false);
+      setShowAnnualLedger(true);
     }
-    setOpenPopup(true);
   };
 
-  const handleAnnualLedgerSearch = () => {
-    if(validate()){
-    setShowDatatable(false);
-    setShowAnnualLedger(true);
+  const handleResultWithMarks = () => {
+    if (validate()) {
+      dispatch(
+        printExamResultAction(
+          acaYear,
+          programValue,
+          classId,
+          section,
+          shift,
+          event,
+          student,
+          date
+        )
+      );
+      setOpenPopupResultMark(true);
+    }
   };
-};
+
+  const handleCountPrint = () => {
+    if (validate()) {
+      {
+        dispatch(
+          printExamResultCountAction(
+            acaYear,
+            programValue,
+            classId,
+            section,
+            shift,
+            event,
+            student
+          )
+        );
+      }
+      setOpenPopupCount(true);
+    }
+  };
+
+  const handlePrintFinalResult = () => {
+    if (validate()) {
+      dispatch(
+        printFinalResultAction(
+          acaYear,
+          programValue,
+          classId,
+          section,
+          shift,
+          event,
+          student,
+          date
+        )
+      );
+      setOpenPopupFinal(true);
+    }
+  };
   return (
     <>
       <CustomContainer>
@@ -333,8 +446,18 @@ const ExamResult = () => {
                 errors={errors.student}
               />
             </Grid>
-
             <Grid item xs={3}>
+              <div style={{ height: "10px" }}></div>
+              <DatePickerControl
+                name="DOJ"
+                label="Pick Exam Date"
+                value={dateValue}
+                onChange={(e) => handleDate(e.target.value)}
+                errors={errors.date}
+              />
+            </Grid>
+
+            <Grid item xs={12}>
               <Button
                 variant="contained"
                 color="primary"
@@ -351,16 +474,43 @@ const ExamResult = () => {
                 style={{ margin: "10px 0 0 10px" }}
                 onClick={handleBulkPrint}
               >
-                PRINT RESULT
+                PRINT RESULT WITH GRADES
               </Button>
               <Button
                 variant="contained"
                 color="primary"
                 type="submit"
                 style={{ margin: "10px 0 0 10px" }}
+                onClick={handleResultWithMarks}
+              >
+                PRINT RESULT WITH MARKS
+              </Button>
+              <Button
+                variant="contained"
+                color="secondary"
+                type="submit"
+                style={{ margin: "10px 0 0 10px" }}
                 onClick={handleAnnualLedgerSearch}
               >
                 ANNUAL LEDGER
+              </Button>
+              <Button
+                variant="contained"
+                color="secondary"
+                type="submit"
+                style={{ margin: "10px 0 0 10px" }}
+                onClick={handlePrintFinalResult}
+              >
+                PRINT FINAL RESULT
+              </Button>
+              <Button
+                variant="contained"
+                color="secondary"
+                type="submit"
+                style={{ margin: "10px 0 0 10px" }}
+                onClick={handleCountPrint}
+              >
+                PRINT EXAM COUNT
               </Button>
             </Grid>
           </Grid>
@@ -376,15 +526,39 @@ const ExamResult = () => {
             showDataTable={showDataTable}
             result={examResultList && examResultList.dbModelResultLst}
             rank={examResultList && examResultList.dbModelRankLst}
-            // ledgerHeader={testExamJson.ddlAcademicFacultySubjectLinkSubModel}
-            // student={testExamJson.dbModelLst}
-            // mark={testExamJson.dbMarkModelLst}
           />
         )}
-        {showAnnualLedger && <ExamAnnualResultTable />}
+        {showAnnualLedger && (
+          <ExamAnnualResultTable ledgerData={examLedgerHeader} />
+        )}
       </CustomContainer>
       <Popup openPopup={openPopup} setOpenPopup={setOpenPopup} title="">
-        <ExamResultModel />
+        <ExamResultModel examReport={printExamResult && printExamResult} />
+      </Popup>
+      <Popup
+        openPopup={openPopupResultMark}
+        setOpenPopup={setOpenPopupResultMark}
+        title=""
+      >
+        <ExamResultWithMarksModel
+          examReport={printExamResult && printExamResult}
+        />
+      </Popup>
+      <Popup
+        openPopup={openPopupFinal}
+        setOpenPopup={setOpenPopupFinal}
+        title=""
+      >
+        <FinalExamResult result={printFinalResult} />
+      </Popup>
+      <Popup
+        openPopup={openPopupCount}
+        setOpenPopup={setOpenPopupCount}
+        title=""
+      >
+        <ExamResultCount
+          result={printExamResultCount && printExamResultCount}
+        />
       </Popup>
       <Notification notify={notify} setNotify={setNotify} />
       <ConfirmDialog

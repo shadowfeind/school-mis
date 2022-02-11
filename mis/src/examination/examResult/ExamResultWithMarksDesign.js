@@ -3,7 +3,7 @@ import { Grid } from "@material-ui/core";
 import "./examResult.css";
 import { gpaToGrade, gpaToRemarks, gradeCalc, pointCalc } from "./Helpers";
 
-const ExamResultDesign = ({
+const ExamResultWithMarksDesign = ({
   student,
   subjects,
   levelTest,
@@ -63,6 +63,7 @@ const ExamResultDesign = ({
                 <th>SB</th>
                 <th>Subjects</th>
                 <th>Credit Hours</th>
+                <th colSpan="2">Obtained Marks</th>
                 <th colSpan="2">Obtained Grades</th>
                 <th>Final Grade</th>
                 <th>Grade Point</th>
@@ -72,6 +73,8 @@ const ExamResultDesign = ({
                 <th></th>
                 <th></th>
                 <th></th>
+                <th>TH</th>
+                <th>PR</th>
                 <th>TH</th>
                 <th>PR</th>
                 <th></th>
@@ -128,6 +131,8 @@ const ExamResultDesign = ({
                     <td>{count}</td>
                     <td>{s.SubjectName}</td>
                     <td> 4.0</td>
+                    <td> {s.ObtainedMark}</td>
+                    <td> {s.ObtainedMarkPractical}</td>
                     <td> {gradeCalc(resultTH)}</td>
                     <td> {gradeCalc(resultPR)}</td>
                     <td> {gradeCalc(resultTotal)}</td>
@@ -148,11 +153,13 @@ const ExamResultDesign = ({
                     <td height={30}> </td>
                     <td height={30}> </td>
                     <td height={30}> </td>
+                    <td height={30}> </td>
+                    <td height={30}> </td>
                   </tr>
                 ))}
 
               <tr>
-                <td colSpan={6}>GRADE POINT AVERAGE (GPA)</td>
+                <td colSpan={8}>GRADE POINT AVERAGE (GPA)</td>
                 <td>
                   {trackSubject.reduce((acc, cur) => {
                     return acc + cur.totalMarks;
@@ -341,4 +348,4 @@ const ExamResultDesign = ({
   );
 };
 
-export default ExamResultDesign;
+export default ExamResultWithMarksDesign;

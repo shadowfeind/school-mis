@@ -53,7 +53,8 @@ const StudentIdCard = () => {
   const [shift, setShift] = useState();
   const [section, setSection] = useState();
   const [student, setStudent] = useState(0);
-  const [date, setDate] = useState("12-22-2022");
+  const [date, setDate] = useState("2022-01-28");
+  const [dateValue, setDateValue] = useState();
   const [errors, setErrors] = useState([]);
   const dispatch = useDispatch();
   const classes = useStyles();
@@ -109,8 +110,8 @@ const StudentIdCard = () => {
     }
   }, [studentIdCardInitialData, dispatch]);
 
-  const validate=()=>{
-    let temp ={};
+  const validate = () => {
+    let temp = {};
     temp.acaYear = !acaYear ? "This feild is required" : "";
     temp.programValue = !programValue ? "This feild is required" : "";
     temp.classId = !classId ? "This feild is required" : "";
@@ -120,21 +121,16 @@ const StudentIdCard = () => {
 
     setErrors({ ...temp });
     return Object.values(temp).every((x) => x === "");
-  }
+  };
 
-  const handleProgramValue =(value=>{
+  const handleProgramValue = (value) => {
     setProgramValue(value);
     if ((acaYear, classId, shift)) {
       dispatch(
-        getActiveStudentsForAdmitCardDataAction(
-          value,
-          acaYear,
-          classId,
-          shift
-        )
+        getActiveStudentsForAdmitCardDataAction(value, acaYear, classId, shift)
       );
     }
-  })
+  };
   const handleYearChange = (value) => {
     setAcaYear(value);
     if ((programValue, classId, shift)) {
@@ -178,8 +174,11 @@ const StudentIdCard = () => {
   };
 
   const handleDate = (date) => {
-    const newDate = `${date.getMonth()}-${date.getDay()}-${date.getFullYear()}`;
-    setDate(newDate);
+    if (date) {
+      setDateValue(date);
+      const newDate = `${date.getMonth()}-${date.getDay()}-${date.getFullYear()}`;
+      setDate(newDate);
+    }
   };
 
   const handleStudentSearch = () => {
@@ -271,7 +270,7 @@ const StudentIdCard = () => {
               <DatePickerControl
                 name="DOJ"
                 label="Pick Exam Date"
-                value={date}
+                value={dateValue}
                 onChange={(e) => handleDate(e.target.value)}
                 errors={errors.date}
               />

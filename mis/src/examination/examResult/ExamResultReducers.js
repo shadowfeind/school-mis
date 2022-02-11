@@ -18,10 +18,18 @@ import {
   GET_INITIAL_EXAM_RESULT_STUDENT_OPTIONS_REQUEST,
   GET_INITIAL_EXAM_RESULT_STUDENT_OPTIONS_RESET,
   GET_INITIAL_EXAM_RESULT_STUDENT_OPTIONS_SUCCESS,
+  PRINT_EXAM_RESULT_COUNT_FAIL,
+  PRINT_EXAM_RESULT_COUNT_REQUEST,
+  PRINT_EXAM_RESULT_COUNT_RESET,
+  PRINT_EXAM_RESULT_COUNT_SUCCESS,
   PRINT_EXAM_RESULT_FAIL,
   PRINT_EXAM_RESULT_REQUEST,
   PRINT_EXAM_RESULT_RESET,
   PRINT_EXAM_RESULT_SUCCESS,
+  PRINT_FINAL_RESULT_FAIL,
+  PRINT_FINAL_RESULT_REQUEST,
+  PRINT_FINAL_RESULT_RESET,
+  PRINT_FINAL_RESULT_SUCCESS,
 } from "./ExamResultConstants";
 
 export const getInitialExamResultDataReducer = (state = {}, action) => {
@@ -126,6 +134,42 @@ export const printExamResultReducer = (state = {}, action) => {
     case PRINT_EXAM_RESULT_FAIL:
       return { loading: false, error: action.payload };
     case PRINT_EXAM_RESULT_RESET:
+      return {};
+    default:
+      return state;
+  }
+};
+
+export const printExamResultCountReducer = (state = {}, action) => {
+  switch (action.type) {
+    case PRINT_EXAM_RESULT_COUNT_REQUEST:
+      return { loading: true };
+    case PRINT_EXAM_RESULT_COUNT_SUCCESS:
+      return {
+        loading: false,
+        printExamResultCount: action.payload,
+      };
+    case PRINT_EXAM_RESULT_COUNT_FAIL:
+      return { loading: false, error: action.payload };
+    case PRINT_EXAM_RESULT_COUNT_RESET:
+      return {};
+    default:
+      return state;
+  }
+};
+
+export const printFinalResultReducer = (state = {}, action) => {
+  switch (action.type) {
+    case PRINT_FINAL_RESULT_REQUEST:
+      return { loading: true };
+    case PRINT_FINAL_RESULT_SUCCESS:
+      return {
+        loading: false,
+        printFinalResult: action.payload,
+      };
+    case PRINT_FINAL_RESULT_FAIL:
+      return { loading: false, error: action.payload };
+    case PRINT_FINAL_RESULT_RESET:
       return {};
     default:
       return state;

@@ -109,7 +109,8 @@ const ExamMarkApprovalBulk = ({ bulkData, statusData, search }) => {
                       variant="outlined"
                       inputProps={{ tabIndex: "1" }}
                       onChange={(e) =>
-                        e.target.value <= subject.FullMark &&
+                        (e.target.value <= subject.FullMark) &
+                          (e.target.value >= 0) &&
                         onChangeHandler(
                           subject,
                           e.target.value,
@@ -129,7 +130,8 @@ const ExamMarkApprovalBulk = ({ bulkData, statusData, search }) => {
                       variant="outlined"
                       inputProps={{ tabIndex: "2" }}
                       onChange={(e) =>
-                        e.target.value <= subject.FullMarkPractical &&
+                        (e.target.value <= subject.FullMarkPractical) &
+                          (e.target.value >= 0) &&
                         onChangeHandler(
                           subject,
                           e.target.value,

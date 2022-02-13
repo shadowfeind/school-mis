@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 
 import Holiday from "../settings/schoolConfiguration/holiday/Holiday";
 import DashboardHeader from "./DashboardHeader";
+import DashboardLeaveRequest from "./DashboardLeaveRequest";
 import DashboardNoticeBoard from "./DashboardNoticeBoard";
 
 const useStyles = makeStyles((theme) => ({
@@ -26,7 +27,7 @@ const Dashboard = () => {
         <DashboardHeader />
         <Grid container>
           <Grid item xs={6}>
-            <DashboardNoticeBoard />
+            <DashboardLeaveRequest />
           </Grid>
           <Grid item xs={6}>
             <Holiday />

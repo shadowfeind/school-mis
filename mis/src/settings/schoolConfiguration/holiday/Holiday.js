@@ -1,19 +1,9 @@
 import React, { useEffect, useState } from "react";
-import {
-  Button,
-  InputAdornment,
-  makeStyles,
-  TableBody,
-  Toolbar,
-} from "@material-ui/core";
+import { Button, makeStyles, Toolbar } from "@material-ui/core";
 import { Calendar, momentLocalizer } from "react-big-calendar";
 import moment, { months } from "moment";
-
-import useCustomTable from "../../../customHooks/useCustomTable";
-
 import AddIcon from "@material-ui/icons/Add";
 import Popup from "../../../components/Popup";
-import CustomContainer from "../../../components/CustomContainer";
 import { useDispatch, useSelector } from "react-redux";
 import Notification from "../../../components/Notification";
 import ConfirmDialog from "../../../components/ConfirmDialog";
@@ -144,27 +134,6 @@ const Holiday = () => {
     }
   }, [dispatch, holiday]);
 
-  const {
-    TableContainer,
-    TblHead,
-    TblPagination,
-    tableDataAfterPagingAndSorting,
-  } = useCustomTable(tableData, tableHeader, filterFn);
-
-  const handleSearch = (e) => {
-    setFilterFn({
-      fn: (item) => {
-        if (e.target.value === "") {
-          return item;
-        } else {
-          return item.filter((x) =>
-            x.HolidayName.toLowerCase().includes(e.target.value)
-          );
-        }
-      },
-    });
-  };
-
   const addHandler = () => {
     dispatch({ type: GET_SINGLE_HOLIDAY_RESET });
     setOpenPopup(true);
@@ -172,7 +141,15 @@ const Holiday = () => {
 
   return (
     <>
-      <CustomContainer>
+      <div
+        style={{
+          margin: "10px",
+          padding: "20px",
+          backgroundColor: "#fff",
+          borderRadius: "10px",
+          boxShadow: "5px 5px 5px #d4d4d4",
+        }}
+      >
         <Toolbar>
           <Button
             variant="contained"
@@ -193,7 +170,7 @@ const Holiday = () => {
           views={months}
           style={{ height: "60vh" }}
         />
-      </CustomContainer>
+      </div>
       <Popup
         openPopup={openPopup}
         setOpenPopup={setOpenPopup}

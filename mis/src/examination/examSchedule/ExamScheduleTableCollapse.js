@@ -32,8 +32,7 @@ const ExamScheduleTableCollapse = ({
   let currentSubject =
     subjects &&
     subjects.filter((x) => x.Key === item.IDAcademicFacultySubjectLink);
-  subjects && console.log(subjects);
-  subjects && console.log(currentSubject);
+
   return (
     <TableRow>
       <TableCell>{item.EventName}</TableCell>

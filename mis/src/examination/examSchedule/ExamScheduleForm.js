@@ -142,7 +142,10 @@ const ExamScheduleForm = ({
                 name="FullMarkPractical"
                 label="Full Marks Practical"
                 value={values.FullMarkPractical}
-                onChange={handleInputChange}
+                onChange={(e) =>
+                  (e.target.value <= 100) & (e.target.value >= 0) &&
+                  handleInputChange(e)
+                }
                 errors={errors.FullMarkPractical}
                 type="number"
               />
@@ -151,7 +154,10 @@ const ExamScheduleForm = ({
               name="FullMark"
               label="Full Marks*"
               value={values.FullMark}
-              onChange={handleInputChange}
+              onChange={(e) =>
+                (e.target.value <= 100) & (e.target.value >= 0) &&
+                handleInputChange(e)
+              }
               errors={errors.FullMark}
               type="number"
             />
@@ -197,14 +203,21 @@ const ExamScheduleForm = ({
               name="SubjectOrder"
               label="Subject Order"
               value={values.SubjectOrder}
-              onChange={handleInputChange}
+              type="number"
+              onChange={(e) =>
+                (e.target.value <= 100) & (e.target.value >= 0) &&
+                handleInputChange(e)
+              }
               errors={errors.SubjectOrder}
             />
             <InputControl
               name="PassMark"
               label="Pass Mark"
               value={values.PassMark}
-              onChange={handleInputChange}
+              onChange={(e) =>
+                (e.target.value <= 100) & (e.target.value >= 0) &&
+                handleInputChange(e)
+              }
               errors={errors.PassMark}
               type="number"
             />

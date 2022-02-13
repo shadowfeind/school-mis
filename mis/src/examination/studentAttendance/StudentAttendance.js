@@ -75,7 +75,7 @@ const StudentAttendance = () => {
   const [shift, setShift] = useState();
   const [section, setSection] = useState();
   const [event, setEvent] = useState();
-  const [errors,setErrors] = useState([]);
+  const [errors, setErrors] = useState([]);
 
   const dispatch = useDispatch();
   const classes = useStyles();
@@ -175,6 +175,16 @@ const StudentAttendance = () => {
       type: "success",
     });
     dispatch({ type: POST_BULK_STUDENT_ATTENDANCE_RESET });
+    dispatch(
+      getAllStudentAttendanceAction(
+        acaYear,
+        programValue,
+        classId,
+        section,
+        shift,
+        event
+      )
+    );
     setOpenPopup(false);
   }
 
@@ -212,8 +222,8 @@ const StudentAttendance = () => {
     }
   }, [allStudentAttendance]);
 
-  const validate=()=>{
-    let temp ={};
+  const validate = () => {
+    let temp = {};
     temp.acaYear = !acaYear ? "This feild is required" : "";
     temp.programValue = !programValue ? "This feild is required" : "";
     temp.classId = !classId ? "This feild is required" : "";
@@ -223,21 +233,14 @@ const StudentAttendance = () => {
 
     setErrors({ ...temp });
     return Object.values(temp).every((x) => x === "");
-  }
+  };
 
-  const handleProgramValue =(value=>{
+  const handleProgramValue = (value) => {
     setProgramValue(value);
     if ((acaYear, classId, shift)) {
-      dispatch(
-        getEventAction(
-          value,
-          acaYear,
-          classId,
-          shift
-        )
-      );
+      dispatch(getEventAction(value, acaYear, classId, shift));
     }
-  })
+  };
 
   const handleYearChange = (value) => {
     setAcaYear(value);

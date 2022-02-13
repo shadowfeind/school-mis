@@ -8,9 +8,6 @@ import {
   TableCell,
   Button,
   TextField,
-  FormControl,
-  InputLabel,
-  Select,
 } from "@material-ui/core";
 import { withStyles, makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
@@ -44,6 +41,7 @@ const StudentAttendanceBulk = ({ bulkData, search, workingDayTotal }) => {
   const [bulk, setBulk] = useState([]);
   const [workingDays, setWorkingDays] = useState(0);
   const classes = useStyles();
+  const [errors, setErrors] = useState({});
   const dispatch = useDispatch();
 
   const onChangeHandler = (subject, value, name, index) => {
@@ -61,7 +59,9 @@ const StudentAttendanceBulk = ({ bulkData, search, workingDayTotal }) => {
   };
 
   const formCheckSubmitHandler = () => {
-    dispatch(postBulkStudentAttendanceAction(bulk, search, workingDays));
+    if (validate()) {
+      dispatch(postBulkStudentAttendanceAction(bulk, search, workingDays));
+    }
   };
   useEffect(() => {
     if (bulkData) {
@@ -69,6 +69,15 @@ const StudentAttendanceBulk = ({ bulkData, search, workingDayTotal }) => {
       setWorkingDays(workingDayTotal);
     }
   }, [bulkData]);
+
+  const validate = () => {
+    let temp = { ...errors };
+    temp.workingDays = workingDays > 0 ? "" : "This feild is required";
+
+    setErrors({ ...temp });
+    return Object.values(temp).every((x) => x === "");
+  };
+
   return (
     <>
       <div style={{ width: "300px", margin: "15px auto" }}>
@@ -104,13 +113,14 @@ const StudentAttendanceBulk = ({ bulkData, search, workingDayTotal }) => {
                   <StyledTableCell align="right">
                     <TextField
                       id={`theory_${subject.IDHREmployee}`}
-                      defaultValue={subject.PresentDay}
+                      value={subject.PresentDay}
                       type="number"
                       label="Present Day"
                       variant="outlined"
                       name="PresentDay"
                       inputProps={{ tabIndex: "1" }}
                       onChange={(e) =>
+                        e.target.value >= 0 &&
                         onChangeHandler(
                           subject,
                           e.target.value,
@@ -130,6 +140,7 @@ const StudentAttendanceBulk = ({ bulkData, search, workingDayTotal }) => {
                       name="AbsentDay"
                       inputProps={{ tabIndex: "2" }}
                       onChange={(e) =>
+                        e.target.value >= 0 &&
                         onChangeHandler(
                           subject,
                           e.target.value,

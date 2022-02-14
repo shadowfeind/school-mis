@@ -17,6 +17,7 @@ import Notification from "../../components/Notification";
 import ConfirmDialog from "../../components/ConfirmDialog";
 import SelectControl from "../../components/controls/SelectControl";
 import {
+  getBulkExamApprovalBlankDataAction,
   getBulkExamApprovalSearchDataAction,
   getExamApprovalScheduleHeaderAction,
   getExamApprovalSearchDataAction,
@@ -37,6 +38,7 @@ import {
   GET_EXAM_APPROVAL_SCHEULE_HEADER_RESET,
   POST_BULK_EXAM_APPROVAL_RESET,
 } from "./ExamMarkApprovalConstants";
+import ExamMarkApprovalBulkBlank from "./ExamMarkApprovalBulkBlank";
 
 const useStyles = makeStyles((theme) => ({
   searchInput: {
@@ -96,6 +98,7 @@ const ExamMarkApproval = () => {
       return item;
     },
   });
+  const[openBulkPopup, setOpenBulkPopup] = useState(false);
   const [openPopup, setOpenPopup] = useState(false);
   const [notify, setNotify] = useState({
     isOpen: false,
@@ -151,6 +154,10 @@ const ExamMarkApproval = () => {
 
   const { bulkData } = useSelector(
     (state) => state.getBulkExamApprovalSearchData
+  );
+
+  const {bulkBlankData} = useSelector(
+    (state)=> state.getBulkExamApprovalBlankData
   );
 
   const {
@@ -302,6 +309,23 @@ const ExamMarkApproval = () => {
     }
   };
 
+  const handleBulkBlankData = () => {
+    if (validate()) {
+      dispatch(
+        getBulkExamApprovalBlankDataAction(
+          acaYear,
+          programValue,
+          classId,
+          section,
+          shift,
+          event,
+          schedule
+        )
+      );
+      setOpenBulkPopup(true);
+    }
+  };
+
   return (
     <>
       <CustomContainer>
@@ -391,6 +415,17 @@ const ExamMarkApproval = () => {
               >
                 BULKEDIT
               </Button>
+
+              <Button
+                variant="contained"
+                color="primary"
+                type="submit"
+                style={{ margin: "10px 0 0 10px" }}
+                onClick={handleBulkBlankData}
+              >
+                BULK BLANK
+              </Button>
+
               <Button
                 variant="contained"
                 color="primary"
@@ -443,6 +478,19 @@ const ExamMarkApproval = () => {
           }
           search={bulkData && bulkData.searchFilterModel}
           bulkData={bulkData && bulkData.dbModelLsts}
+        />
+      </Popup>
+      <Popup
+        openPopup={openBulkPopup}
+        setOpenPopup={setOpenBulkPopup}
+        title="Bulk Blank Edit"
+      >
+        <ExamMarkApprovalBulkBlank
+          // statusBlankData={
+          //   bulkBlankData && bulkBlankData.searchFilterModel.ddlStudentExamStatus
+          // }
+          search={bulkBlankData && bulkBlankData.searchFilterModel}
+          bulkBlankData={bulkBlankData && bulkBlankData.dbModelLsts}
         />
       </Popup>
       <Notification notify={notify} setNotify={setNotify} />

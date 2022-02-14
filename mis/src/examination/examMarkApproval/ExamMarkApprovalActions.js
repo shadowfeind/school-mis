@@ -4,6 +4,9 @@ import {
   GET_ALL_EXAM_APPROVAL_SEARCHDATA_FAIL,
   GET_ALL_EXAM_APPROVAL_SEARCHDATA_REQUEST,
   GET_ALL_EXAM_APPROVAL_SEARCHDATA_SUCCESS,
+  GET_BULK_EXAM_APPROVAL_BLANK_PAGE_FAIL,
+  GET_BULK_EXAM_APPROVAL_BLANK_PAGE_REQUEST,
+  GET_BULK_EXAM_APPROVAL_BLANK_PAGE_SUCCESS,
   GET_BULK_EXAM_APPROVAL_FAIL,
   GET_BULK_EXAM_APPROVAL_REQUEST,
   GET_BULK_EXAM_APPROVAL_SUCCESS,
@@ -69,7 +72,7 @@ export const getExamApprovalSearchDataAction =
       dispatch({ type: GET_ALL_EXAM_APPROVAL_SEARCHDATA_REQUEST });
 
       const { data } = await axios.get(
-        `${API_URL}/api/ApproveAcademicStudentExamData/GetListExamMarkApproval?idAcademicYear=${year}&idFacultyProgramLink=${program}&level=${classId}&section=${section}&idShift=${shift}&idAcademicYearCalendar=${event}&idAcademicExamSchedule=${schedule}&searchKey=1`,
+        `${API_URL}/api/ApproveAcademicStudentExamData/GetPrintBulkForBlankMarkEntry?idAcademicYear=${year}&idFacultyProgramLink=${program}&level=${classId}&section=${section}&idShift=${shift}&idAcademicYearCalendar=${event}&idAcademicExamSchedule=${schedule}&searchKey=1`,
         tokenConfig
       );
 
@@ -103,6 +106,29 @@ export const getBulkExamApprovalSearchDataAction =
     } catch (error) {
       dispatch({
         type: GET_BULK_EXAM_APPROVAL_FAIL,
+        payload: error.message ? error.message : error.Message,
+      });
+    }
+  };
+
+  export const getBulkExamApprovalBlankDataAction =
+  (year, program, classId, section, shift, event, schedule) =>
+  async (dispatch) => {
+    try {
+      dispatch({ type: GET_BULK_EXAM_APPROVAL_BLANK_PAGE_REQUEST });
+
+      const { data } = await axios.get(
+        `${API_URL}/api/ApproveAcademicStudentExamData/GetPrintBulkForBlankMarkEntry?idAcademicYear=${year}&idFacultyProgramLink=${program}&level=${classId}&section=${section}&idShift=${shift}&idAcademicYearCalendar=${event}&idAcademicExamSchedule=${schedule}&searchKey=1`,
+        tokenConfig
+      );
+
+      dispatch({
+        type: GET_BULK_EXAM_APPROVAL_BLANK_PAGE_SUCCESS,
+        payload: data,
+      });
+    } catch (error) {
+      dispatch({
+        type: GET_BULK_EXAM_APPROVAL_BLANK_PAGE_FAIL,
         payload: error.message ? error.message : error.Message,
       });
     }

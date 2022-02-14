@@ -140,6 +140,7 @@ import {
   updateSingleExamDivisionReducer,
 } from "./examination/examDivision/ExamDivisionReducers";
 import {
+  getBulkExamApprovalBlankDataReducer,
   getBulkExamApprovalSearchDataReducer,
   getExamApprovalScheduleHeaderReducer,
   getExamApprovalSearchDataReducer,
@@ -475,6 +476,7 @@ export const reducers = combineReducers({
   getInitialExamApprovalData: getInitialExamApprovalDataReducer,
   getExamApprovalScheduleHeader: getExamApprovalScheduleHeaderReducer,
   getExamApprovalSearchData: getExamApprovalSearchDataReducer,
+  getBulkExamApprovalBlankData : getBulkExamApprovalBlankDataReducer,
   postBulkExamApproval: postBulkExamApprovalReducer,
   getBulkExamApprovalSearchData: getBulkExamApprovalSearchDataReducer,
   getInitialLevelTestData: getInitialLevelTestDataReducer,
@@ -596,6 +598,7 @@ export const reducers = combineReducers({
   trainingCreate: trainingCreateReducer,
   //PID uploadPhoto
   uploadPhoto: uploadPhotoReducer,
+  getAllUploadPhoto : getAllUploadPhotoReducer,
   //user profile reducers ends
   //attendance reducers starts
   getAllStudentMonthlyPresentSheet: getAllStudentMonthlyPresentSheetReducer,

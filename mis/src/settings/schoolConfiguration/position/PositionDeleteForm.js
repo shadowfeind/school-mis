@@ -21,7 +21,7 @@ const initialFormValues = {
   Updated_On: "2021-09-23",
 };
 
-const PositionDeleteForm = ({ positionDelete, setOpenPopup }) => {
+const PositionDeleteForm = ({ positionDelete, setOpenDeletePopup }) => {
   const dispatch = useDispatch();
 
   const { values, setValues, handleInputChange, errors, setErrors } =
@@ -29,13 +29,9 @@ const PositionDeleteForm = ({ positionDelete, setOpenPopup }) => {
 
   const handleDelete = (e) => {
     e.preventDefault();
-    if (validate()) {
-      if (values.IDHRPosition === 0) {
-        dispatch(positionCreateAction(values));
-      } else {
-        dispatch(updateSinglePositionAction(values));
-      }
-    }
+      dispatch(deletePositionAction(values));
+    
+       
   };
 
   useEffect(() => {
@@ -43,11 +39,13 @@ const PositionDeleteForm = ({ positionDelete, setOpenPopup }) => {
       setValues({ ...positionDelete });
     }
   }, [positionDelete]);
-  return (
+  return positionDelete ? (
+    <>
     <Form onSubmit={handleDelete}>
       <Grid container style={{ fontSize: "12px" }}>
         <Grid item xs={6}>
           <InputControl
+          disabled
             name="PositionHead"
             label="Position Head*"
             value={values.PositionHead}
@@ -56,16 +54,18 @@ const PositionDeleteForm = ({ positionDelete, setOpenPopup }) => {
           />
 
           <CheckBoxControl
+          disabled
             name="IsActive"
             label="IsActive"
             value={values.IsActive}
             onChange={handleInputChange}
             // errors={errors.IsActive}
           />
-          <div></div>
+         
         </Grid>
         <Grid item xs={6}>
           <InputControl
+           disabled
             name="PositionDescription"
             label="Position Description*"
             value={values.PositionDescription}
@@ -86,7 +86,7 @@ const PositionDeleteForm = ({ positionDelete, setOpenPopup }) => {
         <Button
           variant="contained"
           color="secondary"
-          onClick={() => setOpenPopup(false)}
+          onClick={() => setOpenDeletePopup(false)}
           style={{ margin: "10px 0 0 10px" }}
         >
           CANCEL
@@ -94,13 +94,18 @@ const PositionDeleteForm = ({ positionDelete, setOpenPopup }) => {
         <Button
           variant="contained"
           color="primary"
-          type="submit"
+          onClick={() =>
+          dispatch(deletePositionAction(positionDelete))
+        }
           style={{ margin: "10px 0 0 10px" }}
         >
           DELETE
         </Button>
       </div>
     </Form>
+    </>
+  ) : (
+    <div></div>
   );
 };
 

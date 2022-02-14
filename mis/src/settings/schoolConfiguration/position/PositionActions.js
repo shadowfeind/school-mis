@@ -120,8 +120,8 @@ export const deletePositionAction = (position) => async (dispatch) => {
     //     "Content-Type": "application/json",
     //   },
     // };
-
-    const { data } = await axios.delete(
+console.log(jsonData);
+     await axios.delete(
       `${API_URL}/api/HRPosition/DeletePosition`,
       jsonData,
       tokenConfig

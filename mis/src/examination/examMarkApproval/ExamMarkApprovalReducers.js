@@ -75,6 +75,21 @@ export const getBulkExamApprovalSearchDataReducer = (state = {}, action) => {
   }
 };
 
+export const getBulkExamApprovalBlankDataReducer = (state = {}, action) => {
+  switch (action.type) {
+    case GET_BULK_EXAM_APPROVAL_REQUEST:
+      return { loading: true };
+    case GET_BULK_EXAM_APPROVAL_SUCCESS:
+      return { loading: false, bulkBlankData: action.payload, success: true };
+    case GET_BULK_EXAM_APPROVAL_FAIL:
+      return { loading: false, error: action.payload };
+    case GET_BULK_EXAM_APPROVAL_RESET:
+      return {};
+    default:
+      return state;
+  }
+};
+
 export const postBulkExamApprovalReducer = (state = {}, action) => {
   switch (action.type) {
     case POST_BULK_EXAM_APPROVAL_REQUEST:

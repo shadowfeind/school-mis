@@ -60,7 +60,7 @@ const UploadPhoto = () => {
   if (uploadPhotoError) {
     setNotify({
       isOpen: true,
-      message: uploadPhotoError,
+      message: "Image Required",
       type: "error",
     });
     dispatch({ type: UPLOADPHOTO_RESET });

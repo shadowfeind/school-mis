@@ -39,23 +39,17 @@ export const putUploadPhotoAction =
       let formData = new FormData();
       formData.append("ImageUploaded", image);
 
-      console.log(image)
-
       const { data } = await axios.post(
         `${API_URL}/api/PID_PhotoUploadImage/FileUpload`,
         formData,
         tokenConfig
       );
 
-
-
       if (data) {
         const newData = {  ...dbData, FullPath: data };
         const jsonData = JSON.stringify({
           dbModel: newData,
         });
-
-        console.log(jsonData)
 
         await axios.put(
           `${API_URL}/api/PID_PhotoUploadImage/PutPhoto`,

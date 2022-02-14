@@ -178,12 +178,14 @@ const Position = () => {
 
   const deleteCollegeHandler = (id) => {
     dispatch(getSinglePositionAction(id));
+    setOpenPopup(true);
     setConfirmDialog({
       isOpen: true,
       title: "Are you sure you want to Delete this record?",
       subTitle: "You cannot undo this action",
     });
-    dispatch(deletePositionAction(id));
+    // dispatch({DELETE_POSITION_RESET});
+    // dispatch(deletePositionAction(id));
   };
 
   useEffect(() => {

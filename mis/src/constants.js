@@ -5,16 +5,16 @@ export const API_URL = "http://103.90.86.151:100";
 export const USER_SESSION = sessionStorage.getItem("blueberrytoken");
 
 
-// export const tokenConfig = {
-//   headers: {
-//     "Content-Type": "application/json",
-//     Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIyYzI1M2IwYS0wZjBlLTQ4OGEtODM5NC0yZTRmMmI2YjY1OWQiLCJJRFVzZXIiOiIxMDUzMyIsIklEUm9sZSI6IjIiLCJNYXJrQXNBZG1pbiI6IlRydWUiLCJJREhSQnJhbmNoIjoiMSIsIklERGVwYXJ0bWVudCI6IjEiLCJjb21wYW55IjoiMiIsIklzVGVtcG9yYXJ5U2Vzc2lvbkVuYWJsZWQiOiJGYWxzZSIsIklzTmV3bHlBZGVkIjoiRmFsc2UiLCJJc0RlcGFydG1lbnRIZWFkIjoiRmFsc2UiLCJSZW1lbWJlck1lIjoiRmFsc2UiLCJGdWxsTmFtZSI6IkNyZWF0aW9uICBBY2FkZW15IiwicGlkUmVmRm9yRWRpdCI6IlJvb3RVc2VyIiwiZXhwIjoxNjQ0NjQ0MTEyLCJpc3MiOiJodHRwOi8vbXlzaXRlLmNvbSIsImF1ZCI6Imh0dHA6Ly9teXNpdGUuY29tIn0.hU0hEDemJ-2aTQR83Fk2y11TEBVKrr51jHqkQZ4JCfs`,
-//   },
-// };
-
 export const tokenConfig = {
   headers: {
     "Content-Type": "application/json",
-    Authorization: `Bearer ${USER_SESSION}`,
+    Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIwYjkxMGZhNy1hOGJjLTQ2NDYtYTQwOS1kYzgzOTE0NjFiOTgiLCJJRFVzZXIiOiIxMDUzMyIsIklEUm9sZSI6IjIiLCJNYXJrQXNBZG1pbiI6IlRydWUiLCJJREhSQnJhbmNoIjoiMSIsIklERGVwYXJ0bWVudCI6IjEiLCJjb21wYW55IjoiMiIsIklzVGVtcG9yYXJ5U2Vzc2lvbkVuYWJsZWQiOiJGYWxzZSIsIklzTmV3bHlBZGVkIjoiRmFsc2UiLCJJc0RlcGFydG1lbnRIZWFkIjoiRmFsc2UiLCJSZW1lbWJlck1lIjoiRmFsc2UiLCJGdWxsTmFtZSI6IkNyZWF0aW9uICBBY2FkZW15IiwicGlkUmVmRm9yRWRpdCI6IlJvb3RVc2VyIiwiZXhwIjoxNjQ0ODk5NzI3LCJpc3MiOiJodHRwOi8vbXlzaXRlLmNvbSIsImF1ZCI6Imh0dHA6Ly9teXNpdGUuY29tIn0.PNdPUWrHD8sRTZXCGwphPMSQxC-BOGjQyTp_E0RDdbA`,
   },
 };
+
+// export const tokenConfig = {
+//   headers: {
+//     "Content-Type": "application/json",
+//     Authorization: `Bearer ${USER_SESSION}`,
+//   },
+// };

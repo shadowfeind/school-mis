@@ -5,6 +5,7 @@ import { useForm, Form } from "../../../customHooks/useForm";
 import { useDispatch } from "react-redux";
 import CheckBoxControl from "../../../components/controls/CheckBoxControl";
 import {
+  deletePositionAction,
     getSinglePositionAction,
   positionCreateAction,
   updateSinglePositionAction,
@@ -22,33 +23,19 @@ const initialFormValues = {
 
 const PositionDeleteForm = ({ positionDelete, setOpenPopup }) => {
   const dispatch = useDispatch();
-//   const validate = (fieldValues = values) => {
-//     let temp = { ...errors };
-
-//     temp.PositionHead = !fieldValues.PositionHead
-//       ? "This feild is required"
-//       : fieldValues.PositionHead.length > 20
-//       ? "Must be less than 20 characters"
-//       : !fieldValues.PositionHead.trim()
-//       ? "This feild is required"
-//       : "";
-
-//     temp.PositionDescription = !fieldValues.PositionDescription
-//       ? "This feild is required"
-//       : !fieldValues.PositionDescription.trim()
-//       ? "This feild is required"
-//       : "";
-
-//     setErrors({ ...temp });
-//     return Object.values(temp).every((x) => x === "");
-//   };
 
   const { values, setValues, handleInputChange, errors, setErrors } =
     useForm(initialFormValues);
 
   const handleDelete = (e) => {
     e.preventDefault();
-dispatch(getSinglePositionAction())
+    if (validate()) {
+      if (values.IDHRPosition === 0) {
+        dispatch(positionCreateAction(values));
+      } else {
+        dispatch(updateSinglePositionAction(values));
+      }
+    }
   };
 
   useEffect(() => {

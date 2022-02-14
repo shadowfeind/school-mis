@@ -159,7 +159,9 @@ import {
   getExamResultListReducer,
   getInitialExamResultDataReducer,
   getInitialExamResultStudentOptionsReducer,
+  printExamResultCountReducer,
   printExamResultReducer,
+  printFinalResultReducer,
 } from "./examination/examResult/ExamResultReducers";
 import {
   getAllExamScheduleInitialDataReducer,
@@ -488,6 +490,8 @@ export const reducers = combineReducers({
   getExamResultList: getExamResultListReducer,
   printExamResult: printExamResultReducer,
   getExamLedgerHeader: getExamLedgerHeaderReducer,
+  printExamResultCount: printExamResultCountReducer,
+  printFinalResult: printFinalResultReducer,
   academicGrading: getAllAcademicGradingReducer,
   getSingleAcademicGrading: getSingleAcademicGradingReducer,
   createAcademicGrading: createAcademicGradingReducer,

@@ -112,9 +112,9 @@ const Header = () => {
                       Examination
                     </NavLink>
                   </li>
-                  <li>
+                  {/* <li>
                     <a>Assignment</a>
-                  </li>
+                  </li> */}
                 </ul>
               </Grid>
               <Grid item sm></Grid>

@@ -1,7 +1,7 @@
 import React from "react";
-import ExamResultDesign from "./ExamResultDesign";
+import ExamResultWithMarksDesign from "./ExamResultWithMarksDesign";
 
-const ExamResultModel = ({ examReport }) => {
+const ExamResultWithMarksModel = ({ examReport }) => {
   const examTerm =
     examReport &&
     examReport.ddlAcademicYearCalendar.filter(
@@ -32,7 +32,7 @@ const ExamResultModel = ({ examReport }) => {
             (x) => x.Key === examReport.classSection
           );
           return (
-            <ExamResultDesign
+            <ExamResultWithMarksDesign
               key={student.$id}
               student={student}
               subjects={subjects}
@@ -51,4 +51,4 @@ const ExamResultModel = ({ examReport }) => {
   );
 };
 
-export default ExamResultModel;
+export default ExamResultWithMarksModel;

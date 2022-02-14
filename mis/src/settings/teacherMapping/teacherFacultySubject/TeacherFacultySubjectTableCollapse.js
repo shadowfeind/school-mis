@@ -16,8 +16,10 @@ const TeacherFacultySubjectTableCollapse = ({ item, updateTeacherHandler }) => {
   const classes = useStyles();
   return (
     <TableRow>
-      <TableCell>{item.IDHRTeacherFacultySubjectMappingHeader}</TableCell>
-      <TableCell>{item.IDAcademicFacultySubjectLink}</TableCell>
+      <TableCell>{item.TeacherName}</TableCell>
+      <TableCell>
+        {item.SubjectName} ({item.SubjectCode})
+      </TableCell>
       <TableCell>{item.Created_On.slice(0, 10)}</TableCell>
       <TableCell>{item.Summary}</TableCell>
       <TableCell>{item.IsActive ? "Active" : "Not Active"}</TableCell>

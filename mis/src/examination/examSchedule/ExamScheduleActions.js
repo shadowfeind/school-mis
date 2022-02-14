@@ -119,8 +119,6 @@ export const postSingleExamScheduleCreateAction =
 
       const jsonData = JSON.stringify({ dbModel: schedule, searchFilterModel });
 
-      console.log(jsonData);
-
       const { data } = await axios.post(
         `${API_URL}/api/AcademicExamSchedule/Post`,
         jsonData,
@@ -134,7 +132,8 @@ export const postSingleExamScheduleCreateAction =
     } catch (error) {
       dispatch({
         type: POST_SINGLE_EXAM_SCHEDULE_CREATE_FAIL,
-        payload: error.message ? error.message : error.Message,
+        // payload: error.Message ? error.Message : error.message,
+        payload: "Subject already exists",
       });
     }
   };

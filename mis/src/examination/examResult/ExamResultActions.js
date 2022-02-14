@@ -16,9 +16,15 @@ import {
   GET_INITIAL_EXAM_RESULT_STUDENT_OPTIONS_FAIL,
   GET_INITIAL_EXAM_RESULT_STUDENT_OPTIONS_REQUEST,
   GET_INITIAL_EXAM_RESULT_STUDENT_OPTIONS_SUCCESS,
+  PRINT_EXAM_RESULT_COUNT_FAIL,
+  PRINT_EXAM_RESULT_COUNT_REQUEST,
+  PRINT_EXAM_RESULT_COUNT_SUCCESS,
   PRINT_EXAM_RESULT_FAIL,
   PRINT_EXAM_RESULT_REQUEST,
   PRINT_EXAM_RESULT_SUCCESS,
+  PRINT_FINAL_RESULT_FAIL,
+  PRINT_FINAL_RESULT_REQUEST,
+  PRINT_FINAL_RESULT_SUCCESS,
 } from "./ExamResultConstants";
 
 export const getInitialExamResultDataAction = () => async (dispatch) => {
@@ -117,7 +123,7 @@ export const getExamLedgerHeaderAction =
       dispatch({ type: GET_EXAM_LEDGER_HEADER_REQUEST });
 
       const { data } = await axios.get(
-        `${API_URL}/api/ExamResult/GetPrintLedger?idAcademicYear=${year}&idFacultyProgramLink=${program}&level=${classId}&section=${section}&idShift=${shift}&idAcademicYearCalendar=${event}&idStudent=${studentId}&searchKey=1`,
+        `${API_URL}/api/ExamResult/GetListAnnualResultLedger?idAcademicYear=${year}&idFacultyProgramLink=${program}&level=${classId}&section=${section}&idShift=${shift}&idAcademicYearCalendar=${event}&idStudent=${studentId}&searchKey=1`,
         tokenConfig
       );
 
@@ -134,13 +140,13 @@ export const getExamLedgerHeaderAction =
   };
 
 export const printExamResultAction =
-  (year, program, classId, section, shift, event, studentId) =>
+  (year, program, classId, section, shift, event, studentId, date) =>
   async (dispatch) => {
     try {
       dispatch({ type: PRINT_EXAM_RESULT_REQUEST });
 
       const { data } = await axios.get(
-        `${API_URL}/api/ExamResult/GetPrintLedger?idAcademicYear=${year}&idFacultyProgramLink=${program}&level=${classId}&section=${section}&idShift=${shift}&idAcademicYearCalendar=${event}&idStudent=${studentId}&searchKey=1`,
+        `${API_URL}/api/ExamResult/GetPrintBulk?idAcademicYear=${year}&idFacultyProgramLink=${program}&level=${classId}&section=${section}&idShift=${shift}&idAcademicYearCalendar=${event}&idStudent=${studentId}&examDate=${date}`,
         tokenConfig
       );
 
@@ -151,6 +157,52 @@ export const printExamResultAction =
     } catch (error) {
       dispatch({
         type: PRINT_EXAM_RESULT_FAIL,
+        payload: error.message ? error.message : error.Message,
+      });
+    }
+  };
+
+export const printExamResultCountAction =
+  (year, program, classId, section, shift, event, studentId) =>
+  async (dispatch) => {
+    try {
+      dispatch({ type: PRINT_EXAM_RESULT_COUNT_REQUEST });
+
+      const { data } = await axios.get(
+        `${API_URL}/api/ExamResult/GetPrintCount?idAcademicYear=${year}&idFacultyProgramLink=${program}&level=${classId}&section=${section}&idShift=${shift}&idAcademicYearCalendar=${event}&idStudent=${studentId}`,
+        tokenConfig
+      );
+
+      dispatch({
+        type: PRINT_EXAM_RESULT_COUNT_SUCCESS,
+        payload: data,
+      });
+    } catch (error) {
+      dispatch({
+        type: PRINT_EXAM_RESULT_COUNT_FAIL,
+        payload: error.message ? error.message : error.Message,
+      });
+    }
+  };
+
+export const printFinalResultAction =
+  (year, program, classId, section, shift, event, studentId, date) =>
+  async (dispatch) => {
+    try {
+      dispatch({ type: PRINT_FINAL_RESULT_REQUEST });
+
+      const { data } = await axios.get(
+        `${API_URL}/api/ExamResult/GetPrintFinalResult?idAcademicYear=${year}&idFacultyProgramLink=${program}&level=${classId}&section=${section}&idShift=${shift}&idAcademicYearCalendar=${event}&idStudent=${studentId}&examDate=${date}`,
+        tokenConfig
+      );
+
+      dispatch({
+        type: PRINT_FINAL_RESULT_SUCCESS,
+        payload: data,
+      });
+    } catch (error) {
+      dispatch({
+        type: PRINT_FINAL_RESULT_FAIL,
         payload: error.message ? error.message : error.Message,
       });
     }

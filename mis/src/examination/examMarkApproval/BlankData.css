@@ -1,0 +1,50 @@
+table {
+  width: 100%;
+}
+
+.main-container {
+  border: 1px solid;
+}
+.header-center {
+  text-align: center;
+  justify-content: center;
+}
+
+.header-right {
+  text-align: right;
+}
+
+.container td {
+  width: 33%;
+}
+
+.info-table {
+  border: 1px solid;
+  border-collapse: collapse;
+}
+
+.info-table td,
+.info-table th {
+  border: 1px solid;
+  text-align: left;
+  padding: 10px;
+}
+
+.main-content {
+  border: 1px solid;
+  padding: 10px;
+  border-collapse: collapse;
+}
+.main-content th {
+  border: 0.2px solid;
+  text-align: center;
+}
+
+.main-content td {
+  border: 1px solid;
+  padding: 8px;
+}
+
+.main-content td:first-child {
+  text-align: center;
+}

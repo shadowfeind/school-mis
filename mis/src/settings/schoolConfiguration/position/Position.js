@@ -30,6 +30,7 @@ import {
   GET_ALL_POSITION_RESET,
   DELETE_POSITION_RESET,
 } from "./PositionConstatns";
+import PositionDeleteForm from "./PositionDeleteForm";
 
 const useStyles = makeStyles((theme) => ({
   searchInput: {
@@ -59,6 +60,7 @@ const Position = () => {
     },
   });
   const [openPopup, setOpenPopup] = useState(false);
+  const [openDeletePopup, setOpenDeletePopup] = useState(false);
   const [notify, setNotify] = useState({
     isOpen: false,
     message: "",
@@ -128,6 +130,7 @@ const Position = () => {
       message: deletePositionError,
       type: "error",
     });
+    setOpenDeletePopup(false);
     dispatch({ type: DELETE_POSITION_RESET });
   }
 
@@ -158,7 +161,7 @@ const Position = () => {
       message: "Deleted Succesfully",
       type: "success",
     });
-    setOpenPopup(false);
+    setOpenDeletePopup(false);
     dispatch({ type: DELETE_POSITION_RESET });
   }
 
@@ -178,12 +181,9 @@ const Position = () => {
 
   const deleteCollegeHandler = (id) => {
     dispatch(getSinglePositionAction(id));
-    setConfirmDialog({
-      isOpen: true,
-      title: "Are you sure you want to Delete this record?",
-      subTitle: "You cannot undo this action",
-    });
-    dispatch(deletePositionAction(id));
+    setOpenDeletePopup(true);
+    // dispatch({DELETE_POSITION_RESET});
+    // dispatch(deletePositionAction(id));
   };
 
   useEffect(() => {
@@ -256,6 +256,8 @@ const Position = () => {
                 key={item.$id}
                 updateCollegeHandler={updateCollegeHandler}
                 deleteCollegeHandler={deleteCollegeHandler}
+                setOpenPopup={setOpenPopup}
+                setOpenDeletePopup={setOpenDeletePopup}
               />
             ))}
           </TableBody>
@@ -269,8 +271,16 @@ const Position = () => {
       >
         <PositionForm
           position={singlePosition && singlePosition.dbModel}
-          positionDelete = {deletePositionSuccess && deletePositionSuccess.dbModel}
           setOpenPopup={setOpenPopup}
+        />
+      </Popup>
+      <Popup
+      openPopup={openDeletePopup}
+      setOpenPopup={setOpenDeletePopup}
+      title= "Position Delete Form">
+        <PositionDeleteForm
+         positionDelete ={singlePosition && singlePosition.dbModel}
+        setOpenDeletePopup={setOpenDeletePopup}
         />
       </Popup>
       <Notification notify={notify} setNotify={setNotify} />

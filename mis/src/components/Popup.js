@@ -37,6 +37,7 @@ const Popup = ({ title, children, openPopup, setOpenPopup }) => {
       </DialogTitle>
       <DialogContent dividers>{children}</DialogContent>
     </Dialog>
+    
   );
 };
 

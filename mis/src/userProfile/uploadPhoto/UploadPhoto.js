@@ -7,7 +7,10 @@ import {
   GET_ALL_UPLOADPHOTO_RESET,
   UPLOADPHOTO_RESET,
 } from "./UploadPhotoConstants";
-import { getAllUploadPhotoAction, uploadPhotoActionAction } from "./UploadPhotoActions";
+import {
+  getAllUploadPhotoAction,
+  uploadPhotoActionAction,
+} from "./UploadPhotoActions";
 import { API_URL } from "../../constants";
 import UploadPhotoForm from "./UploadPhotoForm";
 
@@ -23,6 +26,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const UploadPhoto = () => {
+  const [url, setUrl] = useState("");
   const [notify, setNotify] = useState({
     isOpen: false,
     message: "",
@@ -33,31 +37,30 @@ const UploadPhoto = () => {
 
   const dispatch = useDispatch();
 
-  // const { photo, error } = useSelector((state) => state.getAllUploadPhoto);
+  const { allUploadPhoto, allUploadPhotoError } = useSelector((state) => state.getAllUploadPhoto);
   const { success: uploadPhotoSuccess, error: uploadPhotoError } = useSelector(
     (state) => state.uploadPhoto
   );
-  // if (error) {
-  //   setNotify({
-  //     isOpen: true,
-  //     message: error,
-  //     type: "error",
-  //   });
-  //   dispatch({ type: GET_ALL_UPLOADPHOTO_RESET });
-  // }
+  if (allUploadPhotoError) {
+    setNotify({
+      isOpen: true,
+      message: allUploadPhotoError,
+      type: "error",
+    });
+    dispatch({ type: GET_ALL_UPLOADPHOTO_RESET });
+  }
   if (uploadPhotoSuccess) {
     setNotify({
       isOpen: true,
       message: "Successfully Uploaded",
       type: "success",
     });
-    dispatch(uploadPhotoActionAction());
     dispatch({ type: UPLOADPHOTO_RESET });
   }
   if (uploadPhotoError) {
     setNotify({
       isOpen: true,
-      message: uploadPhotoError,
+      message: "Image Required",
       type: "error",
     });
     dispatch({ type: UPLOADPHOTO_RESET });
@@ -65,16 +68,27 @@ const UploadPhoto = () => {
 
   useEffect(() => {
     dispatch({ type: "GET_LINK", payload: "/" });
-    if (!uploadPhotoSuccess) {
-      dispatch(uploadPhotoActionAction());
+    if (!allUploadPhoto) {
+      dispatch(getAllUploadPhotoAction());
     }
-  }, [dispatch, uploadPhotoSuccess]);
+  }, [dispatch, allUploadPhoto]);
+
+//   useEffect(()=>{
+// if (uploadPhotoSuccess){
+//   setUrl(`${API_URL}${uploadPhotoSuccess.FullPath}`);
+// }
+//   },[uploadPhotoSuccess]);
+
   return (
     <CustomContainer>
       upload Photo
       <br />
       {/* {photo && <img src={`${API_URL}${photo.dbModel.FullPath}`} />} */}
-      <UploadPhotoForm uploadPhotoSuccess={uploadPhotoSuccess && `${API_URL}${uploadPhotoSuccess.dbModel.FullPath}`} />
+      <UploadPhotoForm
+        uploadPhoto={
+          allUploadPhoto && allUploadPhoto
+        }
+      />
       <Notification notify={notify} setNotify={setNotify} />
     </CustomContainer>
   );

@@ -2,9 +2,10 @@ import { Button } from "@material-ui/core";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import InputControl from "../../components/controls/InputControl";
-import { uploadPhotoActionAction } from "./UploadPhotoActions";
+import { API_URL } from "../../constants";
+import { putUploadPhotoAction, uploadPhotoActionAction } from "./UploadPhotoActions";
 
-const UploadPhotoForm = ({ photo }) => {
+const UploadPhotoForm = ({ uploadPhoto }) => {
   const [image, setImage] = useState(null);
   const [imgSrc, setImgSrc] = useState(null);
   const dispatch = useDispatch();
@@ -19,6 +20,14 @@ const UploadPhotoForm = ({ photo }) => {
     setImage(event.target.files[0]);
   };
 
+  const handleUploadImage = () => {
+    if(uploadPhoto){
+      dispatch(putUploadPhotoAction(image,uploadPhoto.dbModel))
+    }else{
+      console.log("failed")
+    }
+  }
+
   return (
     <>
       <InputControl
@@ -27,7 +36,7 @@ const UploadPhotoForm = ({ photo }) => {
         type="file"
       />
 
-      <img src={imgSrc ? imgSrc : photo} height={200} width={200} />
+      <img src={imgSrc ? imgSrc : uploadPhoto && `${API_URL}${uploadPhoto.FullPath}`} height={200} width={200} />
       <div
         style={{
           display: "flex",
@@ -40,7 +49,7 @@ const UploadPhotoForm = ({ photo }) => {
         <Button
           variant="contained"
           color="primary"
-          onClick={() => dispatch(uploadPhotoActionAction(image))}
+          onClick={handleUploadImage}
           style={{ margin: "10px 0 0 10px" }}
         >
           UPLOAD

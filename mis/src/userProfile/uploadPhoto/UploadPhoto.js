@@ -37,7 +37,9 @@ const UploadPhoto = () => {
 
   const dispatch = useDispatch();
 
-  const { allUploadPhoto, allUploadPhotoError } = useSelector((state) => state.getAllUploadPhoto);
+  const { allUploadPhoto, allUploadPhotoError } = useSelector(
+    (state) => state.getAllUploadPhoto
+  );
   const { success: uploadPhotoSuccess, error: uploadPhotoError } = useSelector(
     (state) => state.uploadPhoto
   );
@@ -56,6 +58,7 @@ const UploadPhoto = () => {
       type: "success",
     });
     dispatch({ type: UPLOADPHOTO_RESET });
+    dispatch(getAllUploadPhotoAction());
   }
   if (uploadPhotoError) {
     setNotify({
@@ -73,22 +76,11 @@ const UploadPhoto = () => {
     }
   }, [dispatch, allUploadPhoto]);
 
-//   useEffect(()=>{
-// if (uploadPhotoSuccess){
-//   setUrl(`${API_URL}${uploadPhotoSuccess.FullPath}`);
-// }
-//   },[uploadPhotoSuccess]);
-
   return (
     <CustomContainer>
       upload Photo
       <br />
-      {/* {photo && <img src={`${API_URL}${photo.dbModel.FullPath}`} />} */}
-      <UploadPhotoForm
-        uploadPhoto={
-          allUploadPhoto && allUploadPhoto
-        }
-      />
+      <UploadPhotoForm uploadPhoto={allUploadPhoto && allUploadPhoto} />
       <Notification notify={notify} setNotify={setNotify} />
     </CustomContainer>
   );

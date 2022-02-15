@@ -373,9 +373,13 @@ import {
   getSubjectSyllabusReducer,
   putSyllabusReducer,
 } from "./settings/syllabus/syllabusPg/SyllabusReducers";
+import { getHeaderContentReducer } from "./dashboard/DashboardReducers";
 //examination reducers link end
 export const reducers = combineReducers({
+  //header
   navLink: navLinkReducer,
+  getHeaderContent: getHeaderContentReducer,
+  //header ends
   position: getAllPosition,
   createPosition: createPositionReducer,
   getSinglePosition: getSinglePositionReducer,
@@ -494,7 +498,7 @@ export const reducers = combineReducers({
   getInitialExamApprovalData: getInitialExamApprovalDataReducer,
   getExamApprovalScheduleHeader: getExamApprovalScheduleHeaderReducer,
   getExamApprovalSearchData: getExamApprovalSearchDataReducer,
-  getBulkExamApprovalBlankData : getBulkExamApprovalBlankDataReducer,
+  getBulkExamApprovalBlankData: getBulkExamApprovalBlankDataReducer,
   postBulkExamApproval: postBulkExamApprovalReducer,
   getBulkExamApprovalSearchData: getBulkExamApprovalSearchDataReducer,
   getInitialLevelTestData: getInitialLevelTestDataReducer,
@@ -618,7 +622,7 @@ export const reducers = combineReducers({
   trainingCreate: trainingCreateReducer,
   //PID uploadPhoto
   uploadPhoto: uploadPhotoReducer,
-  getAllUploadPhoto : getAllUploadPhotoReducer,
+  getAllUploadPhoto: getAllUploadPhotoReducer,
   //user profile reducers ends
   //attendance reducers starts
   getAllStudentMonthlyPresentSheet: getAllStudentMonthlyPresentSheetReducer,

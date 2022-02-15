@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import {
   AppBar,
@@ -9,8 +9,14 @@ import {
   Popper,
   Toolbar,
 } from "@material-ui/core";
-import { NotificationsNone } from "@material-ui/icons";
 import { NavLink } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { getHeaderContentAction } from "../dashboard/DashboardActions";
+import Notification from "./Notification";
+import { GET_HEADER_CONTENT_RESET } from "../dashboard/DashboardConstants";
+import { API_URL } from "../constants";
+import { UPLOADPHOTO_RESET } from "../userProfile/uploadPhoto/UploadPhotoConstants";
 
 const useStyles = makeStyles({
   root: {
@@ -62,6 +68,11 @@ const useStyles = makeStyles({
 
 const Header = () => {
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const [notify, setNotify] = useState({
+    isOpen: false,
+    message: "",
+    type: "",
+  });
   const classes = useStyles();
   const isActive = {
     borderBottom: "1px solid #000",
@@ -72,6 +83,31 @@ const Header = () => {
   const open = Boolean(anchorEl);
   const id = open ? "simple-popper" : undefined;
 
+  const dispatch = useDispatch();
+  const { headerContent, error: headerContentError } = useSelector(
+    (state) => state.getHeaderContent
+  );
+  const { success: uploadPhotoSuccess } = useSelector(
+    (state) => state.uploadPhoto
+  );
+  if (uploadPhotoSuccess) {
+    dispatch({ type: UPLOADPHOTO_RESET });
+    dispatch(getHeaderContentAction());
+  }
+  useEffect(() => {
+    if (!headerContent) {
+      dispatch(getHeaderContentAction());
+    }
+  }, [headerContent, dispatch]);
+  if (headerContentError) {
+    dispatch({ type: GET_HEADER_CONTENT_RESET });
+    setNotify({
+      isOpen: true,
+      message: headerContentError,
+      type: "error",
+    });
+  }
+
   return (
     <>
       <div>
@@ -79,10 +115,12 @@ const Header = () => {
           <Toolbar>
             <Grid container alignItems="center">
               <Grid item style={{ width: "12%" }}>
-                <img
-                  src="https://i.ibb.co/MfvhYfw/testlogo.png"
-                  height="50px"
-                />
+                {headerContent && (
+                  <img
+                    src={`${API_URL}${headerContent.FullPath}`}
+                    height="50px"
+                  />
+                )}
               </Grid>
               <Grid item>
                 <ul className={classes.list}>
@@ -121,11 +159,13 @@ const Header = () => {
               <Grid item>
                 <IconButton onClick={handleClick}>
                   <Badge badgeContent={2} color="secondary">
-                    <img
-                      src="https://i.ibb.co/MfvhYfw/testlogo.png"
-                      height="30px"
-                      style={{ borderRadius: "50%" }}
-                    />
+                    {headerContent && (
+                      <img
+                        src={`${API_URL}${headerContent.FullPath}`}
+                        height="30px"
+                        style={{ borderRadius: "50%" }}
+                      />
+                    )}
                   </Badge>
                 </IconButton>
                 <Popper id={id} open={open} anchorEl={anchorEl}>
@@ -138,6 +178,7 @@ const Header = () => {
         </AppBar>
       </div>
       <div style={{ padding: "32px 0" }}></div>
+      <Notification notify={notify} setNotify={setNotify} />
     </>
   );
 };

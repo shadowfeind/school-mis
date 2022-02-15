@@ -90,10 +90,8 @@ const Position = () => {
     error: updateSinglePositionError,
   } = useSelector((state) => state.updateSinglePosition);
 
-  const {
-    success: deletePositionSuccess,
-    error: deletePositionError,
-  } = useSelector((state) => state.deletePosition);
+  const { success: deletePositionSuccess, error: deletePositionError } =
+    useSelector((state) => state.deletePosition);
 
   if (error) {
     dispatch({ type: GET_ALL_POSITION_RESET });
@@ -182,8 +180,6 @@ const Position = () => {
   const deleteCollegeHandler = (id) => {
     dispatch(getSinglePositionAction(id));
     setOpenDeletePopup(true);
-    // dispatch({DELETE_POSITION_RESET});
-    // dispatch(deletePositionAction(id));
   };
 
   useEffect(() => {
@@ -275,12 +271,13 @@ const Position = () => {
         />
       </Popup>
       <Popup
-      openPopup={openDeletePopup}
-      setOpenPopup={setOpenDeletePopup}
-      title= "Position Delete Form">
+        openPopup={openDeletePopup}
+        setOpenPopup={setOpenDeletePopup}
+        title="Position Delete Form"
+      >
         <PositionDeleteForm
-         positionDelete ={singlePosition && singlePosition.dbModel}
-        setOpenDeletePopup={setOpenDeletePopup}
+          positionDelete={singlePosition && singlePosition.dbModel}
+          setOpenDeletePopup={setOpenDeletePopup}
         />
       </Popup>
       <Notification notify={notify} setNotify={setNotify} />

@@ -1,4 +1,8 @@
 import {
+  DELETE_EMPLOYEE_TYPE_FAIL,
+  DELETE_EMPLOYEE_TYPE_REQUEST,
+  DELETE_EMPLOYEE_TYPE_RESET,
+  DELETE_EMPLOYEE_TYPE_SUCCESS,
   EMPLOYEE_TYPE_CREATE_FAIL,
   EMPLOYEE_TYPE_CREATE_REQUEST,
   EMPLOYEE_TYPE_CREATE_RESET,
@@ -71,6 +75,21 @@ export const updateSingleEmployeeTypeReducer = (state = {}, action) => {
     case UPDATE_SINGLE_EMPLOYEE_TYPE_FAIL:
       return { loading: false, error: action.payload };
     case UPDATE_SINGLE_EMPLOYEE_TYPE_RESET:
+      return {};
+    default:
+      return state;
+  }
+};
+
+export const deleteEmployeeTypeReducer = (state = {}, action) => {
+  switch (action.type) {
+    case DELETE_EMPLOYEE_TYPE_REQUEST:
+      return { loading: true };
+    case DELETE_EMPLOYEE_TYPE_SUCCESS:
+      return { loading: false, success: true };
+    case DELETE_EMPLOYEE_TYPE_FAIL:
+      return { loading: false, error: action.payload };
+    case DELETE_EMPLOYEE_TYPE_RESET:
       return {};
     default:
       return state;

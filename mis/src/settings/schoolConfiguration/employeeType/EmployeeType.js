@@ -23,11 +23,13 @@ import {
 } from "./EmployeeTypeActions";
 import EmployeeTypeForm from "./EmployeeTypeForm";
 import {
+  DELETE_EMPLOYEE_TYPE_RESET,
   EMPLOYEE_TYPE_CREATE_RESET,
   GET_ALL_EMPLOYEE_TYPE_RESET,
   GET_SINGLE_EMPLOYEE_TYPE_RESET,
   UPDATE_SINGLE_EMPLOYEE_TYPE_RESET,
 } from "./EmployeeTypeConstant";
+import EmployeeTypeDeleteForm from "./EmployeeTypeDeleteForm";
 
 const useStyles = makeStyles((theme) => ({
   searchInput: {
@@ -56,6 +58,7 @@ const EmployeeType = () => {
     },
   });
   const [openPopup, setOpenPopup] = useState(false);
+  const [openDeletePopup, setOpenDeletePopup] = useState(false);
   const [notify, setNotify] = useState({
     isOpen: false,
     message: "",
@@ -85,6 +88,12 @@ const EmployeeType = () => {
     updateSingleEmployeeTypeError,
   } = useSelector((state) => state.updateSingleEmployeeType);
 
+  const {
+    success: deleteEmployeeSuccess,
+    error: deleteEmployeeError,
+  } = useSelector((state) => state.deleteEmployeeType);
+
+
   if (error) {
     setNotify({
       isOpen: true,
@@ -103,6 +112,16 @@ const EmployeeType = () => {
     dispatch({ type: EMPLOYEE_TYPE_CREATE_RESET });
   }
 
+  if (deleteEmployeeError) {
+    setNotify({
+      isOpen: true,
+      message: deleteEmployeeError,
+      type: "error",
+    });
+    setOpenDeletePopup(false);
+    dispatch({ type: DELETE_EMPLOYEE_TYPE_RESET });
+  }
+
   if (singleEmployeeTypeError) {
     setNotify({
       isOpen: true,
@@ -110,6 +129,17 @@ const EmployeeType = () => {
       type: "error",
     });
     dispatch({ type: GET_SINGLE_EMPLOYEE_TYPE_RESET });
+  }
+
+  if (deleteEmployeeSuccess) {
+    dispatch(getAllEmployeeTypeAction());
+    setNotify({
+      isOpen: true,
+      message: "Deleted Succesfully",
+      type: "success",
+    });
+    setOpenDeletePopup(false);
+    dispatch({ type: DELETE_POSITION_RESET });
   }
 
   if (updateSingleEmployeeTypeError) {
@@ -149,11 +179,8 @@ const EmployeeType = () => {
   };
 
   const deleteCollegeHandler = (id) => {
-    setConfirmDialog({
-      isOpen: true,
-      title: "Are you sure you want to Delete this record?",
-      subTitle: "You cannot undo this action",
-    });
+    dispatch(getSingleEmployeeTypeAction(id));
+    setOpenDeletePopup(true);
   };
 
   useEffect(() => {
@@ -226,6 +253,8 @@ const EmployeeType = () => {
                 key={item.$id}
                 updateCollegeHandler={updateCollegeHandler}
                 deleteCollegeHandler={deleteCollegeHandler}
+                setOpenPopup={setOpenPopup}
+                setOpenDeletePopup={setOpenDeletePopup}
               />
             ))}
           </TableBody>
@@ -243,6 +272,15 @@ const EmployeeType = () => {
           }
           setOpenPopup={setOpenPopup}
         />
+      </Popup>
+      <Popup
+      openPopup={openDeletePopup}
+      setOpenPopup={setOpenDeletePopup}
+      title= "Employee Delete Form">
+      <EmployeeTypeDeleteForm
+      employeeTypeDelete={singleEmployeeType && singleEmployeeType.hrEmployeeTypeModel}
+      setOpenDeletePopup={setOpenDeletePopup}
+      />
       </Popup>
       <Notification notify={notify} setNotify={setNotify} />
       <ConfirmDialog

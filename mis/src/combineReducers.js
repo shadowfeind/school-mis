@@ -14,6 +14,7 @@ import {
 } from "./settings/schoolConfiguration/position/PositionReducers";
 import {
   createEmployeeTypeReducer,
+  deleteEmployeeTypeReducer,
   getAllEmployeeType,
   getSingleEmployeeTypeReducer,
   updateSingleEmployeeTypeReducer,
@@ -367,6 +368,7 @@ export const reducers = combineReducers({
   createEmployeeType: createEmployeeTypeReducer,
   getSingleEmployeeType: getSingleEmployeeTypeReducer,
   updateSingleEmployeeType: updateSingleEmployeeTypeReducer,
+  deleteEmployeeType : deleteEmployeeTypeReducer,
   employeeCategoryRole: getAllEmployeeCategoryRole,
   createEmployeeCategoryRole: createEmployeeCategoryRoleReducer,
   getSingleEmployeeCategoryRole: getSingleEmployeeCategoryRoleReducer,

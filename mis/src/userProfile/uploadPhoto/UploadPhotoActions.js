@@ -15,7 +15,7 @@ export const getAllUploadPhotoAction = () => async (dispatch) => {
     dispatch({ type: GET_ALL_UPLOADPHOTO_REQUEST });
 
     const { data } = await axios.get(
-      `${API_URL}/api/PID_PhotoUploadImage/GetSingleToEditPhoto`,
+      `${API_URL}/api/PID_PhotoUpload/GetSingleToEditPhoto`,
       tokenConfig
     );
 
@@ -40,7 +40,7 @@ export const putUploadPhotoAction =
       formData.append("ImageUploaded", image);
 
       const { data } = await axios.post(
-        `${API_URL}/api/PID_PhotoUploadImage/FileUpload`,
+        `${API_URL}/api/PID_PhotoUpload/FileUpload`,
         formData,
         tokenConfig
       );
@@ -52,7 +52,7 @@ export const putUploadPhotoAction =
         });
         console.log(jsonData)
         await axios.put(
-          `${API_URL}/api/PID_PhotoUploadImage/PutPhoto`,
+          `${API_URL}/api/PID_PhotoUpload/PutPhoto`,
           jsonData,
           tokenConfig
         );

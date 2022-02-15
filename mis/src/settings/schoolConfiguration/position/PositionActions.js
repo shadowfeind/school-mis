@@ -115,17 +115,17 @@ export const deletePositionAction = (position) => async (dispatch) => {
 
     const jsonData = JSON.stringify({ dbModel: position });
 
-    console.log(jsonData)
+    console.log(jsonData);
     debugger;
 
-     const {data} = await axios.delete(
+    await axios.delete(
       `${API_URL}/api/HRPosition/DeletePosition`,
-      jsonData,
-      tokenConfig,
+      { dbModel: position },
+      tokenConfig
     );
-    debugger
+    debugger;
 
-    dispatch({ type: DELETE_POSITION_SUCCESS});
+    dispatch({ type: DELETE_POSITION_SUCCESS });
   } catch (error) {
     dispatch({
       type: DELETE_POSITION_FAIL,

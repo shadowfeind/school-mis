@@ -3,7 +3,10 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import InputControl from "../../components/controls/InputControl";
 import { API_URL } from "../../constants";
-import { putUploadPhotoAction, uploadPhotoActionAction } from "./UploadPhotoActions";
+import {
+  putUploadPhotoAction,
+  uploadPhotoActionAction,
+} from "./UploadPhotoActions";
 
 const UploadPhotoForm = ({ uploadPhoto }) => {
   const [image, setImage] = useState(null);
@@ -21,12 +24,12 @@ const UploadPhotoForm = ({ uploadPhoto }) => {
   };
 
   const handleUploadImage = () => {
-    if(uploadPhoto){
-      dispatch(putUploadPhotoAction(image,uploadPhoto.dbModel))
-    }else{
-      console.log("failed")
+    if (uploadPhoto) {
+      dispatch(putUploadPhotoAction(image, uploadPhoto.dbModel));
+    } else {
+      console.log("failed");
     }
-  }
+  };
 
   return (
     <>
@@ -36,7 +39,15 @@ const UploadPhotoForm = ({ uploadPhoto }) => {
         type="file"
       />
 
-      <img src={imgSrc ? imgSrc : uploadPhoto && `${API_URL}${uploadPhoto.FullPath}`} height={200} width={200} />
+      <img
+        src={
+          imgSrc
+            ? imgSrc
+            : uploadPhoto && `${API_URL}${uploadPhoto.dbModel.FullPath}`
+        }
+        height={200}
+        width={200}
+      />
       <div
         style={{
           display: "flex",

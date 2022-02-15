@@ -2,23 +2,14 @@ import React, { useEffect, useState } from "react";
 import {
   withStyles,
   makeStyles,
-  Card,
-  TableContainer,
   Table,
   TableRow,
   TableBody,
-  TableHead,
   TableCell,
 } from "@material-ui/core";
 import useCustomTable from "../customHooks/useCustomTable";
 
 const useStyles = makeStyles((theme) => ({
-  cardStyle: {
-    margin: "10px",
-    padding: "20px",
-    borderRadius: "10px",
-    boxShadow: "5px 5px 5px #d4d4d4",
-  },
   table: {
     margin: "10px 0",
     "& thead th": {
@@ -50,27 +41,26 @@ const StyledTableRow = withStyles((theme) => ({
 }))(TableRow);
 
 const tableHeader = [
-  { id: "name", label: "Student Name" },
-  { id: "class", label: "Class" },
+  { id: "date", label: "Leave Date" },
   { id: "description", label: "Description" },
-  { id: "actions", label: "Actions", disableSorting: true },
+  { id: "actions", label: "Approved", disableSorting: true },
 ];
 
 const data = [
-  { id: 1, name: "Suresh M. Sanu", class: "NINE", description: "Very tired" },
-  { id: 2, name: "Kiran Rai", class: "TWO", description: "Sick Leave" },
-  { id: 3, name: "Amir Karmacharya", class: "NINE", description: "Headache" },
-  { id: 4, name: "Ram Lal", class: "EN", description: "Stomach ache" },
-  { id: 5, name: "Pappu Singh", class: "EIGHT", description: "COVID" },
-  { id: 6, name: "Gita Maharjan", class: "SEVEN", description: "Injured" },
-  { id: 7, name: "Angelina Jolie", class: "FIVE", description: "Very tired" },
-  { id: 8, name: "Suresh M. Sanu", class: "NINE", description: "Very tired" },
-  { id: 9, name: "Kiran Rai", class: "TWO", description: "Sick Leave" },
-  { id: 10, name: "Amir Karmacharya", class: "NINE", description: "Headache" },
-  { id: 11, name: "Ram Lal", class: "EN", description: "Stomach ache" },
-  { id: 12, name: "Pappu Singh", class: "EIGHT", description: "COVID" },
-  { id: 13, name: "Gita Maharjan", class: "SEVEN", description: "Injured" },
-  { id: 14, name: "Angelina Jolie", class: "FIVE", description: "Very tired" },
+  { id: 1, date: "01-02-2021", description: "Very tired", approved: true },
+  { id: 2, date: "01-02-2021", description: "Sick Leave", approved: true },
+  { id: 3, date: "01-02-2021", description: "Headache", approved: false },
+  { id: 4, date: "01-02-2021", description: "Stomach ache", approved: true },
+  { id: 5, date: "01-02-2021", description: "COVID", approved: true },
+  { id: 6, date: "01-02-2021", description: "Injured", approved: true },
+  { id: 7, date: "01-02-2021", description: "Very tired", approved: false },
+  { id: 8, date: "01-02-2021", description: "Very tired", approved: true },
+  { id: 9, date: "01-02-2021", description: "Sick Leave", approved: true },
+  { id: 10, date: "01-02-2021", description: "Headache", approved: true },
+  { id: 11, date: "EN", description: "Stomach ache", approved: false },
+  { id: 12, date: "01-02-2021", description: "COVID", approved: true },
+  { id: 13, date: "01-02-2021", description: "Injured", approved: true },
+  { id: 14, date: "01-02-2021", description: "Very tired", approved: true },
 ];
 
 const DashboardLeaveRequest = () => {
@@ -91,8 +81,7 @@ const DashboardLeaveRequest = () => {
     }
   }, [data]);
   return (
-    <Card className={classes.cardStyle}>
-      <h4 style={{ margin: "0" }}>Leave Request</h4>
+    <>
       <Table className={classes.table}>
         <TblHead />
 
@@ -100,38 +89,41 @@ const DashboardLeaveRequest = () => {
           {tableDataAfterPagingAndSorting().map((s) => (
             <StyledTableRow key={s.id}>
               <StyledTableCell component="th" scope="row">
-                {s.name}
+                {s.date}
               </StyledTableCell>
-              <StyledTableCell align="left">{s.class}</StyledTableCell>
+
               <StyledTableCell align="left">{s.description}</StyledTableCell>
               <StyledTableCell align="left">
-                <span
-                  style={{
-                    backgroundColor: "#ffd1d1",
-                    color: "#d14343",
-                    fontSize: "10px",
-                    padding: "5px 10px",
-                  }}
-                >
-                  Approve
-                </span>
-                <span
-                  style={{
-                    backgroundColor: "#ddfaff",
-                    color: "#4f7b7f",
-                    fontSize: "10px",
-                    padding: "5px 10px",
-                  }}
-                >
-                  Decline
-                </span>
+                {s.approved ? (
+                  <span
+                    style={{
+                      backgroundColor: "#ddfaff",
+                      color: "#4f7b7f",
+                      fontSize: "10px",
+                      padding: "5px 10px",
+                    }}
+                  >
+                    Approved
+                  </span>
+                ) : (
+                  <span
+                    style={{
+                      backgroundColor: "#ffd1d1",
+                      color: "#d14343",
+                      fontSize: "10px",
+                      padding: "5px 10px",
+                    }}
+                  >
+                    Declined
+                  </span>
+                )}
               </StyledTableCell>
             </StyledTableRow>
           ))}
         </TableBody>
       </Table>
       <TblPagination />
-    </Card>
+    </>
   );
 };
 

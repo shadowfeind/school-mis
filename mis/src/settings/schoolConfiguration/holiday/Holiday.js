@@ -29,24 +29,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const tableHeader = [
-  { id: "HolidayName", label: "Holiday Name" },
-  { id: "Description", label: "Description" },
-  { id: "FromDate", label: "FromDate" },
-  { id: "ToDate", label: "ToDate" },
-  { id: "IsActive", label: "IsActive" },
-  { id: "actions", label: "Actions", disableSorting: true },
-];
-
 const localizer = momentLocalizer(moment);
 
 const Holiday = () => {
-  const [tableData, setTableData] = useState([]);
-  const [filterFn, setFilterFn] = useState({
-    fn: (item) => {
-      return item;
-    },
-  });
   const [openPopup, setOpenPopup] = useState(false);
   const [notify, setNotify] = useState({
     isOpen: false,
@@ -128,9 +113,6 @@ const Holiday = () => {
   useEffect(() => {
     if (!holiday) {
       dispatch(getAllHolidayAction());
-    }
-    if (holiday) {
-      setTableData(holiday.att_HRHolidayModelLst);
     }
   }, [dispatch, holiday]);
 

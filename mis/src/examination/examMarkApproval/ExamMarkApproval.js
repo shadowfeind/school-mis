@@ -39,6 +39,7 @@ import {
   POST_BULK_EXAM_APPROVAL_RESET,
 } from "./ExamMarkApprovalConstants";
 import ExamMarkApprovalBulkBlank from "./ExamMarkApprovalBulkBlank";
+import ExamMarkApprovalBlankForm from "./ExamMarkApprovalBlankForm";
 
 const useStyles = makeStyles((theme) => ({
   searchInput: {
@@ -485,12 +486,8 @@ const ExamMarkApproval = () => {
         setOpenPopup={setOpenBulkPopup}
         title="Bulk Blank Edit"
       >
-        <ExamMarkApprovalBulkBlank
-          // statusBlankData={
-          //   bulkBlankData && bulkBlankData.searchFilterModel.ddlStudentExamStatus
-          // }
-          search={bulkBlankData && bulkBlankData.searchFilterModel}
-          bulkBlankData={bulkBlankData && bulkBlankData.dbModelLsts}
+        <ExamMarkApprovalBlankForm
+         blankData={bulkBlankData && bulkBlankData}
         />
       </Popup>
       <Notification notify={notify} setNotify={setNotify} />

@@ -19,8 +19,8 @@ import { useDispatch } from "react-redux";
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
-    backgroundColor: theme.palette.common.black,
-    color: theme.palette.common.white,
+    backgroundColor: theme.palette.common.white,
+    color: theme.palette.common.black,
   },
   body: {
     fontSize: 14,
@@ -29,14 +29,14 @@ const StyledTableCell = withStyles((theme) => ({
 
 const StyledTableRow = withStyles((theme) => ({
   root: {
-    "&:nth-of-type(odd)": {
+    "&:nth-of-type(even)": {
       backgroundColor: theme.palette.action.hover,
     },
   },
 }))(TableRow);
 const useStyles = makeStyles({
   table: {
-    minWidth: 700,
+    minWidth: 800,
   },
 });
 

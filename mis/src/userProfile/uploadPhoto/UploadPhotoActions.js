@@ -50,7 +50,7 @@ export const putUploadPhotoAction =
         const jsonData = JSON.stringify({
           dbModel: newData,
         });
-
+        console.log(jsonData)
         await axios.put(
           `${API_URL}/api/PID_PhotoUploadImage/PutPhoto`,
           jsonData,

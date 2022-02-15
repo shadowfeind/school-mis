@@ -158,6 +158,20 @@ const Header = () => {
               <Grid item sm></Grid>
               <Grid item>
                 <IconButton onClick={handleClick}>
+                  {headerContent && (
+                    <div>
+                      <span style={{ fontSize: "12px" }}>Welcome</span>{" "}
+                      <span
+                        style={{
+                          fontSize: "14px",
+                          fontWeight: "bold",
+                          paddingRight: "10px",
+                        }}
+                      >
+                        {headerContent.FullName}
+                      </span>
+                    </div>
+                  )}
                   <Badge badgeContent={2} color="secondary">
                     {headerContent && (
                       <img

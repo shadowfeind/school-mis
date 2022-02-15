@@ -195,6 +195,8 @@ import {
   postBulkStudentAttendanceReducer,
 } from "./examination/studentAttendance/StudentAttendanceReducers";
 import {
+  checkRegistrationForStudentReducer,
+  checkRollNoForStudentReducer,
   createSingleStudentRegistrationReducer,
   getCreateSingleStudentRegistrationDataReducer,
   getInitialStudentRegistrationDataReducer,
@@ -352,8 +354,24 @@ import {
   getListClassScheduleReducer,
   putClassScheduleReducer,
 } from "./settings/classSchedule/pg/ClassPgScheduleReducers";
-import { downloadOldQuestionsReducer, getAllOldQuestionsReducer, getListOldQuestionsReducer, getSingleCreateOldQuestionsReducer, getSingleEditOldQuestionsReducer, getSubjectOldQuestionsReducer, postFileUploadOldQuestionsReducer, postOldQuestionsReducer, putOldQuestionsReducer } from "./settings/oldQuestions/OldQuestionsReducers";
-import { getAllSyllabusReducer, getListSyllabusReducer, getSingleToEditSyllabusReducer, getSubjectSyllabusReducer, putSyllabusReducer } from "./settings/syllabus/syllabusPg/SyllabusReducers";
+import {
+  downloadOldQuestionsReducer,
+  getAllOldQuestionsReducer,
+  getListOldQuestionsReducer,
+  getSingleCreateOldQuestionsReducer,
+  getSingleEditOldQuestionsReducer,
+  getSubjectOldQuestionsReducer,
+  postFileUploadOldQuestionsReducer,
+  postOldQuestionsReducer,
+  putOldQuestionsReducer,
+} from "./settings/oldQuestions/OldQuestionsReducers";
+import {
+  getAllSyllabusReducer,
+  getListSyllabusReducer,
+  getSingleToEditSyllabusReducer,
+  getSubjectSyllabusReducer,
+  putSyllabusReducer,
+} from "./settings/syllabus/syllabusPg/SyllabusReducers";
 //examination reducers link end
 export const reducers = combineReducers({
   navLink: navLinkReducer,
@@ -361,7 +379,7 @@ export const reducers = combineReducers({
   createPosition: createPositionReducer,
   getSinglePosition: getSinglePositionReducer,
   updateSinglePosition: updateSinglePositionReducer,
-  deletePosition : deletePositionReducer,
+  deletePosition: deletePositionReducer,
   employeeType: getAllEmployeeType,
   createEmployeeType: createEmployeeTypeReducer,
   getSingleEmployeeType: getSingleEmployeeTypeReducer,
@@ -529,6 +547,8 @@ export const reducers = combineReducers({
   getCreateSingleStudentRegistrationData:
     getCreateSingleStudentRegistrationDataReducer,
   createSingleStudentRegistration: createSingleStudentRegistrationReducer,
+  checkRegistrationForStudent: checkRegistrationForStudentReducer,
+  checkRollNoForStudent: checkRollNoForStudentReducer,
   getAdmissionConfigInitialData: getAdmissionConfigInitialDataReducer,
   getAdmissionConfigListData: getAdmissionConfigListDataReducer,
   getSingleAdmissionConfig: getSingleAdmissionConfigReducer,
@@ -622,18 +642,18 @@ export const reducers = combineReducers({
   putClassSchedule: putClassScheduleReducer,
   //class schedule reducers ends
   //old question reducers start
-  getAllOldQuestions : getAllOldQuestionsReducer,
-  getListOldQuestions : getListOldQuestionsReducer,
-  getSubjectOldQuestions : getSubjectOldQuestionsReducer,
-  getSingleCreateOldQuestions : getSingleCreateOldQuestionsReducer,
-  getSingleEditOldQuestions : getSingleEditOldQuestionsReducer,
-  postOldQuestions : postOldQuestionsReducer,
-  putOldQuestions : putOldQuestionsReducer,
+  getAllOldQuestions: getAllOldQuestionsReducer,
+  getListOldQuestions: getListOldQuestionsReducer,
+  getSubjectOldQuestions: getSubjectOldQuestionsReducer,
+  getSingleCreateOldQuestions: getSingleCreateOldQuestionsReducer,
+  getSingleEditOldQuestions: getSingleEditOldQuestionsReducer,
+  postOldQuestions: postOldQuestionsReducer,
+  putOldQuestions: putOldQuestionsReducer,
   downloadOldQuestions: downloadOldQuestionsReducer,
   //old question reducers ends
   //Syllabus Reducers Start
-  getAllSyllabus : getAllSyllabusReducer,
-  getSingleToEditSyllabus : getSingleToEditSyllabusReducer,
-  getListSyllabus : getListSyllabusReducer,
-  putSyllabus : putSyllabusReducer,
+  getAllSyllabus: getAllSyllabusReducer,
+  getSingleToEditSyllabus: getSingleToEditSyllabusReducer,
+  getListSyllabus: getListSyllabusReducer,
+  putSyllabus: putSyllabusReducer,
 });

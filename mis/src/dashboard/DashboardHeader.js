@@ -6,7 +6,7 @@ import ArrowUpwardIcon from "@material-ui/icons/ArrowUpward";
 const useStyles = makeStyles((theme) => ({
   cardStyle: {
     margin: "10px",
-    padding: "30px 30px 10px",
+    padding: "20px 20px 10px",
     borderRadius: "10px",
     boxShadow: "5px 5px 5px #d4d4d4",
   },
@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
   smallHeading: {
     color: "#65748B",
     fontSize: "12px",
-    paddingLeft: "5px",
+    paddingLeft: "3%",
   },
 }));
 

@@ -1,4 +1,12 @@
 import {
+  CHECK_REGISTRATION_FOR_STUDENT_FAIL,
+  CHECK_REGISTRATION_FOR_STUDENT_REQUEST,
+  CHECK_REGISTRATION_FOR_STUDENT_RESET,
+  CHECK_REGISTRATION_FOR_STUDENT_SUCCESS,
+  CHECK_ROLLNO_FOR_STUDENT_FAIL,
+  CHECK_ROLLNO_FOR_STUDENT_REQUEST,
+  CHECK_ROLLNO_FOR_STUDENT_RESET,
+  CHECK_ROLLNO_FOR_STUDENT_SUCCESS,
   CREATE_SINGLE_STUDENT_REGISTRATION_FAIL,
   CREATE_SINGLE_STUDENT_REGISTRATION_REQUEST,
   CREATE_SINGLE_STUDENT_REGISTRATION_RESET,
@@ -133,6 +141,44 @@ export const createSingleStudentRegistrationReducer = (state = {}, action) => {
     case CREATE_SINGLE_STUDENT_REGISTRATION_FAIL:
       return { loading: false, error: action.payload };
     case CREATE_SINGLE_STUDENT_REGISTRATION_RESET:
+      return {};
+    default:
+      return state;
+  }
+};
+
+export const checkRegistrationForStudentReducer = (state = {}, action) => {
+  switch (action.type) {
+    case CHECK_REGISTRATION_FOR_STUDENT_REQUEST:
+      return { loading: true };
+    case CHECK_REGISTRATION_FOR_STUDENT_SUCCESS:
+      return {
+        loading: false,
+        success: true,
+        data: action.payload,
+      };
+    case CHECK_REGISTRATION_FOR_STUDENT_FAIL:
+      return { loading: false, error: action.payload };
+    case CHECK_REGISTRATION_FOR_STUDENT_RESET:
+      return {};
+    default:
+      return state;
+  }
+};
+
+export const checkRollNoForStudentReducer = (state = {}, action) => {
+  switch (action.type) {
+    case CHECK_ROLLNO_FOR_STUDENT_REQUEST:
+      return { loading: true };
+    case CHECK_ROLLNO_FOR_STUDENT_SUCCESS:
+      return {
+        loading: false,
+        success: true,
+        data: action.payload,
+      };
+    case CHECK_ROLLNO_FOR_STUDENT_FAIL:
+      return { loading: false, error: action.payload };
+    case CHECK_ROLLNO_FOR_STUDENT_RESET:
       return {};
     default:
       return state;

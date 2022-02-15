@@ -2,14 +2,20 @@ import React, { useEffect, useState } from "react";
 import { Button, Grid } from "@material-ui/core";
 import InputControl from "../../components/controls/InputControl";
 import { useForm, Form } from "../../customHooks/useForm";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import SelectControl from "../../components/controls/SelectControl";
 import DatePickerControl from "../../components/controls/DatePickerControl";
 import { API_URL } from "../../constants";
 import {
+  checkRegistrationForStudentAction,
+  checkRollNoForStudentAction,
   createSingleStudentRegistrationAction,
   singleStudentRegistrationEditAction,
 } from "./StudentRegistrationActions";
+import {
+  CHECK_REGISTRATION_FOR_STUDENT_RESET,
+  CHECK_ROLLNO_FOR_STUDENT_RESET,
+} from "./StudentRegistrationConstants";
 
 const initialFormValues = {
   IDAdmissionRegistration: 0,
@@ -179,8 +185,6 @@ const StudentRegistrationForm = ({
     temp.idAcademicYear = !fieldValues.idAcademicYear.length !== 0 ? "" : "";
     temp.RegistrationKey = !fieldValues.RegistrationKey
       ? "This feild is required"
-      : !fieldValues.RegistrationKey
-      ? "This Registration Number Already Exist"
       : !fieldValues.RegistrationKey.trim()
       ? "This feild is required"
       : "";
@@ -202,7 +206,7 @@ const StudentRegistrationForm = ({
 
     temp.MobileNo = !fieldValues.MobileNo
       ? "This feild is required"
-      : !fieldValues.MobileNo >9
+      : !fieldValues.MobileNo > 9
       ? "Number must be atleast 10."
       : "";
 
@@ -228,15 +232,16 @@ const StudentRegistrationForm = ({
     temp.IDLevel = !fieldValues.IDLevel ? "This feild is required" : "";
     temp.Section = !fieldValues.Section ? "This feild is required" : "";
 
-    temp.FatherContactNo = !fieldValues.FatherContactNo ? "This feild is required" 
-    : !fieldValues.FatherContactNo.length>9
-    ? "Must be atleast 10 number"
-    : "";
-    temp.LocalGuardianContactNo = !fieldValues.LocalGuardianContactNo ? "This feild is required" 
-    : !fieldValues.LocalGuardianContactNo.length>9
-    ? "Must be atleast 10 number"
-    : "";
-    
+    temp.FatherContactNo = !fieldValues.FatherContactNo
+      ? "This feild is required"
+      : !fieldValues.FatherContactNo.length > 9
+      ? "Must be atleast 10 number"
+      : "";
+    temp.LocalGuardianContactNo = !fieldValues.LocalGuardianContactNo
+      ? "This feild is required"
+      : !fieldValues.LocalGuardianContactNo.length > 9
+      ? "Must be atleast 10 number"
+      : "";
 
     // temp.FatherContactNo = !fieldValues.FatherContactNo
     //   ? "This feild is required"
@@ -244,7 +249,6 @@ const StudentRegistrationForm = ({
     // temp.LocalGuardianContactNo = !fieldValues.LocalGuardianContactNo
     //   ? "This feild is required"
     //   : "";
-
 
     temp.ClassLocation =
       fieldValues.ClassLocation && fieldValues.ClassLocation.length > 200
@@ -256,6 +260,31 @@ const StudentRegistrationForm = ({
   };
   const { values, setValues, handleInputChange, errors, setErrors } =
     useForm(initialFormValues);
+
+  const { error: regCheckError, success: regCheckSuccess } = useSelector(
+    (state) => state.checkRegistrationForStudent
+  );
+
+  const { error: rollCheckError, success: rollCheckSuccess } = useSelector(
+    (state) => state.checkRollNoForStudent
+  );
+
+  if (regCheckError) {
+    setErrors((prev) => ({ ...prev, RegistrationKey: regCheckError }));
+    dispatch({ type: CHECK_REGISTRATION_FOR_STUDENT_RESET });
+  }
+  if (regCheckSuccess) {
+    setErrors((prev) => ({ ...prev, RegistrationKey: "" }));
+    dispatch({ type: CHECK_REGISTRATION_FOR_STUDENT_RESET });
+  }
+  if (rollCheckError) {
+    setErrors((prev) => ({ ...prev, RollNo: rollCheckError }));
+    dispatch({ type: CHECK_ROLLNO_FOR_STUDENT_RESET });
+  }
+  if (rollCheckSuccess) {
+    setErrors((prev) => ({ ...prev, RollNo: "" }));
+    dispatch({ type: CHECK_ROLLNO_FOR_STUDENT_RESET });
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -315,6 +344,35 @@ const StudentRegistrationForm = ({
     reader.readAsDataURL(imageFile);
     setImage(event.target.files[0]);
   };
+
+  const handleRollNo = (id) => {
+    if (
+      (values.idAcademicYear !== 0) &
+      (values.IDLevel !== 0) &
+      (values.idFacultyProgramLink !== 0) &
+      (values.Section !== 0)
+    ) {
+      dispatch(
+        checkRollNoForStudentAction(
+          values.idAcademicYear,
+          values.idFacultyProgramLink,
+          values.IDLevel,
+          values.Section,
+          id
+        )
+      );
+      setErrors((prev) => ({
+        ...prev,
+        RollNo: "",
+      }));
+    } else {
+      setErrors((prev) => ({
+        ...prev,
+        RollNo: "please select Academic Year, Faculty Path, Class and Section",
+      }));
+    }
+  };
+
   return (
     <Form onSubmit={handleSubmit}>
       <Grid container style={{ fontSize: "12px" }}>
@@ -353,6 +411,9 @@ const StudentRegistrationForm = ({
             label="Registration No.*"
             value={values.RegistrationKey}
             onChange={handleInputChange}
+            onBlur={(e) =>
+              dispatch(checkRegistrationForStudentAction(e.target.value))
+            }
             errors={errors.RegistrationKey}
           />
         </Grid>
@@ -388,7 +449,9 @@ const StudentRegistrationForm = ({
             name="RollNo"
             label="Roll No.*"
             value={values.RollNo}
+            type="number"
             onChange={handleInputChange}
+            onBlur={(e) => handleRollNo(e.target.value)}
             errors={errors.RollNo}
           />
         </Grid>

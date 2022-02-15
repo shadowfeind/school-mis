@@ -1,6 +1,9 @@
 import axios from "axios";
 import { API_URL, tokenConfig } from "../../constants";
 import {
+  CHECK_REGISTRATION_FOR_STUDENT_FAIL,
+  CHECK_REGISTRATION_FOR_STUDENT_REQUEST,
+  CHECK_REGISTRATION_FOR_STUDENT_SUCCESS,
   CREATE_SINGLE_STUDENT_REGISTRATION_FAIL,
   CREATE_SINGLE_STUDENT_REGISTRATION_REQUEST,
   CREATE_SINGLE_STUDENT_REGISTRATION_SUCCESS,
@@ -239,6 +242,54 @@ export const createSingleStudentRegistrationAction =
       dispatch({
         type: CREATE_SINGLE_STUDENT_REGISTRATION_FAIL,
         payload: error.message ? error.message : error.Message,
+      });
+    }
+  };
+
+export const checkRegistrationForStudentAction = (id) => async (dispatch) => {
+  try {
+    dispatch({ type: CHECK_REGISTRATION_FOR_STUDENT_REQUEST });
+
+    const { data } = await axios.get(
+      `${API_URL}/api/StudentRegistration/CheckRegistrationNo?registrationKey=${id}`,
+      tokenConfig
+    );
+
+    dispatch({
+      type: CHECK_REGISTRATION_FOR_STUDENT_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: CHECK_REGISTRATION_FOR_STUDENT_FAIL,
+      payload: error.response.data.Message
+        ? error.response.data.Message
+        : error.message,
+    });
+  }
+};
+
+export const checkRollNoForStudentAction =
+  (year, program, classId, section, rollNo) => async (dispatch) => {
+    console.log(year, program, classId, section, rollNo);
+    try {
+      dispatch({ type: CHECK_REGISTRATION_FOR_STUDENT_REQUEST });
+
+      const { data } = await axios.get(
+        `${API_URL}/api/StudentRegistration/CheckRollNo?idAcademicYear=${year}&idFacultyProgramLink=${program}&idLevel=${classId}&section=${section}&rollNo=${rollNo}`,
+        tokenConfig
+      );
+
+      dispatch({
+        type: CHECK_REGISTRATION_FOR_STUDENT_SUCCESS,
+        payload: data,
+      });
+    } catch (error) {
+      dispatch({
+        type: CHECK_REGISTRATION_FOR_STUDENT_FAIL,
+        payload: error.response.data.Message
+          ? error.response.data.Message
+          : error.message,
       });
     }
   };

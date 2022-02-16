@@ -109,16 +109,20 @@ export const updateSingleEmployeeTypeAction =
     }
   };
 
-  export const deleteEmployeeTypeAction = (id) => async (dispatch) => {
+  export const deleteEmployeeTypeAction =
+  (employeeType) => async (dispatch) => {
     try {
       dispatch({ type: DELETE_EMPLOYEE_TYPE_REQUEST });
-  
-      const { data } = await axios.get(
-        `${API_URL}/api/HREmployee/DeleteEmployee`,
+
+      const jsonData = JSON.stringify({ hrEmployeeTypeModel: employeeType });
+
+      await axios.post(
+        `${API_URL}/api/HREmployeeType/DeleteEmployeeType`,
+        jsonData,
         tokenConfig
       );
-  
-      dispatch({ type: DELETE_EMPLOYEE_TYPE_SUCCESS, payload: data });
+
+      dispatch({ type: DELETE_EMPLOYEE_TYPE_SUCCESS });
     } catch (error) {
       dispatch({
         type: DELETE_EMPLOYEE_TYPE_FAIL,

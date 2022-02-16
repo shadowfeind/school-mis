@@ -21,6 +21,7 @@ import {
 } from "./settings/schoolConfiguration/employeeType/EmployeeTypeReducers";
 import {
   createEmployeeCategoryRoleReducer,
+  deleteEmployeeCategoryRoleReducer,
   getAllEmployeeCategoryRole,
   getSingleEmployeeCategoryRoleReducer,
   updateSingleEmployeeCategoryRoleReducer,
@@ -42,6 +43,7 @@ import {
 } from "./settings/employeeManagement/employee/EmployeeReducers";
 import {
   createRoleReducer,
+  deleteRoleReducer,
   getAllRoles,
   getSingleRoleReducer,
   updateSingleRoleReducer,
@@ -166,6 +168,7 @@ import {
   printFinalResultReducer,
 } from "./examination/examResult/ExamResultReducers";
 import {
+  deleteExamScheduleReducer,
   getAllExamScheduleInitialDataReducer,
   getEventForExamScheduleReducer,
   getExamScheduleListReducer,
@@ -394,6 +397,7 @@ export const reducers = combineReducers({
   employeeCategoryRole: getAllEmployeeCategoryRole,
   createEmployeeCategoryRole: createEmployeeCategoryRoleReducer,
   getSingleEmployeeCategoryRole: getSingleEmployeeCategoryRoleReducer,
+  deleteEmployeeCategoryRole : deleteEmployeeCategoryRoleReducer,
   updateSingleEmployeeCategoryRole: updateSingleEmployeeCategoryRoleReducer,
   holiday: getAllHoliday,
   createHoliday: createHolidayReducer,
@@ -410,6 +414,7 @@ export const reducers = combineReducers({
   createRole: createRoleReducer,
   getSingleRole: getSingleRoleReducer,
   updateSingleRole: updateSingleRoleReducer,
+  deleteRole : deleteRoleReducer,
   academicClass: getAllAcademicClass,
   createAcademicClass: createAcademicClassReducer,
   getSingleAcademicClass: getSingleAcademicClassReducer,
@@ -538,6 +543,7 @@ export const reducers = combineReducers({
   postSingleExamScheduleCreate: postSingleExamScheduleCreateReducer,
   getSingleExamScheduleEdit: getSingleExamScheduleEditReducer,
   singleExamScheduleEdit: singleExamScheduleEditReducer,
+  deleteExamSchedule : deleteExamScheduleReducer,
   //examination reducers end
   //registration reducers starts
   getCounterConfigInitialData: getCounterConfigInitialDataReducer,

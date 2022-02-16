@@ -139,7 +139,7 @@ const EmployeeType = () => {
       type: "success",
     });
     setOpenDeletePopup(false);
-    dispatch({ type: DELETE_POSITION_RESET });
+    dispatch({ type: DELETE_EMPLOYEE_TYPE_RESET });
   }
 
   if (updateSingleEmployeeTypeError) {

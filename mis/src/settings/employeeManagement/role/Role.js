@@ -16,15 +16,17 @@ import { useDispatch, useSelector } from "react-redux";
 import Notification from "../../../components/Notification";
 import ConfirmDialog from "../../../components/ConfirmDialog";
 
-import { getAllRolesAction, getSingleRoleAction } from "./RoleActions";
+import { deleteRoleAction, getAllRolesAction, getSingleRoleAction } from "./RoleActions";
 import RoleTableCollapse from "./RoleTableCollapse";
 import RoleForm from "./RoleForm";
 import {
+  DELETE_ROLE_RESET,
   GET_ALL_ROLE_RESET,
   GET_SINGLE_ROLE_RESET,
   ROLE_CREATE_RESET,
   UPDATE_SINGLE_ROLE_RESET,
 } from "./RoleConstant";
+import RoleDeleteForm from "./RoleDeleteForm";
 
 const useStyles = makeStyles((theme) => ({
   searchInput: {
@@ -54,6 +56,7 @@ const Role = () => {
     },
   });
   const [openPopup, setOpenPopup] = useState(false);
+  const [openDeletePopup, setOpenDeletePopup] = useState(false);
   const [notify, setNotify] = useState({
     isOpen: false,
     message: "",
@@ -81,6 +84,9 @@ const Role = () => {
 
   const { success: updateSingleRoleSuccess, error: updateSingleRoleError } =
     useSelector((state) => state.updateSingleRole);
+
+  const { success: deleteRoleSuccess, error: deleteRoleError } =
+    useSelector((state) => state.deleteRole);
 
   if (error) {
     setNotify({
@@ -115,6 +121,17 @@ const Role = () => {
     dispatch({ type: UPDATE_SINGLE_ROLE_RESET });
   }
 
+  if (deleteRoleError) {
+    setNotify({
+      isOpen: true,
+      message: deleteRoleError,
+      type: "error",
+    });
+    setOpenDeletePopup(false)
+    dispatch({ type: DELETE_ROLE_RESET });
+  }
+
+
   if (createRoleSuccess) {
     dispatch(getAllRolesAction());
     setNotify({
@@ -137,17 +154,25 @@ const Role = () => {
     dispatch({ type: UPDATE_SINGLE_ROLE_RESET });
   }
 
+  if (deleteRoleSuccess) {
+    dispatch(getAllRolesAction());
+    setNotify({
+      isOpen: true,
+      message: "Deleted Succesfully",
+      type: "success",
+    });
+    setOpenDeletePopup(false);
+    dispatch({ type: DELETE_ROLE_RESET });
+  }
+
   const updateCollegeHandler = (id) => {
     dispatch(getSingleRoleAction(id));
     setOpenPopup(true);
   };
 
   const deleteCollegeHandler = (id) => {
-    setConfirmDialog({
-      isOpen: true,
-      title: "Are you sure you want to Delete this record?",
-      subTitle: "You cannot undo this action",
-    });
+   dispatch(getSingleRoleAction(id));
+   setOpenDeletePopup(true);
   };
 
   useEffect(() => {
@@ -220,6 +245,8 @@ const Role = () => {
                 key={item.$id}
                 updateCollegeHandler={updateCollegeHandler}
                 deleteCollegeHandler={deleteCollegeHandler}
+                setOpenPopup={setOpenPopup}
+                setOpenDeletePopup={setOpenDeletePopup}
               />
             ))}
           </TableBody>
@@ -234,6 +261,16 @@ const Role = () => {
         <RoleForm
           role={singleRole && singleRole.hrRoleModel}
           setOpenPopup={setOpenPopup}
+        />
+      </Popup>
+      <Popup
+      openPopup={openDeletePopup}
+      setOpenPopup={setOpenDeletePopup}
+      title="Employee Role Delete Form"
+      >
+        <RoleDeleteForm
+        deleteRole={singleRole && singleRole.hrRoleModel}
+        setOpenDeletePopup={setOpenDeletePopup}
         />
       </Popup>
       <Notification notify={notify} setNotify={setNotify} />

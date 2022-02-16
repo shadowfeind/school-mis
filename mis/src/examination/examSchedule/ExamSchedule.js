@@ -17,6 +17,7 @@ import Notification from "../../components/Notification";
 import ConfirmDialog from "../../components/ConfirmDialog";
 import SelectControl from "../../components/controls/SelectControl";
 import {
+  DELETE_EXAM_SCHEDULE_RESET,
   GET_ALL_EXAM_SCHEDULE_INITIAL_DATA_RESET,
   GET_EVENT_FOR_EXAM_SCHEDULE_RESET,
   GET_SINGLE_EXAM_SCHEDULE_CREATE_RESET,
@@ -33,6 +34,7 @@ import {
 } from "./ExamScheduleActions";
 import ExamScheduleTableCollapse from "./ExamScheduleTableCollapse";
 import ExamScheduleForm from "./ExamScheduleForm";
+import ExamScheduleDeleteForm from "./ExamScheduleDeleteForm";
 
 const useStyles = makeStyles((theme) => ({
   searchInput: {
@@ -83,6 +85,7 @@ const ExamSchedule = () => {
     },
   });
   const [openPopup, setOpenPopup] = useState(false);
+  const [openDeletePopup, setOpenDeletePopup] = useState(false);
   const [notify, setNotify] = useState({
     isOpen: false,
     message: "",
@@ -138,6 +141,11 @@ const ExamSchedule = () => {
     success: singleExamScheduleEditSuccess,
     error: putSingleExamScheduleEditError,
   } = useSelector((state) => state.singleExamScheduleEdit);
+
+  const {
+    success: deleteExamScheduleSuccess,
+    error: deleteExamScheduleError,
+  } = useSelector((state) => state.deleteExamSchedule);
 
   if (singleExamScheduleCreateError) {
     setNotify({
@@ -215,6 +223,27 @@ const ExamSchedule = () => {
     dispatch({ type: GET_EVENT_FOR_EXAM_SCHEDULE_RESET });
   }
 
+  if (deleteExamScheduleError) {
+    setNotify({
+      isOpen: true,
+      message: deleteExamScheduleError,
+      type: "error",
+    });
+    setOpenDeletePopup(false);
+    dispatch({ type: DELETE_EXAM_SCHEDULE_RESET });
+  }
+
+  if (deleteExamScheduleSuccess) {
+    dispatch(getExamScheduleListAction(acaYear, programValue, classId, event));
+    setNotify({
+      isOpen: true,
+      message: "Deleted Succesfully",
+      type: "success",
+    });
+    setOpenDeletePopup(false);
+    dispatch({ type: DELETE_EXAM_SCHEDULE_RESET });
+  }
+
   useEffect(() => {
     dispatch({ type: "GET_LINK", payload: "examination" });
     if (!examScheduleInitialData) {
@@ -278,12 +307,12 @@ const ExamSchedule = () => {
       dispatch(
         getSingleExamScheduleCreateAction(acaYear, programValue, classId, event)
       );
+      dispatch({type:GET_SINGLE_EXAM_SCHEDULE_EDIT_RESET});
       setOpenPopup(true);
     }
   };
 
   const updateCollegeHandler = (id) => {
-    dispatch({ type: GET_SINGLE_EXAM_SCHEDULE_CREATE_RESET });
     dispatch(
       getSingleExamScheduleEditAction(
         id,
@@ -296,11 +325,12 @@ const ExamSchedule = () => {
     setOpenPopup(true);
   };
   const deleteCollegeHandler = (id) => {
-    setConfirmDialog({
-      isOpen: true,
-      title: "Are you sure you want to Delete this record?",
-      subTitle: "You cannot undo this action",
-    });
+    dispatch(getSingleExamScheduleEditAction(id,
+      examScheduleList.searchFilterModel.idAcademicYear,
+      examScheduleList.searchFilterModel.idFacultyProgramLink,
+      examScheduleList.searchFilterModel.level,
+      examScheduleList.searchFilterModel.idAcademicYearCalendar));
+    setOpenDeletePopup(true);
   };
   return (
     <>
@@ -398,6 +428,8 @@ const ExamSchedule = () => {
                   subjects={examScheduleList.ddlSubject}
                   updateCollegeHandler={updateCollegeHandler}
                   deleteCollegeHandler={deleteCollegeHandler}
+                  setOpenPopup={setOpenPopup}
+                  setOpenDeletePopup={setOpenDeletePopup}
                 />
               ))}
             </TableBody>
@@ -418,6 +450,16 @@ const ExamSchedule = () => {
           examScheduleEdit={singleExamScheduleEdit && singleExamScheduleEdit}
           setOpenPopup={setOpenPopup}
         />
+      </Popup>
+      <Popup
+      openPopup={openDeletePopup}
+      setOpenPopup={setOpenDeletePopup}
+      title="Exam Schedule Delete Form"
+      >
+      <ExamScheduleDeleteForm
+      examScheduleDelete={singleExamScheduleEdit && singleExamScheduleEdit}
+      setOpenDeletePopup={setOpenDeletePopup}
+      />
       </Popup>
       <Notification notify={notify} setNotify={setNotify} />
       <ConfirmDialog

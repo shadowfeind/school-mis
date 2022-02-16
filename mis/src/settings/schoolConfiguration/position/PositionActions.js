@@ -115,7 +115,6 @@ export const deletePositionAction = (position) => async (dispatch) => {
 
     const jsonData = JSON.stringify({ dbModel: position });
 
-    console.log(jsonData);
 
     await axios.post(
       `${API_URL}/api/HRPosition/DeletePosition`,

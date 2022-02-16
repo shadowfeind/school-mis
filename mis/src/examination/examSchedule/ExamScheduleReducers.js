@@ -1,4 +1,8 @@
 import {
+  DELETE_EXAM_SCHEDULE_FAIL,
+  DELETE_EXAM_SCHEDULE_REQUEST,
+  DELETE_EXAM_SCHEDULE_RESET,
+  DELETE_EXAM_SCHEDULE_SUCCESS,
   GET_ALL_EXAM_SCHEDULE_INITIAL_DATA_FAIL,
   GET_ALL_EXAM_SCHEDULE_INITIAL_DATA_REQUEST,
   GET_ALL_EXAM_SCHEDULE_INITIAL_DATA_RESET,
@@ -128,6 +132,21 @@ export const singleExamScheduleEditReducer = (state = {}, action) => {
     case SINGLE_EXAM_SCHEDULE_EDIT_FAIL:
       return { loading: false, error: action.payload };
     case SINGLE_EXAM_SCHEDULE_EDIT_RESET:
+      return {};
+    default:
+      return state;
+  }
+};
+
+export const deleteExamScheduleReducer = (state = {}, action) => {
+  switch (action.type) {
+    case DELETE_EXAM_SCHEDULE_REQUEST:
+      return { loading: true };
+    case DELETE_EXAM_SCHEDULE_SUCCESS:
+      return { loading: false, success: true };
+    case DELETE_EXAM_SCHEDULE_FAIL:
+      return { loading: false, error: action.payload };
+    case DELETE_EXAM_SCHEDULE_RESET:
       return {};
     default:
       return state;

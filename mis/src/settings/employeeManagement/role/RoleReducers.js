@@ -1,4 +1,8 @@
 import {
+  DELETE_ROLE_FAIL,
+  DELETE_ROLE_REQUEST,
+  DELETE_ROLE_RESET,
+  DELETE_ROLE_SUCCESS,
   GET_ALL_ROLE_FAIL,
   GET_ALL_ROLE_REQUEST,
   GET_ALL_ROLE_RESET,
@@ -71,6 +75,21 @@ export const updateSingleRoleReducer = (state = {}, action) => {
     case UPDATE_SINGLE_ROLE_FAIL:
       return { loading: false, error: action.payload };
     case UPDATE_SINGLE_ROLE_RESET:
+      return {};
+    default:
+      return state;
+  }
+};
+
+export const deleteRoleReducer = (state = {}, action) => {
+  switch (action.type) {
+    case DELETE_ROLE_REQUEST:
+      return { loading: true };
+    case DELETE_ROLE_SUCCESS:
+      return { loading: false, success: true };
+    case DELETE_ROLE_FAIL:
+      return { loading: false, error: action.payload };
+    case DELETE_ROLE_RESET:
       return {};
     default:
       return state;

@@ -1,6 +1,9 @@
 import axios from "axios";
 import { API_URL, tokenConfig } from "../../../constants";
 import {
+  DELETE_EMPLOYEE_CATEGORY_ROLE_FAIL,
+  DELETE_EMPLOYEE_CATEGORY_ROLE_REQUEST,
+  DELETE_EMPLOYEE_CATEGORY_ROLE_SUCCESS,
   EMPLOYEE_CATEGORY_ROLE_CREATE_FAIL,
   EMPLOYEE_CATEGORY_ROLE_CREATE_REQUEST,
   EMPLOYEE_CATEGORY_ROLE_CREATE_SUCCESS,
@@ -108,6 +111,35 @@ export const updateSingleEmployeeCategoryRoleAction =
     } catch (error) {
       dispatch({
         type: UPDATE_SINGLE_EMPLOYEE_CATEGORY_ROLE_FAIL,
+        payload: error.message ? error.message : error.Message,
+      });
+    }
+  };
+
+ 
+  export const deleteEmployeeCategoryRoleAction =
+  (categoryDeleteRole) => async (dispatch) => {
+    
+    try {
+      
+      dispatch({ type: DELETE_EMPLOYEE_CATEGORY_ROLE_REQUEST });
+      
+      const jsonData = JSON.stringify({ dbModel: categoryDeleteRole });
+      
+      await axios.post(
+        `${API_URL}/api/HREmployeeCategoryRole/DeleteHREmployeeCategoryRole`,
+        jsonData,
+        tokenConfig
+      );
+        
+      dispatch({
+        type: DELETE_EMPLOYEE_CATEGORY_ROLE_SUCCESS
+      });
+      
+    } catch (error) {
+      
+      dispatch({
+        type: DELETE_EMPLOYEE_CATEGORY_ROLE_FAIL,
         payload: error.message ? error.message : error.Message,
       });
     }

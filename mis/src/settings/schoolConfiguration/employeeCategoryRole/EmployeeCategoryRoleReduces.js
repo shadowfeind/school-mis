@@ -1,4 +1,8 @@
 import {
+  DELETE_EMPLOYEE_CATEGORY_ROLE_FAIL,
+  DELETE_EMPLOYEE_CATEGORY_ROLE_REQUEST,
+  DELETE_EMPLOYEE_CATEGORY_ROLE_RESET,
+  DELETE_EMPLOYEE_CATEGORY_ROLE_SUCCESS,
   EMPLOYEE_CATEGORY_ROLE_CREATE_FAIL,
   EMPLOYEE_CATEGORY_ROLE_CREATE_REQUEST,
   EMPLOYEE_CATEGORY_ROLE_CREATE_RESET,
@@ -84,3 +88,22 @@ export const updateSingleEmployeeCategoryRoleReducer = (state = {}, action) => {
       return state;
   }
 };
+
+export const deleteEmployeeCategoryRoleReducer = (state = {}, action) => {
+  switch (action.type) {
+    case DELETE_EMPLOYEE_CATEGORY_ROLE_REQUEST:
+      return { loading: true };
+    case DELETE_EMPLOYEE_CATEGORY_ROLE_SUCCESS:
+      return {
+        loading: false,
+        success: true,
+      };
+    case DELETE_EMPLOYEE_CATEGORY_ROLE_FAIL:
+      return { loading: false, error: action.payload };
+    case DELETE_EMPLOYEE_CATEGORY_ROLE_RESET:
+      return {};
+    default:
+      return state;
+  }
+};
+

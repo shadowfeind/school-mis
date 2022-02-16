@@ -4,6 +4,9 @@ import {
   CHECK_REGISTRATION_FOR_STUDENT_FAIL,
   CHECK_REGISTRATION_FOR_STUDENT_REQUEST,
   CHECK_REGISTRATION_FOR_STUDENT_SUCCESS,
+  CHECK_ROLLNO_FOR_STUDENT_FAIL,
+  CHECK_ROLLNO_FOR_STUDENT_REQUEST,
+  CHECK_ROLLNO_FOR_STUDENT_SUCCESS,
   CREATE_SINGLE_STUDENT_REGISTRATION_FAIL,
   CREATE_SINGLE_STUDENT_REGISTRATION_REQUEST,
   CREATE_SINGLE_STUDENT_REGISTRATION_SUCCESS,
@@ -273,7 +276,7 @@ export const checkRollNoForStudentAction =
   (year, program, classId, section, rollNo) => async (dispatch) => {
     console.log(year, program, classId, section, rollNo);
     try {
-      dispatch({ type: CHECK_REGISTRATION_FOR_STUDENT_REQUEST });
+      dispatch({ type: CHECK_ROLLNO_FOR_STUDENT_REQUEST });
 
       const { data } = await axios.get(
         `${API_URL}/api/StudentRegistration/CheckRollNo?idAcademicYear=${year}&idFacultyProgramLink=${program}&idLevel=${classId}&section=${section}&rollNo=${rollNo}`,
@@ -281,12 +284,12 @@ export const checkRollNoForStudentAction =
       );
 
       dispatch({
-        type: CHECK_REGISTRATION_FOR_STUDENT_SUCCESS,
+        type: CHECK_ROLLNO_FOR_STUDENT_SUCCESS,
         payload: data,
       });
     } catch (error) {
       dispatch({
-        type: CHECK_REGISTRATION_FOR_STUDENT_FAIL,
+        type: CHECK_ROLLNO_FOR_STUDENT_FAIL,
         payload: error.response.data.Message
           ? error.response.data.Message
           : error.message,

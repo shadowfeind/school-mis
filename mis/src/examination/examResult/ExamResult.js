@@ -60,6 +60,7 @@ const ExamResult = () => {
   const [ddlSection, setDdlSection] = useState([]);
   const [ddlEvent, setDdlEvent] = useState([]);
   const [ddlStudent, setDdlStudent] = useState([]);
+  const [ddlNpYear, setDdlNpYear] = useState([]);
   const [programValue, setProgramValue] = useState("");
   const [classId, setClassId] = useState("");
   const [acaYear, setAcaYear] = useState("");
@@ -69,6 +70,7 @@ const ExamResult = () => {
   const [student, setStudent] = useState(0);
   const [date, setDate] = useState("2022-01-28");
   const [dateValue, setDateValue] = useState("2022-01-28");
+  const [npYear, setNpYear] = useState("");
   const [errors, setErrors] = useState([]);
   const dispatch = useDispatch();
   const classes = useStyles();
@@ -183,6 +185,7 @@ const ExamResult = () => {
       );
       setDdlShift(examResultInitialDatas.searchFilterModel.ddlAcademicShift);
       setDdlSection(examResultInitialDatas.searchFilterModel.ddlSection);
+      setDdlNpYear(examResultInitialDatas.searchFilterModel.ddlnpYear);
     }
   }, [examResultInitialDatas, dispatch]);
 
@@ -194,6 +197,7 @@ const ExamResult = () => {
     temp.shift1 = !shift ? "This feild is required" : "";
     temp.section = !section ? "This feild is required" : "";
     temp.event = !event ? "This feild is required" : "";
+    temp.npYear = !npYear ? "This feild is required" : "";
 
     setErrors({ ...temp });
     return Object.values(temp).every((x) => x === "");
@@ -256,9 +260,7 @@ const ExamResult = () => {
 
   const handleLedgerSearch = () => {
     setShowAnnualLedger(false);
-    if (
-      validate(acaYear, programValue, classId, section, shift, event, student)
-    ) {
+    if (validate()) {
       dispatch(
         getExamResultListAction(
           acaYear,
@@ -267,7 +269,9 @@ const ExamResult = () => {
           section,
           shift,
           event,
-          student
+          student,
+          date,
+          npYear
         )
       );
       setShowDatatable(true);
@@ -289,7 +293,8 @@ const ExamResult = () => {
           shift,
           event,
           student,
-          date
+          date,
+          npYear
         )
       );
     }
@@ -306,7 +311,9 @@ const ExamResult = () => {
           section,
           shift,
           event,
-          student
+          student,
+          date,
+          npYear
         )
       );
       setShowDatatable(false);
@@ -325,7 +332,8 @@ const ExamResult = () => {
           shift,
           event,
           student,
-          date
+          date,
+          npYear
         )
       );
       setOpenPopupResultMark(true);
@@ -343,7 +351,8 @@ const ExamResult = () => {
             section,
             shift,
             event,
-            student
+            student,
+            npYear
           )
         );
       }
@@ -362,7 +371,8 @@ const ExamResult = () => {
           shift,
           event,
           student,
-          date
+          date,
+          npYear
         )
       );
       setOpenPopupFinal(true);
@@ -444,6 +454,17 @@ const ExamResult = () => {
                 onChange={(e) => studentHandler(e.target.value)}
                 options={ddlStudent ? ddlStudent : test}
                 errors={errors.student}
+              />
+            </Grid>
+            <Grid item xs={3}>
+              <div style={{ height: "10px" }}></div>
+              <SelectControl
+                name="npYear"
+                label="Nepali Academic Year"
+                value={npYear}
+                onChange={(e) => setNpYear(e.target.value)}
+                options={ddlNpYear ? ddlNpYear : test}
+                errors={errors.npYear}
               />
             </Grid>
             <Grid item xs={3}>

@@ -140,10 +140,14 @@ const Header = () => {
                     </NavLink>
                   </li>
                   <li>
-                    <NavLink to={"/attendance"}>Attendance</NavLink>
+                    <NavLink to={"/attendance"} activeStyle={isActive}>
+                      Attendance
+                    </NavLink>
                   </li>
                   <li>
-                    <NavLink to={"/user-profile"}>User Profile</NavLink>
+                    <NavLink to={"/user-profile"} activeStyle={isActive}>
+                      User Profile
+                    </NavLink>
                   </li>
                   <li>
                     <NavLink to={"/examination"} activeStyle={isActive}>

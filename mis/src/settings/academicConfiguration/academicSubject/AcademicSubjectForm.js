@@ -78,6 +78,39 @@ const AcademicSubjectForm = ({ academicSubject }) => {
     }
   }, [academicSubject]);
 
+  const handleCompulsory = (e) => {
+    const { name, value } = e.target;
+    setValues((prev) => ({
+      ...prev,
+      [name]: value,
+      IsOptional: !value,
+    }));
+  };
+  const handleOptional = (e) => {
+    const { name, value } = e.target;
+    setValues((prev) => ({
+      ...prev,
+      [name]: value,
+      IsCompulsory: !value,
+    }));
+  };
+  const handleTheory = (e) => {
+    const { name, value } = e.target;
+    setValues((prev) => ({
+      ...prev,
+      [name]: value,
+      IsPractical: !value,
+    }));
+  };
+  const handlePractical = (e) => {
+    const { name, value } = e.target;
+    setValues((prev) => ({
+      ...prev,
+      [name]: value,
+      IsTheoritical: !value,
+    }));
+  };
+
   return (
     <Form onSubmit={handleSubmit}>
       <Grid container style={{ fontSize: "12px" }}>
@@ -120,7 +153,7 @@ const AcademicSubjectForm = ({ academicSubject }) => {
             name="IsCompulsory"
             label="Mark As Compulsory"
             value={values.IsCompulsory}
-            onChange={handleInputChange}
+            onChange={handleCompulsory}
             errors={errors.IsCompulsory}
           />
 
@@ -128,7 +161,7 @@ const AcademicSubjectForm = ({ academicSubject }) => {
             name="IsTheoritical"
             label="Mark As Theoritical"
             value={values.IsTheoritical}
-            onChange={handleInputChange}
+            onChange={handleTheory}
             errors={errors.IsTheoritical}
           />
 
@@ -146,7 +179,7 @@ const AcademicSubjectForm = ({ academicSubject }) => {
             name="IsOptional"
             label="Mark As Optional"
             value={values.IsOptional}
-            onChange={handleInputChange}
+            onChange={handleOptional}
             errors={errors.IsOptional}
           />
 
@@ -154,7 +187,7 @@ const AcademicSubjectForm = ({ academicSubject }) => {
             name="IsPractical"
             label="Mark As Practical"
             value={values.IsPractical}
-            onChange={handleInputChange}
+            onChange={handlePractical}
             errors={errors.IsPractical}
           />
 

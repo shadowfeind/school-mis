@@ -18,7 +18,7 @@ import SelectControl from "../../../components/controls/SelectControl";
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
-    backgroundColor: theme.palette.common.black,
+    backgroundColor: "#253053",
     color: theme.palette.common.white,
   },
   body: {

@@ -81,7 +81,7 @@ export const getSingleStudentRegistrationDataAction =
       dispatch({ type: GET_SINGLE_STUDENT_REGISTRATION_DATA_REQUEST });
 
       const { data } = await axios.get(
-        `${API_URL}/api/StudentRegistration/GetSingleForDatailStudentRegistration/${id}?idAcademicYear=${year}&idFacultyProgramLink=${program}&idClass=${classId}`,
+        `${API_URL}/api/StudentRegistration/GetSingleToEditStudentRegistration/${id}?idAcademicYear=${year}&idFacultyProgramLink=${program}&idClass=${classId}`,
         tokenConfig
       );
 

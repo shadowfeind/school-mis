@@ -1,9 +1,10 @@
 import React, { Fragment } from "react";
+import { memo } from "react";
 import "./ExamAnnualResultTable.css";
 import { gradeCalc, pointCalc } from "./Helpers";
 // import { ledgerData } from "./ledgerData";
 
-const ExamAnnualResultTable = ({ ledgerData }) => {
+const ExamAnnualResultTable = memo(({ ledgerData }) => {
   return (
     <div className="ledgerResult">
       <table border="1">
@@ -254,6 +255,6 @@ const ExamAnnualResultTable = ({ ledgerData }) => {
       </table>
     </div>
   );
-};
+});
 
 export default ExamAnnualResultTable;

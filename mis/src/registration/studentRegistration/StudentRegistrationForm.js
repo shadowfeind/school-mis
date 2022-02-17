@@ -206,9 +206,9 @@ const StudentRegistrationForm = ({
 
     temp.MobileNo = !fieldValues.MobileNo
       ? "This feild is required"
-      : !fieldValues.MobileNo > 9
-      ? "Number must be atleast 10."
-      : "";
+      : fieldValues.MobileNo.length == 10
+      ? ""
+      : "Must be 10 digit";
 
     // temp.MobileNo = !fieldValues.MobileNo ? "This feild is required" : "";
 
@@ -236,12 +236,12 @@ const StudentRegistrationForm = ({
       ? "This feild is required"
       : fieldValues.FatherContactNo.length == 10
       ? ""
-      : "Must be atleast 10 number";
+      : "Must be 10 number";
     temp.LocalGuardianContactNo = !fieldValues.LocalGuardianContactNo
       ? "This feild is required"
       : fieldValues.LocalGuardianContactNo.length == 10
       ? ""
-      : "Must be atleast 10 number";
+      : "Must be 10 number";
 
     // temp.FatherContactNo = !fieldValues.FatherContactNo
     //   ? "This feild is required"

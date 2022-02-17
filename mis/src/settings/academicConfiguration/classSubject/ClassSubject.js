@@ -193,6 +193,7 @@ const ClassSubject = () => {
       type: "success",
     });
     dispatch({ type: POST_TO_CREATE_CLASS_SUBJECT_RESET });
+    dispatch(getClassSubjectListAction(classId));
   }
   if (postToCreateClassSubjectError) {
     setNotify({
@@ -212,23 +213,23 @@ const ClassSubject = () => {
     }
   }, [dispatch, allClassSubjects]);
 
-  const validate =()=>{
-    let temp ={};
+  const validate = () => {
+    let temp = {};
     temp.classId = !classId ? "This feild is required" : "";
-    
+
     setErrors({ ...temp });
     return Object.values(temp).every((x) => x === "");
-  }
+  };
   const listSearchHandler = () => {
-    if(validate()){
-    dispatch(getClassSubjectListAction(classId));
+    if (validate()) {
+      dispatch(getClassSubjectListAction(classId));
     }
   };
 
   const handleCreateClick = () => {
-    if(validate()){
-    dispatch(getToCreateClassSubjectAction(classId));
-    setOpenPopup(true);
+    if (validate()) {
+      dispatch(getToCreateClassSubjectAction(classId));
+      setOpenPopup(true);
     }
   };
 

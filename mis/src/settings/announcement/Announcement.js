@@ -147,6 +147,9 @@ const AnnouncementTest = () => {
       setTableData(announcement.dbModelLst);
     }
   }, [dispatch, announcement]);
+  useEffect(() => {
+    dispatch({ type: "GET_LINK", payload: "/settings" });
+  }, [dispatch]);
 
   const {
     TableContainer,

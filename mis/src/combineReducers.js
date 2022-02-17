@@ -78,6 +78,7 @@ import {
   getAcademicFacultyOptionReducer,
   getAllAcademicFaculty,
   getSingleAcademicFacultyReducer,
+  updateSingleAcademicFacultyReducer,
 } from "./settings/academicConfiguration/academicFaculty/AcademicFacultyReducers";
 import {
   createAcademicYearReducer,
@@ -436,6 +437,7 @@ export const reducers = combineReducers({
   createAcademicFaculty: createAcademicFacultyReducer,
   getAcademicFacultyOption: getAcademicFacultyOptionReducer,
   getSingleAcademicFaculty: getSingleAcademicFacultyReducer,
+  updateSingleAcademicFaculty : updateSingleAcademicFacultyReducer,
   academicYear: getAllAcademicYear,
   createAcademicYear: createAcademicYearReducer,
   getAcademicYearOption: getAcademicYearOptionReducer,

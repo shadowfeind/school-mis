@@ -10,7 +10,7 @@ import FormControl from "@material-ui/core/FormControl";
 import FormGroup from "@material-ui/core/FormGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
-import { AcademicFacultyCreateAction } from "./AcademicFacultyActions";
+import { AcademicFacultyCreateAction, updateSingleAcademicFacultyAction } from "./AcademicFacultyActions";
 import SelectControl from "../../../components/controls/SelectControl";
 
 const initialFormValues = {
@@ -69,8 +69,9 @@ const AcademicFacultyForm = ({ academicFaculty, selected, setOpenPopup }) => {
       if (values.IDFaculty === 0) {
         dispatch(AcademicFacultyCreateAction(values, checkboxState));
       } else {
-        // dispatch(updateSingleAcademicProgramAction(values));
-        alert("update api waiting");
+        // dispatch(updateSingleAcademicFacultyAction(values));
+        alert("Working");
+        
       }
     }
   };

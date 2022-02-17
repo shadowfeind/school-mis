@@ -94,13 +94,13 @@ export const getStudentOptionsForExamMarkAction =
   };
 
 export const getExamResultListAction =
-  (year, program, classId, section, shift, event, studentId) =>
+  (year, program, classId, section, shift, event, studentId, date, npYear) =>
   async (dispatch) => {
     try {
       dispatch({ type: GET_EXAM_RESULT_LIST_REQUEST });
 
       const { data } = await axios.get(
-        `${API_URL}/api/ExamResult/GetListExamResult?idAcademicYear=${year}&idFacultyProgramLink=${program}&level=${classId}&section=${section}&idShift=${shift}&idAcademicYearCalendar=${event}&idStudent=${studentId}`,
+        `${API_URL}/api/ExamResult/GetListExamResult?idAcademicYear=${year}&idFacultyProgramLink=${program}&level=${classId}&section=${section}&idShift=${shift}&idAcademicYearCalendar=${event}&idStudent=${studentId}&examDate=${date}&npYear=${npYear}`,
         tokenConfig
       );
 
@@ -117,13 +117,13 @@ export const getExamResultListAction =
   };
 
 export const getExamLedgerHeaderAction =
-  (year, program, classId, section, shift, event, studentId) =>
+  (year, program, classId, section, shift, event, studentId, date, npYear) =>
   async (dispatch) => {
     try {
       dispatch({ type: GET_EXAM_LEDGER_HEADER_REQUEST });
 
       const { data } = await axios.get(
-        `${API_URL}/api/ExamResult/GetListAnnualResultLedger?idAcademicYear=${year}&idFacultyProgramLink=${program}&level=${classId}&section=${section}&idShift=${shift}&idAcademicYearCalendar=${event}&idStudent=${studentId}&searchKey=1`,
+        `${API_URL}/api/ExamResult/GetListAnnualResultLedger?idAcademicYear=${year}&idFacultyProgramLink=${program}&level=${classId}&section=${section}&idShift=${shift}&idAcademicYearCalendar=${event}&idStudent=${studentId}&examDate=${date}&npYear=${npYear}`,
         tokenConfig
       );
 
@@ -140,13 +140,13 @@ export const getExamLedgerHeaderAction =
   };
 
 export const printExamResultAction =
-  (year, program, classId, section, shift, event, studentId, date) =>
+  (year, program, classId, section, shift, event, studentId, date, npYear) =>
   async (dispatch) => {
     try {
       dispatch({ type: PRINT_EXAM_RESULT_REQUEST });
 
       const { data } = await axios.get(
-        `${API_URL}/api/ExamResult/GetPrintBulk?idAcademicYear=${year}&idFacultyProgramLink=${program}&level=${classId}&section=${section}&idShift=${shift}&idAcademicYearCalendar=${event}&idStudent=${studentId}&examDate=${date}`,
+        `${API_URL}/api/ExamResult/GetPrintBulk?idAcademicYear=${year}&idFacultyProgramLink=${program}&level=${classId}&section=${section}&idShift=${shift}&idAcademicYearCalendar=${event}&idStudent=${studentId}&examDate=${date}&npYear=${npYear}`,
         tokenConfig
       );
 
@@ -163,13 +163,13 @@ export const printExamResultAction =
   };
 
 export const printExamResultCountAction =
-  (year, program, classId, section, shift, event, studentId) =>
+  (year, program, classId, section, shift, event, studentId, npYear) =>
   async (dispatch) => {
     try {
       dispatch({ type: PRINT_EXAM_RESULT_COUNT_REQUEST });
 
       const { data } = await axios.get(
-        `${API_URL}/api/ExamResult/GetPrintCount?idAcademicYear=${year}&idFacultyProgramLink=${program}&level=${classId}&section=${section}&idShift=${shift}&idAcademicYearCalendar=${event}&idStudent=${studentId}`,
+        `${API_URL}/api/ExamResult/GetPrintCount?idAcademicYear=${year}&idFacultyProgramLink=${program}&level=${classId}&section=${section}&idShift=${shift}&idAcademicYearCalendar=${event}&idStudent=${studentId}&npYear=${npYear}`,
         tokenConfig
       );
 
@@ -186,13 +186,13 @@ export const printExamResultCountAction =
   };
 
 export const printFinalResultAction =
-  (year, program, classId, section, shift, event, studentId, date) =>
+  (year, program, classId, section, shift, event, studentId, date, npYear) =>
   async (dispatch) => {
     try {
       dispatch({ type: PRINT_FINAL_RESULT_REQUEST });
 
       const { data } = await axios.get(
-        `${API_URL}/api/ExamResult/GetPrintFinalResult?idAcademicYear=${year}&idFacultyProgramLink=${program}&level=${classId}&section=${section}&idShift=${shift}&idAcademicYearCalendar=${event}&idStudent=${studentId}&examDate=${date}`,
+        `${API_URL}/api/ExamResult/GetPrintFinalResult?idAcademicYear=${year}&idFacultyProgramLink=${program}&level=${classId}&section=${section}&idShift=${shift}&idAcademicYearCalendar=${event}&idStudent=${studentId}&examDate=${date}&npYear=${npYear}`,
         tokenConfig
       );
 

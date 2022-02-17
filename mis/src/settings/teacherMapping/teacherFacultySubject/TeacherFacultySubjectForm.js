@@ -12,11 +12,11 @@ import {
 const initialFormValues = {
   IDHRTeacherFacultySubjectMappingHeader: 0,
   IDTeacher: 0,
-  Level: 13,
-  IDYearFacultyLink: 110,
-  IDAcademicFacultySubjectLink: 22142,
+  Level: "",
+  IDYearFacultyLink: "",
+  IDAcademicFacultySubjectLink: "",
   Summary: "",
-  IDAcademicShift: 2,
+  IDAcademicShift: "",
   Section: "",
   IsActive: true,
   Created_On: "2022-01-06T13:05:53.393",
@@ -32,6 +32,9 @@ const TeacherFacultySubjectForm = ({
   const dispatch = useDispatch();
   const validate = (fieldValues = values) => {
     let temp = { ...errors };
+    temp.IDTeacher = !fieldValues.IDTeacher ? "This feild is required" : "";
+    temp.IDAcademicFacultySubjectLink =
+      !fieldValues.IDAcademicFacultySubjectLink ? "This feild is required" : "";
     temp.Summary = !fieldValues.Summary
       ? "This feild is required"
       : !fieldValues.Summary.trim()
@@ -83,6 +86,7 @@ const TeacherFacultySubjectForm = ({
                 ? createData.ddlTeacher
                 : fillerArray
             }
+            errors={errors.IDTeacher}
           />
           <InputControl
             name="Summary"
@@ -106,6 +110,7 @@ const TeacherFacultySubjectForm = ({
                 ? createData.ddlFacultySubject
                 : fillerArray
             }
+            errors={errors.IDAcademicFacultySubjectLink}
           />
           <SelectControl
             name="IsActive"

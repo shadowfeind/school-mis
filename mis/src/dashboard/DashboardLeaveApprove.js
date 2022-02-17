@@ -15,8 +15,8 @@ const useStyles = makeStyles((theme) => ({
     margin: "10px 0",
     "& thead th": {
       fontWeight: "600",
-      color: "#fff",
-      backgroundColor: "#253053",
+      color: "#253053",
+      backgroundColor: "#f7f7f7",
       fontSize: "12px",
       padding: "0.7vw",
     },
@@ -35,7 +35,7 @@ const StyledTableCell = withStyles((theme) => ({
 
 const StyledTableRow = withStyles((theme) => ({
   root: {
-    "&:nth-of-type(odd)": {
+    "&:nth-of-type(even)": {
       backgroundColor: theme.palette.action.hover,
     },
   },

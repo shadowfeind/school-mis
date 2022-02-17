@@ -234,14 +234,14 @@ const StudentRegistrationForm = ({
 
     temp.FatherContactNo = !fieldValues.FatherContactNo
       ? "This feild is required"
-      : !fieldValues.FatherContactNo.length > 9
-      ? "Must be atleast 10 number"
-      : "";
+      : fieldValues.FatherContactNo.length == 10
+      ? ""
+      : "Must be atleast 10 number";
     temp.LocalGuardianContactNo = !fieldValues.LocalGuardianContactNo
       ? "This feild is required"
-      : !fieldValues.LocalGuardianContactNo.length > 9
-      ? "Must be atleast 10 number"
-      : "";
+      : fieldValues.LocalGuardianContactNo.length == 10
+      ? ""
+      : "Must be atleast 10 number";
 
     // temp.FatherContactNo = !fieldValues.FatherContactNo
     //   ? "This feild is required"

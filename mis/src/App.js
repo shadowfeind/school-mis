@@ -9,8 +9,9 @@ import {
   ThemeProvider,
 } from "@material-ui/core";
 
-import { HashRouter as Router, Route } from "react-router-dom";
+import { HashRouter as Router, Route, Switch } from "react-router-dom";
 
+const PageNotFound = lazy(() => import("./pageNotFound/PageNotFound"));
 const ClassSchedule = lazy(() =>
   import("./settings/classSchedule/ClassSchedule")
 );
@@ -76,12 +77,8 @@ const LevelTest = lazy(() => import("./examination/levelTest/LevelTest"));
 const StudentRegistration = lazy(() =>
   import("./registration/studentRegistration/StudentRegistration")
 );
-const OldQuestions = lazy(() =>
-  import("./settings/oldQuestions/OldQuestions")
-);
-const Syllabus = lazy(() =>
-  import("./settings/syllabus/SyllabusMain")
-);
+const OldQuestions = lazy(() => import("./settings/oldQuestions/OldQuestions"));
+const Syllabus = lazy(() => import("./settings/syllabus/SyllabusMain"));
 
 const theme = createTheme({
   palette: {
@@ -113,60 +110,72 @@ const App = () => {
         <div className={classes.appMain}>
           {/* Examination route start */}
           <Suspense fallback={<div></div>}>
-            <Route path={"/examination"} component={AcademicGrading} />
-            <Route path={"/exam-division"} component={ExamDivision} />
-            <Route path={"/exam-mark-approval"} component={ExamMarkApproval} />
-            <Route path={"/exam-schedule"} component={ExamSchedule} />
-            <Route path={"/print-admit-card"} component={PrintAdminCard} />
-            <Route path={"/exam-mark-entry"} component={ExamMarkEntry} />
-            <Route
-              path={"/generatepublish-result"}
-              component={GeneratePublishResult}
-            />
-            <Route path={"/exam-result"} component={ExamResult} />
+            <Switch>
+              <Route path={"/examination"} component={AcademicGrading} />
+              <Route path={"/exam-division"} component={ExamDivision} />
+              <Route
+                path={"/exam-mark-approval"}
+                component={ExamMarkApproval}
+              />
+              <Route path={"/exam-schedule"} component={ExamSchedule} />
+              <Route path={"/print-admit-card"} component={PrintAdminCard} />
+              <Route path={"/exam-mark-entry"} component={ExamMarkEntry} />
+              <Route
+                path={"/generatepublish-result"}
+                component={GeneratePublishResult}
+              />
+              <Route path={"/exam-result"} component={ExamResult} />
 
-            <Route path={"/level-test"} component={LevelTest} />
+              <Route path={"/level-test"} component={LevelTest} />
 
-            <Route path={"/student-attendance"} component={StudentAttendance} />
-            <Route path={"/academic-grading"} component={AcademicGrading} />
-            {/* Examination route end */}
-            {/* settings route start */}
-            <Route
-              path={"/employee-management"}
-              component={EmployeeManagement}
-            />
-            <Route
-              path={"/academic-configuration"}
-              component={AcademicConfiguration}
-            />
-            <Route path={"/student-management"} component={StudentManagement} />
-            {/* settings route end */}
-            {/* attendance route starts */}
-            <Route path={"/attendance"} component={Attendance} />
-            {/* attendance route end */}
-            {/* registration route starts */}
-            <Route path={"/registration"} component={CounterConfiguration} />
-            <Route
-              path={"/admission-configuration"}
-              component={AdmissionConfiguration}
-            />
-            <Route
-              path={"/student-Registration"}
-              component={StudentRegistration}
-            />
-            <Route path={"/old-questions"} component={OldQuestions} />
-            <Route path={"/syllabus"} component={Syllabus} />
-            <Route path={"/teacher-mapping"} component={TeacherMapping} />
-            <Route path={"/announcement"} component={Announcement} />
-            <Route path={"/user-profile"} component={UserProfile} />
-            <Route path={"/class-subject"} component={ClassSubject} />
-            <Route path={"/access-control"} component={AccessControl} />
-            {/* registration route ends */}
-            {/* class schedule starts */}
-            <Route path={"/class-schedule"} component={ClassSchedule} />
-            {/* class schedule ends */}
-            <Route path={"/settings"} component={Settings} />
-            <Route exact path={"/"} component={Dashboard} />
+              <Route
+                path={"/student-attendance"}
+                component={StudentAttendance}
+              />
+              <Route path={"/academic-grading"} component={AcademicGrading} />
+              {/* Examination route end */}
+              {/* settings route start */}
+              <Route
+                path={"/employee-management"}
+                component={EmployeeManagement}
+              />
+              <Route
+                path={"/academic-configuration"}
+                component={AcademicConfiguration}
+              />
+              <Route
+                path={"/student-management"}
+                component={StudentManagement}
+              />
+              {/* settings route end */}
+              {/* attendance route starts */}
+              <Route path={"/attendance"} component={Attendance} />
+              {/* attendance route end */}
+              {/* registration route starts */}
+              <Route path={"/registration"} component={CounterConfiguration} />
+              <Route
+                path={"/admission-configuration"}
+                component={AdmissionConfiguration}
+              />
+              <Route
+                path={"/student-Registration"}
+                component={StudentRegistration}
+              />
+              <Route path={"/old-questions"} component={OldQuestions} />
+              <Route path={"/syllabus"} component={Syllabus} />
+              <Route path={"/teacher-mapping"} component={TeacherMapping} />
+              <Route path={"/announcement"} component={Announcement} />
+              <Route path={"/user-profile"} component={UserProfile} />
+              <Route path={"/class-subject"} component={ClassSubject} />
+              <Route path={"/access-control"} component={AccessControl} />
+              {/* registration route ends */}
+              {/* class schedule starts */}
+              <Route path={"/class-schedule"} component={ClassSchedule} />
+              {/* class schedule ends */}
+              <Route path={"/settings"} component={Settings} />
+              <Route exact path={"/"} component={Dashboard} />
+              <Route path="*" component={PageNotFound} />
+            </Switch>
           </Suspense>
         </div>
         <CssBaseline />

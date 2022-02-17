@@ -1,6 +1,9 @@
 import axios from "axios";
 import { API_URL, tokenConfig } from "../../constants";
 import {
+  DELETE_EXAM_SCHEDULE_FAIL,
+  DELETE_EXAM_SCHEDULE_REQUEST,
+  DELETE_EXAM_SCHEDULE_SUCCESS,
   GET_ALL_EXAM_SCHEDULE_INITIAL_DATA_FAIL,
   GET_ALL_EXAM_SCHEDULE_INITIAL_DATA_REQUEST,
   GET_ALL_EXAM_SCHEDULE_INITIAL_DATA_SUCCESS,
@@ -184,3 +187,26 @@ export const singleExamScheduleEditAction =
       });
     }
   };
+
+export const deleteExamScheduleAction = (schedule,searchFilterModel) => async (dispatch) => {
+  try {
+    dispatch({ type: DELETE_EXAM_SCHEDULE_REQUEST });
+
+    const jsonData = JSON.stringify({ dbModel: schedule,searchFilterModel });
+
+    await axios.post(
+      `${API_URL}/api/AcademicExamSchedule/Delete`,
+      jsonData,
+      tokenConfig
+    );
+
+    dispatch({
+      type: DELETE_EXAM_SCHEDULE_SUCCESS,
+    });
+  } catch (error) {
+    dispatch({
+      type: DELETE_EXAM_SCHEDULE_FAIL,
+      payload: error.Message ? error.Message : error.message,
+    });
+  }
+};

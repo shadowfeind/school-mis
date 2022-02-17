@@ -14,12 +14,14 @@ import {
 } from "./settings/schoolConfiguration/position/PositionReducers";
 import {
   createEmployeeTypeReducer,
+  deleteEmployeeTypeReducer,
   getAllEmployeeType,
   getSingleEmployeeTypeReducer,
   updateSingleEmployeeTypeReducer,
 } from "./settings/schoolConfiguration/employeeType/EmployeeTypeReducers";
 import {
   createEmployeeCategoryRoleReducer,
+  deleteEmployeeCategoryRoleReducer,
   getAllEmployeeCategoryRole,
   getSingleEmployeeCategoryRoleReducer,
   updateSingleEmployeeCategoryRoleReducer,
@@ -41,6 +43,7 @@ import {
 } from "./settings/employeeManagement/employee/EmployeeReducers";
 import {
   createRoleReducer,
+  deleteRoleReducer,
   getAllRoles,
   getSingleRoleReducer,
   updateSingleRoleReducer,
@@ -75,6 +78,7 @@ import {
   getAcademicFacultyOptionReducer,
   getAllAcademicFaculty,
   getSingleAcademicFacultyReducer,
+  updateSingleAcademicFacultyReducer,
 } from "./settings/academicConfiguration/academicFaculty/AcademicFacultyReducers";
 import {
   createAcademicYearReducer,
@@ -165,6 +169,7 @@ import {
   printFinalResultReducer,
 } from "./examination/examResult/ExamResultReducers";
 import {
+  deleteExamScheduleReducer,
   getAllExamScheduleInitialDataReducer,
   getEventForExamScheduleReducer,
   getExamScheduleListReducer,
@@ -389,9 +394,11 @@ export const reducers = combineReducers({
   createEmployeeType: createEmployeeTypeReducer,
   getSingleEmployeeType: getSingleEmployeeTypeReducer,
   updateSingleEmployeeType: updateSingleEmployeeTypeReducer,
+  deleteEmployeeType : deleteEmployeeTypeReducer,
   employeeCategoryRole: getAllEmployeeCategoryRole,
   createEmployeeCategoryRole: createEmployeeCategoryRoleReducer,
   getSingleEmployeeCategoryRole: getSingleEmployeeCategoryRoleReducer,
+  deleteEmployeeCategoryRole : deleteEmployeeCategoryRoleReducer,
   updateSingleEmployeeCategoryRole: updateSingleEmployeeCategoryRoleReducer,
   holiday: getAllHoliday,
   createHoliday: createHolidayReducer,
@@ -408,6 +415,7 @@ export const reducers = combineReducers({
   createRole: createRoleReducer,
   getSingleRole: getSingleRoleReducer,
   updateSingleRole: updateSingleRoleReducer,
+  deleteRole : deleteRoleReducer,
   academicClass: getAllAcademicClass,
   createAcademicClass: createAcademicClassReducer,
   getSingleAcademicClass: getSingleAcademicClassReducer,
@@ -429,6 +437,7 @@ export const reducers = combineReducers({
   createAcademicFaculty: createAcademicFacultyReducer,
   getAcademicFacultyOption: getAcademicFacultyOptionReducer,
   getSingleAcademicFaculty: getSingleAcademicFacultyReducer,
+  updateSingleAcademicFaculty : updateSingleAcademicFacultyReducer,
   academicYear: getAllAcademicYear,
   createAcademicYear: createAcademicYearReducer,
   getAcademicYearOption: getAcademicYearOptionReducer,
@@ -536,6 +545,7 @@ export const reducers = combineReducers({
   postSingleExamScheduleCreate: postSingleExamScheduleCreateReducer,
   getSingleExamScheduleEdit: getSingleExamScheduleEditReducer,
   singleExamScheduleEdit: singleExamScheduleEditReducer,
+  deleteExamSchedule : deleteExamScheduleReducer,
   //examination reducers end
   //registration reducers starts
   getCounterConfigInitialData: getCounterConfigInitialDataReducer,

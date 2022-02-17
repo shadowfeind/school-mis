@@ -1,6 +1,9 @@
 import axios from "axios";
 import { API_URL, tokenConfig } from "../../../constants";
 import {
+  DELETE_EMPLOYEE_TYPE_FAIL,
+  DELETE_EMPLOYEE_TYPE_REQUEST,
+  DELETE_EMPLOYEE_TYPE_SUCCESS,
   EMPLOYEE_TYPE_CREATE_FAIL,
   EMPLOYEE_TYPE_CREATE_REQUEST,
   EMPLOYEE_TYPE_CREATE_SUCCESS,
@@ -101,6 +104,28 @@ export const updateSingleEmployeeTypeAction =
     } catch (error) {
       dispatch({
         type: UPDATE_SINGLE_EMPLOYEE_TYPE_FAIL,
+        payload: error.message ? error.message : error.Message,
+      });
+    }
+  };
+
+  export const deleteEmployeeTypeAction =
+  (employeeType) => async (dispatch) => {
+    try {
+      dispatch({ type: DELETE_EMPLOYEE_TYPE_REQUEST });
+
+      const jsonData = JSON.stringify({ hrEmployeeTypeModel: employeeType });
+
+      await axios.post(
+        `${API_URL}/api/HREmployeeType/DeleteEmployeeType`,
+        jsonData,
+        tokenConfig
+      );
+
+      dispatch({ type: DELETE_EMPLOYEE_TYPE_SUCCESS });
+    } catch (error) {
+      dispatch({
+        type: DELETE_EMPLOYEE_TYPE_FAIL,
         payload: error.message ? error.message : error.Message,
       });
     }

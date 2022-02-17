@@ -83,9 +83,9 @@ const AcademicFaculty = () => {
   const { singleAcademicFaculty, error: singleAcademicFacultyError } =
     useSelector((state) => state.getSingleAcademicFaculty);
 
-  // const { success: updateSingleAcademicFacultySuccess } = useSelector(
-  //   (state) => state.updateSingleAcademicFaculty
-  // );
+  const { success: updateSingleAcademicFacultySuccess } = useSelector(
+    (state) => state.updateSingleAcademicFaculty
+  );
 
   if (error) {
     setNotify({
@@ -123,16 +123,16 @@ const AcademicFaculty = () => {
     dispatch({ type: ACADEMIC_FACULTY_CREATE_RESET });
   }
 
-  // if (updateSingleAcademicProgramSuccess) {
-  //   dispatch(getAllAcademicProgramAction());
-  //   setNotify({
-  //     isOpen: true,
-  //     message: "Updated Succesfully",
-  //     type: "success",
-  //   });
-  //   setOpenPopup(false);
-  //   dispatch({ type: UPDATE_SINGLE_ACADEMIC_PROGRAM_RESET });
-  // }
+  if (updateSingleAcademicFacultySuccess) {
+    dispatch(getAllAcademicProgramAction());
+    setNotify({
+      isOpen: true,
+      message: "Updated Succesfully",
+      type: "success",
+    });
+    setOpenPopup(false);
+    dispatch({ type: UPDATE_SINGLE_ACADEMIC_PROGRAM_RESET });
+  }
 
   const updateCollegeHandler = (id) => {
     dispatch(getSingleAcademicFacultyAction(id));

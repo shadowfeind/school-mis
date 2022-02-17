@@ -16,17 +16,20 @@ import { useDispatch, useSelector } from "react-redux";
 import Notification from "../../../components/Notification";
 import ConfirmDialog from "../../../components/ConfirmDialog";
 import {
+  deleteEmployeeCategoryRoleAction,
   getAllEmployeeCategoryRoleAction,
   getSingleEmployeeCategoryRoleAction,
 } from "./EmployeeCategoryRoleActions";
 import EmployeeCategoryRoleTableCollapse from "./EmployeeCategoryRoleTableCollapse";
 import EmployeeCategoryRoleForm from "./EmployeeCategoryRoleForm";
 import {
+  DELETE_EMPLOYEE_CATEGORY_ROLE_RESET,
   EMPLOYEE_CATEGORY_ROLE_CREATE_RESET,
   GET_ALL_EMPLOYEE_CATEGORY_ROLE_RESET,
   GET_SINGLE_EMPLOYEE_CATEGORY_ROLE_RESET,
   UPDATE_SINGLE_EMPLOYEE_CATEGORY_ROLE_RESET,
 } from "./EmployeeCategoryRoleConstant";
+import EmployeeCategoryRoleDeleteForm from "./EmployeeCategoryRoleDeleteForm";
 
 const useStyles = makeStyles((theme) => ({
   searchInput: {
@@ -56,6 +59,7 @@ const EmployeeType = () => {
     },
   });
   const [openPopup, setOpenPopup] = useState(false);
+  const [openDeletePopup, setOpenDeletePopup] = useState(false);
   const [notify, setNotify] = useState({
     isOpen: false,
     message: "",
@@ -87,6 +91,11 @@ const EmployeeType = () => {
     success: updateSingleEmployeeCategoryRoleSuccess,
     error: updateSingleEmployeeCategoryRole,
   } = useSelector((state) => state.updateSingleEmployeeCategoryRole);
+
+  const {
+    success: deleteEmployeeCategoryRoleSuccess,
+    error: deleteEmployeeCategoryRoleError,
+  } = useSelector((state) => state.deleteEmployeeCategoryRole);
 
   if (error) {
     setNotify({
@@ -121,6 +130,15 @@ const EmployeeType = () => {
     dispatch({ type: UPDATE_SINGLE_EMPLOYEE_CATEGORY_ROLE_RESET });
   }
 
+  if (deleteEmployeeCategoryRoleError) {
+    setNotify({
+      isOpen: true,
+      message: deleteEmployeeCategoryRoleError,
+      type: "error",
+    });
+    setOpenDeletePopup(false);
+    dispatch({ type: DELETE_EMPLOYEE_CATEGORY_ROLE_RESET });
+  }
   if (createEmployeeCategoryRoleSuccess) {
     dispatch(getAllEmployeeCategoryRoleAction());
     setNotify({
@@ -143,17 +161,24 @@ const EmployeeType = () => {
     dispatch({ type: UPDATE_SINGLE_EMPLOYEE_CATEGORY_ROLE_RESET });
   }
 
+  if (deleteEmployeeCategoryRoleSuccess) {
+    dispatch(getAllEmployeeCategoryRoleAction());
+    setNotify({
+      isOpen: true,
+      message: "Deleted Succesfully",
+      type: "success",
+    });
+    setOpenDeletePopup(false);
+    dispatch({ type: DELETE_EMPLOYEE_CATEGORY_ROLE_RESET });
+  }
   const updateCollegeHandler = (id) => {
     dispatch(getSingleEmployeeCategoryRoleAction(id));
     setOpenPopup(true);
   };
 
   const deleteCollegeHandler = (id) => {
-    setConfirmDialog({
-      isOpen: true,
-      title: "Are you sure you want to Delete this record?",
-      subTitle: "You cannot undo this action",
-    });
+   dispatch(getSingleEmployeeCategoryRoleAction(id));
+   setOpenDeletePopup(true);
   };
 
   useEffect(() => {
@@ -225,6 +250,8 @@ const EmployeeType = () => {
                 key={item.$id}
                 updateCollegeHandler={updateCollegeHandler}
                 deleteCollegeHandler={deleteCollegeHandler}
+                setOpenPopup={setOpenPopup}
+                setOpenDeletePopup={setOpenDeletePopup}
               />
             ))}
           </TableBody>
@@ -241,6 +268,16 @@ const EmployeeType = () => {
             singleEmployeeCategoryRole && singleEmployeeCategoryRole.dbModel
           }
           setOpenPopup={setOpenPopup}
+        />
+      </Popup>
+      <Popup
+      openPopup={openDeletePopup}
+      setOpenPopup={setOpenDeletePopup}
+      title="Employee Category Role Delete Form"
+      >
+        <EmployeeCategoryRoleDeleteForm
+        employeeCategoryDeleteRole={singleEmployeeCategoryRole && singleEmployeeCategoryRole.dbModel}
+        setOpenDeletePopup={setOpenDeletePopup}
         />
       </Popup>
       <Notification notify={notify} setNotify={setNotify} />

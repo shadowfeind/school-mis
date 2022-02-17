@@ -90,7 +90,7 @@ const EmployeeForm = ({ employee, setOpenPopup }) => {
       : "";
       temp.MobileNumber = !fieldValues.MobileNumber
       ? "This feild is required"
-      : !fieldValues.MobileNumber<7
+      : !fieldValues.MobileNumber>7
       ? "Mobile No. must be atleast 7."
       : "";
 

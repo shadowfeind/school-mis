@@ -68,7 +68,7 @@ const ExamScheduleDeleteForm = ({
                   ? examScheduleDelete.ddlSubject
                   : test
               }
-              onChange={handleInputChange}
+              onChange= {null}
             />
             <SelectControl
             disabled
@@ -80,7 +80,7 @@ const ExamScheduleDeleteForm = ({
                   ? examScheduleDelete.ddlExamType
                   : test
               }
-              onChange={handleInputChange}
+              onChange= {null}
             />
             {values.ExamType == "P" && (
               <InputControl
@@ -119,24 +119,24 @@ const ExamScheduleDeleteForm = ({
                   ? examScheduleDelete.ddlIsActive
                   : test
               }
-              onChange={handleInputChange}
-              errors={errors.ApplyGroup}
+              onChange= {null}
+              // errors={errors.ApplyGroup}
             />
-            <DatePickerControl
+            {/* <DatePickerControl
             disabled
               name="ExamScheduleFromDate"
               label="Start Date"
               value={values.ExamScheduleFromDate}
-              onChange={handleInputChange}
-              errors={errors.ExamScheduleFromDate}
-            />
+              onChange= {null}
+              // errors={errors.ExamScheduleFromDate}
+            /> */}
             <InputControl
             disabled
               name="ExamScheduleFromTime"
               label="From"
               value={values.ExamScheduleFromTime}
-              onChange={handleInputChange}
-              errors={errors.ExamScheduleFromTime}
+              onChange= {null}
+              // errors={errors.ExamScheduleFromTime}
               type="time"
             />
           </Grid>
@@ -146,8 +146,8 @@ const ExamScheduleDeleteForm = ({
               name="DisplayName"
               label="Display Name"
               value={values.DisplayName}
-              onChange={handleInputChange}
-              errors={errors.DisplayName}
+              onChange= {null}
+              // errors={errors.DisplayName}
             />
             <InputControl
             disabled
@@ -159,7 +159,7 @@ const ExamScheduleDeleteForm = ({
                 (e.target.value <= 100) & (e.target.value >= 0) &&
                 handleInputChange(e)
               }
-              errors={errors.SubjectOrder}
+              // errors={errors.SubjectOrder}
             />
             <InputControl
             disabled
@@ -170,7 +170,7 @@ const ExamScheduleDeleteForm = ({
                 (e.target.value <= 100) & (e.target.value >= 0) &&
                 handleInputChange(e)
               }
-              errors={errors.PassMark}
+              // errors={errors.PassMark}
               type="number"
             />
             <InputControl
@@ -178,24 +178,24 @@ const ExamScheduleDeleteForm = ({
               name="GroupNumber"
               label="Group Number"
               value={values.GroupNumber}
-              onChange={handleInputChange}
-              errors={errors.GroupNumber}
+              onChange= {null}
+              // errors={errors.GroupNumber}
             />
-            <DatePickerControl
+            {/* <DatePickerControl
             disabled
               name="ExamScheduleToDate"
               label="End Time"
               value={values.ExamScheduleToDate}
-              onChange={handleInputChange}
-              errors={errors.ExamScheduleToDate}
-            />
+              onChange= {null}
+              // errors={errors.ExamScheduleToDate}
+            /> */}
             <InputControl
             disabled
               name="ExamScheduleToTime"
               label="To"
               value={values.ExamScheduleToTime}
-              onChange={handleInputChange}
-              errors={errors.ExamScheduleToTime}
+              onChange= {null}
+              // errors={errors.ExamScheduleToTime}
               type="time"
             />
           </Grid>

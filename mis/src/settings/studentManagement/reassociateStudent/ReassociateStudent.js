@@ -156,51 +156,53 @@ const ReassociateStudent = () => {
     }
   }, [reassociateStudentLists]);
 
-  const validate=()=>{
-    let temp ={};
+  const validate = () => {
+    let temp = {};
     temp.academicYearValue = !academicYearValue ? "This feild is required" : "";
     temp.programValue = !programValue ? "This feild is required" : "";
     temp.shiftValue = !shiftValue ? "This feild is required" : "";
     temp.classOptValue = !classOptValue ? "This feild is required" : "";
     temp.sectionValue = !sectionValue ? "This feild is required" : "";
-    
+
     setErrors({ ...temp });
     return Object.values(temp).every((x) => x === "");
-  }
+  };
 
   const listSearchHandler = () => {
-    if(validate()){
-    dispatch(
-      getReassociateStudentsListsAction(
-        academicYearValue,
-        programValue,
-        shiftValue,
-        classOptValue,
-        sectionValue
-      )
-    );
-      }
+    if (validate()) {
+      dispatch(
+        getReassociateStudentsListsAction(
+          academicYearValue,
+          programValue,
+          shiftValue,
+          classOptValue,
+          sectionValue
+        )
+      );
+    }
   };
   const handleLevelup = () => {
-    if(validate()){
-    dispatch(
-      getReassociateStudentsLevelupAction(
-        academicYearValue,
-        programValue,
-        shiftValue,
-        classOptValue,
-        sectionValue
-      )
-    );
-    setOpenPopup(true);
-      }
+    if (validate()) {
+      dispatch(
+        getReassociateStudentsLevelupAction(
+          academicYearValue,
+          programValue,
+          shiftValue,
+          classOptValue,
+          sectionValue
+        )
+      );
+      setOpenPopup(true);
+    }
   };
 
   const formCheckSubmitHandler = () => {
     dispatch(
       getReassociateStudentsLevelupPostAction(
         formCheck,
-        reassociateStudentLevel.searchFilterModel
+        reassociateStudentLevel.searchFilterModel,
+        reassociateStudentLevel.academicYear,
+        reassociateStudentLevel.idAcademicYear
       )
     );
     console.log(formCheck);
@@ -233,7 +235,6 @@ const ReassociateStudent = () => {
                 onChange={(e) => setProgramValue(e.target.value)}
                 options={program}
                 errors={errors.programValue}
-
               />
             </Grid>
             <Grid item xs={2}>
@@ -244,7 +245,6 @@ const ReassociateStudent = () => {
                 onChange={(e) => setClassOptValue(e.target.value)}
                 options={classOpt}
                 errors={errors.classOptValue}
-
               />
             </Grid>
 
@@ -256,7 +256,6 @@ const ReassociateStudent = () => {
                 onChange={(e) => setSectionValue(e.target.value)}
                 options={section}
                 errors={errors.sectionValue}
-
               />
             </Grid>
             <Grid item xs={2}>
@@ -267,7 +266,6 @@ const ReassociateStudent = () => {
                 onChange={(e) => setShiftValue(e.target.value)}
                 options={shift}
                 errors={errors.shiftValue}
-
               />
             </Grid>
             <Grid item xs={3}>
@@ -340,8 +338,23 @@ const ReassociateStudent = () => {
           ddlLevelStatus={
             reassociateStudentLevel && reassociateStudentLevel.ddlLevelStatus
           }
+          ddlAcademicYear={
+            reassociateStudentLevel && reassociateStudentLevel.ddlAcademicYear
+          }
+          ddlClass={reassociateStudentLevel && reassociateStudentLevel.ddlClass}
+          nextClass={
+            reassociateStudentLevel &&
+            reassociateStudentLevel.searchFilterModel.nextClass
+          }
+          idAcademicYear={
+            reassociateStudentLevel && reassociateStudentLevel.ddlAcademicYear
+          }
+          idAcademicYearValue={
+            reassociateStudentLevel && reassociateStudentLevel.idAcademicYear
+          }
           setOpenPopup={setOpenPopup}
           setFormCheck={setFormCheck}
+          formCheck={formCheck}
           formCheckSubmitHandler={formCheckSubmitHandler}
         />
       </Popup>

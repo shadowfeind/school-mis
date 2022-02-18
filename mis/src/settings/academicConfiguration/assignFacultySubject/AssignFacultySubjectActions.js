@@ -176,12 +176,6 @@ export const academicFacultySubjectPostEditAction =
         dbModel,
       });
 
-      // const config = {
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //   },
-      // };
-
       const { data } = await axios.put(
         `${API_URL}/api/AcaFacultySubjectLink/Put`,
         jsonData,

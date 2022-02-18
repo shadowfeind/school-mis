@@ -11,15 +11,17 @@ import {
   FormControl,
   InputLabel,
   Select,
+  Grid,
 } from "@material-ui/core";
 import { withStyles, makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import SelectControl from "../../../components/controls/SelectControl";
+import InputControl from "../../../components/controls/InputControl";
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
-    backgroundColor: "#253053",
-    color: theme.palette.common.white,
+    backgroundColor: "#fff",
+    color: "#000",
   },
   body: {
     fontSize: 14,
@@ -43,11 +45,25 @@ const ReassociateStudentLevelUp = ({
   dbModelLst,
   ddlSection,
   ddlLevelStatus,
+  ddlAcademicYear,
+  idAcademicYearValue,
+  ddlClass,
+  nextClass,
   setOpenPopup,
   setFormCheck,
+  formCheck,
   formCheckSubmitHandler,
 }) => {
   const classes = useStyles();
+
+  const handleBulkChange = (checked) => {
+    if (checked) {
+      setFormCheck([...dbModelLst]);
+    } else {
+      setFormCheck([]);
+    }
+  };
+  let showNextClass = ddlClass && ddlClass.filter((x) => x.Key === nextClass);
 
   const handleChange = (subject) => {
     setFormCheck((prev) => {
@@ -78,16 +94,13 @@ const ReassociateStudentLevelUp = ({
   };
 
   const sectionHandler = (value, subject) => {
-    document.getElementById(`section_${subject.IDStudentFacultyLevel}`).value =
-      value;
-
     setFormCheck((prev) => {
       const exists = prev.find(
         (u) => u.IDStudentFacultyLevel === subject.IDStudentFacultyLevel
       );
       if (exists) {
         const newReassoc = { ...subject, Section: value };
-        // console.log(newReassoc);
+        console.log(newReassoc);
         let newArr = [...prev];
         prev.map((data, index) => {
           newArr[index].Section = value;
@@ -96,12 +109,10 @@ const ReassociateStudentLevelUp = ({
       }
       return [...prev];
     });
-    // console.log(value);
+    console.log(value);
   };
 
   const statusHandler = (value, subject) => {
-    document.getElementById(`status_${subject.IDStudentFacultyLevel}`).value =
-      value;
     setFormCheck((prev) => {
       const exists = prev.find(
         (u) => u.IDStudentFacultyLevel === subject.IDStudentFacultyLevel
@@ -121,6 +132,28 @@ const ReassociateStudentLevelUp = ({
   };
   return (
     <>
+      <Grid container>
+        {idAcademicYearValue && (
+          <Grid item xs={4}>
+            <SelectControl
+              name="academicYear"
+              label="Academic Year"
+              value={idAcademicYearValue}
+              onChange={null}
+              options={ddlAcademicYear}
+            />
+          </Grid>
+        )}
+        <Grid item xs={8}>
+          <span>Will be leveled up to class</span> &nbsp;&nbsp;&nbsp;&nbsp;
+          <InputControl
+            disabled
+            variant="filled"
+            value={showNextClass && showNextClass[0].Value}
+          />
+        </Grid>
+      </Grid>
+      <div style={{ height: "10px" }}></div>
       <TableContainer component={Paper}>
         <Table className={classes.table} aria-label="customized table">
           <TableHead>
@@ -137,7 +170,14 @@ const ReassociateStudentLevelUp = ({
               <StyledTableCell align="center" style={{ width: 150 }}>
                 Status
               </StyledTableCell>
-              <StyledTableCell align="center">Action</StyledTableCell>
+              <StyledTableCell align="right">
+                Action{" "}
+                <Checkbox
+                  onChange={(e) => handleBulkChange(e.target.checked)}
+                  name="checkedB"
+                  color="primary"
+                />
+              </StyledTableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -200,7 +240,7 @@ const ReassociateStudentLevelUp = ({
                   <StyledTableCell align="right">
                     {" "}
                     <Checkbox
-                      // checked={state.checkedB}
+                      checked={formCheck.includes(subject)}
                       onChange={() => handleChange(subject)}
                       name="checkedB"
                       color="primary"

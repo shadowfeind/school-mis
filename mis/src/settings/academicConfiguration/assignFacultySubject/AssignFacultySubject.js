@@ -130,6 +130,7 @@ const AssignFacultySubject = () => {
       type: "success",
     });
     dispatch({ type: ASSIGN_FACULTY_SUBJECT_EDIT_POST_RESET });
+    dispatch(getListAssignFacultySubject(acaYear, programValue, classId));
   }
   if (assignFacSubGenerateError) {
     setNotify({
@@ -195,8 +196,8 @@ const AssignFacultySubject = () => {
   };
 
   const listSearchHandler = () => {
-    if (validate()){
-    dispatch(getListAssignFacultySubject(acaYear, programValue, classId));
+    if (validate()) {
+      dispatch(getListAssignFacultySubject(acaYear, programValue, classId));
     }
   };
 
@@ -211,15 +212,15 @@ const AssignFacultySubject = () => {
     }
   }, [academicSubjectsList]);
 
-  const validate =()=>{
-    let temp={};
+  const validate = () => {
+    let temp = {};
     temp.acaYear = !acaYear ? "This feild is required" : "";
     temp.programValue = !programValue ? "This feild is required" : "";
     temp.classId = !classId ? "This feild is required" : "";
-    
+
     setErrors({ ...temp });
     return Object.values(temp).every((x) => x === "");
-  }
+  };
 
   const handleAcademicYearChange = (e) => {
     handleSelectChange(e.target.value);
@@ -231,12 +232,12 @@ const AssignFacultySubject = () => {
   };
 
   const handleCreateClick = () => {
-    if(validate()){
-    dispatch(
-      getAssignFacultySubjectOptionAction(acaYear, programValue, classId)
-    );
-    dispatch({ type: ASSIGN_FACULTY_SUBJECT_GENERATE_RESET });
-    setOpenPopup(true);
+    if (validate()) {
+      dispatch(
+        getAssignFacultySubjectOptionAction(acaYear, programValue, classId)
+      );
+      dispatch({ type: ASSIGN_FACULTY_SUBJECT_GENERATE_RESET });
+      setOpenPopup(true);
     }
   };
 
@@ -272,12 +273,12 @@ const AssignFacultySubject = () => {
   }
 
   const generateHandler = () => {
-    if(validate()){
-    dispatch(
-      getAssignFacultySubjectGenerateAction(acaYear, programValue, classId)
-    );
-    dispatch({ type: ASSIGN_FACULTY_SUBJECT_GET_RESET });
-    setOpenPopup(true);
+    if (validate()) {
+      dispatch(
+        getAssignFacultySubjectGenerateAction(acaYear, programValue, classId)
+      );
+      dispatch({ type: ASSIGN_FACULTY_SUBJECT_GET_RESET });
+      setOpenPopup(true);
     }
   };
   return (

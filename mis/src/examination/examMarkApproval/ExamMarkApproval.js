@@ -99,7 +99,7 @@ const ExamMarkApproval = () => {
       return item;
     },
   });
-  const[openBulkPopup, setOpenBulkPopup] = useState(false);
+  const [openBulkPopup, setOpenBulkPopup] = useState(false);
   const [openPopup, setOpenPopup] = useState(false);
   const [notify, setNotify] = useState({
     isOpen: false,
@@ -157,8 +157,8 @@ const ExamMarkApproval = () => {
     (state) => state.getBulkExamApprovalSearchData
   );
 
-  const {bulkBlankData} = useSelector(
-    (state)=> state.getBulkExamApprovalBlankData
+  const { bulkBlankData } = useSelector(
+    (state) => state.getBulkExamApprovalBlankData
   );
 
   const {
@@ -479,6 +479,7 @@ const ExamMarkApproval = () => {
           }
           search={bulkData && bulkData.searchFilterModel}
           bulkData={bulkData && bulkData.dbModelLsts}
+          setOpenPopup={setOpenPopup}
         />
       </Popup>
       <Popup
@@ -486,9 +487,7 @@ const ExamMarkApproval = () => {
         setOpenPopup={setOpenBulkPopup}
         title="Bulk Blank Edit"
       >
-        <ExamMarkApprovalBlankForm
-         blankData={bulkBlankData && bulkBlankData}
-        />
+        <ExamMarkApprovalBlankForm blankData={bulkBlankData && bulkBlankData} />
       </Popup>
       <Notification notify={notify} setNotify={setNotify} />
       <ConfirmDialog

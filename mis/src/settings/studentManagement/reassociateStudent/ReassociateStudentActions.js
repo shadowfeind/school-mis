@@ -75,23 +75,25 @@ export const getReassociateStudentsLevelupAction =
   };
 
 export const getReassociateStudentsLevelupPostAction =
-  (checkboxState, searchFilterModel) => async (dispatch) => {
+  (checkboxState, searchFilterModel, year, academicYear) =>
+  async (dispatch) => {
     try {
       dispatch({ type: GET_REASSOCIATE_STUDENTS_LEVEL_UP_POST_REQUEST });
+      // checkboxState.forEach((m) => {
+      //   if (m.AcademicYear === year) {
+      //     m.academicYear = value;
+      //   }
+      // });
 
       const jsonData = JSON.stringify({
         dbModelLst: checkboxState,
         searchFilterModel,
+        academicYear,
       });
 
-      // const config = {
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //   },
-      // };
-
+      console.log(jsonData);
       const { data } = await axios.post(
-        `${API_URL}/api/ReassociateStudent/PostBulkLevelUp?mode=1`,
+        `${API_URL}/api/ReassociateStudent/PostBulkLevelUp?mode=0`,
         jsonData,
         tokenConfig
       );

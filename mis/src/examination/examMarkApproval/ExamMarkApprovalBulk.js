@@ -40,7 +40,12 @@ const useStyles = makeStyles({
   },
 });
 
-const ExamMarkApprovalBulk = ({ bulkData, statusData, search }) => {
+const ExamMarkApprovalBulk = ({
+  bulkData,
+  statusData,
+  search,
+  setOpenPopup,
+}) => {
   const [bulk, setBulk] = useState([]);
   const classes = useStyles();
   const dispatch = useDispatch();
@@ -194,7 +199,7 @@ const ExamMarkApprovalBulk = ({ bulkData, statusData, search }) => {
           <Button
             variant="contained"
             color="secondary"
-            // onClick={() => setOpenPopup(false)}
+            onClick={() => setOpenPopup(false)}
             style={{ margin: "10px 0 0 10px" }}
           >
             CANCEL

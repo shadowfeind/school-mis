@@ -41,8 +41,8 @@ const AcademicYearCalendarTableCollapse = ({
         <TableCell>{item.EventName}</TableCell>
         <TableCell>{item.EventType}</TableCell>
         <TableCell>{item.EventStatus}</TableCell>
-        <TableCell>{item.FromDate}</TableCell>
-        <TableCell>{item.ToDate}</TableCell>
+        <TableCell>{item.FromDate.slice(0, 10)}</TableCell>
+        <TableCell>{item.ToDate.slice(0, 10)}</TableCell>
         <TableCell>
           <Button
             variant="contained"

@@ -34,8 +34,8 @@ const AcademicGradingTableCollapse = ({
       <TableCell>{item.LetterGrade}</TableCell>
       <TableCell>{item.HonorPoint}</TableCell>
       <TableCell>{item.GradeComment}</TableCell>
-      <TableCell>{item.Created_On}</TableCell>
-      <TableCell>{item.Updated_On}</TableCell>
+      <TableCell>{item.Created_On.slice(0, 10)}</TableCell>
+      <TableCell>{item.Updated_On.slice(0, 10)}</TableCell>
       <TableCell>
         <Button
           variant="contained"

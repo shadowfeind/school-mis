@@ -6,34 +6,36 @@ import CloudDownloadIcon from "@material-ui/icons/CloudDownload";
 import { useDispatch } from "react-redux";
 
 const useStyles = makeStyles({
-    button: {
-      marginRight: "1px",
-      padding: "5px",
-      minWidth: "10px",
-      fontSize: "12px",
-    },
-  });
+  button: {
+    marginRight: "1px",
+    padding: "5px",
+    minWidth: "10px",
+    fontSize: "12px",
+  },
+});
 
-  const OldQuestionsTableCollapse = ({
-      item,
-      updateOldQuestions,
-      classId,
-      subject,
+const OldQuestionsTableCollapse = ({
+  item,
+  updateOldQuestions,
+  classId,
+  subject,
 }) => {
   const dispatch = useDispatch();
-    const classes = useStyles();
+  const classes = useStyles();
 
-    const downloadHandler = (id) => {
-      dispatch(downloadOldQuestionsAction(id));
-    };
-    return (
-      <TableRow>
-        <TableCell>{item.OldQuestionName}</TableCell>
-        <TableCell>{item.OldQuestionDescription}</TableCell>
-        <TableCell>{item.FirstName} {item.LastName}</TableCell>
-        <TableCell>{item.Created_On}</TableCell>
-        <TableCell>{item.IsActive ? "active" : "notactive"}</TableCell>
-        <TableCell>
+  const downloadHandler = (id) => {
+    dispatch(downloadOldQuestionsAction(id));
+  };
+  return (
+    <TableRow>
+      <TableCell>{item.OldQuestionName}</TableCell>
+      <TableCell>{item.OldQuestionDescription}</TableCell>
+      <TableCell>
+        {item.FirstName} {item.LastName}
+      </TableCell>
+      <TableCell>{item.Created_On.slice(0, 10)}</TableCell>
+      <TableCell>{item.IsActive ? "active" : "notactive"}</TableCell>
+      <TableCell>
         <Button
           variant="contained"
           color="primary"
@@ -43,16 +45,16 @@ const useStyles = makeStyles({
           <EditIcon style={{ fontSize: 12 }} />
         </Button>
         <Button
-            variant="contained"
-            color="default"
-            className={classes.button}
-            onClick={() => downloadHandler(item.Id)}
-          >
-            <CloudDownloadIcon style={{ fontSize: 12 }} />
-          </Button>
+          variant="contained"
+          color="default"
+          className={classes.button}
+          onClick={() => downloadHandler(item.Id)}
+        >
+          <CloudDownloadIcon style={{ fontSize: 12 }} />
+        </Button>
       </TableCell>
-        </TableRow>
+    </TableRow>
   );
-}
+};
 
 export default OldQuestionsTableCollapse;

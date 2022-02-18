@@ -34,8 +34,8 @@ const SchoolBoardTableCollapse = ({
       <TableCell>{item.UniversityName}</TableCell>
       <TableCell>{item.Description}</TableCell>
       <TableCell>{item.IsActive ? "Active" : "InActive"}</TableCell>
-      <TableCell>{item.Created_On}</TableCell>
-      <TableCell>{item.Updated_On}</TableCell>
+      <TableCell>{item.Created_On.slice(0, 10)}</TableCell>
+      <TableCell>{item.Updated_On.slice(0, 10)}</TableCell>
       <TableCell>
         <Button
           variant="contained"

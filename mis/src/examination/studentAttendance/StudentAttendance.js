@@ -427,6 +427,7 @@ const StudentAttendance = () => {
           workingDayTotal={
             bulkStudentAttendance && bulkStudentAttendance.WorkingDayTotal
           }
+          setOpenPopup={setOpenPopup}
         />
       </Popup>
       <Notification notify={notify} setNotify={setNotify} />

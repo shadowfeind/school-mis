@@ -143,7 +143,7 @@ const AssignFacultySubjectFormEdit = ({
         <Button
           variant="contained"
           color="secondary"
-          onClick={() => setOpenPopup(false)}
+          onClick={() => setOpenPopupForm(false)}
           style={{ margin: "10px 0 0 10px" }}
         >
           CANCEL

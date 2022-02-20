@@ -104,6 +104,8 @@ const ExamScheduleForm = ({
 
   const test = [{ Key: "", Value: "" }];
 
+  const invalidChars = ["-", "e", "+", "E"];
+
   return (
     <>
       <Form onSubmit={handleSubmit}>
@@ -142,6 +144,9 @@ const ExamScheduleForm = ({
                 name="FullMarkPractical"
                 label="Full Marks Practical"
                 value={values.FullMarkPractical}
+                onKeyDown={(e) =>
+                  invalidChars.includes(e.key) && e.preventDefault()
+                }
                 onChange={(e) =>
                   (e.target.value <= 100) & (e.target.value >= 0) &&
                   handleInputChange(e)
@@ -153,6 +158,9 @@ const ExamScheduleForm = ({
             <InputControl
               name="FullMark"
               label="Full Marks*"
+              onKeyDown={(e) =>
+                invalidChars.includes(e.key) && e.preventDefault()
+              }
               value={values.FullMark}
               onChange={(e) =>
                 (e.target.value <= 100) & (e.target.value >= 0) &&
@@ -214,6 +222,9 @@ const ExamScheduleForm = ({
               name="PassMark"
               label="Pass Mark"
               value={values.PassMark}
+              onKeyDown={(e) =>
+                invalidChars.includes(e.key) && e.preventDefault()
+              }
               onChange={(e) =>
                 (e.target.value <= 100) & (e.target.value >= 0) &&
                 handleInputChange(e)

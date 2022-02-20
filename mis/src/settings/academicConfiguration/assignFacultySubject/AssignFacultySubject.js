@@ -397,7 +397,7 @@ const AssignFacultySubject = () => {
       <Popup
         openPopup={openPopup}
         setOpenPopup={setOpenPopup}
-        title="Add Academic Faculty Subject"
+        title="Add Assign Faculty Subject"
       >
         <AssignFacultySubjectFormCreate
           subjectOptions={
@@ -409,12 +409,13 @@ const AssignFacultySubject = () => {
           }
           setFormCheck={setFormCheck}
           formCheckSubmitHandler={formCheckSubmitHandler}
+          setOpenPopup={setOpenPopup}
         />
       </Popup>
       <Popup
         openPopup={openPopupForm}
         setOpenPopup={setOpenPopupForm}
-        title="Edit Academic Faculty Subject"
+        title="Edit Assign Faculty Subject"
       >
         <AssignFacultySubjectFormEdit
           singleFacultySubject={

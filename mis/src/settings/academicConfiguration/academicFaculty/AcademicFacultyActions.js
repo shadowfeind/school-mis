@@ -46,11 +46,7 @@ export const AcademicFacultyCreateAction =
         postedChekboxLst: { CheckBoxListID: checkboxState },
       });
 
-      // const config = {
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //   },
-      // };
+      console.log(jsonData);
 
       const { data } = await axios.post(
         `${API_URL}/api/AcademicFaculty/PostAcademicFaculty`,

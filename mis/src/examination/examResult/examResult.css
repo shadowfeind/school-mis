@@ -1,5 +1,6 @@
 .resultContainer {
-  width: 840px;
+  /* width: 210mm;
+  height: 297mm; */
   box-sizing: border-box;
   margin: 0 auto;
   border: 3px solid #000;
@@ -82,4 +83,10 @@
 }
 .signatureContainer h6 {
   font-size: 14px;
+}
+
+@media print {
+  .resultContainer {
+    page-break-before: always;
+  }
 }

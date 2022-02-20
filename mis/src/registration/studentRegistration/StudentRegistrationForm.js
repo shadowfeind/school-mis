@@ -237,11 +237,11 @@ const StudentRegistrationForm = ({
       : fieldValues.FatherContactNo.length == 10
       ? ""
       : "Must be 10 number";
-    temp.LocalGuardianContactNo = !fieldValues.LocalGuardianContactNo
-      ? "This feild is required"
-      : fieldValues.LocalGuardianContactNo.length == 10
-      ? ""
-      : "Must be 10 number";
+    // temp.LocalGuardianContactNo = !fieldValues.LocalGuardianContactNo
+    //   ? "This feild is required"
+    //   : fieldValues.LocalGuardianContactNo.length == 10
+    //   ? ""
+    //   : "Must be 10 number";
 
     // temp.FatherContactNo = !fieldValues.FatherContactNo
     //   ? "This feild is required"
@@ -598,7 +598,7 @@ const StudentRegistrationForm = ({
             value={values.LocalGuardianContactNo}
             onChange={handleInputChange}
             type="number"
-            errors={errors.LocalGuardianContactNo}
+            // errors={errors.LocalGuardianContactNo}
           />
 
           <InputControl

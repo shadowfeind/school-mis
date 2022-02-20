@@ -154,9 +154,11 @@ const ExamResultDesign = ({
               <tr>
                 <td colSpan={6}>GRADE POINT AVERAGE (GPA)</td>
                 <td>
-                  {trackSubject.reduce((acc, cur) => {
-                    return acc + cur.totalMarks;
-                  }, 0) / trackSubject.length}
+                  {(
+                    trackSubject.reduce((acc, cur) => {
+                      return acc + cur.totalMarks;
+                    }, 0) / trackSubject.length
+                  ).toFixed(2)}
                 </td>
                 <td></td>
               </tr>
@@ -299,9 +301,11 @@ const ExamResultDesign = ({
                     </td>
                     <td>
                       G.P.A:{" "}
-                      {trackSubject.reduce((acc, cur) => {
-                        return acc + cur.totalMarks;
-                      }, 0) / trackSubject.length}
+                      {(
+                        trackSubject.reduce((acc, cur) => {
+                          return acc + cur.totalMarks;
+                        }, 0) / trackSubject.length
+                      ).toFixed(2)}
                     </td>
                     <td>
                       {gpaToRemarks(

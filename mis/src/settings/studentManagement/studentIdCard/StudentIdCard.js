@@ -14,14 +14,21 @@ import Notification from "../../../components/Notification";
 import ConfirmDialog from "../../../components/ConfirmDialog";
 import SelectControl from "../../../components/controls/SelectControl";
 import DatePickerControl from "../../../components/controls/DatePickerControl";
-import { GET_INITIAL_STUDENT_ID_CARD_DATA_RESET } from "./StudentIdCardConstants";
+import {
+  GET_INITIAL_STUDENT_ID_CARD_DATA_RESET,
+  GET_PRINT_BULK_STUDENTS_FOR_STUDENT_ID_CARD_RESET,
+} from "./StudentIdCardConstants";
 import {
   getActiveStudentsForStudentIdCardDataAction,
   getInitialStudentIdCardDataAction,
+  getPrintBulkStudentsForStudentIdCardDataAction,
 } from "./StudentIdCardActions";
 import { getActiveStudentsForAdmitCardDataAction } from "../../../examination/printAdminCard/PrintAdminCardActions";
 import { GET_ACTIVE_STUDENTS_FOR_ADMIT_CARD_RESET } from "../../../examination/printAdminCard/PrintAdminCardConstants";
 import StudentCardDesign from "./StudentCardDesign";
+import StudentCardPrintDesign from "./StudentIdCardPrint";
+import StudentCardPrint from "./StudentIdCardPrint";
+import StudentIdCardPrint from "./StudentIdCardPrint";
 
 //getActiveStudentsForAdmitCardDataAction is used from admitCard actions to fetch student lists
 const useStyles = makeStyles((theme) => ({
@@ -79,6 +86,9 @@ const StudentIdCard = () => {
     (state) => state.getActiveStudentsForStudentIdCardData
   );
 
+  const { printBulkStudentsForIdCard, printBulkStudentsForIdCardError } =
+    useSelector((state) => state.getPrintBulkStudentsForStudentIdCardData);
+
   if (error) {
     setNotify({
       isOpen: true,
@@ -91,6 +101,15 @@ const StudentIdCard = () => {
   if (activeStudentsForAdmitCardSuccess) {
     setDdlStudent(activeStudentsForAdmitCard);
     dispatch({ type: GET_ACTIVE_STUDENTS_FOR_ADMIT_CARD_RESET });
+  }
+
+  if (printBulkStudentsForIdCardError) {
+    setNotify({
+      isOpen: true,
+      message: printBulkStudentsForIdCardError,
+      type: "error",
+    });
+    dispatch({ type: GET_PRINT_BULK_STUDENTS_FOR_STUDENT_ID_CARD_RESET });
   }
 
   useEffect(() => {
@@ -196,6 +215,22 @@ const StudentIdCard = () => {
       );
     }
   };
+  const handleBulkPrint = () => {
+    if (validate()) {
+      dispatch(
+        getPrintBulkStudentsForStudentIdCardDataAction(
+          acaYear,
+          programValue,
+          classId,
+          shift,
+          student,
+          section,
+          date
+        )
+      );
+      setOpenPopup(true);
+    }
+  };
 
   return (
     <>
@@ -282,7 +317,7 @@ const StudentIdCard = () => {
                 color="primary"
                 type="submit"
                 style={{ margin: "10px 0 0 10px" }}
-                // onClick={handleBulkPrint}
+                onClick={handleBulkPrint}
               >
                 BULK PRINT
               </Button>
@@ -314,14 +349,15 @@ const StudentIdCard = () => {
         )}
       </CustomContainer>
       <Popup openPopup={openPopup} setOpenPopup={setOpenPopup}>
-        {/* <PrintAdminCardPrint
-      students={printStudentsAdmitCard && printStudentsAdmitCard.dbModelLst}
-      imagePath={
-        printStudentsAdmitCard && printStudentsAdmitCard.ImagePathLst
-      }
-      classname={printStudentsAdmitCard && printStudentsAdmitCard.ClassName}
-      examDate={printStudentsAdmitCard && printStudentsAdmitCard.examDate}
-    /> */}
+        <StudentIdCardPrint
+          studentId={
+            printBulkStudentsForIdCard && printBulkStudentsForIdCard.dbModelLst
+          }
+          classnames={
+            printBulkStudentsForIdCard && printBulkStudentsForIdCard.ClassName
+          }
+          examDates={printBulkStudentsForIdCard && printBulkStudentsForIdCard.examDate}
+        />
       </Popup>
 
       <Notification notify={notify} setNotify={setNotify} />

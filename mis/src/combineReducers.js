@@ -231,6 +231,7 @@ import {
 import {
   getActiveStudentsForStudentIdCardDataReducer,
   getInitialStudentIdCardDataReducer,
+  getPrintBulkStudentsForStudentIdCardDataReducer,
 } from "./settings/studentManagement/studentIdCard/StudentIdCardReducers";
 import {
   createSingleTeacherFacSubReducer,
@@ -319,6 +320,7 @@ import {
   uploadPhotoReducer,
 } from "./userProfile/uploadPhoto/UploadPhotoReducers";
 import {
+  deleteClassSubjectReducer,
   getAllClassSubjectReducer,
   getClassSubjectListReducer,
   getSingleClassSubjectReducer,
@@ -473,6 +475,7 @@ export const reducers = combineReducers({
   getInitialStudentIdCardData: getInitialStudentIdCardDataReducer,
   getActiveStudentsForStudentIdCardData:
     getActiveStudentsForStudentIdCardDataReducer,
+    getPrintBulkStudentsForStudentIdCardData : getPrintBulkStudentsForStudentIdCardDataReducer,
   getAllReassociateStudents: getAllReassociateStudentsReducer,
   getReassociateStudentsLists: getReassociateStudentsListsReducer,
   getReassociateStudentsLevelup: getReassociateStudentsLevelupReducer,
@@ -492,6 +495,7 @@ export const reducers = combineReducers({
   updateSingleClassSubject: updateSingleClassSubjectReducer,
   getToCreateClassSubject: getToCreateClassSubjectReducer,
   postToCreateClassSubject: postToCreateClassSubjectReducer,
+  deleteClassSubject : deleteClassSubjectReducer,
   getInitialRoleForPermission: getInitialRoleForPermissionReducer,
   getlistPermissionByRole: getlistPermissionByRoleReducer,
   //examination reducers start

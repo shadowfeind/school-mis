@@ -59,15 +59,15 @@ const tableHeader = [
 
 const StudentProfile = () => {
   const [academicYear, setAcademicYear] = useState([]);
-  const [academicYearValue, setAcademicYearValue] = useState();
+  const [academicYearValue, setAcademicYearValue] = useState("");
   const [shift, setShift] = useState([]);
-  const [shiftValue, setShiftValue] = useState();
+  const [shiftValue, setShiftValue] = useState("");
   const [program, setProgram] = useState([]);
-  const [programValue, setProgramValue] = useState();
+  const [programValue, setProgramValue] = useState("");
   const [section, setSection] = useState([]);
-  const [sectionValue, setSectionValue] = useState();
+  const [sectionValue, setSectionValue] = useState("");
   const [classOpt, setClassOpt] = useState([]);
-  const [classOptValue, setClassOptValue] = useState();
+  const [classOptValue, setClassOptValue] = useState("");
   const [tableData, setTableData] = useState([]);
   const [selectedIndex, setSelectedIndex] = useState("");
   const [errors, setErrors] = useState({});
@@ -284,7 +284,6 @@ const StudentProfile = () => {
         getSingleStudentProfileEditDataAction(
           id,
           listStudentProfile.searchFilterModel.idAcademicYear,
-
           listStudentProfile.searchFilterModel.idFacultyProgramLink,
           listStudentProfile.searchFilterModel.classSection,
           listStudentProfile.searchFilterModel.idClass,

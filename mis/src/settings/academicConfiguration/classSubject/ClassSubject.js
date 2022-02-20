@@ -17,6 +17,7 @@ import Notification from "../../../components/Notification";
 import ConfirmDialog from "../../../components/ConfirmDialog";
 import SelectControl from "../../../components/controls/SelectControl";
 import {
+  DELETE_CLASS_SUBJECT_RESET,
   GET_ALL_CLASS_SUBJECT_RESET,
   GET_CLASS_SUBJECT_LIST_RESET,
   GET_SINGLE_CLASS_SUBJECT_RESET,
@@ -34,6 +35,7 @@ import {
 import ClassSubjectTableCollapse from "./ClassSubjectTableCollapse";
 import ClassSubjectEditForm from "./ClassSubjectEditForm";
 import ClassSubjectCreateForm from "./ClassSubjectCreateForm";
+import ClassSubjectDeleteForm from "./ClassSubjectDeleteForm";
 
 const useStyles = makeStyles((theme) => ({
   searchInput: {
@@ -70,6 +72,8 @@ const ClassSubject = () => {
   });
   const [openPopup, setOpenPopup] = useState(false);
   const [openPopupForm, setOpenPopupForm] = useState(false);
+  const [openDeletePopup, setOpenDeletePopup] = useState(false);
+
   const [notify, setNotify] = useState({
     isOpen: false,
     message: "",
@@ -130,6 +134,10 @@ const ClassSubject = () => {
     error: updateSingleClassSubjectError,
   } = useSelector((state) => state.updateSingleClassSubject);
 
+  const { success: deleteClassSubjectSuccess, error: deleteClassSubjectError } =
+  useSelector((state) => state.deleteClassSubject);
+
+
   const {
     success: postToCreateClassSubjectSuccess,
     error: postToCreateClassSubjectError,
@@ -176,6 +184,15 @@ const ClassSubject = () => {
     dispatch({ type: UPDATE_SINGLE_CLASS_SUBJECT_RESET });
     setOpenPopupForm(false);
   }
+  if (deleteClassSubjectError) {
+    setNotify({
+      isOpen: true,
+      message: deleteClassSubjectError,
+      type: "error",
+    });
+    setOpenDeletePopup(false);
+    dispatch({ type: DELETE_CLASS_SUBJECT_RESET });
+  }
   if (updateSingleClassSubjectSuccess) {
     setNotify({
       isOpen: true,
@@ -202,6 +219,16 @@ const ClassSubject = () => {
       type: "error",
     });
     dispatch({ type: POST_TO_CREATE_CLASS_SUBJECT_RESET });
+  }
+  if (deleteClassSubjectSuccess) {
+    dispatch(getClassSubjectListAction(classId));
+    setNotify({
+      isOpen: true,
+      message: "Deleted Succesfully",
+      type: "success",
+    });
+    setOpenDeletePopup(false);
+    dispatch({ type: DELETE_CLASS_SUBJECT_RESET });
   }
 
   useEffect(() => {
@@ -231,6 +258,12 @@ const ClassSubject = () => {
       dispatch(getToCreateClassSubjectAction(classId));
       setOpenPopup(true);
     }
+  };
+
+
+  const deleteCollegeHandler = (id) => {
+    dispatch(getSingleClassSubjectAction(id));
+    setOpenDeletePopup(true);
   };
 
   const updateClassSubject = (id) => {
@@ -318,7 +351,10 @@ const ClassSubject = () => {
                   item={item}
                   key={item.$id}
                   updateClassSubject={updateClassSubject}
-                  //   deleteCollegeHandler={deleteCollegeHandler}
+                    deleteCollegeHandler={deleteCollegeHandler}
+                    setOpenPopup={setOpenPopup}
+                    setOpenPopupForm={setOpenPopupForm}
+                setOpenDeletePopup={setOpenDeletePopup}
                 />
               ))}
             </TableBody>
@@ -347,6 +383,16 @@ const ClassSubject = () => {
         <ClassSubjectEditForm
           singleClassSubject={singleClassSubject && singleClassSubject.dbModel}
           setOpenPopupForm={setOpenPopupForm}
+        />
+      </Popup>
+      <Popup
+      openPopup={openDeletePopup}
+      setOpenPopup={setOpenDeletePopup}
+      title="Delete Class Subject"
+      >
+        <ClassSubjectDeleteForm
+        deleteClassSubject={singleClassSubject && singleClassSubject.dbModel}
+        setOpenDeletePopup={setOpenDeletePopup}
         />
       </Popup>
       <Notification notify={notify} setNotify={setNotify} />

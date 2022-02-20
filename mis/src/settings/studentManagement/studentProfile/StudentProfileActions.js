@@ -44,12 +44,12 @@ export const getAllStudentProfileAction = () => async (dispatch) => {
 };
 
 export const getListStudentProfileAction =
-  (year, program, shift, classId, section) => async (dispatch) => {
+  (id, year, program, classId, section,shift ,status) => async (dispatch) => {
     try {
       dispatch({ type: GET_LIST_STUDENT_PROFILE_REQUEST });
 
       const { data } = await axios.get(
-        `${API_URL}/api/StudentProfile/GetListStudentProfile?idAcademicYear=${year}&idFacultyProgramLink=${program}&idShift=${shift}&idClass=${classId}&classSection=${section}`,
+        `${API_URL}/api/StudentProfile/GetListStudentProfile?idAcademicYear=${year}&idFacultyProgramLink=${program}&level=${classId}&section=${section}&idShift=${shift}&LevelStatus=${status}`,
         tokenConfig
       );
 
@@ -63,12 +63,12 @@ export const getListStudentProfileAction =
   };
 
 export const getSingleStudentProfileDetailsAction =
-  (id, year, program, classId, shift, section) => async (dispatch) => {
+  (id, year, program, classId, section,shift ,status) => async (dispatch) => {
     try {
       dispatch({ type: SINGLE_STUDENT_PROFILE_DETAILS_REQUEST });
 
       const { data } = await axios.get(
-        `${API_URL}/api/StudentProfile/GetSingleStudentProfileForDetail/${id}?idAcademicYear=${year}&idFacultyProgramLink=${program}&level=${classId}&idShift=${shift}&classSection=${section}`,
+        `${API_URL}/api/StudentProfile/GetSingleStudentProfileForDetail/${id}?idAcademicYear=${year}&idFacultyProgramLink=${program}&level=${classId}&section=${section}&idShift=${shift}&LevelStatus=${status}`,
         tokenConfig
       );
 
@@ -82,12 +82,12 @@ export const getSingleStudentProfileDetailsAction =
   };
 
 export const getSingleStudentProfilePasswordresetDataAction =
-  (id, year, program, classId, shift, section) => async (dispatch) => {
+  (id, year, program, classId, section,shift ,status) => async (dispatch) => {
     try {
       dispatch({ type: GET_SINGLE_STUDENT_PROFILE_PASSWORDRESET_DATA_REQUEST });
 
       const { data } = await axios.get(
-        `${API_URL}/api/StudentProfile/GetResetPasswordStudent/${id}?idAcademicYear=${year}&idFacultyProgramLink=${program}&level=${classId}&idShift=${shift}&classSection=${section}`,
+        `${API_URL}/api/StudentProfile/GetResetPasswordStudent/${id}?idAcademicYear=${year}&idFacultyProgramLink=${program}&level=${classId}&section=${section}&idShift=${shift}&LevelStatus=${status}`,
         tokenConfig
       );
 
@@ -140,12 +140,12 @@ export const resetSingleStudentPasswordAction =
   };
 
 export const getSingleStudentProfileEditDataAction =
-  (id, year, program, classId, shift, section) => async (dispatch) => {
+  (id, year, program, classId, section,shift ,status) => async (dispatch) => {
     try {
       dispatch({ type: GET_SINGLE_STUDENT_PROFILE_EDIT_DATA_REQUEST });
 
       const { data } = await axios.get(
-        `${API_URL}/api/StudentProfile/GetSingleStudentProfileForEdit/${id}?idAcademicYear=${year}&idFacultyProgramLink=${program}&level=${classId}&idShift=${shift}&classSection=${section}`,
+        `${API_URL}/api/StudentProfile/GetSingleStudentProfileForEdit/${id}?idAcademicYear=${year}&idFacultyProgramLink=${program}&level=${classId}&section=${section}&idShift=${shift}&LevelStatus=${status}`,
         tokenConfig
       );
 

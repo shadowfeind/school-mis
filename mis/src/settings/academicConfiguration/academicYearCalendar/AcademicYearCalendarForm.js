@@ -40,8 +40,8 @@ const AcademicYearCalendarForm = ({
       : fieldValues.EventDescription.length > 200
       ? "Must be less than 101 characters"
       : "";
-      temp.FromDate = fieldValues.FromDate ? "" : "This feild is required";
-      temp.ToDate = !fieldValues.ToDate ? "" : "This feild is required";
+    temp.FromDate = fieldValues.FromDate ? "" : "This feild is required";
+    temp.ToDate = fieldValues.ToDate ? "" : "This feild is required";
 
     setErrors({ ...temp });
     return Object.values(temp).every((x) => x === "");
@@ -56,9 +56,10 @@ const AcademicYearCalendarForm = ({
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
+    console.log(values.IDAcademicYearCalendar);
     if (validate()) {
       if (values.IDAcademicYearCalendar === 0) {
+        console.log("working");
         const finalData = {
           ...values,
           IDYearFacultyLink:

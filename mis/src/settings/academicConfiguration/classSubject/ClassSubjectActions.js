@@ -101,12 +101,6 @@ export const updateSingleClassSubjectAction = (subject) => async (dispatch) => {
       dbModel: subject,
     });
 
-    // const config = {
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    // };
-
     const { data } = await axios.put(
       `${API_URL}/api/ClassSubject/PutClassSubject`,
       jsonData,
@@ -137,12 +131,7 @@ export const createSingleClassSubjectAction =
         actionType: 0,
       });
 
-      // const config = {
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //   },
-      // };
-
+      console.log(jsonData);
       const { data } = await axios.post(
         `${API_URL}/api/ClassSubject/PostAcademicFacultySubjectLinkA`,
         jsonData,

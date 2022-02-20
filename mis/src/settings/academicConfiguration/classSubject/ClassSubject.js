@@ -345,7 +345,7 @@ const ClassSubject = () => {
         title="Edit Class Subject"
       >
         <ClassSubjectEditForm
-          singleClassSubject={singleClassSubject && singleClassSubject.model}
+          singleClassSubject={singleClassSubject && singleClassSubject.dbModel}
           setOpenPopupForm={setOpenPopupForm}
         />
       </Popup>

@@ -79,11 +79,6 @@ export const getReassociateStudentsLevelupPostAction =
   async (dispatch) => {
     try {
       dispatch({ type: GET_REASSOCIATE_STUDENTS_LEVEL_UP_POST_REQUEST });
-      // checkboxState.forEach((m) => {
-      //   if (m.AcademicYear === year) {
-      //     m.academicYear = value;
-      //   }
-      // });
 
       const jsonData = JSON.stringify({
         dbModelLst: checkboxState,
@@ -91,7 +86,6 @@ export const getReassociateStudentsLevelupPostAction =
         academicYear,
       });
 
-      console.log(jsonData);
       const { data } = await axios.post(
         `${API_URL}/api/ReassociateStudent/PostBulkLevelUp?mode=0`,
         jsonData,

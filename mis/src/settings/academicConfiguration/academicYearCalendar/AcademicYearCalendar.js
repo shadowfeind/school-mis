@@ -141,6 +141,7 @@ const AcademicYearCalendar = () => {
     });
     setOpenPopup(false);
     dispatch({ type: ACADEMIC_YEAR_CALENDAR_CREATE_POST_RESET });
+    dispatch(academicYearCalendarSearchAction(acaYear, programValue, classId));
   }
 
   if (updateSingleAcademicYearCalendarSuccess) {
@@ -204,15 +205,15 @@ const AcademicYearCalendar = () => {
     tableDataAfterPagingAndSorting,
   } = useCustomTable(tableData, tableHeader, filterFn);
 
-  const validate=()=>{
-    let temp ={};
+  const validate = () => {
+    let temp = {};
     temp.acaYear = !acaYear ? "This feild is required" : "";
     temp.programValue = !programValue ? "This feild is required" : "";
     temp.classId = !classId ? "This feild is required" : "";
-    
+
     setErrors({ ...temp });
     return Object.values(temp).every((x) => x === "");
-  }
+  };
   const handleSearch = (e) => {
     setFilterFn({
       fn: (item) => {
@@ -239,16 +240,19 @@ const AcademicYearCalendar = () => {
   }, [academicYearCalendarProgram]);
 
   const handleCreate = () => {
-    if(validate()){
-    dispatch(createAcademicYearCalendarAction(acaYear, programValue, classId));
-    setOpenPopup(true);
+    if (validate()) {
+      dispatch(
+        createAcademicYearCalendarAction(acaYear, programValue, classId)
+      );
+      setOpenPopup(true);
     }
   };
 
   const handleAcademicYearCalendarSearch = () => {
-    
-    if(validate()){
-      dispatch(academicYearCalendarSearchAction(acaYear, programValue, classId));
+    if (validate()) {
+      dispatch(
+        academicYearCalendarSearchAction(acaYear, programValue, classId)
+      );
     }
   };
 
@@ -285,7 +289,6 @@ const AcademicYearCalendar = () => {
                 onChange={(e) => setClassId(e.target.value)}
                 options={ddlClass}
                 errors={errors.classId}
-
               />
             </Grid>
             <Grid item xs={3}>

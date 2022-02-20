@@ -242,6 +242,15 @@ const AssignFacultySubject = () => {
   };
 
   const formCheckSubmitHandler = () => {
+    if (assignFacSubGenerate) {
+      dispatch(
+        AcademicFacultyCreateAction(
+          assignFacSubGenerate.idYearFacultyProgramLink,
+          assignFacSubGenerate.level,
+          formCheck
+        )
+      );
+    }
     dispatch(
       AcademicFacultyCreateAction(
         academicSubjects.idYearFacultyProgramLink,
@@ -261,6 +270,7 @@ const AssignFacultySubject = () => {
       message: "Created Succesfully",
       type: "success",
     });
+    setOpenPopup(false);
   }
   if (facultySubjectError) {
     setFormCheck([]);

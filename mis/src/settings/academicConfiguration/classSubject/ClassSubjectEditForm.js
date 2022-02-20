@@ -6,10 +6,10 @@ import { useDispatch } from "react-redux";
 import { updateSingleClassSubjectAction } from "./ClassSubjectActions";
 
 const initialFormValues = {
-  IDClassSubject: 1,
-  IDAcademicSubject: 1,
-  CreditHour: 3,
-  FacultyLevel: 6,
+  IDClassSubject: 0,
+  IDAcademicSubject: 0,
+  CreditHour: 0,
+  FacultyLevel: 0,
   IsActive: true,
   Created_On: "2022-01-09T12:32:46.53",
   Updated_On: "2022-01-09T12:32:46.53",
@@ -31,7 +31,6 @@ const ClassSubjectEditForm = ({ singleClassSubject, setOpenPopupForm }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
     if (validate()) {
       dispatch(updateSingleClassSubjectAction(values));
       setOpenPopupForm(false);
@@ -40,7 +39,7 @@ const ClassSubjectEditForm = ({ singleClassSubject, setOpenPopupForm }) => {
 
   useEffect(() => {
     if (singleClassSubject) {
-      setValues({ ...singleClassSubject.dbModel });
+      setValues({ ...singleClassSubject });
     }
   }, [singleClassSubject]);
   return (

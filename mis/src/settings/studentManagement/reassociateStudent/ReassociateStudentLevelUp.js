@@ -111,6 +111,7 @@ const ReassociateStudentLevelUp = ({
     });
     console.log(value);
   };
+  console.log(formCheck);
 
   const statusHandler = (value, subject) => {
     setFormCheck((prev) => {
@@ -240,7 +241,13 @@ const ReassociateStudentLevelUp = ({
                   <StyledTableCell align="right">
                     {" "}
                     <Checkbox
-                      checked={formCheck.includes(subject)}
+                      checked={
+                        formCheck.filter(
+                          (x) => x.IDHREmployee === subject.IDHREmployee
+                        ).length > 0
+                          ? true
+                          : false
+                      }
                       onChange={() => handleChange(subject)}
                       name="checkedB"
                       color="primary"

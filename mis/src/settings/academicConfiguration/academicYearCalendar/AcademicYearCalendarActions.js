@@ -93,12 +93,6 @@ export const createAcademicYearCalendarPostAction =
         dbModel: calendar,
       });
 
-      // const config = {
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //   },
-      // };
-
       await axios.post(
         `${API_URL}/api/AcademicYearCalendar/PostAcademicYearCalendar`,
         jsonData,

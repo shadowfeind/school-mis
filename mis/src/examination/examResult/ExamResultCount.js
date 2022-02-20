@@ -25,7 +25,7 @@ const ExamResultCount = ({ result }) => {
 
   return (
     <div className="resultContainer">
-      <img src="https://i.ibb.co/NjC9r8Z/Creation-Header.png" width="740px" />
+      <img src="https://i.ibb.co/sQM6QZ3/Creation-Header.png" width="740px" />
       <div className="subjectTable">
         <h1>PROGRESS REPORT</h1>
         <Grid container>

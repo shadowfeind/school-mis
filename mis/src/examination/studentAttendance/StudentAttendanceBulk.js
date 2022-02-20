@@ -39,7 +39,7 @@ const useStyles = makeStyles({
 
 const StudentAttendanceBulk = ({ bulkData, search, workingDayTotal }) => {
   const [bulk, setBulk] = useState([]);
-  const [workingDays, setWorkingDays] = useState(0);
+  const [workingDays, setWorkingDays] = useState();
   const classes = useStyles();
   const [errors, setErrors] = useState({});
   const dispatch = useDispatch();
@@ -120,7 +120,8 @@ const StudentAttendanceBulk = ({ bulkData, search, workingDayTotal }) => {
                       name="PresentDay"
                       inputProps={{ tabIndex: "1" }}
                       onChange={(e) =>
-                        e.target.value >= 0 &&
+                        (e.target.value >= 0) &
+                          (e.target.value <= workingDays) &&
                         onChangeHandler(
                           subject,
                           e.target.value,
@@ -132,8 +133,9 @@ const StudentAttendanceBulk = ({ bulkData, search, workingDayTotal }) => {
                   </StyledTableCell>
                   <StyledTableCell align="right">
                     <TextField
+                      disabled
                       id={`practical_${subject.IDHREmployee}`}
-                      defaultValue={subject.AbsentDay}
+                      value={subject.AbsentDay}
                       type="number"
                       label="Absent Day"
                       variant="outlined"

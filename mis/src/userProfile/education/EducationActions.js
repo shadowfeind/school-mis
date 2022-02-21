@@ -13,6 +13,9 @@ import {
   GET_ALL_EDUCATION_FAIL,
   GET_ALL_EDUCATION_REQUEST,
   GET_ALL_EDUCATION_SUCCESS,
+  GET_LIST_EDUCATION_FAIL,
+  GET_LIST_EDUCATION_REQUEST,
+  GET_LIST_EDUCATION_SUCCESS,
 } from "./EducationConstants";
 
 export const getAllEducationAction = () => async (dispatch) => {
@@ -27,6 +30,23 @@ export const getAllEducationAction = () => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: GET_ALL_EDUCATION_FAIL,
+      payload: error.message ? error.message : error.Message,
+    });
+  }
+};
+
+export const getListEducationAction = () => async (dispatch) => {
+  try {
+    dispatch({ type: GET_LIST_EDUCATION_REQUEST });
+
+    const { data } = await axios.get(
+      `${API_URL}/api/PID_Education/GetListPIDEducation`,tokenConfig
+    );
+
+    dispatch({ type: GET_LIST_EDUCATION_SUCCESS, payload: data });
+  } catch (error) {
+    dispatch({
+      type: GET_LIST_EDUCATION_FAIL,
       payload: error.message ? error.message : error.Message,
     });
   }

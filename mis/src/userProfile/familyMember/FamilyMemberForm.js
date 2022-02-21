@@ -69,7 +69,7 @@ const FamilyMemberForm = ({ familyMember, setOpenPopup }) => {
 
     temp.MobileNumber = !fieldValues.MobileNumber
       ? "This feild is required"
-      : fieldValues.MobileNumber.length < 10
+      : fieldValues.MobileNumber.length == 10
       ? "Must be at least 10 characters"
       : "";
 
@@ -111,7 +111,7 @@ const FamilyMemberForm = ({ familyMember, setOpenPopup }) => {
 
     temp.OfficePhone = !fieldValues.OfficePhone
       ? "This feild is required"
-      : fieldValues.OfficePhone.length < 10
+      : fieldValues.OfficePhone.length == 10
       ? "Must be at least 10 characters"
 
       : "";

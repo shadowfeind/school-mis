@@ -24,6 +24,7 @@ import {
   GET_ALL_FAMILYMEMBER_CREATE_RESET,
   GET_ALL_FAMILYMEMBER_CREATE_SUCCESS,
   GET_ALL_FAMILYMEMBER_RESET,
+  GET_FAMILY_MEMBER_LIST_RESET,
   GET_SINGLE_FAMILYMEMBER_RESET,
   UPDATE_SINGLE_FAMILYMEMBER_RESET,
   UPDATE_SINGLE_FAMILYMEMBER_SUCCESS,
@@ -85,6 +86,10 @@ const FamilyMember = () => {
   const { updateSingleFamilyMember, error: updateSingleFamilyMemberError } = useSelector(
     (state) => state.updateSingleFamilyMember
   );
+
+  const { listFamilyMember, error: listFamilyMemberError } = useSelector(
+    (state) => state.getListFamilyMember
+  );
   if (error) {
     setNotify({
       isOpen: true,
@@ -101,6 +106,16 @@ const FamilyMember = () => {
       type: "error",
     });
     dispatch({ type: FAMILYMEMBER_CREATE_RESET });
+    setOpenPopup(false);
+  }
+
+  if (listFamilyMemberError) {
+    setNotify({
+      isOpen: true,
+      message: listFamilyMemberError,
+      type: "error",
+    });
+    dispatch({ type: GET_FAMILY_MEMBER_LIST_RESET });
     setOpenPopup(false);
   }
 

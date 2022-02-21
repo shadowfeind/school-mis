@@ -15,7 +15,7 @@ import CustomContainer from "../../components/CustomContainer";
 import { useDispatch, useSelector } from "react-redux";
 import Notification from "../../components/Notification";
 import { educationCreateAction, getAllEducationAction, getAllEducationCreateAction } from "./EducationActions";
-import { CREATE_SINGLE_EDUCATION_RESET, CREATE_SINGLE_EDUCATION_SUCCESS, EDUCATION_CREATE_RESET, EDUCATION_CREATE_SUCCESS, GET_ALL_EDUCATION_CREATE_RESET, GET_ALL_EDUCATION_CREATE_SUCCESS, GET_ALL_EDUCATION_RESET, GET_SINGLE_EDUCATION_RESET, UPDATE_SINGLE_EDUCATION_RESET } from "./EducationConstants";
+import { CREATE_SINGLE_EDUCATION_RESET, CREATE_SINGLE_EDUCATION_SUCCESS, EDUCATION_CREATE_RESET, EDUCATION_CREATE_SUCCESS, GET_ALL_EDUCATION_CREATE_RESET, GET_ALL_EDUCATION_CREATE_SUCCESS, GET_ALL_EDUCATION_RESET, GET_LIST_EDUCATION_RESET, GET_SINGLE_EDUCATION_RESET, UPDATE_SINGLE_EDUCATION_RESET } from "./EducationConstants";
 import ListEducation from "../listComponent/ListEducation";
 import EducationForm from "./EducationForm";
 import EducationTableCollapse from "./EducationTableCollapse";
@@ -71,6 +71,11 @@ const Education = () => {
       const { getAllEducationCreate, error: getAllEducationCreateError} = useSelector(
         (state) => state.getAllEducationCreate
       );
+
+      const { getListEducation, error: getListEducationError} = useSelector(
+        (state) => state.getListEducation
+      );
+
       const { success: educationCreateSuccess, error: educationCreateError } =
     useSelector((state) => state.educationCreate);
       // const {
@@ -92,6 +97,16 @@ const Education = () => {
         type: "error",
       });
       dispatch({ type: GET_ALL_EDUCATION_CREATE_RESET });
+      setOpenPopup(false);
+    }
+
+    if (getListEducationError) {
+      setNotify({
+        isOpen: true,
+        message: getListEducationError,
+        type: "error",
+      });
+      dispatch({ type: GET_LIST_EDUCATION_RESET });
       setOpenPopup(false);
     }
     

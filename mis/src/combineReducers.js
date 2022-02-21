@@ -264,6 +264,7 @@ import {
   getAllEducation,
   getAllEducationCreateReducer,
   getAllEducationReducer,
+  getListEducationReducer,
 } from "./userProfile/education/EducationReducers";
 import {
   getAllEmail,
@@ -278,6 +279,7 @@ import {
   getAllFamilyMember,
   getAllFamilyMemberCreateReducer,
   getAllFamilyMemberReducer,
+  getListFamilyMemberReducer,
   getSingleFamilyMemberReducer,
   updateSingleFamilyMemberReducer,
 } from "./userProfile/familyMember/FamilyMemberReducers";
@@ -594,6 +596,7 @@ export const reducers = combineReducers({
   getAllEducationCreate: getAllEducationCreateReducer,
   createSingleEducation: createSingleEducationReducer,
   educationCreate: educationCreateReducer,
+  getListEducation : getListEducationReducer,
   //PID Email
   getAllEmail: getAllEmail,
   getSingleEmail: getSingleEmailReducer,
@@ -610,6 +613,7 @@ export const reducers = combineReducers({
   updateSingleFamilyMember: updateSingleFamilyMemberReducer,
   createFamilyMember: createFamilyMemberReducer,
   getAllFamilyMemberCreate: getAllFamilyMemberCreateReducer,
+  getListFamilyMember : getListFamilyMemberReducer,
   //PID Guardian
   getAllGuardian: getAllGuardian,
   getSingleGuardian: getSingleGuardianReducer,

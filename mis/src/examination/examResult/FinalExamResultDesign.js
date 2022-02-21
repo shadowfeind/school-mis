@@ -1,6 +1,6 @@
 import React from "react";
 import { Grid } from "@material-ui/core";
-import "./examResult.css";
+import "./ExamResultWithMarks.css";
 import { gpaToGrade, gpaToRemarks, gradeCalc, pointCalc } from "./Helpers";
 
 const FinalExamResultDesign = ({
@@ -20,7 +20,7 @@ const FinalExamResultDesign = ({
   let avgGpa = [];
   let tdToRender = [];
 
-  for (let i = subjectList.length; i <= 12; i++) {
+  for (let i = subjectList.length; i <= 11; i++) {
     tdToRender.push(i);
   }
 
@@ -130,8 +130,8 @@ const FinalExamResultDesign = ({
                     <tr key={s.$id}>
                       <td>{count}</td>
                       <td>{s.SubjectName}</td>
-                      <td>4.0</td>
-                      <td>
+                      <td style={{ textAlign: "center" }}>4.0</td>
+                      <td style={{ textAlign: "center" }}>
                         {firstTermMarks &&
                           gradeCalc(
                             ((firstTermMarks[0].ObtainedMark +
@@ -141,7 +141,7 @@ const FinalExamResultDesign = ({
                               100
                           )}
                       </td>
-                      <td>
+                      <td style={{ textAlign: "center" }}>
                         {" "}
                         {secondTermMarks &&
                           gradeCalc(
@@ -152,7 +152,7 @@ const FinalExamResultDesign = ({
                               100
                           )}
                       </td>
-                      <td>
+                      <td style={{ textAlign: "center" }}>
                         {" "}
                         {thirdTermMarks &&
                           gradeCalc(
@@ -163,7 +163,7 @@ const FinalExamResultDesign = ({
                               100
                           )}{" "}
                       </td>
-                      <td>
+                      <td style={{ textAlign: "center" }}>
                         {finalTermMarks &&
                           gradeCalc(
                             ((finalTermMarks[0].ObtainedMark +
@@ -173,7 +173,7 @@ const FinalExamResultDesign = ({
                               100
                           )}
                       </td>
-                      <td height={30}>
+                      <td style={{ textAlign: "center" }}>
                         {" "}
                         {gradeCalc(
                           totalMarksAcc.reduce((acc, cur) => {
@@ -182,7 +182,7 @@ const FinalExamResultDesign = ({
                             (totalMarksAcc.length / 4)
                         )}{" "}
                       </td>
-                      <td height={30}>
+                      <td style={{ textAlign: "center" }}>
                         {" "}
                         {pointCalc(
                           totalMarksAcc.reduce((acc, cur) => {
@@ -211,7 +211,7 @@ const FinalExamResultDesign = ({
 
               <tr>
                 <td colSpan={8}>GRADE POINT AVERAGE (GPA)</td>
-                <td>
+                <td style={{ textAlign: "center" }}>
                   {avgGpa &&
                     (
                       avgGpa.reduce((acc, cur) => {

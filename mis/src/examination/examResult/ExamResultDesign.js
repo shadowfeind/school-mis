@@ -72,8 +72,8 @@ const ExamResultDesign = ({
                 <th></th>
                 <th></th>
                 <th></th>
-                <th>TH</th>
-                <th>PR</th>
+                <th style={{ textAlign: "center" }}>TH</th>
+                <th style={{ textAlign: "center" }}>PR</th>
                 <th></th>
                 <th></th>
                 <th></th>
@@ -127,12 +127,26 @@ const ExamResultDesign = ({
                   <tr key={s.$id}>
                     <td>{count}</td>
                     <td>{s.SubjectName}</td>
-                    <td> 4.0</td>
-                    <td> {gradeCalc(resultTH)}</td>
-                    <td> {gradeCalc(resultPR)}</td>
-                    <td> {gradeCalc(resultTotal)}</td>
-                    <td> {pointCalc(gradePointTotal)}</td>
-                    <td>{gradeCalc(totalHighestMarks)} </td>
+                    <td style={{ textAlign: "center" }}> 4.0</td>
+                    <td style={{ textAlign: "center" }}>
+                      {" "}
+                      {gradeCalc(resultTH)}
+                    </td>
+                    <td style={{ textAlign: "center" }}>
+                      {" "}
+                      {gradeCalc(resultPR)}
+                    </td>
+                    <td style={{ textAlign: "center" }}>
+                      {" "}
+                      {gradeCalc(resultTotal)}
+                    </td>
+                    <td style={{ textAlign: "center" }}>
+                      {" "}
+                      {pointCalc(gradePointTotal)}
+                    </td>
+                    <td style={{ textAlign: "center" }}>
+                      {gradeCalc(totalHighestMarks)}{" "}
+                    </td>
                   </tr>
                 );
               })}

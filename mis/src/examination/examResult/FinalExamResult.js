@@ -1,9 +1,15 @@
-import React from "react";
+import React, { useRef } from "react";
 import FinalExamResultDesign from "./FinalExamResultDesign";
+import { useReactToPrint } from "react-to-print";
+import { Button } from "@material-ui/core";
 
 const FinalExamResult = ({ result }) => {
+  const componentRef = useRef();
+  const printPdf = useReactToPrint({
+    content: () => componentRef.current,
+  });
   return (
-    <>
+    <div id="result-final-print" ref={componentRef}>
       {result &&
         result.dbStudentModelLst.map((student) => {
           let subjectList = result.dbModelLstForCountSubject.filter(
@@ -71,7 +77,20 @@ const FinalExamResult = ({ result }) => {
             />
           );
         })}
-    </>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "end",
+          paddingTop: "10px",
+          marginTop: "10px",
+          borderTop: "1px solid #f3f3f3",
+        }}
+      >
+        <Button onClick={printPdf} variant="contained" color="primary">
+          PRINT
+        </Button>
+      </div>
+    </div>
   );
 };
 

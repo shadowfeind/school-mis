@@ -22,7 +22,7 @@ const initialFormValues = {
   Updated_On: "2015-04-09T14:20:39.947",
 };
 
-const HolidayForm = ({ holiday, setOpenPopup }) => {
+const HolidayForm = ({ holiday, setOpenPopup, startDate, endDate }) => {
   const dispatch = useDispatch();
   const validate = (fieldValues = values) => {
     let temp = { ...errors };
@@ -41,13 +41,9 @@ const HolidayForm = ({ holiday, setOpenPopup }) => {
       ? "This feild is required"
       : "";
 
-      temp.FromDate = !fieldValues.FromDate
-      ? "This feild is required"
-      : "";
+    temp.FromDate = !fieldValues.FromDate ? "This feild is required" : "";
 
-      temp.ToDate = !fieldValues.ToDate
-      ? "This feild is required"
-      : "";
+    temp.ToDate = !fieldValues.ToDate ? "This feild is required" : "";
 
     setErrors({ ...temp });
     return Object.values(temp).every((x) => x === "");
@@ -87,7 +83,7 @@ const HolidayForm = ({ holiday, setOpenPopup }) => {
           <DatePickerControl
             name="FromDate"
             label="FromDate"
-            value={values.FromDate}
+            value={startDate ? startDate : values.FromDate}
             onChange={handleInputChange}
             errors={errors.FromDate}
           />
@@ -116,7 +112,7 @@ const HolidayForm = ({ holiday, setOpenPopup }) => {
           <DatePickerControl
             name="ToDate"
             label="ToDate"
-            value={values.ToDate}
+            value={endDate ? endDate : values.ToDate}
             onChange={handleInputChange}
             errors={errors.ToDate}
           />

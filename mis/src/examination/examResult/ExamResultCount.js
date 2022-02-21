@@ -1,9 +1,15 @@
-import React from "react";
+import React, { useRef } from "react";
 import { Grid } from "@material-ui/core";
 import "./examResult.css";
 import { gradeCalc } from "./Helpers";
+import { useReactToPrint } from "react-to-print";
+import { Button } from "@material-ui/core";
 
 const ExamResultCount = ({ result }) => {
+  const componentRef = useRef();
+  const printPdf = useReactToPrint({
+    content: () => componentRef.current,
+  });
   let classSection =
     result && result.ddlSection.filter((x) => x.Key === result.classSection);
   let event =
@@ -24,7 +30,7 @@ const ExamResultCount = ({ result }) => {
     );
 
   return (
-    <div className="resultContainer">
+    <div className="resultContainer" id="result-count" ref={componentRef}>
       <img src="https://i.ibb.co/sQM6QZ3/Creation-Header.png" width="740px" />
       <div className="subjectTable">
         <h1>PROGRESS REPORT</h1>
@@ -57,16 +63,16 @@ const ExamResultCount = ({ result }) => {
               <tr>
                 <th>SN</th>
                 <th style={{ width: "40%" }}>Subjects</th>
-                <th>A+</th>
-                <th>A</th>
-                <th>B+</th>
-                <th>B</th>
-                <th>C+</th>
-                <th>C</th>
-                <th>D+</th>
-                <th>D</th>
-                <th>E</th>
-                <th>N</th>
+                <th style={{ textAlign: "center" }}>A+</th>
+                <th style={{ textAlign: "center" }}>A</th>
+                <th style={{ textAlign: "center" }}>B+</th>
+                <th style={{ textAlign: "center" }}>B</th>
+                <th style={{ textAlign: "center" }}>C+</th>
+                <th style={{ textAlign: "center" }}>C</th>
+                <th style={{ textAlign: "center" }}>D+</th>
+                <th style={{ textAlign: "center" }}>D</th>
+                <th style={{ textAlign: "center" }}>E</th>
+                <th style={{ textAlign: "center" }}>N</th>
               </tr>
             </thead>
             <tbody>
@@ -122,24 +128,59 @@ const ExamResultCount = ({ result }) => {
 
                   return (
                     <tr key={s.$id}>
-                      <td height={30}>{count}</td>
-                      <td height={30}>{s.Key}</td>
-                      <td height={30}>{countAP} </td>
-                      <td height={30}>{countA} </td>
-                      <td height={30}>{countBP} </td>
-                      <td height={30}>{countB} </td>
-                      <td height={30}>{countCP} </td>
-                      <td height={30}>{countC} </td>
-                      <td height={30}>{countDP} </td>
-                      <td height={30}>{countD} </td>
-                      <td height={30}>{countE} </td>
-                      <td height={30}>{countN} </td>
+                      <td style={{ textAlign: "center" }}>
+                        {count === 0 ? "" : count}
+                      </td>
+                      <td style={{ textAlign: "center" }}>{s.Key}</td>
+                      <td style={{ textAlign: "center" }}>
+                        {countAP === 0 ? "" : countAP}{" "}
+                      </td>
+                      <td style={{ textAlign: "center" }}>
+                        {countA === 0 ? "" : countA}{" "}
+                      </td>
+                      <td style={{ textAlign: "center" }}>
+                        {countBP === 0 ? "" : countBP}{" "}
+                      </td>
+                      <td style={{ textAlign: "center" }}>
+                        {countB === 0 ? "" : countB}{" "}
+                      </td>
+                      <td style={{ textAlign: "center" }}>
+                        {countCP === 0 ? "" : countCP}{" "}
+                      </td>
+                      <td style={{ textAlign: "center" }}>
+                        {countC === 0 ? "" : countC}{" "}
+                      </td>
+                      <td style={{ textAlign: "center" }}>
+                        {countDP === 0 ? "" : countDP}{" "}
+                      </td>
+                      <td style={{ textAlign: "center" }}>
+                        {countD === 0 ? "" : countD}{" "}
+                      </td>
+                      <td style={{ textAlign: "center" }}>
+                        {countE === 0 ? "" : countE}{" "}
+                      </td>
+                      <td style={{ textAlign: "center" }}>
+                        {countN === 0 ? "" : countN}{" "}
+                      </td>
                     </tr>
                   );
                 })}
             </tbody>
           </table>
         </div>
+      </div>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "end",
+          paddingTop: "10px",
+          marginTop: "10px",
+          borderTop: "1px solid #f3f3f3",
+        }}
+      >
+        <Button onClick={printPdf} variant="contained" color="primary">
+          PRINT
+        </Button>
       </div>
     </div>
   );

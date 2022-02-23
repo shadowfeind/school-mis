@@ -23,6 +23,9 @@ import {
   UPDATE_SINGLE_STUDENT_PROFILE_REQUEST,
   UPDATE_SINGLE_STUDENT_PROFILE_SUCCESS,
   UPDATE_SINGLE_STUDENT_PROFILE_FAIL,
+  GET_UPLOAD_PHOTO_REQUEST,
+  GET_UPLOAD_PHOTO_SUCCESS,
+  GET_UPLOAD_PHOTO_FAIL,
 } from "./StudentProfileConstants";
 
 export const getAllStudentProfileAction = () => async (dispatch) => {
@@ -44,12 +47,12 @@ export const getAllStudentProfileAction = () => async (dispatch) => {
 };
 
 export const getListStudentProfileAction =
-  (id, year, program, classId, section,shift ,status) => async (dispatch) => {
+  ( year, program ,shift, classId, section ,status) => async (dispatch) => {
     try {
       dispatch({ type: GET_LIST_STUDENT_PROFILE_REQUEST });
 
       const { data } = await axios.get(
-        `${API_URL}/api/StudentProfile/GetListStudentProfile?idAcademicYear=${year}&idFacultyProgramLink=${program}&level=${classId}&section=${section}&idShift=${shift}&LevelStatus=${status}`,
+        `${API_URL}/api/StudentProfile/GetListStudentProfile?idAcademicYear=${year}&idFacultyProgramLink=${program}&idShift=${shift}&idClass=${classId}&classSection=${section}&LevelStatus=${status}`,
         tokenConfig
       );
 
@@ -98,6 +101,28 @@ export const getSingleStudentProfilePasswordresetDataAction =
     } catch (error) {
       dispatch({
         type: GET_SINGLE_STUDENT_PROFILE_PASSWORDRESET_DATA_FAIL,
+        payload: error.message ? error.message : error.Message,
+      });
+    }
+  };
+
+  export const getUploadPhotoAction =
+  (id, year, program, classId, section,shift ,status) => async (dispatch) => {
+    try {
+      dispatch({ type: GET_UPLOAD_PHOTO_REQUEST });
+
+      const { data } = await axios.get(
+        `${API_URL}/api/StudentProfile/GetUploadPhoto/${id}?idAcademicYear=${year}&idFacultyProgramLink=${program}&level=${classId}&section=${section}&idShift=${shift}&LevelStatus=${status}`,
+        tokenConfig
+      );
+
+      dispatch({
+        type: GET_UPLOAD_PHOTO_SUCCESS,
+        payload: data,
+      });
+    } catch (error) {
+      dispatch({
+        type: GET_UPLOAD_PHOTO_FAIL,
         payload: error.message ? error.message : error.Message,
       });
     }

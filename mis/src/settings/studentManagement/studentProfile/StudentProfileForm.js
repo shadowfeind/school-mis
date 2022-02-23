@@ -104,6 +104,27 @@ const married = [
   { Key: "no", Value: "No" },
 ];
 
+const test = [{Key: "", Value: ""}]
+
+const levelStatus = [
+  {Key: "open", Value: "Open"},
+  {Key: "cleared", Value: "Cleared"},
+  {Key: "suspended", Value: "Suspended"},
+  {Key: "dropped", Value: "Dropped"},
+  {Key: "passed", Value: "Passed"},
+]
+
+const bloodGroup = [
+  {Key: "a+", Value: "A+"},
+  {Key: "a-", Value: "A-"},
+  {Key: "b+", Value: "B+"},
+  {Key: "b-", Value: "B-"},
+  {Key: "ab+", Value: "AB+"},
+  {Key: "ab-", Value: "AB-"},
+  {Key: "o+", Value: "O+"},
+  {Key: "o-", Value: "O-"},
+]
+
 const StudentProfileForm = ({ studentData, setOpenPopup }) => {
   const dispatch = useDispatch();
   const validate = (fieldValues = values) => {
@@ -126,7 +147,31 @@ const StudentProfileForm = ({ studentData, setOpenPopup }) => {
       : "";
       temp.MobileNumber = !fieldValues.MobileNumber
       ? "This feild is required"
+      :!fieldValues.MobileNumber == 10
+      ?"Mobile No. Must be 10 Digits."
       : "";
+      temp.LastName = !fieldValues.LastName
+      ? "This feild is required"
+      : "";
+      temp.EmailID = !fieldValues.EmailID
+      ? "This feild is required"
+      : "";
+      temp.BloodGroup = !fieldValues.BloodGroup
+      ? "This feild is required"
+      : "";
+      temp.UniversityRegistrationNumber = !fieldValues.UniversityRegistrationNumber
+      ? "This feild is required"
+      : "";
+      temp.WebLoginAccess = !fieldValues.WebLoginAccess
+      ? "This feild is required"
+      : "";
+      temp.RollNo = !fieldValues.RollNo
+      ? "This feild is required"
+      : "";
+      temp.LevelStatus = !fieldValues.LevelStatus
+      ? "This feild is required"
+      : "";
+
 
     setErrors({ ...temp });
     return Object.values(temp).every((x) => x === "");
@@ -170,24 +215,29 @@ const StudentProfileForm = ({ studentData, setOpenPopup }) => {
             label="Last Name"
             value={values.LastName}
             onChange={handleInputChange}
+            errors={errors.LastName}
           />
           <InputControl
             name="EmailID"
             label="Email Address"
             value={values.EmailID}
             onChange={handleInputChange}
+            errors={errors.EmailID}
           />
-          <InputControl
+          <SelectControl
             name="BloodGroup"
             label="Blood Group"
             value={values.BloodGroup}
+            options={bloodGroup}
             onChange={handleInputChange}
+            errors={errors.BloodGroup}
           />
           <InputControl
             name="UniversityRegistrationNumber"
             label="Symbol No"
             value={values.UniversityRegistrationNumber}
             onChange={handleInputChange}
+            errors={errors.UniversityRegistrationNumber}
           />
           <SelectControl
             name="Sex"
@@ -204,6 +254,7 @@ const StudentProfileForm = ({ studentData, setOpenPopup }) => {
             value={values.WebLoginAccess}
             onChange={handleInputChange}
             options={loginAccess}
+            errors={errors.WebLoginAccess}
           />
         </Grid>
         <Grid item xs={6}>
@@ -240,6 +291,15 @@ const StudentProfileForm = ({ studentData, setOpenPopup }) => {
             label="Roll No"
             value={values.RollNo}
             onChange={handleInputChange}
+            errors={errors.RollNo}
+          />
+          <SelectControl
+            name="LevelStatus"
+            label="Status"
+            value={values.LevelStatus}
+            onChange={handleInputChange}
+            options={levelStatus}
+            errors={errors.LevelStatus}
           />
         </Grid>
       </Grid>

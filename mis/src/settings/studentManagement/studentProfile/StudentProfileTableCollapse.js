@@ -41,6 +41,7 @@ const StudentProfileTableCollapse = ({
   section,
   classId,
   shift,
+  status,
   studentDetails,
   setOpenResetPopup,
   //   deleteCollegeHandler,
@@ -58,8 +59,9 @@ const StudentProfileTableCollapse = ({
           year,
           program,
           classId,
+          section,
           shift,
-          section
+          status
         )
       );
     }
@@ -69,11 +71,12 @@ const StudentProfileTableCollapse = ({
     dispatch(
       getSingleStudentProfilePasswordresetDataAction(
         id,
-        year,
-        program,
-        classId,
-        shift,
-        section
+          year,
+          program,
+          classId,
+          section,
+          shift,
+          status
       )
     );
     setOpenResetPopup(true);
@@ -82,12 +85,15 @@ const StudentProfileTableCollapse = ({
   return (
     <>
       <TableRow>
-        <TableCell>{item.RollNo}</TableCell>
-        <TableCell>{item.PUNumber}</TableCell>
-        <TableCell>{item.StudentName}</TableCell>
+        <TableCell>{item.rollNo}</TableCell>
+        <TableCell>{item.thumbimagename}</TableCell>
+        <TableCell>{item.UniversityRegistrationNumber}</TableCell>
+        <TableCell>{item.StudentFullName}</TableCell>
         <TableCell>{item.AcademicProgramName}</TableCell>
-        <TableCell>{item.Email}</TableCell>
-        <TableCell>{item.MobileNo}</TableCell>
+        <TableCell>[{item.FacultyName} {item.LevelMOU}]</TableCell>
+        <TableCell>{item.IDAcademicShift}</TableCell>
+        <TableCell>{item.MobileNumber}</TableCell>
+        <TableCell>{item.LevelStatus}</TableCell>
         <TableCell>
           <Button
             variant="contained"
@@ -168,7 +174,7 @@ const StudentProfileTableCollapse = ({
                         <strong>Married</strong>: {studentDetails.Married}
                       </ListItem>
                       <ListItem>
-                        <strong>DOB</strong>: {studentDetails.DOB.slice(0, 10)}
+                        <strong>DOB</strong>: {studentDetails.DOB?.slice(0, 10)}
                       </ListItem>
                       <ListItem>
                         <strong>BloodGroup</strong>: {studentDetails.BloodGroup}

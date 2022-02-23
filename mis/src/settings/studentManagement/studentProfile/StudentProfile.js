@@ -22,12 +22,16 @@ import {
   getAllStudentProfileAction,
   getListStudentProfileAction,
   getSingleStudentProfileEditDataAction,
+  getUploadPhotoAction,
+  postUploadPhotoAction,
 } from "./StudentProfileActions";
 import {
   GET_ALL_STUDENT_PROFILE_RESET,
   GET_LIST_STUDENT_PROFILE_RESET,
   GET_SINGLE_STUDENT_PROFILE_EDIT_DATA_RESET,
   GET_SINGLE_STUDENT_PROFILE_PASSWORDRESET_DATA_RESET,
+  GET_UPLOAD_PHOTO_RESET,
+  POST_UPLOAD_PHOTO_RESET,
   RESET_SINGLE_STUDENT_PROFILE_PASSWORD_RESET,
   SINGLE_STUDENT_PROFILE_DETAILS_RESET,
   UPDATE_SINGLE_STUDENT_PROFILE_RESET,
@@ -35,6 +39,7 @@ import {
 import StudentProfileTableCollapse from "./StudentProfileTableCollapse";
 import StudentProfileReset from "./StudentProfileReset";
 import StudentProfileForm from "./StudentProfileForm";
+import StudentProfileUploadPhotoForm from "./StudentProfileUploadForm";
 
 const useStyles = makeStyles((theme) => ({
   searchInput: {
@@ -57,6 +62,7 @@ const tableHeader = [
   { id: "IDAcademicShift", label: "Shift" },
   { id: "MobileNumber", label: "Mobile" },
   { id: "LevelStatus", label: "Status" },
+  { id: "FileName", label: "Image Upload" },
   { id: "Action", label: "Action", disableSorting: true },
 ];
 
@@ -65,8 +71,8 @@ const StudentProfile = () => {
   const [academicYearValue, setAcademicYearValue] = useState("");
   const [shift, setShift] = useState([]);
   const [shiftValue, setShiftValue] = useState("");
-  const [status,setStatus] = useState([]);
-  const [statusValue, setStatusValue]= useState("");
+  const [status, setStatus] = useState([]);
+  const [statusValue, setStatusValue] = useState("");
   const [program, setProgram] = useState([]);
   const [programValue, setProgramValue] = useState("");
   const [section, setSection] = useState([]);
@@ -83,6 +89,7 @@ const StudentProfile = () => {
   });
   const [openPopup, setOpenPopup] = useState(false);
   const [openResetPopup, setOpenResetPopup] = useState(false);
+  const [openImagePopup, setOpenImagePopup] = useState(false);
   const [notify, setNotify] = useState({
     isOpen: false,
     message: "",
@@ -129,6 +136,14 @@ const StudentProfile = () => {
     error: updateSingleStudentProfileError,
   } = useSelector((state) => state.updateSingleStudentProfile);
 
+  const { uploadPhoto, uploadPhotoError } = useSelector(
+    (state) => state.getUploadPhoto
+  );
+
+  const { success: postUploadPhotoSuccess, error: postUploadPhotoError } = useSelector(
+    (state) => state.postUploadPhoto
+  );
+
   if (error) {
     setNotify({
       isOpen: true,
@@ -160,6 +175,33 @@ const StudentProfile = () => {
       type: "error",
     });
     dispatch({ type: GET_SINGLE_STUDENT_PROFILE_PASSWORDRESET_DATA_RESET });
+  }
+
+  if (uploadPhotoError) {
+    setNotify({
+      isOpen: true,
+      message: uploadPhotoError,
+      type: "error",
+    });
+    dispatch({ type: GET_UPLOAD_PHOTO_RESET });
+  }
+
+  if (postUploadPhotoSuccess) {
+    setNotify({
+      isOpen: true,
+      message: "Successfully Uploaded",
+      type: "success",
+    });
+    dispatch({ type: POST_UPLOAD_PHOTO_RESET });
+    dispatch(getUploadPhotoAction(id, year, program, classId, section,shift ,status));
+  }
+  if (postUploadPhotoError) {
+    setNotify({
+      isOpen: true,
+      message: "Image Required",
+      type: "error",
+    });
+    dispatch({ type: POST_UPLOAD_PHOTO_RESET });
   }
   if (resetSingleStudentProfilePasswordError) {
     setNotify({
@@ -210,12 +252,13 @@ const StudentProfile = () => {
         shiftValue,
         classOptValue,
         sectionValue,
-        statusValue       
+        statusValue
       )
     );
     dispatch({ type: UPDATE_SINGLE_STUDENT_PROFILE_RESET });
     setOpenPopup(false);
   }
+
 
   const deleteCollegeHandler = (id) => {};
 
@@ -232,7 +275,11 @@ const StudentProfile = () => {
       setStatus(studentProfile.searchFilterModel.ddlLevelStatus);
     }
   }, [dispatch, studentProfile]);
-
+// useEffect(()=>{
+//   if(uploadPhoto){
+//     dispatch(getUploadPhotoAction())
+//   }
+// },[dispatch,uploadPhoto]);
   useEffect(() => {
     if (listStudentProfile) {
       setTableData([...listStudentProfile.dbModelList]);
@@ -247,7 +294,6 @@ const StudentProfile = () => {
     temp.classOptValue = !classOptValue ? "This feild is required" : "";
     temp.sectionValue = !sectionValue ? "This feild is required" : "";
     temp.statusValue = !statusValue ? "This feild is required" : "";
-
 
     setErrors({ ...temp });
     return Object.values(temp).every((x) => x === "");
@@ -279,10 +325,10 @@ const StudentProfile = () => {
         getListStudentProfileAction(
           academicYearValue,
           programValue,
-          shiftValue, 
+          shiftValue,
           classOptValue,
           sectionValue,
-          statusValue,
+          statusValue
         )
       );
     }
@@ -303,6 +349,18 @@ const StudentProfile = () => {
       );
       setOpenPopup(true);
     }
+  };
+
+  const addHandler = (id) => {
+    dispatch(
+      getUploadPhotoAction(id, listStudentProfile.searchFilterModel.idAcademicYear,
+        listStudentProfile.searchFilterModel.idFacultyProgramLink,
+        listStudentProfile.searchFilterModel.idClass,
+        listStudentProfile.searchFilterModel.classSection,
+        listStudentProfile.searchFilterModel.idShift,
+        listStudentProfile.searchFilterModel.LevelStatus)
+    );
+    setOpenImagePopup(true);
   };
 
   return (
@@ -352,7 +410,7 @@ const StudentProfile = () => {
               />
             </Grid>
             <Grid item xs={3}>
-            <div style={{ height: "10px" }}></div>
+              <div style={{ height: "10px" }}></div>
               <SelectControl
                 name="ddlAcademicShift"
                 label="Shift"
@@ -363,7 +421,7 @@ const StudentProfile = () => {
               />
             </Grid>
             <Grid item xs={3}>
-            <div style={{ height: "10px" }}></div>
+              <div style={{ height: "10px" }}></div>
               <SelectControl
                 name="ddlLevelStatus"
                 label="Level Status"
@@ -412,6 +470,8 @@ const StudentProfile = () => {
                   }
                   setOpenResetPopup={setOpenResetPopup}
                   updateFormHandler={updateFormHandler}
+                  setOpenImagePopup={setOpenImagePopup}
+                  addHandler={addHandler}
                   // deleteCollegeHandler={deleteCollegeHandler}
                 />
               ))}
@@ -441,6 +501,16 @@ const StudentProfile = () => {
             singleStudentProfilePasswordresetDataDetails.hrEmployeeModel
           }
           setOpenResetPopup={setOpenResetPopup}
+        />
+      </Popup>
+      <Popup
+        openPopup={openImagePopup}
+        setOpenPopup={setOpenImagePopup}
+        title="Student Profile"
+      >
+        <StudentProfileUploadPhotoForm
+          uploadPhoto={uploadPhoto && uploadPhoto.dbModel}
+          setOpenImagePopup={setOpenImagePopup}
         />
       </Popup>
       <Notification notify={notify} setNotify={setNotify} />

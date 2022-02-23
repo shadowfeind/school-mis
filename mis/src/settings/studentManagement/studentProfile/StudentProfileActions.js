@@ -26,6 +26,9 @@ import {
   GET_UPLOAD_PHOTO_REQUEST,
   GET_UPLOAD_PHOTO_SUCCESS,
   GET_UPLOAD_PHOTO_FAIL,
+  POST_UPLOAD_PHOTO_REQUEST,
+  POST_UPLOAD_PHOTO_SUCCESS,
+  POST_UPLOAD_PHOTO_FAIL,
 } from "./StudentProfileConstants";
 
 export const getAllStudentProfileAction = () => async (dispatch) => {
@@ -219,6 +222,47 @@ export const updateSingleStudentAction =
     } catch (error) {
       dispatch({
         type: UPDATE_SINGLE_STUDENT_PROFILE_FAIL,
+        payload: error.message ? error.message : error.Message,
+      });
+    }
+  };
+
+
+  export const postUploadPhotoAction = (image, dbData) => async (dispatch) => {
+    try {
+      dispatch({ type: POST_UPLOAD_PHOTO_REQUEST });
+  
+      let formData = new FormData();
+      formData.append("ImageUploaded", image);
+  
+      const { data } = await axios.post(
+        `${API_URL}/api/StudentProfile/FileUpload/1`,
+        formData,
+        tokenConfig
+      );
+  
+      if (data) {
+        const newData = {
+          ...dbData,
+          FileName: data,
+        };
+        const jsonData = JSON.stringify({
+          dbModel: newData,
+        });
+        console.log(jsonData);
+        await axios.put(
+          `${API_URL}/api/StudentProfile/PutPhoto`,
+          jsonData,
+          tokenConfig
+        );
+      }
+  
+      dispatch({
+        type: POST_UPLOAD_PHOTO_SUCCESS,
+      });
+    } catch (error) {
+      dispatch({
+        type: POST_UPLOAD_PHOTO_FAIL,
         payload: error.message ? error.message : error.Message,
       });
     }

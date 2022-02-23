@@ -119,6 +119,7 @@ import {
   getSingleStudentProfileEditDataReducer,
   getSingleStudentProfilePasswordresetDataReducer,
   getUploadPhotoReducer,
+  postUploadPhotoReducer,
   resetSingleStudentProfilePasswordReducer,
   updateSingleStudentProfileReducer,
 } from "./settings/studentManagement/studentProfile/StudentProfileReducers";
@@ -476,6 +477,7 @@ export const reducers = combineReducers({
     getSingleStudentProfilePasswordresetDataReducer,
   updateSingleStudentProfile: updateSingleStudentProfileReducer,
   getUploadPhoto : getUploadPhotoReducer,
+  postUploadPhoto : postUploadPhotoReducer,
   getInitialStudentIdCardData: getInitialStudentIdCardDataReducer,
   getActiveStudentsForStudentIdCardData:
     getActiveStudentsForStudentIdCardDataReducer,

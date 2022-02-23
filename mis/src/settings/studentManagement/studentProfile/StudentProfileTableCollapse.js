@@ -10,6 +10,7 @@ import {
   List,
   ListItem,
 } from "@material-ui/core";
+import AddIcon from "@material-ui/icons/Add";
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
 import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
@@ -33,6 +34,7 @@ const useStyles = makeStyles({
 const StudentProfileTableCollapse = ({
   item,
   updateFormHandler,
+  addHandler,
   index,
   selectedIndex,
   setSelectedIndex,
@@ -90,10 +92,18 @@ const StudentProfileTableCollapse = ({
         <TableCell>{item.UniversityRegistrationNumber}</TableCell>
         <TableCell>{item.StudentFullName}</TableCell>
         <TableCell>{item.AcademicProgramName}</TableCell>
-        <TableCell>[{item.FacultyName} {item.LevelMOU}]</TableCell>
+        <TableCell>{item.FacultyName} {item.LevelMOU}</TableCell>
         <TableCell>{item.IDAcademicShift}</TableCell>
         <TableCell>{item.MobileNumber}</TableCell>
         <TableCell>{item.LevelStatus}</TableCell>
+        <TableCell> <Button
+            variant="contained"
+            color="primary"
+            className={classes.button}
+            onClick={() => addHandler(item.IDHREmployee)}
+          >
+            <AddIcon style={{ fontSize: 12 }} />
+          </Button></TableCell>
         <TableCell>
           <Button
             variant="contained"

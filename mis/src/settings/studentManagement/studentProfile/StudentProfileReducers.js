@@ -31,6 +31,10 @@ import {
   GET_UPLOAD_PHOTO_SUCCESS,
   GET_UPLOAD_PHOTO_FAIL,
   GET_UPLOAD_PHOTO_RESET,
+  POST_UPLOAD_PHOTO_REQUEST,
+  POST_UPLOAD_PHOTO_SUCCESS,
+  POST_UPLOAD_PHOTO_FAIL,
+  POST_UPLOAD_PHOTO_RESET,
 } from "./StudentProfileConstants";
 
 export const getAllStudentProfile = (state = {}, action) => {
@@ -168,6 +172,25 @@ export const getUploadPhotoReducer = (state = {}, action) => {
     case GET_UPLOAD_PHOTO_FAIL:
       return { loading: false, error: action.payload };
     case GET_UPLOAD_PHOTO_RESET:
+      return {};
+    default:
+      return state;
+  }
+};
+
+
+export const postUploadPhotoReducer = (state = {}, action) => {
+  switch (action.type) {
+    case POST_UPLOAD_PHOTO_REQUEST:
+      return { loading: true };
+    case POST_UPLOAD_PHOTO_SUCCESS:
+      return {
+        loading: false,
+        postUploadPhoto: action.payload,
+      };
+    case POST_UPLOAD_PHOTO_FAIL:
+      return { loading: false, error: action.payload };
+    case POST_UPLOAD_PHOTO_RESET:
       return {};
     default:
       return state;

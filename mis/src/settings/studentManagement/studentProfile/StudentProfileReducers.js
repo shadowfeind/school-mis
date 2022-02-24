@@ -186,6 +186,7 @@ export const postUploadPhotoReducer = (state = {}, action) => {
     case POST_UPLOAD_PHOTO_SUCCESS:
       return {
         loading: false,
+        success: true,
         postUploadPhoto: action.payload,
       };
     case POST_UPLOAD_PHOTO_FAIL:

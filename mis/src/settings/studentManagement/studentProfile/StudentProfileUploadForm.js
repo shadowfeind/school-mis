@@ -5,10 +5,15 @@ import InputControl from "../../../components/controls/InputControl";
 import { API_URL } from "../../../constants";
 import { postUploadPhotoAction } from "./StudentProfileActions";
 
-
-const StudentProfileUploadPhotoForm = ({ uploadPhoto, setOpenImagePopup}) => {
+const initialFormValues = {
+  IDHREmployee: 0,
+  FullPath: "",
+  IDHRRole: 0,
+};
+const StudentProfileUploadPhotoForm = ({ uploadPhoto }) => {
   const [image, setImage] = useState(null);
   const [imgSrc, setImgSrc] = useState(null);
+  const [errors, setErrors] = useState({});
   const dispatch = useDispatch();
 
   const handleImage = (event) => {
@@ -20,12 +25,20 @@ const StudentProfileUploadPhotoForm = ({ uploadPhoto, setOpenImagePopup}) => {
     reader.readAsDataURL(imageFile);
     setImage(event.target.files[0]);
   };
+  const validate = () => {
+    let temp = {...errors};
+    temp.image = !image ? "Image Required" : "";
 
+    setErrors({ ...temp });
+      return Object.values(temp).every((x) => x === "");
+  };
   const handleUploadImage = () => {
-    if (uploadPhoto) {
-      dispatch(postUploadPhotoAction(image, uploadPhoto.dbModel));
-    } else {
-      console.log("failed");
+    if (validate()) {
+      if (uploadPhoto) {
+        dispatch(postUploadPhotoAction(uploadPhoto.IDHREmployee, image));
+      } else {
+        console.log("failed");
+      }
     }
   };
 
@@ -35,13 +48,14 @@ const StudentProfileUploadPhotoForm = ({ uploadPhoto, setOpenImagePopup}) => {
         name="ImageUploaded"
         onChange={(e) => handleImage(e)}
         type="file"
+        errors={errors.image}
       />
 
       {/* <img
         src={
           imgSrc
             ? imgSrc
-            : uploadPhoto && `${API_URL}${uploadPhoto.dbModel.FullPath}`
+            : uploadPhoto && `${API_URL}${uploadPhoto.IDHREmployee.ImagePathLst}`
         }
         height={200}
         width={200}

@@ -21,6 +21,7 @@ import {
   getSingleStudentProfilePasswordresetDataAction,
 } from "./StudentProfileActions";
 import { useDispatch } from "react-redux";
+import { API_URL } from "../../../constants";
 
 const useStyles = makeStyles({
   button: {
@@ -36,6 +37,7 @@ const StudentProfileTableCollapse = ({
   updateFormHandler,
   addHandler,
   index,
+  ImagePathLst,
   selectedIndex,
   setSelectedIndex,
   year,
@@ -69,6 +71,9 @@ const StudentProfileTableCollapse = ({
     }
   };
 
+  const currentImagePath = ImagePathLst?.filter(x => x.Key === item.IDHREmployee)
+
+
   const handleReset = (id) => {
     dispatch(
       getSingleStudentProfilePasswordresetDataAction(
@@ -88,7 +93,7 @@ const StudentProfileTableCollapse = ({
     <>
       <TableRow>
         <TableCell>{item.rollNo}</TableCell>
-        <TableCell>{item.thumbimagename}</TableCell>
+        <TableCell><img src={`${API_URL}${currentImagePath[0].Value}`}  width="30px" height="30px"/></TableCell>
         <TableCell>{item.UniversityRegistrationNumber}</TableCell>
         <TableCell>{item.StudentFullName}</TableCell>
         <TableCell>{item.AcademicProgramName}</TableCell>

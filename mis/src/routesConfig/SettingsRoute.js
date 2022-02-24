@@ -27,7 +27,7 @@ export const SettingsRoute = [
     exact: false,
   },
   {
-    name: "Teacher Mapping",
+    name: "Teacher's Subject",
     route: "/teacher-mapping",
     icon: PeopleOutline,
     exact: false,
@@ -45,7 +45,7 @@ export const SettingsRoute = [
     exact: false,
   },
   {
-    name: "Class Schedule",
+    name: "Class Routine",
     route: "/class-schedule",
     icon: ChromeReaderMode,
     exact: false,

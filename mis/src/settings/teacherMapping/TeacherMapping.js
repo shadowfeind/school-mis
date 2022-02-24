@@ -73,12 +73,12 @@ const TeacherMapping = () => {
         >
           <Tab
             style={{ fontSize: "11px", color: "#fff" }}
-            label="Teacher Faculty Subject"
+            label="Teacher Class Subject"
             {...a11yProps(0)}
           />
           <Tab
             style={{ fontSize: "11px", color: "#fff" }}
-            label="Search Teacher Faculty Subject"
+            label="Search Teacher Class Subject"
             {...a11yProps(1)}
           />
         </Tabs>

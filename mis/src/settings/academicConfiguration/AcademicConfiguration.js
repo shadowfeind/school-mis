@@ -91,22 +91,22 @@ const AcademicConfiguration = () => {
           />
           <Tab
             style={{ fontSize: "11px", color: "#fff" }}
-            label="Academic Faculty"
+            label="Academic Section"
             {...a11yProps(1)}
           />
           <Tab
             style={{ fontSize: "11px", color: "#fff" }}
-            label="Academic Program"
+            label="School Board"
             {...a11yProps(2)}
           />
           <Tab
             style={{ fontSize: "11px", color: "#fff" }}
-            label="Academic Section"
+            label="Academic Program"
             {...a11yProps(3)}
           />
           <Tab
             style={{ fontSize: "11px", color: "#fff" }}
-            label="Academic Subject"
+            label="Academic Faculty"
             {...a11yProps(4)}
           />
           <Tab
@@ -121,22 +121,22 @@ const AcademicConfiguration = () => {
           />
           <Tab
             style={{ fontSize: "11px", color: "#fff" }}
-            label="Assign Faculty Subject"
+            label="Academic Subject"
             {...a11yProps(7)}
           />
           <Tab
             style={{ fontSize: "11px", color: "#fff" }}
-            label="Assign Student Subject"
+            label="Class Subject"
             {...a11yProps(8)}
           />
           <Tab
             style={{ fontSize: "11px", color: "#fff" }}
-            label="School Board"
+            label="Assign Faculty Subject"
             {...a11yProps(9)}
           />
           <Tab
             style={{ fontSize: "11px", color: "#fff" }}
-            label="Class Subject"
+            label="Assign Student Subject"
             {...a11yProps(10)}
           />
         </Tabs>
@@ -145,17 +145,17 @@ const AcademicConfiguration = () => {
         <TabPanel value={value} index={0}>
           <AcademicClass />
         </TabPanel>
-        <TabPanel value={value} index={1}>
-          <AcademicFaculty />
+        <TabPanel value={value} index={3}>
+          <AcademicSection />
+        </TabPanel>
+        <TabPanel value={value} index={9}>
+          <SchoolBoard />
         </TabPanel>
         <TabPanel value={value} index={2}>
           <AcademicProgram />
         </TabPanel>
-        <TabPanel value={value} index={3}>
-          <AcademicSection />
-        </TabPanel>
-        <TabPanel value={value} index={4}>
-          <AcademicSubject />
+        <TabPanel value={value} index={1}>
+          <AcademicFaculty />
         </TabPanel>
         <TabPanel value={value} index={5}>
           <AcademicYear />
@@ -163,17 +163,17 @@ const AcademicConfiguration = () => {
         <TabPanel value={value} index={6}>
           <AcademicYearCalendar />
         </TabPanel>
+        <TabPanel value={value} index={4}>
+          <AcademicSubject />
+        </TabPanel>
+        <TabPanel value={value} index={10}>
+          <ClassSubject />
+        </TabPanel>
         <TabPanel value={value} index={7}>
           <AssignFacultySubject />
         </TabPanel>
         <TabPanel value={value} index={8}>
           <AssignStudentSubject />
-        </TabPanel>
-        <TabPanel value={value} index={9}>
-          <SchoolBoard />
-        </TabPanel>
-        <TabPanel value={value} index={10}>
-          <ClassSubject />
         </TabPanel>
       </Suspense>
     </div>

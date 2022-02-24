@@ -28,7 +28,7 @@ export const ExaminationRoute = [
     exact: false,
   },
   {
-    name: "Print Admit Card",
+    name: "Admit Card",
     route: "/print-admit-card",
     icon: PeopleOutline,
     exact: false,
@@ -51,12 +51,7 @@ export const ExaminationRoute = [
     icon: PostAdd,
     exact: false,
   },
-  {
-    name: "Exam Result",
-    route: "/exam-result",
-    icon: RecordVoiceOver,
-    exact: false,
-  },
+
   {
     name: "Student Attendance",
     route: "/student-attendance",
@@ -67,6 +62,12 @@ export const ExaminationRoute = [
     name: "Level Test",
     route: "/level-test",
     icon: Accessible,
+    exact: false,
+  },
+  {
+    name: "Exam Result",
+    route: "/exam-result",
+    icon: RecordVoiceOver,
     exact: false,
   },
 ];

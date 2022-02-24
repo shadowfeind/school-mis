@@ -193,12 +193,18 @@ const StudentProfile = () => {
       type: "success",
     });
     dispatch({ type: POST_UPLOAD_PHOTO_RESET });
-    dispatch(getUploadPhotoAction(id, year, program, classId, section,shift ,status));
+    dispatch(getListStudentProfileAction( academicYearValue,
+        programValue,
+        shiftValue,
+        classOptValue,
+        sectionValue,
+        statusValue));
+      setOpenImagePopup(false);
   }
   if (postUploadPhotoError) {
     setNotify({
       isOpen: true,
-      message: "Image Required",
+      message: postUploadPhotoError,
       type: "error",
     });
     dispatch({ type: POST_UPLOAD_PHOTO_RESET });
@@ -455,6 +461,7 @@ const StudentProfile = () => {
                   selectedIndex={selectedIndex}
                   index={index}
                   setSelectedIndex={setSelectedIndex}
+                  ImagePathLst={listStudentProfile.ImagePathLst}
                   year={listStudentProfile.searchFilterModel.idAcademicYear}
                   program={
                     listStudentProfile.searchFilterModel.idFacultyProgramLink

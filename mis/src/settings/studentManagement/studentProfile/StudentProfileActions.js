@@ -228,34 +228,36 @@ export const updateSingleStudentAction =
   };
 
 
-  export const postUploadPhotoAction = (image, dbData) => async (dispatch) => {
+  export const postUploadPhotoAction = (id,image, dbData) => async (dispatch) => {
     try {
       dispatch({ type: POST_UPLOAD_PHOTO_REQUEST });
   
       let formData = new FormData();
       formData.append("ImageUploaded", image);
-  
+
       const { data } = await axios.post(
-        `${API_URL}/api/StudentProfile/FileUpload/1`,
+        `${API_URL}/api/StudentProfile/FileUpload/${id}`,
         formData,
         tokenConfig
       );
-  
-      if (data) {
-        const newData = {
-          ...dbData,
-          FileName: data,
-        };
+
+  // console.log(data)
+      // if (data) {
+      //   const newData = {
+      //     ...dbData,
+      //     FileName: data,
+        // };
         const jsonData = JSON.stringify({
-          dbModel: newData,
+          dbModel: data,
         });
-        console.log(jsonData);
+
+        console.log("jsonData",jsonData);
         await axios.put(
           `${API_URL}/api/StudentProfile/PutPhoto`,
           jsonData,
           tokenConfig
         );
-      }
+      // }
   
       dispatch({
         type: POST_UPLOAD_PHOTO_SUCCESS,

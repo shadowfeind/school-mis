@@ -51,17 +51,25 @@ const ExamMarkApprovalBulk = ({
   const dispatch = useDispatch();
 
   const onChangeHandler = (subject, value, name, index) => {
-    setBulk((prev) => {
-      const newReassoc = {
-        ...subject,
-        [name]: Number(value),
-      };
+    console.log("subject", subject);
+    let showValue =
+      name === "ObtainedMark" ? subject.FullMark : subject.FullMarkPractical;
+    console.log("showValue", showValue);
+    if ((value <= showValue) & (value >= 0)) {
+      setBulk((prev) => {
+        const newReassoc = {
+          ...subject,
+          [name]: Number(value),
+        };
 
-      let newArray = [...prev];
-      newArray[index] = newReassoc;
+        let newArray = [...prev];
+        newArray[index] = newReassoc;
 
-      return [...newArray];
-    });
+        return [...newArray];
+      });
+    } else {
+      alert(`${name} must be equal or less than ${showValue}`);
+    }
   };
 
   const formCheckSubmitHandler = () => {
@@ -114,8 +122,6 @@ const ExamMarkApprovalBulk = ({
                       variant="outlined"
                       inputProps={{ tabIndex: "1" }}
                       onChange={(e) =>
-                        (e.target.value <= subject.FullMark) &
-                          (e.target.value >= 0) &&
                         onChangeHandler(
                           subject,
                           e.target.value,
@@ -135,8 +141,6 @@ const ExamMarkApprovalBulk = ({
                       variant="outlined"
                       inputProps={{ tabIndex: "2" }}
                       onChange={(e) =>
-                        (e.target.value <= subject.FullMarkPractical) &
-                          (e.target.value >= 0) &&
                         onChangeHandler(
                           subject,
                           e.target.value,

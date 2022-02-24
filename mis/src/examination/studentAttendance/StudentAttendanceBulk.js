@@ -37,7 +37,12 @@ const useStyles = makeStyles({
   },
 });
 
-const StudentAttendanceBulk = ({ bulkData, search, workingDayTotal }) => {
+const StudentAttendanceBulk = ({
+  bulkData,
+  search,
+  workingDayTotal,
+  setOpenPopup,
+}) => {
   const [bulk, setBulk] = useState([]);
   const [workingDays, setWorkingDays] = useState();
   const classes = useStyles();
@@ -45,17 +50,23 @@ const StudentAttendanceBulk = ({ bulkData, search, workingDayTotal }) => {
   const dispatch = useDispatch();
 
   const onChangeHandler = (subject, value, name, index) => {
-    setBulk((prev) => {
-      const newReassoc = {
-        ...subject,
-        [name]: Number(value),
-      };
+    if ((value >= 0) & (value <= Number(workingDayTotal))) {
+      setBulk((prev) => {
+        const newReassoc = {
+          ...subject,
+          [name]: Number(value),
+        };
 
-      let newArray = [...prev];
-      newArray[index] = newReassoc;
+        let newArray = [...prev];
+        newArray[index] = newReassoc;
 
-      return [...newArray];
-    });
+        return [...newArray];
+      });
+    } else {
+      alert(
+        "Present Day must be less than or equal to working days and postive number"
+      );
+    }
   };
 
   const formCheckSubmitHandler = () => {
@@ -120,8 +131,6 @@ const StudentAttendanceBulk = ({ bulkData, search, workingDayTotal }) => {
                       name="PresentDay"
                       inputProps={{ tabIndex: "1" }}
                       onChange={(e) =>
-                        (e.target.value >= 0) &
-                          (e.target.value <= workingDays) &&
                         onChangeHandler(
                           subject,
                           e.target.value,
@@ -167,7 +176,7 @@ const StudentAttendanceBulk = ({ bulkData, search, workingDayTotal }) => {
             <Button
               variant="contained"
               color="secondary"
-              // onClick={() => setOpenPopup(false)}
+              onClick={() => setOpenPopup(false)}
               style={{ margin: "10px 0 0 10px" }}
             >
               CANCEL

@@ -1,6 +1,6 @@
 import React from "react";
 import { Grid } from "@material-ui/core";
-import "./examResult.css";
+import "./ExamResultWithMarks.css";
 import { gpaToGrade, gpaToRemarks, gradeCalc, pointCalc } from "./Helpers";
 
 const ExamResultWithMarksDesign = ({
@@ -18,7 +18,7 @@ const ExamResultWithMarksDesign = ({
   let trackSubject = [];
   let tdToRender = [];
 
-  for (let i = subjects.length; i <= 12; i++) {
+  for (let i = subjects.length; i <= 11; i++) {
     tdToRender.push(i);
   }
 
@@ -73,10 +73,10 @@ const ExamResultWithMarksDesign = ({
                 <th></th>
                 <th></th>
                 <th></th>
-                <th>TH</th>
-                <th>PR</th>
-                <th>TH</th>
-                <th>PR</th>
+                <th style={{ textAlign: "center" }}>TH</th>
+                <th style={{ textAlign: "center" }}>PR</th>
+                <th style={{ textAlign: "center" }}>TH</th>
+                <th style={{ textAlign: "center" }}>PR</th>
                 <th></th>
                 <th></th>
                 <th></th>
@@ -130,14 +130,36 @@ const ExamResultWithMarksDesign = ({
                   <tr key={s.$id}>
                     <td>{count}</td>
                     <td>{s.SubjectName}</td>
-                    <td> 4.0</td>
-                    <td> {s.ObtainedMark}</td>
-                    <td> {s.ObtainedMarkPractical}</td>
-                    <td> {gradeCalc(resultTH)}</td>
-                    <td> {gradeCalc(resultPR)}</td>
-                    <td> {gradeCalc(resultTotal)}</td>
-                    <td> {pointCalc(gradePointTotal)}</td>
-                    <td>{gradeCalc(totalHighestMarks)} </td>
+                    <td style={{ textAlign: "center" }}> 4.0</td>
+                    <td style={{ textAlign: "center" }}>
+                      {" "}
+                      {s.ObtainedMark === 0 ? "" : s.ObtainedMark}
+                    </td>
+                    <td style={{ textAlign: "center" }}>
+                      {" "}
+                      {s.ObtainedMarkPractical === 0
+                        ? ""
+                        : s.ObtainedMarkPractical}
+                    </td>
+                    <td style={{ textAlign: "center" }}>
+                      {" "}
+                      {gradeCalc(resultTH)}
+                    </td>
+                    <td style={{ textAlign: "center" }}>
+                      {" "}
+                      {gradeCalc(resultPR)}
+                    </td>
+                    <td style={{ textAlign: "center" }}>
+                      {" "}
+                      {gradeCalc(resultTotal)}
+                    </td>
+                    <td style={{ textAlign: "center" }}>
+                      {" "}
+                      {pointCalc(gradePointTotal)}
+                    </td>
+                    <td style={{ textAlign: "center" }}>
+                      {gradeCalc(totalHighestMarks)}{" "}
+                    </td>
                   </tr>
                 );
               })}
@@ -160,7 +182,7 @@ const ExamResultWithMarksDesign = ({
 
               <tr>
                 <td colSpan={8}>GRADE POINT AVERAGE (GPA)</td>
-                <td>
+                <td style={{ textAlign: "center" }}>
                   {trackSubject.reduce((acc, cur) => {
                     return acc + cur.totalMarks;
                   }, 0) / trackSubject.length}

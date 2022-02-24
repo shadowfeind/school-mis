@@ -186,6 +186,7 @@ const ExamResult = () => {
       setDdlShift(examResultInitialDatas.searchFilterModel.ddlAcademicShift);
       setDdlSection(examResultInitialDatas.searchFilterModel.ddlSection);
       setDdlNpYear(examResultInitialDatas.searchFilterModel.ddlnpYear);
+      setNpYear(examResultInitialDatas.searchFilterModel.npYear);
     }
   }, [examResultInitialDatas, dispatch]);
 

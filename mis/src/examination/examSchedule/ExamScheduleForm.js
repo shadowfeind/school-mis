@@ -46,7 +46,7 @@ const ExamScheduleForm = ({
       !fieldValues.IDAcademicFacultySubjectLink ? "This feild is required" : "";
     temp.ExamType = !fieldValues.ExamType ? "This feild is required" : "";
     temp.FullMark = !fieldValues.FullMark ? "This feild is required" : "";
-    temp.ApplyGroup = !fieldValues.ApplyGroup ? "This feild is required" : "";
+    // temp.ApplyGroup = !fieldValues.ApplyGroup ? "This feild is required" : "";
     temp.ExamScheduleFromDate = !fieldValues.ExamScheduleFromDate
       ? "This feild is required"
       : "";
@@ -58,7 +58,7 @@ const ExamScheduleForm = ({
       ? "This feild is required"
       : "";
     temp.PassMark = !fieldValues.PassMark ? "This feild is required" : "";
-    temp.GroupNumber = !fieldValues.GroupNumber ? "This feild is required" : "";
+    // temp.GroupNumber = !fieldValues.GroupNumber ? "This feild is required" : "";
     temp.ExamScheduleFromTime = !fieldValues.ExamScheduleFromTime
       ? "This feild is required"
       : "";
@@ -104,6 +104,8 @@ const ExamScheduleForm = ({
 
   const test = [{ Key: "", Value: "" }];
 
+  const invalidChars = ["-", "e", "+", "E"];
+
   return (
     <>
       <Form onSubmit={handleSubmit}>
@@ -142,6 +144,9 @@ const ExamScheduleForm = ({
                 name="FullMarkPractical"
                 label="Full Marks Practical"
                 value={values.FullMarkPractical}
+                onKeyDown={(e) =>
+                  invalidChars.includes(e.key) && e.preventDefault()
+                }
                 onChange={(e) =>
                   (e.target.value <= 100) & (e.target.value >= 0) &&
                   handleInputChange(e)
@@ -153,6 +158,9 @@ const ExamScheduleForm = ({
             <InputControl
               name="FullMark"
               label="Full Marks*"
+              onKeyDown={(e) =>
+                invalidChars.includes(e.key) && e.preventDefault()
+              }
               value={values.FullMark}
               onChange={(e) =>
                 (e.target.value <= 100) & (e.target.value >= 0) &&
@@ -173,7 +181,7 @@ const ExamScheduleForm = ({
                   : test
               }
               onChange={handleInputChange}
-              errors={errors.ApplyGroup}
+              // errors={errors.ApplyGroup}
             />
             <DatePickerControl
               name="ExamScheduleFromDate"
@@ -214,6 +222,9 @@ const ExamScheduleForm = ({
               name="PassMark"
               label="Pass Mark"
               value={values.PassMark}
+              onKeyDown={(e) =>
+                invalidChars.includes(e.key) && e.preventDefault()
+              }
               onChange={(e) =>
                 (e.target.value <= 100) & (e.target.value >= 0) &&
                 handleInputChange(e)
@@ -226,7 +237,7 @@ const ExamScheduleForm = ({
               label="Group Number"
               value={values.GroupNumber}
               onChange={handleInputChange}
-              errors={errors.GroupNumber}
+              // errors={errors.GroupNumber}
             />
             <DatePickerControl
               name="ExamScheduleToDate"

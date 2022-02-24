@@ -18,7 +18,7 @@ const ExamResultDesign = ({
   let trackSubject = [];
   let tdToRender = [];
 
-  for (let i = subjects.length; i <= 12; i++) {
+  for (let i = subjects.length; i <= 11; i++) {
     tdToRender.push(i);
   }
 
@@ -72,8 +72,8 @@ const ExamResultDesign = ({
                 <th></th>
                 <th></th>
                 <th></th>
-                <th>TH</th>
-                <th>PR</th>
+                <th style={{ textAlign: "center" }}>TH</th>
+                <th style={{ textAlign: "center" }}>PR</th>
                 <th></th>
                 <th></th>
                 <th></th>
@@ -127,12 +127,26 @@ const ExamResultDesign = ({
                   <tr key={s.$id}>
                     <td>{count}</td>
                     <td>{s.SubjectName}</td>
-                    <td> 4.0</td>
-                    <td> {gradeCalc(resultTH)}</td>
-                    <td> {gradeCalc(resultPR)}</td>
-                    <td> {gradeCalc(resultTotal)}</td>
-                    <td> {pointCalc(gradePointTotal)}</td>
-                    <td>{gradeCalc(totalHighestMarks)} </td>
+                    <td style={{ textAlign: "center" }}> 4.0</td>
+                    <td style={{ textAlign: "center" }}>
+                      {" "}
+                      {gradeCalc(resultTH)}
+                    </td>
+                    <td style={{ textAlign: "center" }}>
+                      {" "}
+                      {gradeCalc(resultPR)}
+                    </td>
+                    <td style={{ textAlign: "center" }}>
+                      {" "}
+                      {gradeCalc(resultTotal)}
+                    </td>
+                    <td style={{ textAlign: "center" }}>
+                      {" "}
+                      {pointCalc(gradePointTotal)}
+                    </td>
+                    <td style={{ textAlign: "center" }}>
+                      {gradeCalc(totalHighestMarks)}{" "}
+                    </td>
                   </tr>
                 );
               })}
@@ -154,9 +168,11 @@ const ExamResultDesign = ({
               <tr>
                 <td colSpan={6}>GRADE POINT AVERAGE (GPA)</td>
                 <td>
-                  {trackSubject.reduce((acc, cur) => {
-                    return acc + cur.totalMarks;
-                  }, 0) / trackSubject.length}
+                  {(
+                    trackSubject.reduce((acc, cur) => {
+                      return acc + cur.totalMarks;
+                    }, 0) / trackSubject.length
+                  ).toFixed(2)}
                 </td>
                 <td></td>
               </tr>
@@ -220,35 +236,30 @@ const ExamResultDesign = ({
                   <tr>
                     <td>A+</td>
                     <td>90 or Above (Outstanding) - 4.0</td>
-                    <td></td>
                     <td>A</td>
                     <td>80-Below 90 (Excellent) - 3.6</td>
                   </tr>
                   <tr>
                     <td>B+</td>
                     <td>70-Below 80 (Very Good) - 3.2</td>
-                    <td></td>
                     <td>B</td>
                     <td>60-Below 70 (Good) - 2.8</td>
                   </tr>
                   <tr>
                     <td>C+</td>
                     <td>50-Below 60 (Satisfactory) - 2.4</td>
-                    <td></td>
                     <td>C</td>
                     <td>40-Below 50 (Acceptable) - 2.0</td>
                   </tr>
                   <tr>
                     <td>D+</td>
                     <td>30-Below 40 (Partially Acceptable) - 1.6</td>
-                    <td></td>
                     <td>D</td>
                     <td>20-Below 30 (Insufficient) - 1.2</td>
                   </tr>
                   <tr>
                     <td>E+</td>
                     <td>1-Below 20 (Very Insufficient) - 0.8</td>
-                    <td></td>
                     <td>N</td>
                     <td>0 (Not Qualified) - 0.0</td>
                   </tr>
@@ -257,7 +268,7 @@ const ExamResultDesign = ({
             </Grid>
           </Grid>
           <Grid container>
-            <Grid item xs={6}>
+            <Grid item xs={4}>
               <table style={{ marginRight: "40px" }}>
                 <thead>
                   <tr>
@@ -267,6 +278,8 @@ const ExamResultDesign = ({
                       {studentAttendance.length > 0 &&
                         studentAttendance[0].WorkingDay}
                     </td>
+                  </tr>
+                  <tr>
                     <td>
                       Present Days:{" "}
                       {studentAttendance.length > 0 &&
@@ -299,9 +312,11 @@ const ExamResultDesign = ({
                     </td>
                     <td>
                       G.P.A:{" "}
-                      {trackSubject.reduce((acc, cur) => {
-                        return acc + cur.totalMarks;
-                      }, 0) / trackSubject.length}
+                      {(
+                        trackSubject.reduce((acc, cur) => {
+                          return acc + cur.totalMarks;
+                        }, 0) / trackSubject.length
+                      ).toFixed(2)}
                     </td>
                     <td>
                       {gpaToRemarks(

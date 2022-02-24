@@ -1,4 +1,8 @@
 import {
+  DELETE_CLASS_SUBJECT_FAIL,
+  DELETE_CLASS_SUBJECT_REQUEST,
+  DELETE_CLASS_SUBJECT_RESET,
+  DELETE_CLASS_SUBJECT_SUCCESS,
   GET_ALL_CLASS_SUBJECT_FAIL,
   GET_ALL_CLASS_SUBJECT_REQUEST,
   GET_ALL_CLASS_SUBJECT_RESET,
@@ -114,3 +118,19 @@ export const postToCreateClassSubjectReducer = (state = {}, action) => {
       return state;
   }
 };
+
+export const deleteClassSubjectReducer = (state = {}, action) => {
+  switch (action.type) {
+    case DELETE_CLASS_SUBJECT_REQUEST:
+      return { loading: true };
+    case DELETE_CLASS_SUBJECT_SUCCESS:
+      return { loading: false, success: true };
+    case DELETE_CLASS_SUBJECT_FAIL:
+      return { loading: false, error: action.payload };
+    case DELETE_CLASS_SUBJECT_RESET:
+      return {};
+    default:
+      return state;
+  }
+};
+

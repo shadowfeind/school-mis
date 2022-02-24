@@ -13,6 +13,9 @@ import {
   GET_ALL_FAMILYMEMBER_FAIL,
   GET_ALL_FAMILYMEMBER_REQUEST,
   GET_ALL_FAMILYMEMBER_SUCCESS,
+  GET_FAMILY_MEMBER_LIST_FAIL,
+  GET_FAMILY_MEMBER_LIST_REQUEST,
+  GET_FAMILY_MEMBER_LIST_SUCCESS,
   GET_SINGLE_FAMILYMEMBER_FAIL,
   GET_SINGLE_FAMILYMEMBER_REQUEST,
   GET_SINGLE_FAMILYMEMBER_SUCCESS,
@@ -124,6 +127,24 @@ export const familyMemberCreateAction = (familyMemberCreate) => async (dispatch)
   } catch (error) {
     dispatch({
       type: FAMILYMEMBER_CREATE_FAIL,
+      payload: error.message ? error.message : error.Message,
+    });
+  }
+};
+
+export const getListFamilyMemberAction = (id) => async (dispatch) => {
+  try {
+    dispatch({ type: GET_FAMILY_MEMBER_LIST_REQUEST });
+
+    const { data } = await axios.get(
+      `${API_URL}/api/PID_FamilyMember/GetListPIDFamilyMember/${id}
+        `,tokenConfig
+    );
+
+    dispatch({ type: GET_FAMILY_MEMBER_LIST_SUCCESS, payload: data });
+  } catch (error) {
+    dispatch({
+      type: GET_FAMILY_MEMBER_LIST_FAIL,
       payload: error.message ? error.message : error.Message,
     });
   }

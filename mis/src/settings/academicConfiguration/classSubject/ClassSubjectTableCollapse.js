@@ -41,7 +41,7 @@ const ClassSubjectTableCollapse = ({
           variant="contained"
           color="secondary"
           className={classes.button}
-          //   onClick={() => deleteCollegeHandler(item.IDAcademicSubject)}
+            onClick={() => deleteCollegeHandler(item.IDClassSubject)}
         >
           <DeleteIcon style={{ fontSize: 12 }} />
         </Button>

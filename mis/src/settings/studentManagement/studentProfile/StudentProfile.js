@@ -22,12 +22,16 @@ import {
   getAllStudentProfileAction,
   getListStudentProfileAction,
   getSingleStudentProfileEditDataAction,
+  getUploadPhotoAction,
+  postUploadPhotoAction,
 } from "./StudentProfileActions";
 import {
   GET_ALL_STUDENT_PROFILE_RESET,
   GET_LIST_STUDENT_PROFILE_RESET,
   GET_SINGLE_STUDENT_PROFILE_EDIT_DATA_RESET,
   GET_SINGLE_STUDENT_PROFILE_PASSWORDRESET_DATA_RESET,
+  GET_UPLOAD_PHOTO_RESET,
+  POST_UPLOAD_PHOTO_RESET,
   RESET_SINGLE_STUDENT_PROFILE_PASSWORD_RESET,
   SINGLE_STUDENT_PROFILE_DETAILS_RESET,
   UPDATE_SINGLE_STUDENT_PROFILE_RESET,
@@ -35,6 +39,7 @@ import {
 import StudentProfileTableCollapse from "./StudentProfileTableCollapse";
 import StudentProfileReset from "./StudentProfileReset";
 import StudentProfileForm from "./StudentProfileForm";
+import StudentProfileUploadPhotoForm from "./StudentProfileUploadForm";
 
 const useStyles = makeStyles((theme) => ({
   searchInput: {
@@ -48,26 +53,32 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const tableHeader = [
-  { id: "RollNo", label: "Roll No" },
-  { id: "PUNumber", label: "Symbol Nubmber" },
-  { id: "StudentName", label: "Full Name" },
+  { id: "rollNo", label: "Roll No" },
+  { id: "thumbimagename", label: "Image" },
+  { id: "UniversityRegistrationNumber", label: "Registration Number" },
+  { id: "StudentFullName", label: "Full Name" },
   { id: "AcademicProgramName", label: "Program" },
-  { id: "Email", label: "Email" },
-  { id: "MobileNo", label: "Mobile" },
+  { id: "FacultyName", label: "Faculty" },
+  { id: "IDAcademicShift", label: "Shift" },
+  { id: "MobileNumber", label: "Mobile" },
+  { id: "LevelStatus", label: "Status" },
+  { id: "FileName", label: "Image Upload" },
   { id: "Action", label: "Action", disableSorting: true },
 ];
 
 const StudentProfile = () => {
   const [academicYear, setAcademicYear] = useState([]);
-  const [academicYearValue, setAcademicYearValue] = useState();
+  const [academicYearValue, setAcademicYearValue] = useState("");
   const [shift, setShift] = useState([]);
-  const [shiftValue, setShiftValue] = useState();
+  const [shiftValue, setShiftValue] = useState("");
+  const [status, setStatus] = useState([]);
+  const [statusValue, setStatusValue] = useState("");
   const [program, setProgram] = useState([]);
-  const [programValue, setProgramValue] = useState();
+  const [programValue, setProgramValue] = useState("");
   const [section, setSection] = useState([]);
-  const [sectionValue, setSectionValue] = useState();
+  const [sectionValue, setSectionValue] = useState("");
   const [classOpt, setClassOpt] = useState([]);
-  const [classOptValue, setClassOptValue] = useState();
+  const [classOptValue, setClassOptValue] = useState("");
   const [tableData, setTableData] = useState([]);
   const [selectedIndex, setSelectedIndex] = useState("");
   const [errors, setErrors] = useState({});
@@ -78,6 +89,7 @@ const StudentProfile = () => {
   });
   const [openPopup, setOpenPopup] = useState(false);
   const [openResetPopup, setOpenResetPopup] = useState(false);
+  const [openImagePopup, setOpenImagePopup] = useState(false);
   const [notify, setNotify] = useState({
     isOpen: false,
     message: "",
@@ -124,6 +136,14 @@ const StudentProfile = () => {
     error: updateSingleStudentProfileError,
   } = useSelector((state) => state.updateSingleStudentProfile);
 
+  const { uploadPhoto, uploadPhotoError } = useSelector(
+    (state) => state.getUploadPhoto
+  );
+
+  const { success: postUploadPhotoSuccess, error: postUploadPhotoError } = useSelector(
+    (state) => state.postUploadPhoto
+  );
+
   if (error) {
     setNotify({
       isOpen: true,
@@ -155,6 +175,39 @@ const StudentProfile = () => {
       type: "error",
     });
     dispatch({ type: GET_SINGLE_STUDENT_PROFILE_PASSWORDRESET_DATA_RESET });
+  }
+
+  if (uploadPhotoError) {
+    setNotify({
+      isOpen: true,
+      message: uploadPhotoError,
+      type: "error",
+    });
+    dispatch({ type: GET_UPLOAD_PHOTO_RESET });
+  }
+
+  if (postUploadPhotoSuccess) {
+    setNotify({
+      isOpen: true,
+      message: "Successfully Uploaded",
+      type: "success",
+    });
+    dispatch({ type: POST_UPLOAD_PHOTO_RESET });
+    dispatch(getListStudentProfileAction( academicYearValue,
+        programValue,
+        shiftValue,
+        classOptValue,
+        sectionValue,
+        statusValue));
+      setOpenImagePopup(false);
+  }
+  if (postUploadPhotoError) {
+    setNotify({
+      isOpen: true,
+      message: postUploadPhotoError,
+      type: "error",
+    });
+    dispatch({ type: POST_UPLOAD_PHOTO_RESET });
   }
   if (resetSingleStudentProfilePasswordError) {
     setNotify({
@@ -204,12 +257,14 @@ const StudentProfile = () => {
         programValue,
         shiftValue,
         classOptValue,
-        sectionValue
+        sectionValue,
+        statusValue
       )
     );
     dispatch({ type: UPDATE_SINGLE_STUDENT_PROFILE_RESET });
     setOpenPopup(false);
   }
+
 
   const deleteCollegeHandler = (id) => {};
 
@@ -221,14 +276,19 @@ const StudentProfile = () => {
       setAcademicYear(studentProfile.searchFilterModel.ddlAcademicYear);
       setShift(studentProfile.searchFilterModel.ddlAcademicShift);
       setProgram(studentProfile.searchFilterModel.ddlFacultyProgramLink);
-      setSection(studentProfile.ddlSection);
+      setSection(studentProfile.searchFilterModel.ddlSection);
       setClassOpt(studentProfile.searchFilterModel.ddlClass);
+      setStatus(studentProfile.searchFilterModel.ddlLevelStatus);
     }
   }, [dispatch, studentProfile]);
-
+// useEffect(()=>{
+//   if(uploadPhoto){
+//     dispatch(getUploadPhotoAction())
+//   }
+// },[dispatch,uploadPhoto]);
   useEffect(() => {
     if (listStudentProfile) {
-      setTableData([...listStudentProfile.dbModelLst]);
+      setTableData([...listStudentProfile.dbModelList]);
     }
   }, [listStudentProfile]);
 
@@ -239,6 +299,7 @@ const StudentProfile = () => {
     temp.shiftValue = !shiftValue ? "This feild is required" : "";
     temp.classOptValue = !classOptValue ? "This feild is required" : "";
     temp.sectionValue = !sectionValue ? "This feild is required" : "";
+    temp.statusValue = !statusValue ? "This feild is required" : "";
 
     setErrors({ ...temp });
     return Object.values(temp).every((x) => x === "");
@@ -272,7 +333,8 @@ const StudentProfile = () => {
           programValue,
           shiftValue,
           classOptValue,
-          sectionValue
+          sectionValue,
+          statusValue
         )
       );
     }
@@ -284,15 +346,27 @@ const StudentProfile = () => {
         getSingleStudentProfileEditDataAction(
           id,
           listStudentProfile.searchFilterModel.idAcademicYear,
-
           listStudentProfile.searchFilterModel.idFacultyProgramLink,
-          listStudentProfile.searchFilterModel.classSection,
+          listStudentProfile.searchFilterModel.idShift,
           listStudentProfile.searchFilterModel.idClass,
-          listStudentProfile.searchFilterModel.idShift
+          listStudentProfile.searchFilterModel.classSection,
+          listStudentProfile.searchFilterModel.LevelStatus
         )
       );
       setOpenPopup(true);
     }
+  };
+
+  const addHandler = (id) => {
+    dispatch(
+      getUploadPhotoAction(id, listStudentProfile.searchFilterModel.idAcademicYear,
+        listStudentProfile.searchFilterModel.idFacultyProgramLink,
+        listStudentProfile.searchFilterModel.idClass,
+        listStudentProfile.searchFilterModel.classSection,
+        listStudentProfile.searchFilterModel.idShift,
+        listStudentProfile.searchFilterModel.LevelStatus)
+    );
+    setOpenImagePopup(true);
   };
 
   return (
@@ -300,7 +374,7 @@ const StudentProfile = () => {
       <CustomContainer>
         <Toolbar>
           <Grid container style={{ fontSize: "12px" }}>
-            <Grid item xs={2}>
+            <Grid item xs={3}>
               <SelectControl
                 name="academicYear"
                 label="Academic Year"
@@ -310,7 +384,7 @@ const StudentProfile = () => {
                 errors={errors.academicYearValue}
               />
             </Grid>
-            <Grid item xs={2}>
+            <Grid item xs={3}>
               <SelectControl
                 name="ddlFacultyProgramLink"
                 label="Program / Faculty"
@@ -320,7 +394,7 @@ const StudentProfile = () => {
                 errors={errors.programValue}
               />
             </Grid>
-            <Grid item xs={2}>
+            <Grid item xs={3}>
               <SelectControl
                 name="ddlClass"
                 label="Class"
@@ -331,7 +405,7 @@ const StudentProfile = () => {
               />
             </Grid>
 
-            <Grid item xs={2}>
+            <Grid item xs={3}>
               <SelectControl
                 name="ddlSection"
                 label="Section"
@@ -341,7 +415,8 @@ const StudentProfile = () => {
                 errors={errors.sectionValue}
               />
             </Grid>
-            <Grid item xs={2}>
+            <Grid item xs={3}>
+              <div style={{ height: "10px" }}></div>
               <SelectControl
                 name="ddlAcademicShift"
                 label="Shift"
@@ -349,6 +424,17 @@ const StudentProfile = () => {
                 onChange={(e) => setShiftValue(e.target.value)}
                 options={shift}
                 errors={errors.shiftValue}
+              />
+            </Grid>
+            <Grid item xs={3}>
+              <div style={{ height: "10px" }}></div>
+              <SelectControl
+                name="ddlLevelStatus"
+                label="Level Status"
+                value={statusValue}
+                onChange={(e) => setStatusValue(e.target.value)}
+                options={status}
+                errors={errors.statusValue}
               />
             </Grid>
             <Grid item xs={3}>
@@ -375,6 +461,7 @@ const StudentProfile = () => {
                   selectedIndex={selectedIndex}
                   index={index}
                   setSelectedIndex={setSelectedIndex}
+                  ImagePathLst={listStudentProfile.ImagePathLst}
                   year={listStudentProfile.searchFilterModel.idAcademicYear}
                   program={
                     listStudentProfile.searchFilterModel.idFacultyProgramLink
@@ -382,6 +469,7 @@ const StudentProfile = () => {
                   section={listStudentProfile.searchFilterModel.classSection}
                   classId={listStudentProfile.searchFilterModel.idClass}
                   shift={listStudentProfile.searchFilterModel.idShift}
+                  status={listStudentProfile.searchFilterModel.LevelStatus}
                   studentDetails={singleStudentProfileDetails}
                   studentDetails={
                     singleStudentProfileDetails &&
@@ -389,6 +477,8 @@ const StudentProfile = () => {
                   }
                   setOpenResetPopup={setOpenResetPopup}
                   updateFormHandler={updateFormHandler}
+                  setOpenImagePopup={setOpenImagePopup}
+                  addHandler={addHandler}
                   // deleteCollegeHandler={deleteCollegeHandler}
                 />
               ))}
@@ -418,6 +508,16 @@ const StudentProfile = () => {
             singleStudentProfilePasswordresetDataDetails.hrEmployeeModel
           }
           setOpenResetPopup={setOpenResetPopup}
+        />
+      </Popup>
+      <Popup
+        openPopup={openImagePopup}
+        setOpenPopup={setOpenImagePopup}
+        title="Student Profile"
+      >
+        <StudentProfileUploadPhotoForm
+          uploadPhoto={uploadPhoto && uploadPhoto.dbModel}
+          setOpenImagePopup={setOpenImagePopup}
         />
       </Popup>
       <Notification notify={notify} setNotify={setNotify} />

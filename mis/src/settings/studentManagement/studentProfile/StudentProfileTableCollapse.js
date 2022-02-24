@@ -10,6 +10,7 @@ import {
   List,
   ListItem,
 } from "@material-ui/core";
+import AddIcon from "@material-ui/icons/Add";
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
 import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
@@ -20,6 +21,7 @@ import {
   getSingleStudentProfilePasswordresetDataAction,
 } from "./StudentProfileActions";
 import { useDispatch } from "react-redux";
+import { API_URL } from "../../../constants";
 
 const useStyles = makeStyles({
   button: {
@@ -33,7 +35,9 @@ const useStyles = makeStyles({
 const StudentProfileTableCollapse = ({
   item,
   updateFormHandler,
+  addHandler,
   index,
+  ImagePathLst,
   selectedIndex,
   setSelectedIndex,
   year,
@@ -41,6 +45,7 @@ const StudentProfileTableCollapse = ({
   section,
   classId,
   shift,
+  status,
   studentDetails,
   setOpenResetPopup,
   //   deleteCollegeHandler,
@@ -58,22 +63,27 @@ const StudentProfileTableCollapse = ({
           year,
           program,
           classId,
+          section,
           shift,
-          section
+          status
         )
       );
     }
   };
 
+  const currentImagePath = ImagePathLst?.filter(x => x.Key === item.IDHREmployee)
+
+
   const handleReset = (id) => {
     dispatch(
       getSingleStudentProfilePasswordresetDataAction(
         id,
-        year,
-        program,
-        classId,
-        shift,
-        section
+          year,
+          program,
+          classId,
+          section,
+          shift,
+          status
       )
     );
     setOpenResetPopup(true);
@@ -82,12 +92,23 @@ const StudentProfileTableCollapse = ({
   return (
     <>
       <TableRow>
-        <TableCell>{item.RollNo}</TableCell>
-        <TableCell>{item.PUNumber}</TableCell>
-        <TableCell>{item.StudentName}</TableCell>
+        <TableCell>{item.rollNo}</TableCell>
+        <TableCell><img src={`${API_URL}${currentImagePath[0].Value}`}  width="30px" height="30px"/></TableCell>
+        <TableCell>{item.UniversityRegistrationNumber}</TableCell>
+        <TableCell>{item.StudentFullName}</TableCell>
         <TableCell>{item.AcademicProgramName}</TableCell>
-        <TableCell>{item.Email}</TableCell>
-        <TableCell>{item.MobileNo}</TableCell>
+        <TableCell>{item.FacultyName} {item.LevelMOU}</TableCell>
+        <TableCell>{item.IDAcademicShift}</TableCell>
+        <TableCell>{item.MobileNumber}</TableCell>
+        <TableCell>{item.LevelStatus}</TableCell>
+        <TableCell> <Button
+            variant="contained"
+            color="primary"
+            className={classes.button}
+            onClick={() => addHandler(item.IDHREmployee)}
+          >
+            <AddIcon style={{ fontSize: 12 }} />
+          </Button></TableCell>
         <TableCell>
           <Button
             variant="contained"
@@ -168,7 +189,7 @@ const StudentProfileTableCollapse = ({
                         <strong>Married</strong>: {studentDetails.Married}
                       </ListItem>
                       <ListItem>
-                        <strong>DOB</strong>: {studentDetails.DOB.slice(0, 10)}
+                        <strong>DOB</strong>: {studentDetails.DOB?.slice(0, 10)}
                       </ListItem>
                       <ListItem>
                         <strong>BloodGroup</strong>: {studentDetails.BloodGroup}

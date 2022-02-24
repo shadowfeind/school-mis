@@ -15,6 +15,10 @@ import {
   EDUCATION_CREATE_SUCCESS,
   EDUCATION_CREATE_FAIL,
   EDUCATION_CREATE_RESET,
+  GET_LIST_EDUCATION_REQUEST,
+  GET_LIST_EDUCATION_SUCCESS,
+  GET_LIST_EDUCATION_FAIL,
+  GET_LIST_EDUCATION_RESET,
 } from "./EducationConstants";
 
 export const getAllEducation = (state = {}, action) => {
@@ -31,6 +35,23 @@ export const getAllEducation = (state = {}, action) => {
       return state;
   }
 };
+
+  export const getListEducationReducer = (state = {}, action) => {
+    switch (action.type) {
+      case GET_LIST_EDUCATION_REQUEST:
+        return { loading: true };
+      case GET_LIST_EDUCATION_SUCCESS:
+        return { loading: false, getListEducation: action.payload };
+      case GET_LIST_EDUCATION_FAIL:
+        return { loading: false, error: action.payload };
+      case GET_LIST_EDUCATION_RESET:
+        return {};
+      default:
+        return state;
+    }
+  };
+  
+
 
 export const getAllEducationCreateReducer = (state = {}, action) => {
   switch (action.type) {

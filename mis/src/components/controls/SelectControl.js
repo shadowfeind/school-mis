@@ -24,7 +24,7 @@ const SelectControl = ({
       <InputLabel>{label}</InputLabel>
       <Select label={label} name={name} value={value} onChange={onChange}>
         {/* <MenuItem value="">None</MenuItem> */}
-        {options?.map((item) => (
+        {options && options.map((item) => (
           <MenuItem value={item.Key} key={item.Key}>
             {item.Value}
           </MenuItem>

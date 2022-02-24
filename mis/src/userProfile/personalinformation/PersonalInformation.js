@@ -69,9 +69,9 @@ const PersonalInformation = () => {
       message: "Successfully Updated",
       type: "success",
     });
-    dispatch({ type: GET_ALL_PERSONALINFORMATION_SUCCESS});
+    dispatch(getAllPersonalInformationAction());
     dispatch({ type: UPDATE_SINGLE_PERSONALINFORMATION_RESET });
-    setOpenPopup(false);
+    
   }
   if (updateSinglePersonalInformationError) {
     setNotify({
@@ -80,7 +80,7 @@ const PersonalInformation = () => {
       type: "error",
     });
     dispatch({ type: UPDATE_SINGLE_PERSONALINFORMATION_RESET });
-    setOpenPopup(false);
+    
   }
   if (singlePersonalInformationError) {
     setNotify({
@@ -89,7 +89,7 @@ const PersonalInformation = () => {
       type: "error",
     });
     dispatch({ type: GET_SINGLE_PERSONALINFORMATION_RESET });
-    setOpenPopup(false);
+    
   }
   const editHandler = () => {
     dispatch(getSinglePersonalInformationAction());
@@ -97,7 +97,7 @@ const PersonalInformation = () => {
   };
 
   useEffect(() => {
-    dispatch({ type: "GET_LINK", payload: "/" });
+    dispatch({ type: "GET_LINK", payload: "/user-profile" });
     if (!getAllPersonalInformation) {
       dispatch(getAllPersonalInformationAction());
     }

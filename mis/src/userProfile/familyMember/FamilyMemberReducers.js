@@ -21,7 +21,11 @@ import { GET_ALL_FAMILYMEMBER_FAIL,
   UPDATE_SINGLE_FAMILYMEMBER_REQUEST,
   UPDATE_SINGLE_FAMILYMEMBER_SUCCESS,
   UPDATE_SINGLE_FAMILYMEMBER_FAIL,
-  UPDATE_SINGLE_FAMILYMEMBER_RESET,  
+  UPDATE_SINGLE_FAMILYMEMBER_RESET,
+  GET_FAMILY_MEMBER_LIST_REQUEST,
+  GET_FAMILY_MEMBER_LIST_SUCCESS,
+  GET_FAMILY_MEMBER_LIST_FAIL,
+  GET_FAMILY_MEMBER_LIST_RESET,  
 } from "./FamilyMemberConstants";
 
 export const getAllFamilyMember = (state = {}, action) => {
@@ -48,6 +52,21 @@ export const getAllFamilyMemberCreateReducer = (state = {}, action) => {
     case GET_ALL_FAMILYMEMBER_CREATE_FAIL:
       return { loading: false, error: action.payload };
     case GET_ALL_FAMILYMEMBER_CREATE_RESET:
+      return {};
+    default:
+      return state;
+  }
+};
+
+export const getListFamilyMemberReducer = (state = {}, action) => {
+  switch (action.type) {
+    case GET_FAMILY_MEMBER_LIST_REQUEST:
+      return { loading: true };
+    case GET_FAMILY_MEMBER_LIST_SUCCESS:
+      return { loading: false, listFamilyMember: action.payload };
+    case GET_FAMILY_MEMBER_LIST_FAIL:
+      return { loading: false, error: action.payload };
+    case GET_FAMILY_MEMBER_LIST_RESET:
       return {};
     default:
       return state;

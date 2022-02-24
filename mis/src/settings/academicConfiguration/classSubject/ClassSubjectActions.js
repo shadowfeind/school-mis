@@ -1,6 +1,9 @@
 import axios from "axios";
 import { API_URL, tokenConfig } from "../../../constants";
 import {
+  DELETE_CLASS_SUBJECT_FAIL,
+  DELETE_CLASS_SUBJECT_REQUEST,
+  DELETE_CLASS_SUBJECT_SUCCESS,
   GET_ALL_CLASS_SUBJECT_FAIL,
   GET_ALL_CLASS_SUBJECT_REQUEST,
   GET_ALL_CLASS_SUBJECT_SUCCESS,
@@ -146,3 +149,26 @@ export const createSingleClassSubjectAction =
       });
     }
   };
+
+  export const deleteClassSubjectAction = (classSubject) => async (dispatch) => {
+    try {
+      dispatch({ type: DELETE_CLASS_SUBJECT_REQUEST });
+  
+      const jsonData = JSON.stringify({ dbModel: classSubject });
+  console.log(jsonData);
+  
+      await axios.post(
+        `${API_URL}/api/ClassSubject/DeleteClassSubject`,
+        jsonData,
+        tokenConfig
+      );
+  
+      dispatch({ type: DELETE_CLASS_SUBJECT_SUCCESS });
+    } catch (error) {
+      dispatch({
+        type: DELETE_CLASS_SUBJECT_FAIL,
+        payload: error.message ? error.message : error.Message,
+      });
+    }
+  };
+  

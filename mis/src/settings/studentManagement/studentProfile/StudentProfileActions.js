@@ -23,6 +23,12 @@ import {
   UPDATE_SINGLE_STUDENT_PROFILE_REQUEST,
   UPDATE_SINGLE_STUDENT_PROFILE_SUCCESS,
   UPDATE_SINGLE_STUDENT_PROFILE_FAIL,
+  GET_UPLOAD_PHOTO_REQUEST,
+  GET_UPLOAD_PHOTO_SUCCESS,
+  GET_UPLOAD_PHOTO_FAIL,
+  POST_UPLOAD_PHOTO_REQUEST,
+  POST_UPLOAD_PHOTO_SUCCESS,
+  POST_UPLOAD_PHOTO_FAIL,
 } from "./StudentProfileConstants";
 
 export const getAllStudentProfileAction = () => async (dispatch) => {
@@ -44,12 +50,12 @@ export const getAllStudentProfileAction = () => async (dispatch) => {
 };
 
 export const getListStudentProfileAction =
-  (year, program, shift, classId, section) => async (dispatch) => {
+  ( year, program ,shift, classId, section ,status) => async (dispatch) => {
     try {
       dispatch({ type: GET_LIST_STUDENT_PROFILE_REQUEST });
 
       const { data } = await axios.get(
-        `${API_URL}/api/StudentProfile/GetListStudentProfile?idAcademicYear=${year}&idFacultyProgramLink=${program}&idShift=${shift}&idClass=${classId}&classSection=${section}`,
+        `${API_URL}/api/StudentProfile/GetListStudentProfile?idAcademicYear=${year}&idFacultyProgramLink=${program}&idShift=${shift}&idClass=${classId}&classSection=${section}&LevelStatus=${status}`,
         tokenConfig
       );
 
@@ -63,12 +69,12 @@ export const getListStudentProfileAction =
   };
 
 export const getSingleStudentProfileDetailsAction =
-  (id, year, program, classId, shift, section) => async (dispatch) => {
+  (id, year, program, classId, section,shift ,status) => async (dispatch) => {
     try {
       dispatch({ type: SINGLE_STUDENT_PROFILE_DETAILS_REQUEST });
 
       const { data } = await axios.get(
-        `${API_URL}/api/StudentProfile/GetSingleStudentProfileForDetail/${id}?idAcademicYear=${year}&idFacultyProgramLink=${program}&level=${classId}&idShift=${shift}&classSection=${section}`,
+        `${API_URL}/api/StudentProfile/GetSingleStudentProfileForDetail/${id}?idAcademicYear=${year}&idFacultyProgramLink=${program}&level=${classId}&section=${section}&idShift=${shift}&LevelStatus=${status}`,
         tokenConfig
       );
 
@@ -82,12 +88,12 @@ export const getSingleStudentProfileDetailsAction =
   };
 
 export const getSingleStudentProfilePasswordresetDataAction =
-  (id, year, program, classId, shift, section) => async (dispatch) => {
+  (id, year, program, classId, section,shift ,status) => async (dispatch) => {
     try {
       dispatch({ type: GET_SINGLE_STUDENT_PROFILE_PASSWORDRESET_DATA_REQUEST });
 
       const { data } = await axios.get(
-        `${API_URL}/api/StudentProfile/GetResetPasswordStudent/${id}?idAcademicYear=${year}&idFacultyProgramLink=${program}&level=${classId}&idShift=${shift}&classSection=${section}`,
+        `${API_URL}/api/StudentProfile/GetResetPasswordStudent/${id}?idAcademicYear=${year}&idFacultyProgramLink=${program}&level=${classId}&section=${section}&idShift=${shift}&LevelStatus=${status}`,
         tokenConfig
       );
 
@@ -98,6 +104,28 @@ export const getSingleStudentProfilePasswordresetDataAction =
     } catch (error) {
       dispatch({
         type: GET_SINGLE_STUDENT_PROFILE_PASSWORDRESET_DATA_FAIL,
+        payload: error.message ? error.message : error.Message,
+      });
+    }
+  };
+
+  export const getUploadPhotoAction =
+  (id, year, program, classId, section,shift ,status) => async (dispatch) => {
+    try {
+      dispatch({ type: GET_UPLOAD_PHOTO_REQUEST });
+
+      const { data } = await axios.get(
+        `${API_URL}/api/StudentProfile/GetUploadPhoto/${id}?idAcademicYear=${year}&idFacultyProgramLink=${program}&level=${classId}&section=${section}&idShift=${shift}&LevelStatus=${status}`,
+        tokenConfig
+      );
+
+      dispatch({
+        type: GET_UPLOAD_PHOTO_SUCCESS,
+        payload: data,
+      });
+    } catch (error) {
+      dispatch({
+        type: GET_UPLOAD_PHOTO_FAIL,
         payload: error.message ? error.message : error.Message,
       });
     }
@@ -140,12 +168,12 @@ export const resetSingleStudentPasswordAction =
   };
 
 export const getSingleStudentProfileEditDataAction =
-  (id, year, program, classId, shift, section) => async (dispatch) => {
+  (id, year, program, classId, section,shift ,status) => async (dispatch) => {
     try {
       dispatch({ type: GET_SINGLE_STUDENT_PROFILE_EDIT_DATA_REQUEST });
 
       const { data } = await axios.get(
-        `${API_URL}/api/StudentProfile/GetSingleStudentProfileForEdit/${id}?idAcademicYear=${year}&idFacultyProgramLink=${program}&level=${classId}&idShift=${shift}&classSection=${section}`,
+        `${API_URL}/api/StudentProfile/GetSingleStudentProfileForEdit/${id}?idAcademicYear=${year}&idFacultyProgramLink=${program}&level=${classId}&section=${section}&idShift=${shift}&LevelStatus=${status}`,
         tokenConfig
       );
 
@@ -194,6 +222,49 @@ export const updateSingleStudentAction =
     } catch (error) {
       dispatch({
         type: UPDATE_SINGLE_STUDENT_PROFILE_FAIL,
+        payload: error.message ? error.message : error.Message,
+      });
+    }
+  };
+
+
+  export const postUploadPhotoAction = (id,image, dbData) => async (dispatch) => {
+    try {
+      dispatch({ type: POST_UPLOAD_PHOTO_REQUEST });
+  
+      let formData = new FormData();
+      formData.append("ImageUploaded", image);
+
+      const { data } = await axios.post(
+        `${API_URL}/api/StudentProfile/FileUpload/${id}`,
+        formData,
+        tokenConfig
+      );
+
+  // console.log(data)
+      // if (data) {
+      //   const newData = {
+      //     ...dbData,
+      //     FileName: data,
+        // };
+        const jsonData = JSON.stringify({
+          dbModel: data,
+        });
+
+        console.log("jsonData",jsonData);
+        await axios.put(
+          `${API_URL}/api/StudentProfile/PutPhoto`,
+          jsonData,
+          tokenConfig
+        );
+      // }
+  
+      dispatch({
+        type: POST_UPLOAD_PHOTO_SUCCESS,
+      });
+    } catch (error) {
+      dispatch({
+        type: POST_UPLOAD_PHOTO_FAIL,
         payload: error.message ? error.message : error.Message,
       });
     }

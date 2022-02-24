@@ -17,3 +17,4 @@ export const tokenConfig = {
     Authorization: `Bearer ${USER_SESSION}`,
   },
 };
+

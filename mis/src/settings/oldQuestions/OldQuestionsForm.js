@@ -46,6 +46,10 @@ const OldQuestionsForm =({singleCreateOldQuestions,
     temp.IsActive = !fieldValues.IsActive
     ? "This feild is required"
     : "";
+    temp.image = !image
+    ? "This feild is required"
+    : "";
+
     setErrors({ ...temp });
     return Object.values(temp).every((x) => x === "");
   }
@@ -137,7 +141,7 @@ const OldQuestionsForm =({singleCreateOldQuestions,
             // value={values.DocumentFile}
             onChange={(e) => handleImage(e)}
             type="file"
-            // errors={errors.DocumentFile}
+            errors={errors.image}
           />
 
           <img

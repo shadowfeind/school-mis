@@ -1,7 +1,13 @@
-import React from "react";
+import React, { useRef } from "react";
 import ExamResultWithMarksDesign from "./ExamResultWithMarksDesign";
+import { useReactToPrint } from "react-to-print";
+import { Button } from "@material-ui/core";
 
 const ExamResultWithMarksModel = ({ examReport }) => {
+  const componentRef = useRef();
+  const printPdf = useReactToPrint({
+    content: () => componentRef.current,
+  });
   const examTerm =
     examReport &&
     examReport.ddlAcademicYearCalendar.filter(
@@ -9,7 +15,7 @@ const ExamResultWithMarksModel = ({ examReport }) => {
     );
 
   return (
-    <>
+    <div id="result-with-marks" ref={componentRef}>
       {examReport &&
         examReport.dbStudentModelLst.map((student) => {
           let subjects = examReport.dbModelLst.filter(
@@ -47,7 +53,20 @@ const ExamResultWithMarksModel = ({ examReport }) => {
             />
           );
         })}
-    </>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "end",
+          paddingTop: "10px",
+          marginTop: "10px",
+          borderTop: "1px solid #f3f3f3",
+        }}
+      >
+        <Button onClick={printPdf} variant="contained" color="primary">
+          PRINT
+        </Button>
+      </div>
+    </div>
   );
 };
 

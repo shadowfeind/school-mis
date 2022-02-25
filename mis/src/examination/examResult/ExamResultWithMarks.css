@@ -1,6 +1,6 @@
 .resultContainer {
   /* width: 210mm;
-  height: 297mm; */
+    height: 297mm; */
   box-sizing: border-box;
   margin: 0 auto;
   border: 3px solid #000;
@@ -10,12 +10,12 @@
 .resultContainer h1 {
   background-color: #f6f9fa !important;
   font: bold;
-  font-size: 32px;
+  font-size: 26px;
   text-align: center;
   vertical-align: middle;
   font-weight: 800;
   padding-top: 10px;
-  padding-bottom: 10px;
+  padding-bottom: 6px;
   color: #707478;
   margin: 0;
 }
@@ -93,8 +93,9 @@
     margin: 10px auto;
     padding: 0 10px 10px 10px;
   }
-  .resultContainer h1 {
-    font-size: 24px;
+  .resultContainer .subjectTable h1 {
+    font-size: 18px !important;
+    padding: 6px !important;
   }
   .resultContainer h2 {
     font-size: 16px;

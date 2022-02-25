@@ -33,6 +33,8 @@ const localizer = momentLocalizer(moment);
 
 const Holiday = () => {
   const [openPopup, setOpenPopup] = useState(false);
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
   const [notify, setNotify] = useState({
     isOpen: false,
     message: "",
@@ -120,7 +122,11 @@ const Holiday = () => {
     dispatch({ type: GET_SINGLE_HOLIDAY_RESET });
     setOpenPopup(true);
   };
-
+  const handleCalendarSelect = ({ start, end }) => {
+    setStartDate(new Date(start).toISOString());
+    setEndDate(new Date(end).toISOString());
+    setOpenPopup(true);
+  };
   return (
     <>
       <div
@@ -150,6 +156,8 @@ const Holiday = () => {
           endAccessor="ToDate"
           titleAccessor="HolidayName"
           views={months}
+          selectable={true}
+          onSelectSlot={handleCalendarSelect}
           style={{ height: "60vh" }}
         />
       </div>
@@ -160,6 +168,8 @@ const Holiday = () => {
       >
         <HolidayForm
           holiday={singleHoliday && singleHoliday.hrHolidayModel}
+          startDate={startDate}
+          endDate={endDate}
           setOpenPopup={setOpenPopup}
         />
       </Popup>

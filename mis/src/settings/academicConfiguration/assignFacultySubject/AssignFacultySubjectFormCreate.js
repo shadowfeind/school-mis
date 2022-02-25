@@ -41,6 +41,7 @@ const AssignFacultySubjectFormCreate = ({
   assignFacSubGenerate,
   setFormCheck,
   formCheckSubmitHandler,
+  setOpenPopup,
 }) => {
   const [subjects, setSubjects] = useState([]);
   const classes = useStyles();
@@ -162,7 +163,7 @@ const AssignFacultySubjectFormCreate = ({
             <Button
               variant="contained"
               color="secondary"
-              // onClick={() => setOpenPopup(false)}
+              onClick={() => setOpenPopup(false)}
               style={{ margin: "10px 0 0 10px" }}
             >
               CANCEL

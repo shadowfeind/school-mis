@@ -64,7 +64,7 @@ const StudentRegistration = () => {
   const [classId, setClassId] = useState();
   const [acaYear, setAcaYear] = useState();
   const [selectedIndex, setSelectedIndex] = useState("");
-const [errors, setErrors] = useState([]);
+  const [errors, setErrors] = useState([]);
   const [tableData, setTableData] = useState([]);
   const [filterFn, setFilterFn] = useState({
     fn: (item) => {
@@ -148,6 +148,7 @@ const [errors, setErrors] = useState([]);
       type: "success",
     });
     setOpenPopup(false);
+    dispatch(getStudentRegistrationDataAction(acaYear, programValue, classId));
   }
 
   useEffect(() => {
@@ -172,15 +173,15 @@ const [errors, setErrors] = useState([]);
     }
   }, [studentRegistration]);
 
-  const validate=()=>{
-    let temp ={};
+  const validate = () => {
+    let temp = {};
     temp.acaYear = !acaYear ? "This feild is required" : "";
     temp.programValue = !programValue ? "This feild is required" : "";
     temp.classId = !classId ? "This feild is required" : "";
-    
+
     setErrors({ ...temp });
     return Object.values(temp).every((x) => x === "");
-  }
+  };
 
   const handleStudentSearch = () => {
     if (validate()) {
@@ -191,12 +192,12 @@ const [errors, setErrors] = useState([]);
   };
 
   const handleCreate = () => {
-    if(validate()){
-    dispatch(getCreateSingleStudentRegistrationDataAction());
-    setOpenPopup(true);
-    dispatch({ type: GET_SINGLE_STUDENT_REGISTRATION_DATA_RESET });
+    if (validate()) {
+      dispatch(getCreateSingleStudentRegistrationDataAction());
+      setOpenPopup(true);
+      dispatch({ type: GET_SINGLE_STUDENT_REGISTRATION_DATA_RESET });
+    }
   };
-};
 
   return (
     <>

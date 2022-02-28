@@ -32,6 +32,7 @@ import DatePickerControl from "../../components/controls/DatePickerControl";
 import FinalExamResult from "./FinalExamResult";
 import ExamResultWithMarksModel from "./ExamResultWithMarksModel";
 import ExamResultCount from "./ExamResultCount";
+import LoadingComp from "../../components/LoadingComp";
 
 // NOTE
 //exam ledger header is exam ledger
@@ -80,6 +81,7 @@ const ExamResult = () => {
   const [openPopupCount, setOpenPopupCount] = useState(false);
   const [showDataTable, setShowDatatable] = useState(false); //to avoid data changing when chaning select control
   const [showAnnualLedger, setShowAnnualLedger] = useState(false);
+  const [showValue, setShowValue] = useState(0);
 
   const [notify, setNotify] = useState({
     isOpen: false,
@@ -104,20 +106,34 @@ const ExamResult = () => {
     success: studentOptionsForExamMarkSuccess,
   } = useSelector((state) => state.getInitialExamResultStudentOptions);
 
-  const { examResultList, error: getexamResultListError } = useSelector(
-    (state) => state.getExamResultList
-  );
-  const { printExamResult, error: printExamResultError } = useSelector(
-    (state) => state.printExamResult
-  );
-  const { examLedgerHeader, error: examLedgerHeaderError } = useSelector(
-    (state) => state.getExamLedgerHeader
-  );
-  const { printFinalResult, error: printFinalResultError } = useSelector(
-    (state) => state.printFinalResult
-  );
-  const { printExamResultCount, error: printExamResultCountError } =
-    useSelector((state) => state.printExamResultCount);
+  const {
+    examResultList,
+    error: getexamResultListError,
+    loading: getExamResultListLoading,
+  } = useSelector((state) => state.getExamResultList);
+  const {
+    printExamResult,
+    error: printExamResultError,
+    success: printExamResultSuccess,
+    loading: printExamResultLoading,
+  } = useSelector((state) => state.printExamResult);
+  const {
+    examLedgerHeader,
+    error: examLedgerHeaderError,
+    loading: getExamLedgerHeaderLoading,
+  } = useSelector((state) => state.getExamLedgerHeader);
+  const {
+    printFinalResult,
+    error: printFinalResultError,
+    success: printFinalResultSuccess,
+    loading: printFinalResultLoading,
+  } = useSelector((state) => state.printFinalResult);
+  const {
+    printExamResultCount,
+    error: printExamResultCountError,
+    success: printExamResultCountSuccess,
+    loading: printExamResultCountLoading,
+  } = useSelector((state) => state.printExamResultCount);
 
   if (getexamResultListError) {
     setNotify({
@@ -298,8 +314,8 @@ const ExamResult = () => {
           npYear
         )
       );
+      setShowValue(1);
     }
-    setOpenPopup(true);
   };
 
   const handleAnnualLedgerSearch = () => {
@@ -337,7 +353,7 @@ const ExamResult = () => {
           npYear
         )
       );
-      setOpenPopupResultMark(true);
+      setShowValue(2);
     }
   };
 
@@ -357,7 +373,6 @@ const ExamResult = () => {
           )
         );
       }
-      setOpenPopupCount(true);
     }
   };
 
@@ -376,9 +391,29 @@ const ExamResult = () => {
           npYear
         )
       );
-      setOpenPopupFinal(true);
     }
   };
+
+  useEffect(() => {
+    if (printExamResultSuccess & (showValue === 1)) {
+      setOpenPopup(true);
+    }
+    if (printExamResultSuccess & (showValue === 2)) {
+      setOpenPopupResultMark(true);
+    }
+  }, [printExamResultSuccess, showValue]);
+
+  useEffect(() => {
+    if (printFinalResultSuccess) {
+      setOpenPopupFinal(true);
+    }
+  }, [printFinalResultSuccess]);
+
+  useEffect(() => {
+    if (printExamResultCountSuccess) {
+      setOpenPopupCount(true);
+    }
+  }, [printExamResultCountSuccess]);
   return (
     <>
       <CustomContainer>
@@ -537,21 +572,32 @@ const ExamResult = () => {
             </Grid>
           </Grid>
         </Toolbar>
-        {examResultList && (
-          <ExamResultTableCollapse
-            ledgerHeader={
-              examResultList &&
-              examResultList.ddlAcademicFacultySubjectLinkSubModel
-            }
-            student={examResultList && examResultList.dbModelLst}
-            mark={examResultList && examResultList.dbMarkModelLst}
-            showDataTable={showDataTable}
-            result={examResultList && examResultList.dbModelResultLst}
-            rank={examResultList && examResultList.dbModelRankLst}
-          />
+        {printExamResultLoading && <LoadingComp />}
+        {printFinalResultLoading && <LoadingComp />}
+        {printExamResultCountLoading && <LoadingComp />}
+        {getExamResultListLoading ? (
+          <LoadingComp />
+        ) : (
+          examResultList && (
+            <ExamResultTableCollapse
+              ledgerHeader={
+                examResultList &&
+                examResultList.ddlAcademicFacultySubjectLinkSubModel
+              }
+              student={examResultList && examResultList.dbModelLst}
+              mark={examResultList && examResultList.dbMarkModelLst}
+              showDataTable={showDataTable}
+              result={examResultList && examResultList.dbModelResultLst}
+              rank={examResultList && examResultList.dbModelRankLst}
+            />
+          )
         )}
-        {showAnnualLedger && (
-          <ExamAnnualResultTable ledgerData={examLedgerHeader} />
+        {getExamLedgerHeaderLoading ? (
+          <LoadingComp />
+        ) : (
+          showAnnualLedger && (
+            <ExamAnnualResultTable ledgerData={examLedgerHeader} />
+          )
         )}
       </CustomContainer>
       <Popup openPopup={openPopup} setOpenPopup={setOpenPopup} title="">

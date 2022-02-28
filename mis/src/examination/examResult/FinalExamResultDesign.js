@@ -55,7 +55,7 @@ const FinalExamResultDesign = ({
             </h5>
           </Grid>
         </Grid>
-        <h2>ANNUAL RESULT : {studentYear && studentYear[0].Value}</h2>
+        <h2>ANNUAL RESULT : {studentYear}</h2>
         <div className="uppderTableResult">
           <table style={{ margin: "15px 0" }}>
             <thead>

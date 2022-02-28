@@ -31,9 +31,9 @@ const ExamResultWithMarksModel = ({ examReport }) => {
           let studentClass = examReport.ddlLevel.filter(
             (x) => x.Key === examReport.level
           );
-          let studentYear = examReport.ddlAcademicYear.filter(
-            (x) => x.Key === examReport.idAcademicYear
-          );
+          // let studentYear = examReport.ddlAcademicYear.filter(
+          //   (x) => x.Key === examReport.idAcademicYear
+          // );
           let studentSection = examReport.ddlSection.filter(
             (x) => x.Key === examReport.classSection
           );
@@ -48,7 +48,7 @@ const ExamResultWithMarksModel = ({ examReport }) => {
               forDate={examReport.footerModel}
               examTerm={examTerm[0]}
               studentClass={studentClass[0]}
-              studentYear={studentYear[0]}
+              studentYear={examReport.npYear}
               studentSection={studentSection[0]}
             />
           );

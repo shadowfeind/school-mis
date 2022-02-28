@@ -54,7 +54,7 @@ const ExamResultDesign = ({
           </Grid>
         </Grid>
         <h2>
-          {examTerm.Value} : {studentYear && studentYear.Value}
+          {examTerm.Value} : {studentYear}
         </h2>
         <div className="uppderTableResult">
           <table style={{ margin: "15px 0" }}>
@@ -166,8 +166,10 @@ const ExamResultDesign = ({
                 ))}
 
               <tr>
-                <td colSpan={6}>GRADE POINT AVERAGE (GPA)</td>
-                <td>
+                <td colSpan={6} style={{ textAlign: "center" }}>
+                  GRADE POINT AVERAGE (GPA)
+                </td>
+                <td style={{ textAlign: "center" }}>
                   {(
                     trackSubject.reduce((acc, cur) => {
                       return acc + cur.totalMarks;

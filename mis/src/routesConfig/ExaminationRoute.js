@@ -22,7 +22,7 @@ export const ExaminationRoute = [
     exact: false,
   },
   {
-    name: "Exam Schedule",
+    name: "Full/Pass Marks",
     route: "/exam-schedule",
     icon: ChromeReaderMode,
     exact: false,
@@ -40,7 +40,7 @@ export const ExaminationRoute = [
   //   exact: false,
   // },
   {
-    name: "Exam Mark Approval",
+    name: "Exam Mark Entry/Update",
     route: "/exam-mark-approval",
     icon: Settings,
     exact: false,
@@ -59,13 +59,13 @@ export const ExaminationRoute = [
     exact: false,
   },
   {
-    name: "Level Test",
+    name: "ECA",
     route: "/level-test",
     icon: Accessible,
     exact: false,
   },
   {
-    name: "Exam Result",
+    name: "Exam Result(Print)",
     route: "/exam-result",
     icon: RecordVoiceOver,
     exact: false,

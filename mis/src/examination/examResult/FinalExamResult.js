@@ -72,7 +72,7 @@ const FinalExamResult = ({ result }) => {
               currentStudentRank={currentStudentRank}
               studentClass={studentClass}
               studentSection={studentSection}
-              studentYear={studentYear}
+              studentYear={result.npYear}
               resultDate={result.footerModel.PublishDate}
             />
           );

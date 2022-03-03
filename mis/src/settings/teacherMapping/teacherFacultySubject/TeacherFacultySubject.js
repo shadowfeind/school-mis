@@ -177,6 +177,12 @@ const TeacherFacultySubject = () => {
   }
 
   if (createSingleTeacherFacSubSuccess) {
+    setNotify({
+      isOpen: true,
+      message: "Successfully Created",
+      type: "success",
+    });
+    dispatch({ type: CREATE_SINGLE_TEACHER_FAC_SUB_RESET });
     dispatch(
       getAllTeacherFacSubListDataAction(
         academicYearValue,
@@ -186,12 +192,6 @@ const TeacherFacultySubject = () => {
         shiftValue
       )
     );
-    setNotify({
-      isOpen: true,
-      message: "Successfully Created",
-      type: "success",
-    });
-    dispatch({ type: CREATE_SINGLE_TEACHER_FAC_SUB_RESET });
   }
 
   if (createInitTeacherFacDataError) {

@@ -27,7 +27,7 @@ const TeacherFacultySubjectForm = ({
   editData,
   createData,
   setOpenPopup,
-  section,
+  searchFilterModel,
 }) => {
   const dispatch = useDispatch();
   const validate = (fieldValues = values) => {
@@ -55,7 +55,14 @@ const TeacherFacultySubjectForm = ({
 
     if (validate()) {
       if (values.IDHRTeacherFacultySubjectMappingHeader === 0) {
-        dispatch(createSingleTeacherFacSubAction(values, section));
+        dispatch(
+          createSingleTeacherFacSubAction(
+            values,
+            searchFilterModel.section,
+            searchFilterModel.level,
+            searchFilterModel.idShift
+          )
+        );
       } else {
         dispatch(singleTeacherFacSubEditAction(values));
       }
@@ -68,7 +75,10 @@ const TeacherFacultySubjectForm = ({
     if (editData) {
       setValues({ ...editData.dbModel });
     }
-  }, [editData]);
+    if (createData) {
+      setValues({ ...createData.dbModel });
+    }
+  }, [editData, createData]);
 
   return (
     <Form onSubmit={handleSubmit}>

@@ -142,19 +142,15 @@ export const createTeacherFacSubInitDataAction =
   };
 
 export const createSingleTeacherFacSubAction =
-  (teacher, Section) => async (dispatch) => {
+  (teacher) => async (dispatch) => {
     try {
       dispatch({ type: CREATE_SINGLE_TEACHER_FAC_SUB_REQUEST });
 
       const jsonData = JSON.stringify({
-        dbModel: { ...teacher, Section },
+        dbModel: {
+          ...teacher,
+        },
       });
-
-      // const config = {
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //   },
-      // };
 
       await axios.post(
         `${API_URL}/api/HRTeacherFacultySubjectMappingHeader/Post`,

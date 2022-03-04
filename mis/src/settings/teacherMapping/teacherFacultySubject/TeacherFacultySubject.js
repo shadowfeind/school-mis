@@ -429,9 +429,9 @@ const TeacherFacultySubject = () => {
           editData={singleTeacherFacData && singleTeacherFacData}
           createData={createInitTeacherFacData && createInitTeacherFacData}
           setOpenPopup={setOpenPopup}
-          section={
+          searchFilterModel={
             createInitTeacherFacData &&
-            createInitTeacherFacData.searchFilterModel.section
+            createInitTeacherFacData.searchFilterModel
           }
         />
       </Popup>

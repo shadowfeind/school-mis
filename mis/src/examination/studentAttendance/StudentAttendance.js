@@ -74,7 +74,7 @@ const StudentAttendance = () => {
   const [acaYear, setAcaYear] = useState();
   const [shift, setShift] = useState();
   const [section, setSection] = useState();
-  const [event, setEvent] = useState();
+  const [event, setEvent] = useState("");
   const [errors, setErrors] = useState([]);
 
   const dispatch = useDispatch();
@@ -244,6 +244,7 @@ const StudentAttendance = () => {
 
   const handleYearChange = (value) => {
     setAcaYear(value);
+    setEvent("");
     if (classId) {
       dispatch(getEventAction(value, programValue, classId));
     }
@@ -251,6 +252,7 @@ const StudentAttendance = () => {
 
   const handleClassIdChange = (value) => {
     setClassId(value);
+    setEvent("");
     dispatch(getEventAction(acaYear, programValue, value));
   };
 
@@ -281,8 +283,8 @@ const StudentAttendance = () => {
           event
         )
       );
+      setOpenPopup(true);
     }
-    setOpenPopup(true);
   };
 
   return (

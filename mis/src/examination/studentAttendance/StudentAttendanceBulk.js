@@ -50,7 +50,7 @@ const StudentAttendanceBulk = ({
   const dispatch = useDispatch();
 
   const onChangeHandler = (subject, value, name, index) => {
-    if ((value >= 0) & (value <= Number(workingDayTotal))) {
+    if ((value >= 0) & (value <= Number(workingDays))) {
       setBulk((prev) => {
         const newReassoc = {
           ...subject,
@@ -80,6 +80,10 @@ const StudentAttendanceBulk = ({
       setWorkingDays(workingDayTotal);
     }
   }, [bulkData]);
+
+  useEffect(() => {
+    setWorkingDays(workingDayTotal);
+  }, []); //calling it just once
 
   const validate = () => {
     let temp = { ...errors };

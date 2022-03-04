@@ -17,6 +17,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Notification from "../../../components/Notification";
 import ConfirmDialog from "../../../components/ConfirmDialog";
 import SchoolSettingsTableCollapse from "./SchoolSettingsTableCollapse";
+import { handleSubmit } from "./SchoolSettingsForm";
 
 import SchoolSettingsForm from "./SchoolSettingsForm";
 import {

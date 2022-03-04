@@ -23,6 +23,7 @@
   #test-print-blueberry {
     padding-left: 3%;
   }
+
   @-moz-document url-prefix() {
     /* #test-print-blueberry {
      margin-top: 0.25;

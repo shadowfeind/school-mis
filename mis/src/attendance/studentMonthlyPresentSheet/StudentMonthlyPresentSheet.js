@@ -290,6 +290,8 @@ const StudentMonthlyPresentSheet = () => {
 
   const handleYearChange = (value) => {
     setAcaYear(value);
+    setSubject("");
+    setClassId("");
     if ((programValue, classId)) {
       dispatch(getSubjectOptionsForSelectAction(value, programValue, classId));
     }

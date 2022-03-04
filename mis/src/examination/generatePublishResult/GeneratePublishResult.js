@@ -63,12 +63,12 @@ const GeneratePublishResult = () => {
   const [ddlShift, setDdlShift] = useState([]);
   const [ddlSection, setDdlSection] = useState([]);
   const [ddlEvent, setDdlEvent] = useState([]);
-  const [programValue, setProgramValue] = useState();
-  const [classId, setClassId] = useState();
-  const [acaYear, setAcaYear] = useState();
-  const [shift, setShift] = useState();
-  const [section, setSection] = useState();
-  const [event, setEvent] = useState();
+  const [programValue, setProgramValue] = useState("");
+  const [classId, setClassId] = useState("");
+  const [acaYear, setAcaYear] = useState("");
+  const [shift, setShift] = useState("");
+  const [section, setSection] = useState("");
+  const [event, setEvent] = useState("");
   const [errors, setErrors] = useState([]);
   const dispatch = useDispatch();
   const classes = useStyles();
@@ -139,23 +139,28 @@ const GeneratePublishResult = () => {
     dispatch({ type: GET_ALL_GENERATE_PUBLISH_RESET });
   }
 
-  const handleProgramValue = (value) => {
-    setProgramValue(value);
-    if ((acaYear, classId, shift)) {
-      dispatch(getEventAction(value, acaYear, classId, shift));
+  const handleYearChange = (value) => {
+    setAcaYear(value);
+    setClassId("")
+    if (classId) {
+      dispatch(getEventAction(value, programValue, classId,shift));
+    }
+    if(event){
+      setEvent("")
     }
   };
 
-  const handleYearChange = (value) => {
-    setAcaYear(value);
-    if (classId) {
-      dispatch(getEventAction(value, programValue, classId));
+  const handleProgramValue = (value) => {
+    setProgramValue(value);
+    if ((acaYear, classId, shift)) {
+      dispatch(getEventAction( acaYear,value, classId, shift));
     }
   };
 
   const handleClassIdChange = (value) => {
     setClassId(value);
-    dispatch(getEventAction(acaYear, programValue, value));
+    setEvent("")
+    dispatch(getEventAction(acaYear, programValue, value,shift));
   };
 
   useEffect(() => {

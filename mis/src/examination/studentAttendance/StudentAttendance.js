@@ -69,11 +69,11 @@ const StudentAttendance = () => {
   const [ddlSection, setDdlSection] = useState([]);
   const [ddlEvent, setDdlEvent] = useState([]);
 
-  const [programValue, setProgramValue] = useState();
-  const [classId, setClassId] = useState();
-  const [acaYear, setAcaYear] = useState();
-  const [shift, setShift] = useState();
-  const [section, setSection] = useState();
+  const [programValue, setProgramValue] = useState("");
+  const [classId, setClassId] = useState("");
+  const [acaYear, setAcaYear] = useState("");
+  const [shift, setShift] = useState("");
+  const [section, setSection] = useState("");
   const [event, setEvent] = useState("");
   const [errors, setErrors] = useState([]);
 
@@ -245,6 +245,7 @@ const StudentAttendance = () => {
   const handleYearChange = (value) => {
     setAcaYear(value);
     setEvent("");
+    setClassId("");
     if (classId) {
       dispatch(getEventAction(value, programValue, classId));
     }

@@ -55,7 +55,7 @@ const ExamResultCount = ({ result }) => {
           </Grid>
         </Grid>
         <h2>
-          {event && event[0].Value} : {resultYear && resultYear[0].Value}
+          {event && event[0].Value} : {result && result.npYear}
         </h2>
         <div className="uppderTableResult">
           <table style={{ margin: "15px 0" }}>

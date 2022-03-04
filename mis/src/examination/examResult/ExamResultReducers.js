@@ -130,6 +130,7 @@ export const printExamResultReducer = (state = {}, action) => {
       return {
         loading: false,
         printExamResult: action.payload,
+        success: true,
       };
     case PRINT_EXAM_RESULT_FAIL:
       return { loading: false, error: action.payload };
@@ -148,6 +149,7 @@ export const printExamResultCountReducer = (state = {}, action) => {
       return {
         loading: false,
         printExamResultCount: action.payload,
+        success: true,
       };
     case PRINT_EXAM_RESULT_COUNT_FAIL:
       return { loading: false, error: action.payload };
@@ -166,6 +168,7 @@ export const printFinalResultReducer = (state = {}, action) => {
       return {
         loading: false,
         printFinalResult: action.payload,
+        success: true,
       };
     case PRINT_FINAL_RESULT_FAIL:
       return { loading: false, error: action.payload };

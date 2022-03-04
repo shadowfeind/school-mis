@@ -139,19 +139,12 @@ const GeneratePublishResult = () => {
     dispatch({ type: GET_ALL_GENERATE_PUBLISH_RESET });
   }
 
-  const handleProgramValue =(value=>{
+  const handleProgramValue = (value) => {
     setProgramValue(value);
     if ((acaYear, classId, shift)) {
-      dispatch(
-        getEventAction(
-          value,
-          acaYear,
-          classId,
-          shift
-        )
-      );
+      dispatch(getEventAction(value, acaYear, classId, shift));
     }
-  })
+  };
 
   const handleYearChange = (value) => {
     setAcaYear(value);
@@ -189,8 +182,8 @@ const GeneratePublishResult = () => {
   }, [allGenerate, allGeneratePublishResult]);
 
   //get event from exam mark entry
-  const validate=()=>{
-    let temp ={};
+  const validate = () => {
+    let temp = {};
     temp.acaYear = !acaYear ? "This feild is required" : "";
     temp.programValue = !programValue ? "This feild is required" : "";
     temp.classId = !classId ? "This feild is required" : "";
@@ -200,7 +193,7 @@ const GeneratePublishResult = () => {
 
     setErrors({ ...temp });
     return Object.values(temp).every((x) => x === "");
-  }
+  };
 
   const handleGeneralSearch = () => {
     if (validate()) {
@@ -257,7 +250,6 @@ const GeneratePublishResult = () => {
                 onChange={(e) => handleProgramValue(e.target.value)}
                 options={programDdl}
                 errors={errors.programValue}
-
               />
             </Grid>
             <Grid item xs={3}>
@@ -268,7 +260,6 @@ const GeneratePublishResult = () => {
                 onChange={(e) => handleClassIdChange(e.target.value)}
                 options={ddlClass}
                 errors={errors.classId}
-
               />
             </Grid>
             <Grid item xs={3}>
@@ -279,7 +270,6 @@ const GeneratePublishResult = () => {
                 onChange={(e) => setShift(e.target.value)}
                 options={ddlShift}
                 errors={errors.shift1}
-
               />
             </Grid>
             <Grid item xs={3}>
@@ -291,7 +281,6 @@ const GeneratePublishResult = () => {
                 onChange={(e) => setSection(e.target.value)}
                 options={ddlSection}
                 errors={errors.section}
-
               />
             </Grid>
             <Grid item xs={3}>
@@ -303,7 +292,6 @@ const GeneratePublishResult = () => {
                 onChange={(e) => setEvent(e.target.value)}
                 options={ddlEvent ? ddlEvent : test}
                 errors={errors.event}
-
               />
             </Grid>
 

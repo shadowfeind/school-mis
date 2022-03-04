@@ -40,7 +40,7 @@ const useStyles = makeStyles({
   },
 });
 
-const StudentMonthlyPresentSheetUpdateForm = ({ students }) => {
+const StudentMonthlyPresentSheetUpdateForm = ({ students,setOpenPopup }) => {
   const [stuAttendance, setStuAttendance] = useState([]);
   const [checked, setChecked] = useState(false);
   const classes = useStyles();
@@ -142,7 +142,7 @@ const StudentMonthlyPresentSheetUpdateForm = ({ students }) => {
             <Button
               variant="contained"
               color="secondary"
-              //   onClick={() => setOpenPopup(false)}
+                onClick={() => setOpenPopup(false)}
               style={{ margin: "10px 0 0 10px" }}
             >
               CANCEL

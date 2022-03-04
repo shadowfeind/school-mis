@@ -52,7 +52,7 @@ const tableHeader = [
   { id: "RollNo", label: "Roll No" },
   { id: "FullName", label: "Full Name" },
   { id: "MobileNumber", label: "Mobile Number" },
-  { id: "", label: "EmailID)" },
+  { id: "EmailID", label: "Email ID" },
   { id: "Actions", label: "Actions", disablesorting: true },
 ];
 

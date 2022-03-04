@@ -367,6 +367,7 @@ const LevelTest = () => {
         <LevelTestBulkEdit
           search={bulkDatas && bulkDatas.searchFilterModel}
           bulkData={bulkDatas && bulkDatas.dbModelLst}
+          setOpenPopup={setOpenPopup}
         />
       </Popup>
       <Notification notify={notify} setNotify={setNotify} />

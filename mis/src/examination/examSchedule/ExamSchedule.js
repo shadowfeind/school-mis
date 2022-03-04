@@ -214,14 +214,14 @@ const ExamSchedule = () => {
     });
     dispatch({ type: GET_ALL_EXAM_SCHEDULE_INITIAL_DATA_RESET });
   }
-  if (eventExamScheduleError) {
-    setNotify({
-      isOpen: true,
-      message: eventExamScheduleError,
-      type: "error",
-    });
-    dispatch({ type: GET_EVENT_FOR_EXAM_SCHEDULE_RESET });
-  }
+  // if (eventExamScheduleError) {
+  //   setNotify({
+  //     isOpen: true,
+  //     message: eventExamScheduleError,
+  //     type: "error",
+  //   });
+  //   dispatch({ type: GET_EVENT_FOR_EXAM_SCHEDULE_RESET });
+  // }
 
   if (deleteExamScheduleError) {
     setNotify({

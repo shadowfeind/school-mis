@@ -157,12 +157,12 @@ const AcademicGrading = () => {
     dispatch({ type: GET_SINGLE_ACADEMIC_GRADING_EDIT_RESET });
   }
 
-  const updateCollegeHandler = (IDFacultyGradingSystem, program) => {
-    dispatch(getSingleAcademicGradingforEditAction(IDFacultyGradingSystem,program));
+  const updateCollegeHandler = (id,program) => {
+    dispatch(getSingleAcademicGradingforEditAction(id,program));
     setOpenPopup(true);
   };
 
-  const deleteCollegeHandler = (IDFacultyGradingSystem,program) => {};
+  const deleteCollegeHandler = (id,program) => {};
 
   useEffect(() => {
     dispatch({ type: "GET_LINK", payload: "examination" });
@@ -197,7 +197,7 @@ const AcademicGrading = () => {
 
   const addHandler = () => {
     dispatch({ type: GET_SINGLE_ACADEMIC_GRADING_EDIT_RESET });
-    //dispatch(getSingleAcademicGradingAction());
+    // dispatch(getSingleAcademicGradingAction(program));
     setOpenPopup(true);
   };
   return (

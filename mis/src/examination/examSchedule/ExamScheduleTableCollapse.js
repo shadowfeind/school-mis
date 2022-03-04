@@ -37,7 +37,7 @@ const ExamScheduleTableCollapse = ({
     <TableRow>
       <TableCell>{item.EventName}</TableCell>
       <TableCell>{item.ExamType}</TableCell>
-      <TableCell>{currentSubject && currentSubject[0].Value}</TableCell>
+      <TableCell>{currentSubject.length > 0 && currentSubject[0].Value}</TableCell>
       <TableCell>{item.ExamScheduleFromDate.slice(0, 10)}</TableCell>
       <TableCell>{item.ExamScheduleToDate.slice(0, 10)}</TableCell>
       <TableCell>{item.FullMark}</TableCell>

@@ -131,6 +131,16 @@ const ExamDivision = () => {
     dispatch({ type: UPDATE_SINGLE_EXAM_DIVISION_RESET });
   }
 
+  if(singleExamDivisionError){
+    setNotify({
+      isOpen:true,
+      message:singleExamDivisionError,
+      type: "error",
+    })
+    setOpenPopup(false);
+    dispatch({type: GET_SINGLE_EXAM_DIVISION_EDIT_RESET})
+  }
+
   if (updateSingleExamDivisionError) {
     setNotify({
       isOpen: true,
@@ -142,13 +152,11 @@ const ExamDivision = () => {
   }
 
   const updateCollegeHandler = (
-    IDAcademicExamDivision,
-    IDFacultyProgramLink
+    id,program
   ) => {
     dispatch(
       getSingleExamDivisionEditAction(
-        IDAcademicExamDivision,
-        IDFacultyProgramLink
+        id,program
       )
     );
     setOpenPopup(true);

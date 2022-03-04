@@ -40,7 +40,7 @@ const useStyles = makeStyles({
   },
 });
 
-const LevelTestBulkEdit = ({ bulkData, search }) => {
+const LevelTestBulkEdit = ({ bulkData, search,setOpenPopup }) => {
   const [bulk, setBulk] = useState([]);
   const classes = useStyles();
   const dispatch = useDispatch();
@@ -228,7 +228,7 @@ const LevelTestBulkEdit = ({ bulkData, search }) => {
             <Button
               variant="contained"
               color="secondary"
-              // onClick={() => setOpenPopup(false)}
+              onClick={() => setOpenPopup(false)}
               style={{ margin: "10px 0 0 10px" }}
             >
               CANCEL

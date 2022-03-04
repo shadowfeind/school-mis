@@ -40,12 +40,12 @@ export const getAllExamDivisionAction = () => async (dispatch) => {
   }
 };
 
-export const getSingleExamDivisionAction = () => async (dispatch) => {
+export const getSingleExamDivisionAction = (program) => async (dispatch) => {
   try {
     dispatch({ type: GET_SINGLE_EXAM_DIVISION_REQUEST });
 
     const { data } = await axios.get(
-      `${API_URL}/api/GetToCreateAcademicExamDivision/6/singleGetToCreate`,
+      `${API_URL}/api/AcademicExamDivision/GetToCreateAcademicExamDivision?idFacultyProgramLink=${program}`,
       tokenConfig
     );
 
@@ -86,12 +86,12 @@ export const createExamDivisionAction = (examDivision) => async (dispatch) => {
 };
 
 export const getSingleExamDivisionEditAction =
-  (IDAcademicExamDivision, idFacultyProgramLink) => async (dispatch) => {
+  (id,program) => async (dispatch) => {
     try {
       dispatch({ type: GET_SINGLE_EXAM_DIVISION_EDIT_REQUEST });
 
       const { data } = await axios.get(
-        `${API_URL}/api/GetToEditSingleAcademicExamDivision/${IDAcademicExamDivision}/${idFacultyProgramLink}/singleEdit`,
+        `${API_URL}/api/AcademicExamDivision/GetToEditSingleAcademicExamDivision/${id}?idFacultyProgramLink=${program}`,
         tokenConfig
       );
 

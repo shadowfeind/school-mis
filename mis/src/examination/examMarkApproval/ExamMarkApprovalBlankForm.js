@@ -44,7 +44,7 @@ const useStyles = makeStyles({
   },
 });
 
-const ExamMarkApprovalBlankForm = ({blankData}) => {
+const ExamMarkApprovalBlankForm = ({blankData,setOpenPopup,}) => {
   const classes = useStyles();
 
   return (
@@ -69,7 +69,7 @@ const ExamMarkApprovalBlankForm = ({blankData}) => {
                       </div>
                     </td>
                     <td>
-                      <div className="header-right">Date:2022/__/__</div>
+                      <div className="header-right">Date:202_/__/__</div>
                     </td>
                   </tr>
                 </tbody>
@@ -158,7 +158,7 @@ const ExamMarkApprovalBlankForm = ({blankData}) => {
           <Button
             variant="contained"
             color="secondary"
-            // onClick={() => setOpenBulkPopup(false)}
+            onClick={() => setOpenPopup(false)}
             style={{ margin: "10px 0 0 10px" }}
           >
             CANCEL

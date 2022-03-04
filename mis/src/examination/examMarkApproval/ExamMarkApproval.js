@@ -487,7 +487,9 @@ const ExamMarkApproval = () => {
         setOpenPopup={setOpenBulkPopup}
         title="Bulk Blank Edit"
       >
-        <ExamMarkApprovalBlankForm blankData={bulkBlankData && bulkBlankData} />
+        <ExamMarkApprovalBlankForm blankData={bulkBlankData && bulkBlankData} 
+          setOpenPopup={setOpenBulkPopup}
+        />
       </Popup>
       <Notification notify={notify} setNotify={setNotify} />
       <ConfirmDialog

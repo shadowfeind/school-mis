@@ -467,6 +467,7 @@ const StudentMonthlyPresentSheet = () => {
           students={
             getListForUpdateStudentPresent && getListForUpdateStudentPresent
           }
+          setOpenPopup={setOpenPopup}
         />
       </Popup>
       <Notification notify={notify} setNotify={setNotify} />

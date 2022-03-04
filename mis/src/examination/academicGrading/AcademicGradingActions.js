@@ -38,12 +38,12 @@ export const getAllAcademicGradingAction = () => async (dispatch) => {
   }
 };
 
-export const getSingleAcademicGradingAction = () => async (dispatch) => {
+export const getSingleAcademicGradingAction = (program) => async (dispatch) => {
   try {
     dispatch({ type: GET_SINGLE_ACADEMIC_GRADING_REQUEST });
 
     const { data } = await axios.get(
-      `${API_URL}/api/GetToCreateFacultyGradingSystem/6/singleGetToCreate/`,
+      `${API_URL}/api/FacultyGradingSystem/GetToCreateFacultyGradingSystem?idFacultyProgramLink=${program}`,
       tokenConfig
     );
     dispatch({ type: GET_SINGLE_ACADEMIC_GRADING_SUCCESS, payload: data });
@@ -82,12 +82,12 @@ export const createAcademicGradingAction =
   };
 
 export const getSingleAcademicGradingforEditAction =
-  (IDFacultyGradingSystem,program) => async (dispatch) => {
+  (id,program) => async (dispatch) => {
     try {
       dispatch({ type: GET_SINGLE_ACADEMIC_GRADING_EDIT_REQUEST });
 
       const { data } = await axios.get(
-        `${API_URL}/api/FacultyGradingSystem/GetToEditSingleFacultyGradingSystem/${IDFacultyGradingSystem}?idFacultyProgramLink=${program}`,
+        `${API_URL}/api/FacultyGradingSystem/GetToEditSingleFacultyGradingSystem/${id}?idFacultyProgramLink=${program}`,
         tokenConfig
       );
       dispatch({
@@ -105,9 +105,9 @@ export const getSingleAcademicGradingforEditAction =
 export const updateSingleAcademicGradingAction =
   (academicGradingEdit) => async (dispatch) => {
     try {
-      console.log("Mandar", academicGradingEdit);
-      academicGradingEdit.Created_On = "2021-09-23";
-      academicGradingEdit.Updated_On = "2021-09-23";
+      // console.log("Mandar", academicGradingEdit);
+      // academicGradingEdit.Created_On = "2021-09-23";
+      // academicGradingEdit.Updated_On = "2021-09-23";
       dispatch({ type: UPDATE_SINGLE_ACADEMIC_GRADING_REQUEST });
 
       const jsonData = JSON.stringify({ dbModel: academicGradingEdit });

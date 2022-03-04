@@ -41,7 +41,7 @@ const AcademicGradingTableCollapse = ({
           variant="contained"
           color="primary"
           className={classes.button}
-          onClick={() => updateCollegeHandler(item.IDFacultyGradingSystem)}
+          onClick={() => updateCollegeHandler(item.IDFacultyGradingSystem, item.IDFacultyProgramLink)}
         >
           <EditIcon style={{ fontSize: 12 }} />
         </Button>

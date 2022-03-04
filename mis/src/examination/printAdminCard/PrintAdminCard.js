@@ -68,12 +68,12 @@ const PrintAdminCard = () => {
   const [ddlSection, setDdlSection] = useState([]);
   const [ddlEvent, setDdlEvent] = useState([]);
   const [ddlStudent, setDdlStudent] = useState([]);
-  const [programValue, setProgramValue] = useState();
-  const [classId, setClassId] = useState();
-  const [acaYear, setAcaYear] = useState();
-  const [shift, setShift] = useState();
-  const [section, setSection] = useState();
-  const [event, setEvent] = useState();
+  const [programValue, setProgramValue] = useState("");
+  const [classId, setClassId] = useState("");
+  const [acaYear, setAcaYear] = useState("");
+  const [shift, setShift] = useState("");
+  const [section, setSection] = useState("");
+  const [event, setEvent] = useState("");
   const [student, setStudent] = useState(0);
   const [date, setDate] = useState("2022-01-28");
   const [dateValue, setDateValue] = useState("2022-01-28");
@@ -228,6 +228,9 @@ const PrintAdminCard = () => {
         )
       );
     }
+    if(event){
+      setEvent("")
+    }
   };
 
   const handleClassIdChange = (value) => {
@@ -245,6 +248,9 @@ const PrintAdminCard = () => {
           shift
         )
       );
+    }
+    if(event){
+      setEvent("")
     }
   };
 

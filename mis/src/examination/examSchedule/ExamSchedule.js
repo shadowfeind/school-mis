@@ -70,10 +70,10 @@ const ExamSchedule = () => {
   const [academicYearDdl, setAcademicYearDdl] = useState([]);
   const [programDdl, setProgramDdl] = useState([]);
   const [ddlEvent, setDdlEvent] = useState([]);
-  const [programValue, setProgramValue] = useState();
-  const [classId, setClassId] = useState();
-  const [acaYear, setAcaYear] = useState();
-  const [event, setEvent] = useState();
+  const [programValue, setProgramValue] = useState("");
+  const [classId, setClassId] = useState("");
+  const [acaYear, setAcaYear] = useState("");
+  const [event, setEvent] = useState("");
   const [errors, setErrors] = useState([]);
   const dispatch = useDispatch();
   const classes = useStyles();
@@ -214,14 +214,6 @@ const ExamSchedule = () => {
     });
     dispatch({ type: GET_ALL_EXAM_SCHEDULE_INITIAL_DATA_RESET });
   }
-  // if (eventExamScheduleError) {
-  //   setNotify({
-  //     isOpen: true,
-  //     message: eventExamScheduleError,
-  //     type: "error",
-  //   });
-  //   dispatch({ type: GET_EVENT_FOR_EXAM_SCHEDULE_RESET });
-  // }
 
   if (deleteExamScheduleError) {
     setNotify({
@@ -279,7 +271,7 @@ const ExamSchedule = () => {
     temp.classId = !classId ? "This feild is required" : "";
     temp.event = !event ? "This feild is required" : "";
 
-    setErrors({ ...temp });
+    setErrors({ ...temp });event
     return Object.values(temp).every((x) => x === "");
   };
 
@@ -292,6 +284,9 @@ const ExamSchedule = () => {
     setAcaYear(value);
     if (classId) {
       dispatch(getEventForExamScheduleAction(value, programValue, classId));
+    }
+    if(event){
+      setEvent("")
     }
   };
 

@@ -68,12 +68,12 @@ const LevelTest = () => {
   const [ddlShift, setDdlShift] = useState([]);
   const [ddlSection, setDdlSection] = useState([]);
   const [ddlEvent, setDdlEvent] = useState([]);
-  const [programValue, setProgramValue] = useState();
-  const [classId, setClassId] = useState();
-  const [acaYear, setAcaYear] = useState();
-  const [shift, setShift] = useState();
-  const [section, setSection] = useState();
-  const [event, setEvent] = useState();
+  const [programValue, setProgramValue] = useState("");
+  const [classId, setClassId] = useState("");
+  const [acaYear, setAcaYear] = useState("");
+  const [shift, setShift] = useState("");
+  const [section, setSection] = useState("");
+  const [event, setEvent] = useState("");
   const [errors, setErrors] = useState([]);
 
   const dispatch = useDispatch();
@@ -200,7 +200,7 @@ const LevelTest = () => {
 
   const handleProgramValue =(value=>{
     setProgramValue(value);
-    if ((acaYear, classId, shift)) {
+    if ((acaYear,value, classId, shift)) {
       dispatch(
         getEventAction(
           value,
@@ -215,13 +215,19 @@ const LevelTest = () => {
   const handleYearChange = (value) => {
     setAcaYear(value);
     if (classId) {
-      dispatch(getEventAction(value, programValue, classId));
+      dispatch(getEventAction(value, programValue, classId,shift));
+    }
+    if(event){
+      setEvent("")
+    }
+    if(classId){
+      setClassId("")
     }
   };
 
   const handleClassIdChange = (value) => {
     setClassId(value);
-    dispatch(getEventAction(acaYear, programValue, value));
+    dispatch(getEventAction(acaYear, programValue, value,shift));
   };
 
   const handleBulkEdit = () => {

@@ -240,6 +240,8 @@ const ExamResult = () => {
   const handleYearChange = (value) => {
     setShowDatatable(false);
     setAcaYear(value);
+    setEvent("");
+    setClassId("");
     if (classId) {
       dispatch(getEventForExamMarkAction(value, programValue, classId));
       dispatch(

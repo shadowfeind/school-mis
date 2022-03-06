@@ -7,6 +7,7 @@ import Box from "@material-ui/core/Box";
 import { makeStyles } from "@material-ui/core";
 import { useDispatch } from "react-redux";
 
+
 const ClassSubject = lazy(() => import("./classSubject/ClassSubject"));
 const AcademicClass = lazy(() => import("./academicClass/AcademicClass"));
 const AcademicFaculty = lazy(() => import("./academicFaculty/AcademicFaculty"));
@@ -24,7 +25,8 @@ const AssignStudentSubject = lazy(() =>
 );
 const SchoolBoard = lazy(() => import("./schoolBoard/SchoolBoard"));
 const AcademicYear = lazy(() => import("./academicYear/AcademicYear"));
-
+const EcaLookUp = lazy(()=> import("./ecaLookUp/EcaLookUp"));
+const AssignECA = lazy(()=> import("./assignEca/AssignEca"));
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -139,22 +141,32 @@ const AcademicConfiguration = () => {
             label="Assign Student Subject"
             {...a11yProps(10)}
           />
+          <Tab
+            style={{ fontSize: "11px", color: "#fff" }}
+            label="ECA LookUp"
+            {...a11yProps(11)}
+          />
+          <Tab
+            style={{ fontSize: "11px", color: "#fff" }}
+            label="Assign ECA"
+            {...a11yProps(12)}
+          />
         </Tabs>
       </AppBar>
       <Suspense fallback={<div></div>}>
         <TabPanel value={value} index={0}>
           <AcademicClass />
         </TabPanel>
-        <TabPanel value={value} index={3}>
+        <TabPanel value={value} index={1}>
           <AcademicSection />
         </TabPanel>
-        <TabPanel value={value} index={9}>
+        <TabPanel value={value} index={2}>
           <SchoolBoard />
         </TabPanel>
-        <TabPanel value={value} index={2}>
+        <TabPanel value={value} index={3}>
           <AcademicProgram />
         </TabPanel>
-        <TabPanel value={value} index={1}>
+        <TabPanel value={value} index={4}>
           <AcademicFaculty />
         </TabPanel>
         <TabPanel value={value} index={5}>
@@ -163,17 +175,23 @@ const AcademicConfiguration = () => {
         <TabPanel value={value} index={6}>
           <AcademicYearCalendar />
         </TabPanel>
-        <TabPanel value={value} index={4}>
+        <TabPanel value={value} index={7}>
           <AcademicSubject />
         </TabPanel>
-        <TabPanel value={value} index={10}>
+        <TabPanel value={value} index={8}>
           <ClassSubject />
         </TabPanel>
-        <TabPanel value={value} index={7}>
+        <TabPanel value={value} index={9}>
           <AssignFacultySubject />
         </TabPanel>
-        <TabPanel value={value} index={8}>
+        <TabPanel value={value} index={10}>
           <AssignStudentSubject />
+        </TabPanel>
+        <TabPanel value={value} index={11}>
+          <EcaLookUp />
+        </TabPanel>
+        <TabPanel value={value} index={12}>
+          <AssignECA />
         </TabPanel>
       </Suspense>
     </div>

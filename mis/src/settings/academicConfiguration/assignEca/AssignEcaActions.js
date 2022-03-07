@@ -70,17 +70,16 @@ export const getListAssignEcaAction = (year,program,classId) => async (dispatch)
   };
 
   export const postAssignEcaAction =
-  (eca,idFacultyProgramLink,idClass) => async (dispatch) => {
+  (eca,idYearFacultyProgramLink,level) => async (dispatch) => {
     try {
       dispatch({ type: POST_ASSIGN_ECA_REQUEST });
 
       const jsonData = JSON.stringify({
-        dbModel:eca,
-        idFacultyProgramLink,
-        idClass
+        ddlECA:eca,
+        idYearFacultyProgramLink,
+        level,
       });
 
-      console.log(jsonData);
       const { data } = await axios.post(
         `${API_URL}/api/AssignECA/PostAssignECA`,
         jsonData,

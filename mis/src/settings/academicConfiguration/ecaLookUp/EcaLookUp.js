@@ -94,15 +94,15 @@ const EcaLookUp = () => {
     (state) => state.getAllEcaLookUp
   );
 
-  const { listEcaLookUp, error: listEcaLookUpError } = useSelector(
+  const {error: listEcaLookUpError } = useSelector(
     (state) => state.getListEcaLookUp
   );
 
-  const { singleCreateEcaLookUp, error: singleCreateEcaLookUpError } = useSelector(
+  const { singleCreateEcaLookUp,success:singleCreateEcaLookUpSuccess, error: singleCreateEcaLookUpError } = useSelector(
     (state) => state.getSingleCreateEcaLookUp
   );
 
-  const { singleEditEcaLookUp, error: singleEditEcaLookUpError } = useSelector(
+  const { singleEditEcaLookUp,success:singleEditEcaLookUpSuccess, error: singleEditEcaLookUpError } = useSelector(
     (state) => state.getSingleEditEcaLookUp
   );
 
@@ -161,7 +161,7 @@ const EcaLookUp = () => {
       type: "error",
     });
     dispatch({ type: PUT_ECA_LOOK_UP_RESET });
-    setOpenPopupForm(false);
+    setOpenPopup(false);
   }
 
   if (postEcaLookUpError) {
@@ -171,7 +171,7 @@ const EcaLookUp = () => {
       type: "error",
     });
     dispatch({ type: POST_ECA_LOOK_UP_RESET });
-    setOpenPopupForm(false);
+    setOpenPopup(false);
   }
 
   if (putEcaLookUpSuccess) {
@@ -205,15 +205,10 @@ const EcaLookUp = () => {
       }
 }, [dispatch, allEcaLookUp]);
 
-// useEffect(() => {
-//     if (listEcaLookUp) {
-//       setTableData(listEcaLookUp.dbModelLst);
-//     }
-//   }, [listEcaLookUp]);
 const createHandler = () => {
     dispatch(getSingleCreateEcaLookUpAction());
     dispatch({type: GET_SINGLE_EDIT_ECA_LOOK_UP_RESET})
-    
+    setOpenPopup(true);
   };
 
 const updateEcaHandler = (id) => {
@@ -223,16 +218,16 @@ const updateEcaHandler = (id) => {
   };
 
   useEffect(() => {
-    if(singleCreateEcaLookUp){
+    if(singleCreateEcaLookUpSuccess){
       setOpenPopup(true);
     }
-  },[singleCreateEcaLookUp])
+  },[singleCreateEcaLookUpSuccess])
 
   useEffect(() => {
-    if(singleEditEcaLookUp){
+    if(singleEditEcaLookUpSuccess){
       setOpenPopup(true);
     }
-  },[singleEditEcaLookUp])
+  },[singleEditEcaLookUpSuccess])
 
   return <>
       <CustomContainer>

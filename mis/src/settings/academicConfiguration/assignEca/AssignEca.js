@@ -29,6 +29,7 @@ import {
   getListAssignEcaAction,
   getSingleCreateAssignEcaAction,
 } from "./AssignEcaActions";
+import AssignEcaForm from "./AssignEcaForm";
 
 const useStyles = makeStyles((theme) => ({
   searchInput: {
@@ -38,14 +39,12 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const tableHeader = [
-  { id: "FacultyLevel", label: "Level" },
   { id: "ECAName", label: "ECA Name" },
   { id: "ECADescription", label: "ECA Description" },
   { id: "Created_On", label: "Created_On" },
   { id: "Updated_On", label: "Updated_On" },
   { id: "IsActive", label: "IsActive" },
   { id: "IDHRCompany", label: "Company" },
-  { id: "actions", label: "Actions", disableSorting: true },
 ];
 
 const AssignECA = () => {
@@ -68,13 +67,13 @@ const AssignECA = () => {
   });
 
   const [academicYear, setAcademicYear] = useState([]);
-  const [acaYear, setacaYear] = useState("");
+  const [acaYear, setAcaYear] = useState("");
   const [ddlprogram, setDdlProgram] = useState([]);
   const [programValue, setProgramValue] = useState("");
   const [ddlClass, setDdlClass] = useState([]);
-  const [classId, setClassId] = useState();
+  const [classId, setClassId] = useState("");
 
-  const [errors, setErrors] = useState([]);
+  const [errors, setErrors] = useState({});
   const classes = useStyles();
 
   const dispatch = useDispatch();
@@ -86,19 +85,6 @@ const AssignECA = () => {
     tableDataAfterPagingAndSorting,
   } = useCustomTable(tableData, tableHeader, filterFn);
 
-  const handleSearch = (e) => {
-    setFilterFn({
-      fn: (item) => {
-        if (e.target.value === "") {
-          return item;
-        } else {
-          return item.filter((x) =>
-            x.FacultyLevel.toLowerCase().includes(e.target.value)
-          );
-        }
-      },
-    });
-  };
 
   const { allAssignEca, error } = useSelector((state) => state.getAllAssignEca);
 
@@ -137,6 +123,7 @@ const AssignECA = () => {
       type: "error",
     });
     dispatch({ type: GET_SINGLE_CREATE_ASSIGN_ECA_RESET });
+    setOpenPopup(false);
   }
 
   if (postAssignEcaError) {
@@ -154,7 +141,7 @@ const AssignECA = () => {
       type: "success",
     });
     dispatch({ type: POST_ASSIGN_ECA_RESET });
-    dispatch(getListAssignEcaAction(year, program, classId));
+    dispatch(getListAssignEcaAction(acaYear, programValue, classId));
   }
 
   useEffect(() => {
@@ -190,15 +177,12 @@ const AssignECA = () => {
     }
   };
 
-  const createHandler = (year, program, classId) => {
-    dispatch(getSingleCreateAssignEcaAction(year, program, classId));
+  const createHandler = () => {
+    if(validate()){
+    dispatch(getSingleCreateAssignEcaAction(acaYear, programValue, classId));
     setOpenPopup(true);
+    }
   };
-
-  // const updateAssignEca = (year, program, classId) => {
-  //   dispatch(getSingleCreateAssignEcaAction(year, program, classId));
-  //   setOpenPopup(true);
-  // }
 
   return (
     <>
@@ -210,7 +194,7 @@ const AssignECA = () => {
                 name="Academic Year"
                 label="Academic Year"
                 value={acaYear}
-                onChange={(e) => setacaYear(e.target.value)}
+                onChange={(e) => setAcaYear(e.target.value)}
                 options={academicYear}
                 errors={errors.acaYear}
               />
@@ -265,7 +249,9 @@ const AssignECA = () => {
 
             <TableBody>
               {tableDataAfterPagingAndSorting().map((item) => (
-                <AssignEcaTableCollapse item={item} key={item.$id} />
+                <AssignEcaTableCollapse item={item} key={item.$id} 
+                
+                />
               ))}
             </TableBody>
           </TableContainer>
@@ -273,6 +259,20 @@ const AssignECA = () => {
 
         {listAssignEca && <TblPagination />}
       </CustomContainer>
+      <Popup
+        openPopup={openPopup}
+        setOpenPopup={setOpenPopup}
+        title="Assign ECA"
+      >
+        <AssignEcaForm
+          assignEca={
+            singleCreateAssignEca && singleCreateAssignEca.ddlECA
+          }
+          idYearFacultyProgramLink={singleCreateAssignEca && singleCreateAssignEca.idYearFacultyProgramLink}
+          level={singleCreateAssignEca && singleCreateAssignEca.level}
+          setOpenPopup={setOpenPopup}
+        />
+      </Popup>
       <Notification notify={notify} setNotify={setNotify} />
       <ConfirmDialog
         confirmDialog={confirmDialog}

@@ -24,29 +24,19 @@ const useStyles = makeStyles({
     },
   });
 
-  const AssignEcaTableCollapse = ({item, updateEcaHandler})=>{
+  const AssignEcaTableCollapse = ({item})=>{
       const classes = useStyles();
 
+      
       return (
         <>
       <TableRow>
-      <TableCell>{item.FacultyLevel}</TableCell>
         <TableCell>{item.ECAName}</TableCell>
         <TableCell>{item.ECADescription}</TableCell>
         <TableCell>{item.Created_On?.slice(0,10)}</TableCell>
         <TableCell>{item.Updated_On?.slice(0,10)}</TableCell>
         <TableCell>{item.IsActive ? "IsActive" : "NotActive"}</TableCell>
         <TableCell>{item.IDHRCompany}</TableCell>
-        <TableCell>
-        <Button
-            variant="contained"
-            color="primary"
-            className={classes.button}
-            onClick={() => updateEcaHandler(item.IDHRCompany)}
-          >
-            <EditIcon style={{ fontSize: 12 }} />
-          </Button>
-          </TableCell>
           </TableRow>
           </>
       )

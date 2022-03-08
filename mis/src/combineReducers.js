@@ -387,6 +387,7 @@ import {
 import { getHeaderContentReducer } from "./dashboard/DashboardReducers";
 import { getAllEcaLookUpReducer, getDetailEcaLookUpReducer, getListEcaLookUpReducer, getSingleCreateEcaLookUpReducer, getSingleEditEcaLookUpReducer, postEcaLookUpReducer, putEcaLookUpReducer } from "./settings/academicConfiguration/ecaLookUp/EcaLookUpReducers";
 import { getAllAssignEcaReducer, getListAssignEcaReducer, getSingleCreateAssignEcaReducer, postAssignEcaReducer } from "./settings/academicConfiguration/assignEca/AssignEcaReducers";
+import { getAllEcaDataReducer, getBulkEditEcaDataReducer, getListEcaDataReducer, postBulkEditEcaDataReducer } from "./examination/ecaData/EcaDataReducers";
 //examination reducers link end
 export const reducers = combineReducers({
   //header
@@ -700,4 +701,9 @@ export const reducers = combineReducers({
   getListAssignEca : getListAssignEcaReducer,
   getSingleCreateAssignEca : getSingleCreateAssignEcaReducer,
   postAssignEca : postAssignEcaReducer,
+  //ECA DATA Reducers
+  getAllEcaData : getAllEcaDataReducer,
+  getListEcaData : getListEcaDataReducer,
+  getBulkEditEcaData : getBulkEditEcaDataReducer,
+  postBulkEditEcaData : postBulkEditEcaDataReducer,
 });

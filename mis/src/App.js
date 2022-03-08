@@ -79,6 +79,7 @@ const StudentRegistration = lazy(() =>
 );
 const OldQuestions = lazy(() => import("./settings/oldQuestions/OldQuestions"));
 const Syllabus = lazy(() => import("./settings/syllabus/SyllabusMain"));
+const EcaData = lazy(() => import("./examination/ecaData/EcaData"));
 
 const theme = createTheme({
   palette: {
@@ -173,6 +174,7 @@ const App = () => {
               <Route path={"/class-schedule"} component={ClassSchedule} />
               {/* class schedule ends */}
               <Route path={"/settings"} component={Settings} />
+              <Route path={"/eca-data"} component={EcaData} />
               <Route exact path={"/"} component={Dashboard} />
               <Route path="*" component={PageNotFound} />
             </Switch>

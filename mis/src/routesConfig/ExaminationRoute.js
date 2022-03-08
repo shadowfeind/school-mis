@@ -65,6 +65,12 @@ export const ExaminationRoute = [
     exact: false,
   },
   {
+    name: "ECA Data",
+    route: "/eca-data",
+    icon: Accessible,
+    exact: false,
+  },
+  {
     name: "Exam Result(Print)",
     route: "/exam-result",
     icon: RecordVoiceOver,

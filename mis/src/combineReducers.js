@@ -385,6 +385,9 @@ import {
   putSyllabusReducer,
 } from "./settings/syllabus/syllabusPg/SyllabusReducers";
 import { getHeaderContentReducer } from "./dashboard/DashboardReducers";
+import { getAllEcaLookUpReducer, getDetailEcaLookUpReducer, getListEcaLookUpReducer, getSingleCreateEcaLookUpReducer, getSingleEditEcaLookUpReducer, postEcaLookUpReducer, putEcaLookUpReducer } from "./settings/academicConfiguration/ecaLookUp/EcaLookUpReducers";
+import { getAllAssignEcaReducer, getListAssignEcaReducer, getSingleCreateAssignEcaReducer, postAssignEcaReducer } from "./settings/academicConfiguration/assignEca/AssignEcaReducers";
+import { getAllEcaDataReducer, getBulkEditEcaDataReducer, getListEcaDataReducer, postBulkEditEcaDataReducer } from "./examination/ecaData/EcaDataReducers";
 //examination reducers link end
 export const reducers = combineReducers({
   //header
@@ -685,4 +688,22 @@ export const reducers = combineReducers({
   getSingleToEditSyllabus: getSingleToEditSyllabusReducer,
   getListSyllabus: getListSyllabusReducer,
   putSyllabus: putSyllabusReducer,
+  //ECA Look up Reducers Start
+  getAllEcaLookUp : getAllEcaLookUpReducer,
+  getListEcaLookUp : getListEcaLookUpReducer,
+  getSingleEditEcaLookUp : getSingleEditEcaLookUpReducer,
+  getSingleCreateEcaLookUp : getSingleCreateEcaLookUpReducer,
+  getDetailEcaLookUp : getDetailEcaLookUpReducer,
+  postEcaLookUp : postEcaLookUpReducer,
+  putEcaLookUp : putEcaLookUpReducer,
+  //ECA Assign Reducers
+  getAllAssignEca : getAllAssignEcaReducer,
+  getListAssignEca : getListAssignEcaReducer,
+  getSingleCreateAssignEca : getSingleCreateAssignEcaReducer,
+  postAssignEca : postAssignEcaReducer,
+  //ECA DATA Reducers
+  getAllEcaData : getAllEcaDataReducer,
+  getListEcaData : getListEcaDataReducer,
+  getBulkEditEcaData : getBulkEditEcaDataReducer,
+  postBulkEditEcaData : postBulkEditEcaDataReducer,
 });

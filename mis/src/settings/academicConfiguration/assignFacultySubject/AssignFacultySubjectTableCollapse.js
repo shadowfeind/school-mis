@@ -27,7 +27,7 @@ const AssignFacultySubjectTableCollepse = ({
       <TableCell>{item.IsCompulsory ? "True" : "False"}</TableCell>
       <TableCell>{item.IsTheoritical ? "True" : "False"}</TableCell>
       <TableCell>{item.IsPractical ? "True" : "False"}</TableCell>
-      <TableCell>{item.IsActive ? "True" : "False"}</TableCell>
+      <TableCell>{item.IsActive ? "Active" : "InActive"}</TableCell>
       <TableCell>{item.CreditHour}</TableCell>
       <TableCell>
         <Button

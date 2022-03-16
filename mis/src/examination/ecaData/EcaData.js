@@ -333,7 +333,6 @@ const EcaData = () => {
         title="Bulk Edit"
       >
         <EcaDataBulkEdit
-        //   search={bulkEditData && bulkEditData.searchFilterModel}
           bulkData={bulkEditData && bulkEditData.dbModelLst}
           academicSubject={bulkEditData && bulkEditData.ddlAcademicFacultyECASubModel}
           setOpenPopup={setOpenPopup}

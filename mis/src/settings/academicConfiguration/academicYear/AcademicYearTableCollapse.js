@@ -101,10 +101,10 @@ const AcademicYearTableCollapse = ({
                       {item.AcademicYearCode}
                     </ListItem>
                     <ListItem>
-                      <strong>Start Date</strong>: {item.StartDate}
+                      <strong>Start Date</strong>: {item.StartDate?.slice(0,10)}
                     </ListItem>
                     <ListItem>
-                      <strong>End Date</strong>: {item.EndDate}
+                      <strong>End Date</strong>: {item.EndDate?.slice(0,10)}
                     </ListItem>
                   </List>
                 </Grid>

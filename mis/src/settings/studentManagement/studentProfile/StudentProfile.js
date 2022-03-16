@@ -490,7 +490,7 @@ const StudentProfile = () => {
       <Popup
         openPopup={openPopup}
         setOpenPopup={setOpenPopup}
-        title="Level Up Reassociate Students"
+        title="Student Profile"
       >
         <StudentProfileForm
           studentData={editSingleStudentData && editSingleStudentData}

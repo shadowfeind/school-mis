@@ -56,8 +56,8 @@ const tableHeader = [
   { id: "IsCompulsory", label: "Compulsory" },
   { id: "IsTheoritical", label: "Theoritical" },
   { id: "IsPractical", label: "Practical" },
-  { id: "CreditHour", label: "Credit Hour" },
   { id: "IsActive", label: "Active" },
+  { id: "CreditHour", label: "Credit Hour" },
   { id: "actions", label: "Actions", disableSorting: true },
 ];
 

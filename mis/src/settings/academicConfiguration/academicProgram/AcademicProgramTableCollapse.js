@@ -100,10 +100,10 @@ const AcademicProgramTableCollapse = ({
                       {item.IsActive ? "IsActive" : "NotActive"}
                     </ListItem>
                     <ListItem>
-                      <strong>Created On</strong>: {item.Created_On}
+                      <strong>Created On</strong>: {item.Created_On?.slice(0,10)}
                     </ListItem>
                     <ListItem>
-                      <strong>Updated On</strong>: {item.Updated_On}
+                      <strong>Updated On</strong>: {item.Updated_On?.slice(0,10)}
                     </ListItem>
                   </List>
                 </Grid>

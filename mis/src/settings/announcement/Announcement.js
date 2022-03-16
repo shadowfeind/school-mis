@@ -177,8 +177,8 @@ const AnnouncementTest = () => {
     setOpenPopup(true);
   };
 
-  const updateCollegeHandler = (id) => {
-    dispatch(getSingleAnnouncementAction(id));
+  const updateCollegeHandler = () => {
+    dispatch(getSingleAnnouncementAction());
     setOpenPopup(true);
   };
 

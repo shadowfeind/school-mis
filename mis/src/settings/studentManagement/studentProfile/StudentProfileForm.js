@@ -162,9 +162,9 @@ const StudentProfileForm = ({ studentData, setOpenPopup }) => {
       temp.UniversityRegistrationNumber = !fieldValues.UniversityRegistrationNumber
       ? "This feild is required"
       : "";
-      temp.WebLoginAccess = !fieldValues.WebLoginAccess
-      ? "This feild is required"
-      : "";
+      // temp.WebLoginAccess = !fieldValues.WebLoginAccess
+      // ? "This feild is required"
+      // : "";
       temp.RollNo = !fieldValues.RollNo
       ? "This feild is required"
       : "";

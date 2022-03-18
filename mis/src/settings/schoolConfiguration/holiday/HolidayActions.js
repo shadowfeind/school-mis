@@ -39,12 +39,6 @@ export const holidayCreateAction = (holiday) => async (dispatch) => {
 
     const jsonData = JSON.stringify({ hrHolidayModel: holiday });
 
-    // const config = {
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    // };
-
     const { data } = await axios.post(
       `${API_URL}/api/Att_HRHoliday/PostAtt_HRHoliday`,
       jsonData,

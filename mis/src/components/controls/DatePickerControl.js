@@ -4,15 +4,19 @@ import {
   KeyboardDatePicker,
 } from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
+import DateToIso from "../DateToIso";
 
 const DatePickerControl = ({ name, label, value, onChange, errors = null }) => {
-  const converToDefaultEventPara = (name, value) => ({
-    target: {
-      name,
-      value,
-      
-    },
-  });
+  const converToDefaultEventPara = (name, value) => {
+    let newDate = new Date(value);
+
+    return {
+      target: {
+        name,
+        value: DateToIso(newDate),
+      },
+    };
+  };
 
   return (
     <MuiPickersUtilsProvider utils={DateFnsUtils}>

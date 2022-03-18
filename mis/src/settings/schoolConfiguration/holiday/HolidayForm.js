@@ -15,8 +15,8 @@ const initialFormValues = {
   IDHRCompany: 2,
   HolidayName: "",
   Description: "",
-  FromDate: "2021-10-08T00:00:00",
-  ToDate: "2021-10-15T00:00:00",
+  FromDate: "2022-03-11T00:00:00.000+05:45",
+  ToDate: "2022-03-13T00:00:00.000+05:45",
   IsActive: true,
   Created_On: "2012-12-12T00:00:00",
   Updated_On: "2015-04-09T14:20:39.947",
@@ -68,6 +68,12 @@ const HolidayForm = ({ holiday, setOpenPopup, startDate, endDate }) => {
       setValues({ ...holiday });
     }
   }, [holiday]);
+
+  useEffect(() => {
+    console.log("start date", startDate);
+    console.log("end Date", endDate);
+    setValues((prev) => ({ ...prev, FromDate: startDate, ToDate: endDate }));
+  }, []);
   return (
     <Form onSubmit={handleSubmit}>
       <Grid container style={{ fontSize: "12px" }}>

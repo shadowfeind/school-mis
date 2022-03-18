@@ -134,6 +134,7 @@ const SchoolSettingsForm = ({ college, setOpenPopup }) => {
       setValues({ ...college });
     }
   }, [college]);
+  const symbolsArr = ["e", "E", "+", "-", "."];
   return (
     <Form onSubmit={handleSubmit}>
       <Grid container style={{ fontSize: "12px" }}>
@@ -179,8 +180,8 @@ const SchoolSettingsForm = ({ college, setOpenPopup }) => {
             value={values.PhoneNo}
             onChange={handleInputChange}
             errors={errors.PhoneNo}
+            onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}
             type="number"
-            errors={errors.PhoneNo}
           />
           <InputControl
             name="AlternatePhoneNo"
@@ -196,7 +197,6 @@ const SchoolSettingsForm = ({ college, setOpenPopup }) => {
             value={values.POBox}
             errors={errors.POBox}
             onChange={handleInputChange}
-            errors={errors.POBox}
           />
         </Grid>
         <Grid item xs={6}>

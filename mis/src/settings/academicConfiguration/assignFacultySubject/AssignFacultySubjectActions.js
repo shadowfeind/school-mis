@@ -73,7 +73,7 @@ export const getSingleAssignFacultySubjectAction =
       dispatch({ type: GET_SINGLE_ASSIGN_FACULTY_SUBJECT_REQUEST });
 
       const { data } = await axios.get(
-        `${API_URL}/api/GetAcademicFacultySubjectLinkById/${id}/${year}/${program}/${classId}/edit`,
+        `${API_URL}/api/AcaFacultySubjectLink/GetSingleEditAcademicFacultySubjectLinkByParams/${id}?idAcademicYear=${year}&idFacultyProgramLink=${program}&level=${classId}`,
         tokenConfig
       );
 
@@ -93,11 +93,6 @@ export const getAssignFacultySubjectOptionAction =
   (year, program, classId) => async (dispatch) => {
     try {
       dispatch({ type: ASSIGN_FACULTY_SUBJECT_GET_REQUEST });
-
-      // const { data } = await axios.get(
-      //   `${API_URL}/api/GetAcademicFacultySubjectLinkById/${year}/${program}/${classId}/create`,
-      //   tokenConfig
-      // );
 
       const { data } = await axios.get(
         `${API_URL}/api/AcaFacultySubjectLink/GetAcademicFacultySubjectLinkToCreate?idAcademicYear=${year}&idFacultyProgramLink=${program}&idClass=${classId}`,

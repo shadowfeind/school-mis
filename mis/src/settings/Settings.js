@@ -18,6 +18,7 @@ const EmployeeCategoryRole = lazy(() =>
   import("./schoolConfiguration/employeeCategoryRole/EmployeeCategoryRole")
 );
 const Holiday = lazy(() => import("./schoolConfiguration/holiday/Holiday"));
+const HrValue = lazy(() => import("./schoolConfiguration/hrValue/HrValue"));
 
 
 function TabPanel(props) {
@@ -105,6 +106,11 @@ const Settings = () => {
             label="Holiday"
             {...a11yProps(4)}
           />
+          <Tab
+            style={{ fontSize: "11px", color: "#fff" }}
+            label="HR Value"
+            {...a11yProps(5)}
+          />
         </Tabs>
       </AppBar>
       <Suspense fallback={<div></div>}>
@@ -122,6 +128,9 @@ const Settings = () => {
         </TabPanel>
         <TabPanel value={value} index={4}>
           <Holiday />
+        </TabPanel>
+        <TabPanel value={value} index={5}>
+          <HrValue />
         </TabPanel>
       </Suspense>
     </div>

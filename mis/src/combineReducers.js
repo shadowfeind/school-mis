@@ -388,6 +388,7 @@ import { getHeaderContentReducer } from "./dashboard/DashboardReducers";
 import { getAllEcaLookUpReducer, getDetailEcaLookUpReducer, getListEcaLookUpReducer, getSingleCreateEcaLookUpReducer, getSingleEditEcaLookUpReducer, postEcaLookUpReducer, putEcaLookUpReducer } from "./settings/academicConfiguration/ecaLookUp/EcaLookUpReducers";
 import { getAllAssignEcaReducer, getListAssignEcaReducer, getSingleCreateAssignEcaReducer, postAssignEcaReducer } from "./settings/academicConfiguration/assignEca/AssignEcaReducers";
 import { getAllEcaDataReducer, getBulkEditEcaDataReducer, getListEcaDataReducer, postBulkEditEcaDataReducer } from "./examination/ecaData/EcaDataReducers";
+import { getAllHrValueReducer, getListHrValueReducer, getSingleToCreateHrValueReducer, getSingleToEditHrValueReducer, postFileUploadHeaderBannerReducer, postFileUploadPrincipleSignatureReducer, postFileUploadSchoolLogoReducer, postHrValueReducer, putHrValueReducer } from "./settings/schoolConfiguration/hrValue/HrValueReducers";
 //examination reducers link end
 export const reducers = combineReducers({
   //header
@@ -706,4 +707,14 @@ export const reducers = combineReducers({
   getListEcaData : getListEcaDataReducer,
   getBulkEditEcaData : getBulkEditEcaDataReducer,
   postBulkEditEcaData : postBulkEditEcaDataReducer,
+  //HR VALUE reducers:
+  getAllHrValue : getAllHrValueReducer,
+  getListHrValue : getListHrValueReducer,
+  getSingleToCreateHrValue : getSingleToCreateHrValueReducer,
+  getSingleToEditHrValue : getSingleToEditHrValueReducer,
+  postHrValue : postHrValueReducer,
+  putHrValue : putHrValueReducer,
+  postFileUploadHeaderBanner : postFileUploadHeaderBannerReducer,
+  postFileUploadSchoolLogo : postFileUploadSchoolLogoReducer,
+  postFileUploadPrincipleSignature : postFileUploadPrincipleSignatureReducer,
 });

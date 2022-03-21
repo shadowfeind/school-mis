@@ -356,6 +356,7 @@ import {
 import {
   createAnnouncementReducer,
   getAllAnnouncement,
+  getFCMForAnnouncementReducer,
   getSingleAnnouncementReducer,
   updateSingleAnnouncementReducer,
 } from "./settings/announcement/AnnouncementReducers";
@@ -385,10 +386,38 @@ import {
   putSyllabusReducer,
 } from "./settings/syllabus/syllabusPg/SyllabusReducers";
 import { getHeaderContentReducer } from "./dashboard/DashboardReducers";
-import { getAllEcaLookUpReducer, getDetailEcaLookUpReducer, getListEcaLookUpReducer, getSingleCreateEcaLookUpReducer, getSingleEditEcaLookUpReducer, postEcaLookUpReducer, putEcaLookUpReducer } from "./settings/academicConfiguration/ecaLookUp/EcaLookUpReducers";
-import { getAllAssignEcaReducer, getListAssignEcaReducer, getSingleCreateAssignEcaReducer, postAssignEcaReducer } from "./settings/academicConfiguration/assignEca/AssignEcaReducers";
-import { getAllEcaDataReducer, getBulkEditEcaDataReducer, getListEcaDataReducer, postBulkEditEcaDataReducer } from "./examination/ecaData/EcaDataReducers";
-import { getAllHrValueReducer, getListHrValueReducer, getSingleToCreateHrValueReducer, getSingleToEditHrValueReducer, postFileUploadHeaderBannerReducer, postFileUploadPrincipleSignatureReducer, postFileUploadSchoolLogoReducer, postHrValueReducer, putHrValueReducer } from "./settings/schoolConfiguration/hrValue/HrValueReducers";
+import {
+  getAllEcaLookUpReducer,
+  getDetailEcaLookUpReducer,
+  getListEcaLookUpReducer,
+  getSingleCreateEcaLookUpReducer,
+  getSingleEditEcaLookUpReducer,
+  postEcaLookUpReducer,
+  putEcaLookUpReducer,
+} from "./settings/academicConfiguration/ecaLookUp/EcaLookUpReducers";
+import {
+  getAllAssignEcaReducer,
+  getListAssignEcaReducer,
+  getSingleCreateAssignEcaReducer,
+  postAssignEcaReducer,
+} from "./settings/academicConfiguration/assignEca/AssignEcaReducers";
+import {
+  getAllEcaDataReducer,
+  getBulkEditEcaDataReducer,
+  getListEcaDataReducer,
+  postBulkEditEcaDataReducer,
+} from "./examination/ecaData/EcaDataReducers";
+import {
+  getAllHrValueReducer,
+  getListHrValueReducer,
+  getSingleToCreateHrValueReducer,
+  getSingleToEditHrValueReducer,
+  postFileUploadHeaderBannerReducer,
+  postFileUploadPrincipleSignatureReducer,
+  postFileUploadSchoolLogoReducer,
+  postHrValueReducer,
+  putHrValueReducer,
+} from "./settings/schoolConfiguration/hrValue/HrValueReducers";
 //examination reducers link end
 export const reducers = combineReducers({
   //header
@@ -404,11 +433,11 @@ export const reducers = combineReducers({
   createEmployeeType: createEmployeeTypeReducer,
   getSingleEmployeeType: getSingleEmployeeTypeReducer,
   updateSingleEmployeeType: updateSingleEmployeeTypeReducer,
-  deleteEmployeeType : deleteEmployeeTypeReducer,
+  deleteEmployeeType: deleteEmployeeTypeReducer,
   employeeCategoryRole: getAllEmployeeCategoryRole,
   createEmployeeCategoryRole: createEmployeeCategoryRoleReducer,
   getSingleEmployeeCategoryRole: getSingleEmployeeCategoryRoleReducer,
-  deleteEmployeeCategoryRole : deleteEmployeeCategoryRoleReducer,
+  deleteEmployeeCategoryRole: deleteEmployeeCategoryRoleReducer,
   updateSingleEmployeeCategoryRole: updateSingleEmployeeCategoryRoleReducer,
   holiday: getAllHoliday,
   createHoliday: createHolidayReducer,
@@ -425,7 +454,7 @@ export const reducers = combineReducers({
   createRole: createRoleReducer,
   getSingleRole: getSingleRoleReducer,
   updateSingleRole: updateSingleRoleReducer,
-  deleteRole : deleteRoleReducer,
+  deleteRole: deleteRoleReducer,
   academicClass: getAllAcademicClass,
   createAcademicClass: createAcademicClassReducer,
   getSingleAcademicClass: getSingleAcademicClassReducer,
@@ -447,7 +476,7 @@ export const reducers = combineReducers({
   createAcademicFaculty: createAcademicFacultyReducer,
   getAcademicFacultyOption: getAcademicFacultyOptionReducer,
   getSingleAcademicFaculty: getSingleAcademicFacultyReducer,
-  updateSingleAcademicFaculty : updateSingleAcademicFacultyReducer,
+  updateSingleAcademicFaculty: updateSingleAcademicFacultyReducer,
   academicYear: getAllAcademicYear,
   createAcademicYear: createAcademicYearReducer,
   getAcademicYearOption: getAcademicYearOptionReducer,
@@ -480,12 +509,13 @@ export const reducers = combineReducers({
   getSingleStudentProfilePasswordresetData:
     getSingleStudentProfilePasswordresetDataReducer,
   updateSingleStudentProfile: updateSingleStudentProfileReducer,
-  getUploadPhoto : getUploadPhotoReducer,
-  postUploadPhoto : postUploadPhotoReducer,
+  getUploadPhoto: getUploadPhotoReducer,
+  postUploadPhoto: postUploadPhotoReducer,
   getInitialStudentIdCardData: getInitialStudentIdCardDataReducer,
   getActiveStudentsForStudentIdCardData:
     getActiveStudentsForStudentIdCardDataReducer,
-    getPrintBulkStudentsForStudentIdCardData : getPrintBulkStudentsForStudentIdCardDataReducer,
+  getPrintBulkStudentsForStudentIdCardData:
+    getPrintBulkStudentsForStudentIdCardDataReducer,
   getAllReassociateStudents: getAllReassociateStudentsReducer,
   getReassociateStudentsLists: getReassociateStudentsListsReducer,
   getReassociateStudentsLevelup: getReassociateStudentsLevelupReducer,
@@ -505,7 +535,7 @@ export const reducers = combineReducers({
   updateSingleClassSubject: updateSingleClassSubjectReducer,
   getToCreateClassSubject: getToCreateClassSubjectReducer,
   postToCreateClassSubject: postToCreateClassSubjectReducer,
-  deleteClassSubject : deleteClassSubjectReducer,
+  deleteClassSubject: deleteClassSubjectReducer,
   getInitialRoleForPermission: getInitialRoleForPermissionReducer,
   getlistPermissionByRole: getlistPermissionByRoleReducer,
   //examination reducers start
@@ -559,7 +589,7 @@ export const reducers = combineReducers({
   postSingleExamScheduleCreate: postSingleExamScheduleCreateReducer,
   getSingleExamScheduleEdit: getSingleExamScheduleEditReducer,
   singleExamScheduleEdit: singleExamScheduleEditReducer,
-  deleteExamSchedule : deleteExamScheduleReducer,
+  deleteExamSchedule: deleteExamScheduleReducer,
   //examination reducers end
   //registration reducers starts
   getCounterConfigInitialData: getCounterConfigInitialDataReducer,
@@ -604,7 +634,7 @@ export const reducers = combineReducers({
   getAllEducationCreate: getAllEducationCreateReducer,
   createSingleEducation: createSingleEducationReducer,
   educationCreate: educationCreateReducer,
-  getListEducation : getListEducationReducer,
+  getListEducation: getListEducationReducer,
   //PID Email
   getAllEmail: getAllEmail,
   getSingleEmail: getSingleEmailReducer,
@@ -621,7 +651,7 @@ export const reducers = combineReducers({
   updateSingleFamilyMember: updateSingleFamilyMemberReducer,
   createFamilyMember: createFamilyMemberReducer,
   getAllFamilyMemberCreate: getAllFamilyMemberCreateReducer,
-  getListFamilyMember : getListFamilyMemberReducer,
+  getListFamilyMember: getListFamilyMemberReducer,
   //PID Guardian
   getAllGuardian: getAllGuardian,
   getSingleGuardian: getSingleGuardianReducer,
@@ -663,6 +693,7 @@ export const reducers = combineReducers({
   //attendance reducers ends
   //announcement
   announcement: getAllAnnouncement,
+  getFCMForAnnouncement: getFCMForAnnouncementReducer,
   createAnnouncement: createAnnouncementReducer,
   getSingleAnnouncement: getSingleAnnouncementReducer,
   updateSingleAnnouncement: updateSingleAnnouncementReducer,
@@ -690,31 +721,31 @@ export const reducers = combineReducers({
   getListSyllabus: getListSyllabusReducer,
   putSyllabus: putSyllabusReducer,
   //ECA Look up Reducers Start
-  getAllEcaLookUp : getAllEcaLookUpReducer,
-  getListEcaLookUp : getListEcaLookUpReducer,
-  getSingleEditEcaLookUp : getSingleEditEcaLookUpReducer,
-  getSingleCreateEcaLookUp : getSingleCreateEcaLookUpReducer,
-  getDetailEcaLookUp : getDetailEcaLookUpReducer,
-  postEcaLookUp : postEcaLookUpReducer,
-  putEcaLookUp : putEcaLookUpReducer,
+  getAllEcaLookUp: getAllEcaLookUpReducer,
+  getListEcaLookUp: getListEcaLookUpReducer,
+  getSingleEditEcaLookUp: getSingleEditEcaLookUpReducer,
+  getSingleCreateEcaLookUp: getSingleCreateEcaLookUpReducer,
+  getDetailEcaLookUp: getDetailEcaLookUpReducer,
+  postEcaLookUp: postEcaLookUpReducer,
+  putEcaLookUp: putEcaLookUpReducer,
   //ECA Assign Reducers
-  getAllAssignEca : getAllAssignEcaReducer,
-  getListAssignEca : getListAssignEcaReducer,
-  getSingleCreateAssignEca : getSingleCreateAssignEcaReducer,
-  postAssignEca : postAssignEcaReducer,
+  getAllAssignEca: getAllAssignEcaReducer,
+  getListAssignEca: getListAssignEcaReducer,
+  getSingleCreateAssignEca: getSingleCreateAssignEcaReducer,
+  postAssignEca: postAssignEcaReducer,
   //ECA DATA Reducers
-  getAllEcaData : getAllEcaDataReducer,
-  getListEcaData : getListEcaDataReducer,
-  getBulkEditEcaData : getBulkEditEcaDataReducer,
-  postBulkEditEcaData : postBulkEditEcaDataReducer,
+  getAllEcaData: getAllEcaDataReducer,
+  getListEcaData: getListEcaDataReducer,
+  getBulkEditEcaData: getBulkEditEcaDataReducer,
+  postBulkEditEcaData: postBulkEditEcaDataReducer,
   //HR VALUE reducers:
-  getAllHrValue : getAllHrValueReducer,
-  getListHrValue : getListHrValueReducer,
-  getSingleToCreateHrValue : getSingleToCreateHrValueReducer,
-  getSingleToEditHrValue : getSingleToEditHrValueReducer,
-  postHrValue : postHrValueReducer,
-  putHrValue : putHrValueReducer,
-  postFileUploadHeaderBanner : postFileUploadHeaderBannerReducer,
-  postFileUploadSchoolLogo : postFileUploadSchoolLogoReducer,
-  postFileUploadPrincipleSignature : postFileUploadPrincipleSignatureReducer,
+  getAllHrValue: getAllHrValueReducer,
+  getListHrValue: getListHrValueReducer,
+  getSingleToCreateHrValue: getSingleToCreateHrValueReducer,
+  getSingleToEditHrValue: getSingleToEditHrValueReducer,
+  postHrValue: postHrValueReducer,
+  putHrValue: putHrValueReducer,
+  postFileUploadHeaderBanner: postFileUploadHeaderBannerReducer,
+  postFileUploadSchoolLogo: postFileUploadSchoolLogoReducer,
+  postFileUploadPrincipleSignature: postFileUploadPrincipleSignatureReducer,
 });

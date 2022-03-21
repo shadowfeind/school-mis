@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Button, makeStyles, Toolbar } from "@material-ui/core";
-import { Calendar, momentLocalizer } from "react-big-calendar";
+import {
+  Calendar,
+  momentLocalizer,
+  dateFnsLocalizer,
+} from "react-big-calendar";
 import moment, { months } from "moment";
 import AddIcon from "@material-ui/icons/Add";
 import Popup from "../../../components/Popup";
@@ -8,6 +12,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Notification from "../../../components/Notification";
 import ConfirmDialog from "../../../components/ConfirmDialog";
 import { getAllHolidayAction, getSingleHolidayAction } from "./HolidayActions";
+import { format, parse, startOfWeek, getDay } from "date-fns";
 
 import HolidayForm from "./HolidayForm";
 import {
@@ -17,6 +22,7 @@ import {
   UPDATE_SINGLE_HOLIDAY_RESET,
 } from "./HolidayConstants";
 import "react-big-calendar/lib/css/react-big-calendar.css";
+import DateToIso from "../../../components/DateToIso";
 
 const useStyles = makeStyles((theme) => ({
   searchInput: {
@@ -30,6 +36,12 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const localizer = momentLocalizer(moment);
+// const localizer = dateFnsLocalizer({
+//   format,
+//   parse,
+//   startOfWeek,
+//   getDay,
+// });
 
 const Holiday = () => {
   const [openPopup, setOpenPopup] = useState(false);
@@ -123,8 +135,8 @@ const Holiday = () => {
     setOpenPopup(true);
   };
   const handleCalendarSelect = ({ start, end }) => {
-    setStartDate(new Date(start).toISOString());
-    setEndDate(new Date(end).toISOString());
+    setStartDate(DateToIso(start));
+    setEndDate(DateToIso(end));
     setOpenPopup(true);
   };
   return (
@@ -156,7 +168,7 @@ const Holiday = () => {
           endAccessor="ToDate"
           titleAccessor="HolidayName"
           views={months}
-          selectable={true}
+          selectable
           onSelectSlot={handleCalendarSelect}
           style={{ height: "60vh" }}
         />

@@ -10,7 +10,7 @@ import FormControl from "@material-ui/core/FormControl";
 import FormGroup from "@material-ui/core/FormGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
-import { AcademicYearCreateAction } from "./AcademicYearActions";
+import { AcademicYearCreateAction, updateSingleAcademicYearAction } from "./AcademicYearActions";
 import DatePickerControl from "../../../components/controls/DatePickerControl";
 
 const initialFormValues = {
@@ -73,8 +73,7 @@ const AcademicYearForm = ({ academicYear, selected, setOpenPopup }) => {
       if (values.IDAcademicYear === 0) {
         dispatch(AcademicYearCreateAction(values, checkboxState));
       } else {
-        // dispatch(updateSingleAcademicProgramAction(values));
-        alert("update api waiting");
+        dispatch(updateSingleAcademicYearAction(values,checkboxState));
       }
     }
   };

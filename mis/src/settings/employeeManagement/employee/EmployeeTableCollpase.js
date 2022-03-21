@@ -146,7 +146,7 @@ const EmployeeTableCollapse = ({
                     </ListItem>
 
                     <ListItem>
-                      <strong>Updated_On</strong>: {item.Updated_On}
+                      <strong>Updated_On</strong>: {item.Updated_On?.slice(0,10)}
                     </ListItem>
                   </List>
                 </Grid>

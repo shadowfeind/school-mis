@@ -73,6 +73,8 @@ const ExamDivisionForm = ({ examDivision, setOpenPopup }) => {
     }
   }, [examDivision]);
 
+  const symbolsArr = ["e", "E", "+", "-", "."];
+
   return (
     <Form onSubmit={handleSubmit}>
       <Grid container style={{ fontSize: "12px" }}>
@@ -82,6 +84,7 @@ const ExamDivisionForm = ({ examDivision, setOpenPopup }) => {
             label="Start Range"
             value={values.StartRange}
             onChange={handleInputChange}
+            onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}
             type="number"
             errors={errors.StartRange}
           />
@@ -108,6 +111,7 @@ const ExamDivisionForm = ({ examDivision, setOpenPopup }) => {
             label="End Range"
             type="number"
             value={values.EndRange}
+            onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}
             onChange={handleInputChange}
             errors={errors.EndRange}
           />

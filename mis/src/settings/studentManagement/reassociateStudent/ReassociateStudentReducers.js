@@ -12,6 +12,14 @@ import {
   GET_REASSOCIATE_STUDENTS_LISTS_FAIL,
   GET_REASSOCIATE_STUDENTS_LISTS_REQUEST,
   GET_REASSOCIATE_STUDENTS_LISTS_SUCCESS,
+  GET_SINGLE_TO_EDIT_REASSOCIATE_STUDENTS_FAIL,
+  GET_SINGLE_TO_EDIT_REASSOCIATE_STUDENTS_REQUEST,
+  GET_SINGLE_TO_EDIT_REASSOCIATE_STUDENTS_RESET,
+  GET_SINGLE_TO_EDIT_REASSOCIATE_STUDENTS_SUCCESS,
+  PUT_REASSOCIATE_STUDENTS_FAIL,
+  PUT_REASSOCIATE_STUDENTS_REQUEST,
+  PUT_REASSOCIATE_STUDENTS_RESET,
+  PUT_REASSOCIATE_STUDENTS_SUCCESS,
 } from "./ReassociateStudentConstants";
 
 export const getAllReassociateStudentsReducer = (state = {}, action) => {
@@ -65,6 +73,41 @@ export const getReassociateStudentsLevelupPostReducer = (
     case GET_REASSOCIATE_STUDENTS_LEVEL_UP_POST_FAIL:
       return { loading: false, error: action.payload };
     case GET_REASSOCIATE_STUDENTS_LEVEL_UP_POST_RESET:
+      return {};
+    default:
+      return state;
+  }
+};
+
+
+export const getSingleEditReassociateStudentsReducer = (state = {}, action) => {
+  switch (action.type) {
+    case GET_SINGLE_TO_EDIT_REASSOCIATE_STUDENTS_REQUEST:
+      return { loading: true };
+    case GET_SINGLE_TO_EDIT_REASSOCIATE_STUDENTS_SUCCESS:
+      return { loading: false, singleEditReassociateStudent: action.payload };
+    case GET_SINGLE_TO_EDIT_REASSOCIATE_STUDENTS_FAIL:
+      return { loading: false, error: action.payload };
+      case GET_SINGLE_TO_EDIT_REASSOCIATE_STUDENTS_RESET:
+      return {};
+    default:
+      return state;
+  }
+};
+
+
+export const putReassociateStudentsReducer = (
+  state = {},
+  action
+) => {
+  switch (action.type) {
+    case PUT_REASSOCIATE_STUDENTS_REQUEST:
+      return { loading: true };
+    case PUT_REASSOCIATE_STUDENTS_SUCCESS:
+      return { loading: false, success: true };
+    case PUT_REASSOCIATE_STUDENTS_FAIL:
+      return { loading: false, error: action.payload };
+    case PUT_REASSOCIATE_STUDENTS_RESET:
       return {};
     default:
       return state;

@@ -92,6 +92,9 @@ const AcademicFacultyForm = ({ academicFaculty, selected, setOpenPopup }) => {
       setValues({ ...academicFaculty });
     }
   }, [academicFaculty]);
+
+  const symbolsArr = ["e", "E", "+", "-", "."];
+
   return (
     <Form onSubmit={handleSubmit}>
       <Grid container style={{ fontSize: "12px" }}>
@@ -107,6 +110,7 @@ const AcademicFacultyForm = ({ academicFaculty, selected, setOpenPopup }) => {
             name="TotalSeat"
             label="TotalSeat"
             value={values.TotalSeat}
+            onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}
             onChange={handleInputChange}
             errors={errors.TotalSeat}
             type="number"

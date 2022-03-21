@@ -13,26 +13,26 @@ import {
 const initialFormValues = {
   IDHRCompany: 2,
   IDHREmployee: 0,
-  IDHREmployeeCategoryRole: 0,
+  IDHREmployeeCategoryRole: 1,
   LoginIDHREmployee: "",
   FirstName: "",
   MiddleName: "",
   LastName: "",
   EmailID: "",
-  Sex: "",
+  Sex: "Male",
   DOJ: "2021-09-27T10:59:00.89",
-  IDHREmployeeType: "",
-  IDHRBranch: "",
-  Position: "",
-  WebLoginAccess: "",
+  IDHREmployeeType: 1,
+  IDHRBranch: 1,
+  Position: 1,
+  WebLoginAccess: "true",
   ShortName: "",
-  Title: "",
+  Title: "Mr",
   DOB: "2000-09-27T10:59:00.89",
   MobileNumber: "",
-  Married: "",
-  IDHRRole: "",
+  Married: "True",
+  IDHRRole: 2,
   BankAC: "",
-  IDHRDepartment: "",
+  IDHRDepartment: 1,
   JoinedPosition: "",
   IsNewlyAdded: 1,
   IsActive: 1,
@@ -42,8 +42,8 @@ const initialFormValues = {
 };
 
 const gender = [
-  { Key: "male", Value: "Male" },
-  { Key: "female", Value: "Female" },
+  { Key: "Male", Value: "Male" },
+  { Key: "Female", Value: "Female" },
 ];
 
 const loginAccess = [
@@ -52,8 +52,8 @@ const loginAccess = [
 ];
 
 const married = [
-  { Key: "yes", Value: "Yes" },
-  { Key: "no", Value: "No" },
+  { Key: "True", Value: "True" },
+  { Key: "False", Value: "False" },
 ];
 
 const EmployeeForm = ({ employee, setOpenPopup }) => {
@@ -67,7 +67,7 @@ const EmployeeForm = ({ employee, setOpenPopup }) => {
       : "";
       temp.IDHREmployeeCategoryRole = !fieldValues.IDHREmployeeCategoryRole ? "This feild is required" :"";
       temp.IDHRDepartment = !fieldValues.IDHRDepartment ? "This feild is required" :"";
-      temp.JoinedPosition = !fieldValues.JoinedPosition ? "This feild is required" :"";
+      // temp.JoinedPosition = !fieldValues.JoinedPosition ? "This feild is required" :"";
       temp.Married = !fieldValues.Married ? "This feild is required" :"";
       temp.IDHRRole = !fieldValues.IDHRRole ? "This feild is required" :"";
       temp.WebLoginAccess = !fieldValues.WebLoginAccess ? "This feild is required" :"";
@@ -90,8 +90,8 @@ const EmployeeForm = ({ employee, setOpenPopup }) => {
       : "";
       temp.MobileNumber = !fieldValues.MobileNumber
       ? "This feild is required"
-      : !fieldValues.MobileNumber>7
-      ? "Mobile No. must be atleast 7."
+      : fieldValues.MobileNumber <=10
+      ? "Mobile No. must be atleast 10."
       : "";
 
     setErrors({ ...temp });
@@ -129,6 +129,9 @@ const EmployeeForm = ({ employee, setOpenPopup }) => {
       setValues({ ...employee });
     }
   }, [employee]);
+
+  const symbolsArr = ["e", "E", "+", "-", "."];
+
   return (
     <Form onSubmit={handleSubmit}>
       <Grid container style={{ fontSize: "12px" }}>
@@ -251,6 +254,7 @@ const EmployeeForm = ({ employee, setOpenPopup }) => {
             label="Mobile Number"
             value={values.MobileNumber}
             onChange={handleInputChange}
+            onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}
             type="number"
             errors={errors.MobileNumber}
           />
@@ -274,6 +278,8 @@ const EmployeeForm = ({ employee, setOpenPopup }) => {
             name="BankAC"
             label="Bank Account"
             value={values.BankAC}
+            onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}
+            type="number"
             onChange={handleInputChange}
           />
           <SelectControl
@@ -287,10 +293,10 @@ const EmployeeForm = ({ employee, setOpenPopup }) => {
           <SelectControl
             name="JoinedPosition"
             label="Joined Position"
-            value={values.JoinedPosition}
+            value={values.Position}
             onChange={handleInputChange}
             options={ddlPosition}
-            errors={errors.JoinedPosition}
+            errors={errors.Position}
           />
         </Grid>
       </Grid>

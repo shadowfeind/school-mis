@@ -206,9 +206,9 @@ const StudentRegistrationForm = ({
 
     temp.MobileNo = !fieldValues.MobileNo
       ? "This feild is required"
-      : fieldValues.MobileNo.length == 10
+      : fieldValues.FatherContactNo.length <= 10
       ? ""
-      : "Must be 10 digit";
+      : "Must be less or equal to 10";
 
     // temp.MobileNo = !fieldValues.MobileNo ? "This feild is required" : "";
 
@@ -234,9 +234,9 @@ const StudentRegistrationForm = ({
 
     temp.FatherContactNo = !fieldValues.FatherContactNo
       ? "This feild is required"
-      : fieldValues.FatherContactNo.length == 10
+      : fieldValues.FatherContactNo.length <= 10
       ? ""
-      : "Must be 10 number";
+      : "Must be less or equal to 10";
     // temp.LocalGuardianContactNo = !fieldValues.LocalGuardianContactNo
     //   ? "This feild is required"
     //   : fieldValues.LocalGuardianContactNo.length == 10
@@ -373,6 +373,9 @@ const StudentRegistrationForm = ({
     }
   };
 
+  const symbolsArr = ["e", "E", "+", "-", "."];
+
+
   return (
     <Form onSubmit={handleSubmit}>
       <Grid container style={{ fontSize: "12px" }}>
@@ -449,6 +452,7 @@ const StudentRegistrationForm = ({
             name="RollNo"
             label="Roll No.*"
             value={values.RollNo}
+            onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}
             type="number"
             onChange={handleInputChange}
             onBlur={(e) => handleRollNo(e.target.value)}
@@ -510,6 +514,7 @@ const StudentRegistrationForm = ({
             name="MobileNo"
             label="Contact No."
             value={values.MobileNo}
+            onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}
             onChange={handleInputChange}
             type="number"
             errors={errors.MobileNo}
@@ -570,6 +575,7 @@ const StudentRegistrationForm = ({
           <InputControl
             name="FatherContactNo"
             label="Father Contact Number"
+            onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}
             value={values.FatherContactNo}
             onChange={handleInputChange}
             type="number"
@@ -596,6 +602,7 @@ const StudentRegistrationForm = ({
             name="LocalGuardianContactNo"
             label="SMS Number"
             value={values.LocalGuardianContactNo}
+            onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}
             onChange={handleInputChange}
             type="number"
             // errors={errors.LocalGuardianContactNo}

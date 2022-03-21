@@ -85,6 +85,8 @@ const CounterConfigurationForm = ({
 
   const testValue = [{ Key: "", Value: "" }];
 
+  const symbolsArr = ["e", "E", "+", "-", "."];
+
   return (
     <Form onSubmit={handleSubmit}>
       <Grid container style={{ fontSize: "12px" }}>
@@ -95,6 +97,7 @@ const CounterConfigurationForm = ({
             value={values.CounterYear}
             type="number"
             variant="outlined"
+            onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}
             errors={errors.CounterYear}
             onChange={handleInputChange}
           />
@@ -112,6 +115,7 @@ const CounterConfigurationForm = ({
             label="Current Count"
             value={values.CurrentCount}
             type="number"
+            onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}
             variant="outlined"
             errors={errors.CurrentCount}
             onChange={handleInputChange}

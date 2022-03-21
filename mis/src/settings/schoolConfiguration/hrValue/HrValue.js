@@ -225,6 +225,7 @@ if (postUploadPhotoError) {
   const createHandler = () => {
     if (validate()) {
       dispatch(getSingleCreateHrValueAction(company));
+      dispatch({type:GET_SINGLE_TO_EDIT_HR_VALUE_RESET});
       setOpenPopup(true);
     }
   };

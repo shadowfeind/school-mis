@@ -64,6 +64,8 @@ const AssignFacultySubjectFormEdit = ({
       setValues({ ...singleFacultySubject });
     }
   }, [singleFacultySubject]);
+  const symbolsArr = ["e", "E", "+", "-", "."];
+
   return (
     <Form onSubmit={handleSubmit}>
       <Grid container style={{ fontSize: "12px" }}>
@@ -124,6 +126,7 @@ const AssignFacultySubjectFormEdit = ({
             name="CreditHour"
             label="Credit Hour"
             onChange={handleInputChange}
+            onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}
             value={values.CreditHour}
             type="number"
             variant="outlined"

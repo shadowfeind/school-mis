@@ -24,6 +24,7 @@ import {
   ACADEMIC_YEAR_CREATE_RESET,
   GET_ALL_ACADEMIC_YEAR_RESET,
   GET_SINGLE_ACADEMIC_YEAR_RESET,
+  UPDATE_SINGLE_ACADEMIC_YEAR_RESET,
 } from "./AcademicYearConstant";
 import AcademicYearTableCollapse from "./AcademicYearTableCollapse";
 import AcademicYearForm from "./AcademicYearForm";
@@ -80,9 +81,9 @@ const AcademicYear = () => {
     (state) => state.getSingleAcademicYear
   );
 
-  // const { success: updateSingleAcademicYearSuccess } = useSelector(
-  //   (state) => state.updateSingleAcademicYear
-  // );
+  const { success: updateSingleAcademicYearSuccess } = useSelector(
+    (state) => state.updateSingleAcademicYear
+  );
 
   if (error) {
     setNotify({
@@ -120,16 +121,16 @@ const AcademicYear = () => {
     dispatch({ type: ACADEMIC_YEAR_CREATE_RESET });
   }
 
-  // if (updateSingleAcademicProgramSuccess) {
-  //   dispatch(getAllAcademicProgramAction());
-  //   setNotify({
-  //     isOpen: true,
-  //     message: "Updated Succesfully",
-  //     type: "success",
-  //   });
-  //   setOpenPopup(false);
-  //   dispatch({ type: UPDATE_SINGLE_ACADEMIC_PROGRAM_RESET });
-  // }
+  if (updateSingleAcademicYearSuccess) {
+    dispatch(getAllAcademicYearAction());
+    setNotify({
+      isOpen: true,
+      message: "Updated Succesfully",
+      type: "success",
+    });
+    setOpenPopup(false);
+    dispatch({ type: UPDATE_SINGLE_ACADEMIC_YEAR_RESET });
+  }
 
   const updateCollegeHandler = (id) => {
     dispatch(getSingleAcademicYearAction(id));

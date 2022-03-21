@@ -81,6 +81,8 @@ const ClassSubjectCreateForm = ({
     });
   };
 
+  const symbolsArr = ["e", "E", "+", "-", "."];
+
   return (
     <>
       <TableContainer component={Paper}>
@@ -125,6 +127,7 @@ const ClassSubjectCreateForm = ({
                       defaultValue={subject.CreditHour}
                       type="number"
                       label="Credit Hours"
+                      onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}
                       variant="outlined"
                       onChange={(e) => inputHandler(subject, e.target.value)}
                       inputProps={{ tabIndex: "1" }}

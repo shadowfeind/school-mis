@@ -186,6 +186,8 @@ const GuardianForm = ({ guardianForm, setOpenPopup }) => {
     }
   }, [guardianForm]);
 
+  const symbolsArr = ["e", "E", "+", "-", "."];
+
   return (
     <Form onSubmit={handleSubmit}>
       <Grid container style={{ fontSize: "12px" }}>
@@ -204,6 +206,7 @@ const GuardianForm = ({ guardianForm, setOpenPopup }) => {
             value={values.FatherContactNo}
             onChange={handleInputChange}
             errors={errors.FatherContactNo}
+            onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}
             type="number"
           />
 
@@ -241,6 +244,7 @@ const GuardianForm = ({ guardianForm, setOpenPopup }) => {
             value={values.MotherContactNo}
             onChange={handleInputChange}
             errors={errors.MotherContactNo}
+            onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}
             type="number"
           />
           <InputControl
@@ -286,6 +290,7 @@ const GuardianForm = ({ guardianForm, setOpenPopup }) => {
             label="LocalGuardian Contact No"
             value={values.LocalGuardianContactNo}
             onChange={handleInputChange}
+            onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}
             errors={errors.LocalGuardianContactNo}
             type="number"
           />

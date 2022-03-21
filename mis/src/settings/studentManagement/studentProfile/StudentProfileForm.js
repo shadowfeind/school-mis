@@ -90,7 +90,7 @@ const initialFormValues = {
 };
 
 const gender = [
-  { Key: "male", Value: "Male" },
+  { Key: "Male", Value: "Male" },
   { Key: "female", Value: "Female" },
 ];
 
@@ -114,16 +114,7 @@ const levelStatus = [
   {Key: "passed", Value: "Passed"},
 ]
 
-const bloodGroup = [
-  {Key: "a+", Value: "A+"},
-  {Key: "a-", Value: "A-"},
-  {Key: "b+", Value: "B+"},
-  {Key: "b-", Value: "B-"},
-  {Key: "ab+", Value: "AB+"},
-  {Key: "ab-", Value: "AB-"},
-  {Key: "o+", Value: "O+"},
-  {Key: "o-", Value: "O-"},
-]
+
 
 const StudentProfileForm = ({ studentData, setOpenPopup }) => {
   const dispatch = useDispatch();
@@ -168,9 +159,7 @@ const StudentProfileForm = ({ studentData, setOpenPopup }) => {
       temp.RollNo = !fieldValues.RollNo
       ? "This feild is required"
       : "";
-      temp.LevelStatus = !fieldValues.LevelStatus
-      ? "This feild is required"
-      : "";
+     
 
 
     setErrors({ ...temp });
@@ -192,6 +181,9 @@ const StudentProfileForm = ({ studentData, setOpenPopup }) => {
       setValues({ ...studentData.hrEmployeeModel });
     }
   }, [studentData]);
+
+  const symbolsArr = ["e", "E", "+", "-", "."];
+
   return (
     <Form onSubmit={handleSubmit}>
       <Grid container style={{ fontSize: "12px" }}>
@@ -224,11 +216,10 @@ const StudentProfileForm = ({ studentData, setOpenPopup }) => {
             onChange={handleInputChange}
             errors={errors.EmailID}
           />
-          <SelectControl
+          <InputControl
             name="BloodGroup"
             label="Blood Group"
             value={values.BloodGroup}
-            options={bloodGroup}
             onChange={handleInputChange}
             errors={errors.BloodGroup}
           />
@@ -276,6 +267,7 @@ const StudentProfileForm = ({ studentData, setOpenPopup }) => {
             label="Mobile Number"
             value={values.MobileNumber}
             onChange={handleInputChange}
+            onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}
             type="number"
             errors={errors.MobileNumber}
           />
@@ -283,6 +275,7 @@ const StudentProfileForm = ({ studentData, setOpenPopup }) => {
             name="OtherNumber"
             label="Other Number"
             value={values.OtherNumber}
+            onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}
             onChange={handleInputChange}
             type="number"
           />
@@ -292,14 +285,6 @@ const StudentProfileForm = ({ studentData, setOpenPopup }) => {
             value={values.RollNo}
             onChange={handleInputChange}
             errors={errors.RollNo}
-          />
-          <SelectControl
-            name="LevelStatus"
-            label="Status"
-            value={values.LevelStatus}
-            onChange={handleInputChange}
-            options={levelStatus}
-            errors={errors.LevelStatus}
           />
         </Grid>
       </Grid>

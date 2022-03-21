@@ -13,6 +13,9 @@ import {
   GET_SINGLE_ACADEMIC_YEAR_FAIL,
   GET_SINGLE_ACADEMIC_YEAR_REQUEST,
   GET_SINGLE_ACADEMIC_YEAR_SUCCESS,
+  UPDATE_SINGLE_ACADEMIC_YEAR_FAIL,
+  UPDATE_SINGLE_ACADEMIC_YEAR_REQUEST,
+  UPDATE_SINGLE_ACADEMIC_YEAR_SUCCESS,
 } from "./AcademicYearConstant";
 
 export const getAllAcademicYearAction = () => async (dispatch) => {
@@ -69,7 +72,7 @@ export const getAcademicYearOptionAction = () => async (dispatch) => {
     dispatch({ type: GET_ACADEMIC_YEAR_OPTION_REQUEST });
 
     const { data } = await axios.get(
-      `${API_URL}/api/AcademicYear/GetToCreateAcademicYear?company=0&searchKey=0`,
+      `${API_URL}/api/AcademicYear/GetToCreateAcademicYear`,
       tokenConfig
     );
 
@@ -115,7 +118,7 @@ export const updateSingleAcademicYearAction =
       // };
 
       const { data } = await axios.put(
-        `${API_URL}/api/AcademicYear`,
+        `${API_URL}/api/AcademicYear/PutAcademicYear`,
         jsonData,
         tokenConfig
       );

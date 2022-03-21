@@ -48,6 +48,8 @@ const ExamScheduleDeleteForm = ({
     }
   }, [examScheduleDelete]);
 
+  const symbolsArr = ["e", "E", "+", "-", "."];
+
   const test = [{ Key: "", Value: "" }];
   const handleDeleteSchedule = () => {
     dispatch(deleteExamScheduleAction(values, examScheduleDelete.searchFilterModel))
@@ -88,6 +90,7 @@ const ExamScheduleDeleteForm = ({
                 name="FullMarkPractical"
                 label="Full Marks Practical"
                 value={values.FullMarkPractical}
+                onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}
                 onChange={(e) =>
                   (e.target.value <= 100) & (e.target.value >= 0) &&
                   handleInputChange(e)
@@ -101,7 +104,7 @@ const ExamScheduleDeleteForm = ({
               name="FullMark"
               label="Full Marks*"
               value={values.FullMark}
-              
+              onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}
               onChange={(e) =>
                 (e.target.value <= 100) & (e.target.value >= 0) &&
                 handleInputChange(e)
@@ -154,6 +157,7 @@ const ExamScheduleDeleteForm = ({
               name="SubjectOrder"
               label="Subject Order"
               value={values.SubjectOrder}
+              onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}
               type="number"
               onChange={(e) =>
                 (e.target.value <= 100) & (e.target.value >= 0) &&
@@ -166,6 +170,7 @@ const ExamScheduleDeleteForm = ({
               name="PassMark"
               label="Pass Mark"
               value={values.PassMark}
+              onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}
               onChange={(e) =>
                 (e.target.value <= 100) & (e.target.value >= 0) &&
                 handleInputChange(e)

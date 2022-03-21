@@ -63,6 +63,9 @@ const AcademicSectinoForm = ({ academicSection, setOpenPopup }) => {
       setValues({ ...academicSection });
     }
   }, [academicSection]);
+
+  const symbolsArr = ["e", "E", "+", "-", "."];
+
   return (
     <Form onSubmit={handleSubmit}>
       <Grid container style={{ fontSize: "12px" }}>
@@ -96,6 +99,7 @@ const AcademicSectinoForm = ({ academicSection, setOpenPopup }) => {
             name="RoomCapacity"
             label="RoomCapacity*"
             value={values.RoomCapacity}
+            onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}
             onChange={handleInputChange}
             errors={errors.RoomCapacity}
             type="number"

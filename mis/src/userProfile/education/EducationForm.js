@@ -151,6 +151,9 @@ const EducationForm = ({educatonForm, setOpenPopup})=>{
   }, [educatonForm]);
   const test = [{Key:"", value:""}]
 
+  const symbolsArr = ["e", "E", "+", "-", "."];
+
+
   return(
     <Form onSubmit={handleSubmit}>
     <Grid container style={{ fontSize: "12px" }}>
@@ -176,6 +179,7 @@ const EducationForm = ({educatonForm, setOpenPopup})=>{
           value={values.TotalMarks}
           onChange={handleInputChange}
           errors={errors.TotalMarks}
+          onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}
           type = "number"
         />
          <SelectControl
@@ -231,6 +235,7 @@ const EducationForm = ({educatonForm, setOpenPopup})=>{
           label="Obtained Marks"
           value={values.ObtainedMarks}
           onChange={handleInputChange}
+          onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}
           errors={errors.ObtainedMarks}
           type = "number"
         />
@@ -239,6 +244,7 @@ const EducationForm = ({educatonForm, setOpenPopup})=>{
           label="Score"
           value={values.Score}
           onChange={handleInputChange}
+          onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}
           errors={errors.Score}
           type = "number"
         />

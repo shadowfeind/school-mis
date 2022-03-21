@@ -194,6 +194,8 @@ const PersonalInformationForm =({personalInformation, setOpenPopup})=>{
 
   const test = [{Key:"", value:""}]
 
+  const symbolsArr = ["e", "E", "+", "-", "."];
+
   const citizenOption = [{Key:"0", Value:"No"},{Key:"1", Value:"Yes"}]
   const religionOption = [{Key:"0", Value:"Hinduism"},{Key:"1", Value:"Buddhism"},{Key:"2", Value:"Kiratism"},{Key:"3", Value:"Christianity"},{Key:"4", Value:"Islam"},{Key:"5", Value:"Others"}]
   return(
@@ -342,6 +344,7 @@ const PersonalInformationForm =({personalInformation, setOpenPopup})=>{
           label="Bank Account"
           value={values.BankAC}
           onChange={handleInputChange}
+          onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()} 
           errors={errors.BankAC}
           type="number"
         />

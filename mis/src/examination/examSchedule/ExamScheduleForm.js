@@ -104,7 +104,7 @@ const ExamScheduleForm = ({
 
   const test = [{ Key: "", Value: "" }];
 
-  const invalidChars = ["-", "e", "+", "E"];
+  const invalidChars = ["-", "e", "+", "E","."];
 
   return (
     <>
@@ -212,6 +212,9 @@ const ExamScheduleForm = ({
               label="Subject Order"
               value={values.SubjectOrder}
               type="number"
+              onKeyDown={(e) =>
+                invalidChars.includes(e.key) && e.preventDefault()
+              }
               onChange={(e) =>
                 (e.target.value <= 100) & (e.target.value >= 0) &&
                 handleInputChange(e)

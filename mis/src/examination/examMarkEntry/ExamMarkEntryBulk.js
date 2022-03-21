@@ -77,6 +77,9 @@ const ExamMarkEntryBulk = ({ bulkData, statusData }) => {
       return [...prev, newSubject];
     });
   };
+
+  const symbolsArr = ["e", "E", "+", "-", "."];
+
   return (
     <>
       <TableContainer component={Paper}>
@@ -117,6 +120,7 @@ const ExamMarkEntryBulk = ({ bulkData, statusData }) => {
                       id={`theory_${subject.IDHREmployee}`}
                       defaultValue={subject.ObtainedMark}
                       type="number"
+                      onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}
                       label="Obtained Mark"
                       variant="outlined"
                       inputProps={{ tabIndex: "1" }}
@@ -128,6 +132,7 @@ const ExamMarkEntryBulk = ({ bulkData, statusData }) => {
                       id={`practical_${subject.IDHREmployee}`}
                       defaultValue={subject.ObtainedMarkPractical}
                       type="number"
+                      onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}
                       label="Obtained Practical Mark"
                       variant="outlined"
                       inputProps={{ tabIndex: "2" }}
@@ -139,6 +144,7 @@ const ExamMarkEntryBulk = ({ bulkData, statusData }) => {
                       id={`preterm_${subject.IDHREmployee}`}
                       defaultValue={subject.ObtainedMarkPreTerm}
                       type="number"
+                      onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}
                       label="Obtained PreTerm Mark"
                       variant="outlined"
                       inputProps={{ tabIndex: "3" }}

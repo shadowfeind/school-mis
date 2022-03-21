@@ -86,6 +86,9 @@ const ExamMarkApprovalBulk = ({
       setBulk(bulkData);
     }
   }, [bulkData]);
+
+  const symbolsArr = ["e", "E", "+", "-", "."];
+
   return (
     <>
       <TableContainer component={Paper}>
@@ -119,6 +122,7 @@ const ExamMarkApprovalBulk = ({
                       value={subject.ObtainedMark}
                       type="number"
                       label="Obtained Mark"
+                      onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}
                       variant="outlined"
                       inputProps={{ tabIndex: "1" }}
                       onChange={(e) =>
@@ -139,6 +143,7 @@ const ExamMarkApprovalBulk = ({
                       type="number"
                       label="Obtained Practical Mark"
                       variant="outlined"
+                      onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}
                       inputProps={{ tabIndex: "2" }}
                       onChange={(e) =>
                         onChangeHandler(

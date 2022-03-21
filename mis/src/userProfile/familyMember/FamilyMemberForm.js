@@ -173,6 +173,9 @@ const FamilyMemberForm = ({ familyMember, setOpenPopup }) => {
 
   const test = [{ Key: "", value: "" }];
 
+  const symbolsArr = ["e", "E", "+", "-", "."];
+
+
   return (
     <Form onSubmit={handleSubmit}>
       <Grid container style={{ fontSize: "12px" }}>
@@ -204,6 +207,7 @@ const FamilyMemberForm = ({ familyMember, setOpenPopup }) => {
             label="Mobile Number"
             value={values.MobileNumber}
             onChange={handleInputChange}
+            onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}
             errors={errors.MobileNumber}
             type= "number"
           />
@@ -288,6 +292,7 @@ const FamilyMemberForm = ({ familyMember, setOpenPopup }) => {
             label="Office Phone"
             value={values.OfficePhone}
             onChange={handleInputChange}
+            onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}
             errors={errors.OfficePhone}
             type= "number"
           />

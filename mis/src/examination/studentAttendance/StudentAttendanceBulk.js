@@ -93,11 +93,14 @@ const StudentAttendanceBulk = ({
     return Object.values(temp).every((x) => x === "");
   };
 
+  const symbolsArr = ["e", "E", "+", "-", "."];
+
   return (
     <>
       <div style={{ width: "300px", margin: "15px auto" }}>
         <TextField
           type="number"
+          onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}
           label="WorkingDayTotal"
           variant="outlined"
           name="WorkingDayTotal"
@@ -133,6 +136,7 @@ const StudentAttendanceBulk = ({
                       label="Present Day"
                       variant="outlined"
                       name="PresentDay"
+                      onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}
                       inputProps={{ tabIndex: "1" }}
                       onChange={(e) =>
                         onChangeHandler(
@@ -153,6 +157,7 @@ const StudentAttendanceBulk = ({
                       label="Absent Day"
                       variant="outlined"
                       name="AbsentDay"
+                      onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}
                       inputProps={{ tabIndex: "2" }}
                       onChange={(e) =>
                         e.target.value >= 0 &&

@@ -188,6 +188,7 @@ const SchoolSettingsForm = ({ college, setOpenPopup }) => {
             label="Alternative Phone No*"
             value={values.AlternatePhoneNo}
             onChange={handleInputChange}
+            onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}
             errors={errors.AlternatePhoneNo}
             type="number"
           />
@@ -204,6 +205,7 @@ const SchoolSettingsForm = ({ college, setOpenPopup }) => {
             name="FaxNo"
             label="Fax No*"
             value={values.FaxNo}
+            onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}
             onChange={handleInputChange}
             errors={errors.FaxNo}
             type="number"
@@ -213,6 +215,7 @@ const SchoolSettingsForm = ({ college, setOpenPopup }) => {
             label="Pan No*"
             value={values.PanNo}
             errors={errors.PanNo}
+            onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}
             onChange={handleInputChange}
             type="number"
           />
@@ -221,6 +224,7 @@ const SchoolSettingsForm = ({ college, setOpenPopup }) => {
             label="Alternative Fax No"
             value={values.AlternateFaxNo}
             onChange={handleInputChange}
+            onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}
             errors={errors.AlternateFaxNo}
             type="number"
           />

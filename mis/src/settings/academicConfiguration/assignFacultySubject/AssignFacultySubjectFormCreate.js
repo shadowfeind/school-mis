@@ -90,6 +90,9 @@ const AssignFacultySubjectFormCreate = ({
       setSubjects(assignFacSubGenerate);
     }
   }, [subjectOptions, assignFacSubGenerate]);
+
+  const symbolsArr = ["e", "E", "+", "-", "."];
+
   return (
     <>
       <TableContainer component={Paper}>
@@ -135,6 +138,7 @@ const AssignFacultySubjectFormCreate = ({
                       type="number"
                       label="Credit Hours"
                       variant="outlined"
+                      onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}
                       onChange={(e) => inputHandler(subject, e.target.value)}
                       inputProps={{ tabIndex: "1" }}
                     />

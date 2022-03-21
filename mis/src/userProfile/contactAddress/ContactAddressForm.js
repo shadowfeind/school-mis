@@ -135,6 +135,7 @@ const ContactAddressForm =({contactAddress, setOpenPopup})=>{
       setValues({ ...contactAddress.dbModel });
     }
   }, [contactAddress]);
+  const symbolsArr = ["e", "E", "+", "-", "."];
 
   const test = [{Key:"", Value:""}]
   const citizenOption = [{Key:"0", Value:"No"},{Key:"1", Value:"Yes"}]
@@ -213,7 +214,9 @@ const ContactAddressForm =({contactAddress, setOpenPopup})=>{
           label="Temporary Ward No"
           value={values.TemporaryWardNo}
           onChange={handleInputChange}
+          onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}
           errors={errors.TemporaryWardNo}
+          type="number"
         />
         <InputControl
           name="PermanentTownVillage"
@@ -227,7 +230,9 @@ const ContactAddressForm =({contactAddress, setOpenPopup})=>{
           label="Permanent Ward No"
           value={values.PermanentWardNo}
           onChange={handleInputChange}
+          onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}
           errors={errors.PermanentWardNo}
+          type="number"
         />
      </Grid>
       </Grid>

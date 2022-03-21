@@ -71,6 +71,9 @@ const ContactNumberForm = ({ contactNumber, setOpenPopup }) => {
     }
   }, [contactNumber]);
 
+  const symbolsArr = ["e", "E", "+", "-", "."];
+
+
   return (
     <Form onSubmit={handleSubmit}>
       <Grid container style={{ fontSize: "12px" }}>
@@ -80,6 +83,7 @@ const ContactNumberForm = ({ contactNumber, setOpenPopup }) => {
             label="Office Number"
             value={values.OfficeNumber}
             onChange={handleInputChange}
+            onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}
             errors={errors.OfficeNumber}
             type="number"
           />
@@ -89,6 +93,7 @@ const ContactNumberForm = ({ contactNumber, setOpenPopup }) => {
             label="Home Number"
             value={values.HomeNumber}
             onChange={handleInputChange}
+            onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}
             errors={errors.HomeNumber}
             type="number"
           />
@@ -97,6 +102,7 @@ const ContactNumberForm = ({ contactNumber, setOpenPopup }) => {
             name="OtherNumber"
             label="Other Number"
             value={values.OtherNumber}
+            onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}
             onChange={handleInputChange}
             errors={errors.OtherNumber}
             type="number"
@@ -107,6 +113,7 @@ const ContactNumberForm = ({ contactNumber, setOpenPopup }) => {
             name="OfficeNumberExtension"
             label="Office Number Ext"
             value={values.OfficeNumberExtension}
+            onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}
             onChange={handleInputChange}
             errors={errors.OfficeNumberExtension}
             type="number"
@@ -116,6 +123,7 @@ const ContactNumberForm = ({ contactNumber, setOpenPopup }) => {
             name="MobileNumber"
             label="Mobile Number"
             value={values.MobileNumber}
+            onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}
             onChange={handleInputChange}
             errors={errors.MobileNumber}
             type="number"

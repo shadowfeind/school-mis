@@ -192,6 +192,9 @@ const StudentProfileForm = ({ studentData, setOpenPopup }) => {
       setValues({ ...studentData.hrEmployeeModel });
     }
   }, [studentData]);
+
+  const symbolsArr = ["e", "E", "+", "-", "."];
+
   return (
     <Form onSubmit={handleSubmit}>
       <Grid container style={{ fontSize: "12px" }}>
@@ -276,6 +279,7 @@ const StudentProfileForm = ({ studentData, setOpenPopup }) => {
             label="Mobile Number"
             value={values.MobileNumber}
             onChange={handleInputChange}
+            onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}
             type="number"
             errors={errors.MobileNumber}
           />
@@ -283,6 +287,7 @@ const StudentProfileForm = ({ studentData, setOpenPopup }) => {
             name="OtherNumber"
             label="Other Number"
             value={values.OtherNumber}
+            onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}
             onChange={handleInputChange}
             type="number"
           />

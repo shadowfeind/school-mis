@@ -17,7 +17,9 @@ import Notification from "../../../components/Notification";
 import ConfirmDialog from "../../../components/ConfirmDialog";
 import {
   ACADEMIC_YEAR_CALENDAR_CREATE_POST_RESET,
+  ACADEMIC_YEAR_CALENDAR_CREATE_RESET,
   GET_ALL_ACADEMIC_YEAR_CALENDAR_RESET,
+  GET_SINGLE_ACADEMIC_YEAR_CALENDAR_RESET,
   UPDATE_SINGLE_ACADEMIC_YEAR_CALENDAR_RESET,
 } from "./AcademicYearCalendarConstant";
 import AcademicYearCalendarTableCollapse from "./AcademicYearCalendarTableCollapse";
@@ -152,7 +154,7 @@ const AcademicYearCalendar = () => {
     });
     setOpenPopup(false);
     dispatch({ type: UPDATE_SINGLE_ACADEMIC_YEAR_CALENDAR_RESET });
-    // dispatch(academicYearCalendarSearchAction(acaYear, programValue, classId));
+    dispatch(academicYearCalendarSearchAction(acaYear, programValue, classId));
   }
 
   const updateAcademicYear = (id) => {
@@ -244,6 +246,7 @@ const AcademicYearCalendar = () => {
       dispatch(
         createAcademicYearCalendarAction(acaYear, programValue, classId)
       );
+      dispatch({type:GET_SINGLE_ACADEMIC_YEAR_CALENDAR_RESET })
       setOpenPopup(true);
     }
   };

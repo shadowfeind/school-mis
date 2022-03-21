@@ -90,7 +90,7 @@ const initialFormValues = {
 };
 
 const gender = [
-  { Key: "male", Value: "Male" },
+  { Key: "Male", Value: "Male" },
   { Key: "female", Value: "Female" },
 ];
 
@@ -114,16 +114,7 @@ const levelStatus = [
   {Key: "passed", Value: "Passed"},
 ]
 
-const bloodGroup = [
-  {Key: "a+", Value: "A+"},
-  {Key: "a-", Value: "A-"},
-  {Key: "b+", Value: "B+"},
-  {Key: "b-", Value: "B-"},
-  {Key: "ab+", Value: "AB+"},
-  {Key: "ab-", Value: "AB-"},
-  {Key: "o+", Value: "O+"},
-  {Key: "o-", Value: "O-"},
-]
+
 
 const StudentProfileForm = ({ studentData, setOpenPopup }) => {
   const dispatch = useDispatch();
@@ -168,9 +159,7 @@ const StudentProfileForm = ({ studentData, setOpenPopup }) => {
       temp.RollNo = !fieldValues.RollNo
       ? "This feild is required"
       : "";
-      temp.LevelStatus = !fieldValues.LevelStatus
-      ? "This feild is required"
-      : "";
+     
 
 
     setErrors({ ...temp });
@@ -227,11 +216,10 @@ const StudentProfileForm = ({ studentData, setOpenPopup }) => {
             onChange={handleInputChange}
             errors={errors.EmailID}
           />
-          <SelectControl
+          <InputControl
             name="BloodGroup"
             label="Blood Group"
             value={values.BloodGroup}
-            options={bloodGroup}
             onChange={handleInputChange}
             errors={errors.BloodGroup}
           />
@@ -297,14 +285,6 @@ const StudentProfileForm = ({ studentData, setOpenPopup }) => {
             value={values.RollNo}
             onChange={handleInputChange}
             errors={errors.RollNo}
-          />
-          <SelectControl
-            name="LevelStatus"
-            label="Status"
-            value={values.LevelStatus}
-            onChange={handleInputChange}
-            options={levelStatus}
-            errors={errors.LevelStatus}
           />
         </Grid>
       </Grid>

@@ -128,6 +128,8 @@ import {
   getReassociateStudentsLevelupPostReducer,
   getReassociateStudentsLevelupReducer,
   getReassociateStudentsListsReducer,
+  getSingleEditReassociateStudentsReducer,
+  putReassociateStudentsReducer,
 } from "./settings/studentManagement/reassociateStudent/ReassociateStudentReducers";
 
 //examination reducers link start
@@ -490,6 +492,8 @@ export const reducers = combineReducers({
   getReassociateStudentsLists: getReassociateStudentsListsReducer,
   getReassociateStudentsLevelup: getReassociateStudentsLevelupReducer,
   getReassociateStudentsLevelupPost: getReassociateStudentsLevelupPostReducer,
+  getSingleEditReassociateStudents:getSingleEditReassociateStudentsReducer,
+  putReassociateStudents : putReassociateStudentsReducer,
   getAllSearchTeacherFacSubInitialData:
     getAllSearchTeacherFacSubInitialDataReducer,
   getAllSearchTeacherFacSubListData: getAllSearchTeacherFacSubListDataReducer,

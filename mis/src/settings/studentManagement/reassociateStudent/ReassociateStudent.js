@@ -21,10 +21,15 @@ import {
   getReassociateStudentsLevelupAction,
   getReassociateStudentsLevelupPostAction,
   getReassociateStudentsListsAction,
+  getSingleEditReassociateStudentsAction,
 } from "./ReassociateStudentActions";
 import ReassociateStudentTableCollapse from "./ReassociateStudentTableCollapse";
 import ReassociateStudentLevelUp from "./ReassociateStudentLevelUp";
-import { GET_REASSOCIATE_STUDENTS_LEVEL_UP_POST_RESET } from "./ReassociateStudentConstants";
+import {
+  GET_REASSOCIATE_STUDENTS_LEVEL_UP_POST_RESET,
+  GET_SINGLE_TO_EDIT_REASSOCIATE_STUDENTS_RESET,
+  PUT_REASSOCIATE_STUDENTS_RESET,
+} from "./ReassociateStudentConstants";
 import ReassociateStudentSearchEditForm from "./ReassociateStudentSearchEditForm";
 
 const useStyles = makeStyles((theme) => ({
@@ -118,10 +123,47 @@ const ReassociateStudent = () => {
   const { reassociateStudentLevel } = useSelector(
     (state) => state.getReassociateStudentsLevelup
   );
+  const {
+    singleEditReassociateStudent,
+    error: singleEditReassociateStudentError,
+  } = useSelector((state) => state.getSingleEditReassociateStudents);
 
   const { success: reassociatePostSuccess } = useSelector(
     (state) => state.getReassociateStudentsLevelupPost
   );
+
+  const { success: putReassociateSuccess } = useSelector(
+    (state) => state.putReassociateStudents
+  );
+
+  if (singleEditReassociateStudentError) {
+    setNotify({
+      isOpen: true,
+      message: singleEditReassociateStudentError,
+      type: "error",
+    });
+    dispatch({ type: GET_SINGLE_TO_EDIT_REASSOCIATE_STUDENTS_RESET });
+    setOpenPopup(false);
+  }
+
+  if (putReassociateSuccess) {
+    setNotify({
+      isOpen: true,
+      message: "Updated Successfully",
+      type: "success",
+    });
+    dispatch(
+      getReassociateStudentsListsAction(
+        academicYearValue,
+        programValue,
+        shiftValue,
+        classOptValue,
+        sectionValue
+      )
+    );
+    dispatch({ type: PUT_REASSOCIATE_STUDENTS_RESET });
+    setOpenPopup(false);
+  }
 
   if (reassociatePostSuccess) {
     setFormCheck([]);
@@ -209,7 +251,24 @@ const ReassociateStudent = () => {
     setOpenPopup(false);
   };
 
-  const updateFormHandler = () => {
+  const updateFormHandler = (
+    id,
+    academicYearValue,
+    programValue,
+    shiftValue,
+    classOptValue,
+    sectionValue
+  ) => {
+    dispatch(
+      getSingleEditReassociateStudentsAction(
+        id,
+        academicYearValue,
+        programValue,
+        shiftValue,
+        classOptValue,
+        sectionValue
+      )
+    );
     setOpenPopupEdit(true);
   };
   return (
@@ -363,7 +422,12 @@ const ReassociateStudent = () => {
         setOpenPopup={setOpenPopupEdit}
         title="Edit Reassociate Students"
       >
-        <ReassociateStudentSearchEditForm />
+        <ReassociateStudentSearchEditForm
+          reassociateForm={
+            singleEditReassociateStudent && singleEditReassociateStudent
+          }
+          setOpenPopup={setOpenPopup}
+        />
       </Popup>
       <Notification notify={notify} setNotify={setNotify} />
       <ConfirmDialog

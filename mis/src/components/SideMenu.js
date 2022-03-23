@@ -8,6 +8,7 @@ import { DashboardRoute } from "../routesConfig/DashboardRoute";
 import { ExaminationRoute } from "../routesConfig/ExaminationRoute";
 import { RegistrationRoute } from "../routesConfig/RegistrationRoute";
 import { SettingsRoute } from "../routesConfig/SettingsRoute";
+import { NotificationRoute } from "../routesConfig/NotificationRoute";
 
 const useStyles = makeStyles({
   sideMenu: {
@@ -81,6 +82,12 @@ const SideMenu = () => {
     if (routeCheck !== "attendance") {
       setRouteCheck("attendance");
       setRouteLinks(AttendanceRoute);
+    }
+  }
+  if (navLink === "/notification") {
+    if (routeCheck !== "/notification") {
+      setRouteCheck("/notification");
+      setRouteLinks(NotificationRoute);
     }
   }
   return (

@@ -79,9 +79,9 @@ const AcademicGrading = () => {
     (state) => state.academicGrading
   );
 
-  // const { academicGrading: singleAcademicGrading, error: singleAcademicGradingError } = useSelector(
-  //     (state) => state.getSingleAcademicGrading
-  // );
+  const { academicGradingCreate: singleAcademicGradingCreate, error: singleAcademicGradingCreateError } = useSelector(
+      (state) => state.getSingleAcademicGrading
+  );
 
   const {
     academicGradingEdit: singleAcademicGrading,
@@ -157,6 +157,21 @@ const AcademicGrading = () => {
     dispatch({ type: GET_SINGLE_ACADEMIC_GRADING_EDIT_RESET });
   }
 
+  if (singleAcademicGradingCreateError) {
+    setNotify({
+      isOpen: true,
+      message: singleAcademicGradingCreateError,
+      type: "error",
+    });
+    dispatch({ type: GET_SINGLE_ACADEMIC_GRADING_RESET });
+  }
+
+  const addHandler = () => {
+    // dispatch(getSingleAcademicGradingAction(program));
+    dispatch({ type: GET_SINGLE_ACADEMIC_GRADING_EDIT_RESET });
+    setOpenPopup(true);
+  };
+  
   const updateCollegeHandler = (id,program) => {
     dispatch(getSingleAcademicGradingforEditAction(id,program));
     setOpenPopup(true);
@@ -195,11 +210,7 @@ const AcademicGrading = () => {
     });
   };
 
-  const addHandler = () => {
-    dispatch({ type: GET_SINGLE_ACADEMIC_GRADING_EDIT_RESET });
-    // dispatch(getSingleAcademicGradingAction(program));
-    setOpenPopup(true);
-  };
+  
   return (
     <>
       <CustomContainer>
@@ -250,6 +261,9 @@ const AcademicGrading = () => {
         <AcademicGradingForm
           academicGradingEdit={
             singleAcademicGrading && singleAcademicGrading.dbModel
+          }
+          academicGradingCreate={
+            singleAcademicGradingCreate && singleAcademicGradingCreate.dbModel
           }
           setOpenPopup={setOpenPopup}
         />

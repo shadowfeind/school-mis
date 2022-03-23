@@ -391,6 +391,8 @@ import { getAllEcaLookUpReducer, getDetailEcaLookUpReducer, getListEcaLookUpRedu
 import { getAllAssignEcaReducer, getListAssignEcaReducer, getSingleCreateAssignEcaReducer, postAssignEcaReducer } from "./settings/academicConfiguration/assignEca/AssignEcaReducers";
 import { getAllEcaDataReducer, getBulkEditEcaDataReducer, getListEcaDataReducer, postBulkEditEcaDataReducer } from "./examination/ecaData/EcaDataReducers";
 import { getAllHrValueReducer, getListHrValueReducer, getSingleToCreateHrValueReducer, getSingleToEditHrValueReducer, postFileUploadHeaderBannerReducer, postFileUploadPrincipleSignatureReducer, postFileUploadSchoolLogoReducer, postHrValueReducer, putHrValueReducer } from "./settings/schoolConfiguration/hrValue/HrValueReducers";
+import { getAllClassNotificationReducer, getBulkClassNotificationReducer, getListClassNotificationReducer, postClassNotificationReducer } from "./notification/classNotification/ClassNotificationReducers";
+import { getAllTeacherNotificationReducer, getListTeacherNotificationReducer, getSingleCreateTeacherNotificationReducer, postTeacherNotificationReducer } from "./notification/teacherNotification/TeacherNotificationRedcuers";
 //examination reducers link end
 export const reducers = combineReducers({
   //header
@@ -721,4 +723,15 @@ export const reducers = combineReducers({
   postFileUploadHeaderBanner : postFileUploadHeaderBannerReducer,
   postFileUploadSchoolLogo : postFileUploadSchoolLogoReducer,
   postFileUploadPrincipleSignature : postFileUploadPrincipleSignatureReducer,
+  //ClassNotification Reducers
+  getAllClassNotification : getAllClassNotificationReducer,
+  getListClassNotification : getListClassNotificationReducer,
+  getBulkClassNotification : getBulkClassNotificationReducer,
+  postClassNotification : postClassNotificationReducer,
+
+  //TeacherNotification Reducers:
+  getAllTeacherNotification : getAllTeacherNotificationReducer,
+  getListTeacherNotification : getListTeacherNotificationReducer,
+  getSingleCreateTeacherNotification : getSingleCreateTeacherNotificationReducer,
+  postTeacherNotification : postTeacherNotificationReducer,
 });

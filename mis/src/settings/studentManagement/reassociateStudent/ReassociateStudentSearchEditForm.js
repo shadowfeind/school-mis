@@ -2,17 +2,17 @@ import React, { useEffect } from "react";
 import { Button, Grid } from "@material-ui/core";
 import InputControl from "../../../components/controls/InputControl";
 import { useForm, Form } from "../../../customHooks/useForm";
-import { useDispatch } from "react-redux";
+import { useDispatch,useSelector } from "react-redux";
 import { putReassociateStudentsAction } from "./ReassociateStudentActions";
 import SelectControl from "../../../components/controls/SelectControl";
 
 const initialFormValues = {
-  IDStudentFacultyLevel: 0,
-  IDYearFacultyLink: 0,
-  IDAdmissionRegistration: 0,
-  IDLevel: 0,
+  IDStudentFacultyLevel: "",
+  IDYearFacultyLink: "",
+  IDAdmissionRegistration: "",
+  IDLevel: "",
   Section: "",
-  IDAcademicShift: 0,
+  IDAcademicShift: "",
   LevelStatus: "",
   Created_On: "2022-03-21T10:50:18.233Z",
   Updated_On: "2022-03-21T10:50:18.233Z",
@@ -58,22 +58,22 @@ const ReassociateStudentSearchEditForm = (reassociateForm,setOpenPopup) => {
 
     useEffect(() => {
       if (reassociateForm) {
-        setValues({ ...reassociateForm });
+        setValues({ ...reassociateForm.dbModel });
       }
     }, [reassociateForm]);
 
+    const test = [{Key:"",Value:""}]
 
   return (
     <>
       <Form onSubmit={handleSubmit}>
       <Grid container style={{ fontSize: "12px" }}>
       <Grid item xs={6}>
-      <SelectControl
+      <InputControl
       disabled
             name="IDAdmissionRegistration"
             label="Admission Registration"
             value={values.IDAdmissionRegistration}
-            // options={bloodGroup}
             onChange={handleInputChange}
             errors={errors.IDAdmissionRegistration}
           />
@@ -81,7 +81,7 @@ const ReassociateStudentSearchEditForm = (reassociateForm,setOpenPopup) => {
             name="IDYearFacultyLink"
             label="Year Faculty Link"
             value={values.IDYearFacultyLink}
-            // options={bloodGroup}
+            // options={ddlAcademicYear}
             onChange={handleInputChange}
             errors={errors.IDYearFacultyLink}
           />
@@ -89,15 +89,16 @@ const ReassociateStudentSearchEditForm = (reassociateForm,setOpenPopup) => {
             name="IDLevel"
             label="Level"
             value={values.IDLevel}
-            // options={bloodGroup}
+            // options={ddlClass}
             onChange={handleInputChange}
             errors={errors.IDLevel}
-          />
+          /></Grid>
+           <Grid item xs={6}>
           <SelectControl
             name="IDAcademicShift"
             label="AcademicShift"
             value={values.IDAcademicShift}
-            // options={bloodGroup}
+            // options={ddlAcademicShift}
             onChange={handleInputChange}
             errors={errors.IDAcademicShift}
           />
@@ -105,7 +106,7 @@ const ReassociateStudentSearchEditForm = (reassociateForm,setOpenPopup) => {
             name="Section"
             label="Section"
             value={values.Section}
-            // options={bloodGroup}
+            // options={ddlSection}
             onChange={handleInputChange}
             errors={errors.Section}
           />
@@ -113,7 +114,7 @@ const ReassociateStudentSearchEditForm = (reassociateForm,setOpenPopup) => {
             name="LevelStatus"
             label="Level Status"
             value={values.LevelStatus}
-            // options={bloodGroup}
+            // options={ddlLevelStatus}
             onChange={handleInputChange}
             errors={errors.LevelStatus}
           />

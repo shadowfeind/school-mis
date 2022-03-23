@@ -19,7 +19,7 @@ const initialFormValues = {
   Updated_On: "2021-09-23",
 };
 
-const AcademicGradingForm = ({ academicGradingEdit, setOpenPopup }) => {
+const AcademicGradingForm = ({ academicGradingEdit,academicGradingCreate, setOpenPopup }) => {
   const dispatch = useDispatch();
   const validate = (fieldValues = values) => {
     let temp = { ...errors };
@@ -60,6 +60,12 @@ const AcademicGradingForm = ({ academicGradingEdit, setOpenPopup }) => {
       }
     }
   };
+
+  useEffect(() => {
+    if (academicGradingCreate) {
+      setValues({ ...academicGradingCreate });
+    }
+  }, [academicGradingCreate]);
 
   useEffect(() => {
     if (academicGradingEdit) {

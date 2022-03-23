@@ -77,15 +77,15 @@ const ReassociateStudent = () => {
     subTitle: "",
   });
   const [academicYear, setAcademicYear] = useState([]);
-  const [academicYearValue, setAcademicYearValue] = useState();
+  const [academicYearValue, setAcademicYearValue] = useState("");
   const [shift, setShift] = useState([]);
-  const [shiftValue, setShiftValue] = useState();
+  const [shiftValue, setShiftValue] = useState("");
   const [program, setProgram] = useState([]);
-  const [programValue, setProgramValue] = useState();
+  const [programValue, setProgramValue] = useState("");
   const [section, setSection] = useState([]);
-  const [sectionValue, setSectionValue] = useState();
+  const [sectionValue, setSectionValue] = useState("");
   const [classOpt, setClassOpt] = useState([]);
-  const [classOptValue, setClassOptValue] = useState();
+  const [classOptValue, setClassOptValue] = useState("");
   const [formCheck, setFormCheck] = useState([]);
   const [errors, setErrors] = useState([]);
 
@@ -255,8 +255,8 @@ const ReassociateStudent = () => {
     id,
     academicYearValue,
     programValue,
-    shiftValue,
     classOptValue,
+    shiftValue,
     sectionValue
   ) => {
     dispatch(
@@ -264,8 +264,8 @@ const ReassociateStudent = () => {
         id,
         academicYearValue,
         programValue,
-        shiftValue,
         classOptValue,
+        shiftValue,
         sectionValue
       )
     );
@@ -426,7 +426,7 @@ const ReassociateStudent = () => {
           reassociateForm={
             singleEditReassociateStudent && singleEditReassociateStudent
           }
-          setOpenPopup={setOpenPopup}
+          setOpenPopup={setOpenPopupEdit}
         />
       </Popup>
       <Notification notify={notify} setNotify={setNotify} />

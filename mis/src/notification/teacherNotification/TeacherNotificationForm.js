@@ -25,7 +25,7 @@ const useStyles = makeStyles({
   },
 });
 
-const TeacherNotificationForm = ({ teacherNotification, setOpenPopup }) => {
+const TeacherNotificationForm = ({ setOpenPopup }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
 
@@ -53,11 +53,6 @@ const TeacherNotificationForm = ({ teacherNotification, setOpenPopup }) => {
     }
   };
 
-  useEffect(() => {
-    if (teacherNotification) {
-      setValues({ ...teacherNotification });
-    }
-  }, [teacherNotification]);
 
   return (
     <>
@@ -70,7 +65,7 @@ const TeacherNotificationForm = ({ teacherNotification, setOpenPopup }) => {
               value={values.MessageHeading}
               onChange={handleInputChange}
               errors={errors.MessageHeading}
-            />
+            /></Grid><Grid item xs={6}>
             <InputControl
               name="MessageDescription"
               label="Message Descriptions"

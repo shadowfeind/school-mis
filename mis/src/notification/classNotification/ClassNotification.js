@@ -22,7 +22,11 @@ import {
   GET_LIST_CLASS_NOTIFICATION_RESET,
   POST_CLASS_NOTIFICATION_RESET,
 } from "./ClassNotificationConstants";
-import { getAllClassNotificationAction,getBulkClassNotificationAction, getListClassNotificationAction } from "./ClassNotificationActions";
+import {
+  getAllClassNotificationAction,
+  getBulkClassNotificationAction,
+  getListClassNotificationAction,
+} from "./ClassNotificationActions";
 import ClassNotificationTableCollapse from "./ClassNotificationTableCollapse";
 import ClassNotificationForm from "./ClassNotificationForm";
 
@@ -45,7 +49,7 @@ const tableHeader = [
 ];
 
 const ClassNotification = () => {
-  const[academicYear, setAcademicYear] = useState([]);
+  const [academicYear, setAcademicYear] = useState([]);
   const [academicYearValue, setAcademicYearValue] = useState("");
   const [shift, setShift] = useState([]);
   const [shiftValue, setShiftValue] = useState("");
@@ -231,11 +235,11 @@ const ClassNotification = () => {
   };
 
   return (
-      <>
-          <CustomContainer>
-          <Toolbar>
+    <>
+      <CustomContainer>
+        <Toolbar>
           <Grid container style={{ fontSize: "12px" }}>
-          <Grid item xs={3}>
+            <Grid item xs={3}>
               <SelectControl
                 name="academicYear"
                 label="Academic Year"
@@ -288,7 +292,7 @@ const ClassNotification = () => {
               />
             </Grid>
             <Grid item xs={3}>
-            <Button
+              <Button
                 variant="contained"
                 color="primary"
                 type="submit"
@@ -308,47 +312,36 @@ const ClassNotification = () => {
               </Button>
             </Grid>
           </Grid>
-          </Toolbar>
-          <TableContainer className={classes.table}>
+        </Toolbar>
+        <TableContainer className={classes.table}>
           <TblHead />
-         
-            <TableBody>
-              {tableDataAfterPagingAndSorting().map((item) => (
-                <ClassNotificationTableCollapse
-                item={item}
-                key={item.$id}
-                />
-              ))}
-            </TableBody>
-          
-          </TableContainer>
-          <TblPagination />
-          </CustomContainer>
-          <Popup
+
+          <TableBody>
+            {tableDataAfterPagingAndSorting().map((item) => (
+              <ClassNotificationTableCollapse item={item} key={item.$id} />
+            ))}
+          </TableBody>
+        </TableContainer>
+        <TblPagination />
+      </CustomContainer>
+      <Popup
         openPopup={openPopup}
         setOpenPopup={setOpenPopup}
         title="Class Notification"
       >
         <ClassNotificationForm
-          students={
-            bulkClassNotification &&
-            bulkClassNotification.dbModelLst
-          }
-          formDatas={
-            bulkClassNotification &&
-            bulkClassNotification.dbModel
-          }
+          students={bulkClassNotification && bulkClassNotification.dbModelLst}
+          formDatas={bulkClassNotification && bulkClassNotification.dbModel}
           setOpenPopup={setOpenPopup}
         />
       </Popup>
-          <Notification notify={notify} setNotify={setNotify} />
+      <Notification notify={notify} setNotify={setNotify} />
       <ConfirmDialog
         confirmDialog={confirmDialog}
         setConfirmDialog={setConfirmDialog}
       />
-      </>
-  )
-
+    </>
+  );
 };
 
 export default ClassNotification;

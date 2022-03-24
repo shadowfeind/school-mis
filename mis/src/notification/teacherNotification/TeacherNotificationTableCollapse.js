@@ -19,19 +19,12 @@ const TeacherNotificationTableCollapse = ({ item }) => {
     <>
       <TableRow>
         <TableCell>
-          {item.FirstName} {item.MiddleName} {item.LastName}
+          {item.SenderID}
         </TableCell>
         <TableCell>{item.MessageDescription}</TableCell>
-        <TableCell>{item.TeacherName}</TableCell>
+        <TableCell>{item.ReceiverID}</TableCell>
         <TableCell>{item.Created_On?.slice(0, 10)}</TableCell>
         <TableCell>
-          <Button
-            variant="contained"
-            color="primary"
-            className={classes.button}
-          >
-            <EditIcon style={{ fontSize: 12 }} />
-          </Button>
           <Button
             variant="contained"
             color="secondary"

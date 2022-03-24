@@ -226,10 +226,6 @@ const TeacherNotification = () => {
         title="Teacher Notification"
       >
         <TeacherNotificationForm
-          ecaCreate={
-            singleCreateTeacherNotification &&
-            singleCreateTeacherNotification.dbModel
-          }
           setOpenPopup={setOpenPopup}
         />
       </Popup>

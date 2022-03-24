@@ -113,9 +113,8 @@ const StyledTableCell = withStyles((theme) => ({
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(selectedStudents);
     if (validate()) {
-      dispatch(postClassNotificationAction( values, selectedStudents));
+      dispatch(postClassNotificationAction( values,selectedStudents));
     }
   };
   const symbolsArr = ["e", "E", "+", "-", "."];
@@ -188,7 +187,8 @@ const StyledTableCell = withStyles((theme) => ({
               value={values.MessageHeading}
               onChange={handleInputChange}
               errors={errors.MessageHeading}
-            />
+            /> 
+            </Grid><Grid item xs={6}>
             <InputControl
               name="MessageDescription"
               label="Message Descriptions"

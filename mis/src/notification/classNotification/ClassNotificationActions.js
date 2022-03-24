@@ -76,8 +76,9 @@ export const getBulkClassNotificationAction =
     try {
       dispatch({ type: POST_CLASS_NOTIFICATION_REQUEST });
   
-      const jsonData = JSON.stringify({ dbModel: classNotification });
-  
+      const jsonData = JSON.stringify({ dbModel: classNotification
+      });
+  console.log(jsonData)
       // const config = {
       //   headers: {
       //     "Content-Type": "application/json",
@@ -98,3 +99,11 @@ export const getBulkClassNotificationAction =
       });
     }
   };
+  // IDFacultyProgramLink = entity.dbModel.IDFacultyProgramLink,
+  //                           IDAcademicYear = entity.dbModel.IDAcademicYear,
+  //                           IDLevel = entity.dbModel.IDLevel,
+  //                           Section = entity.dbModel.Section,
+  //                           IDAcademicShift = entity.dbModel.IDAcademicShift,
+  //                           ReceiverID = item.IDHREmployee,
+  //                           MessageHeading = entity.dbModel.MessageHeading,
+  //                           MessageDescription = entity.dbModel.MessageDescription,

@@ -18,11 +18,13 @@ import ConfirmDialog from "../../components/ConfirmDialog";
 import AnnouncementForm from "./AnnouncementForm";
 import {
   getAllAnnouncementAction,
+  getFCMForAnnouncementAction,
   getSingleAnnouncementAction,
 } from "./AnnouncementAction";
 import AnnouncementTableCollapse from "./AnnouncementTableCollapse";
 import {
   ANNOUNCEMENT_CREATE_RESET,
+  ANNOUNCEMENT_FCM_RESET,
   GET_ALL_ANNOUNCEMENT_RESET,
   GET_SINGLE_ANNOUNCEMENT_RESET,
   UPDATE_SINGLE_ANNOUNCEMENT_RESET,
@@ -79,6 +81,10 @@ const AnnouncementTest = () => {
     (state) => state.getSingleAnnouncement
   );
 
+  const { announcementFCM, error: announcementFCMError } = useSelector(
+    (state) => state.getFCMForAnnouncement
+  );
+
   const {
     success: updateSingleAnnouncementSuccess,
     error: updateSingleAnnouncementError,
@@ -91,6 +97,14 @@ const AnnouncementTest = () => {
       type: "error",
     });
     dispatch({ type: GET_ALL_ANNOUNCEMENT_RESET });
+  }
+  if (announcementFCMError) {
+    setNotify({
+      isOpen: true,
+      message: announcementFCMError,
+      type: "error",
+    });
+    dispatch({ type: ANNOUNCEMENT_FCM_RESET });
   }
   if (createAnnouncementError) {
     setNotify({
@@ -173,6 +187,7 @@ const AnnouncementTest = () => {
   };
 
   const addHandler = () => {
+    dispatch(getFCMForAnnouncementAction());
     dispatch({ type: GET_SINGLE_ANNOUNCEMENT_RESET });
     setOpenPopup(true);
   };
@@ -238,6 +253,7 @@ const AnnouncementTest = () => {
       >
         <AnnouncementForm
           announcement={singleAnnouncement && singleAnnouncement.dbModel}
+          fcmTokenList={announcementFCM && announcementFCM.fcmTokenValueLst}
           setOpenPopup={setOpenPopup}
         />
       </Popup>

@@ -25,7 +25,7 @@ const useStyles = makeStyles({
   },
 });
 
-const TeacherNotificationForm = ({ setOpenPopup }) => {
+const TeacherNotificationForm = ({ setOpenPopup, fcmTokenList }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
 
@@ -49,10 +49,9 @@ const TeacherNotificationForm = ({ setOpenPopup }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (validate()) {
-      dispatch(postTeacherNotificationAction(values));
+      dispatch(postTeacherNotificationAction(values, fcmTokenList));
     }
   };
-
 
   return (
     <>
@@ -65,7 +64,9 @@ const TeacherNotificationForm = ({ setOpenPopup }) => {
               value={values.MessageHeading}
               onChange={handleInputChange}
               errors={errors.MessageHeading}
-            /></Grid><Grid item xs={6}>
+            />
+          </Grid>
+          <Grid item xs={6}>
             <InputControl
               name="MessageDescription"
               label="Message Descriptions"
@@ -83,31 +84,31 @@ const TeacherNotificationForm = ({ setOpenPopup }) => {
           </Grid>
         </Grid>
         <div
-        style={{
-          display: "flex",
-          justifyContent: "end",
-          paddingTop: "10px",
-          marginTop: "10px",
-          borderTop: "1px solid #f3f3f3",
-        }}
-      >
-        <Button
-          variant="contained"
-          color="secondary"
-          onClick={() => setOpenPopup(false)}
-          style={{ margin: "10px 0 0 10px" }}
+          style={{
+            display: "flex",
+            justifyContent: "end",
+            paddingTop: "10px",
+            marginTop: "10px",
+            borderTop: "1px solid #f3f3f3",
+          }}
         >
-          CANCEL
-        </Button>
-        <Button
-          variant="contained"
-          color="primary"
-          type="submit"
-          style={{ margin: "10px 0 0 10px" }}
-        >
-          SUBMIT
-        </Button>
-      </div>
+          <Button
+            variant="contained"
+            color="secondary"
+            onClick={() => setOpenPopup(false)}
+            style={{ margin: "10px 0 0 10px" }}
+          >
+            CANCEL
+          </Button>
+          <Button
+            variant="contained"
+            color="primary"
+            type="submit"
+            style={{ margin: "10px 0 0 10px" }}
+          >
+            SUBMIT
+          </Button>
+        </div>
       </Form>
     </>
   );

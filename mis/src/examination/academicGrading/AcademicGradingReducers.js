@@ -42,7 +42,7 @@ export const getSingleAcademicGradingReducer = (state = {}, action) => {
     case GET_SINGLE_ACADEMIC_GRADING_REQUEST:
       return { loading: true };
     case GET_SINGLE_ACADEMIC_GRADING_SUCCESS:
-      return { loading: false, academicGrading: action.payload, success: true };
+      return { loading: false, academicGradingCreate: action.payload, success: true };
     case GET_SINGLE_ACADEMIC_GRADING_FAIL:
       return { loading: false, error: action.payload };
     case GET_SINGLE_ACADEMIC_GRADING_RESET:

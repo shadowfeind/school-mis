@@ -190,6 +190,11 @@ const Header = () => {
                       Examination
                     </NavLink>
                   </li>
+                  <li>
+                    <NavLink to={"/notification"} activeStyle={isActive}>
+                      Notification
+                    </NavLink>
+                  </li>
                   {/* <li>
                     <a>Assignment</a>
                   </li> */}

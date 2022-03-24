@@ -1,0 +1,233 @@
+import React, { useState, useEffect } from "react";
+import {
+  Table,
+  TableBody,
+  TableContainer,
+  TableHead,
+  TableRow,
+  TableCell,
+  Checkbox,
+  Button,
+  Grid,
+} from "@material-ui/core";
+import { withStyles, makeStyles } from "@material-ui/core/styles";
+import Paper from "@material-ui/core/Paper";
+import { useDispatch } from "react-redux";
+import InputControl from "../../components/controls/InputControl";
+import { useForm, Form } from "../../customHooks/useForm";
+import { postClassNotificationAction } from "./ClassNotificationActions";
+
+const initialFormValues = {
+  IDClassNotification: 0,
+  IDAcademicYear: 0,
+  IDLevel: 0,
+  Section: 0,
+  IDAcademicShift: 0,
+  IDFacultyProgramLink: 0,
+  SenderID: 0,
+  ReceiverID: 0,
+  MessageHeading: "",
+  MessageDescription: "",
+  IsActive: true,
+  Created_On: "2022-03-23T04:40:44.702Z",
+  Updated_On: "2022-03-23T04:40:44.702Z",
+};
+
+const StyledTableCell = withStyles((theme) => ({
+    head: {
+      backgroundColor: theme.palette.common.grey,
+      color: theme.palette.common.black,
+    },
+    body: {
+      fontSize: 14,
+    },
+  }))(TableCell);
+  
+  const StyledTableRow = withStyles((theme) => ({
+    root: {
+      "&:nth-of-type(odd)": {
+        backgroundColor: theme.palette.action.hover,
+      },
+    },
+  }))(TableRow);
+  const useStyles = makeStyles({
+    table: {
+      minWidth: 700,
+    },
+  });
+
+  const ClassNotificationForm =({classNotification,students, setOpenPopup})=>{
+
+    const [checked, setChecked] = useState(false);
+    const [lstStudents, setLstStudents] = useState([]);
+  const [selectedStudents, setSelectedStudents] = useState([]);
+
+
+  const classes = useStyles();
+  const dispatch = useDispatch();
+
+  const { values, setValues, handleInputChange, errors, setErrors } =
+    useForm(initialFormValues);
+
+    const validate = (fieldValues = values) => {
+        let temp = { ...errors };
+
+        temp.MessageHeading =!fieldValues.MessageHeading ? "This Field is Required" : "";
+        temp.MessageDescription =!fieldValues.MessageDescription ? "This Field is Required" : "";
+        setErrors({ ...temp });
+    return Object.values(temp).every((x) => x === "");
+  };
+  useEffect(() => {
+    if (students) {
+      setLstStudents([...students]);
+    }
+  }, [students]);
+
+  useEffect(() => {
+    if (classNotification) {
+      setValues({ ...classNotification });
+    }
+  }, [classNotification]);
+
+  const handleAllChecked = (checked) => {
+    setChecked(checked);
+    if (checked) {
+      setSelectedStudents([...students]);
+    } else {
+      setSelectedStudents([]);
+    }
+  };
+
+  const handleChecked = (checked, obj) => {
+    if (!checked) {
+      setSelectedStudents((prev) => {
+        let newCheckList = prev.filter(
+          (x) => x.IDHREmployee !== obj.IDHREmployee
+        );
+        return [...newCheckList];
+      });
+    } else {
+      setSelectedStudents((prev) => [...prev, obj]);
+    }
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (validate()) {
+      dispatch(postClassNotificationAction( values,selectedStudents));
+    }
+  };
+  const symbolsArr = ["e", "E", "+", "-", "."];
+
+  return (
+      <>
+          <TableContainer component={Paper}>
+          <Table className={classes.table} aria-label="customized table">
+          <TableHead>
+          <TableRow>
+          <StyledTableCell>Roll No. </StyledTableCell>
+          <StyledTableCell>Student Name </StyledTableCell>
+          <StyledTableCell>Batch </StyledTableCell>
+          <StyledTableCell>Program/Faculty </StyledTableCell>
+          <StyledTableCell style={{ textAlign: "right" }}>
+                <label>Select All</label>
+                <Checkbox
+                  checked={checked}
+                  onChange={(e) => handleAllChecked(e.target.checked)}
+                />
+              </StyledTableCell>
+          </TableRow>
+          </TableHead>
+          <TableBody>
+          {lstStudents &&
+              lstStudents
+                .sort((a, b) => a.RollNo - b.RollNo)
+                .map((s) => (
+                  <StyledTableRow key={s.IDHREmployee}>
+                    <StyledTableCell component="th" scope="row">
+                      {s.RollNo}
+                    </StyledTableCell>
+                    <StyledTableCell component="th" scope="row">
+                      {s.StudentName}
+                    </StyledTableCell>
+                    <StyledTableCell component="th" scope="row">
+                      {s.AcademicYear}
+                    </StyledTableCell>
+                    <StyledTableCell component="th" scope="row">
+                      {s.FacultyPath}
+                    </StyledTableCell>
+                    <StyledTableCell
+                      component="th"
+                      scope="row"
+                      style={{ textAlign: "right" }}
+                    >
+                      <Checkbox
+                        checked={
+                          selectedStudents.filter(
+                            (x) => x.IDHREmployee === s.IDHREmployee
+                          ).length > 0
+                            ? true
+                            : false
+                        }
+                        onChange={(e) => handleChecked(e.target.checked, s)}
+                      />
+                    </StyledTableCell>
+                  </StyledTableRow>
+                ))}
+          </TableBody>
+          </Table>
+          </TableContainer>
+          <div style={{ height: "30px" }}></div>
+          <Form onSubmit={handleSubmit}>
+          <Grid container style={{ fontSize: "12px" }}>
+          <Grid item xs={6}>
+          <InputControl
+              name="MessageHeading"
+              label="Message Heading"
+              value={values.MessageHeading}
+              onChange={handleInputChange}
+              errors={errors.MessageHeading}
+            /> 
+            </Grid><Grid item xs={6}>
+            <InputControl
+              name="MessageDescription"
+              label="Message Descriptions"
+              value={values.MessageDescription}
+              onChange={handleInputChange}
+              errors={errors.MessageDescription}
+            />
+          </Grid>
+          </Grid>
+          <div
+          style={{
+            display: "flex",
+            justifyContent: "end",
+            paddingTop: "10px",
+            marginTop: "10px",
+            borderTop: "1px solid #f3f3f3",
+          }}
+        >
+          <Button
+            variant="contained"
+            color="secondary"
+            onClick={() => setOpenPopup(false)}
+            style={{ margin: "10px 0 0 10px" }}
+          >
+            CANCEL
+          </Button>
+          <Button
+            variant="contained"
+            color="primary"
+            type="submit"
+            style={{ margin: "10px 0 0 10px" }}
+          >
+            SUBMIT
+          </Button>
+        </div>
+          </Form>
+      </>
+  )
+
+  }
+
+  export default ClassNotificationForm;

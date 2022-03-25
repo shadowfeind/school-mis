@@ -4,8 +4,10 @@ import InputControl from "../../components/controls/InputControl";
 import { useForm, Form } from "../../customHooks/useForm";
 import { useDispatch } from "react-redux";
 import CheckBoxControl from "../../components/controls/CheckBoxControl";
-import { announcementCreateAction, updateSingleAnnouncementAction } from "./AnnouncementAction";
-
+import {
+  announcementCreateAction,
+  updateSingleAnnouncementAction,
+} from "./AnnouncementAction";
 
 const initialFormValues = {
   Id: 0,
@@ -21,7 +23,7 @@ const initialFormValues = {
   Updated_On: "2022-01-27T04:45:28.146Z",
 };
 
-const AnnouncementForm = ({ announcement, setOpenPopup }) => {
+const AnnouncementForm = ({ announcement, setOpenPopup, fcmTokenList }) => {
   const dispatch = useDispatch();
   const validate = (fieldValues = values) => {
     let temp = { ...errors };
@@ -42,9 +44,7 @@ const AnnouncementForm = ({ announcement, setOpenPopup }) => {
       ? "This feild is required"
       : "";
 
-      temp.IsActive = !fieldValues.IsActive
-      ? "This feild is required"
-      : "";
+    temp.IsActive = !fieldValues.IsActive ? "This feild is required" : "";
 
     setErrors({ ...temp });
     return Object.values(temp).every((x) => x === "");
@@ -58,7 +58,7 @@ const AnnouncementForm = ({ announcement, setOpenPopup }) => {
 
     if (validate()) {
       if (values.IDHREmployee === 0) {
-        dispatch(announcementCreateAction(values));
+        dispatch(announcementCreateAction(values, fcmTokenList));
       } else {
         dispatch(updateSingleAnnouncementAction(values));
       }

@@ -1,5 +1,5 @@
 import axios from "axios";
-import { API_URL, tokenConfig } from "../../../constants";
+import { API_URL, axiosInstance, tokenConfig } from "../../../constants";
 import {
   GET_ALL_SCHOOL_SETTINGS_FAIL,
   GET_ALL_SCHOOL_SETTINGS_REQUEST,
@@ -20,8 +20,7 @@ export const getAllSchoolSettingsAction = () => async (dispatch) => {
     dispatch({ type: GET_ALL_SCHOOL_SETTINGS_REQUEST });
 
     const { data } = await axios.get(
-      `${API_URL}/api/ReactHRCompany/GetHRCompany
-      `,
+      `${API_URL}/api/ReactHRCompany/GetHRCompany`,
       tokenConfig
     );
 
@@ -39,13 +38,6 @@ export const schoolSettingCreateAction = (position) => async (dispatch) => {
     dispatch({ type: SCHOOL_SETTINGS_CREATE_REQUEST });
 
     const jsonData = JSON.stringify({ dbModel: position });
-
-    // const config = {
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    // };
-
 
     const { data } = await axios.post(
       `${API_URL}/api/ReactHRCompany/PostHRCompany`,

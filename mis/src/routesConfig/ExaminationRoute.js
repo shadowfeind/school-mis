@@ -23,7 +23,7 @@ export const ExaminationRoute = [
   // },
   {
     name: "Full/Pass Marks",
-    route: "/exam-schedule",
+    route: "/examination",
     icon: ChromeReaderMode,
     exact: false,
   },

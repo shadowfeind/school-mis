@@ -18,9 +18,7 @@ const TeacherNotificationTableCollapse = ({ item }) => {
   return (
     <>
       <TableRow>
-        <TableCell>
-          {item.SenderID}
-        </TableCell>
+        <TableCell>{item.MessageHeading}</TableCell>
         <TableCell>{item.MessageDescription}</TableCell>
         <TableCell>{item.ReceiverID}</TableCell>
         <TableCell>{item.Created_On?.slice(0, 10)}</TableCell>

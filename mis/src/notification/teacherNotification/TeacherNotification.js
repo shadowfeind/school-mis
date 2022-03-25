@@ -47,9 +47,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const tableHeader = [
-  { id: "FullName", label: "Full Name" },
-  { id: "Messages", label: "Messages" },
-  { id: "TeachersName", label: "Teacher's Name" },
+  { id: "MessageHeading", label: "Heading" },
+  { id: "MessageDescription", label: "Description" },
+  { id: "ReceiverID", label: "Receiver ID" },
   { id: "PostedDate", label: "Posted Date" },
   { id: "Action", label: "Action", disableSorting: true },
 ];
@@ -227,6 +227,10 @@ const TeacherNotification = () => {
       >
         <TeacherNotificationForm
           setOpenPopup={setOpenPopup}
+          fcmTokenList={
+            singleCreateTeacherNotification &&
+            singleCreateTeacherNotification.fcmTokenValueLst
+          }
         />
       </Popup>
       <Notification notify={notify} setNotify={setNotify} />

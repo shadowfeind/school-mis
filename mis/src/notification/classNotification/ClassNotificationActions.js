@@ -1,5 +1,5 @@
 import axios from "axios";
-import { API_URL, tokenConfig } from "../../constants";
+import { API_URL, tokenConfig, tokenHeader } from "../../constants";
 import {
   GET_ALL_CLASS_NOTIFICATION_FAIL,
   GET_ALL_CLASS_NOTIFICATION_REQUEST,
@@ -71,27 +71,46 @@ export const getBulkClassNotificationAction =
     }
   };
 
-
-  export const postClassNotificationAction = (classNotification) => async (dispatch) => {
+export const postClassNotificationAction =
+  (dbModel, selectedStudents) => async (dispatch) => {
     try {
       dispatch({ type: POST_CLASS_NOTIFICATION_REQUEST });
-  
-      const jsonData = JSON.stringify({ dbModel: classNotification
+
+      const fcmTokenList = [];
+      selectedStudents.forEach((student) => {
+        fcmTokenList.push(student.fcmToken);
       });
-  console.log(jsonData)
-      // const config = {
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //   },
-      // };
-  
-      const { data } = await axios.post(
+
+      const fcmBody = {
+        registration_ids: fcmTokenList,
+        collapse_key: "type_a",
+        notification: {
+          body: dbModel.MessageDescription,
+          title: dbModel.MessageHeading,
+        },
+      };
+
+      const fbody = JSON.stringify(fcmBody);
+
+      await axios.post(
+        "https://fcm.googleapis.com/fcm/send",
+        fbody,
+        tokenHeader
+      );
+
+      const jsonData = JSON.stringify({
+        dbModel,
+        dbModelLst: selectedStudents,
+      });
+
+      console.log(jsonData);
+      await axios.post(
         `${API_URL}/api/ClassNotification/PostClassNotification`,
         jsonData,
         tokenConfig
       );
-  
-      dispatch({ type: POST_CLASS_NOTIFICATION_SUCCESS, payload: data });
+
+      dispatch({ type: POST_CLASS_NOTIFICATION_SUCCESS, payload: "success" });
     } catch (error) {
       dispatch({
         type: POST_CLASS_NOTIFICATION_FAIL,
@@ -99,11 +118,3 @@ export const getBulkClassNotificationAction =
       });
     }
   };
-  // IDFacultyProgramLink = entity.dbModel.IDFacultyProgramLink,
-  //                           IDAcademicYear = entity.dbModel.IDAcademicYear,
-  //                           IDLevel = entity.dbModel.IDLevel,
-  //                           Section = entity.dbModel.Section,
-  //                           IDAcademicShift = entity.dbModel.IDAcademicShift,
-  //                           ReceiverID = item.IDHREmployee,
-  //                           MessageHeading = entity.dbModel.MessageHeading,
-  //                           MessageDescription = entity.dbModel.MessageDescription,

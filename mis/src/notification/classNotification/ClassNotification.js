@@ -150,7 +150,7 @@ const ClassNotification = () => {
         sectionValue
       )
     );
-    setOpenImagePopup(false);
+    setOpenPopup(false);
   }
 
   useEffect(() => {
@@ -331,7 +331,9 @@ const ClassNotification = () => {
       >
         <ClassNotificationForm
           students={bulkClassNotification && bulkClassNotification.dbModelLst}
-          formDatas={bulkClassNotification && bulkClassNotification.dbModel}
+          classNotification={
+            bulkClassNotification && bulkClassNotification.dbModel
+          }
           setOpenPopup={setOpenPopup}
         />
       </Popup>

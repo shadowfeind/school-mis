@@ -48,12 +48,12 @@ const StudentManagement = lazy(() =>
 const Announcement = lazy(() => import("./settings/announcement/Announcement"));
 //examination lazy loading
 
-const AcademicGrading = lazy(() =>
-  import("./examination/academicGrading/AcademicGrading")
-);
-const ExamDivision = lazy(() =>
-  import("./examination/examDivision/ExamDivision")
-);
+// const AcademicGrading = lazy(() =>
+//   import("./examination/academicGrading/AcademicGrading")
+// );
+// const ExamDivision = lazy(() =>
+//   import("./examination/examDivision/ExamDivision")
+// );
 const ExamMarkApproval = lazy(() =>
   import("./examination/examMarkApproval/ExamMarkApproval")
 );
@@ -117,13 +117,13 @@ const App = () => {
           {/* Examination route start */}
           <Suspense fallback={<div></div>}>
             <Switch>
-              <Route path={"/examination"} component={AcademicGrading} />
-              <Route path={"/exam-division"} component={ExamDivision} />
+              {/* <Route path={"/examination"} component={AcademicGrading} /> */}
+              {/* <Route path={"/exam-division"} component={ExamDivision} /> */}
               <Route
                 path={"/exam-mark-approval"}
                 component={ExamMarkApproval}
               />
-              <Route path={"/exam-schedule"} component={ExamSchedule} />
+              <Route path={"/examination"} component={ExamSchedule} />
               <Route path={"/print-admit-card"} component={PrintAdminCard} />
               <Route path={"/exam-mark-entry"} component={ExamMarkEntry} />
               <Route
@@ -138,7 +138,7 @@ const App = () => {
                 path={"/student-attendance"}
                 component={StudentAttendance}
               />
-              <Route path={"/academic-grading"} component={AcademicGrading} />
+              {/* <Route path={"/academic-grading"} component={AcademicGrading} /> */}
               {/* Examination route end */}
               {/* settings route start */}
               <Route

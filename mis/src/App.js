@@ -48,12 +48,12 @@ const StudentManagement = lazy(() =>
 const Announcement = lazy(() => import("./settings/announcement/Announcement"));
 //examination lazy loading
 
-const AcademicGrading = lazy(() =>
-  import("./examination/academicGrading/AcademicGrading")
-);
-const ExamDivision = lazy(() =>
-  import("./examination/examDivision/ExamDivision")
-);
+// const AcademicGrading = lazy(() =>
+//   import("./examination/academicGrading/AcademicGrading")
+// );
+// const ExamDivision = lazy(() =>
+//   import("./examination/examDivision/ExamDivision")
+// );
 const ExamMarkApproval = lazy(() =>
   import("./examination/examMarkApproval/ExamMarkApproval")
 );
@@ -79,7 +79,7 @@ const StudentRegistration = lazy(() =>
 );
 const OldQuestions = lazy(() => import("./settings/oldQuestions/OldQuestions"));
 const Syllabus = lazy(() => import("./settings/syllabus/SyllabusMain"));
-const EcaData = lazy(() => import("./examination/ecaData/EcaData"));
+
 
 //Notification
 const ClassNotification = lazy(()=> import ("./notification/classNotification/ClassNotification"));
@@ -117,13 +117,13 @@ const App = () => {
           {/* Examination route start */}
           <Suspense fallback={<div></div>}>
             <Switch>
-              <Route path={"/examination"} component={AcademicGrading} />
-              <Route path={"/exam-division"} component={ExamDivision} />
+              {/* <Route path={"/examination"} component={AcademicGrading} /> */}
+              {/* <Route path={"/exam-division"} component={ExamDivision} /> */}
               <Route
                 path={"/exam-mark-approval"}
                 component={ExamMarkApproval}
               />
-              <Route path={"/exam-schedule"} component={ExamSchedule} />
+              <Route path={"/examination"} component={ExamSchedule} />
               <Route path={"/print-admit-card"} component={PrintAdminCard} />
               <Route path={"/exam-mark-entry"} component={ExamMarkEntry} />
               <Route
@@ -138,7 +138,7 @@ const App = () => {
                 path={"/student-attendance"}
                 component={StudentAttendance}
               />
-              <Route path={"/academic-grading"} component={AcademicGrading} />
+              {/* <Route path={"/academic-grading"} component={AcademicGrading} /> */}
               {/* Examination route end */}
               {/* settings route start */}
               <Route
@@ -179,7 +179,7 @@ const App = () => {
               <Route path={"/class-schedule"} component={ClassSchedule} />
               {/* class schedule ends */}
               <Route path={"/settings"} component={Settings} />
-              <Route path={"/eca-data"} component={EcaData} />
+              {/* <Route path={"/eca-data"} component={EcaData} /> */}
               <Route path={"/notification"} component={ClassNotification} />
               <Route path={"/teacher-notification"} component={TeacherNotification} />
               <Route exact path={"/"} component={Dashboard} />

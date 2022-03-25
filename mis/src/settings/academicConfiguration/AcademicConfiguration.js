@@ -25,8 +25,6 @@ const AssignStudentSubject = lazy(() =>
 );
 const SchoolBoard = lazy(() => import("./schoolBoard/SchoolBoard"));
 const AcademicYear = lazy(() => import("./academicYear/AcademicYear"));
-const EcaLookUp = lazy(()=> import("./ecaLookUp/EcaLookUp"));
-const AssignECA = lazy(()=> import("./assignEca/AssignEca"));
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -141,16 +139,7 @@ const AcademicConfiguration = () => {
             label="Assign Student Subject"
             {...a11yProps(10)}
           />
-          <Tab
-            style={{ fontSize: "11px", color: "#fff" }}
-            label="ECA LookUp"
-            {...a11yProps(11)}
-          />
-          <Tab
-            style={{ fontSize: "11px", color: "#fff" }}
-            label="Assign ECA"
-            {...a11yProps(12)}
-          />
+        
         </Tabs>
       </AppBar>
       <Suspense fallback={<div></div>}>
@@ -186,12 +175,6 @@ const AcademicConfiguration = () => {
         </TabPanel>
         <TabPanel value={value} index={10}>
           <AssignStudentSubject />
-        </TabPanel>
-        <TabPanel value={value} index={11}>
-          <EcaLookUp />
-        </TabPanel>
-        <TabPanel value={value} index={12}>
-          <AssignECA />
         </TabPanel>
       </Suspense>
     </div>

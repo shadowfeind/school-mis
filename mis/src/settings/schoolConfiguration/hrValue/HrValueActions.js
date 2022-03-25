@@ -162,7 +162,7 @@ export const postCreateHrValueAction =
 
       let formData = new FormData();
       formData.append("ImageUploaded", image);
-
+debugger;
       const { data: headerBanner } = await axios.post(
         `${API_URL}/api/HRValue/FileUploadHeaderBanner
         `,
@@ -189,6 +189,7 @@ export const postCreateHrValueAction =
         formData2,
         tokenConfig
       );
+      debugger;
 
       if ((headerBanner, schoolLookup, PrincipleSignature)) {
         const newData = {
@@ -197,9 +198,9 @@ export const postCreateHrValueAction =
           SchoolLogo: schoolLookup,
           PrincipleSignature: PrincipleSignature,
         };
-
+debugger;
         const jsonData = JSON.stringify({ dbModel: newData})
-    
+    console.log(jsonData);
         await axios.put(
           `${API_URL}/api/HRValue/PutHRValue`,
           jsonData,

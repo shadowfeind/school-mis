@@ -9,18 +9,18 @@ import {
   RecordVoiceOver,
 } from "@material-ui/icons";
 export const ExaminationRoute = [
-  {
-    name: "Academic Grading",
-    route: "/examination",
-    icon: RecordVoiceOver,
-    exact: false,
-  },
-  {
-    name: "Exam Division",
-    route: "/exam-division",
-    icon: Accessible,
-    exact: false,
-  },
+  // {
+  //   name: "Academic Grading",
+  //   route: "/examination",
+  //   icon: RecordVoiceOver,
+  //   exact: false,
+  // },
+  // {
+  //   name: "Exam Division",
+  //   route: "/exam-division",
+  //   icon: Accessible,
+  //   exact: false,
+  // },
   {
     name: "Full/Pass Marks",
     route: "/exam-schedule",
@@ -64,12 +64,12 @@ export const ExaminationRoute = [
     icon: Accessible,
     exact: false,
   },
-  {
-    name: "ECA Data",
-    route: "/eca-data",
-    icon: Accessible,
-    exact: false,
-  },
+  // {
+  //   name: "ECA Data",
+  //   route: "/eca-data",
+  //   icon: Accessible,
+  //   exact: false,
+  // },
   {
     name: "Exam Result(Print)",
     route: "/exam-result",

@@ -1,6 +1,31 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { API_URL } from "../../constants";
+import { useDispatch } from "react-redux";
+import { getHeaderContentAction } from "../../dashboard/DashboardActions";
+import { GET_HEADER_CONTENT_RESET } from "../../dashboard/DashboardConstants";
+import { useSelector } from "react-redux";
 
 const AdmitCardDesign = ({ student, imagePath, classname, examDate }) => {
+  
+  const dispatch = useDispatch();
+  const { headerContent, error: headerContentError } = useSelector(
+    (state) => state.getHeaderContent
+  );
+
+  useEffect(() => {
+    if (!headerContent) {
+      dispatch(getHeaderContentAction());
+    }
+  }, [headerContent, dispatch]);
+  if (headerContentError) {
+    dispatch({ type: GET_HEADER_CONTENT_RESET });
+    setNotify({
+      isOpen: true,
+      message: headerContentError,
+      type: "error",
+    });
+  }
+
   return (
     <div
     // style={{
@@ -15,7 +40,7 @@ const AdmitCardDesign = ({ student, imagePath, classname, examDate }) => {
     >
       <div className="admitCard">
         <img
-          src="https://i.ibb.co/MfvhYfw/testlogo.png"
+          src={`${API_URL}${headerContent.FullPathSchoolLogo}`}
           height="60px"
           style={{ marginTop: "15px" }}
         />

@@ -79,7 +79,7 @@ const StudentRegistration = lazy(() =>
 );
 const OldQuestions = lazy(() => import("./settings/oldQuestions/OldQuestions"));
 const Syllabus = lazy(() => import("./settings/syllabus/SyllabusMain"));
-const EcaData = lazy(() => import("./examination/ecaData/EcaData"));
+
 
 //Notification
 const ClassNotification = lazy(()=> import ("./notification/classNotification/ClassNotification"));
@@ -179,7 +179,7 @@ const App = () => {
               <Route path={"/class-schedule"} component={ClassSchedule} />
               {/* class schedule ends */}
               <Route path={"/settings"} component={Settings} />
-              <Route path={"/eca-data"} component={EcaData} />
+              {/* <Route path={"/eca-data"} component={EcaData} /> */}
               <Route path={"/notification"} component={ClassNotification} />
               <Route path={"/teacher-notification"} component={TeacherNotification} />
               <Route exact path={"/"} component={Dashboard} />

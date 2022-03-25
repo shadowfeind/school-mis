@@ -47,8 +47,8 @@ const gender = [
 ];
 
 const loginAccess = [
-  { Key: true, Value: "Yes" },
-  { Key: false, Value: "No" },
+  { Key: "true", Value: "Yes" },
+  { Key: "false", Value: "No" },
 ];
 
 const married = [

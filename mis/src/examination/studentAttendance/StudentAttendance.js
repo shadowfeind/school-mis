@@ -53,6 +53,9 @@ const tableHeader = [
   { id: "FullName", label: "Full Name" },
   { id: "MobileNumber", label: "Mobile Number" },
   { id: "EmailID", label: "Email ID" },
+  { id: "PresentDay", label: "Present Day" },
+  { id: "AbsentDay", label: "Absent Day" },
+  { id: "WorkingDay", label: "Working Day" },
   { id: "Actions", label: "Actions", disablesorting: true },
 ];
 
@@ -218,7 +221,7 @@ const StudentAttendance = () => {
 
   useEffect(() => {
     if (allStudentAttendance) {
-      setTableData(allStudentAttendance.dbModelLst);
+      setTableData(allStudentAttendance.dbModelPresentAbsentLst);
     }
   }, [allStudentAttendance]);
 

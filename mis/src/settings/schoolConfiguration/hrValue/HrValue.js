@@ -161,7 +161,7 @@ const useStyles = makeStyles((theme) => ({
   if (postUploadPhotoSuccess) {
     setNotify({
       isOpen: true,
-      message: "Successfully Uploaded",
+      message: "Successfully Created",
       type: "success",
     });
     dispatch({ type: POST_HR_VALUE_RESET });
@@ -172,11 +172,12 @@ const useStyles = makeStyles((theme) => ({
 if (putUploadPhotoSuccess) {
     setNotify({
       isOpen: true,
-      message: "Successfully Uploaded",
+      message: "Successfully Updated",
       type: "success",
     });
     dispatch({ type: PUT_HR_VALUE_RESET });
     dispatch(getListHrValueAction(company));
+    dispatch(getALLHrValueAction())
     setOpenPopup(false);
 }
 

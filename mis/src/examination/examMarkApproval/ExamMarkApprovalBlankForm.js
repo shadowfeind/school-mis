@@ -81,12 +81,12 @@ const ExamMarkApprovalBlankForm = ({blankData,setOpenPopup,}) => {
         <div className="info">
           <Table className="info-table">
             <tbody>
-            {blankData && blankData.ddlAcademicExamSchedule.map((s)=>{return<tr key={s.$id}>
+            <tr>
                 <th>Subject:</th>
-                <td>{s.Value}</td>
+                <td>P/Science(SCN-9)</td>
                <th>Subject Teacher:</th>
                 <td />
-              </tr>})} 
+              </tr>
               <tr>
                 <th>Class:</th>
                 <td>NINE</td>

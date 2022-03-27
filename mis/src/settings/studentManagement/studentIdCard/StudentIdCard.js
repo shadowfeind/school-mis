@@ -193,11 +193,12 @@ const StudentIdCard = () => {
   };
 
   const handleDate = (date) => {
-    if (date) {
-      setDateValue(date);
-      const newDate = `${date.getMonth()}-${date.getDay()}-${date.getFullYear()}`;
-      setDate(newDate);
-    }
+    console.log(date);
+    // if (date) {
+    //   setDateValue(date);
+    //   const newDate = `${date.getMonth()}-${date.getDay()}-${date.getFullYear()}`;
+    //   setDate(newDate);
+    // }
   };
 
   const handleStudentSearch = () => {
@@ -356,7 +357,9 @@ const StudentIdCard = () => {
           classnames={
             printBulkStudentsForIdCard && printBulkStudentsForIdCard.ClassName
           }
-          examDates={printBulkStudentsForIdCard && printBulkStudentsForIdCard.examDate}
+          examDates={
+            printBulkStudentsForIdCard && printBulkStudentsForIdCard.examDate
+          }
         />
       </Popup>
 

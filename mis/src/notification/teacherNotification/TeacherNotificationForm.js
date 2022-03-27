@@ -57,7 +57,7 @@ const TeacherNotificationForm = ({ setOpenPopup, fcmTokenList }) => {
     <>
       <Form onSubmit={handleSubmit}>
         <Grid container style={{ fontSize: "12px" }}>
-          <Grid item xs={6}>
+          <Grid item xs={12}>
             <InputControl
               name="MessageHeading"
               label="Message Heading"
@@ -66,10 +66,12 @@ const TeacherNotificationForm = ({ setOpenPopup, fcmTokenList }) => {
               errors={errors.MessageHeading}
             />
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={12}>
             <InputControl
               name="MessageDescription"
               label="Message Descriptions"
+              multiline
+              rows={4}
               value={values.MessageDescription}
               onChange={handleInputChange}
               errors={errors.MessageDescription}

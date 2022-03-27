@@ -162,7 +162,7 @@ const AnnouncementTest = () => {
     }
   }, [dispatch, announcement]);
   useEffect(() => {
-    dispatch({ type: "GET_LINK", payload: "/settings" });
+    dispatch({ type: "GET_LINK", payload: "/notification" });
   }, [dispatch]);
 
   const {

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Grid } from "@material-ui/core";
 import InputControl from "../../../components/controls/InputControl";
 import { useForm, Form } from "../../../customHooks/useForm";
@@ -18,8 +18,8 @@ const initialFormValues = {
   Updated_On: "2022-03-21T10:50:18.233Z",
 };
 
-const ReassociateStudentSearchEditForm = (reassociateForm,setOpenPopup) => {
-
+const ReassociateStudentSearchEditForm = ({reassociateForm,setOpenPopupEdit}) => {
+const [studentName, setStudentName] = useState([])
   const dispatch = useDispatch();
   const validate = (fieldValues = values) => {
     let temp = { ...errors };
@@ -57,31 +57,35 @@ const ReassociateStudentSearchEditForm = (reassociateForm,setOpenPopup) => {
     }
 
     useEffect(() => {
+      
       if (reassociateForm) {
         setValues({ ...reassociateForm.dbModel });
+        const studentNameFilter = reassociateForm.ddlStaff.filter( s => s.Key === reassociateForm.dbModel.IDAdmissionRegistration)
+        setStudentName(studentNameFilter)
+        
+        
       }
     }, [reassociateForm]);
 
     const test = [{Key:"",Value:""}]
 
+   
   return (
     <>
       <Form onSubmit={handleSubmit}>
       <Grid container style={{ fontSize: "12px" }}>
       <Grid item xs={6}>
       <InputControl
-      disabled
+            disabled
             name="IDAdmissionRegistration"
             label="Admission Registration"
-            value={values.IDAdmissionRegistration}
-            onChange={handleInputChange}
-            errors={errors.IDAdmissionRegistration}
+            value={studentName?.length > 0 && studentName[0].Value}
           />
           <SelectControl
             name="IDYearFacultyLink"
             label="Year Faculty Link"
             value={values.IDYearFacultyLink}
-            // options={ddlAcademicYear}
+            options={reassociateForm ? reassociateForm.ddlFacultyProgramLink :test }
             onChange={handleInputChange}
             errors={errors.IDYearFacultyLink}
           />
@@ -89,7 +93,7 @@ const ReassociateStudentSearchEditForm = (reassociateForm,setOpenPopup) => {
             name="IDLevel"
             label="Level"
             value={values.IDLevel}
-            // options={ddlClass}
+            options={reassociateForm ? reassociateForm.ddlClass:test}
             onChange={handleInputChange}
             errors={errors.IDLevel}
           /></Grid>
@@ -98,7 +102,7 @@ const ReassociateStudentSearchEditForm = (reassociateForm,setOpenPopup) => {
             name="IDAcademicShift"
             label="AcademicShift"
             value={values.IDAcademicShift}
-            // options={ddlAcademicShift}
+            options={reassociateForm ? reassociateForm.ddlAcademicShift:test}
             onChange={handleInputChange}
             errors={errors.IDAcademicShift}
           />
@@ -106,7 +110,7 @@ const ReassociateStudentSearchEditForm = (reassociateForm,setOpenPopup) => {
             name="Section"
             label="Section"
             value={values.Section}
-            // options={ddlSection}
+            options={reassociateForm ? reassociateForm.ddlSection:test}
             onChange={handleInputChange}
             errors={errors.Section}
           />
@@ -114,7 +118,7 @@ const ReassociateStudentSearchEditForm = (reassociateForm,setOpenPopup) => {
             name="LevelStatus"
             label="Level Status"
             value={values.LevelStatus}
-            // options={ddlLevelStatus}
+            options={reassociateForm ? reassociateForm.ddlLevelStatus:test}
             onChange={handleInputChange}
             errors={errors.LevelStatus}
           />
@@ -132,7 +136,7 @@ const ReassociateStudentSearchEditForm = (reassociateForm,setOpenPopup) => {
         <Button
           variant="contained"
           color="secondary"
-          onClick={() => setOpenPopup(false)}
+          onClick={() => setOpenPopupEdit(false)}
           style={{ margin: "10px 0 0 10px" }}
         >
           CANCEL

@@ -11,6 +11,10 @@ import {
   GET_BULK_STUDENT_ATTENDANCE_REQUEST,
   GET_BULK_STUDENT_ATTENDANCE_RESET,
   GET_BULK_STUDENT_ATTENDANCE_SUCCESS,
+  GET_GENERATED_STUDENT_ATTENDANCE_FAIL,
+  GET_GENERATED_STUDENT_ATTENDANCE_REQUEST,
+  GET_GENERATED_STUDENT_ATTENDANCE_RESET,
+  GET_GENERATED_STUDENT_ATTENDANCE_SUCCESS,
   POST_BULK_STUDENT_ATTENDANCE_FAIL,
   POST_BULK_STUDENT_ATTENDANCE_REQUEST,
   POST_BULK_STUDENT_ATTENDANCE_RESET,
@@ -74,6 +78,21 @@ export const postBulkStudentAttendanceReducer = (state = {}, action) => {
     case POST_BULK_STUDENT_ATTENDANCE_FAIL:
       return { loading: false, error: action.payload };
     case POST_BULK_STUDENT_ATTENDANCE_RESET:
+      return {};
+    default:
+      return state;
+  }
+};
+
+export const getGeneratedStudentAttendanceReducer = (state = {}, action) => {
+  switch (action.type) {
+    case GET_GENERATED_STUDENT_ATTENDANCE_REQUEST:
+      return { loading: true };
+    case GET_GENERATED_STUDENT_ATTENDANCE_SUCCESS:
+      return { loading: false, generateStudentAttendance: action.payload };
+    case GET_GENERATED_STUDENT_ATTENDANCE_FAIL:
+      return { loading: false, error: action.payload };
+    case GET_GENERATED_STUDENT_ATTENDANCE_RESET:
       return {};
     default:
       return state;

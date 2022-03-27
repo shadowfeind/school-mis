@@ -202,6 +202,7 @@ import {
   getAllStudentAttendanceInitialDataReducer,
   getAllStudentAttendanceReducer,
   getBulkStudentAttendanceReducer,
+  getGeneratedStudentAttendanceReducer,
   postBulkStudentAttendanceReducer,
 } from "./examination/studentAttendance/StudentAttendanceReducers";
 import {
@@ -387,7 +388,7 @@ import {
   getSubjectSyllabusReducer,
   putSyllabusReducer,
 } from "./settings/syllabus/syllabusPg/SyllabusReducers";
-import { getHeaderContentReducer } from "./dashboard/DashboardReducers";
+import { getHeaderBannerReducer, getHeaderContentReducer } from "./dashboard/DashboardReducers";
 
 import { getAllEcaLookUpReducer, getDetailEcaLookUpReducer, getListEcaLookUpReducer, getSingleCreateEcaLookUpReducer, getSingleEditEcaLookUpReducer, postEcaLookUpReducer, putEcaLookUpReducer } from "./settings/academicConfiguration/ecaLookUp/EcaLookUpReducers";
 import { getAllAssignEcaReducer, getListAssignEcaReducer, getSingleCreateAssignEcaReducer, postAssignEcaReducer } from "./settings/academicConfiguration/assignEca/AssignEcaReducers";
@@ -401,6 +402,7 @@ export const reducers = combineReducers({
   //header
   navLink: navLinkReducer,
   getHeaderContent: getHeaderContentReducer,
+  getHeaderBanner : getHeaderBannerReducer,
   //header ends
   position: getAllPosition,
   createPosition: createPositionReducer,
@@ -528,6 +530,7 @@ export const reducers = combineReducers({
   getAllStudentAttendance: getAllStudentAttendanceReducer,
   getBulkStudentAttendance: getBulkStudentAttendanceReducer,
   postBulkStudentAttendance: postBulkStudentAttendanceReducer,
+  getGeneratedStudentAttendance : getGeneratedStudentAttendanceReducer,
   getInitialExamApprovalData: getInitialExamApprovalDataReducer,
   getExamApprovalScheduleHeader: getExamApprovalScheduleHeaderReducer,
   getExamApprovalSearchData: getExamApprovalSearchDataReducer,

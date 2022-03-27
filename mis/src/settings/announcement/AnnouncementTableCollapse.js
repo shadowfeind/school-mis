@@ -39,14 +39,6 @@ const AnnouncementTableCollapse = ({
       <TableCell>
         <Button
           variant="contained"
-          color="primary"
-          className={classes.button}
-          onClick={() => updateCollegeHandler(item.dbModelLst)}
-        >
-          <EditIcon style={{ fontSize: 12 }} />
-        </Button>
-        <Button
-          variant="contained"
           color="secondary"
           className={classes.button}
           onClick={() => deleteCollegeHandler(item.dbModelLst)}

@@ -18,7 +18,6 @@ export const getAllSearchTeacherFacSubInitialDataAction =
         `${API_URL}/api/SearchTeacherFacultySubject/GetAllSearchTeacherFacultySubject?searchKey=1`,
         tokenConfig
       );
-
       dispatch({
         type: GET_ALL_SEARCH_TEACHER_FAC_SUB_INITIAL_DATA_SUCCESS,
         payload: data,

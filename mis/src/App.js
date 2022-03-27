@@ -170,7 +170,7 @@ const App = () => {
               <Route path={"/old-questions"} component={OldQuestions} />
               <Route path={"/syllabus"} component={Syllabus} />
               <Route path={"/teacher-mapping"} component={TeacherMapping} />
-              <Route path={"/announcement"} component={Announcement} />
+              <Route path={"/notification"} component={Announcement} />
               <Route path={"/user-profile"} component={UserProfile} />
               <Route path={"/class-subject"} component={ClassSubject} />
               <Route path={"/access-control"} component={AccessControl} />
@@ -180,7 +180,7 @@ const App = () => {
               {/* class schedule ends */}
               <Route path={"/settings"} component={Settings} />
               {/* <Route path={"/eca-data"} component={EcaData} /> */}
-              <Route path={"/notification"} component={ClassNotification} />
+              <Route path={"/class-notification"} component={ClassNotification} />
               <Route path={"/teacher-notification"} component={TeacherNotification} />
               <Route exact path={"/"} component={Dashboard} />
               <Route path="*" component={PageNotFound} />

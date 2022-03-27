@@ -53,6 +53,9 @@ const HrValueForm = ({ hrValueCreate, setOpenPopup, hrValueEdit }) => {
     temp.RegNo = !fieldValues.RegNo ? "This Field is Required" : "";
     temp.Url = !fieldValues.Url ? "This Field is Required" : "";
     temp.SchoolType = !fieldValues.SchoolType ? "This Field is Required" : "";
+    // temp.image =!fieldValues.image ? "This Field is Required" : "";
+    // temp.image1 =!fieldValues.image1 ? "This Field is Required" : "";
+    // temp.image2 =!fieldValues.image2 ? "This Field is Required" : "";
     setErrors({ ...temp });
     return Object.values(temp).every((x) => x === "");
   };
@@ -212,7 +215,7 @@ const HrValueForm = ({ hrValueCreate, setOpenPopup, hrValueEdit }) => {
             // value={values.HeaderBanner}
             onChange={(e) => handleImage(e)}
             type="file"
-            // errors={errors.ClassLocation}
+            // errors={errors.image}
           />
 
           <img
@@ -231,7 +234,7 @@ const HrValueForm = ({ hrValueCreate, setOpenPopup, hrValueEdit }) => {
             // value={values.SchoolLogo}
             onChange={(e) => handleImage1(e)}
             type="file"
-            // errors={errors.ClassLocation}
+            // errors={errors.image1}
           />
 
           <img
@@ -250,7 +253,7 @@ const HrValueForm = ({ hrValueCreate, setOpenPopup, hrValueEdit }) => {
             // value={values.PrincipleSignature}
             onChange={(e) => handleImage2(e)}
             type="file"
-            // errors={errors.ClassLocation}
+            // errors={errors.image2}
           />
 
           <img

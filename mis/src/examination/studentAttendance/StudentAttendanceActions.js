@@ -10,6 +10,9 @@ import {
   GET_BULK_STUDENT_ATTENDANCE_FAIL,
   GET_BULK_STUDENT_ATTENDANCE_REQUEST,
   GET_BULK_STUDENT_ATTENDANCE_SUCCESS,
+  GET_GENERATED_STUDENT_ATTENDANCE_FAIL,
+  GET_GENERATED_STUDENT_ATTENDANCE_REQUEST,
+  GET_GENERATED_STUDENT_ATTENDANCE_SUCCESS,
   POST_BULK_STUDENT_ATTENDANCE_FAIL,
   POST_BULK_STUDENT_ATTENDANCE_REQUEST,
   POST_BULK_STUDENT_ATTENDANCE_SUCCESS,
@@ -115,3 +118,27 @@ export const postBulkStudentAttendanceAction =
       });
     }
   };
+
+
+  export const getGeneratedStudentAttendanceAction =
+  (year, program, classId, section, shift, event,workingDays,start,end) => async (dispatch) => {
+    try {
+      dispatch({ type: GET_GENERATED_STUDENT_ATTENDANCE_REQUEST });
+
+      const { data } = await axios.get(
+        `${API_URL}/api/StudentAttendance/GenerateAttendance?idAcademicYear=${year}&idFacultyProgramLink=${program}&level=${classId}&section=${section}&idShift=${shift}&idAcademicYearCalendar=${event}&workingDaysTotal=${workingDays}&startDate=${start}&endDate=${end}`,
+        tokenConfig
+      );
+
+      dispatch({
+        type: GET_GENERATED_STUDENT_ATTENDANCE_SUCCESS,
+        payload: data,
+      });
+    } catch (error) {
+      dispatch({
+        type: GET_GENERATED_STUDENT_ATTENDANCE_FAIL,
+        payload: error.message ? error.message : error.Message,
+      });
+    }
+  };
+

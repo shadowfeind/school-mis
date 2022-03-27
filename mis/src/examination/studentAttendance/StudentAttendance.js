@@ -8,17 +8,24 @@ import {
   Grid,
 } from "@material-ui/core";
 import { Search } from "@material-ui/icons";
+import {
+  MuiPickersUtilsProvider,
+  KeyboardDatePicker,
+} from "@material-ui/pickers";
+import DateFnsUtils from "@date-io/date-fns";
 import useCustomTable from "../../customHooks/useCustomTable";
 import InputControl from "../../components/controls/InputControl";
 import Popup from "../../components/Popup";
 import CustomContainer from "../../components/CustomContainer";
 import { useDispatch, useSelector } from "react-redux";
+import DatePickerControl from "../../components/controls/DatePickerControl";
 import Notification from "../../components/Notification";
 import ConfirmDialog from "../../components/ConfirmDialog";
 import {
   getBulkStudentAttendanceAction,
   getAllStudentAttendanceAction,
   getAllStudentAttendanceInitialDataAction,
+  getGeneratedStudentAttendanceAction,
 } from "./StudentAttendanceActions";
 import SelectControl from "../../components/controls/SelectControl";
 import { GET_EVENT_RESET } from "../examMarkEntry/ExamMarkEntryConstants";
@@ -27,6 +34,7 @@ import {
   GET_ALL_STUDEN_ATTENDANCE_INITIAL_DATA_RESET,
   GET_ALL_STUDEN_ATTENDANCE_RESET,
   GET_BULK_STUDENT_ATTENDANCE_RESET,
+  GET_GENERATED_STUDENT_ATTENDANCE_RESET,
   POST_BULK_STUDENT_ATTENDANCE_RESET,
 } from "./StudentAttendanceConstants";
 import StudentAttendanceTableCollapse from "./StudentAttendanceTableCollapse";
@@ -79,6 +87,9 @@ const StudentAttendance = () => {
   const [section, setSection] = useState("");
   const [event, setEvent] = useState("");
   const [errors, setErrors] = useState([]);
+  const [workingDaysTotal, setWorkingDaysTotal] = useState("");
+  const [StartDate, setStartDate] = useState("");
+  const [EndDate, setEndDate] = useState("");
 
   const dispatch = useDispatch();
   const classes = useStyles();
@@ -140,6 +151,9 @@ const StudentAttendance = () => {
     error: postBulkStudentAttendanceError,
   } = useSelector((state) => state.postBulkStudentAttendance);
 
+  const { generateStudentAttendance, success:generateStudentAttendanceSuccess,error: generateStudentAttendanceError } =
+    useSelector((state) => state.getGeneratedStudentAttendance);
+
   if (getEventSuccess) {
     setDdlEvent(allEvents);
     dispatch({ type: GET_EVENT_RESET });
@@ -161,6 +175,15 @@ const StudentAttendance = () => {
       type: "error",
     });
     dispatch({ type: GET_ALL_STUDEN_ATTENDANCE_RESET });
+  }
+
+  if (generateStudentAttendanceError) {
+    setNotify({
+      isOpen: true,
+      message: generateStudentAttendanceError,
+      type: "error",
+    });
+    dispatch({ type: GET_GENERATED_STUDENT_ATTENDANCE_RESET });
   }
 
   if (bulkStudentAttendanceError) {
@@ -201,6 +224,26 @@ const StudentAttendance = () => {
     setOpenPopup(false);
   }
 
+  if (generateStudentAttendance) {
+    setNotify({
+      isOpen: true,
+      message: "Successfully Generated",
+      type: "success",
+    });
+    dispatch({ type: GET_GENERATED_STUDENT_ATTENDANCE_RESET });
+    dispatch(
+      getAllStudentAttendanceAction(
+        acaYear,
+        programValue,
+        classId,
+        section,
+        shift,
+        event
+      )
+    );
+    setOpenPopup(false);
+  }
+
   useEffect(() => {
     dispatch({ type: "GET_LINK", payload: "examination" });
     if (!studentAttendanceInitData) {
@@ -216,6 +259,9 @@ const StudentAttendance = () => {
       );
       setDdlShift(studentAttendanceInitData.searchFilterModel.ddlAcademicShift);
       setDdlSection(studentAttendanceInitData.searchFilterModel.ddlSection);
+      setWorkingDaysTotal(studentAttendanceInitData.searchFilterModel.WorkingDayTotal);
+      setStartDate(studentAttendanceInitData.searchFilterModel.StartDate);
+      setEndDate(studentAttendanceInitData.searchFilterModel.EndDate);
     }
   }, [studentAttendanceInitData, dispatch]);
 
@@ -224,6 +270,12 @@ const StudentAttendance = () => {
       setTableData(allStudentAttendance.dbModelPresentAbsentLst);
     }
   }, [allStudentAttendance]);
+
+  useEffect(() => {
+    if (generateStudentAttendance) {
+      setTableData(generateStudentAttendance.dbModelPresentAbsentLst);
+    }
+  }, [generateStudentAttendance]);
 
   const validate = () => {
     let temp = {};
@@ -275,6 +327,22 @@ const StudentAttendance = () => {
     }
   };
 
+  const handleStudentGenerate = () => {
+    if (validate()) {
+      dispatch(
+        getGeneratedStudentAttendanceAction(
+          acaYear,
+          programValue,
+          classId,
+          section,
+          shift,
+          event,
+          workingDaysTotal,StartDate?.slice(0,10),EndDate?.slice(0,10)
+        )
+      );
+    }
+  };
+
   const handleBulkEdit = () => {
     if (validate()) {
       dispatch(
@@ -290,6 +358,8 @@ const StudentAttendance = () => {
       setOpenPopup(true);
     }
   };
+
+  const symbolsArr = ["e", "E", "+", "-", "."];
 
   return (
     <>
@@ -358,8 +428,38 @@ const StudentAttendance = () => {
                 errors={errors.event}
               />
             </Grid>
-
             <Grid item xs={3}>
+              <div style={{ height: "10px" }}></div>
+              <InputControl
+                name="Working Days"
+                label="Working Days"
+                onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}
+                value={workingDaysTotal}
+                onChange={(e)=>setWorkingDaysTotal(e.target.value)}
+                type="number"
+                // errors={errors.WorkingDayTotal}
+              />
+            </Grid>
+            <Grid item xs={3}>
+              <div style={{ height: "10px" }}></div>
+              <DatePickerControl
+            name="ExamHeldDate"
+            label="Exam StartDate"
+            value={StartDate}
+            onChange={(e)=>setStartDate(e.target.value)}
+            />
+            </Grid>
+            <Grid item xs={3}>
+            <div style={{ height: "10px" }}></div>
+            <DatePickerControl
+            name="ExamEndDate"
+            label="Exam EndDate"
+            value={EndDate}
+            onChange={(e)=>setEndDate(e.target.value)}
+            />
+            </Grid>
+
+            <Grid item xs={6}>
               <Button
                 variant="contained"
                 color="primary"
@@ -378,23 +478,17 @@ const StudentAttendance = () => {
               >
                 SEARCH
               </Button>
+              <Button
+                variant="contained"
+                color="primary"
+                type="submit"
+                style={{ margin: "10px 0 0 10px" }}
+                onClick={handleStudentGenerate}
+              >
+                GENERATE
+              </Button>
             </Grid>
           </Grid>
-        </Toolbar>
-        <div style={{ height: "15px" }}></div>
-        <Toolbar>
-          <InputControl
-            className={classes.searchInput}
-            label="Search Academic Faculty"
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <Search />
-                </InputAdornment>
-              ),
-            }}
-            onChange={handleSearch}
-          />
         </Toolbar>
         {allStudentAttendance && (
           <TableContainer className={classes.table}>

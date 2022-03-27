@@ -71,7 +71,7 @@ const HrValueForm = ({ hrValueCreate, setOpenPopup, hrValueEdit }) => {
             image2,
             hrValueEdit.FullPath,
             hrValueEdit.FullPathSchoolLogo,
-            hrValueEdit.FullPathPrincipleSignature,
+            hrValueEdit.FullPathPrincipleSignature
           )
         );
       }
@@ -111,6 +111,7 @@ const HrValueForm = ({ hrValueCreate, setOpenPopup, hrValueEdit }) => {
   useEffect(() => {
     if (hrValueEdit) {
       setValues({ ...hrValueEdit.dbModel });
+      console.log(hrValueEdit.dbModel);
     }
   }, [hrValueEdit]);
 
@@ -208,7 +209,7 @@ const HrValueForm = ({ hrValueCreate, setOpenPopup, hrValueEdit }) => {
           <InputControl
             name="ImageUploaded"
             // label="Select HeadBanner Photo"
-            value={values.FullPath}
+            // value={values.HeaderBanner}
             onChange={(e) => handleImage(e)}
             type="file"
             // errors={errors.ClassLocation}
@@ -227,7 +228,7 @@ const HrValueForm = ({ hrValueCreate, setOpenPopup, hrValueEdit }) => {
           <InputControl
             name="ImageUploaded1"
             // label="Select School Logo Photo"
-            value={values.FullPathSchoolLogo}
+            // value={values.SchoolLogo}
             onChange={(e) => handleImage1(e)}
             type="file"
             // errors={errors.ClassLocation}
@@ -246,7 +247,7 @@ const HrValueForm = ({ hrValueCreate, setOpenPopup, hrValueEdit }) => {
           <InputControl
             name="ImageUploaded2"
             // label="Select Principle Signature Photo"
-            value={values.FullPathPrincipleSignature}
+            // value={values.PrincipleSignature}
             onChange={(e) => handleImage2(e)}
             type="file"
             // errors={errors.ClassLocation}

@@ -251,22 +251,15 @@ const ReassociateStudent = () => {
     setOpenPopup(false);
   };
 
-  const updateFormHandler = (
-    id,
-    academicYearValue,
-    programValue,
-    classOptValue,
-    shiftValue,
-    sectionValue
-  ) => {
+  const updateFormHandler = (id) => {
     dispatch(
       getSingleEditReassociateStudentsAction(
         id,
-        academicYearValue,
-        programValue,
-        classOptValue,
-        shiftValue,
-        sectionValue
+        reassociateStudentLists.searchFilterModel.idAcademicYear,
+        reassociateStudentLists.searchFilterModel.idFacultyProgramLink,
+        reassociateStudentLists.searchFilterModel.idClass,
+        reassociateStudentLists.searchFilterModel.idShift,
+        reassociateStudentLists.searchFilterModel.classSection
       )
     );
     setOpenPopupEdit(true);

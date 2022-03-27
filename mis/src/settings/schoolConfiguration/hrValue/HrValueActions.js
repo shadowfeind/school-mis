@@ -138,11 +138,11 @@ export const postCreateHrValueAction =
 
         const jsonData = JSON.stringify({ dbModel: newData });
         console.log(jsonData);
-        await axios.post(
-          `${API_URL}/api/HRValue/PostHRValue`,
-          jsonData,
-          tokenConfig
-        );
+        // await axios.post(
+        //   `${API_URL}/api/HRValue/PostHRValue`,
+        //   jsonData,
+        //   tokenConfig
+        // );
       }
       dispatch({
         type: POST_HR_VALUE_SUCCESS,
@@ -155,14 +155,14 @@ export const postCreateHrValueAction =
     }
   };
 
-  export const putEditHrValueAction =
+export const putEditHrValueAction =
   (dbData, image, image1, image2) => async (dispatch) => {
     try {
       dispatch({ type: PUT_HR_VALUE_REQUEST });
 
       let formData = new FormData();
       formData.append("ImageUploaded", image);
-debugger;
+
       const { data: headerBanner } = await axios.post(
         `${API_URL}/api/HRValue/FileUploadHeaderBanner
         `,
@@ -189,7 +189,6 @@ debugger;
         formData2,
         tokenConfig
       );
-      debugger;
 
       if ((headerBanner, schoolLookup, PrincipleSignature)) {
         const newData = {
@@ -198,9 +197,9 @@ debugger;
           SchoolLogo: schoolLookup,
           PrincipleSignature: PrincipleSignature,
         };
-debugger;
-        const jsonData = JSON.stringify({ dbModel: newData})
-    console.log(jsonData);
+
+        const jsonData = JSON.stringify({ dbModel: newData });
+        console.log(jsonData);
         await axios.put(
           `${API_URL}/api/HRValue/PutHRValue`,
           jsonData,

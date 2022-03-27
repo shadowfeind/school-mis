@@ -17,44 +17,56 @@ import { useDispatch, useSelector } from "react-redux";
 import Notification from "../../../components/Notification";
 import ConfirmDialog from "../../../components/ConfirmDialog";
 import SelectControl from "../../../components/controls/SelectControl";
-import { GET_ALL_HR_VALUE_RESET, GET_LIST_HR_VALUE_RESET, GET_SINGLE_TO_CREATE_HR_VALUE_RESET, GET_SINGLE_TO_EDIT_HR_VALUE_RESET, POST_HR_VALUE_RESET, PUT_HR_VALUE_RESET } from "./HrValueConstants";
-import { getALLHrValueAction, getListHrValueAction, getSingleCreateHrValueAction, getSingleEditHrValueAction } from "./HrValueActions";
+import {
+  GET_ALL_HR_VALUE_RESET,
+  GET_LIST_HR_VALUE_RESET,
+  GET_SINGLE_TO_CREATE_HR_VALUE_RESET,
+  GET_SINGLE_TO_EDIT_HR_VALUE_RESET,
+  POST_HR_VALUE_RESET,
+  PUT_HR_VALUE_RESET,
+} from "./HrValueConstants";
+import {
+  getALLHrValueAction,
+  getListHrValueAction,
+  getSingleCreateHrValueAction,
+  getSingleEditHrValueAction,
+} from "./HrValueActions";
 import HrValueTableCollapse from "./HrValueTableCollapse";
 import HrValueForm from "./HrValueForm";
 
 const useStyles = makeStyles((theme) => ({
-    searchInput: {
-      width: "75%",
-      fontSize: "12px",
-    },
-    // button: {
-    //   position: "absolute",
-    //   right: "10px",
-    // },
-    customInput: {
-      minWidth: "200px",
-    },
-  }));
+  searchInput: {
+    width: "75%",
+    fontSize: "12px",
+  },
+  // button: {
+  //   position: "absolute",
+  //   right: "10px",
+  // },
+  customInput: {
+    minWidth: "200px",
+  },
+}));
 
-  const tableHeader = [
-    { id: "SchoolName", label: "School Name" },
-    { id: "FullAddress", label: "School Address" },
-    { id: "TelNo", label: "Phone Number" },
-    { id: "Email", label: "Email" },
-    { id: "IDHRCompany", label: "Company" },
-    { id: "actions", label: "Actions", disableSorting: true },
-  ];
+const tableHeader = [
+  { id: "SchoolName", label: "School Name" },
+  { id: "FullAddress", label: "School Address" },
+  { id: "TelNo", label: "Phone Number" },
+  { id: "Email", label: "Email" },
+  { id: "IDHRCompany", label: "Company" },
+  { id: "actions", label: "Actions", disableSorting: true },
+];
 
-  const HrValue = () => {
-    const [tableData, setTableData] = useState([]);
-    const [company, setCompany] = useState("");
-    const [companyDdl, setCompanyDdl] = useState([]);
-    const [errors, setErrors] = useState({});
-    const [filterFn, setFilterFn] = useState({
-      fn: (item) => {
-        return item;
-      },
-    });
+const HrValue = () => {
+  const [tableData, setTableData] = useState([]);
+  const [company, setCompany] = useState("");
+  const [companyDdl, setCompanyDdl] = useState([]);
+  const [errors, setErrors] = useState({});
+  const [filterFn, setFilterFn] = useState({
+    fn: (item) => {
+      return item;
+    },
+  });
   const [openPopup, setOpenPopup] = useState(false);
   const [notify, setNotify] = useState({
     isOpen: false,
@@ -92,9 +104,7 @@ const useStyles = makeStyles((theme) => ({
     tableDataAfterPagingAndSorting,
   } = useCustomTable(tableData, tableHeader, filterFn);
 
-  const { allHrValue, error } = useSelector(
-    (state) => state.getAllHrValue
-  );
+  const { allHrValue, error } = useSelector((state) => state.getAllHrValue);
 
   const { listHrValue, error: listHrValueError } = useSelector(
     (state) => state.getListHrValue
@@ -112,13 +122,11 @@ const useStyles = makeStyles((theme) => ({
     error: singleEditHrValueError,
   } = useSelector((state) => state.getSingleToEditHrValue);
 
-  const { success: postUploadPhotoSuccess, error: postUploadPhotoError } = useSelector(
-    (state) => state.postHrValue
-  );
+  const { success: postUploadPhotoSuccess, error: postUploadPhotoError } =
+    useSelector((state) => state.postHrValue);
 
-  const { success: putUploadPhotoSuccess, error: putUploadPhotoError } = useSelector(
-    (state) => state.putHrValue
-  );
+  const { success: putUploadPhotoSuccess, error: putUploadPhotoError } =
+    useSelector((state) => state.putHrValue);
 
   if (error) {
     setNotify({
@@ -167,9 +175,9 @@ const useStyles = makeStyles((theme) => ({
     dispatch({ type: POST_HR_VALUE_RESET });
     dispatch(getListHrValueAction(company));
     setOpenPopup(false);
-}
+  }
 
-if (putUploadPhotoSuccess) {
+  if (putUploadPhotoSuccess) {
     setNotify({
       isOpen: true,
       message: "Successfully Updated",
@@ -177,11 +185,11 @@ if (putUploadPhotoSuccess) {
     });
     dispatch({ type: PUT_HR_VALUE_RESET });
     dispatch(getListHrValueAction(company));
-    dispatch(getALLHrValueAction())
+    dispatch(getALLHrValueAction());
     setOpenPopup(false);
-}
+  }
 
-if (postUploadPhotoError) {
+  if (postUploadPhotoError) {
     setNotify({
       isOpen: true,
       message: postUploadPhotoError,
@@ -198,7 +206,6 @@ if (postUploadPhotoError) {
     });
     dispatch({ type: PUT_HR_VALUE_RESET });
   }
-
 
   useEffect(() => {
     dispatch({ type: "GET_LINK", payload: "/settings" });
@@ -226,13 +233,13 @@ if (postUploadPhotoError) {
   const createHandler = () => {
     if (validate()) {
       dispatch(getSingleCreateHrValueAction(company));
-      dispatch({type:GET_SINGLE_TO_EDIT_HR_VALUE_RESET});
+      dispatch({ type: GET_SINGLE_TO_EDIT_HR_VALUE_RESET });
       setOpenPopup(true);
     }
   };
 
-  const updateHrValueHandler = (id,company) => {
-    dispatch(getSingleEditHrValueAction(id,company));
+  const updateHrValueHandler = (id, company) => {
+    dispatch(getSingleEditHrValueAction(id, company));
     setOpenPopup(true);
   };
 
@@ -243,11 +250,11 @@ if (postUploadPhotoError) {
   };
 
   return (
-      <>
-          <CustomContainer>
-          <Toolbar>
+    <>
+      <CustomContainer>
+        <Toolbar>
           <Grid container style={{ fontSize: "12px" }}>
-          <Grid item xs={3}>
+            <Grid item xs={3}>
               <SelectControl
                 name="company"
                 label="School List"
@@ -257,14 +264,13 @@ if (postUploadPhotoError) {
                 errors={errors.company}
               />
             </Grid>
-            <Grid item xs={3}>
+            <Grid item xs={6}>
               <Button
                 variant="contained"
                 color="primary"
                 type="submit"
                 style={{ margin: "10px 0 0 10px" }}
                 onClick={listSearchHandler}
-                type="submit"
               >
                 SEARCH
               </Button>
@@ -280,8 +286,8 @@ if (postUploadPhotoError) {
               </Button>
             </Grid>
           </Grid>
-          </Toolbar>
-          <div style={{ height: "15px" }}></div>
+        </Toolbar>
+        <div style={{ height: "15px" }}></div>
         <Toolbar>
           <InputControl
             className={classes.searchInput}
@@ -296,11 +302,15 @@ if (postUploadPhotoError) {
             onChange={handleSearch}
           />
         </Toolbar>
-          <TableContainer className={classes.table}>
+        <TableContainer className={classes.table}>
           <TblHead />
           <TableBody>
             {tableDataAfterPagingAndSorting().map((item) => (
-              <HrValueTableCollapse item={item} key={item.$id} updateHrValueHandler={updateHrValueHandler} />
+              <HrValueTableCollapse
+                item={item}
+                key={item.$id}
+                updateHrValueHandler={updateHrValueHandler}
+              />
             ))}
           </TableBody>
         </TableContainer>
@@ -309,15 +319,11 @@ if (postUploadPhotoError) {
       <Popup
         openPopup={openPopup}
         setOpenPopup={setOpenPopup}
-        title="Syllabus LookUp Form"
+        title="Hr Value Form"
       >
         <HrValueForm
-          hrValueCreate={
-            singleCreateHrValue && singleCreateHrValue
-          }
-          hrValueEdit={
-            singleEditHrValue && singleEditHrValue
-          }
+          hrValueCreate={singleCreateHrValue && singleCreateHrValue}
+          hrValueEdit={singleEditHrValue && singleEditHrValue}
           setOpenPopup={setOpenPopup}
         />
       </Popup>
@@ -326,9 +332,8 @@ if (postUploadPhotoError) {
         confirmDialog={confirmDialog}
         setConfirmDialog={setConfirmDialog}
       />
-      </>
-  )
-
-}
+    </>
+  );
+};
 
 export default HrValue;

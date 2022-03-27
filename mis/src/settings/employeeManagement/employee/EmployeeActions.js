@@ -168,7 +168,7 @@ export const resetSingleEmployeePasswordAction =
       // };
 
       const { data } = await axios.put(
-        `${API_URL}/api/PutResetPassword`,
+        `${API_URL}/api/HREmployee/PutResetPassword`,
         jsonData,
         tokenConfig
       );

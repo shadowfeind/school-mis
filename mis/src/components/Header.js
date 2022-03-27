@@ -218,19 +218,19 @@ const Header = () => {
                         </span>
                       </div>
                     )}
-                    <Badge
+                    {/* <Badge
                       badgeContent={2}
                       color="secondary"
                       onClick={handleClick("top-end")}
-                    >
-                      {headerContent && (
-                        <img
-                          src={`${API_URL}${headerContent.FullPath}`}
-                          height="30px"
-                          style={{ borderRadius: "50%" }}
-                        />
-                      )}
-                    </Badge>
+                    > */}
+                    {headerContent && (
+                      <img
+                        src={`${API_URL}${headerContent.FullPath}`}
+                        height="30px"
+                        style={{ borderRadius: "50%" }}
+                      />
+                    )}
+                    {/* </Badge> */}
                   </IconButton>
                 </ClickAwayListener>
                 <Popper

@@ -10,7 +10,10 @@ import FormControl from "@material-ui/core/FormControl";
 import FormGroup from "@material-ui/core/FormGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
-import { AcademicFacultyCreateAction, updateSingleAcademicFacultyAction } from "./AcademicFacultyActions";
+import {
+  AcademicFacultyCreateAction,
+  updateSingleAcademicFacultyAction,
+} from "./AcademicFacultyActions";
 import SelectControl from "../../../components/controls/SelectControl";
 
 const initialFormValues = {
@@ -48,9 +51,7 @@ const AcademicFacultyForm = ({ academicFaculty, selected, setOpenPopup }) => {
     temp.TotalSection = !fieldValues.TotalSection
       ? "This feild is required"
       : "";
-      temp.TotalLevel = !fieldValues.TotalLevel
-      ? "This feild is required"
-      : "";
+    temp.TotalLevel = !fieldValues.TotalLevel ? "This feild is required" : "";
     temp.IDFacultyCoordinator = !fieldValues.IDFacultyCoordinator
       ? "This feild is required"
       : "";
@@ -71,7 +72,6 @@ const AcademicFacultyForm = ({ academicFaculty, selected, setOpenPopup }) => {
       } else {
         // dispatch(updateSingleAcademicFacultyAction(values));
         alert("Working");
-        
       }
     }
   };
@@ -88,10 +88,12 @@ const AcademicFacultyForm = ({ academicFaculty, selected, setOpenPopup }) => {
   };
 
   useEffect(() => {
-    if (academicFaculty) {
-      setValues({ ...academicFaculty });
+    if (academicFacultyOption) {
+      setValues(academicFacultyOption.dbModel);
+      console.log("hello", academicFacultyOption);
     }
-  }, [academicFaculty]);
+    console.log("test", academicFacultyOption);
+  }, [academicFacultyOption]);
 
   const symbolsArr = ["e", "E", "+", "-", "."];
 

@@ -33,16 +33,7 @@ const ReassociateStudentTableCollapse = ({
           variant="contained"
           color="primary"
           className={classes.button}
-          onClick={() =>
-            updateFormHandler(
-              item.$id,
-              item.IDYearFacultyLink,
-              item.IDStudentFacultyLevel,
-              item.IDLevel,
-              item.IDAcademicShift,
-              item.Section
-            )
-          }
+          onClick={() => updateFormHandler(item.IDHREmployee)}
         >
           <EditIcon style={{ fontSize: 12 }} />
         </Button>

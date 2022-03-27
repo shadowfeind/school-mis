@@ -98,10 +98,11 @@ const StudentAttendanceBulk = ({
   return (
     <>
       <div style={{ width: "300px", margin: "15px auto" }}>
+      Working Total Days:
         <TextField
           type="number"
           onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}
-          label="WorkingDayTotal"
+          // label="WorkingDayTotal"
           variant="outlined"
           name="WorkingDayTotal"
           value={workingDays}

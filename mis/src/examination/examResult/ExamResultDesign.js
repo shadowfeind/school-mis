@@ -1,7 +1,12 @@
-import React from "react";
+import React,{useEffect} from "react";
 import { Grid } from "@material-ui/core";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import "./examResult.css";
+import { API_URL } from "../../constants";
 import { gpaToGrade, gpaToRemarks, gradeCalc, pointCalc } from "./Helpers";
+import { GET_HEADER_BANNER_RESET } from "../../dashboard/DashboardConstants";
+import { getHeaderBannerAction } from "../../dashboard/DashboardActions";
 
 const ExamResultDesign = ({
   student,
@@ -18,13 +23,34 @@ const ExamResultDesign = ({
   let trackSubject = [];
   let tdToRender = [];
 
+
+  const dispatch = useDispatch();
+
+  const { headerBanners, error: headerBannersError } = useSelector(
+    (state) => state.getHeaderBanner
+  );
+
+  useEffect(() => {
+    if (!headerBanners) {
+      dispatch(getHeaderBannerAction());
+    }
+  }, [headerBanners, dispatch]);
+  if (headerBannersError) {
+    dispatch({ type: GET_HEADER_BANNER_RESET });
+    setNotify({
+      isOpen: true,
+      message: headerBannersError,
+      type: "error",
+    });
+  }
+
   for (let i = subjects.length; i <= 11; i++) {
     tdToRender.push(i);
   }
 
   return (
     <div className="resultContainer">
-      <img src="https://i.ibb.co/sQM6QZ3/Creation-Header.png" width="740px" />
+      <img src={`${API_URL}${headerBanners.FullPath}`} width="740px" />
       <div className="subjectTable">
         <h1>PROGRESS REPORT</h1>
         <Grid container>

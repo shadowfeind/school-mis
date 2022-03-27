@@ -267,6 +267,7 @@ const TeacherFacultySubject = () => {
   const test = [{ Key: "", Value: "" }];
 
   const updateTeacherHandler = (id, teacherId) => {
+    dispatch({type: CREATE_TEACHER_FAC_SUB_INITIAL_DATA_RESET})
     dispatch(
       getSingleTeacherFacSubDataAction(
         id,

@@ -51,12 +51,7 @@ export const SettingsRoute = [
     exact: false,
   },
   { name: "Notice", route: "/notice", icon: PostAdd, exact: false },
-  {
-    name: "Announcement",
-    route: "/announcement",
-    icon: RecordVoiceOver,
-    exact: false,
-  },
+  
   {
     name: "Old Questions",
     route: "/old-questions",

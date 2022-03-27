@@ -128,6 +128,8 @@ const ReassociateStudent = () => {
     error: singleEditReassociateStudentError,
   } = useSelector((state) => state.getSingleEditReassociateStudents);
 
+  console.log(singleEditReassociateStudent)
+
   const { success: reassociatePostSuccess } = useSelector(
     (state) => state.getReassociateStudentsLevelupPost
   );
@@ -162,7 +164,7 @@ const ReassociateStudent = () => {
       )
     );
     dispatch({ type: PUT_REASSOCIATE_STUDENTS_RESET });
-    setOpenPopup(false);
+    setOpenPopupEdit(false);
   }
 
   if (reassociatePostSuccess) {
@@ -173,6 +175,7 @@ const ReassociateStudent = () => {
       message: "Edited Succesfully",
       type: "success",
     });
+    setOpenPopup(false);
   }
   const handleAcademicYearChange = (e) => {
     setAcademicYearValue(e.target.value);
@@ -251,10 +254,10 @@ const ReassociateStudent = () => {
     setOpenPopup(false);
   };
 
-  const updateFormHandler = (id) => {
+  const updateFormHandler = (IDStudentFacultyLevel) => {
     dispatch(
       getSingleEditReassociateStudentsAction(
-        id,
+        IDStudentFacultyLevel,
         reassociateStudentLists.searchFilterModel.idAcademicYear,
         reassociateStudentLists.searchFilterModel.idFacultyProgramLink,
         reassociateStudentLists.searchFilterModel.idClass,
@@ -419,7 +422,7 @@ const ReassociateStudent = () => {
           reassociateForm={
             singleEditReassociateStudent && singleEditReassociateStudent
           }
-          setOpenPopup={setOpenPopupEdit}
+          setOpenPopupEdit={setOpenPopupEdit}
         />
       </Popup>
       <Notification notify={notify} setNotify={setNotify} />

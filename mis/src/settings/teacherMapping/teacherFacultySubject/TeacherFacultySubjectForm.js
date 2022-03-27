@@ -74,7 +74,7 @@ const TeacherFacultySubjectForm = ({
   useEffect(() => {
     if (editData) {
       setValues({ ...editData.dbModel });
-    }
+    console.log(editData)}
     if (createData) {
       setValues({ ...createData.dbModel });
     }

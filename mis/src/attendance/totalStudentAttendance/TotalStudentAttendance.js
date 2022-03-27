@@ -63,15 +63,15 @@ const TotalStudentAttendance = () => {
   const [ddlSection, setDdlSection] = useState([]);
   const [ddlSubject, setDdlSubject] = useState([]);
 
-  const [programValue, setProgramValue] = useState();
-  const [classId, setClassId] = useState();
-  const [acaYear, setAcaYear] = useState();
-  const [shift, setShift] = useState();
-  const [section, setSection] = useState();
-  const [subject, setSubject] = useState();
+  const [programValue, setProgramValue] = useState("");
+  const [classId, setClassId] = useState("");
+  const [acaYear, setAcaYear] = useState("");
+  const [shift, setShift] = useState("");
+  const [section, setSection] = useState("");
+  const [subject, setSubject] = useState("");
   const [errors, setErrors] = useState({});
-  const [startDate, setStartDate] = useState();
-  const [endDate, setEndDate] = useState();
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
 
   const [tableData, setTableData] = useState([]);
   const [filterFn, setFilterFn] = useState({

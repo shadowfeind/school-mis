@@ -291,7 +291,7 @@ const ClassNotification = () => {
                 errors={errors.shiftValue}
               />
             </Grid>
-            <Grid item xs={3}>
+            <Grid item xs={6}>
               <Button
                 variant="contained"
                 color="primary"

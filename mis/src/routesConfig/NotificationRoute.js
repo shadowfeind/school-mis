@@ -10,8 +10,14 @@ import {
 
   export const NotificationRoute = [
     {
+      name: "Announcement",
+      route: "/notification",
+      icon: RecordVoiceOver,
+      exact: false,
+    },
+    {
         name: "Class Notification",
-        route: "/notification",
+        route: "/class-notification",
         icon: PostAdd,
         exact: true,
       },

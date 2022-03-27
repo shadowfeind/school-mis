@@ -138,11 +138,11 @@ export const postCreateHrValueAction =
 
         const jsonData = JSON.stringify({ dbModel: newData });
         console.log(jsonData);
-        // await axios.post(
-        //   `${API_URL}/api/HRValue/PostHRValue`,
-        //   jsonData,
-        //   tokenConfig
-        // );
+        await axios.post(
+          `${API_URL}/api/HRValue/PostHRValue`,
+          jsonData,
+          tokenConfig
+        );
       }
       dispatch({
         type: POST_HR_VALUE_SUCCESS,

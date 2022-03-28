@@ -30,7 +30,7 @@ const StudentCardDesign = ({ student, imagePath, classname, examDate }) => {
           <strong>Symbol No:</strong> {student.UniversityRegistrationNumber}
         </h6>
         <h6>
-          <strong>Section:</strong> {examDate.slice(0, 10)}
+          <strong>Section:</strong>
         </h6>
       </div>
     </div>

@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import SelectControl from "../../../components/controls/SelectControl";
 import { API_URL } from "../../../constants";
 import { putClassScheduleAction } from "./ClassPgScheduleActions";
+import fileValidation from "../../../helpers/fileValidation";
 
 const initialFormValues = {
   Id: 1,
@@ -41,16 +42,6 @@ const ClassPgScheduleForm = ({ schedule, setOpenPopup }) => {
 
   const test = [{ Key: "", Value: "" }];
 
-  const handleImage = (event) => {
-    let imageFile = event.target.files[0];
-    const reader = new FileReader();
-    reader.onload = (x) => {
-      setImgSrc(x.target.result);
-    };
-    reader.readAsDataURL(imageFile);
-    setImage(event.target.files[0]);
-  };
-
   const handleSubmit = (e) => {
     e.preventDefault();
     if (validate()) {
@@ -73,7 +64,7 @@ const ClassPgScheduleForm = ({ schedule, setOpenPopup }) => {
           <InputControl
             name="ImageUploaded"
             label="Select File"
-            onChange={(e) => handleImage(e)}
+            onChange={(e) => fileValidation(e, setImage, setImgSrc)}
             type="file"
             errors={errors.img}
           />

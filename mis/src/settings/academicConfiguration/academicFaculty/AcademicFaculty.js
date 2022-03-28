@@ -10,6 +10,7 @@ import useCustomTable from "../../../customHooks/useCustomTable";
 import InputControl from "../../../components/controls/InputControl";
 import { Search } from "@material-ui/icons";
 import AddIcon from "@material-ui/icons/Add";
+import LoadingComp from "../../../components/LoadingComp";
 import Popup from "../../../components/Popup";
 import CustomContainer from "../../../components/CustomContainer";
 import { useDispatch, useSelector } from "react-redux";
@@ -71,7 +72,7 @@ const AcademicFaculty = () => {
 
   const dispatch = useDispatch();
 
-  const { academicFaculty, error } = useSelector(
+  const { academicFaculty, error,loading } = useSelector(
     (state) => state.academicFaculty
   );
 
@@ -80,7 +81,7 @@ const AcademicFaculty = () => {
     error: createAcademicFacultyError,
   } = useSelector((state) => state.createAcademicFaculty);
 
-  const { singleAcademicFaculty, error: singleAcademicFacultyError } =
+  const { singleAcademicFaculty,loading:loadingEdit, error: singleAcademicFacultyError } =
     useSelector((state) => state.getSingleAcademicFaculty);
 
   const { success: updateSingleAcademicFacultySuccess } = useSelector(
@@ -211,6 +212,10 @@ const AcademicFaculty = () => {
             Add{" "}
           </Button>
         </Toolbar>
+        {loading ? (
+          <LoadingComp />
+        ) : (
+          <>
         <TableContainer className={classes.table}>
           <TblHead />
 
@@ -226,12 +231,18 @@ const AcademicFaculty = () => {
           </TableBody>
         </TableContainer>
         <TblPagination />
+        </>
+        )}
       </CustomContainer>
       <Popup
         openPopup={openPopup}
         setOpenPopup={setOpenPopup}
         title="Academic Faculty Form"
       >
+       {loadingEdit ? (
+          <LoadingComp />
+        ) : (
+          <>
         <AcademicFacultyForm
           academicFaculty={
             singleAcademicFaculty && singleAcademicFaculty.dbModel
@@ -239,6 +250,8 @@ const AcademicFaculty = () => {
           selected={singleAcademicFaculty && singleAcademicFaculty.selected}
           setOpenPopup={setOpenPopup}
         />
+        </>
+        )}
       </Popup>
       <Notification notify={notify} setNotify={setNotify} />
       <ConfirmDialog

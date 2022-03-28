@@ -78,13 +78,14 @@ const SchoolSettings = () => {
     (state) => state.schoolSettings
   );
 
-  const { singleSchoolSetting } = useSelector(
+  const { singleSchoolSetting ,loading:loadingEdit} = useSelector(
     (state) => state.getSingleSchoolSettings
   );
 
   const {
     success: createSchoolSettingSuccess,
     error: createSchoolSettingError,
+    
   } = useSelector((state) => state.createSchoolSettings);
 
   const {
@@ -242,10 +243,16 @@ const SchoolSettings = () => {
         setOpenPopup={setOpenPopup}
         title="School Settings Form"
       >
+      {loadingEdit ? (
+          <LoadingComp />
+        ) : (
+          <>
         <SchoolSettingsForm
           college={singleSchoolSetting && singleSchoolSetting.dbModel}
           setOpenPopup={setOpenPopup}
         />
+        </>
+        )}
       </Popup>
       <Notification notify={notify} setNotify={setNotify} />
       <ConfirmDialog

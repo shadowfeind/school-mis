@@ -81,24 +81,25 @@ const AnnouncementForm = ({ announcement, setOpenPopup, fcmTokenList }) => {
             onChange={handleInputChange}
             errors={errors.NewsHeading}
           />
-
-          <CheckBoxControl
+        </Grid>
+        <Grid item xs={12}>
+          <InputControl
+            name="NewsDescription"
+            label="News Description*"
+            multiline
+            rows={4}
+            value={values.NewsDescription}
+            onChange={handleInputChange}
+            errors={errors.NewsDescription}
+          />
+        </Grid>
+        <CheckBoxControl
             name="IsActive"
             label="IsActive"
             value={values.IsActive}
             onChange={handleInputChange}
             errors={errors.IsActive}
           />
-        </Grid>
-        <Grid item xs={6}>
-          <InputControl
-            name="NewsDescription"
-            label="News Description*"
-            value={values.NewsDescription}
-            onChange={handleInputChange}
-            errors={errors.NewsDescription}
-          />
-        </Grid>
       </Grid>
       <div
         style={{

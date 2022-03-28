@@ -11,6 +11,7 @@ import useCustomTable from "../../../customHooks/useCustomTable";
 import InputControl from "../../../components/controls/InputControl";
 import { Search } from "@material-ui/icons";
 import Popup from "../../../components/Popup";
+import LoadingComp from "../../../components/LoadingComp";
 import CustomContainer from "../../../components/CustomContainer";
 import { useDispatch, useSelector } from "react-redux";
 import Notification from "../../../components/Notification";
@@ -90,7 +91,7 @@ const AcademicYearCalendar = () => {
     (state) => state.academicYearCalendar
   );
 
-  const { academicYearCalendarProgram } = useSelector(
+  const { academicYearCalendarProgram,loading } = useSelector(
     (state) => state.getAcademicYearCalendarProgram
   );
 
@@ -101,7 +102,7 @@ const AcademicYearCalendar = () => {
     (state) => state.academicYearCalendarSearch
   );
 
-  const { singleAcademicYearCalendar } = useSelector(
+  const { singleAcademicYearCalendar ,loading:loadingEdit} = useSelector(
     (state) => state.getSingleAcademicYearCalendar
   );
 
@@ -331,6 +332,10 @@ const AcademicYearCalendar = () => {
             onChange={handleSearch}
           />
         </Toolbar>
+        {loading ? (
+          <LoadingComp />
+        ) : (
+          <>
         {academicSearch && (
           <TableContainer className={classes.table}>
             <TblHead />
@@ -349,12 +354,18 @@ const AcademicYearCalendar = () => {
         )}
 
         {academicSearch && <TblPagination />}
+        </>
+        )}
       </CustomContainer>
       <Popup
         openPopup={openPopup}
         setOpenPopup={setOpenPopup}
         title="Create Academic Year Calendar"
       >
+      {loadingEdit ? (
+          <LoadingComp />
+        ) : (
+          <>
         <AcademicYearCalendarForm
           singleAcademicYearCalendar={
             singleAcademicYearCalendar && singleAcademicYearCalendar
@@ -362,6 +373,8 @@ const AcademicYearCalendar = () => {
           setOpenPopup={setOpenPopup}
           classId={classId}
         />
+        </>
+        )}
       </Popup>
       <Notification notify={notify} setNotify={setNotify} />
       <ConfirmDialog

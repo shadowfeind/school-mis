@@ -11,6 +11,7 @@ import InputControl from "../../../components/controls/InputControl";
 import { Search } from "@material-ui/icons";
 import AddIcon from "@material-ui/icons/Add";
 import Popup from "../../../components/Popup";
+import LoadingComp from "../../../components/LoadingComp";
 import CustomContainer from "../../../components/CustomContainer";
 import { useDispatch, useSelector } from "react-redux";
 import Notification from "../../../components/Notification";
@@ -72,12 +73,12 @@ const AcademicYear = () => {
 
   const dispatch = useDispatch();
 
-  const { academicYear, error } = useSelector((state) => state.academicYear);
+  const { academicYear, error,loading } = useSelector((state) => state.academicYear);
 
   const { success: createAcademicYearSuccess, error: createAcademicYearError } =
     useSelector((state) => state.createAcademicYear);
 
-  const { singleAcademicYear, error: singleAcademicYearError } = useSelector(
+  const { singleAcademicYear,loading:loadingEdit, error: singleAcademicYearError } = useSelector(
     (state) => state.getSingleAcademicYear
   );
 
@@ -209,6 +210,10 @@ const AcademicYear = () => {
             Add{" "}
           </Button>
         </Toolbar>
+        {loading ? (
+          <LoadingComp />
+        ) : (
+          <>
         <TableContainer className={classes.table}>
           <TblHead />
 
@@ -224,17 +229,25 @@ const AcademicYear = () => {
           </TableBody>
         </TableContainer>
         <TblPagination />
+        </>
+        )}
       </CustomContainer>
       <Popup
         openPopup={openPopup}
         setOpenPopup={setOpenPopup}
         title="Academic Year Form"
       >
+       {loadingEdit ? (
+          <LoadingComp />
+        ) : (
+          <>
         <AcademicYearForm
           academicYear={singleAcademicYear && singleAcademicYear.dbModel}
           selected={singleAcademicYear && singleAcademicYear.selected}
           setOpenPopup={setOpenPopup}
         />
+        </>
+        )}
       </Popup>
       <Notification notify={notify} setNotify={setNotify} />
       <ConfirmDialog

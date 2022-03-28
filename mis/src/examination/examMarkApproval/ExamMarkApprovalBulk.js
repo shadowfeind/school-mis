@@ -68,7 +68,7 @@ const ExamMarkApprovalBulk = ({
         return [...newArray];
       });
     } else {
-      alert(`${name} must be equal or less than ${showValue}`);
+      alert(`${name} must be less than or euqal to ${showValue}`);
       setBulk((prev) => {
         const newReassoc = {
           ...subject,

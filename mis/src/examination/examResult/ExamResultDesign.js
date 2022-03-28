@@ -19,6 +19,7 @@ const ExamResultDesign = ({
   studentClass,
   studentYear,
   studentSection,
+  headerBanners
 }) => {
   let trackSubject = [];
   let tdToRender = [];
@@ -26,31 +27,13 @@ const ExamResultDesign = ({
 
   const dispatch = useDispatch();
 
-  const { headerBanners, error: headerBannersError } = useSelector(
-    (state) => state.getHeaderBanner
-  );
-
-  useEffect(() => {
-    if (!headerBanners) {
-      dispatch(getHeaderBannerAction());
-    }
-  }, [headerBanners, dispatch]);
-  if (headerBannersError) {
-    dispatch({ type: GET_HEADER_BANNER_RESET });
-    setNotify({
-      isOpen: true,
-      message: headerBannersError,
-      type: "error",
-    });
-  }
-
   for (let i = subjects.length; i <= 11; i++) {
     tdToRender.push(i);
   }
 
   return (
     <div className="resultContainer">
-      <img src={`${API_URL}${headerBanners.FullPath}`} width="740px" />
+      <img src={`${API_URL}${headerBanners}`} width="740px" />
       <div className="subjectTable">
         <h1>PROGRESS REPORT</h1>
         <Grid container>

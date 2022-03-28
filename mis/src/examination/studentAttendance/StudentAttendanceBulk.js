@@ -64,7 +64,7 @@ const StudentAttendanceBulk = ({
       });
     } else {
       alert(
-        "Present Day must be less than or equal to working days and postive number"
+        "Present Day must be less than or equal to working days"
       );
     }
   };

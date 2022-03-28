@@ -10,6 +10,7 @@ import useCustomTable from "../../../customHooks/useCustomTable";
 import InputControl from "../../../components/controls/InputControl";
 import { Search } from "@material-ui/icons";
 import AddIcon from "@material-ui/icons/Add";
+import LoadingComp from "../../../components/LoadingComp";
 import Popup from "../../../components/Popup";
 import CustomContainer from "../../../components/CustomContainer";
 import { useDispatch, useSelector } from "react-redux";
@@ -73,7 +74,7 @@ const AcademicProgram = () => {
 
   const dispatch = useDispatch();
 
-  const { academicProgram, error } = useSelector(
+  const { academicProgram, error,loading } = useSelector(
     (state) => state.academicProgram
   );
 
@@ -82,7 +83,7 @@ const AcademicProgram = () => {
     error: createAcademicProgramError,
   } = useSelector((state) => state.createAcademicProgram);
 
-  const { singleAcademicProgram, error: singleAcademicProgramError } =
+  const { singleAcademicProgram,loading:loadingEdit, error: singleAcademicProgramError } =
     useSelector((state) => state.getSingleAcademicProgram);
 
   const {
@@ -221,11 +222,13 @@ const AcademicProgram = () => {
             Add{" "}
           </Button>
         </Toolbar>
+        {loading ? (
+          <LoadingComp />
+        ) : (
+          <>
         <TableContainer className={classes.table}>
           <TblHead />
-          {/* {loading ? (
-            <div></div>
-          ) : ( */}
+        
           <TableBody>
             {tableDataAfterPagingAndSorting().map((item) => (
               <AcademicProgramTableCollapse
@@ -236,15 +239,20 @@ const AcademicProgram = () => {
               />
             ))}
           </TableBody>
-          {/* )} */}
+     
         </TableContainer>
         <TblPagination />
+        </>
+        )}
       </CustomContainer>
       <Popup
         openPopup={openPopup}
         setOpenPopup={setOpenPopup}
         title="Academic Program Form"
-      >
+      >{loadingEdit ? (
+          <LoadingComp />
+        ) : (
+          <>
         <AcademicProgramForm
           academicProgram={
             singleAcademicProgram && singleAcademicProgram.dbModel
@@ -252,6 +260,8 @@ const AcademicProgram = () => {
           selected={singleAcademicProgram && singleAcademicProgram.selected}
           setOpenPopup={setOpenPopup}
         />
+        </>
+        )}
       </Popup>
       <Notification notify={notify} setNotify={setNotify} />
       <ConfirmDialog

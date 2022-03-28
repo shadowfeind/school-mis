@@ -11,6 +11,7 @@ import InputControl from "../../../components/controls/InputControl";
 import { Search } from "@material-ui/icons";
 import AddIcon from "@material-ui/icons/Add";
 import Popup from "../../../components/Popup";
+import LoadingComp from "../../../components/LoadingComp";
 import CustomContainer from "../../../components/CustomContainer";
 import { useDispatch, useSelector } from "react-redux";
 import Notification from "../../../components/Notification";
@@ -72,13 +73,13 @@ const Role = () => {
 
   const dispatch = useDispatch();
 
-  const { role, error } = useSelector((state) => state.role);
+  const { role, error,loading } = useSelector((state) => state.role);
 
   const { success: createRoleSuccess, error: createRoleError } = useSelector(
     (state) => state.createRole
   );
 
-  const { singleRole, error: singleRoleError } = useSelector(
+  const { singleRole, error: singleRoleError ,loading:loadingEdit} = useSelector(
     (state) => state.getSingleRole
   );
 
@@ -235,6 +236,10 @@ const Role = () => {
             Add{" "}
           </Button>
         </Toolbar>
+        {loading ? (
+          <LoadingComp />
+        ) : (
+          <>
         <TableContainer className={classes.table}>
           <TblHead />
 
@@ -252,16 +257,24 @@ const Role = () => {
           </TableBody>
         </TableContainer>
         <TblPagination />
+        </>
+        )}
       </CustomContainer>
       <Popup
         openPopup={openPopup}
         setOpenPopup={setOpenPopup}
         title="Employee Role Form"
       >
+      {loadingEdit ? (
+          <LoadingComp />
+        ) : (
+          <>
         <RoleForm
           role={singleRole && singleRole.hrRoleModel}
           setOpenPopup={setOpenPopup}
         />
+        </>
+        )}
       </Popup>
       <Popup
       openPopup={openDeletePopup}

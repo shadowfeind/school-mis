@@ -10,6 +10,7 @@ import useCustomTable from "../../../customHooks/useCustomTable";
 import InputControl from "../../../components/controls/InputControl";
 import { Search } from "@material-ui/icons";
 import AddIcon from "@material-ui/icons/Add";
+import LoadingComp from "../../../components/LoadingComp";
 import Popup from "../../../components/Popup";
 import CustomContainer from "../../../components/CustomContainer";
 import { useDispatch, useSelector } from "react-redux";
@@ -71,14 +72,14 @@ const AcademicClass = () => {
 
   const dispatch = useDispatch();
 
-  const { academicClass, error } = useSelector((state) => state.academicClass);
+  const { academicClass, error ,loading} = useSelector((state) => state.academicClass);
 
   const {
     success: academicClassCreateSuccess,
     error: academicClassCreateError,
   } = useSelector((state) => state.createAcademicClass);
 
-  const { singleAcademicClass, error: singleAcademicClassError } = useSelector(
+  const { singleAcademicClass, error: singleAcademicClassError,loading:loadingEdit } = useSelector(
     (state) => state.getSingleAcademicClass
   );
 
@@ -216,6 +217,10 @@ const AcademicClass = () => {
             Add{" "}
           </Button>
         </Toolbar>
+        {loading ? (
+          <LoadingComp />
+        ) : (
+          <>
         <TableContainer className={classes.table}>
           <TblHead />
 
@@ -231,16 +236,24 @@ const AcademicClass = () => {
           </TableBody>
         </TableContainer>
         <TblPagination />
+        </>
+        )}
       </CustomContainer>
       <Popup
         openPopup={openPopup}
         setOpenPopup={setOpenPopup}
         title="Academic Class Form"
       >
+      {loadingEdit ? (
+          <LoadingComp />
+        ) : (
+          <>
         <AcademicClassForm
           academicClass={singleAcademicClass && singleAcademicClass.dbModel}
           setOpenPopup={setOpenPopup}
         />
+        </>
+        )}
       </Popup>
       <Notification notify={notify} setNotify={setNotify} />
       <ConfirmDialog

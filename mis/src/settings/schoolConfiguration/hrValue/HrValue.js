@@ -12,6 +12,7 @@ import useCustomTable from "../../../customHooks/useCustomTable";
 import InputControl from "../../../components/controls/InputControl";
 import Popup from "../../../components/Popup";
 import AddIcon from "@material-ui/icons/Add";
+import LoadingComp from "../../../components/LoadingComp";
 import CustomContainer from "../../../components/CustomContainer";
 import { useDispatch, useSelector } from "react-redux";
 import Notification from "../../../components/Notification";
@@ -106,7 +107,7 @@ const HrValue = () => {
 
   const { allHrValue, error } = useSelector((state) => state.getAllHrValue);
 
-  const { listHrValue, error: listHrValueError } = useSelector(
+  const { listHrValue, error: listHrValueError,loading } = useSelector(
     (state) => state.getListHrValue
   );
 
@@ -118,6 +119,7 @@ const HrValue = () => {
 
   const {
     singleEditHrValue,
+    loading:loadingEdit,
     success: singleEditHrValueSuccess,
     error: singleEditHrValueError,
   } = useSelector((state) => state.getSingleToEditHrValue);
@@ -302,6 +304,10 @@ const HrValue = () => {
             onChange={handleSearch}
           />
         </Toolbar>
+        {loading ? (
+          <LoadingComp />
+        ) : (
+          <>
         <TableContainer className={classes.table}>
           <TblHead />
           <TableBody>
@@ -315,17 +321,25 @@ const HrValue = () => {
           </TableBody>
         </TableContainer>
         <TblPagination />
+        </>
+        )}
       </CustomContainer>
       <Popup
         openPopup={openPopup}
         setOpenPopup={setOpenPopup}
         title="Hr Value Form"
       >
+            {loadingEdit ? (
+          <LoadingComp />
+        ) : (
+          <>
         <HrValueForm
           hrValueCreate={singleCreateHrValue && singleCreateHrValue}
           hrValueEdit={singleEditHrValue && singleEditHrValue}
           setOpenPopup={setOpenPopup}
         />
+        </>
+        )}
       </Popup>
       <Notification notify={notify} setNotify={setNotify} />
       <ConfirmDialog

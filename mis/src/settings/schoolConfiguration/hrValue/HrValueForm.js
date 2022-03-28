@@ -30,12 +30,12 @@ const initialFormValues = {
 };
 
 const HrValueForm = ({ hrValueCreate, setOpenPopup, hrValueEdit }) => {
-  const [image, setImage] = useState(null);
-  const [image1, setImage1] = useState(null);
-  const [image2, setImage2] = useState(null);
-  const [imgSrc, setImgSrc] = useState(null);
-  const [imgSrc1, setImgSrc1] = useState(null);
-  const [imgSrc2, setImgSrc2] = useState(null);
+  const [headerBanner, setHeaderBanner] = useState("");
+  const [schoolLogo, setSchoolLogo] = useState("");
+  const [principleSignature, setPrincipleSignature] = useState("");
+  const [imgSrc, setImgSrc] = useState("");
+  const [imgSrc1, setImgSrc1] = useState("");
+  const [imgSrc2, setImgSrc2] = useState("");
 
   const dispatch = useDispatch();
 
@@ -53,9 +53,9 @@ const HrValueForm = ({ hrValueCreate, setOpenPopup, hrValueEdit }) => {
     temp.RegNo = !fieldValues.RegNo ? "This Field is Required" : "";
     temp.Url = !fieldValues.Url ? "This Field is Required" : "";
     temp.SchoolType = !fieldValues.SchoolType ? "This Field is Required" : "";
-    // temp.image =!fieldValues.image ? "This Field is Required" : "";
-    // temp.image1 =!fieldValues.image1 ? "This Field is Required" : "";
-    // temp.image2 =!fieldValues.image2 ? "This Field is Required" : "";
+    // temp.headerBanner =!fieldValues.headerBanner ? "This Field is Required" : "";
+    // temp.schoolLogo =!fieldValues.schoolLogo ? "This Field is Required" : "";
+    // temp.principleSignature =!fieldValues.principleSignature ? "This Field is Required" : "";
     setErrors({ ...temp });
     return Object.values(temp).every((x) => x === "");
   };
@@ -64,14 +64,14 @@ const HrValueForm = ({ hrValueCreate, setOpenPopup, hrValueEdit }) => {
     e.preventDefault();
     if (validate()) {
       if (values.IDHRCompanyValue === 0) {
-        dispatch(postCreateHrValueAction(values, image, image1, image2));
+        dispatch(postCreateHrValueAction(values, headerBanner, schoolLogo, principleSignature));
       } else {
         dispatch(
           putEditHrValueAction(
             values,
-            image,
-            image1,
-            image2,
+            headerBanner,
+            schoolLogo,
+            principleSignature,
             hrValueEdit.FullPath,
             hrValueEdit.FullPathSchoolLogo,
             hrValueEdit.FullPathPrincipleSignature
@@ -81,39 +81,40 @@ const HrValueForm = ({ hrValueCreate, setOpenPopup, hrValueEdit }) => {
     }
   };
 
-  const handleImage = (event) => {
+  const hnadleHeaderBanner = (event) => {
     let imageFile = event.target.files[0];
     const reader = new FileReader();
     reader.onload = (x) => {
       setImgSrc(x.target.result);
     };
     reader.readAsDataURL(imageFile);
-    setImage(event.target.files[0]);
+    setHeaderBanner(event.target.files[0]);
   };
 
-  const handleImage1 = (event) => {
+  const hnadleSchoolLogo = (event) => {
     let imageFile = event.target.files[0];
     const reader = new FileReader();
     reader.onload = (x) => {
       setImgSrc1(x.target.result);
     };
     reader.readAsDataURL(imageFile);
-    setImage1(event.target.files[0]);
+    setSchoolLogo(event.target.files[0]);
   };
 
-  const handleImage2 = (event) => {
+  const handlePrincipleSignature = (event) => {
     let imageFile = event.target.files[0];
     const reader = new FileReader();
     reader.onload = (x) => {
       setImgSrc2(x.target.result);
     };
     reader.readAsDataURL(imageFile);
-    setImage2(event.target.files[0]);
+    setPrincipleSignature(event.target.files[0]);
   };
 
   useEffect(() => {
     if (hrValueEdit) {
       setValues({ ...hrValueEdit.dbModel });
+      setImage(hrValueEdit.dbModel.HeaderBanner)
       console.log(hrValueEdit.dbModel);
     }
   }, [hrValueEdit]);
@@ -212,10 +213,10 @@ const HrValueForm = ({ hrValueCreate, setOpenPopup, hrValueEdit }) => {
           <InputControl
             name="ImageUploaded"
             // label="Select HeadBanner Photo"
-            // value={values.HeaderBanner}
-            onChange={(e) => handleImage(e)}
+            value={headerBanner}
+            onChange={(e) => hnadleHeaderBanner(e)}
             type="file"
-            // errors={errors.image}
+            // errors={errors.headerBanner}
           />
 
           <img
@@ -231,10 +232,10 @@ const HrValueForm = ({ hrValueCreate, setOpenPopup, hrValueEdit }) => {
           <InputControl
             name="ImageUploaded1"
             // label="Select School Logo Photo"
-            // value={values.SchoolLogo}
-            onChange={(e) => handleImage1(e)}
+            value={values.FullPathSchoolLogo}
+            onChange={(e) => hnadleSchoolLogo(e)}
             type="file"
-            // errors={errors.image1}
+            // errors={errors.schoolLogo}
           />
 
           <img
@@ -250,10 +251,10 @@ const HrValueForm = ({ hrValueCreate, setOpenPopup, hrValueEdit }) => {
           <InputControl
             name="ImageUploaded2"
             // label="Select Principle Signature Photo"
-            // value={values.PrincipleSignature}
-            onChange={(e) => handleImage2(e)}
+            value={values.FullPathPrincipleSignature}
+            onChange={(e) => handlePrincipleSignature(e)}
             type="file"
-            // errors={errors.image2}
+            // errors={errors.principleSignature}
           />
 
           <img

@@ -172,7 +172,7 @@ const Header = () => {
                   </li>
                   <li>
                     <NavLink to={"/registration"} activeStyle={isActive}>
-                      Registration
+                      Student Registration
                     </NavLink>
                   </li>
                   <li>

@@ -11,6 +11,7 @@ import InputControl from "../../../components/controls/InputControl";
 import { Search } from "@material-ui/icons";
 import AddIcon from "@material-ui/icons/Add";
 import Popup from "../../../components/Popup";
+import LoadingComp from "../../../components/LoadingComp";
 import CustomContainer from "../../../components/CustomContainer";
 import { useDispatch, useSelector } from "react-redux";
 import Notification from "../../../components/Notification";
@@ -74,12 +75,12 @@ const EmployeeType = () => {
 
   const dispatch = useDispatch();
 
-  const { employeeType, error } = useSelector((state) => state.employeeType);
+  const { employeeType, error,loading } = useSelector((state) => state.employeeType);
 
   const { success: createEmployeeTypeSuccess, error: createEmployeeTypeError } =
     useSelector((state) => state.createEmployeeType);
 
-  const { singleEmployeeType, error: singleEmployeeTypeError } = useSelector(
+  const { singleEmployeeType, loading:loadingEdit,error: singleEmployeeTypeError } = useSelector(
     (state) => state.getSingleEmployeeType
   );
 
@@ -243,6 +244,10 @@ const EmployeeType = () => {
             Add{" "}
           </Button>
         </Toolbar>
+        {loading ? (
+          <LoadingComp />
+        ) : (
+          <>
         <TableContainer className={classes.table}>
           <TblHead />
 
@@ -260,18 +265,26 @@ const EmployeeType = () => {
           </TableBody>
         </TableContainer>
         <TblPagination />
+        </>
+        )}
       </CustomContainer>
       <Popup
         openPopup={openPopup}
         setOpenPopup={setOpenPopup}
         title="Employee Type Form"
       >
+      {loadingEdit ? (
+          <LoadingComp />
+        ) : (
+          <>
         <EmployeeTypeForm
           employeeType={
             singleEmployeeType && singleEmployeeType.hrEmployeeTypeModel
           }
           setOpenPopup={setOpenPopup}
         />
+        </>
+        )}
       </Popup>
       <Popup
       openPopup={openDeletePopup}

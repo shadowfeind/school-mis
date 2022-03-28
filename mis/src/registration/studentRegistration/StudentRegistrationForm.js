@@ -206,7 +206,7 @@ const StudentRegistrationForm = ({
 
     temp.MobileNo = !fieldValues.MobileNo
       ? "This feild is required"
-      : fieldValues.FatherContactNo.length <= 10
+      : fieldValues.MobileNo?.length <= 10
       ? ""
       : "Must be less or equal to 10";
 
@@ -234,7 +234,7 @@ const StudentRegistrationForm = ({
 
     temp.FatherContactNo = !fieldValues.FatherContactNo
       ? "This feild is required"
-      : fieldValues.FatherContactNo.length <= 10
+      : fieldValues.FatherContactNo?.length <= 10
       ? ""
       : "Must be less or equal to 10";
     // temp.LocalGuardianContactNo = !fieldValues.LocalGuardianContactNo
@@ -251,7 +251,7 @@ const StudentRegistrationForm = ({
     //   : "";
 
     temp.ClassLocation =
-      fieldValues.ClassLocation && fieldValues.ClassLocation.length > 200
+      fieldValues.ClassLocation && fieldValues.ClassLocation?.length > 200
         ? "Must be less than 501 characters"
         : "";
 

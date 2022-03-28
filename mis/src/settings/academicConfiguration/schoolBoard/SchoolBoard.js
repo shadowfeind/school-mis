@@ -10,6 +10,7 @@ import useCustomTable from "../../../customHooks/useCustomTable";
 import InputControl from "../../../components/controls/InputControl";
 import { Search } from "@material-ui/icons";
 import AddIcon from "@material-ui/icons/Add";
+import LoadingComp from "../../../components/LoadingComp";
 import Popup from "../../../components/Popup";
 import CustomContainer from "../../../components/CustomContainer";
 import { useDispatch, useSelector } from "react-redux";
@@ -71,12 +72,12 @@ const SchoolBoard = () => {
 
   const dispatch = useDispatch();
 
-  const { schoolBoard, error } = useSelector((state) => state.schoolBoard);
+  const { schoolBoard, error,loading } = useSelector((state) => state.schoolBoard);
 
   const { success: createSchoolBoardSuccess, error: createSchoolBoardError } =
     useSelector((state) => state.createSchoolBoard);
 
-  const { singleSchoolBoard, error: singleSchoolBoardError } = useSelector(
+  const { singleSchoolBoard,loading:loadingEdit, error: singleSchoolBoardError } = useSelector(
     (state) => state.getSingleSchoolBoard
   );
 
@@ -213,6 +214,10 @@ const SchoolBoard = () => {
             Add{" "}
           </Button>
         </Toolbar>
+        {loading ? (
+          <LoadingComp />
+        ) : (
+          <>
         <TableContainer className={classes.table}>
           <TblHead />
 
@@ -228,16 +233,24 @@ const SchoolBoard = () => {
           </TableBody>
         </TableContainer>
         <TblPagination />
+        </>
+        )}
       </CustomContainer>
       <Popup
         openPopup={openPopup}
         setOpenPopup={setOpenPopup}
         title="School Board Form"
       >
+      {loadingEdit ? (
+          <LoadingComp />
+        ) : (
+          <>
         <SchoolBoardForm
           schoolBoard={singleSchoolBoard && singleSchoolBoard.dbModel}
           setOpenPopup={setOpenPopup}
         />
+        </>
+        )}
       </Popup>
       <Notification notify={notify} setNotify={setNotify} />
       <ConfirmDialog

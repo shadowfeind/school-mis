@@ -11,6 +11,7 @@ import InputControl from "../../../components/controls/InputControl";
 import { Search } from "@material-ui/icons";
 import AddIcon from "@material-ui/icons/Add";
 import Popup from "../../../components/Popup";
+import LoadingComp from "../../../components/LoadingComp";
 import CustomContainer from "../../../components/CustomContainer";
 import { useDispatch, useSelector } from "react-redux";
 import Notification from "../../../components/Notification";
@@ -72,14 +73,14 @@ const AcademicSection = () => {
 
   const dispatch = useDispatch();
 
-  const { academicSection, error } = useSelector(
+  const { academicSection, error,loading } = useSelector(
     (state) => state.academicSection
   );
 
   const { success: createAcademicSection, error: createAcademicSectionError } =
     useSelector((state) => state.createAcademicSection);
 
-  const { singleAcademicSection, error: singleAcademicSectionError } =
+  const { singleAcademicSection,loading:loadingEdit, error: singleAcademicSectionError } =
     useSelector((state) => state.getSingleAcademicSection);
 
   const {
@@ -216,6 +217,10 @@ const AcademicSection = () => {
             Add{" "}
           </Button>
         </Toolbar>
+        {loading ? (
+          <LoadingComp />
+        ) : (
+          <>
         <TableContainer className={classes.table}>
           <TblHead />
 
@@ -231,18 +236,26 @@ const AcademicSection = () => {
           </TableBody>
         </TableContainer>
         <TblPagination />
+        </>
+        )}
       </CustomContainer>
       <Popup
         openPopup={openPopup}
         setOpenPopup={setOpenPopup}
         title="Academic Section Form"
       >
+       {loadingEdit ? (
+          <LoadingComp />
+        ) : (
+          <>
         <AcademicSectinoForm
           academicSection={
             singleAcademicSection && singleAcademicSection.dbModel
           }
           setOpenPopup={setOpenPopup}
         />
+        </>
+        )}
       </Popup>
       <Notification notify={notify} setNotify={setNotify} />
       <ConfirmDialog

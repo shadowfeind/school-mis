@@ -421,7 +421,7 @@ const ExamMarkApproval = () => {
                 style={{ margin: "10px 0 0 10px" }}
                 onClick={handleBulkEdit}
               >
-                BULKEDIT
+                BULK EDIT
               </Button>
 
               <Button

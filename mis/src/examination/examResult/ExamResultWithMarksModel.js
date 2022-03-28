@@ -3,7 +3,7 @@ import ExamResultWithMarksDesign from "./ExamResultWithMarksDesign";
 import { useReactToPrint } from "react-to-print";
 import { Button } from "@material-ui/core";
 
-const ExamResultWithMarksModel = ({ examReport }) => {
+const ExamResultWithMarksModel = ({ examReport,headerBanners }) => {
   const componentRef = useRef();
   const printPdf = useReactToPrint({
     content: () => componentRef.current,
@@ -50,6 +50,7 @@ const ExamResultWithMarksModel = ({ examReport }) => {
               studentClass={studentClass[0]}
               studentYear={examReport.npYear}
               studentSection={studentSection[0]}
+              headerBanners={headerBanners}
             />
           );
         })}

@@ -16,6 +16,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Notification from "../../../components/Notification";
 import ConfirmDialog from "../../../components/ConfirmDialog";
 import PositionForm from "./PositionForm";
+import LoadingComp from "../../../components/LoadingComp";
 
 import {
   deletePositionAction,
@@ -76,12 +77,12 @@ const Position = () => {
 
   const dispatch = useDispatch();
 
-  const { position, error } = useSelector((state) => state.position);
+  const { position, error ,loading} = useSelector((state) => state.position);
 
   const { success: createPositionSuccess, error: createPositionError } =
     useSelector((state) => state.createPosition);
 
-  const { position: singlePosition, error: singlePositionError } = useSelector(
+  const { position: singlePosition, error: singlePositionError,loading:loadingEdit } = useSelector(
     (state) => state.getSinglePosition
   );
 
@@ -242,6 +243,10 @@ const Position = () => {
             Add{" "}
           </Button>
         </Toolbar>
+        {loading ? (
+          <LoadingComp />
+        ) : (
+          <>
         <TableContainer className={classes.table}>
           <TblHead />
 
@@ -259,16 +264,24 @@ const Position = () => {
           </TableBody>
         </TableContainer>
         <TblPagination />
+        </>
+        )}
       </CustomContainer>
       <Popup
         openPopup={openPopup}
         setOpenPopup={setOpenPopup}
         title="Position Form"
       >
+      {loadingEdit ? (
+          <LoadingComp />
+        ) : (
+          <>
         <PositionForm
           position={singlePosition && singlePosition.dbModel}
           setOpenPopup={setOpenPopup}
         />
+        </>
+        )}
       </Popup>
       <Popup
         openPopup={openDeletePopup}

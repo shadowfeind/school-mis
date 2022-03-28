@@ -33,6 +33,8 @@ import FinalExamResult from "./FinalExamResult";
 import ExamResultWithMarksModel from "./ExamResultWithMarksModel";
 import ExamResultCount from "./ExamResultCount";
 import LoadingComp from "../../components/LoadingComp";
+import { getHeaderBannerAction } from "../../dashboard/DashboardActions";
+import { GET_HEADER_BANNER_RESET } from "../../dashboard/DashboardConstants";
 
 // NOTE
 //exam ledger header is exam ledger
@@ -134,6 +136,25 @@ const ExamResult = () => {
     success: printExamResultCountSuccess,
     loading: printExamResultCountLoading,
   } = useSelector((state) => state.printExamResultCount);
+
+  const { headerBanners, error: headerBannersError } = useSelector(
+    (state) => state.getHeaderBanner
+  );
+
+  useEffect(() => {
+    if (!headerBanners) {
+      dispatch(getHeaderBannerAction());
+    }
+  }, [headerBanners, dispatch]);
+
+  if (headerBannersError) {
+    dispatch({ type: GET_HEADER_BANNER_RESET });
+    setNotify({
+      isOpen: true,
+      message: headerBannersError,
+      type: "error",
+    });
+  }
 
   if (getexamResultListError) {
     setNotify({
@@ -603,7 +624,7 @@ const ExamResult = () => {
         )}
       </CustomContainer>
       <Popup openPopup={openPopup} setOpenPopup={setOpenPopup} title="">
-        <ExamResultModel examReport={printExamResult && printExamResult} />
+        <ExamResultModel headerBanners={headerBanners && headerBanners} examReport={printExamResult && printExamResult} />
       </Popup>
       <Popup
         openPopup={openPopupResultMark}
@@ -611,6 +632,7 @@ const ExamResult = () => {
         title=""
       >
         <ExamResultWithMarksModel
+        headerBanners={headerBanners && headerBanners}
           examReport={printExamResult && printExamResult}
         />
       </Popup>
@@ -619,7 +641,9 @@ const ExamResult = () => {
         setOpenPopup={setOpenPopupFinal}
         title=""
       >
-        <FinalExamResult result={printFinalResult} />
+        <FinalExamResult 
+        headerBanners={headerBanners && headerBanners}
+        result={printFinalResult} />
       </Popup>
       <Popup
         openPopup={openPopupCount}

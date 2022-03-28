@@ -1,27 +1,28 @@
 import React, { useState, useEffect } from "react";
 import { API_URL } from "../../constants";
 import { useDispatch } from "react-redux";
-import { getHeaderContentAction } from "../../dashboard/DashboardActions";
-import { GET_HEADER_CONTENT_RESET } from "../../dashboard/DashboardConstants";
+import { getHeaderBannerAction, getHeaderContentAction } from "../../dashboard/DashboardActions";
+import { GET_HEADER_BANNER_RESET, GET_HEADER_CONTENT_RESET } from "../../dashboard/DashboardConstants";
 import { useSelector } from "react-redux";
 
 const AdmitCardDesign = ({ student, imagePath, classname, examDate }) => {
   
   const dispatch = useDispatch();
-  const { headerContent, error: headerContentError } = useSelector(
-    (state) => state.getHeaderContent
+  const { headerBanners, error: headerBannersError } = useSelector(
+    (state) => state.getHeaderBanner
   );
 
   useEffect(() => {
-    if (!headerContent) {
-      dispatch(getHeaderContentAction());
+    if (!headerBanners) {
+      dispatch(getHeaderBannerAction());
     }
-  }, [headerContent, dispatch]);
-  if (headerContentError) {
-    dispatch({ type: GET_HEADER_CONTENT_RESET });
+  }, [headerBanners, dispatch]);
+
+  if (headerBannersError) {
+    dispatch({ type: GET_HEADER_BANNER_RESET });
     setNotify({
       isOpen: true,
-      message: headerContentError,
+      message: headerBannersError,
       type: "error",
     });
   }
@@ -40,7 +41,7 @@ const AdmitCardDesign = ({ student, imagePath, classname, examDate }) => {
     >
       <div className="admitCard">
         <img
-          src={`${API_URL}${headerContent.FullPathSchoolLogo}`}
+          src={`${API_URL}${headerBanners}`}
           height="60px"
           style={{ marginTop: "15px" }}
         />

@@ -10,6 +10,7 @@ import useCustomTable from "../../../customHooks/useCustomTable";
 import InputControl from "../../../components/controls/InputControl";
 import { Search } from "@material-ui/icons";
 import AddIcon from "@material-ui/icons/Add";
+import LoadingComp from "../../../components/LoadingComp";
 import Popup from "../../../components/Popup";
 import CustomContainer from "../../../components/CustomContainer";
 import { useDispatch, useSelector } from "react-redux";
@@ -75,12 +76,13 @@ const AcademicSubject = () => {
 
   const dispatch = useDispatch();
 
-  const { error, academicSubject } = useSelector(
+  const { error, academicSubject ,loading} = useSelector(
     (state) => state.academicSubject
   );
 
   const {
     academicSubject: singleAcademicSubject,
+    loading:loadingEdit,
     error: getSingleAcademicSubjectError,
   } = useSelector((state) => state.getSingleAcademicSubject);
 
@@ -219,6 +221,10 @@ const AcademicSubject = () => {
             Add{" "}
           </Button>
         </Toolbar>
+        {loading ? (
+          <LoadingComp />
+        ) : (
+          <>
         <TableContainer className={classes.table}>
           <TblHead />
 
@@ -234,6 +240,8 @@ const AcademicSubject = () => {
           </TableBody>
         </TableContainer>
         <TblPagination />
+        </>
+        )}
       </CustomContainer>
 
       <Popup
@@ -241,11 +249,17 @@ const AcademicSubject = () => {
         setOpenPopup={setOpenPopup}
         title="Academic Subject"
       >
+       {loadingEdit ? (
+          <LoadingComp />
+        ) : (
+          <>
         <AcademicSubjectForm
           academicSubject={
             singleAcademicSubject && singleAcademicSubject.dbModel
           }
         />
+        </>
+        )}
       </Popup>
       <Notification notify={notify} setNotify={setNotify} />
       <ConfirmDialog

@@ -11,6 +11,7 @@ import InputControl from "../../../components/controls/InputControl";
 import { Search } from "@material-ui/icons";
 import AddIcon from "@material-ui/icons/Add";
 import Popup from "../../../components/Popup";
+import LoadingComp from "../../../components/LoadingComp";
 import CustomContainer from "../../../components/CustomContainer";
 import { useDispatch, useSelector } from "react-redux";
 import Notification from "../../../components/Notification";
@@ -78,14 +79,16 @@ const Employee = () => {
 
   const dispatch = useDispatch();
 
-  const { employee, error } = useSelector((state) => state.employee);
+  const { employee, error, loading } = useSelector((state) => state.employee);
 
   const { success: employeeCreateSuccess, error: employeeCreateError } =
     useSelector((state) => state.createEmployee);
 
-  const { singleEmployee, error: singleEmployeeError } = useSelector(
-    (state) => state.getSingleEmployee
-  );
+  const {
+    singleEmployee,
+    error: singleEmployeeError,
+    loading: loadingEdit,
+  } = useSelector((state) => state.getSingleEmployee);
 
   const {
     success: resetPasswordForSingleEmployeeSuccess,
@@ -248,35 +251,47 @@ const Employee = () => {
             Add{" "}
           </Button>
         </Toolbar>
-        <TableContainer className={classes.table}>
-          <TblHead />
+        {loading ? (
+          <LoadingComp />
+        ) : (
+          <>
+            <TableContainer className={classes.table}>
+              <TblHead />
 
-          <TableBody>
-            {tableDataAfterPagingAndSorting().map((item, index) => (
-              <EmployeeTableCollapse
-                item={item}
-                key={item.$id}
-                index={index}
-                selectedIndex={selectedIndex}
-                setSelectedIndex={setSelectedIndex}
-                updateCollegeHandler={updateCollegeHandler}
-                deleteCollegeHandler={deleteCollegeHandler}
-                setOpenResetPopup={setOpenResetPopup}
-              />
-            ))}
-          </TableBody>
-        </TableContainer>
-        <TblPagination />
+              <TableBody>
+                {tableDataAfterPagingAndSorting().map((item, index) => (
+                  <EmployeeTableCollapse
+                    item={item}
+                    key={item.$id}
+                    index={index}
+                    selectedIndex={selectedIndex}
+                    setSelectedIndex={setSelectedIndex}
+                    updateCollegeHandler={updateCollegeHandler}
+                    deleteCollegeHandler={deleteCollegeHandler}
+                    setOpenResetPopup={setOpenResetPopup}
+                  />
+                ))}
+              </TableBody>
+            </TableContainer>
+            <TblPagination />
+          </>
+        )}
       </CustomContainer>
       <Popup
         openPopup={openPopup}
         setOpenPopup={setOpenPopup}
         title="Employee Form"
       >
-        <EmployeeForm
-          employee={singleEmployee && singleEmployee.hrEmployeeModel}
-          setOpenPopup={setOpenPopup}
-        />
+        {loadingEdit ? (
+          <LoadingComp />
+        ) : (
+          <>
+            <EmployeeForm
+              employee={singleEmployee && singleEmployee.hrEmployeeModel}
+              setOpenPopup={setOpenPopup}
+            />
+          </>
+        )}
       </Popup>
       <Popup
         openPopup={openResetPopup}

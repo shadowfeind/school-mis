@@ -47,6 +47,9 @@ const useStyles = makeStyles({
 const ExamMarkApprovalBlankForm = ({blankData,setOpenPopup,}) => {
   const classes = useStyles();
 
+  const classId = blankData?.ddlLevel?.filter( s => s.Key === blankData.searchFilterModel.level)
+  const section = blankData?.ddlSection?.filter( s => s.Key === blankData.searchFilterModel.section)
+
   return (
     <>
       <div className="main-container">
@@ -63,9 +66,9 @@ const ExamMarkApprovalBlankForm = ({blankData,setOpenPopup,}) => {
                         <br />
                         <b>Tokha,Kathmandu Nepal</b>
                         <br />
-                        <b>-2022</b>
+                        <b>-20__</b>
                         <br />
-                        Term Exam: FIRST TERM EXAMINATION
+                        <b>Term Exam:</b> {blankData?.dbModelLsts.length>0 && blankData.dbModelLsts[0].EventName}
                       </div>
                     </td>
                     <td>
@@ -83,15 +86,15 @@ const ExamMarkApprovalBlankForm = ({blankData,setOpenPopup,}) => {
             <tbody>
             <tr>
                 <th>Subject:</th>
-                <td>P/Science(SCN-9)</td>
+                <td>{blankData?.dbModelLsts.length> 0&& blankData.dbModelLsts[0].SubjectName}</td>
                <th>Subject Teacher:</th>
                 <td />
               </tr>
               <tr>
                 <th>Class:</th>
-                <td>NINE</td>
+                <td>{classId?.length > 0 && classId[0].Value}</td>
                 <th>Section:</th>
-                <td>Section A</td>
+                <td>{section?.length> 0 && section[0].Value}</td>
               </tr>
             </tbody>
           </Table>

@@ -7,6 +7,7 @@ import {
 } from "react-big-calendar";
 import moment, { months } from "moment";
 import AddIcon from "@material-ui/icons/Add";
+import LoadingComp from "../../../components/LoadingComp";
 import Popup from "../../../components/Popup";
 import { useDispatch, useSelector } from "react-redux";
 import Notification from "../../../components/Notification";
@@ -62,7 +63,7 @@ const Holiday = () => {
 
   const dispatch = useDispatch();
 
-  const { holiday, error } = useSelector((state) => state.holiday);
+  const { holiday, error,loading } = useSelector((state) => state.holiday);
 
   const { success: createHolidaySuccess, error: createHolidayError } =
     useSelector((state) => state.createHoliday);
@@ -161,6 +162,10 @@ const Holiday = () => {
             Add{" "}
           </Button>
         </Toolbar>
+        {loading ? (
+          <LoadingComp />
+        ) : (
+          <>
         <Calendar
           localizer={localizer}
           events={holiday && holiday.att_HRHolidayModelLst}
@@ -172,7 +177,10 @@ const Holiday = () => {
           onSelectSlot={handleCalendarSelect}
           style={{ height: "60vh" }}
         />
+           </>
+        )}
       </div>
+   
       <Popup
         openPopup={openPopup}
         setOpenPopup={setOpenPopup}

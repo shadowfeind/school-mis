@@ -11,6 +11,7 @@ import InputControl from "../../../components/controls/InputControl";
 import { Search } from "@material-ui/icons";
 import AddIcon from "@material-ui/icons/Add";
 import Popup from "../../../components/Popup";
+import LoadingComp from "../../../components/LoadingComp";
 import CustomContainer from "../../../components/CustomContainer";
 import { useDispatch, useSelector } from "react-redux";
 import Notification from "../../../components/Notification";
@@ -75,7 +76,7 @@ const EmployeeType = () => {
 
   const dispatch = useDispatch();
 
-  const { employeeCategoryRole, error } = useSelector(
+  const { employeeCategoryRole, error,loading } = useSelector(
     (state) => state.employeeCategoryRole
   );
 
@@ -84,7 +85,7 @@ const EmployeeType = () => {
     error: createEmployeeCategoryRoleError,
   } = useSelector((state) => state.createEmployeeCategoryRole);
 
-  const { singleEmployeeCategoryRole, error: singleEmployeeCategoryRoleError } =
+  const { singleEmployeeCategoryRole, loading:loadingEdit,error: singleEmployeeCategoryRoleError } =
     useSelector((state) => state.getSingleEmployeeCategoryRole);
 
   const {
@@ -241,6 +242,10 @@ const EmployeeType = () => {
             Add{" "}
           </Button>
         </Toolbar>
+        {loading ? (
+          <LoadingComp />
+        ) : (
+          <>
         <TableContainer className={classes.table}>
           <TblHead />
           <TableBody>
@@ -257,18 +262,26 @@ const EmployeeType = () => {
           </TableBody>
         </TableContainer>
         <TblPagination />
+        </>
+        )}
       </CustomContainer>
       <Popup
         openPopup={openPopup}
         setOpenPopup={setOpenPopup}
         title="Employee Category Role Form"
       >
+       {loadingEdit ? (
+          <LoadingComp />
+        ) : (
+          <>
         <EmployeeCategoryRoleForm
           employeeCategoryRole={
             singleEmployeeCategoryRole && singleEmployeeCategoryRole.dbModel
           }
           setOpenPopup={setOpenPopup}
         />
+        </>
+        )}
       </Popup>
       <Popup
       openPopup={openDeletePopup}

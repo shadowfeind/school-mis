@@ -1,5 +1,6 @@
 import React from "react";
 import { Grid } from "@material-ui/core";
+import { API_URL } from "../../constants";
 import "./ExamResultWithMarks.css";
 import { gpaToGrade, gpaToRemarks, gradeCalc, pointCalc } from "./Helpers";
 
@@ -16,6 +17,7 @@ const FinalExamResultDesign = ({
   studentSection,
   studentYear,
   resultDate,
+  headerBanners
 }) => {
   let avgGpa = [];
   let tdToRender = [];
@@ -26,7 +28,7 @@ const FinalExamResultDesign = ({
 
   return (
     <div className="resultContainer">
-      <img src="https://i.ibb.co/sQM6QZ3/Creation-Header.png" width="740px" />
+      <img src={`${API_URL}${headerBanners}`} width="740px" />
       <div className="subjectTable">
         <h1>PROGRESS REPORT</h1>
         <Grid container>

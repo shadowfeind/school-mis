@@ -30,12 +30,12 @@ const initialFormValues = {
 };
 
 const HrValueForm = ({ hrValueCreate, setOpenPopup, hrValueEdit }) => {
-  const [image, setImage] = useState(null);
-  const [image1, setImage1] = useState(null);
-  const [image2, setImage2] = useState(null);
-  const [imgSrc, setImgSrc] = useState(null);
-  const [imgSrc1, setImgSrc1] = useState(null);
-  const [imgSrc2, setImgSrc2] = useState(null);
+  const [image, setImage] = useState("");
+  const [image1, setImage1] = useState("");
+  const [image2, setImage2] = useState("");
+  const [imgSrc, setImgSrc] = useState("");
+  const [imgSrc1, setImgSrc1] = useState("");
+  const [imgSrc2, setImgSrc2] = useState("");
 
   const dispatch = useDispatch();
 
@@ -114,6 +114,7 @@ const HrValueForm = ({ hrValueCreate, setOpenPopup, hrValueEdit }) => {
   useEffect(() => {
     if (hrValueEdit) {
       setValues({ ...hrValueEdit.dbModel });
+      setImage(hrValueEdit.dbModel.HeaderBanner)
       console.log(hrValueEdit.dbModel);
     }
   }, [hrValueEdit]);
@@ -212,7 +213,7 @@ const HrValueForm = ({ hrValueCreate, setOpenPopup, hrValueEdit }) => {
           <InputControl
             name="ImageUploaded"
             // label="Select HeadBanner Photo"
-            // value={values.HeaderBanner}
+            value={image}
             onChange={(e) => handleImage(e)}
             type="file"
             // errors={errors.image}
@@ -231,7 +232,7 @@ const HrValueForm = ({ hrValueCreate, setOpenPopup, hrValueEdit }) => {
           <InputControl
             name="ImageUploaded1"
             // label="Select School Logo Photo"
-            // value={values.SchoolLogo}
+            value={values.FullPathSchoolLogo}
             onChange={(e) => handleImage1(e)}
             type="file"
             // errors={errors.image1}
@@ -250,7 +251,7 @@ const HrValueForm = ({ hrValueCreate, setOpenPopup, hrValueEdit }) => {
           <InputControl
             name="ImageUploaded2"
             // label="Select Principle Signature Photo"
-            // value={values.PrincipleSignature}
+            value={values.FullPathPrincipleSignature}
             onChange={(e) => handleImage2(e)}
             type="file"
             // errors={errors.image2}

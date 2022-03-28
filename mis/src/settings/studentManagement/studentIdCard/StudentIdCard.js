@@ -60,7 +60,7 @@ const StudentIdCard = () => {
   const [shift, setShift] = useState();
   const [section, setSection] = useState();
   const [student, setStudent] = useState(0);
-  const [date, setDate] = useState("2022-01-28");
+  const [date, setDate] = useState("");
   const [dateValue, setDateValue] = useState();
   const [errors, setErrors] = useState([]);
   const dispatch = useDispatch();
@@ -126,6 +126,7 @@ const StudentIdCard = () => {
       );
       setDdlShift(studentIdCardInitialData.searchFilterModel.ddlAcademicShift);
       setDdlSection(studentIdCardInitialData.searchFilterModel.ddlSection);
+      setDate(studentIdCardInitialData.searchFilterModel.ValidityDate);
     }
   }, [studentIdCardInitialData, dispatch]);
 
@@ -136,7 +137,12 @@ const StudentIdCard = () => {
     temp.classId = !classId ? "This feild is required" : "";
     temp.shift1 = !shift ? "This feild is required" : "";
     temp.section = !section ? "This feild is required" : "";
-    temp.date = !date ? "This feild is required" : "";
+    temp.date =
+      date.toString() === "Invalid Date"
+        ? "Invalid Date"
+        : !date
+        ? "Date is required"
+        : "";
 
     setErrors({ ...temp });
     return Object.values(temp).every((x) => x === "");
@@ -193,11 +199,7 @@ const StudentIdCard = () => {
   };
 
   const handleDate = (date) => {
-    if (date) {
-      setDateValue(date);
-      const newDate = `${date.getMonth()}-${date.getDay()}-${date.getFullYear()}`;
-      setDate(newDate);
-    }
+    setDate(date);
   };
 
   const handleStudentSearch = () => {
@@ -305,7 +307,7 @@ const StudentIdCard = () => {
               <DatePickerControl
                 name="DOJ"
                 label="Pick Exam Date"
-                value={dateValue}
+                value={date}
                 onChange={(e) => handleDate(e.target.value)}
                 errors={errors.date}
               />
@@ -356,7 +358,9 @@ const StudentIdCard = () => {
           classnames={
             printBulkStudentsForIdCard && printBulkStudentsForIdCard.ClassName
           }
-          examDates={printBulkStudentsForIdCard && printBulkStudentsForIdCard.examDate}
+          examDates={
+            printBulkStudentsForIdCard && printBulkStudentsForIdCard.examDate
+          }
         />
       </Popup>
 

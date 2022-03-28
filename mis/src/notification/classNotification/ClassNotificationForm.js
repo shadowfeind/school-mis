@@ -34,34 +34,36 @@ const initialFormValues = {
 };
 
 const StyledTableCell = withStyles((theme) => ({
-    head: {
-      backgroundColor: theme.palette.common.grey,
-      color: theme.palette.common.black,
-    },
-    body: {
-      fontSize: 14,
-    },
-  }))(TableCell);
-  
-  const StyledTableRow = withStyles((theme) => ({
-    root: {
-      "&:nth-of-type(odd)": {
-        backgroundColor: theme.palette.action.hover,
-      },
-    },
-  }))(TableRow);
-  const useStyles = makeStyles({
-    table: {
-      minWidth: 700,
-    },
-  });
+  head: {
+    backgroundColor: theme.palette.common.grey,
+    color: theme.palette.common.black,
+  },
+  body: {
+    fontSize: 14,
+  },
+}))(TableCell);
 
-  const ClassNotificationForm =({classNotification,students, setOpenPopup})=>{
+const StyledTableRow = withStyles((theme) => ({
+  root: {
+    "&:nth-of-type(odd)": {
+      backgroundColor: theme.palette.action.hover,
+    },
+  },
+}))(TableRow);
+const useStyles = makeStyles({
+  table: {
+    minWidth: 700,
+  },
+});
 
-    const [checked, setChecked] = useState(false);
-    const [lstStudents, setLstStudents] = useState([]);
+const ClassNotificationForm = ({
+  classNotification,
+  students,
+  setOpenPopup,
+}) => {
+  const [checked, setChecked] = useState(false);
+  const [lstStudents, setLstStudents] = useState([]);
   const [selectedStudents, setSelectedStudents] = useState([]);
-
 
   const classes = useStyles();
   const dispatch = useDispatch();
@@ -69,12 +71,16 @@ const StyledTableCell = withStyles((theme) => ({
   const { values, setValues, handleInputChange, errors, setErrors } =
     useForm(initialFormValues);
 
-    const validate = (fieldValues = values) => {
-        let temp = { ...errors };
+  const validate = (fieldValues = values) => {
+    let temp = { ...errors };
 
-        temp.MessageHeading =!fieldValues.MessageHeading ? "This Field is Required" : "";
-        temp.MessageDescription =!fieldValues.MessageDescription ? "This Field is Required" : "";
-        setErrors({ ...temp });
+    temp.MessageHeading = !fieldValues.MessageHeading
+      ? "This Field is Required"
+      : "";
+    temp.MessageDescription = !fieldValues.MessageDescription
+      ? "This Field is Required"
+      : "";
+    setErrors({ ...temp });
     return Object.values(temp).every((x) => x === "");
   };
   useEffect(() => {
@@ -114,32 +120,32 @@ const StyledTableCell = withStyles((theme) => ({
   const handleSubmit = (e) => {
     e.preventDefault();
     if (validate()) {
-      dispatch(postClassNotificationAction( values,selectedStudents));
+      dispatch(postClassNotificationAction(values, selectedStudents));
     }
   };
   const symbolsArr = ["e", "E", "+", "-", "."];
 
   return (
-      <>
-          <TableContainer component={Paper}>
-          <Table className={classes.table} aria-label="customized table">
+    <>
+      <TableContainer component={Paper}>
+        <Table className={classes.table} aria-label="customized table">
           <TableHead>
-          <TableRow>
-          <StyledTableCell>Roll No. </StyledTableCell>
-          <StyledTableCell>Student Name </StyledTableCell>
-          <StyledTableCell>Batch </StyledTableCell>
-          <StyledTableCell>Program/Faculty </StyledTableCell>
-          <StyledTableCell style={{ textAlign: "right" }}>
+            <TableRow>
+              <StyledTableCell>Roll No. </StyledTableCell>
+              <StyledTableCell>Student Name </StyledTableCell>
+              <StyledTableCell>Batch </StyledTableCell>
+              <StyledTableCell>Program/Faculty </StyledTableCell>
+              <StyledTableCell style={{ textAlign: "right" }}>
                 <label>Select All</label>
                 <Checkbox
                   checked={checked}
                   onChange={(e) => handleAllChecked(e.target.checked)}
                 />
               </StyledTableCell>
-          </TableRow>
+            </TableRow>
           </TableHead>
           <TableBody>
-          {lstStudents &&
+            {lstStudents &&
               lstStudents
                 .sort((a, b) => a.RollNo - b.RollNo)
                 .map((s) => (
@@ -175,30 +181,33 @@ const StyledTableCell = withStyles((theme) => ({
                   </StyledTableRow>
                 ))}
           </TableBody>
-          </Table>
-          </TableContainer>
-          <div style={{ height: "30px" }}></div>
-          <Form onSubmit={handleSubmit}>
-          <Grid container style={{ fontSize: "12px" }}>
-          <Grid item xs={6}>
-          <InputControl
+        </Table>
+      </TableContainer>
+      <div style={{ height: "30px" }}></div>
+      <Form onSubmit={handleSubmit}>
+        <Grid container style={{ fontSize: "12px" }}>
+          <Grid item xs={12}>
+            <InputControl
               name="MessageHeading"
               label="Message Heading"
               value={values.MessageHeading}
               onChange={handleInputChange}
               errors={errors.MessageHeading}
-            /> 
-            </Grid><Grid item xs={6}>
+            />
+          </Grid>
+          <Grid item xs={12}>
             <InputControl
               name="MessageDescription"
               label="Message Descriptions"
+              multiline
+              rows={4}
               value={values.MessageDescription}
               onChange={handleInputChange}
               errors={errors.MessageDescription}
             />
           </Grid>
-          </Grid>
-          <div
+        </Grid>
+        <div
           style={{
             display: "flex",
             justifyContent: "end",
@@ -224,10 +233,9 @@ const StyledTableCell = withStyles((theme) => ({
             SUBMIT
           </Button>
         </div>
-          </Form>
-      </>
-  )
+      </Form>
+    </>
+  );
+};
 
-  }
-
-  export default ClassNotificationForm;
+export default ClassNotificationForm;

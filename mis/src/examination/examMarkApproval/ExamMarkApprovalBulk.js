@@ -69,6 +69,17 @@ const ExamMarkApprovalBulk = ({
       });
     } else {
       alert(`${name} must be equal or less than ${showValue}`);
+      setBulk((prev) => {
+        const newReassoc = {
+          ...subject,
+          [name]: 0,
+        };
+
+        let newArray = [...prev];
+        newArray[index] = newReassoc;
+
+        return [...newArray];
+      });
     }
   };
 
@@ -122,7 +133,9 @@ const ExamMarkApprovalBulk = ({
                       value={subject.ObtainedMark}
                       type="number"
                       label="Obtained Mark"
-                      onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}
+                      onKeyDown={(e) =>
+                        symbolsArr.includes(e.key) && e.preventDefault()
+                      }
                       variant="outlined"
                       inputProps={{ tabIndex: "1" }}
                       onChange={(e) =>
@@ -143,7 +156,9 @@ const ExamMarkApprovalBulk = ({
                       type="number"
                       label="Obtained Practical Mark"
                       variant="outlined"
-                      onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}
+                      onKeyDown={(e) =>
+                        symbolsArr.includes(e.key) && e.preventDefault()
+                      }
                       inputProps={{ tabIndex: "2" }}
                       onChange={(e) =>
                         onChangeHandler(

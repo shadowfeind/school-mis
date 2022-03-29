@@ -11,6 +11,7 @@ import { Search } from "@material-ui/icons";
 import useCustomTable from "../../customHooks/useCustomTable";
 import InputControl from "../../components/controls/InputControl";
 import Popup from "../../components/Popup";
+import LoadingComp from "../../components/LoadingComp";
 import CustomContainer from "../../components/CustomContainer";
 import { useDispatch, useSelector } from "react-redux";
 import Notification from "../../components/Notification";
@@ -111,11 +112,11 @@ const StudentRegistration = () => {
     (state) => state.getInitialStudentRegistrationData
   );
 
-  const { studentRegistration } = useSelector(
+  const { studentRegistration,loading } = useSelector(
     (state) => state.getStudentRegistrationData
   );
 
-  const { singleStudentRegistration } = useSelector(
+  const { singleStudentRegistration ,loading:loadingEdit} = useSelector(
     (state) => state.getSingleStudentRegistrationData
   );
 
@@ -272,6 +273,10 @@ const StudentRegistration = () => {
             onChange={handleSearch}
           />
         </Toolbar>
+        {loading ? (
+          <LoadingComp />
+        ) : (
+          <>
         {studentRegistration && (
           <TableContainer className={classes.table}>
             <TblHead />
@@ -312,17 +317,25 @@ const StudentRegistration = () => {
         )}
 
         {studentRegistration && <TblPagination />}
+        </>
+        )}
       </CustomContainer>
       <Popup
         openPopup={openPopup}
         setOpenPopup={setOpenPopup}
         title="Student Registration Form"
       >
+      {loadingEdit ? (
+          <LoadingComp />
+        ) : (
+          <>
         <StudentRegistrationForm
           singleStudent={singleStudentRegistration && singleStudentRegistration}
           getCreateSingleStudentData={getCreateSingleStudentData}
           setOpenPopup={setOpenPopup}
         />
+        </>
+        )}
       </Popup>
       <Notification notify={notify} setNotify={setNotify} />
       <ConfirmDialog

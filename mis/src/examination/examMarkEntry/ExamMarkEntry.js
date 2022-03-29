@@ -10,6 +10,7 @@ import {
 import { Search } from "@material-ui/icons";
 import useCustomTable from "../../customHooks/useCustomTable";
 import InputControl from "../../components/controls/InputControl";
+import LoadingComp from "../../components/LoadingComp";
 import Popup from "../../components/Popup";
 import CustomContainer from "../../components/CustomContainer";
 import { useDispatch, useSelector } from "react-redux";
@@ -127,9 +128,9 @@ const ExamMarkEntry = () => {
     (state) => state.getEventSchedule
   );
 
-  const { searchData } = useSelector((state) => state.getExamEntrySearchData);
+  const { searchData,loading } = useSelector((state) => state.getExamEntrySearchData);
 
-  const { bulkData } = useSelector((state) => state.getExamEntryBulk);
+  const { bulkData ,loading:loadingBulk} = useSelector((state) => state.getExamEntryBulk);
 
   if (getEventSuccess) {
     setDdlEvent(allEvents);
@@ -322,6 +323,10 @@ const ExamMarkEntry = () => {
             onChange={handleSearch}
           />
         </Toolbar>
+        {loading ? (
+          <LoadingComp />
+        ) : (
+          <>
         {searchData && (
           <TableContainer className={classes.table}>
             <TblHead />
@@ -335,18 +340,26 @@ const ExamMarkEntry = () => {
         )}
 
         {searchData && <TblPagination />}
+        </>
+        )}
       </CustomContainer>
       <Popup
         openPopup={openPopup}
         setOpenPopup={setOpenPopup}
         title="Bulk Edit"
       >
+      {loadingBulk ? (
+          <LoadingComp />
+        ) : (
+          <>
         <ExamMarkEntryBulk
           statusData={
             bulkData && bulkData.searchFilterModel.ddlStudentExamStatus
           }
           bulkData={bulkData && bulkData.dbModelLsts}
         />
+        </>
+        )}
       </Popup>
       <Notification notify={notify} setNotify={setNotify} />
       <ConfirmDialog

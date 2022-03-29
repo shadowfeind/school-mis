@@ -13,6 +13,7 @@ import {
   KeyboardDatePicker,
 } from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
+import LoadingComp from "../../components/LoadingComp";
 import useCustomTable from "../../customHooks/useCustomTable";
 import InputControl from "../../components/controls/InputControl";
 import Popup from "../../components/Popup";
@@ -140,10 +141,10 @@ const StudentAttendance = () => {
     (state) => state.getEvent
   );
 
-  const { allStudentAttendance, error: allStudentAttendanceError } =
+  const { allStudentAttendance,loading, error: allStudentAttendanceError } =
     useSelector((state) => state.getAllStudentAttendance);
 
-  const { bulkStudentAttendance, error: bulkStudentAttendanceError } =
+  const { bulkStudentAttendance,loading:loadingBulk, error: bulkStudentAttendanceError } =
     useSelector((state) => state.getBulkStudentAttendance);
 
   const {
@@ -490,6 +491,10 @@ const StudentAttendance = () => {
             </Grid>
           </Grid>
         </Toolbar>
+        {loading ? (
+          <LoadingComp />
+        ) : (
+          <>
         {allStudentAttendance && (
           <TableContainer className={classes.table}>
             <TblHead />
@@ -510,12 +515,18 @@ const StudentAttendance = () => {
         )}
 
         {allStudentAttendance && <TblPagination />}
+        </>
+        )}
       </CustomContainer>
       <Popup
         openPopup={openPopup}
         setOpenPopup={setOpenPopup}
         title="Bulk Edit"
       >
+       {loadingBulk ? (
+          <LoadingComp />
+        ) : (
+          <>
         <StudentAttendanceBulk
           bulkData={
             bulkStudentAttendance &&
@@ -529,6 +540,8 @@ const StudentAttendance = () => {
           }
           setOpenPopup={setOpenPopup}
         />
+        </>
+        )}
       </Popup>
       <Notification notify={notify} setNotify={setNotify} />
       <ConfirmDialog

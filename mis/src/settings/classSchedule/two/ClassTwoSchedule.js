@@ -5,6 +5,7 @@ import Notification from "../../../components/Notification";
 import { API_URL } from "../../../constants";
 import CustomContainer from "../../../components/CustomContainer";
 import { Button, Toolbar } from "@material-ui/core";
+import LoadingComp from "../../../components/LoadingComp";
 import AddIcon from "@material-ui/icons/Add";
 import Popup from "../../../components/Popup";
 import {
@@ -38,9 +39,9 @@ const ClassTwoSchedule = () => {
   });
   const dispatch = useDispatch();
 
-  const { allClassScheduleList, error: allClassScheduleListError } =
+  const { allClassScheduleList,loading, error: allClassScheduleListError } =
     useSelector((state) => state.getListClassSchedule);
-  const { editClassSchedule, error: editClassScheduleError } = useSelector(
+  const { editClassSchedule,loading:loadingEdit, error: editClassScheduleError } = useSelector(
     (state) => state.getEditClassSchedule
   );
   const { success: putClassScheduleSuccess, error: putClassScheduleError } =
@@ -119,17 +120,29 @@ const ClassTwoSchedule = () => {
             </Button>
           )}
         </Toolbar>
+        {loading ? (
+          <LoadingComp />
+        ) : (
+          <>
         {allClassScheduleList && <iframe src={url} width="100%" height="700" />}
+      </>
+        )}
       </CustomContainer>
       <Popup
         openPopup={openPopup}
         setOpenPopup={setOpenPopup}
         title="Edit Form"
       >
+      {loadingEdit ? (
+          <LoadingComp />
+        ) : (
+          <>
         <ClassPgScheduleForm
           schedule={editClassSchedule && editClassSchedule}
           setOpenPopup={setOpenPopup}
         />
+        </>
+        )}
       </Popup>
       <Notification notify={notify} setNotify={setNotify} />
       <ConfirmDialog

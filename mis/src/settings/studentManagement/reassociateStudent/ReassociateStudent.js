@@ -11,6 +11,7 @@ import useCustomTable from "../../../customHooks/useCustomTable";
 import InputControl from "../../../components/controls/InputControl";
 import { Search } from "@material-ui/icons";
 import Popup from "../../../components/Popup";
+import LoadingComp from "../../../components/LoadingComp";
 import CustomContainer from "../../../components/CustomContainer";
 import { useDispatch, useSelector } from "react-redux";
 import Notification from "../../../components/Notification";
@@ -116,19 +117,17 @@ const ReassociateStudent = () => {
     });
   };
 
-  const { reassociateStudentLists } = useSelector(
+  const { reassociateStudentLists,loading } = useSelector(
     (state) => state.getReassociateStudentsLists
   );
 
-  const { reassociateStudentLevel } = useSelector(
+  const { reassociateStudentLevel,loading:loadingLevelUp } = useSelector(
     (state) => state.getReassociateStudentsLevelup
   );
   const {
-    singleEditReassociateStudent,
+    singleEditReassociateStudent,loading:loadingEdit,
     error: singleEditReassociateStudentError,
   } = useSelector((state) => state.getSingleEditReassociateStudents);
-
-  console.log(singleEditReassociateStudent)
 
   const { success: reassociatePostSuccess } = useSelector(
     (state) => state.getReassociateStudentsLevelupPost
@@ -360,6 +359,10 @@ const ReassociateStudent = () => {
             onChange={handleSearch}
           />
         </Toolbar>
+        {loading ? (
+          <LoadingComp />
+        ) : (
+          <>
         {reassociateStudentLists && (
           <TableContainer className={classes.table}>
             <TblHead />
@@ -377,12 +380,18 @@ const ReassociateStudent = () => {
           </TableContainer>
         )}
         {reassociateStudentLists && <TblPagination />}
+        </>
+        )}
       </CustomContainer>
       <Popup
         openPopup={openPopup}
         setOpenPopup={setOpenPopup}
         title="Level Up Reassociate Students"
       >
+    {loadingLevelUp ? (
+          <LoadingComp />
+        ) : (
+          <>
         <ReassociateStudentLevelUp
           dbModelLst={
             reassociateStudentLevel && reassociateStudentLevel.dbModelLst
@@ -412,18 +421,26 @@ const ReassociateStudent = () => {
           formCheck={formCheck}
           formCheckSubmitHandler={formCheckSubmitHandler}
         />
+        </>
+        )}
       </Popup>
       <Popup
         openPopup={openPopupEdit}
         setOpenPopup={setOpenPopupEdit}
         title="Edit Reassociate Students"
       >
+       {loadingEdit ? (
+          <LoadingComp />
+        ) : (
+          <>
         <ReassociateStudentSearchEditForm
           reassociateForm={
             singleEditReassociateStudent && singleEditReassociateStudent
           }
           setOpenPopupEdit={setOpenPopupEdit}
         />
+        </>
+        )}
       </Popup>
       <Notification notify={notify} setNotify={setNotify} />
       <ConfirmDialog

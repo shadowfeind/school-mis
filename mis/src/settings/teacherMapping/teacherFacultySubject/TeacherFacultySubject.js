@@ -11,6 +11,7 @@ import useCustomTable from "../../../customHooks/useCustomTable";
 import InputControl from "../../../components/controls/InputControl";
 import { Search } from "@material-ui/icons";
 import Popup from "../../../components/Popup";
+import LoadingComp from "../../../components/LoadingComp";
 import CustomContainer from "../../../components/CustomContainer";
 import { useDispatch, useSelector } from "react-redux";
 import Notification from "../../../components/Notification";
@@ -95,10 +96,11 @@ const TeacherFacultySubject = () => {
   const {
     teacherFacListData,
     currentQuery,
+    loading,
     error: teacherFacListDataError,
   } = useSelector((state) => state.getAllTeacherFacSubListData);
 
-  const { singleTeacherFacData, error: singleTeacherFacDataError } =
+  const { singleTeacherFacData,loading:loadingEdit, error: singleTeacherFacDataError } =
     useSelector((state) => state.getSingleTeacherFacSubData);
 
   const {
@@ -405,6 +407,10 @@ const TeacherFacultySubject = () => {
             onChange={handleSearch}
           />
         </Toolbar>
+        {loading ? (
+          <LoadingComp />
+        ) : (
+          <>
         {teacherFacListData && (
           <TableContainer className={classes.table}>
             <TblHead />
@@ -420,12 +426,18 @@ const TeacherFacultySubject = () => {
           </TableContainer>
         )}
         {teacherFacListData && <TblPagination />}
+        </>
+        )}
       </CustomContainer>
       <Popup
         openPopup={openPopup}
         setOpenPopup={setOpenPopup}
         title="Teacher Faculty Subject Form"
       >
+      {loadingEdit ? (
+          <LoadingComp />
+        ) : (
+          <>
         <TeacherFacultySubjectForm
           editData={singleTeacherFacData && singleTeacherFacData}
           createData={createInitTeacherFacData && createInitTeacherFacData}
@@ -435,6 +447,8 @@ const TeacherFacultySubject = () => {
             createInitTeacherFacData.searchFilterModel
           }
         />
+        </>
+        )}
       </Popup>
       <Notification notify={notify} setNotify={setNotify} />
       <ConfirmDialog

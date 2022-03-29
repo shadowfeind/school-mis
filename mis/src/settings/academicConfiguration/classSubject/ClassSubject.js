@@ -11,6 +11,7 @@ import useCustomTable from "../../../customHooks/useCustomTable";
 import InputControl from "../../../components/controls/InputControl";
 import { Search } from "@material-ui/icons";
 import Popup from "../../../components/Popup";
+import LoadingComp from "../../../components/LoadingComp";
 import CustomContainer from "../../../components/CustomContainer";
 import { useDispatch, useSelector } from "react-redux";
 import Notification from "../../../components/Notification";
@@ -117,7 +118,7 @@ const ClassSubject = () => {
     (state) => state.getAllClassSubject
   );
 
-  const { listClassSubjects, error: listClassSubjectsError } = useSelector(
+  const { listClassSubjects,loading, error: listClassSubjectsError } = useSelector(
     (state) => state.getClassSubjectList
   );
 
@@ -125,7 +126,7 @@ const ClassSubject = () => {
     (state) => state.getToCreateClassSubject
   );
 
-  const { singleClassSubject, error: singleClassSubjectError } = useSelector(
+  const { singleClassSubject, loading:loadingEdit,error: singleClassSubjectError } = useSelector(
     (state) => state.getSingleClassSubject
   );
 
@@ -341,6 +342,10 @@ const ClassSubject = () => {
             onChange={handleSearch}
           />
         </Toolbar>
+        {loading ? (
+          <LoadingComp />
+        ) : (
+          <>
         {listClassSubjects && (
           <TableContainer className={classes.table}>
             <TblHead />
@@ -361,6 +366,8 @@ const ClassSubject = () => {
           </TableContainer>
         )}
         {listClassSubjects && <TblPagination />}
+        </>
+        )}
       </CustomContainer>
       <Popup
         openPopup={openPopup}
@@ -380,10 +387,16 @@ const ClassSubject = () => {
         setOpenPopup={setOpenPopupForm}
         title="Edit Class Subject"
       >
+       {loadingEdit ? (
+          <LoadingComp />
+        ) : (
+          <>
         <ClassSubjectEditForm
           singleClassSubject={singleClassSubject && singleClassSubject.dbModel}
           setOpenPopupForm={setOpenPopupForm}
         />
+        </>
+        )}
       </Popup>
       <Popup
       openPopup={openDeletePopup}

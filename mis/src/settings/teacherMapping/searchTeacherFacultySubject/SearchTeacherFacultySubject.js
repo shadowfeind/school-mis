@@ -11,6 +11,7 @@ import useCustomTable from "../../../customHooks/useCustomTable";
 import InputControl from "../../../components/controls/InputControl";
 import { Search } from "@material-ui/icons";
 import Popup from "../../../components/Popup";
+import LoadingComp from "../../../components/LoadingComp";
 import CustomContainer from "../../../components/CustomContainer";
 import { useDispatch, useSelector } from "react-redux";
 import Notification from "../../../components/Notification";
@@ -79,7 +80,7 @@ const SearchTeacherFacultySubject = () => {
   );
   const {
     searchTeacherFacListData,
-
+    loading,
     error: searchTeacherFacListDataError,
   } = useSelector((state) => state.getAllSearchTeacherFacSubListData);
 
@@ -170,6 +171,10 @@ const SearchTeacherFacultySubject = () => {
             </Grid>
           </Grid>
         </Toolbar>
+        {loading ? (
+          <LoadingComp />
+        ) : (
+          <>
         {searchTeacherFacInitData && (
           <TableContainer className={classes.table}>
             <TblHead />
@@ -183,6 +188,8 @@ const SearchTeacherFacultySubject = () => {
               ))}
             </TableBody>
           </TableContainer>
+        )}
+        </>
         )}
       </CustomContainer>
       <Notification notify={notify} setNotify={setNotify} />

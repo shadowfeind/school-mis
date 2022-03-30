@@ -58,6 +58,8 @@ const married = [
 
 const EmployeeForm = ({ employee, setOpenPopup }) => {
   const dispatch = useDispatch();
+
+  
   const validate = (fieldValues = values) => {
     let temp = { ...errors };
     temp.LoginIDHREmployee = !fieldValues.LoginIDHREmployee
@@ -90,8 +92,10 @@ const EmployeeForm = ({ employee, setOpenPopup }) => {
       : "";
       temp.MobileNumber = !fieldValues.MobileNumber
       ? "This feild is required"
-      : fieldValues.MobileNumber <=10
-      ? "Mobile No. must be atleast 10."
+      : fieldValues.MobileNumber.length < 7
+      ? "Mobile No. cannot be less than 7."
+      :fieldValues.MobileNumber.length > 10
+      ? "Mobile No. cannot be more than 10."
       : "";
 
     setErrors({ ...temp });

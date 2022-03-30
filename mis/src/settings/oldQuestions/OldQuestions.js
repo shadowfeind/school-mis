@@ -11,6 +11,7 @@ import useCustomTable from "../../customHooks/useCustomTable";
 import InputControl from "../../components/controls/InputControl";
 import { Search } from "@material-ui/icons";
 import Popup from "../../components/Popup";
+import LoadingComp from "../../components/LoadingComp";
 import CustomContainer from "../../components/CustomContainer";
 import { useDispatch, useSelector } from "react-redux";
 import Notification from "../../components/Notification";
@@ -116,7 +117,7 @@ const OldQuestions = () => {
     (state) => state.getSubjectOldQuestions
   );
 
-  const { singleEditOldQuestions, error: singleEditOldQuestionsError } = useSelector(
+  const { singleEditOldQuestions,loading:loadingEdit, error: singleEditOldQuestionsError } = useSelector(
     (state) => state.getSingleEditOldQuestions
   );
 
@@ -132,7 +133,7 @@ const OldQuestions = () => {
     (state) => state.putOldQuestions
   );
 
-  const { listOldQuestions } = useSelector(
+  const { listOldQuestions ,loading} = useSelector(
     (state) => state.getListOldQuestions
   );
 
@@ -342,6 +343,10 @@ const updateOldQuestions = (id) => {
             onChange={handleSearch}
           />
         </Toolbar>
+        {loading ? (
+          <LoadingComp />
+        ) : (
+          <>
         {listOldQuestions && (
           <TableContainer className={classes.table}>
             <TblHead />
@@ -358,17 +363,25 @@ const updateOldQuestions = (id) => {
           </TableContainer>
         )}
         {listOldQuestions && <TblPagination />}
+        </>
+        )}
       </CustomContainer>
       <Popup
         openPopup={openPopup}
         setOpenPopup={setOpenPopup}
         title="Old Questions Form"
       >
+       {loadingEdit ? (
+          <LoadingComp />
+        ) : (
+          <>
         <OldQuestionsForm
         singleEditOldQuestions={singleEditOldQuestions && singleEditOldQuestions}
         singleCreateOldQuestions={singleCreateOldQuestions && singleCreateOldQuestions}
         setOpenPopup={setOpenPopup}
         />
+        </>
+        )}
       </Popup>
       <Notification notify={notify} setNotify={setNotify} />
       <ConfirmDialog

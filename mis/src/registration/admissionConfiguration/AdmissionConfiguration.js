@@ -11,6 +11,7 @@ import useCustomTable from "../../customHooks/useCustomTable";
 import InputControl from "../../components/controls/InputControl";
 import { Search } from "@material-ui/icons";
 import Popup from "../../components/Popup";
+import LoadingComp from "../../components/LoadingComp";
 import CustomContainer from "../../components/CustomContainer";
 import { useDispatch, useSelector } from "react-redux";
 import Notification from "../../components/Notification";
@@ -106,10 +107,10 @@ const AdmissionConfiguration = () => {
     error: getAdmissionConfigInitialDataError,
   } = useSelector((state) => state.getAdmissionConfigInitialData);
 
-  const { getAdmissionConfigListData, error: getAdmissionConfigListDataError } =
+  const { getAdmissionConfigListData,loading, error: getAdmissionConfigListDataError } =
     useSelector((state) => state.getAdmissionConfigListData);
 
-  const { singleAdmissionConfig } = useSelector(
+  const { singleAdmissionConfig,loading:loadingEdit } = useSelector(
     (state) => state.getSingleAdmissionConfig
   );
 
@@ -317,6 +318,10 @@ const AdmissionConfiguration = () => {
             onChange={handleSearch}
           />
         </Toolbar>
+        {loading ? (
+          <LoadingComp />
+        ) : (
+          <>
         {getAdmissionConfigListData && (
           <TableContainer className={classes.table}>
             <TblHead />
@@ -342,12 +347,18 @@ const AdmissionConfiguration = () => {
           </TableContainer>
         )}
         {getAdmissionConfigListData && <TblPagination />}
+        </>
+        )}
       </CustomContainer>
       <Popup
         openPopup={openPopup}
         setOpenPopup={setOpenPopup}
         title="Counter Configuration Form"
       >
+       {loadingEdit ? (
+          <LoadingComp />
+        ) : (
+          <>
         <AdmissionConfigurationForm
           updateAcademicConfig={singleAdmissionConfig && singleAdmissionConfig}
           createAcademicConfig={
@@ -355,6 +366,8 @@ const AdmissionConfiguration = () => {
           }
           setOpenPopup={setOpenPopup}
         />
+        </>
+        )}
       </Popup>
 
       <Notification notify={notify} setNotify={setNotify} />

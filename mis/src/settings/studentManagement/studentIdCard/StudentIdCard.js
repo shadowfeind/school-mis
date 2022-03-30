@@ -11,6 +11,7 @@ import Popup from "../../../components/Popup";
 import CustomContainer from "../../../components/CustomContainer";
 import { useDispatch, useSelector } from "react-redux";
 import Notification from "../../../components/Notification";
+import LoadingComp from "../../../components/LoadingComp";
 import ConfirmDialog from "../../../components/ConfirmDialog";
 import SelectControl from "../../../components/controls/SelectControl";
 import DatePickerControl from "../../../components/controls/DatePickerControl";
@@ -82,11 +83,11 @@ const StudentIdCard = () => {
     success: activeStudentsForAdmitCardSuccess,
   } = useSelector((state) => state.getActiveStudentsForAdmitCardData);
 
-  const { activeStudentsForIdCard } = useSelector(
+  const { activeStudentsForIdCard ,loading} = useSelector(
     (state) => state.getActiveStudentsForStudentIdCardData
   );
 
-  const { printBulkStudentsForIdCard, printBulkStudentsForIdCardError } =
+  const { printBulkStudentsForIdCard,loading:loadingBulk, printBulkStudentsForIdCardError } =
     useSelector((state) => state.getPrintBulkStudentsForStudentIdCardData);
 
   if (error) {
@@ -126,7 +127,7 @@ const StudentIdCard = () => {
       );
       setDdlShift(studentIdCardInitialData.searchFilterModel.ddlAcademicShift);
       setDdlSection(studentIdCardInitialData.searchFilterModel.ddlSection);
-      setDate(studentIdCardInitialData.searchFilterModel.ValidityDate);
+      setDate(studentIdCardInitialData.searchFilterModel.ValidityDate?.slice(0,10));
     }
   }, [studentIdCardInitialData, dispatch]);
 
@@ -212,7 +213,7 @@ const StudentIdCard = () => {
           shift,
           student,
           section,
-          date
+          date?.slice(0,10)
         )
       );
     }
@@ -227,7 +228,7 @@ const StudentIdCard = () => {
           shift,
           student,
           section,
-          date
+          date?.slice(0,10)
         )
       );
       setOpenPopup(true);
@@ -336,7 +337,10 @@ const StudentIdCard = () => {
           </Grid>
         </Toolbar>
         <div style={{ height: "15px" }}></div>
-
+        {loading ? (
+          <LoadingComp />
+        ) : (
+          <>
         {activeStudentsForIdCard && (
           <Grid container style={{ fontSize: "12px" }}>
             {activeStudentsForIdCard.dbModelLst.map((student) => (
@@ -349,8 +353,14 @@ const StudentIdCard = () => {
             ))}
           </Grid>
         )}
+        </>
+        )}
       </CustomContainer>
       <Popup openPopup={openPopup} setOpenPopup={setOpenPopup}>
+      {loadingBulk ? (
+          <LoadingComp />
+        ) : (
+          <>
         <StudentIdCardPrint
           studentId={
             printBulkStudentsForIdCard && printBulkStudentsForIdCard.dbModelLst
@@ -362,6 +372,8 @@ const StudentIdCard = () => {
             printBulkStudentsForIdCard && printBulkStudentsForIdCard.examDate
           }
         />
+        </>
+        )}
       </Popup>
 
       <Notification notify={notify} setNotify={setNotify} />

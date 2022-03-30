@@ -81,7 +81,7 @@ const HrValueForm = ({ hrValueCreate, setOpenPopup, hrValueEdit }) => {
     }
   };
 
-  const hnadleHeaderBanner = (event) => {
+  const handleHeaderBanner = (event) => {
     let imageFile = event.target.files[0];
     const reader = new FileReader();
     reader.onload = (x) => {
@@ -91,7 +91,7 @@ const HrValueForm = ({ hrValueCreate, setOpenPopup, hrValueEdit }) => {
     setHeaderBanner(event.target.files[0]);
   };
 
-  const hnadleSchoolLogo = (event) => {
+  const handleSchoolLogo = (event) => {
     let imageFile = event.target.files[0];
     const reader = new FileReader();
     reader.onload = (x) => {
@@ -114,7 +114,7 @@ const HrValueForm = ({ hrValueCreate, setOpenPopup, hrValueEdit }) => {
   useEffect(() => {
     if (hrValueEdit) {
       setValues({ ...hrValueEdit.dbModel });
-      setImage(hrValueEdit.dbModel.HeaderBanner)
+      setHeaderBanner(`${API_URL}${hrValueEdit.HeaderBanner}`)
       console.log(hrValueEdit.dbModel);
     }
   }, [hrValueEdit]);
@@ -214,7 +214,7 @@ const HrValueForm = ({ hrValueCreate, setOpenPopup, hrValueEdit }) => {
             name="ImageUploaded"
             // label="Select HeadBanner Photo"
             value={headerBanner}
-            onChange={(e) => hnadleHeaderBanner(e)}
+            onChange={(e) => handleHeaderBanner(e)}
             type="file"
             // errors={errors.headerBanner}
           />
@@ -233,7 +233,7 @@ const HrValueForm = ({ hrValueCreate, setOpenPopup, hrValueEdit }) => {
             name="ImageUploaded1"
             // label="Select School Logo Photo"
             value={values.FullPathSchoolLogo}
-            onChange={(e) => hnadleSchoolLogo(e)}
+            onChange={(e) => handleSchoolLogo(e)}
             type="file"
             // errors={errors.schoolLogo}
           />

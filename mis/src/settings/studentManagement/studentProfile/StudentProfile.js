@@ -12,6 +12,7 @@ import InputControl from "../../../components/controls/InputControl";
 import { Search } from "@material-ui/icons";
 import AddIcon from "@material-ui/icons/Add";
 import Popup from "../../../components/Popup";
+import LoadingComp from "../../../components/LoadingComp";
 import CustomContainer from "../../../components/CustomContainer";
 import SelectControl from "../../../components/controls/SelectControl";
 import { useDispatch, useSelector } from "react-redux";
@@ -109,7 +110,7 @@ const StudentProfile = () => {
     (state) => state.studentProfile
   );
 
-  const { listStudentProfile, error: listStudentProfileError } = useSelector(
+  const { listStudentProfile,loading, error: listStudentProfileError } = useSelector(
     (state) => state.getListStudentProfile
   );
 
@@ -128,7 +129,7 @@ const StudentProfile = () => {
     error: resetSingleStudentProfilePasswordError,
   } = useSelector((state) => state.resetSingleStudentProfilePassword);
 
-  const { editSingleStudentData, error: editSingleStudentDataError } =
+  const { editSingleStudentData, loading:loadingEdit,error: editSingleStudentDataError } =
     useSelector((state) => state.getSingleStudentProfileEditData);
 
   const {
@@ -318,7 +319,7 @@ const StudentProfile = () => {
           return item;
         } else {
           return item.filter((x) =>
-            x.FullName.toLowerCase().includes(e.target.value)
+            x.StudentFullName.toLowerCase().includes(e.target.value)
           );
         }
       },
@@ -450,8 +451,28 @@ const StudentProfile = () => {
             </Grid>
           </Grid>
         </Toolbar>
+        <div style={{ height: "15px" }}></div>
+        <Toolbar>
+          <InputControl
+            className={classes.searchInput}
+            label="Search Student Profile"
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <Search />
+                </InputAdornment>
+              ),
+            }}
+            onChange={handleSearch}
+          />
+          </Toolbar>
+        {loading ? (
+          <LoadingComp />
+        ) : (
+          <>
         <TableContainer className={classes.table}>
           <TblHead />
+        
           {listStudentProfile && (
             <TableBody>
               {tableDataAfterPagingAndSorting().map((item, index) => (
@@ -486,16 +507,24 @@ const StudentProfile = () => {
           )}
         </TableContainer>
         {listStudentProfile && <TblPagination />}
+        </>
+        )}
       </CustomContainer>
       <Popup
         openPopup={openPopup}
         setOpenPopup={setOpenPopup}
         title="Student Profile"
       >
+      {loadingEdit ? (
+          <LoadingComp />
+        ) : (
+          <>
         <StudentProfileForm
           studentData={editSingleStudentData && editSingleStudentData}
           setOpenPopup={setOpenPopup}
         />
+        </>
+        )}
       </Popup>
       <Popup
         openPopup={openResetPopup}

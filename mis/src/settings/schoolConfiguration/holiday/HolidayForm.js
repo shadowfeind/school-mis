@@ -41,9 +41,19 @@ const HolidayForm = ({ holiday, setOpenPopup, startDate, endDate }) => {
       ? "This feild is required"
       : "";
 
-    temp.FromDate = !fieldValues.FromDate ? "This feild is required" : "";
+      temp.startDate =
+      startDate.toString() === "Invalid Date"
+        ? "Invalid Date"
+        : !startDate
+        ? "Date is required"
+        : "";
 
-    temp.ToDate = !fieldValues.ToDate ? "This feild is required" : "";
+        temp.endDate =
+      endDate.toString() === "Invalid Date"
+        ? "Invalid Date"
+        : !endDate
+        ? "Date is required"
+        : "";
 
     setErrors({ ...temp });
     return Object.values(temp).every((x) => x === "");
@@ -101,13 +111,6 @@ const HolidayForm = ({ holiday, setOpenPopup, startDate, endDate }) => {
           />
         </Grid>
         <Grid item xs={6}>
-          {/* <InputControl
-            name="Description*"
-            label="Description"
-            value={values.Description}
-            onChange={handleInputChange}
-            errors={errors.Description}
-          /> */}
           <InputControl
             name="Description"
             label="Description*"

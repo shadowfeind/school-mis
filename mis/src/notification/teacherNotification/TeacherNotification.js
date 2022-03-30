@@ -11,6 +11,7 @@ import {
   Grid,
 } from "@material-ui/core";
 import { Search } from "@material-ui/icons";
+import LoadingComp from "../../components/LoadingComp";
 import Popup from "../../components/Popup";
 import useCustomTable from "../../customHooks/useCustomTable";
 import CustomContainer from "../../components/CustomContainer";
@@ -103,7 +104,7 @@ const TeacherNotification = () => {
     (state) => state.getAllTeacherNotification
   );
 
-  const { listTeacherNotification, error: listTeacherNotificationError } =
+  const { listTeacherNotification,loading, error: listTeacherNotificationError } =
     useSelector((state) => state.getListTeacherNotification);
 
   const {
@@ -206,7 +207,11 @@ const TeacherNotification = () => {
             Create{" "}
           </Button>
         </Toolbar>
-        <TableContainer className={classes.table}>
+        {loading ? (
+          <LoadingComp />
+        ) : (
+          <>
+                  <TableContainer className={classes.table}>
           <TblHead />
           <TableBody>
             {tableDataAfterPagingAndSorting().map((item) => (
@@ -219,6 +224,8 @@ const TeacherNotification = () => {
           </TableBody>
         </TableContainer>
         <TblPagination />
+        </>
+        )}
       </CustomContainer>
       <Popup
         openPopup={openPopup}

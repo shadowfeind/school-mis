@@ -11,6 +11,7 @@ import InputControl from "../../components/controls/InputControl";
 import { Search } from "@material-ui/icons";
 import AddIcon from "@material-ui/icons/Add";
 import Popup from "../../components/Popup";
+import LoadingComp from "../../components/LoadingComp";
 import CustomContainer from "../../components/CustomContainer";
 import { useDispatch, useSelector } from "react-redux";
 import Notification from "../../components/Notification";
@@ -72,7 +73,7 @@ const AnnouncementTest = () => {
 
   const dispatch = useDispatch();
 
-  const { announcement, error } = useSelector((state) => state.announcement);
+  const { announcement, error,loading } = useSelector((state) => state.announcement);
 
   const { success: createAnnouncementSuccess, error: createAnnouncementError } =
     useSelector((state) => state.createAnnouncement);
@@ -230,6 +231,10 @@ const AnnouncementTest = () => {
             Add{" "}
           </Button>
         </Toolbar>
+        {loading ? (
+          <LoadingComp />
+        ) : (
+          <>
         <TableContainer className={classes.table}>
           <TblHead />
 
@@ -245,6 +250,8 @@ const AnnouncementTest = () => {
           </TableBody>
         </TableContainer>
         <TblPagination />
+        </>
+        )}
       </CustomContainer>
       <Popup
         openPopup={openPopup}

@@ -13,6 +13,7 @@ import { Search } from "@material-ui/icons";
 import Popup from "../../../components/Popup";
 import CustomContainer from "../../../components/CustomContainer";
 import { useDispatch, useSelector } from "react-redux";
+import LoadingComp from "../../../components/LoadingComp";
 import Notification from "../../../components/Notification";
 import ConfirmDialog from "../../../components/ConfirmDialog";
 import SelectControl from "../../../components/controls/SelectControl";
@@ -101,18 +102,18 @@ const AssignFacultySubject = () => {
     (state) => state.getAcademicYearCalendarProgram
   );
 
-  const { academicSubjectsList } = useSelector(
+  const { academicSubjectsList,loading } = useSelector(
     (state) => state.getListAssignFacultySubject
   );
 
-  const { academicSubjects } = useSelector(
+  const { academicSubjects,loading:loadingCreate } = useSelector(
     (state) => state.getAssignFacultySubjectOption
   );
 
   const { success: facultySubjectSuccess, error: facultySubjectError } =
     useSelector((state) => state.assignFacultySubjectPost);
 
-  const { singleFacultySubject } = useSelector(
+  const { singleFacultySubject,loading:loadingEdit } = useSelector(
     (state) => state.assignFacultySubjectEdit
   );
 
@@ -120,7 +121,7 @@ const AssignFacultySubject = () => {
     (state) => state.assignFacultySubjectEditPost
   );
 
-  const { assignFacSubGenerate, error: assignFacSubGenerateError } =
+  const { assignFacSubGenerate,loading:loadingGenerate, error: assignFacSubGenerateError } =
     useSelector((state) => state.assignFacultySubjectGenerate);
 
   if (singleFacultyEditSuccess) {
@@ -376,6 +377,10 @@ const AssignFacultySubject = () => {
             onChange={handleSearch}
           />
         </Toolbar>
+        {loading ? (
+          <LoadingComp />
+        ) : (
+          <>
         {academicSubjectsList && (
           <TableContainer className={classes.table}>
             <TblHead />
@@ -393,12 +398,22 @@ const AssignFacultySubject = () => {
           </TableContainer>
         )}
         {academicSubjectsList && <TblPagination />}
+        </>
+        )}
       </CustomContainer>
       <Popup
         openPopup={openPopup}
         setOpenPopup={setOpenPopup}
         title="Add Assign Faculty Subject"
       >
+      {loadingCreate ? (
+          <LoadingComp />
+        ) : (
+          <>
+      {loadingGenerate ? (
+          <LoadingComp />
+        ) : (
+          <>
         <AssignFacultySubjectFormCreate
           subjectOptions={
             academicSubjects && academicSubjects.ddlSubjectModelLst
@@ -411,12 +426,20 @@ const AssignFacultySubject = () => {
           formCheckSubmitHandler={formCheckSubmitHandler}
           setOpenPopup={setOpenPopup}
         />
+        </>
+        )}
+        </>
+        )}
       </Popup>
       <Popup
         openPopup={openPopupForm}
         setOpenPopup={setOpenPopupForm}
         title="Edit Assign Faculty Subject"
       >
+       {loadingEdit ? (
+          <LoadingComp />
+        ) : (
+          <>
         <AssignFacultySubjectFormEdit
           singleFacultySubject={
             singleFacultySubject && singleFacultySubject.model
@@ -429,6 +452,8 @@ const AssignFacultySubject = () => {
           level={singleFacultySubject && singleFacultySubject.level}
           setOpenPopupForm={setOpenPopupForm}
         />
+        </>
+        )}
       </Popup>
       <Notification notify={notify} setNotify={setNotify} />
       <ConfirmDialog

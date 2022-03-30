@@ -11,6 +11,7 @@ import { Search } from "@material-ui/icons";
 import useCustomTable from "../../customHooks/useCustomTable";
 import InputControl from "../../components/controls/InputControl";
 import Popup from "../../components/Popup";
+import LoadingComp from "../../components/LoadingComp";
 import CustomContainer from "../../components/CustomContainer";
 import { useDispatch, useSelector } from "react-redux";
 import Notification from "../../components/Notification";
@@ -126,7 +127,7 @@ const LevelTest = () => {
     (state) => state.getEvent
   );
 
-  const { bulkDatas, error: getbulkDatasError } = useSelector(
+  const { bulkDatas,loading, error: getbulkDatasError } = useSelector(
     (state) => state.getBulkLevelTestData
   );
 
@@ -370,11 +371,17 @@ const LevelTest = () => {
         setOpenPopup={setOpenPopup}
         title="Bulk Edit"
       >
+      {loading ? (
+          <LoadingComp />
+        ) : (
+          <>
         <LevelTestBulkEdit
           search={bulkDatas && bulkDatas.searchFilterModel}
           bulkData={bulkDatas && bulkDatas.dbModelLst}
           setOpenPopup={setOpenPopup}
         />
+        </>
+        )}
       </Popup>
       <Notification notify={notify} setNotify={setNotify} />
       <ConfirmDialog

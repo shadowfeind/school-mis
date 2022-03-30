@@ -11,6 +11,7 @@ import useCustomTable from "../../customHooks/useCustomTable";
 import InputControl from "../../components/controls/InputControl";
 import { Search } from "@material-ui/icons";
 import Popup from "../../components/Popup";
+import LoadingComp from "../../components/LoadingComp";
 import CustomContainer from "../../components/CustomContainer";
 import { useDispatch, useSelector } from "react-redux";
 import Notification from "../../components/Notification";
@@ -118,11 +119,11 @@ const CounterConfiguration = () => {
     error: counterConfigCreateError,
   } = useSelector((state) => state.counterConfigCreate);
 
-  const { counterConfigList } = useSelector(
+  const { counterConfigList,loading } = useSelector(
     (state) => state.getCounterConfigList
   );
 
-  const { getAcademicConfigInitialDataForEdit } = useSelector(
+  const { getAcademicConfigInitialDataForEdit,loading:loadingEdit } = useSelector(
     (state) => state.getCounterConfigInitialDataForEdit
   );
 
@@ -289,6 +290,10 @@ const CounterConfiguration = () => {
             onChange={handleSearch}
           />
         </Toolbar>
+        {loading ? (
+          <LoadingComp />
+        ) : (
+          <>
         {counterConfigList && (
           <TableContainer className={classes.table}>
             <TblHead />
@@ -314,12 +319,18 @@ const CounterConfiguration = () => {
           </TableContainer>
         )}
         {counterConfigList && <TblPagination />}
+        </>
+        )}
       </CustomContainer>
       <Popup
         openPopup={openPopup}
         setOpenPopup={setOpenPopup}
         title="Counter Configuration Form"
       >
+       {loadingEdit ? (
+          <LoadingComp />
+        ) : (
+          <>
         <CounterConfigurationForm
           counterFor={
             getAcademicConfigInitialDataForCreate &&
@@ -334,6 +345,8 @@ const CounterConfiguration = () => {
             getAcademicConfigInitialDataForEdit
           }
         />
+        </>
+        )}
       </Popup>
 
       <Notification notify={notify} setNotify={setNotify} />

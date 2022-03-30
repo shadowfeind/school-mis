@@ -4,6 +4,7 @@ import Popup from "../../components/Popup";
 import CustomContainer from "../../components/CustomContainer";
 import { useDispatch, useSelector } from "react-redux";
 import Notification from "../../components/Notification";
+import LoadingComp from "../../components/LoadingComp";
 import ConfirmDialog from "../../components/ConfirmDialog";
 import SelectControl from "../../components/controls/SelectControl";
 import {
@@ -95,11 +96,11 @@ const StudentMonthlyPresentSheet = () => {
     (state) => state.getEnglishDate
   );
 
-  const { getListStudentPresent, error: getListStudentPresentError } =
+  const { getListStudentPresent,loading, error: getListStudentPresentError } =
     useSelector((state) => state.getListStudentPresent);
 
   const {
-    getListForUpdateStudentPresent,
+    getListForUpdateStudentPresent,loading:loadingUpdate,
     error: getListForUpdateStudentPresentError,
   } = useSelector((state) => state.getListForUpdateStudentPresent);
 
@@ -454,23 +455,34 @@ const StudentMonthlyPresentSheet = () => {
             </Grid>
           </Grid>
         </Toolbar>
+        {loading ? (
+          <LoadingComp />
+        ) : (
+          <>
         {getListStudentPresent && (
           <StudentMonthlyPresentSheetTableCollapse
             students={getListStudentPresent && getListStudentPresent}
           />
+        )}
+        </>
         )}
       </CustomContainer>
       <Popup
         openPopup={openPopup}
         setOpenPopup={setOpenPopup}
         title="Bulk Edit"
-      >
+      >{loadingUpdate ? (
+          <LoadingComp />
+        ) : (
+          <>
         <StudentMonthlyPresentSheetUpdateForm
           students={
             getListForUpdateStudentPresent && getListForUpdateStudentPresent
           }
           setOpenPopup={setOpenPopup}
         />
+        </>
+        )}
       </Popup>
       <Notification notify={notify} setNotify={setNotify} />
       <ConfirmDialog

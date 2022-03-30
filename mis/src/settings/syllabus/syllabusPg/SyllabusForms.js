@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import SelectControl from "../../../components/controls/SelectControl";
 import { API_URL } from "../../../constants";
 import { putSyllabusAction } from "./SyllabusActions";
+import fileValidation from "../../../helpers/fileValidation";
 
 const initialFormValues = {
   Id: 0,
@@ -74,7 +75,7 @@ const SyllabusForm =({syllabus,setOpenPopup}) => {
               <InputControl
                 name="ImageUploaded"
                 label="Select File"
-                onChange={(e) => handleImage(e)}
+                onChange={(e) => fileValidation(e, setImage, setImgSrc)}
                 type="file"
                 errors={errors.img}
               />

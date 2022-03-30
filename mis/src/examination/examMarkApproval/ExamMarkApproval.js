@@ -11,6 +11,7 @@ import { Search } from "@material-ui/icons";
 import useCustomTable from "../../customHooks/useCustomTable";
 import InputControl from "../../components/controls/InputControl";
 import Popup from "../../components/Popup";
+import LoadingComp from "../../components/LoadingComp";
 import CustomContainer from "../../components/CustomContainer";
 import { useDispatch, useSelector } from "react-redux";
 import Notification from "../../components/Notification";
@@ -149,11 +150,11 @@ const ExamMarkApproval = () => {
     (state) => state.getExamApprovalScheduleHeader
   );
 
-  const { searchData } = useSelector(
+  const { searchData,loading } = useSelector(
     (state) => state.getExamApprovalSearchData
   );
 
-  const { bulkData } = useSelector(
+  const { bulkData ,loading:loadingBulk} = useSelector(
     (state) => state.getBulkExamApprovalSearchData
   );
 
@@ -461,6 +462,10 @@ const ExamMarkApproval = () => {
             onChange={handleSearch}
           />
         </Toolbar>
+        {loading ? (
+          <LoadingComp />
+        ) : (
+          <>
         {searchData && (
           <TableContainer className={classes.table}>
             <TblHead />
@@ -474,12 +479,18 @@ const ExamMarkApproval = () => {
         )}
 
         {searchData && <TblPagination />}
+        </>
+        )}
       </CustomContainer>
       <Popup
         openPopup={openPopup}
         setOpenPopup={setOpenPopup}
         title="Bulk Edit"
       >
+      {loadingBulk ? (
+          <LoadingComp />
+        ) : (
+          <>
         <ExamMarkApprovalBulk
           statusData={
             bulkData && bulkData.searchFilterModel.ddlStudentExamStatus
@@ -488,6 +499,8 @@ const ExamMarkApproval = () => {
           bulkData={bulkData && bulkData.dbModelLsts}
           setOpenPopup={setOpenPopup}
         />
+        </>
+        )}
       </Popup>
       <Popup
         openPopup={openBulkPopup}

@@ -10,6 +10,7 @@ import {
 import useCustomTable from "../../customHooks/useCustomTable";
 import InputControl from "../../components/controls/InputControl";
 import { Search } from "@material-ui/icons";
+import LoadingComp from "../../components/LoadingComp";
 import Popup from "../../components/Popup";
 import CustomContainer from "../../components/CustomContainer";
 import SelectControl from "../../components/controls/SelectControl";
@@ -87,10 +88,10 @@ const ClassNotification = () => {
     (state) => state.getAllClassNotification
   );
 
-  const { listClassNotification, error: listClassNotificationError } =
+  const { listClassNotification,loading, error: listClassNotificationError } =
     useSelector((state) => state.getListClassNotification);
 
-  const { bulkClassNotification, error: bulkClassNotificationError } =
+  const { bulkClassNotification,loading:loadingBulk, error: bulkClassNotificationError } =
     useSelector((state) => state.getBulkClassNotification);
 
   const {
@@ -313,6 +314,10 @@ const ClassNotification = () => {
             </Grid>
           </Grid>
         </Toolbar>
+        {loading ? (
+          <LoadingComp />
+        ) : (
+          <>
         <TableContainer className={classes.table}>
           <TblHead />
 
@@ -323,12 +328,18 @@ const ClassNotification = () => {
           </TableBody>
         </TableContainer>
         <TblPagination />
+        </>
+        )}
       </CustomContainer>
       <Popup
         openPopup={openPopup}
         setOpenPopup={setOpenPopup}
         title="Class Notification"
       >
+       {loadingBulk ? (
+          <LoadingComp />
+        ) : (
+          <>
         <ClassNotificationForm
           students={bulkClassNotification && bulkClassNotification.dbModelLst}
           classNotification={
@@ -336,6 +347,8 @@ const ClassNotification = () => {
           }
           setOpenPopup={setOpenPopup}
         />
+        </>
+        )}
       </Popup>
       <Notification notify={notify} setNotify={setNotify} />
       <ConfirmDialog

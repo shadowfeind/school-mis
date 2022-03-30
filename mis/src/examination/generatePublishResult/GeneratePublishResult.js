@@ -12,6 +12,7 @@ import useCustomTable from "../../customHooks/useCustomTable";
 import InputControl from "../../components/controls/InputControl";
 import CustomContainer from "../../components/CustomContainer";
 import { useDispatch, useSelector } from "react-redux";
+import LoadingComp from "../../components/LoadingComp";
 import Notification from "../../components/Notification";
 import ConfirmDialog from "../../components/ConfirmDialog";
 import SelectControl from "../../components/controls/SelectControl";
@@ -120,7 +121,7 @@ const GeneratePublishResult = () => {
     (state) => state.getEvent
   );
 
-  const { allGenerate } = useSelector((state) => state.getAllGenerate);
+  const { allGenerate ,loading} = useSelector((state) => state.getAllGenerate);
   const { allGeneratePublishResult } = useSelector(
     (state) => state.getAllGeneratePublishResult
   );
@@ -337,6 +338,10 @@ const GeneratePublishResult = () => {
             onChange={handleSearch}
           />
         </Toolbar>
+        {loading ? (
+          <LoadingComp />
+        ) : (
+          <>
         {allGenerate && (
           <TableContainer className={classes.table}>
             <TblHead />
@@ -353,6 +358,8 @@ const GeneratePublishResult = () => {
         )}
 
         {allGenerate && <TblPagination />}
+        </>
+        )}
       </CustomContainer>
 
       <Notification notify={notify} setNotify={setNotify} />

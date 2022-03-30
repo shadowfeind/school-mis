@@ -512,7 +512,7 @@ const StudentRegistrationForm = ({
           />
           <InputControl
             name="MobileNo"
-            label="Contact No."
+            label="Contact No.*"
             value={values.MobileNo}
             onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}
             onChange={handleInputChange}
@@ -541,7 +541,7 @@ const StudentRegistrationForm = ({
           />
           <SelectControl
             name="Nationality"
-            label="Nationality"
+            label="Nationality*"
             value={values.Nationality}
             onChange={handleInputChange}
             options={
@@ -574,7 +574,7 @@ const StudentRegistrationForm = ({
           />
           <InputControl
             name="FatherContactNo"
-            label="Father Contact Number"
+            label="Father Contact Number*"
             onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}
             value={values.FatherContactNo}
             onChange={handleInputChange}

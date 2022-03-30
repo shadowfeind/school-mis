@@ -1,7 +1,32 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { API_URL } from "../../../constants";
+import { useDispatch } from "react-redux";
+import { getHeaderBannerAction, getHeaderContentAction } from "../../../dashboard/DashboardActions";
+import { GET_HEADER_BANNER_RESET, GET_HEADER_CONTENT_RESET } from "../../../dashboard/DashboardConstants";
+import { useSelector } from "react-redux";
 import CustomContainer from "../../../components/CustomContainer";
 
 const StudentIdCardPrint = ({ studentId, classNames, examDates }) => {
+
+  const dispatch = useDispatch();
+  const { headerBanners, error: headerBannersError } = useSelector(
+    (state) => state.getHeaderBanner
+  );
+
+  useEffect(() => {
+    if (!headerBanners) {
+      dispatch(getHeaderBannerAction());
+    }
+  }, [headerBanners, dispatch]);
+
+  if (headerBannersError) {
+    dispatch({ type: GET_HEADER_BANNER_RESET });
+    setNotify({
+      isOpen: true,
+      message: headerBannersError,
+      type: "error",
+    });
+  }
   return (
     <div
       style={{
@@ -13,29 +38,29 @@ const StudentIdCardPrint = ({ studentId, classNames, examDates }) => {
         borderRadius: "10px",
       }}
     >
-      <CustomContainer>
-        <div style={{ textAlign: "center" }}>
-          <h1>School Logo</h1>
-          <h4>Admit Card</h4>
-          {/* <h5 style={{ backgroundColor: "$f3f3f3", padding: "5px" }}>
-            {studentId.EventName}
-          </h5> */}
-        </div>
-        <div style={{ textAlign: "center" }}>
-          {/* <h6>
-            <strong>Name:</strong> {studentId.StudentFullName}
-          </h6>
-          <h6>
-            <strong>Class:</strong> {classNames.MobileNumber}
-          </h6> */}
-          {/* <h6>
-            <strong>Symbol No:</strong> {studentId.UniversityRegistrationNumber}
-          </h6>
-          <h6>
-            <strong>Section:</strong> {examDates.examDate.slice(0, 10)}
-          </h6> */}
-        </div>
-      </CustomContainer>
+      <div className="admitCard">
+        <img
+          src={`${API_URL}${headerBanners}`}
+          height="60px"
+          width="270px"
+          style={{ marginTop: "15px" }}
+        />
+      </div>
+      <div style={{ textAlign: "center" }}>
+      <h4>ID Card</h4>
+        <h6>
+          <strong>Name:</strong> {studentId.StudentFullName}
+        </h6>
+        <h6>
+          <strong>Class:</strong> {classNames?.IdLevel}
+        </h6>
+        <h6>
+          <strong>Symbol No:</strong> {studentId.UniversityRegistrationNumber}
+        </h6>
+        <h6>
+          <strong>Section:</strong>
+        </h6>
+      </div>
     </div>
   );
 };

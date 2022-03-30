@@ -255,7 +255,7 @@ const EmployeeForm = ({ employee, setOpenPopup }) => {
           />
           <InputControl
             name="MobileNumber"
-            label="Mobile Number"
+            label="Mobile Number*"
             value={values.MobileNumber}
             onChange={handleInputChange}
             onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}

@@ -9,17 +9,17 @@ import { makeStyles } from "@material-ui/core";
 const PersonalInformation = lazy(() =>
   import("./personalinformation/PersonalInformation")
 );
-const UploadPhoto = lazy(() => import("./uploadPhoto/UploadPhoto"));
-const ContactAddress = lazy(() => import("./contactAddress/ContactAddress"));
-const ContactNumber = lazy(() => import("./contactNumber/ContactNumber"));
-const Email = lazy(() => import("./email/Email"));
-const Guardian = lazy(() => import("./gurdian/Guardian"));
-const FamilyMember = lazy(() => import("./familyMember/FamilyMember"));
-const Education = lazy(() => import("./education/Education"));
-const JobHistory = lazy(() => import("./jobHistory/JobHistory"));
-const Hobby = lazy(() => import("./hobby/Hobby"));
-const Training = lazy(() => import("./training/Training"));
-const Skill = lazy(() => import("./skill/Skill"));
+// const UploadPhoto = lazy(() => import("./uploadPhoto/UploadPhoto"));
+// const ContactAddress = lazy(() => import("./contactAddress/ContactAddress"));
+// const ContactNumber = lazy(() => import("./contactNumber/ContactNumber"));
+// const Email = lazy(() => import("./email/Email"));
+// const Guardian = lazy(() => import("./gurdian/Guardian"));
+// const FamilyMember = lazy(() => import("./familyMember/FamilyMember"));
+// const Education = lazy(() => import("./education/Education"));
+// const JobHistory = lazy(() => import("./jobHistory/JobHistory"));
+// const Hobby = lazy(() => import("./hobby/Hobby"));
+// const Training = lazy(() => import("./training/Training"));
+// const Skill = lazy(() => import("./skill/Skill"));
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -41,12 +41,12 @@ function TabPanel(props) {
   );
 }
 
-function a11yProps(index) {
-  return {
-    id: `simple-tab-${index}`,
-    "aria-controls": `scrollable-force-tabpanel-${index}`,
-  };
-}
+// function a11yProps(index) {
+//   return {
+//     id: `simple-tab-${index}`,
+//     "aria-controls": `scrollable-force-tabpanel-${index}`,
+//   };
+// }
 
 const useStyles = makeStyles((theme) => ({
   indicator: {
@@ -64,7 +64,7 @@ const UserProfile = () => {
   };
   return (
     <div>
-      <AppBar position="static" style={{ background: "#253053" }}>
+      {/* <AppBar position="static" style={{ background: "#253053" }}>
         <Tabs
           value={value}
           onChange={handleChange}
@@ -136,12 +136,12 @@ const UserProfile = () => {
             {...a11yProps(11)}
           />
         </Tabs>
-      </AppBar>
+      </AppBar> */}
       <Suspense fallback={<div></div>}>
         <TabPanel value={value} index={0}>
           <PersonalInformation />
         </TabPanel>
-        <TabPanel value={value} index={1}>
+        {/* <TabPanel value={value} index={1}>
           <UploadPhoto />
         </TabPanel>
         <TabPanel value={value} index={2}>
@@ -173,7 +173,7 @@ const UserProfile = () => {
         </TabPanel>
         <TabPanel value={value} index={11}>
           <Skill />
-        </TabPanel>
+        </TabPanel> */}
       </Suspense>
     </div>
   );

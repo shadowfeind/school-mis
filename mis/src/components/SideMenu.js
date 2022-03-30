@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { AttendanceRoute } from "../routesConfig/AttendanceRoute";
+import { UserProfileRoute } from "../routesConfig/UserProfileRoute";
 import { DashboardRoute } from "../routesConfig/DashboardRoute";
 import { ExaminationRoute } from "../routesConfig/ExaminationRoute";
 import { RegistrationRoute } from "../routesConfig/RegistrationRoute";
@@ -82,6 +83,12 @@ const SideMenu = () => {
     if (routeCheck !== "attendance") {
       setRouteCheck("attendance");
       setRouteLinks(AttendanceRoute);
+    }
+  }
+  if (navLink === "/user-profile") {
+    if (routeCheck !== "/user-profile") {
+      setRouteCheck("/user-profile");
+      setRouteLinks(UserProfileRoute);
     }
   }
   if (navLink === "/notification") {

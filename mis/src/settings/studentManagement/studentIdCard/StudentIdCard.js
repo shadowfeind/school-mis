@@ -361,17 +361,24 @@ const StudentIdCard = () => {
           <LoadingComp />
         ) : (
           <>
+          {printBulkStudentsForIdCard && (
+          <Grid container style={{ fontSize: "12px" }}>
+          {printBulkStudentsForIdCard.dbModelLst.map((student) => (
         <StudentIdCardPrint
+         key={student.$id}
           studentId={
-            printBulkStudentsForIdCard && printBulkStudentsForIdCard.dbModelLst
+            student
           }
           classnames={
-            printBulkStudentsForIdCard && printBulkStudentsForIdCard.ClassName
+            classId
           }
           examDates={
-            printBulkStudentsForIdCard && printBulkStudentsForIdCard.examDate
+            date
           }
         />
+          ))}
+          </Grid>
+          )}
         </>
         )}
       </Popup>

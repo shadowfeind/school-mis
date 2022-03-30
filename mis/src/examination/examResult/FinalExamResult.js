@@ -11,7 +11,7 @@ const FinalExamResult = ({ result,headerBanners }) => {
   return (
     <div id="result-final-print" ref={componentRef}>
       {result &&
-        result.dbStudentModelLst.map((student) => {
+        result.dbStudentModelLst?.map((student) => {
           let subjectList = result.dbModelLstForCountSubject.filter(
             (x) =>
               (x.IDHREmployee === student.IDHREmployee) &

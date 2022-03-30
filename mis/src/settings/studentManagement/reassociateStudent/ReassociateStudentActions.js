@@ -142,6 +142,8 @@ export const getReassociateStudentsLevelupPostAction =
         academicYear,
       });
 
+      console.log(jsonData)
+
       const { data } = await axios.put(
         `${API_URL}/api/ReassociateStudent/PutReassociateStudent`,
         jsonData,

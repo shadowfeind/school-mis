@@ -8,20 +8,22 @@
 
 export const API_URL = "http://vidyacube.com";
 
-export const USER_SESSION = sessionStorage.getItem("blueberrytoken");
+export const USER_SESSION = sessionStorage.getItem("blueberrytoken")
+  ? sessionStorage.getItem("blueberrytoken")
+  : null;
 // let userSession = sessionStorage.getItem("blueberrytoken")
 //   ? sessionStorage.getItem("blueberrytoken")
 //   : null;
 
 let userSession =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJhNmQwOGE4MC1lMTg2LTQ5ZjAtOTQ4NS0yNTVmN2MzMWJjZTIiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiMTA1MzMiLCJJRFVzZXIiOiIxMDUzMyIsIklEUm9sZSI6IjIiLCJNYXJrQXNBZG1pbiI6IlRydWUiLCJJREhSQnJhbmNoIjoiMSIsIklERGVwYXJ0bWVudCI6IjEiLCJjb21wYW55IjoiMiIsIklzVGVtcG9yYXJ5U2Vzc2lvbkVuYWJsZWQiOiJGYWxzZSIsIklzTmV3bHlBZGVkIjoiRmFsc2UiLCJJc0RlcGFydG1lbnRIZWFkIjoiRmFsc2UiLCJSZW1lbWJlck1lIjoiRmFsc2UiLCJGdWxsTmFtZSI6IkNyZWF0aW9uICBBY2FkZW15IiwicGlkUmVmRm9yRWRpdCI6IlJvb3RVc2VyIiwiZXhwIjoxNjQ4NjIyOTg2LCJpc3MiOiJodHRwOi8vbXlzaXRlLmNvbSIsImF1ZCI6Imh0dHA6Ly9teXNpdGUuY29tIn0.4SfNmcyLXBQm6GfL1pmWChFXDyXMxv4Nn_WI03x9hqk";
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiI5ZjZkZGQ4Yi00MWEzLTQzMjktOGZhZC1iN2Y1M2Q5YjRhZmYiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiMTA1MzMiLCJJRFVzZXIiOiIxMDUzMyIsIklEUm9sZSI6IjIiLCJNYXJrQXNBZG1pbiI6IlRydWUiLCJJREhSQnJhbmNoIjoiMSIsIklERGVwYXJ0bWVudCI6IjEiLCJjb21wYW55IjoiMiIsIklzVGVtcG9yYXJ5U2Vzc2lvbkVuYWJsZWQiOiJGYWxzZSIsIklzTmV3bHlBZGVkIjoiRmFsc2UiLCJJc0RlcGFydG1lbnRIZWFkIjoiRmFsc2UiLCJSZW1lbWJlck1lIjoiRmFsc2UiLCJGdWxsTmFtZSI6IkNyZWF0aW9uICBBY2FkZW15IiwicGlkUmVmRm9yRWRpdCI6IlJvb3RVc2VyIiwiZXhwIjoxNjQ4NjM5NDE3LCJpc3MiOiJodHRwOi8vbXlzaXRlLmNvbSIsImF1ZCI6Imh0dHA6Ly9teXNpdGUuY29tIn0.856Rx6KnzoiOGL936fzjBrlEfoK8BDcNqaoFshUOuUM";
 
-let userRefreshToken = "l5i8YY4Qn76qVU/fxugdeH8hk/2/MRB8TqHa5sRqw5I=";
+let userRefreshToken = "MapdsQV37ZOpOgbh9X0ma8Ush6C9CQdavn1kDQMD7QY=";
 //for JWT token for dev mode
 export const tokenConfig = {
   headers: {
     "Content-Type": "application/json",
-    Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIwNWJjNjRlOC05NWJjLTQxNTEtYWY1NS1kNTkzYWM3N2I1NDMiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiMTA1MzMiLCJJRFVzZXIiOiIxMDUzMyIsIklEUm9sZSI6IjIiLCJNYXJrQXNBZG1pbiI6IlRydWUiLCJJREhSQnJhbmNoIjoiMSIsIklERGVwYXJ0bWVudCI6IjEiLCJjb21wYW55IjoiMiIsIklzVGVtcG9yYXJ5U2Vzc2lvbkVuYWJsZWQiOiJGYWxzZSIsIklzTmV3bHlBZGVkIjoiRmFsc2UiLCJJc0RlcGFydG1lbnRIZWFkIjoiRmFsc2UiLCJSZW1lbWJlck1lIjoiRmFsc2UiLCJGdWxsTmFtZSI6IkNyZWF0aW9uICBBY2FkZW15IiwicGlkUmVmRm9yRWRpdCI6IlJvb3RVc2VyIiwiZXhwIjoxNjUwNTkzMzM4LCJpc3MiOiJodHRwOi8vbXlzaXRlLmNvbSIsImF1ZCI6Imh0dHA6Ly9teXNpdGUuY29tIn0.0x2zblMwxprmR0CfFiITtGnh6vzYNxpUuvX2Ftzn2bk`,
+    Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiI5ZjZkZGQ4Yi00MWEzLTQzMjktOGZhZC1iN2Y1M2Q5YjRhZmYiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiMTA1MzMiLCJJRFVzZXIiOiIxMDUzMyIsIklEUm9sZSI6IjIiLCJNYXJrQXNBZG1pbiI6IlRydWUiLCJJREhSQnJhbmNoIjoiMSIsIklERGVwYXJ0bWVudCI6IjEiLCJjb21wYW55IjoiMiIsIklzVGVtcG9yYXJ5U2Vzc2lvbkVuYWJsZWQiOiJGYWxzZSIsIklzTmV3bHlBZGVkIjoiRmFsc2UiLCJJc0RlcGFydG1lbnRIZWFkIjoiRmFsc2UiLCJSZW1lbWJlck1lIjoiRmFsc2UiLCJGdWxsTmFtZSI6IkNyZWF0aW9uICBBY2FkZW15IiwicGlkUmVmRm9yRWRpdCI6IlJvb3RVc2VyIiwiZXhwIjoxNjQ4NjM5NDE3LCJpc3MiOiJodHRwOi8vbXlzaXRlLmNvbSIsImF1ZCI6Imh0dHA6Ly9teXNpdGUuY29tIn0.856Rx6KnzoiOGL936fzjBrlEfoK8BDcNqaoFshUOuUM`,
   },
 };
 
@@ -64,15 +66,22 @@ export const tokenHeader = {
 //   };
 
 //   const JSONdata = JSON.stringify(dataForRefreshToken);
-//   const config = { header: { "Content-Type": "application/json" } };
+//   const config = { headers: { "Content-Type": "application/json" } };
 
-//   const { data } = await axios.post(
-//     "http://vidyacube.com/api/RefreshTokenGenerator/RefreshToken",
-//     JSONdata,
-//     config
-//   );
+//   try {
+//     const { data } = await axios.post(
+//       "http://vidyacube.com/api/RefreshTokenGenerator/RefreshToken",
+//       JSONdata,
+//       config
+//     );
 
-//   sessionStorage.setItem("blueberrytoken", data);
-//   req.headers.Authorization = `Bearer ${data}`;
+//     sessionStorage.setItem("blueberrytoken", data.AccessToken);
+//     req.headers.Authorization = `Bearer ${data.AccessToken}`;
+//   } catch (error) {
+//     console.log(
+//       error.response.data.Message ? error.response.data.Message : error.message
+//     );
+//   }
+
 //   return req;
 // });

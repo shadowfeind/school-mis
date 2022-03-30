@@ -19,9 +19,8 @@ export const getAllSchoolSettingsAction = () => async (dispatch) => {
   try {
     dispatch({ type: GET_ALL_SCHOOL_SETTINGS_REQUEST });
 
-    const { data } = await axios.get(
-      `${API_URL}/api/ReactHRCompany/GetHRCompany`,
-      tokenConfig
+    const { data } = await axiosInstance.get(
+      `/api/ReactHRCompany/GetHRCompany`
     );
 
     dispatch({ type: GET_ALL_SCHOOL_SETTINGS_SUCCESS, payload: data });

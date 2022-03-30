@@ -319,7 +319,7 @@ const StudentProfile = () => {
           return item;
         } else {
           return item.filter((x) =>
-            x.FullName.toLowerCase().includes(e.target.value)
+            x.StudentFullName.toLowerCase().includes(e.target.value)
           );
         }
       },
@@ -451,6 +451,21 @@ const StudentProfile = () => {
             </Grid>
           </Grid>
         </Toolbar>
+        <div style={{ height: "15px" }}></div>
+        <Toolbar>
+          <InputControl
+            className={classes.searchInput}
+            label="Search Student Profile"
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <Search />
+                </InputAdornment>
+              ),
+            }}
+            onChange={handleSearch}
+          />
+          </Toolbar>
         {loading ? (
           <LoadingComp />
         ) : (

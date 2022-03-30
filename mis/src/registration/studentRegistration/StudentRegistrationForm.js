@@ -99,7 +99,7 @@ const initialFormValues = {
   FinalPassMark: 0,
   FinalMark: 0,
   FinalStatus: "",
-  Section: 0,
+  Section: "",
   ClassRoom: 0,
   PermanentHouseNo: "",
   TemporaryHouseNo: "",
@@ -177,8 +177,8 @@ const StudentRegistrationForm = ({
   setOpenPopup,
   getCreateSingleStudentData,
 }) => {
-  const [image, setImage] = useState(null);
-  const [imgSrc, setImgSrc] = useState(null);
+  const [image, setImage] = useState("");
+  const [imgSrc, setImgSrc] = useState("");
   const dispatch = useDispatch();
   const validate = (fieldValues = values) => {
     let temp = { ...errors };

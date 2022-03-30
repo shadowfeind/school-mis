@@ -106,7 +106,7 @@ const AssignFacultySubject = () => {
     (state) => state.getListAssignFacultySubject
   );
 
-  const { academicSubjects } = useSelector(
+  const { academicSubjects,loading:loadingCreate } = useSelector(
     (state) => state.getAssignFacultySubjectOption
   );
 
@@ -406,6 +406,10 @@ const AssignFacultySubject = () => {
         setOpenPopup={setOpenPopup}
         title="Add Assign Faculty Subject"
       >
+      {loadingCreate ? (
+          <LoadingComp />
+        ) : (
+          <>
       {loadingGenerate ? (
           <LoadingComp />
         ) : (
@@ -422,6 +426,8 @@ const AssignFacultySubject = () => {
           formCheckSubmitHandler={formCheckSubmitHandler}
           setOpenPopup={setOpenPopup}
         />
+        </>
+        )}
         </>
         )}
       </Popup>

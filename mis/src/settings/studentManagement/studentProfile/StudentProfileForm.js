@@ -138,8 +138,10 @@ const StudentProfileForm = ({ studentData, setOpenPopup }) => {
       : "";
       temp.MobileNumber = !fieldValues.MobileNumber
       ? "This feild is required"
-      :!fieldValues.MobileNumber == 10
-      ?"Mobile No. Must be 10 Digits."
+      :fieldValues.MobileNumber.length < 7
+      ?"Mobile No. Must be more than 7"
+      : fieldValues.MobileNumber.length > 10
+      ? "Mobile No. Must be less than 10" 
       : "";
       temp.LastName = !fieldValues.LastName
       ? "This feild is required"

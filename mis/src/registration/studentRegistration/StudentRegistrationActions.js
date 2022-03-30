@@ -149,21 +149,20 @@ export const singleStudentRegistrationEditAction =
           IDLevel: classId,
           searchFilterModel: searchFilterModel,
         });
-
-        await axios.put(
-          `${API_URL}/api/StudentRegistration/Put`,
-          jsonData,
-          tokenConfig
-        );
+        console.log(jsonData);
+        // await axios.put(
+        //   `${API_URL}/api/StudentRegistration/Put`,
+        //   jsonData,
+        //   tokenConfig
+        // );
       }
+      
 
       dispatch({
         type: SINGLE_STUDENT_REGISTRATION_EDIT_SUCCESS,
         payload: data,
       });
     } catch (error) {
-      console.log(error);
-
       dispatch({
         type: SINGLE_STUDENT_REGISTRATION_EDIT_FAIL,
         payload: error.message ? error.message : error.Message,
@@ -214,6 +213,7 @@ export const createSingleStudentRegistrationAction =
           dbModel: newData,
           idAcademicYear: studentReg.idAcademicYear,
         });
+        console.log(jsonData);
 
         await axios.post(
           `${API_URL}/api/StudentRegistration/Post`,

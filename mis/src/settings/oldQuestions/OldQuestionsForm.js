@@ -3,6 +3,7 @@ import { Button, Grid } from "@material-ui/core";
 import InputControl from "../../components/controls/InputControl";
 import { useForm, Form } from "../../customHooks/useForm";
 import { useDispatch } from "react-redux";
+import fileValidation from "../../helpers/fileValidation";
 import SelectControl from "../../components/controls/SelectControl";
 import { getSingleCreateOldQuestionsAction, getSingleEditOldQuestionsAction, postFileUploadOldQuestionsAction, postOldQuestionsAction, putOldQuestionsAction } from "./OldQuestionsActions";
 import { API_URL } from "../../constants";
@@ -139,7 +140,7 @@ const OldQuestionsForm =({singleCreateOldQuestions,
             name="ImageUploaded"
             // label="Select Profile Photo"
             // value={values.DocumentFile}
-            onChange={(e) => handleImage(e)}
+            onChange={(e) => fileValidation(e, setImage, setImgSrc)}
             type="file"
             errors={errors.image}
           />

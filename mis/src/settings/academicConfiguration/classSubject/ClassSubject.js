@@ -122,7 +122,7 @@ const ClassSubject = () => {
     (state) => state.getClassSubjectList
   );
 
-  const { createClassSubjects, error: createClassSubjectsError } = useSelector(
+  const { createClassSubjects,loading:loadingCreate, error: createClassSubjectsError } = useSelector(
     (state) => state.getToCreateClassSubject
   );
 
@@ -374,6 +374,10 @@ const ClassSubject = () => {
         setOpenPopup={setOpenPopup}
         title="Add Class Subject"
       >
+      {loadingCreate ? (
+          <LoadingComp />
+        ) : (
+          <>
         <ClassSubjectCreateForm
           subjectOptions={
             createClassSubjects && createClassSubjects.ddlSubjectModelLst
@@ -381,6 +385,8 @@ const ClassSubject = () => {
           setFormCheck={setFormCheck}
           formCheckSubmitHandler={formCheckSubmitHandler}
         />
+        </>
+        )}
       </Popup>
       <Popup
         openPopup={openPopupForm}

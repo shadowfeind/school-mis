@@ -93,7 +93,7 @@ const StudentProfileTableCollapse = ({
     <>
       <TableRow>
         <TableCell>{item.rollNo}</TableCell>
-        <TableCell><img src={`${API_URL}${currentImagePath[0].Value}`}  width="30px" height="30px"/></TableCell>
+        <TableCell><img src={`${API_URL}${currentImagePath[0]?.Value}`}  width="30px" height="30px"/></TableCell>
         <TableCell>{item.UniversityRegistrationNumber}</TableCell>
         <TableCell>{item.StudentFullName}</TableCell>
         <TableCell>{item.AcademicProgramName}</TableCell>

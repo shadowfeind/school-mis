@@ -48,7 +48,7 @@ const ExamMarkApprovalBlankForm = ({blankData,setOpenPopup,}) => {
   const classes = useStyles();
 
   const classId = blankData?.ddlLevel?.filter( s => s.Key === blankData.searchFilterModel.level)
-  const section = blankData?.ddlSection?.filter( s => s.Key === blankData.searchFilterModel.section)
+  const sections = blankData?.ddlSection?.filter( s => s.Key === blankData.searchFilterModel.section)
 
   return (
     <>
@@ -94,7 +94,7 @@ const ExamMarkApprovalBlankForm = ({blankData,setOpenPopup,}) => {
                 <th>Class:</th>
                 <td>{classId?.length > 0 && classId[0].Value}</td>
                 <th>Section:</th>
-                <td>{section?.length> 0 && section[0].Value}</td>
+                <td>{sections?.length> 0 && sections[0].Value}</td>
               </tr>
             </tbody>
           </Table>

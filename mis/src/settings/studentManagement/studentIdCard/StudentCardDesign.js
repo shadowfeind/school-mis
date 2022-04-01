@@ -5,28 +5,9 @@ import { getHeaderBannerAction, getHeaderContentAction } from "../../../dashboar
 import { GET_HEADER_BANNER_RESET, GET_HEADER_CONTENT_RESET } from "../../../dashboard/DashboardConstants";
 import { useSelector } from "react-redux";
 
-const StudentCardDesign = ({ student, imagePath, classname, examDate }) => {
+const StudentCardDesign = ({ student, imagePath, classname,headerBanners, examDate }) => {
 
   const dispatch = useDispatch();
-  const { headerBanners, error: headerBannersError } = useSelector(
-    (state) => state.getHeaderBanner
-  );
-
-  useEffect(() => {
-    if (!headerBanners) {
-      dispatch(getHeaderBannerAction());
-    }
-  }, [headerBanners, dispatch]);
-
-  if (headerBannersError) {
-    dispatch({ type: GET_HEADER_BANNER_RESET });
-    setNotify({
-      isOpen: true,
-      message: headerBannersError,
-      type: "error",
-    });
-  }
-
   return (
     <div
       style={{

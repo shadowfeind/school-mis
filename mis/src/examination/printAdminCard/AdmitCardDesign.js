@@ -5,27 +5,9 @@ import { getHeaderBannerAction, getHeaderContentAction } from "../../dashboard/D
 import { GET_HEADER_BANNER_RESET, GET_HEADER_CONTENT_RESET } from "../../dashboard/DashboardConstants";
 import { useSelector } from "react-redux";
 
-const AdmitCardDesign = ({ student, imagePath, classname, examDate }) => {
+const AdmitCardDesign = ({ student, imagePath,headerBanners, classname, examDate }) => {
   
   const dispatch = useDispatch();
-  const { headerBanners, error: headerBannersError } = useSelector(
-    (state) => state.getHeaderBanner
-  );
-
-  useEffect(() => {
-    if (!headerBanners) {
-      dispatch(getHeaderBannerAction());
-    }
-  }, [headerBanners, dispatch]);
-
-  if (headerBannersError) {
-    dispatch({ type: GET_HEADER_BANNER_RESET });
-    setNotify({
-      isOpen: true,
-      message: headerBannersError,
-      type: "error",
-    });
-  }
 
   return (
     <div

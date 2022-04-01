@@ -89,8 +89,8 @@ const StudentAttendance = () => {
   const [event, setEvent] = useState("");
   const [errors, setErrors] = useState([]);
   const [workingDaysTotal, setWorkingDaysTotal] = useState("");
-  const [StartDate, setStartDate] = useState("");
-  const [EndDate, setEndDate] = useState("");
+  const [StartDate, setStartDate] = useState();
+  const [EndDate, setEndDate] = useState();
 
   const dispatch = useDispatch();
   const classes = useStyles();

@@ -88,7 +88,7 @@ const ReassociateStudentLevelUp = ({
         Section: newSection,
         LevelStatus: newStatus,
       };
-      console.log(newReassoc);
+ 
       return [...prev, newReassoc];
     });
   };
@@ -100,7 +100,7 @@ const ReassociateStudentLevelUp = ({
       );
       if (exists) {
         const newReassoc = { ...subject, Section: value };
-        console.log(newReassoc);
+        
         let newArr = [...prev];
         prev.map((data, index) => {
           newArr[index].Section = value;
@@ -109,9 +109,9 @@ const ReassociateStudentLevelUp = ({
       }
       return [...prev];
     });
-    console.log(value);
+
   };
-  console.log(formCheck);
+
 
   const statusHandler = (value, subject) => {
     setFormCheck((prev) => {
@@ -120,7 +120,7 @@ const ReassociateStudentLevelUp = ({
       );
       if (exists) {
         const newReassoc = { ...subject, LevelStatus: value };
-        console.log(newReassoc);
+     
         let newArr = [...prev];
         prev.map((data, index) => {
           newArr[index].LevelStatus = value;
@@ -228,12 +228,12 @@ const ReassociateStudentLevelUp = ({
                       <InputLabel htmlFor="Status">Status</InputLabel>
                       <Select
                         native
-                        defaultValue={subject.Section}
+                        defaultValue={subject.LevelStatus}
                         id={`status_${subject.IDStudentFacultyLevel}`}
                         onChange={(e) => statusHandler(e.target.value, subject)}
                       >
-                        {ddlLevelStatus.map((section) => (
-                          <option value={section.Key}>{section.Value}</option>
+                        {ddlLevelStatus.map((levelStatus) => (
+                          <option value={levelStatus.Key}>{levelStatus.Value}</option>
                         ))}
                       </Select>
                     </FormControl>

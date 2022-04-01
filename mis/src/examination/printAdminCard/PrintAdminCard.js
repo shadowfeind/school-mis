@@ -31,6 +31,8 @@ import DatePickerControl from "../../components/controls/DatePickerControl";
 import PrintAdminCardPrint from "./PrintAdminCardPrint";
 import { useReactToPrint } from "react-to-print";
 import "./customPrint.css";
+import { getHeaderBannerAction } from "../../dashboard/DashboardActions";
+import { GET_HEADER_BANNER_RESET } from "../../dashboard/DashboardConstants";
 
 const useStyles = makeStyles((theme) => ({
   searchInput: {
@@ -76,8 +78,8 @@ const PrintAdminCard = () => {
   const [section, setSection] = useState("");
   const [event, setEvent] = useState("");
   const [student, setStudent] = useState(0);
-  const [date, setDate] = useState("2022-01-28");
-  const [dateValue, setDateValue] = useState("2022-01-28");
+  const [date, setDate] = useState();
+  const [dateValue, setDateValue] = useState();
   const [errors, setErrors] = useState([]);
   const dispatch = useDispatch();
   const classes = useStyles();
@@ -151,6 +153,26 @@ const PrintAdminCard = () => {
     setDdlStudent(activeStudentsForAdmitCard);
     dispatch({ type: GET_ACTIVE_STUDENTS_FOR_ADMIT_CARD_RESET });
   }
+
+  const { headerBanners, error: headerBannersError } = useSelector(
+    (state) => state.getHeaderBanner
+  );
+
+  useEffect(() => {
+    if (!headerBanners) {
+      dispatch(getHeaderBannerAction());
+    }
+  }, [headerBanners, dispatch]);
+
+  if (headerBannersError) {
+    dispatch({ type: GET_HEADER_BANNER_RESET });
+    setNotify({
+      isOpen: true,
+      message: headerBannersError,
+      type: "error",
+    });
+  }
+
 
   useEffect(() => {
     dispatch({ type: "GET_LINK", payload: "examination" });
@@ -437,7 +459,7 @@ const PrintAdminCard = () => {
             <TblHead />
             <TableBody>
               {tableDataAfterPagingAndSorting().map((item) => (
-                <PrintAdminCardTableCollapse item={item} key={item.$id} />
+                <PrintAdminCardTableCollapse item={item} key={item.$id}/>
               ))}
             </TableBody>
           </TableContainer>
@@ -461,6 +483,7 @@ const PrintAdminCard = () => {
           examDate={printStudentsAdmitCard && printStudentsAdmitCard.examDate}
           print={printPdf}
           componentRef={componentRef}
+          headerBanners={headerBanners && headerBanners}
         />
         </>
         )}

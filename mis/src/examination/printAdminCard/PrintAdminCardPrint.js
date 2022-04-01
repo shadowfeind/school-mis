@@ -8,6 +8,7 @@ const PrintAdminCardPrint = ({
   classname,
   examDate,
   print,
+  headerBanners,
   componentRef,
 }) => {
   return (
@@ -26,6 +27,7 @@ const PrintAdminCardPrint = ({
                 imagePath={imagePath}
                 classname={classname}
                 examDate={examDate}
+                headerBanners={headerBanners}
               />
             </Grid>
           ))}

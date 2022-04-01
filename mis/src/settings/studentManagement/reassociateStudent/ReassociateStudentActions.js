@@ -92,8 +92,10 @@ export const getReassociateStudentsLevelupPostAction =
         academicYear,
       });
 
+      console.log(jsonData)
+
       const { data } = await axios.post(
-        `${API_URL}/api/ReassociateStudent/PostBulkLevelUp?mode=0`,
+        `${API_URL}/api/ReassociateStudent/PostBulkLevelUp`,
         jsonData,
         tokenConfig
       );
@@ -141,8 +143,6 @@ export const getReassociateStudentsLevelupPostAction =
         searchFilterModel,
         academicYear,
       });
-
-      console.log(jsonData)
 
       const { data } = await axios.put(
         `${API_URL}/api/ReassociateStudent/PutReassociateStudent`,

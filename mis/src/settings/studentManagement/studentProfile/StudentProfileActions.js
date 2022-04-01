@@ -196,7 +196,7 @@ export const updateSingleStudentAction =
 
       const RollNo = studentDetails.RollNo;
       const jsonData = JSON.stringify({
-        hrEmployeeModel: studentDetails,
+        hrEmployeeModel: {...studentDetails, Title:"Mr"}, //Title is Static.
         RollNo,
       });
 
@@ -209,7 +209,7 @@ export const updateSingleStudentAction =
       console.log(jsonData);
 
       const { data } = await axios.put(
-        `${API_URL}/api/StudentProfile/PutSingleStudentProfile?actionType=1
+        `${API_URL}/api/StudentProfile/PutSingleStudentProfile
         `,
         jsonData,
         tokenConfig

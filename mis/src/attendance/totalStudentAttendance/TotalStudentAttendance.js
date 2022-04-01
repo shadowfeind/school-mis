@@ -71,8 +71,8 @@ const TotalStudentAttendance = () => {
   const [section, setSection] = useState("");
   const [subject, setSubject] = useState("");
   const [errors, setErrors] = useState({});
-  const [startDate, setStartDate] = useState("");
-  const [endDate, setEndDate] = useState("");
+  const [startDate, setStartDate] = useState();
+  const [endDate, setEndDate] = useState();
 
   const [tableData, setTableData] = useState([]);
   const [filterFn, setFilterFn] = useState({

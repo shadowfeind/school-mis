@@ -6,27 +6,10 @@ import { GET_HEADER_BANNER_RESET, GET_HEADER_CONTENT_RESET } from "../../../dash
 import { useSelector } from "react-redux";
 import CustomContainer from "../../../components/CustomContainer";
 
-const StudentIdCardPrint = ({ studentId, classNames, examDates }) => {
+const StudentIdCardPrint = ({ studentId,headerBanners, classNames, examDates }) => {
 
   const dispatch = useDispatch();
-  const { headerBanners, error: headerBannersError } = useSelector(
-    (state) => state.getHeaderBanner
-  );
-
-  useEffect(() => {
-    if (!headerBanners) {
-      dispatch(getHeaderBannerAction());
-    }
-  }, [headerBanners, dispatch]);
-
-  if (headerBannersError) {
-    dispatch({ type: GET_HEADER_BANNER_RESET });
-    setNotify({
-      isOpen: true,
-      message: headerBannersError,
-      type: "error",
-    });
-  }
+  
   return (
     <div
       style={{

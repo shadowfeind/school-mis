@@ -2,9 +2,9 @@
 // export const API_URL = "http://103.90.86.151:100";
 // export const API_URL = "http://192.168.1.85:88";
 
-import jwt_decode from "jwt-decode";
-import axios from "axios";
-import moment from "moment";
+// import jwt_decode from "jwt-decode";
+// import axios from "axios";
+// import moment from "moment";
 
 export const API_URL = "http://vidyacube.com";
 // export const API_URL = "http://localhost:4995";
@@ -47,13 +47,13 @@ export const tokenHeader = {
 //   },
 // };
 
-export const axiosInstance = axios.create({
-  baseURL: API_URL,
-  headers: {
-    "Content-Type": "application/json",
-    Authorization: `Bearer ${userSession}`,
-  },
-});
+// export const axiosInstance = axios.create({
+//   baseURL: API_URL,
+//   headers: {
+//     "Content-Type": "application/json",
+//     Authorization: `Bearer ${userSession}`,
+//   },
+// });
 
 // axiosInstance.interceptors.request.use(async (req) => {
 //   const user = jwt_decode(userSession);

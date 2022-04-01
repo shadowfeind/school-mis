@@ -127,8 +127,8 @@ const StudentRegistrationTableCollapse = ({
                     </Typography>
                     <List>
                       <ListItem>
-                        <strong>FullName</strong>: `${singleStudent.FirstName} $
-                        {singleStudent.LastName}`
+                        <strong>FullName</strong>: {singleStudent.FirstName} 
+                        {singleStudent.LastName}
                       </ListItem>
                       <ListItem>
                         <strong>Registration Key</strong>:{" "}

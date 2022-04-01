@@ -91,7 +91,7 @@ const initialFormValues = {
 
 const gender = [
   { Key: "Male", Value: "Male" },
-  { Key: "female", Value: "Female" },
+  { Key: "Female", Value: "Female" },
 ];
 
 const loginAccess = [

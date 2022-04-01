@@ -30,6 +30,8 @@ import StudentCardDesign from "./StudentCardDesign";
 import StudentCardPrintDesign from "./StudentIdCardPrint";
 import StudentCardPrint from "./StudentIdCardPrint";
 import StudentIdCardPrint from "./StudentIdCardPrint";
+import { getHeaderBannerAction } from "../../../dashboard/DashboardActions";
+import { GET_HEADER_BANNER_RESET } from "../../../dashboard/DashboardConstants";
 
 //getActiveStudentsForAdmitCardDataAction is used from admitCard actions to fetch student lists
 const useStyles = makeStyles((theme) => ({
@@ -61,7 +63,7 @@ const StudentIdCard = () => {
   const [shift, setShift] = useState();
   const [section, setSection] = useState();
   const [student, setStudent] = useState(0);
-  const [date, setDate] = useState("");
+  const [date, setDate] = useState();
   const [dateValue, setDateValue] = useState();
   const [errors, setErrors] = useState([]);
   const dispatch = useDispatch();
@@ -90,6 +92,27 @@ const StudentIdCard = () => {
   const { printBulkStudentsForIdCard,loading:loadingBulk, printBulkStudentsForIdCardError } =
     useSelector((state) => state.getPrintBulkStudentsForStudentIdCardData);
 
+
+    const { headerBanners, error: headerBannersError } = useSelector(
+      (state) => state.getHeaderBanner
+    );
+  
+    useEffect(() => {
+      if (!headerBanners) {
+        dispatch(getHeaderBannerAction());
+      }
+    }, [headerBanners, dispatch]);
+  
+    if (headerBannersError) {
+      dispatch({ type: GET_HEADER_BANNER_RESET });
+      setNotify({
+        isOpen: true,
+        message: headerBannersError,
+        type: "error",
+      });
+    }
+
+    
   if (error) {
     setNotify({
       isOpen: true,
@@ -349,6 +372,7 @@ const StudentIdCard = () => {
                 student={student}
                 classname={classId}
                 examDate={date}
+                headerBanners={headerBanners && headerBanners}
               />
             ))}
           </Grid>
@@ -366,6 +390,7 @@ const StudentIdCard = () => {
           {printBulkStudentsForIdCard.dbModelLst.map((student) => (
         <StudentIdCardPrint
          key={student.$id}
+         headerBanners={headerBanners && headerBanners}
           studentId={
             student
           }

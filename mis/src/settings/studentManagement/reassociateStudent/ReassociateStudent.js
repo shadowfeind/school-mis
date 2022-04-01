@@ -133,7 +133,7 @@ const ReassociateStudent = () => {
     (state) => state.getReassociateStudentsLevelupPost
   );
 
-  const { success: putReassociateSuccess } = useSelector(
+  const { success: putReassociateSuccess , error:putReassociateError} = useSelector(
     (state) => state.putReassociateStudents
   );
 
@@ -144,6 +144,15 @@ const ReassociateStudent = () => {
       type: "error",
     });
     dispatch({ type: GET_SINGLE_TO_EDIT_REASSOCIATE_STUDENTS_RESET });
+    setOpenPopup(false);
+  }
+  if (putReassociateError) {
+    setNotify({
+      isOpen: true,
+      message: putReassociateError,
+      type: "error",
+    });
+    dispatch({ type: PUT_REASSOCIATE_STUDENTS_RESET });
     setOpenPopup(false);
   }
 
@@ -168,12 +177,22 @@ const ReassociateStudent = () => {
 
   if (reassociatePostSuccess) {
     setFormCheck([]);
-    dispatch({ type: GET_REASSOCIATE_STUDENTS_LEVEL_UP_POST_RESET });
+    
     setNotify({
       isOpen: true,
       message: "Edited Succesfully",
       type: "success",
     });
+    dispatch(
+      getReassociateStudentsListsAction(
+        academicYearValue,
+        programValue,
+        shiftValue,
+        classOptValue,
+        sectionValue
+      )
+    );
+    dispatch({ type: GET_REASSOCIATE_STUDENTS_LEVEL_UP_POST_RESET });
     setOpenPopup(false);
   }
   const handleAcademicYearChange = (e) => {
@@ -249,7 +268,6 @@ const ReassociateStudent = () => {
         reassociateStudentLevel.idAcademicYear
       )
     );
-    console.log(formCheck);
     setOpenPopup(false);
   };
 

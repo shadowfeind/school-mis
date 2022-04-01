@@ -83,11 +83,15 @@ const SchoolSettingsForm = ({ college, setOpenPopup }) => {
       ? "This feild is required"
       : fieldValues.PhoneNo.length < 7
       ? "PhoneNo cannot be less than 7 characters"
+      : fieldValues.PhoneNo.length > 10
+      ? "PhoneNo cannot be more than 10"
       : "";
     temp.AlternatePhoneNo = !fieldValues.AlternatePhoneNo
       ? "This feild is required"
       : fieldValues.AlternatePhoneNo.length < 7
       ? "AlternatePhoneNo cannot be Less than 7 characters"
+      : fieldValues.AlternatePhoneNo.length > 10
+      ? "AlternatePhoneNo cannot be more than 10"
       : "";
     temp.FaxNo = !fieldValues.FaxNo
       ? "This feild is required"

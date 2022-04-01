@@ -125,42 +125,45 @@ export const singleStudentRegistrationEditAction =
     try {
       dispatch({ type: SINGLE_STUDENT_REGISTRATION_EDIT_REQUEST });
 
-      let formData = new FormData();
-      formData.append("ImageUploaded", image);
-
-      // const config = {
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //   },
-      // };
-
-      const { data } = await axios.put(
-        `${API_URL}/api/StudentRegistrationImage/Put`,
-        formData,
-        tokenConfig
-      );
-
-      if (data) {
-        const newData = { ...studentReg, photoName: data };
+      if (image) {
+        let formData = new FormData();
+        formData.append("ImageUploaded", image);
+        const { data } = await axios.put(
+          `${API_URL}/api/StudentRegistrationImage/Put`,
+          formData,
+          tokenConfig
+        );
+        if (data) {
+          const newData = { ...studentReg, photoName: data };
+          const jsonData = JSON.stringify({
+            dbModel: newData,
+            idAcademicYear: year,
+            idFacultyProgramLink: program,
+            IDLevel: classId,
+            searchFilterModel: searchFilterModel,
+          });
+          await axios.put(
+            `${API_URL}/api/StudentRegistration/Put`,
+            jsonData,
+            tokenConfig
+          );
+        }
+      } else {
         const jsonData = JSON.stringify({
-          dbModel: newData,
+          dbModel: studentReg,
           idAcademicYear: year,
           idFacultyProgramLink: program,
           IDLevel: classId,
           searchFilterModel: searchFilterModel,
         });
-        console.log(jsonData);
-        // await axios.put(
-        //   `${API_URL}/api/StudentRegistration/Put`,
-        //   jsonData,
-        //   tokenConfig
-        // );
+        await axios.put(
+          `${API_URL}/api/StudentRegistration/Put`,
+          jsonData,
+          tokenConfig
+        );
       }
-      
-
       dispatch({
         type: SINGLE_STUDENT_REGISTRATION_EDIT_SUCCESS,
-        payload: data,
       });
     } catch (error) {
       dispatch({

@@ -96,7 +96,7 @@ export const singleStudentRegistrationEditReducer = (state = {}, action) => {
     case SINGLE_STUDENT_REGISTRATION_EDIT_REQUEST:
       return { loading: true };
     case SINGLE_STUDENT_REGISTRATION_EDIT_SUCCESS:
-      return { loading: false, success: true, data: action.payload };
+      return { loading: false, success: true };
     case SINGLE_STUDENT_REGISTRATION_EDIT_FAIL:
       return { loading: false, error: action.payload };
     case SINGLE_STUDENT_REGISTRATION_EDIT_RESET:

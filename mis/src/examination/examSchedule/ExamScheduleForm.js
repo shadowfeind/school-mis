@@ -15,21 +15,21 @@ const initialFormValues = {
   IDYearFacultyLink: 0,
   IDAcademicYearCalendar: 0,
   IDAcademicFacultySubjectLink: 0,
-  ExamType: "",
+  ExamType: "T",
   ExamScheduleFromDate: "",
   ExamScheduleToDate: "",
   ExamScheduleFromTime: "",
   ExamScheduleToTime: "",
-  FullMark: 0,
-  PassMark: 0,
-  FullMarkPractical: 0,
-  FullMarkPreTerm: 0,
+  FullMark: "",
+  PassMark: "",
+  FullMarkPractical: "",
+  FullMarkPreTerm: "",
   DisplayName: "",
-  GroupNumber: 0,
+  GroupNumber: "",
   ApplyGroup: true,
   AcademicYear: "",
   Level: 0,
-  SubjectOrder: 0,
+  SubjectOrder: "",
   Created_On: "2022-01-28T07:12:28.958Z",
   Updated_On: "2022-01-28T07:12:28.958Z",
 };
@@ -113,7 +113,7 @@ const ExamScheduleForm = ({
           <Grid item xs={6}>
             <SelectControl
               name="IDAcademicFacultySubjectLink"
-              label="Subject"
+              label="Select Subject*"
               value={values.IDAcademicFacultySubjectLink}
               options={
                 examScheduleCreate
@@ -147,6 +147,9 @@ const ExamScheduleForm = ({
                 onKeyDown={(e) =>
                   invalidChars.includes(e.key) && e.preventDefault()
                 }
+                onFocus={e => {
+      e.target.select();
+    }}
                 onChange={(e) =>
                   (e.target.value <= 100) & (e.target.value >= 0) &&
                   handleInputChange(e)
@@ -166,6 +169,9 @@ const ExamScheduleForm = ({
                 (e.target.value <= 100) & (e.target.value >= 0) &&
                 handleInputChange(e)
               }
+              onFocus={e => {
+      e.target.select();
+    }}
               errors={errors.FullMark}
               type="number"
             />
@@ -194,6 +200,9 @@ const ExamScheduleForm = ({
               name="ExamScheduleFromTime"
               label="From"
               value={values.ExamScheduleFromTime}
+              onFocus={e => {
+      e.target.select();
+    }}
               onChange={handleInputChange}
               errors={errors.ExamScheduleFromTime}
               type="time"
@@ -204,6 +213,9 @@ const ExamScheduleForm = ({
               name="DisplayName"
               label="Display Name"
               value={values.DisplayName}
+              onFocus={e => {
+      e.target.select();
+    }}
               onChange={handleInputChange}
               errors={errors.DisplayName}
             />
@@ -211,6 +223,9 @@ const ExamScheduleForm = ({
               name="SubjectOrder"
               label="Subject Order"
               value={values.SubjectOrder}
+              onFocus={e => {
+      e.target.select();
+    }}
               type="number"
               onKeyDown={(e) =>
                 invalidChars.includes(e.key) && e.preventDefault()
@@ -228,6 +243,9 @@ const ExamScheduleForm = ({
               onKeyDown={(e) =>
                 invalidChars.includes(e.key) && e.preventDefault()
               }
+              onFocus={e => {
+      e.target.select();
+    }}
               onChange={(e) =>
                 (e.target.value <= 100) & (e.target.value >= 0) &&
                 handleInputChange(e)
@@ -239,6 +257,9 @@ const ExamScheduleForm = ({
               name="GroupNumber"
               label="Group Number"
               value={values.GroupNumber}
+              onFocus={e => {
+      e.target.select();
+    }}
               onChange={handleInputChange}
               // errors={errors.GroupNumber}
             />
@@ -253,6 +274,9 @@ const ExamScheduleForm = ({
               name="ExamScheduleToTime"
               label="To"
               value={values.ExamScheduleToTime}
+              onFocus={e => {
+      e.target.select();
+    }}
               onChange={handleInputChange}
               errors={errors.ExamScheduleToTime}
               type="time"

@@ -142,14 +142,6 @@ const Header = () => {
         <AppBar position="static" className={classes.root}>
           <Toolbar>
             <Grid container alignItems="center">
-              {/* <Grid item style={{ width: "12%" }}>
-                {headerContent && (
-                  <img
-                    src={`${API_URL}${headerContent.FullPath}`}
-                    height="50px"
-                  />
-                )}
-              </Grid> */}
               <Grid item style={{ width: "12%" }}>
                 {headerContent && (
                   <img
@@ -218,19 +210,15 @@ const Header = () => {
                         </span>
                       </div>
                     )}
-                    {/* <Badge
-                      badgeContent={2}
-                      color="secondary"
-                      onClick={handleClick("top-end")}
-                    > */}
-                    {headerContent && (
-                      <img
-                        src={`${API_URL}${headerContent.FullPath}`}
-                        height="30px"
-                        style={{ borderRadius: "50%" }}
-                      />
-                    )}
-                    {/* </Badge> */}
+                    <Badge color="secondary" onClick={handleClick("top-end")}>
+                      {headerContent && (
+                        <img
+                          src={`${API_URL}${headerContent.FullPath}`}
+                          height="30px"
+                          style={{ borderRadius: "50%" }}
+                        />
+                      )}
+                    </Badge>
                   </IconButton>
                 </ClickAwayListener>
                 <Popper

@@ -141,19 +141,28 @@ const StudentAttendance = () => {
     (state) => state.getEvent
   );
 
-  const { allStudentAttendance,loading, error: allStudentAttendanceError } =
-    useSelector((state) => state.getAllStudentAttendance);
+  const {
+    allStudentAttendance,
+    loading,
+    error: allStudentAttendanceError,
+  } = useSelector((state) => state.getAllStudentAttendance);
 
-  const { bulkStudentAttendance,loading:loadingBulk, error: bulkStudentAttendanceError } =
-    useSelector((state) => state.getBulkStudentAttendance);
+  const {
+    bulkStudentAttendance,
+    loading: loadingBulk,
+    error: bulkStudentAttendanceError,
+  } = useSelector((state) => state.getBulkStudentAttendance);
 
   const {
     success: postBulkStudentAttendanceSuccess,
     error: postBulkStudentAttendanceError,
   } = useSelector((state) => state.postBulkStudentAttendance);
 
-  const { generateStudentAttendance, success:generateStudentAttendanceSuccess,error: generateStudentAttendanceError } =
-    useSelector((state) => state.getGeneratedStudentAttendance);
+  const {
+    generateStudentAttendance,
+    success: generateStudentAttendanceSuccess,
+    error: generateStudentAttendanceError,
+  } = useSelector((state) => state.getGeneratedStudentAttendance);
 
   if (getEventSuccess) {
     setDdlEvent(allEvents);
@@ -260,7 +269,9 @@ const StudentAttendance = () => {
       );
       setDdlShift(studentAttendanceInitData.searchFilterModel.ddlAcademicShift);
       setDdlSection(studentAttendanceInitData.searchFilterModel.ddlSection);
-      setWorkingDaysTotal(studentAttendanceInitData.searchFilterModel.WorkingDayTotal);
+      setWorkingDaysTotal(
+        studentAttendanceInitData.searchFilterModel.WorkingDayTotal
+      );
       setStartDate(studentAttendanceInitData.searchFilterModel.StartDate);
       setEndDate(studentAttendanceInitData.searchFilterModel.EndDate);
     }
@@ -338,7 +349,9 @@ const StudentAttendance = () => {
           section,
           shift,
           event,
-          workingDaysTotal,StartDate?.slice(0,10),EndDate?.slice(0,10)
+          workingDaysTotal,
+          StartDate?.slice(0, 10),
+          EndDate?.slice(0, 10)
         )
       );
     }
@@ -434,9 +447,11 @@ const StudentAttendance = () => {
               <InputControl
                 name="Working Days"
                 label="Working Days"
-                onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}
+                onKeyDown={(e) =>
+                  symbolsArr.includes(e.key) && e.preventDefault()
+                }
                 value={workingDaysTotal}
-                onChange={(e)=>setWorkingDaysTotal(e.target.value)}
+                onChange={(e) => setWorkingDaysTotal(e.target.value)}
                 type="number"
                 // errors={errors.WorkingDayTotal}
               />
@@ -444,20 +459,20 @@ const StudentAttendance = () => {
             <Grid item xs={3}>
               <div style={{ height: "10px" }}></div>
               <DatePickerControl
-            name="ExamHeldDate"
-            label="Exam StartDate"
-            value={StartDate}
-            onChange={(e)=>setStartDate(e.target.value)}
-            />
+                name="ExamHeldDate"
+                label="Exam StartDate"
+                value={StartDate}
+                onChange={(e) => setStartDate(e.target.value)}
+              />
             </Grid>
             <Grid item xs={3}>
-            <div style={{ height: "10px" }}></div>
-            <DatePickerControl
-            name="ExamEndDate"
-            label="Exam EndDate"
-            value={EndDate}
-            onChange={(e)=>setEndDate(e.target.value)}
-            />
+              <div style={{ height: "10px" }}></div>
+              <DatePickerControl
+                name="ExamEndDate"
+                label="Exam EndDate"
+                value={EndDate}
+                onChange={(e) => setEndDate(e.target.value)}
+              />
             </Grid>
 
             <Grid item xs={6}>
@@ -495,27 +510,27 @@ const StudentAttendance = () => {
           <LoadingComp />
         ) : (
           <>
-        {allStudentAttendance && (
-          <TableContainer className={classes.table}>
-            <TblHead />
+            {allStudentAttendance && (
+              <TableContainer className={classes.table}>
+                <TblHead />
 
-            <TableBody>
-              {tableDataAfterPagingAndSorting().map((item) => (
-                <StudentAttendanceTableCollapse
-                  item={item}
-                  key={item.$id}
-                  attendance={
-                    allStudentAttendance &&
-                    allStudentAttendance.StudentAttendanceDays
-                  }
-                />
-              ))}
-            </TableBody>
-          </TableContainer>
-        )}
+                <TableBody>
+                  {tableDataAfterPagingAndSorting().map((item) => (
+                    <StudentAttendanceTableCollapse
+                      item={item}
+                      key={item.$id}
+                      attendance={
+                        allStudentAttendance &&
+                        allStudentAttendance.StudentAttendanceDays
+                      }
+                    />
+                  ))}
+                </TableBody>
+              </TableContainer>
+            )}
 
-        {allStudentAttendance && <TblPagination />}
-        </>
+            {allStudentAttendance && <TblPagination />}
+          </>
         )}
       </CustomContainer>
       <Popup
@@ -523,24 +538,24 @@ const StudentAttendance = () => {
         setOpenPopup={setOpenPopup}
         title="Bulk Edit"
       >
-       {loadingBulk ? (
+        {loadingBulk ? (
           <LoadingComp />
         ) : (
           <>
-        <StudentAttendanceBulk
-          bulkData={
-            bulkStudentAttendance &&
-            bulkStudentAttendance.dbModelPresentAbsentLst
-          }
-          search={
-            bulkStudentAttendance && bulkStudentAttendance.searchFilterModel
-          }
-          workingDayTotal={
-            bulkStudentAttendance && bulkStudentAttendance.WorkingDayTotal
-          }
-          setOpenPopup={setOpenPopup}
-        />
-        </>
+            <StudentAttendanceBulk
+              bulkData={
+                bulkStudentAttendance &&
+                bulkStudentAttendance.dbModelPresentAbsentLst
+              }
+              search={
+                bulkStudentAttendance && bulkStudentAttendance.searchFilterModel
+              }
+              workingDayTotal={
+                bulkStudentAttendance && bulkStudentAttendance.WorkingDayTotal
+              }
+              setOpenPopup={setOpenPopup}
+            />
+          </>
         )}
       </Popup>
       <Notification notify={notify} setNotify={setNotify} />

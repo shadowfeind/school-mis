@@ -140,7 +140,9 @@ const StudentRegistration = () => {
       type: "success",
     });
     setOpenPopup(false);
+    dispatch(getStudentRegistrationDataAction(acaYear, programValue, classId));
   }
+
   if (createSingleStudentRegistrationSuccess) {
     dispatch({ type: CREATE_SINGLE_STUDENT_REGISTRATION_RESET });
     setNotify({

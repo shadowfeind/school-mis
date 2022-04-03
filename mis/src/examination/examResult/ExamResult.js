@@ -274,6 +274,7 @@ const ExamResult = () => {
   const handleClassIdChange = (value) => {
     setShowDatatable(false);
     setClassId(value);
+    setEvent("");
     dispatch(getEventForExamMarkAction(acaYear, programValue, value));
     dispatch(
       getStudentOptionsForExamMarkAction(acaYear, programValue, value, shift)

@@ -64,10 +64,11 @@ const tableHeader = [
   { id: "SubjectName", label: "Subject" },
   { id: "FullMark", label: "Full Marks(TH)" },
   { id: "FullMarkPractical", label: "Full Marks(PR)" },
-  { id: "FullMarkPreTerm", label: "Full Marks(Pre Term)" },
   { id: "ObtainedMark", label: "ObtainedMark(TH)" },
   { id: "ObtainedMarkPractical", label: "ObtainedMark(PR)" },
-  { id: "ObtainedMarkPreTerm", label: "ObtainedMark(Pre Term)" },
+  { id: "Divsion", label: "Division" },
+  { id: "Updated_On", label: "Updated On" },
+  { id: "Status", label: "Status" },
 ];
 
 /*

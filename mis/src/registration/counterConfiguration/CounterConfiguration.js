@@ -146,6 +146,7 @@ const CounterConfiguration = () => {
       type: "success",
     });
     dispatch({ type: COUNTER_CONFIG_CREATE_RESET });
+    dispatch(getCounterConfigListAction(acaYear,programValue))
     setOpenPopup(false);
   }
   if (counterConfigCreateError) {

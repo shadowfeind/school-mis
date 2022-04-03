@@ -10,10 +10,11 @@ const ExamMarkApprovalTableCollapse = ({ item }) => {
         <TableCell>{item.SubjectName}</TableCell>
         <TableCell>{item.FullMark}</TableCell>
         <TableCell>{item.FullMarkPractical}</TableCell>
-        <TableCell>{item.FullMarkPreTerm}</TableCell>
         <TableCell>{item.ObtainedMark}</TableCell>
         <TableCell>{item.ObtainedMarkPractical}</TableCell>
-        <TableCell>{item.ObtainedMarkPreTerm}</TableCell>
+        <TableCell>{item.SecuredDivision}</TableCell>
+        <TableCell>{item.Updated_On?.slice(0,10)}</TableCell>
+        <TableCell>{item.Status}</TableCell>
       </TableRow>
     </>
   );

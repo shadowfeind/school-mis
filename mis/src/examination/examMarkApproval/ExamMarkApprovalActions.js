@@ -72,7 +72,7 @@ export const getExamApprovalSearchDataAction =
       dispatch({ type: GET_ALL_EXAM_APPROVAL_SEARCHDATA_REQUEST });
 
       const { data } = await axios.get(
-        `${API_URL}/api/ApproveAcademicStudentExamData/GetPrintBulkForBlankMarkEntry?idAcademicYear=${year}&idFacultyProgramLink=${program}&level=${classId}&section=${section}&idShift=${shift}&idAcademicYearCalendar=${event}&idAcademicExamSchedule=${schedule}&searchKey=1`,
+        `${API_URL}/api/ApproveAcademicStudentExamData/GetListExamMarkApproval?idAcademicYear=${year}&idFacultyProgramLink=${program}&level=${classId}&section=${section}&idShift=${shift}&idAcademicYearCalendar=${event}&idAcademicExamSchedule=${schedule}&searchKey=1`,
         tokenConfig
       );
 

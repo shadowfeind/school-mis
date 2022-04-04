@@ -132,6 +132,9 @@ const ExamMarkEntryBulk = ({ bulkData, statusData }) => {
                       id={`practical_${subject.IDHREmployee}`}
                       defaultValue={subject.ObtainedMarkPractical}
                       type="number"
+                      onFocus={e => {
+      e.target.select();
+    }}
                       onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}
                       label="Obtained Practical Mark"
                       variant="outlined"
@@ -144,6 +147,9 @@ const ExamMarkEntryBulk = ({ bulkData, statusData }) => {
                       id={`preterm_${subject.IDHREmployee}`}
                       defaultValue={subject.ObtainedMarkPreTerm}
                       type="number"
+                      onFocus={e => {
+      e.target.select();
+    }}
                       onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}
                       label="Obtained PreTerm Mark"
                       variant="outlined"
@@ -163,6 +169,9 @@ const ExamMarkEntryBulk = ({ bulkData, statusData }) => {
                         native
                         defaultValue={subject.Section}
                         id={`status_${subject.IDHREmployee}`}
+                        onFocus={e => {
+      e.target.select();
+    }}
                         // onChange={(e) =>
                         //   sectionHandler(e.target.value, subject)
                         // }

@@ -81,7 +81,7 @@ export const getReassociateStudentsLevelupAction =
   };
 
 export const getReassociateStudentsLevelupPostAction =
-  (checkboxState, searchFilterModel, year, academicYear) =>
+  (checkboxState, searchFilterModel, academicYearNext, academicYear) =>
   async (dispatch) => {
     try {
       dispatch({ type: GET_REASSOCIATE_STUDENTS_LEVEL_UP_POST_REQUEST });
@@ -90,6 +90,7 @@ export const getReassociateStudentsLevelupPostAction =
         dbModelLst: checkboxState,
         searchFilterModel,
         academicYear,
+        academicYearNext,
       });
 
       console.log(jsonData)

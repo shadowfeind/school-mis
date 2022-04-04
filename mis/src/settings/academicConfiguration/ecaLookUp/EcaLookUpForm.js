@@ -83,6 +83,9 @@ const EcaLookUpForm = ({ ecaLookUp, ecaCreate, setOpenPopup }) => {
             name="ECAName"
             label="ECA Name*"
             value={values.ECAName}
+            onFocus={e => {
+      e.target.select();
+    }}
             onChange={handleInputChange}
             errors={errors.ECAName}
           />
@@ -90,6 +93,9 @@ const EcaLookUpForm = ({ ecaLookUp, ecaCreate, setOpenPopup }) => {
             name="ECADescription"
             label="ECA Description"
             value={values.ECADescription}
+            onFocus={e => {
+      e.target.select();
+    }}
             onChange={handleInputChange}
             errors={errors.ECADescription}
           />

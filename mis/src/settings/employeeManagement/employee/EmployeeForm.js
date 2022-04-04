@@ -152,6 +152,9 @@ const EmployeeForm = ({ employee, setOpenPopup }) => {
             name="LoginIDHREmployee"
             label="Login ID*"
             value={values.LoginIDHREmployee}
+            onFocus={e => {
+      e.target.select();
+    }}
             onChange={handleInputChange}
             errors={errors.LoginIDHREmployee}
           />
@@ -159,6 +162,9 @@ const EmployeeForm = ({ employee, setOpenPopup }) => {
             name="FirstName"
             label="First Name*"
             value={values.FirstName}
+            onFocus={e => {
+      e.target.select();
+    }}
             onChange={handleInputChange}
             errors={errors.FirstName}
           />
@@ -166,6 +172,9 @@ const EmployeeForm = ({ employee, setOpenPopup }) => {
             name="LastName"
             label="Last Name*"
             value={values.LastName}
+            onFocus={e => {
+      e.target.select();
+    }}
             onChange={handleInputChange}
             errors={errors.FirstName}
           />
@@ -173,6 +182,9 @@ const EmployeeForm = ({ employee, setOpenPopup }) => {
             name="EmailID"
             label="Email Address"
             value={values.EmailID}
+            onFocus={e => {
+      e.target.select();
+    }}
             onChange={handleInputChange}
             errors={errors.EmailID}
           />
@@ -188,6 +200,9 @@ const EmployeeForm = ({ employee, setOpenPopup }) => {
             name="DOJ"
             label="Date Of Joining"
             value={values.DOJ}
+            onFocus={e => {
+      e.target.select();
+    }}
             onChange={handleInputChange}
             errors={errors.DOJ}
           />
@@ -228,6 +243,9 @@ const EmployeeForm = ({ employee, setOpenPopup }) => {
           <InputControl
             name="ShortName"
             label="Short Name"
+            onFocus={e => {
+      e.target.select();
+    }}
             value={values.ShortName}
             onChange={handleInputChange}
           />
@@ -243,6 +261,9 @@ const EmployeeForm = ({ employee, setOpenPopup }) => {
           <InputControl
             name="MiddleName"
             label="Middle Name"
+            onFocus={e => {
+      e.target.select();
+    }}
             value={values.MiddleName}
             onChange={handleInputChange}
           />
@@ -250,6 +271,9 @@ const EmployeeForm = ({ employee, setOpenPopup }) => {
             name="DOB"
             label="Date Of Birth"
             value={values.DOB}
+            onFocus={e => {
+      e.target.select();
+    }}
             onChange={handleInputChange}
             errors={errors.DOB}
           />
@@ -257,6 +281,9 @@ const EmployeeForm = ({ employee, setOpenPopup }) => {
             name="MobileNumber"
             label="Mobile Number*"
             value={values.MobileNumber}
+            onFocus={e => {
+      e.target.select();
+    }}
             onChange={handleInputChange}
             onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}
             type="number"
@@ -282,6 +309,9 @@ const EmployeeForm = ({ employee, setOpenPopup }) => {
             name="BankAC"
             label="Bank Account"
             value={values.BankAC}
+            onFocus={e => {
+      e.target.select();
+    }}
             onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}
             type="number"
             onChange={handleInputChange}

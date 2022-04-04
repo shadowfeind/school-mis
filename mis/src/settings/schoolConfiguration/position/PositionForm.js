@@ -70,6 +70,9 @@ const PositionForm = ({ position, setOpenPopup }) => {
             name="PositionHead"
             label="Position Head*"
             value={values.PositionHead}
+            onFocus={e => {
+      e.target.select();
+    }}
             onChange={handleInputChange}
             errors={errors.PositionHead}
           />
@@ -78,6 +81,9 @@ const PositionForm = ({ position, setOpenPopup }) => {
             name="IsActive"
             label="IsActive"
             value={values.IsActive}
+            onFocus={e => {
+      e.target.select();
+    }}
             onChange={handleInputChange}
             errors={errors.IsActive}
           />
@@ -88,6 +94,9 @@ const PositionForm = ({ position, setOpenPopup }) => {
             name="PositionDescription"
             label="Position Description*"
             value={values.PositionDescription}
+            onFocus={e => {
+      e.target.select();
+    }}
             onChange={handleInputChange}
             errors={errors.PositionDescription}
           />

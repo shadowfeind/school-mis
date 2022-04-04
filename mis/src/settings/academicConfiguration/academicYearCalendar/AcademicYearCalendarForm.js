@@ -109,6 +109,9 @@ const AcademicYearCalendarForm = ({
             name="EventName"
             label="Event Name*"
             value={values.EventName}
+            onFocus={e => {
+      e.target.select();
+    }}
             onChange={handleInputChange}
             variant="outlined"
             errors={errors.EventName}
@@ -137,6 +140,9 @@ const AcademicYearCalendarForm = ({
           <InputControl
             name="EventDescription"
             label="Event Description*"
+            onFocus={e => {
+      e.target.select();
+    }}
             value={values.EventDescription}
             variant="outlined"
             onChange={handleInputChange}

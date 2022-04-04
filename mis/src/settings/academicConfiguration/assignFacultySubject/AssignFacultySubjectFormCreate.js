@@ -38,6 +38,7 @@ const useStyles = makeStyles({
 
 const AssignFacultySubjectFormCreate = ({
   subjectOptions,
+  formCheck,
   assignFacSubGenerate,
   setFormCheck,
   formCheckSubmitHandler,
@@ -45,6 +46,16 @@ const AssignFacultySubjectFormCreate = ({
 }) => {
   const [subjects, setSubjects] = useState([]);
   const classes = useStyles();
+
+
+  const handleBulkChange = (checked) => {
+    if (checked) {
+      setFormCheck([...assignFacSubGenerate]);
+    } else {
+      setFormCheck([]);
+    }
+  };
+
   const inputHandler = (subject, value) => {
     setFormCheck((prev) => {
       const exists = prev.find(
@@ -106,7 +117,14 @@ const AssignFacultySubjectFormCreate = ({
               <StyledTableCell align="right">Practical</StyledTableCell>
               <StyledTableCell align="right">Theoritical</StyledTableCell>
               <StyledTableCell align="right">Credit Hour</StyledTableCell>
-              <StyledTableCell align="right">Action</StyledTableCell>
+             <StyledTableCell align="right">
+                Action{" "}
+                <Checkbox
+                  onChange={(e) => handleBulkChange(e.target.checked)}
+                  name="checkedB"
+                  color="secondary"
+                />
+              </StyledTableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -146,10 +164,16 @@ const AssignFacultySubjectFormCreate = ({
                   <StyledTableCell align="right">
                     {" "}
                     <Checkbox
-                      // checked={state.checkedB}
+                      checked={
+                        formCheck.filter(
+                          (x) => x.IDAcademicSubject === subject.IDAcademicSubject
+                        ).length > 0
+                          ? true
+                          : false
+                      }
                       onChange={() => handleChange(subject)}
                       name="checkedB"
-                      color="primary"
+                      color="secondary"
                     />
                   </StyledTableCell>
                 </StyledTableRow>

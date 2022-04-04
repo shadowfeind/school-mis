@@ -415,6 +415,7 @@ const AssignFacultySubject = () => {
         ) : (
           <>
         <AssignFacultySubjectFormCreate
+       
           subjectOptions={
             academicSubjects && academicSubjects.ddlSubjectModelLst
           }
@@ -423,6 +424,7 @@ const AssignFacultySubject = () => {
             assignFacSubGenerate.ddlSubjectFromClassSubject
           }
           setFormCheck={setFormCheck}
+          formCheck={formCheck}
           formCheckSubmitHandler={formCheckSubmitHandler}
           setOpenPopup={setOpenPopup}
         />

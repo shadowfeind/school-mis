@@ -19,6 +19,7 @@ import SelectControl from "../../components/controls/SelectControl";
 import {
   getAllGenerateAction,
   getAllGeneratePublishAction,
+  getGenerateResultAction,
 } from "./GeneratePublishResultActions";
 import {
   GET_ALL_GENERATE_PUBLISH_RESET,
@@ -122,7 +123,8 @@ const GeneratePublishResult = () => {
   );
 
   const { allGenerate ,loading} = useSelector((state) => state.getAllGenerate);
-  const { allGeneratePublishResult } = useSelector(
+
+  const { allGeneratePublishResult ,success:allGeneratePublishResultSuccess} = useSelector(
     (state) => state.getAllGeneratePublishResult
   );
 
@@ -131,6 +133,26 @@ const GeneratePublishResult = () => {
     dispatch({ type: GET_EVENT_RESET });
   }
 
+  if (allGeneratePublishResult) {    
+    setNotify({
+      isOpen: true,
+      message: "Generated Succesfully",
+      type: "success",
+    });
+    dispatch(
+      getAllGenerateAction(
+        acaYear,
+        programValue,
+        classId,
+        section,
+        shift,
+        event
+      )
+    );
+    dispatch({ type: GET_ALL_GENERATE_PUBLISH_RESULT_RESET });
+    setOpenPopup(false);
+  }
+  
   if (allGeneratePublishError) {
     setNotify({
       isOpen: true,
@@ -221,7 +243,7 @@ const GeneratePublishResult = () => {
     if (validate()) {
       dispatch({ type: GET_ALL_GENERATE_RESET });
       dispatch(
-        getAllGenerateAction(
+        getGenerateResultAction(
           acaYear,
           programValue,
           classId,

@@ -69,6 +69,9 @@ const SchoolBoardForm = ({ schoolBoard, setOpenPopup }) => {
           <InputControl
             name="UniversityName"
             label="University Name*"
+            onFocus={e => {
+      e.target.select();
+    }}
             value={values.UniversityName}
             onChange={handleInputChange}
             errors={errors.UniversityName}
@@ -86,6 +89,9 @@ const SchoolBoardForm = ({ schoolBoard, setOpenPopup }) => {
           <InputControl
             name="Description"
             label="Description*"
+            onFocus={e => {
+      e.target.select();
+    }}
             value={values.Description}
             onChange={handleInputChange}
             errors={errors.Description}

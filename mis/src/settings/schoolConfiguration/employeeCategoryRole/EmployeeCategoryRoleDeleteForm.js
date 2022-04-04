@@ -41,6 +41,9 @@ const EmployeeCategoryRoleDeleteForm = ({ employeeCategoryDeleteRole, setOpenDel
             name="Heading"
             label="Heading*"
             value={values.Heading}
+            onFocus={e => {
+      e.target.select();
+    }}
             onChange={handleInputChange}
             errors={errors.Heading}
           />
@@ -50,6 +53,9 @@ const EmployeeCategoryRoleDeleteForm = ({ employeeCategoryDeleteRole, setOpenDel
             name="IsActive"
             label="IsActive"
             value={values.IsActive}
+            onFocus={e => {
+      e.target.select();
+    }}
             onChange={handleInputChange}
             errors={errors.IsActive}
           />
@@ -60,6 +66,9 @@ const EmployeeCategoryRoleDeleteForm = ({ employeeCategoryDeleteRole, setOpenDel
             name="Description"
             label="Description*"
             value={values.Description}
+            onFocus={e => {
+      e.target.select();
+    }}
             onChange={handleInputChange}
             errors={errors.Description}
           />

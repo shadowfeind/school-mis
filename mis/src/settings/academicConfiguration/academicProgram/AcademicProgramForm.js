@@ -87,6 +87,9 @@ const AcademicProgramForm = ({ academicProgram, selected, setOpenPopup }) => {
           <InputControl
             name="AcademicProgramName"
             label="Academic Program Name*"
+            onFocus={e => {
+      e.target.select();
+    }}
             value={values.AcademicProgramName}
             onChange={handleInputChange}
             errors={errors.AcademicProgramName}
@@ -94,6 +97,9 @@ const AcademicProgramForm = ({ academicProgram, selected, setOpenPopup }) => {
           <InputControl
             name="Description"
             label="Description*"
+            onFocus={e => {
+      e.target.select();
+    }}
             value={values.Description}
             onChange={handleInputChange}
             errors={errors.Description}

@@ -69,6 +69,9 @@ const RoleForm = ({ role, setOpenPopup }) => {
             name="RoleName"
             label="Role Name*"
             value={values.RoleName}
+            onFocus={e => {
+      e.target.select();
+    }}
             onChange={handleInputChange}
             errors={errors.RoleName}
           />
@@ -85,6 +88,9 @@ const RoleForm = ({ role, setOpenPopup }) => {
             name="Description"
             label="Description*"
             value={values.Description}
+            onFocus={e => {
+      e.target.select();
+    }}
             onChange={handleInputChange}
             errors={errors.Description}
           />

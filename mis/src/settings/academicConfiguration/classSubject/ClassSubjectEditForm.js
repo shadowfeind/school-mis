@@ -59,6 +59,9 @@ const ClassSubjectEditForm = ({ singleClassSubject, setOpenPopupForm }) => {
             name="CreditHour"
             label="Credit Hour"
             onChange={handleInputChange}
+            onFocus={e => {
+      e.target.select();
+    }}
             value={values.CreditHour}
             type="number"
             variant="outlined"

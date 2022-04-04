@@ -114,6 +114,9 @@ const OldQuestionsForm =({singleCreateOldQuestions,
             label="Old Question Name"
             value={values.OldQuestionName}
             variant="outlined"
+            onFocus={e => {
+      e.target.select();
+    }}
             errors={errors.OldQuestionName}
             onChange={handleInputChange}
           />
@@ -122,6 +125,9 @@ const OldQuestionsForm =({singleCreateOldQuestions,
             name="OldQuestionDescription"
             label="Old Question Description"
             value={values.OldQuestionDescription}
+            onFocus={e => {
+      e.target.select();
+    }}
             variant="outlined"
             errors={errors.OldQuestionDescription}
             onChange={handleInputChange}

@@ -79,6 +79,9 @@ const [studentName, setStudentName] = useState([])
             disabled
             name="IDAdmissionRegistration"
             label="Admission Registration"
+            onFocus={e => {
+      e.target.select();
+    }}
             value={studentName?.length > 0 && studentName[0].Value}
           />
           <SelectControl
@@ -86,6 +89,9 @@ const [studentName, setStudentName] = useState([])
             label="Year Faculty Link"
             value={values.IDYearFacultyLink}
             options={reassociateForm ? reassociateForm.ddlFacultyProgramLink :test }
+            onFocus={e => {
+      e.target.select();
+    }}
             onChange={handleInputChange}
             errors={errors.IDYearFacultyLink}
           />
@@ -94,6 +100,9 @@ const [studentName, setStudentName] = useState([])
             label="Level"
             value={values.IDLevel}
             options={reassociateForm ? reassociateForm.ddlClass:test}
+            onFocus={e => {
+      e.target.select();
+    }}
             onChange={handleInputChange}
             errors={errors.IDLevel}
           /></Grid>
@@ -103,6 +112,9 @@ const [studentName, setStudentName] = useState([])
             label="AcademicShift"
             value={values.IDAcademicShift}
             options={reassociateForm ? reassociateForm.ddlAcademicShift:test}
+            onFocus={e => {
+      e.target.select();
+    }}
             onChange={handleInputChange}
             errors={errors.IDAcademicShift}
           />
@@ -111,6 +123,9 @@ const [studentName, setStudentName] = useState([])
             label="Section"
             value={values.Section}
             options={reassociateForm ? reassociateForm.ddlSection:test}
+            onFocus={e => {
+      e.target.select();
+    }}
             onChange={handleInputChange}
             errors={errors.Section}
           />
@@ -119,6 +134,9 @@ const [studentName, setStudentName] = useState([])
             label="Level Status"
             value={values.LevelStatus}
             options={reassociateForm ? reassociateForm.ddlLevelStatus:test}
+            onFocus={e => {
+      e.target.select();
+    }}
             onChange={handleInputChange}
             errors={errors.LevelStatus}
           />

@@ -49,6 +49,9 @@ const PositionDeleteForm = ({ positionDelete, setOpenDeletePopup }) => {
             name="PositionHead"
             label="Position Head*"
             value={values.PositionHead}
+            onFocus={e => {
+      e.target.select();
+    }}
             onChange={handleInputChange}
             // errors={errors.PositionHead}
           />
@@ -68,6 +71,9 @@ const PositionDeleteForm = ({ positionDelete, setOpenDeletePopup }) => {
            disabled
             name="PositionDescription"
             label="Position Description*"
+            onFocus={e => {
+      e.target.select();
+    }}
             value={values.PositionDescription}
             onChange={handleInputChange}
             // errors={errors.PositionDescription}

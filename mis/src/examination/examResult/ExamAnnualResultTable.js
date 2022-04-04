@@ -17,8 +17,8 @@ const ExamAnnualResultTable = memo(({ ledgerData }) => {
               Students
             </th>
             {ledgerData &&
-              ledgerData.ddlAcademicFacultySubjectLinkSubModel
-                .sort((a, b) => a.IDAcademicSubject - b.IDAcademicSubject)
+              ledgerData?.ddlAcademicFacultySubjectLinkSubModel
+                ?.sort((a, b) => a.IDAcademicSubject - b.IDAcademicSubject)
                 .map((s) => (
                   <th colSpan="4" key={s.$id}>
                     {s.SubjectName}
@@ -40,7 +40,7 @@ const ExamAnnualResultTable = memo(({ ledgerData }) => {
           </tr>
           <tr>
             {ledgerData &&
-              ledgerData.ddlAcademicFacultySubjectLinkSubModel.map((s) => (
+              ledgerData?.ddlAcademicFacultySubjectLinkSubModel?.map((s) => (
                 <Fragment key={s.$id}>
                   <th>1st Term (15%)</th>
                   <th>2nd Term (20%)</th>
@@ -52,8 +52,8 @@ const ExamAnnualResultTable = memo(({ ledgerData }) => {
         </thead>
         <tbody>
           {ledgerData &&
-            ledgerData.dbModelLstss
-              .sort((a, b) => a.RollNo - b.RollNo)
+            ledgerData?.dbModelLstss
+              ?.sort((a, b) => a.RollNo - b.RollNo)
               .map((s) => {
                 let totalMarksAcc = [];
                 let crrentStudentId = ledgerData.dbModelResultLst.filter(
@@ -72,8 +72,8 @@ const ExamAnnualResultTable = memo(({ ledgerData }) => {
                   <tr key={s.$id}>
                     <td>{s.RollNo}</td>
                     <td>{s.StudentName}</td>
-                    {ledgerData.dbModelLstForCountSubject
-                      .filter(
+                    {ledgerData?.dbModelLstForCountSubject
+                      ?.filter(
                         (x) =>
                           (x.IDHREmployee === s.IDHREmployee) &
                           (x.EventName == "FIRST TERM EXAMINATION")
@@ -97,8 +97,8 @@ const ExamAnnualResultTable = memo(({ ledgerData }) => {
                               0.15
                             : "",
                         });
-                        let secondTerm = ledgerData.dbModelLst
-                          .filter(
+                        let secondTerm = ledgerData?.dbModelLst
+                          ?.filter(
                             (x) =>
                               (x.IDHREmployee === s.IDHREmployee) &
                               (x.EventName == "SECOND TERM EXAMINATION") &
@@ -115,7 +115,7 @@ const ExamAnnualResultTable = memo(({ ledgerData }) => {
                             : "",
                         });
                         let thirdTerm = ledgerData.dbModelLst
-                          .filter(
+                          ?.filter(
                             (x) =>
                               (x.IDHREmployee === s.IDHREmployee) &
                               (x.EventName == "THIRD TERM EXAMINATION") &
@@ -132,7 +132,7 @@ const ExamAnnualResultTable = memo(({ ledgerData }) => {
                             : "",
                         });
                         let finalTerm = ledgerData.dbModelLst
-                          .filter(
+                          ?.filter(
                             (x) =>
                               (x.IDHREmployee === s.IDHREmployee) &
                               (x.EventName == "FINAL TERM EXAMINATION") &

@@ -47,6 +47,7 @@ const ReassociateStudentLevelUp = ({
   ddlLevelStatus,
   ddlAcademicYear,
   idAcademicYearValue,
+  idNextAcademicYearValue,
   ddlClass,
   nextClass,
   setOpenPopup,
@@ -145,8 +146,18 @@ const ReassociateStudentLevelUp = ({
             />
           </Grid>
         )}
-        <Grid item xs={8}>
-          <span>Will be leveled up to class</span> &nbsp;&nbsp;&nbsp;&nbsp;
+        {idNextAcademicYearValue && (
+          <Grid item xs={4}>
+            <SelectControl
+              name="academicYearNext"
+              label="Next Academic Year"
+              value={idNextAcademicYearValue}
+              onChange={null}
+              options={ddlAcademicYear}
+            />
+          </Grid>
+        )}
+        <Grid item xs={4}>
           <InputControl
             disabled
             variant="filled"

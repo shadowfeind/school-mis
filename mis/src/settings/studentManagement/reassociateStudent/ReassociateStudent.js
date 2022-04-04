@@ -129,7 +129,7 @@ const ReassociateStudent = () => {
     error: singleEditReassociateStudentError,
   } = useSelector((state) => state.getSingleEditReassociateStudents);
 
-  const { success: reassociatePostSuccess } = useSelector(
+  const { success: reassociatePostSuccess, error:reassociatePostError} = useSelector(
     (state) => state.getReassociateStudentsLevelupPost
   );
 
@@ -155,6 +155,17 @@ const ReassociateStudent = () => {
     dispatch({ type: PUT_REASSOCIATE_STUDENTS_RESET });
     setOpenPopup(false);
   }
+
+  if (reassociatePostError) {
+    setNotify({
+      isOpen: true,
+      message: reassociatePostError,
+      type: "error",
+    });
+    dispatch({ type: GET_REASSOCIATE_STUDENTS_LEVEL_UP_POST_RESET });
+    setOpenPopup(false);
+  }
+
 
   if (putReassociateSuccess) {
     setNotify({
@@ -264,8 +275,8 @@ const ReassociateStudent = () => {
       getReassociateStudentsLevelupPostAction(
         formCheck,
         reassociateStudentLevel.searchFilterModel,
-        reassociateStudentLevel.academicYear,
-        reassociateStudentLevel.idAcademicYear
+        reassociateStudentLevel.searchFilterModel.idAcademicYear,
+        reassociateStudentLevel.searchFilterModel.idNextAcademicYear
       )
     );
     setOpenPopup(false);
@@ -432,7 +443,10 @@ const ReassociateStudent = () => {
             reassociateStudentLevel && reassociateStudentLevel.ddlAcademicYear
           }
           idAcademicYearValue={
-            reassociateStudentLevel && reassociateStudentLevel.idAcademicYear
+            reassociateStudentLevel && reassociateStudentLevel.searchFilterModel.idAcademicYear
+          }
+          idNextAcademicYearValue={
+            reassociateStudentLevel && reassociateStudentLevel.searchFilterModel.idNextAcademicYear
           }
           setOpenPopup={setOpenPopup}
           setFormCheck={setFormCheck}

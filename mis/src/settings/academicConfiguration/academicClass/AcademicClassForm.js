@@ -67,6 +67,9 @@ const AcademicClassForm = ({ academicClass, setOpenPopup }) => {
             name="ClassName"
             label="Class Name*"
             value={values.ClassName}
+            onFocus={e => {
+      e.target.select();
+    }}
             onChange={handleInputChange}
             errors={errors.ClassName}
           />
@@ -82,6 +85,9 @@ const AcademicClassForm = ({ academicClass, setOpenPopup }) => {
           <InputControl
             name="ClassLocation"
             label="Class Location"
+            onFocus={e => {
+      e.target.select();
+    }}
             value={values.ClassLocation}
             onChange={handleInputChange}
             errors={errors.ClassLocation}

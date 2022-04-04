@@ -70,6 +70,9 @@ const EmployeeTypeForm = ({ employeeType, setOpenPopup }) => {
             name="EmployeeTypeName"
             label="Employee Type Name*"
             value={values.EmployeeTypeName}
+            onFocus={e => {
+      e.target.select();
+    }}
             onChange={handleInputChange}
             errors={errors.EmployeeTypeName}
           />
@@ -86,12 +89,18 @@ const EmployeeTypeForm = ({ employeeType, setOpenPopup }) => {
             name="Description"
             label="Description*"
             value={values.Description}
+            onFocus={e => {
+      e.target.select();
+    }}
             onChange={handleInputChange}
             errors={errors.Description}
           />
           <CheckBoxControl
             name="IsTaxApplicable"
             label="IsTaxApplicable"
+            onFocus={e => {
+      e.target.select();
+    }}
             value={values.IsTaxApplicable}
             onChange={handleInputChange}
           />

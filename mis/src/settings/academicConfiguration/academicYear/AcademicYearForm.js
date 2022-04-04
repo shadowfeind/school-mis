@@ -101,6 +101,9 @@ const AcademicYearForm = ({ academicYear, selected, setOpenPopup }) => {
             name="AcademicYearName"
             label="Academic Year Name*"
             value={values.AcademicYearName}
+            onFocus={e => {
+      e.target.select();
+    }}
             onChange={handleInputChange}
             errors={errors.AcademicYearName}
           />
@@ -109,6 +112,9 @@ const AcademicYearForm = ({ academicYear, selected, setOpenPopup }) => {
             name="AcademicYearCode"
             label="Academic Year Code*"
             value={values.AcademicYearCode}
+            onFocus={e => {
+      e.target.select();
+    }}
             onChange={handleInputChange}
             errors={errors.AcademicYearCode}
           />
@@ -117,6 +123,9 @@ const AcademicYearForm = ({ academicYear, selected, setOpenPopup }) => {
             name="AcademicYear"
             label="Academic Year*"
             value={values.AcademicYear}
+            onFocus={e => {
+      e.target.select();
+    }}
             onChange={handleInputChange}
             errors={errors.AcademicYear}
           />

@@ -413,6 +413,9 @@ const StudentRegistrationForm = ({
             name="RegistrationKey"
             label="Registration No.*"
             value={values.RegistrationKey}
+            onFocus={e => {
+      e.target.select();
+    }}
             onChange={handleInputChange}
             onBlur={(e) =>
               dispatch(checkRegistrationForStudentAction(e.target.value))
@@ -452,6 +455,9 @@ const StudentRegistrationForm = ({
             name="RollNo"
             label="Roll No.*"
             value={values.RollNo}
+            onFocus={e => {
+      e.target.select();
+    }}
             onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}
             type="number"
             onChange={handleInputChange}
@@ -466,6 +472,9 @@ const StudentRegistrationForm = ({
           <InputControl
             name="FirstName"
             label="First Name*"
+            onFocus={e => {
+      e.target.select();
+    }}
             value={values.FirstName}
             onChange={handleInputChange}
             errors={errors.FirstName}
@@ -473,6 +482,9 @@ const StudentRegistrationForm = ({
           <InputControl
             name="MiddleName"
             label="Middle Name"
+            onFocus={e => {
+      e.target.select();
+    }}
             value={values.MiddleName}
             onChange={handleInputChange}
           />
@@ -480,6 +492,9 @@ const StudentRegistrationForm = ({
             name="LastName"
             label="Last Name*"
             value={values.LastName}
+            onFocus={e => {
+      e.target.select();
+    }}
             onChange={handleInputChange}
             errors={errors.LastName}
           />
@@ -507,6 +522,9 @@ const StudentRegistrationForm = ({
           <InputControl
             name="PlaceOfBirth"
             label="Place of Birth"
+            onFocus={e => {
+      e.target.select();
+    }}
             value={values.PlaceOfBirth}
             onChange={handleInputChange}
           />
@@ -514,6 +532,9 @@ const StudentRegistrationForm = ({
             name="MobileNo"
             label="Contact No.*"
             value={values.MobileNo}
+            onFocus={e => {
+      e.target.select();
+    }}
             onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}
             onChange={handleInputChange}
             type="number"
@@ -556,6 +577,9 @@ const StudentRegistrationForm = ({
             name="EmailAddress"
             label="Email Address*"
             value={values.EmailAddress}
+            onFocus={e => {
+      e.target.select();
+    }}
             onChange={handleInputChange}
             type="email"
             errors={errors.EmailAddress}
@@ -569,6 +593,9 @@ const StudentRegistrationForm = ({
             name="FatherName"
             label="Father Name*"
             value={values.FatherName}
+            onFocus={e => {
+      e.target.select();
+    }}
             onChange={handleInputChange}
             errors={errors.FatherName}
           />
@@ -577,6 +604,9 @@ const StudentRegistrationForm = ({
             label="Father Contact Number*"
             onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}
             value={values.FatherContactNo}
+            onFocus={e => {
+      e.target.select();
+    }}
             onChange={handleInputChange}
             type="number"
             errors={errors.FatherContactNo}
@@ -584,6 +614,9 @@ const StudentRegistrationForm = ({
           <InputControl
             name="FatherEmail"
             label="Father Email Address"
+            onFocus={e => {
+      e.target.select();
+    }}
             value={values.FatherEmail}
             type="email"
             onChange={handleInputChange}
@@ -594,6 +627,9 @@ const StudentRegistrationForm = ({
             name="LocalGuardianName"
             label="Local Guardian Name*"
             value={values.LocalGuardianName}
+            onFocus={e => {
+      e.target.select();
+    }}
             onChange={handleInputChange}
             errors={errors.LocalGuardianName}
           />
@@ -602,6 +638,9 @@ const StudentRegistrationForm = ({
             name="LocalGuardianContactNo"
             label="SMS Number"
             value={values.LocalGuardianContactNo}
+            onFocus={e => {
+      e.target.select();
+    }}
             onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}
             onChange={handleInputChange}
             type="number"
@@ -612,6 +651,9 @@ const StudentRegistrationForm = ({
             name="LocalGuardianEmail"
             label="Email Address"
             value={values.LocalGuardianEmail}
+            onFocus={e => {
+      e.target.select();
+    }}
             onChange={handleInputChange}
             type="email"
           />

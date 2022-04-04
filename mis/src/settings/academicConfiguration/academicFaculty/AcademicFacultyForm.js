@@ -105,6 +105,9 @@ const AcademicFacultyForm = ({ academicFaculty, selected, setOpenPopup }) => {
             name="Header"
             label="Faculty Header*"
             value={values.Header}
+            onFocus={e => {
+      e.target.select();
+    }}
             onChange={handleInputChange}
             errors={errors.Header}
           />
@@ -112,6 +115,9 @@ const AcademicFacultyForm = ({ academicFaculty, selected, setOpenPopup }) => {
             name="TotalSeat"
             label="TotalSeat"
             value={values.TotalSeat}
+            onFocus={e => {
+      e.target.select();
+    }}
             onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}
             onChange={handleInputChange}
             errors={errors.TotalSeat}

@@ -89,6 +89,9 @@ const TeacherFacultySubjectForm = ({
             label="Teacher"
             value={values.IDTeacher}
             onChange={handleInputChange}
+            onFocus={e => {
+      e.target.select();
+    }}
             options={
               editData
                 ? editData.ddlTeacher
@@ -103,6 +106,9 @@ const TeacherFacultySubjectForm = ({
             label="Summary"
             value={values.Summary}
             onChange={handleInputChange}
+            onFocus={e => {
+      e.target.select();
+    }}
             variant="outlined"
             errors={errors.Summary}
           />
@@ -113,6 +119,9 @@ const TeacherFacultySubjectForm = ({
             label="Faculty Subject"
             value={values.IDAcademicFacultySubjectLink}
             onChange={handleInputChange}
+            onFocus={e => {
+      e.target.select();
+    }}
             options={
               editData
                 ? editData.ddlFacultySubject
@@ -127,6 +136,9 @@ const TeacherFacultySubjectForm = ({
             label="IsActive"
             value={values.IsActive}
             onChange={handleInputChange}
+            onFocus={e => {
+      e.target.select();
+    }}
             options={
               editData
                 ? editData.ddlIsActive

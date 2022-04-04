@@ -82,12 +82,18 @@ const AssignFacultySubjectFormEdit = ({
             disabled
             name="SubjectCode"
             label="Subject Code"
+            onFocus={e => {
+      e.target.select();
+    }}
             value={values.SubjectCode}
             variant="filled"
           />
           <InputControl
             disabled
             name="IsOptional"
+            onFocus={e => {
+      e.target.select();
+    }}
             label="Mark As Optional"
             value={values.IsOptional}
             variant="filled"
@@ -95,6 +101,9 @@ const AssignFacultySubjectFormEdit = ({
           <InputControl
             disabled
             name="IsTheoritical"
+            onFocus={e => {
+      e.target.select();
+    }}
             label="Mark As Theoritical"
             value={values.IsTheoritical}
             variant="filled"
@@ -104,6 +113,9 @@ const AssignFacultySubjectFormEdit = ({
           <InputControl
             disabled
             name="SubjectDescription"
+            onFocus={e => {
+      e.target.select();
+    }}
             label="Subject Description"
             value={values.SubjectDescription}
             variant="filled"
@@ -111,6 +123,9 @@ const AssignFacultySubjectFormEdit = ({
           <InputControl
             disabled
             name="IsCompulsory"
+            onFocus={e => {
+      e.target.select();
+    }}
             label="Mark As Compulsory"
             value={values.IsCompulsory}
             variant="filled"
@@ -118,6 +133,9 @@ const AssignFacultySubjectFormEdit = ({
           <InputControl
             disabled
             name="IsPractical"
+            onFocus={e => {
+      e.target.select();
+    }}
             label="Mark As Practical"
             value={values.IsPractical}
             variant="filled"
@@ -126,6 +144,9 @@ const AssignFacultySubjectFormEdit = ({
             name="CreditHour"
             label="Credit Hour"
             onChange={handleInputChange}
+            onFocus={e => {
+      e.target.select();
+    }}
             onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}
             value={values.CreditHour}
             type="number"

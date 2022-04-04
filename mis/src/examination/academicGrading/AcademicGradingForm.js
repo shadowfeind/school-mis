@@ -81,6 +81,9 @@ const AcademicGradingForm = ({ academicGradingEdit,academicGradingCreate, setOpe
             name="LetterGrade"
             label="Grade*"
             value={values.LetterGrade}
+            onFocus={e => {
+      e.target.select();
+    }}
             onChange={handleInputChange}
             errors={errors.LetterGrade}
           />
@@ -89,6 +92,9 @@ const AcademicGradingForm = ({ academicGradingEdit,academicGradingCreate, setOpe
             name="GradeComment"
             label="Comment*"
             value={values.GradeComment}
+            onFocus={e => {
+      e.target.select();
+    }}
             onChange={handleInputChange}
             errors={errors.GradeComment}
           />
@@ -99,6 +105,9 @@ const AcademicGradingForm = ({ academicGradingEdit,academicGradingCreate, setOpe
             name="HonorPoint"
             label="Honor Point*"
             type="number"
+            onFocus={e => {
+      e.target.select();
+    }}
             value={values.HonorPoint}
             onChange={handleInputChange}
             errors={errors.HonorPoint}

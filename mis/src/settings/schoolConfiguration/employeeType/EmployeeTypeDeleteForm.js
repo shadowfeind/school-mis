@@ -44,6 +44,9 @@ const EmployeeTypeDeleteForm = ({ employeeTypeDelete, setOpenDeletePopup }) => {
           disabled
             name="EmployeeTypeName"
             label="Employee Type Name*"
+            onFocus={e => {
+      e.target.select();
+    }}
             value={values.EmployeeTypeName}
             onChange={handleInputChange}
        
@@ -62,6 +65,9 @@ const EmployeeTypeDeleteForm = ({ employeeTypeDelete, setOpenDeletePopup }) => {
           disabled
             name="Description"
             label="Description*"
+            onFocus={e => {
+      e.target.select();
+    }}
             value={values.Description}
             onChange={handleInputChange}
            
@@ -70,6 +76,9 @@ const EmployeeTypeDeleteForm = ({ employeeTypeDelete, setOpenDeletePopup }) => {
           disabled
             name="IsTaxApplicable"
             label="IsTaxApplicable"
+            onFocus={e => {
+      e.target.select();
+    }}
             value={values.IsTaxApplicable}
             onChange={handleInputChange}
           />

@@ -191,6 +191,9 @@ const ClassNotificationForm = ({
               name="MessageHeading"
               label="Message Heading"
               value={values.MessageHeading}
+              onFocus={e => {
+      e.target.select();
+    }}
               onChange={handleInputChange}
               errors={errors.MessageHeading}
             />
@@ -202,6 +205,9 @@ const ClassNotificationForm = ({
               multiline
               rows={4}
               value={values.MessageDescription}
+              onFocus={e => {
+      e.target.select();
+    }}
               onChange={handleInputChange}
               errors={errors.MessageDescription}
             />

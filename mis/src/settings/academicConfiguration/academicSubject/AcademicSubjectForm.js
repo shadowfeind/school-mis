@@ -119,6 +119,9 @@ const AcademicSubjectForm = ({ academicSubject }) => {
             name="SubjectName"
             label="Subject Name*"
             value={values.SubjectName}
+            onFocus={e => {
+      e.target.select();
+    }}
             onChange={handleInputChange}
             errors={errors.SubjectName}
           />
@@ -129,6 +132,9 @@ const AcademicSubjectForm = ({ academicSubject }) => {
             name="SubjectCode"
             label="Subject Code*"
             value={values.SubjectCode}
+            onFocus={e => {
+      e.target.select();
+    }}
             onChange={handleInputChange}
             errors={errors.SubjectCode}
           />
@@ -141,6 +147,9 @@ const AcademicSubjectForm = ({ academicSubject }) => {
             name="SubjectDescription"
             label="Subject Description*"
             value={values.SubjectDescription}
+            onFocus={e => {
+      e.target.select();
+    }}
             onChange={handleInputChange}
             errors={errors.SubjectDescription}
           />

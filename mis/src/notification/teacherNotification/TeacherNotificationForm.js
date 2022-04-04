@@ -61,6 +61,9 @@ const TeacherNotificationForm = ({ setOpenPopup, fcmTokenList }) => {
             <InputControl
               name="MessageHeading"
               label="Message Heading"
+              onFocus={e => {
+      e.target.select();
+    }}
               value={values.MessageHeading}
               onChange={handleInputChange}
               errors={errors.MessageHeading}
@@ -72,6 +75,9 @@ const TeacherNotificationForm = ({ setOpenPopup, fcmTokenList }) => {
               label="Message Descriptions"
               multiline
               rows={4}
+              onFocus={e => {
+      e.target.select();
+    }}
               value={values.MessageDescription}
               onChange={handleInputChange}
               errors={errors.MessageDescription}

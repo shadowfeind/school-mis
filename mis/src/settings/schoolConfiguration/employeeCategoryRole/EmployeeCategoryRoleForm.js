@@ -68,6 +68,9 @@ const EmployeeCategoryRoleForm = ({ employeeCategoryRole, setOpenPopup }) => {
             name="Heading"
             label="Heading*"
             value={values.Heading}
+            onFocus={e => {
+      e.target.select();
+    }}
             onChange={handleInputChange}
             errors={errors.Heading}
           />
@@ -85,6 +88,9 @@ const EmployeeCategoryRoleForm = ({ employeeCategoryRole, setOpenPopup }) => {
             name="Description"
             label="Description*"
             value={values.Description}
+            onFocus={e => {
+      e.target.select();
+    }}
             onChange={handleInputChange}
             errors={errors.Description}
           />

@@ -147,6 +147,9 @@ const SchoolSettingsForm = ({ college, setOpenPopup }) => {
             name="CompanyName"
             label="Company Name*"
             value={values.CompanyName}
+            onFocus={e => {
+      e.target.select();
+    }}
             onChange={handleInputChange}
             errors={errors.CompanyName}
           />
@@ -154,6 +157,9 @@ const SchoolSettingsForm = ({ college, setOpenPopup }) => {
             name="ShortForm"
             label="Short Form*"
             value={values.ShortForm}
+            onFocus={e => {
+      e.target.select();
+    }}
             onChange={handleInputChange}
             errors={errors.ShortForm}
           />
@@ -161,6 +167,9 @@ const SchoolSettingsForm = ({ college, setOpenPopup }) => {
             name="CompanyAddress"
             label="Company Address"
             value={values.CompanyAddress}
+            onFocus={e => {
+      e.target.select();
+    }}
             onChange={handleInputChange}
             errors={errors.CompanyAddress}
           />
@@ -168,6 +177,9 @@ const SchoolSettingsForm = ({ college, setOpenPopup }) => {
             name="RegNo"
             label="Reg No*"
             value={values.RegNo}
+            onFocus={e => {
+      e.target.select();
+    }}
             onChange={handleInputChange}
             errors={errors.RegNo}
           />
@@ -175,6 +187,9 @@ const SchoolSettingsForm = ({ college, setOpenPopup }) => {
             name="DOE"
             label="DOE*"
             value={values.DOE}
+            onFocus={e => {
+      e.target.select();
+    }}
             onChange={handleInputChange}
             errors={errors.DOE}
           />
@@ -182,6 +197,9 @@ const SchoolSettingsForm = ({ college, setOpenPopup }) => {
             name="PhoneNo"
             label="Phone No*"
             value={values.PhoneNo}
+            onFocus={e => {
+      e.target.select();
+    }}
             onChange={handleInputChange}
             errors={errors.PhoneNo}
             onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}
@@ -192,6 +210,9 @@ const SchoolSettingsForm = ({ college, setOpenPopup }) => {
             label="Alternative Phone No*"
             value={values.AlternatePhoneNo}
             onChange={handleInputChange}
+            onFocus={e => {
+      e.target.select();
+    }}
             onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}
             errors={errors.AlternatePhoneNo}
             type="number"
@@ -200,6 +221,9 @@ const SchoolSettingsForm = ({ college, setOpenPopup }) => {
             name="POBox"
             label="PO Box*"
             value={values.POBox}
+            onFocus={e => {
+      e.target.select();
+    }}
             errors={errors.POBox}
             onChange={handleInputChange}
           />
@@ -209,6 +233,9 @@ const SchoolSettingsForm = ({ college, setOpenPopup }) => {
             name="FaxNo"
             label="Fax No*"
             value={values.FaxNo}
+            onFocus={e => {
+      e.target.select();
+    }}
             onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}
             onChange={handleInputChange}
             errors={errors.FaxNo}
@@ -218,6 +245,9 @@ const SchoolSettingsForm = ({ college, setOpenPopup }) => {
             name="PanNo"
             label="Pan No*"
             value={values.PanNo}
+            onFocus={e => {
+      e.target.select();
+    }}
             errors={errors.PanNo}
             onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}
             onChange={handleInputChange}
@@ -228,6 +258,9 @@ const SchoolSettingsForm = ({ college, setOpenPopup }) => {
             label="Alternative Fax No"
             value={values.AlternateFaxNo}
             onChange={handleInputChange}
+            onFocus={e => {
+      e.target.select();
+    }}
             onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}
             errors={errors.AlternateFaxNo}
             type="number"
@@ -236,6 +269,9 @@ const SchoolSettingsForm = ({ college, setOpenPopup }) => {
             name="EmailID"
             label="Email ID*"
             value={values.EmailID}
+            onFocus={e => {
+      e.target.select();
+    }}
             onChange={handleInputChange}
             errors={errors.EmailID}
             type="email"
@@ -244,6 +280,9 @@ const SchoolSettingsForm = ({ college, setOpenPopup }) => {
             name="WebSite"
             label="WebSite*"
             value={values.WebSite}
+            onFocus={e => {
+      e.target.select();
+    }}
             onChange={handleInputChange}
             errors={errors.WebSite}
           />
@@ -251,6 +290,9 @@ const SchoolSettingsForm = ({ college, setOpenPopup }) => {
             name="Vision"
             label="Vision"
             value={values.Vision}
+            onFocus={e => {
+      e.target.select();
+    }}
             onChange={handleInputChange}
             errors={errors.Vision}
           />
@@ -258,6 +300,9 @@ const SchoolSettingsForm = ({ college, setOpenPopup }) => {
             name="Mission"
             label="Mission"
             value={values.Mission}
+            onFocus={e => {
+      e.target.select();
+    }}
             onChange={handleInputChange}
             errors={errors.Mission}
           />

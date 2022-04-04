@@ -73,6 +73,9 @@ const AcademicSectinoForm = ({ academicSection, setOpenPopup }) => {
           <InputControl
             name="RoomName"
             label="Room Name*"
+            onFocus={e => {
+      e.target.select();
+    }}
             value={values.RoomName}
             onChange={handleInputChange}
             errors={errors.RoomName}
@@ -81,6 +84,9 @@ const AcademicSectinoForm = ({ academicSection, setOpenPopup }) => {
           <InputControl
             name="RoomLocation"
             label="Room Location*"
+            onFocus={e => {
+      e.target.select();
+    }}
             value={values.RoomLocation}
             onChange={handleInputChange}
             errors={errors.RoomLocation}
@@ -99,6 +105,9 @@ const AcademicSectinoForm = ({ academicSection, setOpenPopup }) => {
             name="RoomCapacity"
             label="RoomCapacity*"
             value={values.RoomCapacity}
+            onFocus={e => {
+      e.target.select();
+    }}
             onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}
             onChange={handleInputChange}
             errors={errors.RoomCapacity}

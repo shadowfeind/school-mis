@@ -133,6 +133,9 @@ const ExamMarkApprovalBulk = ({
                       value={subject.ObtainedMark}
                       type="number"
                       label="Obtained Mark"
+                      onFocus={e => {
+      e.target.select();
+    }}
                       onKeyDown={(e) =>
                         symbolsArr.includes(e.key) && e.preventDefault()
                       }
@@ -156,6 +159,9 @@ const ExamMarkApprovalBulk = ({
                       type="number"
                       label="Obtained Practical Mark"
                       variant="outlined"
+                      onFocus={e => {
+      e.target.select();
+    }}
                       onKeyDown={(e) =>
                         symbolsArr.includes(e.key) && e.preventDefault()
                       }
@@ -182,6 +188,9 @@ const ExamMarkApprovalBulk = ({
                         native
                         defaultValue={subject.StudentExamStatus}
                         name="StudentExamStatus"
+                        onFocus={e => {
+      e.target.select();
+    }}
                         id={`status_${subject.IDHREmployee}`}
                         onChange={(e) =>
                           onChangeHandler(

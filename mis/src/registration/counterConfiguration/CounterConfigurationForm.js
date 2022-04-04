@@ -97,6 +97,9 @@ const CounterConfigurationForm = ({
             value={values.CounterYear}
             type="number"
             variant="outlined"
+            onFocus={e => {
+      e.target.select();
+    }}
             onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}
             errors={errors.CounterYear}
             onChange={handleInputChange}
@@ -106,6 +109,9 @@ const CounterConfigurationForm = ({
             name="Prefix"
             label="Prefix"
             value={values.Prefix}
+            onFocus={e => {
+      e.target.select();
+    }}
             variant="outlined"
             errors={errors.Prefix}
             onChange={handleInputChange}
@@ -114,6 +120,9 @@ const CounterConfigurationForm = ({
             name="CurrentCount"
             label="Current Count"
             value={values.CurrentCount}
+            onFocus={e => {
+      e.target.select();
+    }}
             type="number"
             onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}
             variant="outlined"
@@ -139,6 +148,9 @@ const CounterConfigurationForm = ({
             name="Middle"
             label="Middle"
             value={values.Middle}
+            onFocus={e => {
+      e.target.select();
+    }}
             variant="outlined"
             onChange={handleInputChange}
             errors={errors.Middle}

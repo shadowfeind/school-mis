@@ -70,6 +70,9 @@ const SyllabusForm =({syllabus,setOpenPopup}) => {
                 label="IsActive"
                 value={values.IsActive}
                 onChange={handleInputChange}
+                onFocus={e => {
+      e.target.select();
+    }}
                 options={syllabus ? syllabus.ddlIsActive : test}
               />
               <InputControl

@@ -67,7 +67,7 @@ export const counterConfigCreateAction =
       dispatch({ type: COUNTER_CONFIG_CREATE_REQUEST });
 
       const jsonData = JSON.stringify({
-        dbModel: counterConfig,
+        dbModel: counterConfig
       });
 
       // const config = {

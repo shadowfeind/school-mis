@@ -341,6 +341,7 @@ const CounterConfiguration = () => {
             getAcademicConfigInitialDataForCreate &&
             getAcademicConfigInitialDataForCreate.ddlCounterStatus
           }
+          dbModel={getAcademicConfigInitialDataForCreate && getAcademicConfigInitialDataForCreate.dbModel}
           setOpenPopup={setOpenPopup}
           getAcademicConfigInitialDataForEdit={
             getAcademicConfigInitialDataForEdit

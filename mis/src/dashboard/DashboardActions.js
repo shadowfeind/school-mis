@@ -1,5 +1,5 @@
 import axios from "axios";
-import { API_URL, tokenConfig } from "../constants";
+import { API_URL, axiosInstance, tokenConfig } from "../constants";
 import {
   GET_HEADER_BANNER_FAIL,
   GET_HEADER_BANNER_REQUEST,
@@ -13,11 +13,7 @@ export const getHeaderContentAction = () => async (dispatch) => {
   try {
     dispatch({ type: GET_HEADER_CONTENT_REQUEST });
 
-    const { data } = await axios.get(
-      `${API_URL}/api/Home/GetHeaderContent
-      `,
-      tokenConfig
-    );
+    const { data } = await axiosInstance.get(`/api/Home/GetHeaderContent`);
 
     dispatch({ type: GET_HEADER_CONTENT_SUCCESS, payload: data });
   } catch (error) {
@@ -27,7 +23,6 @@ export const getHeaderContentAction = () => async (dispatch) => {
     });
   }
 };
-
 
 export const getHeaderBannerAction = () => async (dispatch) => {
   try {
@@ -47,4 +42,3 @@ export const getHeaderBannerAction = () => async (dispatch) => {
     });
   }
 };
-

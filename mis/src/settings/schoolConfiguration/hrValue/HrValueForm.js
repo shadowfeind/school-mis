@@ -125,7 +125,7 @@ const HrValueForm = ({ hrValueCreate, setOpenPopup, hrValueEdit }) => {
     }
   }, [hrValueCreate]);
 
-  const symbolsArr = ["e", "E", "+", "-", "."];
+  const symbolsArr = ["e", "E", "+", "-", ".","ArrowUp","ArrowDown"];
 
   const test = [{ Key: "", Value: "" }];
 

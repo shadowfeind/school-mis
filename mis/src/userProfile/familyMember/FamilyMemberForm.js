@@ -173,7 +173,7 @@ const FamilyMemberForm = ({ familyMember, setOpenPopup }) => {
 
   const test = [{ Key: "", value: "" }];
 
-  const symbolsArr = ["e", "E", "+", "-", "."];
+  const symbolsArr = ["e", "E", "+", "-", ".","ArrowUp","ArrowDown"];
 
 
   return (

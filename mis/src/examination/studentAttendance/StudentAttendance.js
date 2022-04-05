@@ -373,7 +373,7 @@ const StudentAttendance = () => {
     }
   };
 
-  const symbolsArr = ["e", "E", "+", "-", "."];
+  const symbolsArr = ["e", "E", "+", "-", ".","ArrowUp","ArrowDown"];
 
   return (
     <>

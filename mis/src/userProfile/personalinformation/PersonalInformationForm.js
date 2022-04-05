@@ -194,7 +194,7 @@ const PersonalInformationForm =({personalInformation, setOpenPopup})=>{
 
   const test = [{Key:"", value:""}]
 
-  const symbolsArr = ["e", "E", "+", "-", "."];
+  const symbolsArr = ["e", "E", "+", "-", ".","ArrowUp","ArrowDown"];
 
   const citizenOption = [{Key:"0", Value:"No"},{Key:"1", Value:"Yes"}]
   const religionOption = [{Key:"0", Value:"Hinduism"},{Key:"1", Value:"Buddhism"},{Key:"2", Value:"Kiratism"},{Key:"3", Value:"Christianity"},{Key:"4", Value:"Islam"},{Key:"5", Value:"Others"}]

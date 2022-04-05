@@ -15,7 +15,7 @@ const initialFormValues = {
   CounterYear: 0,
   CurrentCount: 0,
   Status: "Open",
-  CounterFor: "Inquiry",
+  CounterFor: "Registration",
   Prefix: "",
   Middle: "",
   IDYearFacultyLink: 0,
@@ -25,10 +25,12 @@ const initialFormValues = {
 
 const CounterConfigurationForm = ({
   counterFor,
+  dbModel,
   counterStatus,
   setOpenPopup,
   getAcademicConfigInitialDataForEdit,
 }) => {
+  
   const dispatch = useDispatch();
   const validate = (fieldValues = values) => {
     let temp = { ...errors };
@@ -69,7 +71,10 @@ const CounterConfigurationForm = ({
     if (getAcademicConfigInitialDataForEdit) {
       setValues(getAcademicConfigInitialDataForEdit.dbModel);
     }
-  }, [getAcademicConfigInitialDataForEdit]);
+    if(dbModel){
+      setValues(dbModel);
+    }
+  }, [getAcademicConfigInitialDataForEdit, dbModel]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -85,7 +90,7 @@ const CounterConfigurationForm = ({
 
   const testValue = [{ Key: "", Value: "" }];
 
-  const symbolsArr = ["e", "E", "+", "-", "."];
+  const symbolsArr = ["e", "E", "+", "-", ".","ArrowUp","ArrowDown"];
 
   return (
     <Form onSubmit={handleSubmit}>

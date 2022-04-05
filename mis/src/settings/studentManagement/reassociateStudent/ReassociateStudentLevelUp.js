@@ -47,6 +47,7 @@ const ReassociateStudentLevelUp = ({
   ddlLevelStatus,
   ddlAcademicYear,
   idAcademicYearValue,
+  noNextYearError,
   idNextAcademicYearValue,
   ddlClass,
   nextClass,
@@ -134,6 +135,10 @@ const ReassociateStudentLevelUp = ({
   };
   return (
     <>
+    <div>
+        {noNextYearError && <h3 style={{color:"red", textAlign:"center"}}>{noNextYearError}</h3>}
+      </div>
+     {!noNextYearError && <>
       <Grid container>
         {idAcademicYearValue && (
           <Grid item xs={4}>
@@ -164,7 +169,7 @@ const ReassociateStudentLevelUp = ({
             value={showNextClass && showNextClass[0].Value}
           />
         </Grid>
-      </Grid>
+      </Grid>      
       <div style={{ height: "10px" }}></div>
       <TableContainer component={Paper}>
         <Table className={classes.table} aria-label="customized table">
@@ -296,6 +301,7 @@ const ReassociateStudentLevelUp = ({
           </div>
         </Table>
       </TableContainer>
+     </>}
     </>
   );
 };

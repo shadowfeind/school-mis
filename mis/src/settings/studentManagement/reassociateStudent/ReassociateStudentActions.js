@@ -81,7 +81,7 @@ export const getReassociateStudentsLevelupAction =
   };
 
 export const getReassociateStudentsLevelupPostAction =
-  (checkboxState, searchFilterModel, academicYearNext, academicYear) =>
+  (checkboxState, searchFilterModel, academicYear,academicYearNext) =>
   async (dispatch) => {
     try {
       dispatch({ type: GET_REASSOCIATE_STUDENTS_LEVEL_UP_POST_REQUEST });

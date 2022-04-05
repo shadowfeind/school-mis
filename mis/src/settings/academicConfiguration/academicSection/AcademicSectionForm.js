@@ -64,7 +64,7 @@ const AcademicSectinoForm = ({ academicSection, setOpenPopup }) => {
     }
   }, [academicSection]);
 
-  const symbolsArr = ["e", "E", "+", "-", "."];
+  const symbolsArr = ["e", "E", "+", "-", ".","ArrowUp","ArrowDown"];
 
   return (
     <Form onSubmit={handleSubmit}>

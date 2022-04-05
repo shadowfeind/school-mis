@@ -81,7 +81,7 @@ const ClassSubjectCreateForm = ({
     });
   };
 
-  const symbolsArr = ["e", "E", "+", "-", "."];
+  const symbolsArr = ["e", "E", "+", "-", ".","ArrowUp","ArrowDown"];
 
   return (
     <>

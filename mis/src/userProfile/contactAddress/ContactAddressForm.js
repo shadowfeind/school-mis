@@ -135,7 +135,7 @@ const ContactAddressForm =({contactAddress, setOpenPopup})=>{
       setValues({ ...contactAddress.dbModel });
     }
   }, [contactAddress]);
-  const symbolsArr = ["e", "E", "+", "-", "."];
+  const symbolsArr = ["e", "E", "+", "-", ".","ArrowUp","ArrowDown"];
 
   const test = [{Key:"", Value:""}]
   const citizenOption = [{Key:"0", Value:"No"},{Key:"1", Value:"Yes"}]

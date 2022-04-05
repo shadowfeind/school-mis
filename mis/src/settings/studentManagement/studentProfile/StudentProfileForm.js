@@ -184,7 +184,7 @@ const StudentProfileForm = ({ studentData, setOpenPopup }) => {
     }
   }, [studentData]);
 
-  const symbolsArr = ["e", "E", "+", "-", "."];
+  const symbolsArr = ["e", "E", "+", "-", ".","ArrowUp","ArrowDown"];
 
   return (
     <Form onSubmit={handleSubmit}>

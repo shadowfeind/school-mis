@@ -67,7 +67,7 @@ export const counterConfigCreateAction =
       dispatch({ type: COUNTER_CONFIG_CREATE_REQUEST });
 
       const jsonData = JSON.stringify({
-        dbModel: counterConfig,
+        dbModel: counterConfig
       });
 
       // const config = {
@@ -75,7 +75,7 @@ export const counterConfigCreateAction =
       //     "Content-Type": "application/json",
       //   },
       // };
-
+console.log(jsonData)
       const { data } = await axios.post(
         `${API_URL}/api/AdmCounter/Post`,
         jsonData,

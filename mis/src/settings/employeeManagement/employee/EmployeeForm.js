@@ -134,7 +134,7 @@ const EmployeeForm = ({ employee, setOpenPopup }) => {
     }
   }, [employee]);
 
-  const symbolsArr = ["e", "E", "+", "-", "."];
+  const symbolsArr = ["e", "E", "+", "-", ".","ArrowUp","ArrowDown"];
 
   return (
     <Form onSubmit={handleSubmit}>

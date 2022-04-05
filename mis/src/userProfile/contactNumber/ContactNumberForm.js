@@ -71,7 +71,7 @@ const ContactNumberForm = ({ contactNumber, setOpenPopup }) => {
     }
   }, [contactNumber]);
 
-  const symbolsArr = ["e", "E", "+", "-", "."];
+  const symbolsArr = ["e", "E", "+", "-", ".","ArrowUp","ArrowDown"];
 
 
   return (

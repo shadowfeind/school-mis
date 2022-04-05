@@ -75,7 +75,7 @@ export const counterConfigCreateAction =
       //     "Content-Type": "application/json",
       //   },
       // };
-
+console.log(jsonData)
       const { data } = await axios.post(
         `${API_URL}/api/AdmCounter/Post`,
         jsonData,

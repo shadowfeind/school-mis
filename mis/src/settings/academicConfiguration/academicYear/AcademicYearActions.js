@@ -46,6 +46,7 @@ export const AcademicYearCreateAction =
         postedChekboxLst: { CheckBoxListID: checkboxState },
       });
 
+      console.log(jsonData)
       // const config = {
       //   headers: {
       //     "Content-Type": "application/json",

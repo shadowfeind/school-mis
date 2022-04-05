@@ -95,7 +95,7 @@ const AcademicFacultyForm = ({ academicFaculty, selected, setOpenPopup }) => {
     console.log("test", academicFacultyOption);
   }, [academicFacultyOption]);
 
-  const symbolsArr = ["e", "E", "+", "-", "."];
+  const symbolsArr = ["e", "E", "+", "-", ".","ArrowUp","ArrowDown"];
 
   return (
     <Form onSubmit={handleSubmit}>

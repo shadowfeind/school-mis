@@ -93,7 +93,7 @@ const StudentAttendanceBulk = ({
     return Object.values(temp).every((x) => x === "");
   };
 
-  const symbolsArr = ["e", "E", "+", "-", "."];
+  const symbolsArr = ["e", "E", "+", "-", ".","ArrowUp","ArrowDown"];
 
   return (
     <>

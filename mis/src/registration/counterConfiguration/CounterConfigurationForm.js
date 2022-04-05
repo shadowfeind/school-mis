@@ -85,7 +85,7 @@ const CounterConfigurationForm = ({
 
   const testValue = [{ Key: "", Value: "" }];
 
-  const symbolsArr = ["e", "E", "+", "-", "."];
+  const symbolsArr = ["e", "E", "+", "-", ".","ArrowUp","ArrowDown"];
 
   return (
     <Form onSubmit={handleSubmit}>

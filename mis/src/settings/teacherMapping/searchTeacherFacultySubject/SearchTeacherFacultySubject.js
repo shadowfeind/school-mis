@@ -43,9 +43,13 @@ const useStyles = makeStyles((theme) => ({
 
 const tableHeader = [
   { id: "TeacherName", label: "Teacher Name" },
+  { id: "IDYearFacultyLink", label: "Academic Year" },
+  { id: "IDAcademicFacultySubjectLink", label: "Faculty/Program" },
+  { id: "Level", label: "Class" },
   { id: "SubjectName", label: "Subject" },
+  { id: "Section", label: "Section" },
+  { id: "IDAcademicShift", label: "Academic Shift" },
   { id: "Created_On", label: "Created On" },
-  { id: "Summary", label: "Summary" },
   { id: "IsActive", label: "IsActive" },
 ];
 

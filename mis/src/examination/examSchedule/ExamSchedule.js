@@ -285,10 +285,8 @@ const ExamSchedule = () => {
     setAcaYear(value);
     if (classId) {
       dispatch(getEventForExamScheduleAction(value, programValue, classId));
-     
     }
-    
-      
+    setEvent("")
   };
 
   const handleExamScheduleSearch = () => {

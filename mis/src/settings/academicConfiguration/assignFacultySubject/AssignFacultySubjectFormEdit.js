@@ -64,7 +64,7 @@ const AssignFacultySubjectFormEdit = ({
       setValues({ ...singleFacultySubject });
     }
   }, [singleFacultySubject]);
-  const symbolsArr = ["e", "E", "+", "-", "."];
+  const symbolsArr = ["e", "E", "+", "-", ".","ArrowUp","ArrowDown"];
 
   return (
     <Form onSubmit={handleSubmit}>

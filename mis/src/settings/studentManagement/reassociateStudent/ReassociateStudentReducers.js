@@ -8,6 +8,7 @@ import {
   GET_REASSOCIATE_STUDENTS_LEVEL_UP_POST_RESET,
   GET_REASSOCIATE_STUDENTS_LEVEL_UP_POST_SUCCESS,
   GET_REASSOCIATE_STUDENTS_LEVEL_UP_REQUEST,
+  GET_REASSOCIATE_STUDENTS_LEVEL_UP_RESET,
   GET_REASSOCIATE_STUDENTS_LEVEL_UP_SUCCESS,
   GET_REASSOCIATE_STUDENTS_LISTS_FAIL,
   GET_REASSOCIATE_STUDENTS_LISTS_REQUEST,
@@ -56,7 +57,9 @@ export const getReassociateStudentsLevelupReducer = (state = {}, action) => {
       return { loading: false, reassociateStudentLevel: action.payload };
     case GET_REASSOCIATE_STUDENTS_LEVEL_UP_FAIL:
       return { loading: false, error: action.payload };
-    default:
+      case GET_REASSOCIATE_STUDENTS_LEVEL_UP_RESET:
+        return {};
+      default:
       return state;
   }
 };

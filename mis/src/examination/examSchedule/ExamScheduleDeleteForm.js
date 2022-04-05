@@ -48,7 +48,7 @@ const ExamScheduleDeleteForm = ({
     }
   }, [examScheduleDelete]);
 
-  const symbolsArr = ["e", "E", "+", "-", "."];
+  const symbolsArr = ["e", "E", "+", "-", ".","ArrowUp","ArrowDown"];
 
   const test = [{ Key: "", Value: "" }];
   const handleDeleteSchedule = () => {

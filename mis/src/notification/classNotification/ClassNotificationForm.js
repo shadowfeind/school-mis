@@ -123,7 +123,7 @@ const ClassNotificationForm = ({
       dispatch(postClassNotificationAction(values, selectedStudents));
     }
   };
-  const symbolsArr = ["e", "E", "+", "-", "."];
+  const symbolsArr = ["e", "E", "+", "-", ".","ArrowUp","ArrowDown"];
 
   return (
     <>

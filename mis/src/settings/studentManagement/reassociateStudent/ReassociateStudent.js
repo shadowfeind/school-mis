@@ -28,6 +28,7 @@ import ReassociateStudentTableCollapse from "./ReassociateStudentTableCollapse";
 import ReassociateStudentLevelUp from "./ReassociateStudentLevelUp";
 import {
   GET_REASSOCIATE_STUDENTS_LEVEL_UP_POST_RESET,
+  GET_REASSOCIATE_STUDENTS_LEVEL_UP_RESET,
   GET_SINGLE_TO_EDIT_REASSOCIATE_STUDENTS_RESET,
   PUT_REASSOCIATE_STUDENTS_RESET,
 } from "./ReassociateStudentConstants";
@@ -121,7 +122,7 @@ const ReassociateStudent = () => {
     (state) => state.getReassociateStudentsLists
   );
 
-  const { reassociateStudentLevel,loading:loadingLevelUp } = useSelector(
+  const { reassociateStudentLevel,loading:loadingLevelUp ,error:reassociateStudentLevelError} = useSelector(
     (state) => state.getReassociateStudentsLevelup
   );
   const {
@@ -153,6 +154,16 @@ const ReassociateStudent = () => {
       type: "error",
     });
     dispatch({ type: PUT_REASSOCIATE_STUDENTS_RESET });
+    setOpenPopup(false);
+  }
+
+  if (reassociateStudentLevelError) {
+    setNotify({
+      isOpen: true,
+      message: reassociateStudentLevelError,
+      type: "error",
+    });
+    dispatch({ type: GET_REASSOCIATE_STUDENTS_LEVEL_UP_RESET });
     setOpenPopup(false);
   }
 
@@ -437,17 +448,18 @@ const ReassociateStudent = () => {
           ddlClass={reassociateStudentLevel && reassociateStudentLevel.ddlClass}
           nextClass={
             reassociateStudentLevel &&
-            reassociateStudentLevel.searchFilterModel.nextClass
+            reassociateStudentLevel.searchFilterModel?.nextClass
           }
           idAcademicYear={
             reassociateStudentLevel && reassociateStudentLevel.ddlAcademicYear
           }
           idAcademicYearValue={
-            reassociateStudentLevel && reassociateStudentLevel.searchFilterModel.idAcademicYear
+            reassociateStudentLevel && reassociateStudentLevel.searchFilterModel?.idAcademicYear
           }
           idNextAcademicYearValue={
-            reassociateStudentLevel && reassociateStudentLevel.searchFilterModel.idNextAcademicYear
+            reassociateStudentLevel && reassociateStudentLevel.searchFilterModel?.idNextAcademicYear
           }
+          noNextYearError={reassociateStudentLevel && reassociateStudentLevel?.Message}
           setOpenPopup={setOpenPopup}
           setFormCheck={setFormCheck}
           formCheck={formCheck}

@@ -32,6 +32,7 @@ const initialFormValues = {
   Updated_On: "2015-04-09T14:20:39.947",
 };
 
+
 const SchoolSettingsForm = ({ college, setOpenPopup }) => {
   const dispatch = useDispatch();
   const validate = (fieldValues = values) => {
@@ -138,7 +139,7 @@ const SchoolSettingsForm = ({ college, setOpenPopup }) => {
       setValues({ ...college });
     }
   }, [college]);
-  const symbolsArr = ["e", "E", "+", "-", "."];
+  const symbolsArr = ["e", "E", "+", "-", ".","ArrowUp","ArrowDown"];
   return (
     <Form onSubmit={handleSubmit}>
       <Grid container style={{ fontSize: "12px" }}>
@@ -203,7 +204,7 @@ const SchoolSettingsForm = ({ college, setOpenPopup }) => {
             onChange={handleInputChange}
             errors={errors.PhoneNo}
             onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}
-            type="number"
+            type="number" 
           />
           <InputControl
             name="AlternatePhoneNo"

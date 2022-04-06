@@ -399,7 +399,7 @@ const ExamSchedule = () => {
         <Toolbar>
           <InputControl
             className={classes.searchInput}
-            label="Search Academic Faculty"
+            label="Search Full/Pass Marks"
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">

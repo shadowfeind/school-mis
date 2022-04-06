@@ -341,7 +341,7 @@ const LevelTest = () => {
         <Toolbar>
           <InputControl
             className={classes.searchInput}
-            label="Search Exam Mark"
+            label="Search ECA"
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">

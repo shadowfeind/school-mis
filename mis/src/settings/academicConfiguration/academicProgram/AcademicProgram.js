@@ -202,7 +202,7 @@ const AcademicProgram = () => {
         <Toolbar>
           <InputControl
             className={classes.searchInput}
-            label="Search Position"
+            label="Search Academic Program"
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">

@@ -17,6 +17,7 @@ import {
   CHECK_ROLLNO_FOR_STUDENT_RESET,
 } from "./StudentRegistrationConstants";
 
+
 const initialFormValues = {
   IDAdmissionRegistration: 0,
   RegistrationKey: "",
@@ -206,9 +207,11 @@ const StudentRegistrationForm = ({
 
     temp.MobileNo = !fieldValues.MobileNo
       ? "This feild is required"
-      : fieldValues.MobileNo?.length <= 10
-      ? ""
-      : "Must be less or equal to 10";
+      : fieldValues.MobileNo && fieldValues.MobileNo?.length > 10
+      ? "Must be less or equal to 10"
+      : fieldValues.MobileNo && fieldValues.MobileNo?.length < 7
+      ? "Must be greater or equal to 7"
+      : "";
 
     // temp.MobileNo = !fieldValues.MobileNo ? "This feild is required" : "";
 
@@ -234,9 +237,12 @@ const StudentRegistrationForm = ({
 
     temp.FatherContactNo = !fieldValues.FatherContactNo
       ? "This feild is required"
-      : fieldValues.FatherContactNo?.length <= 10
-      ? ""
-      : "Must be less or equal to 10";
+      : fieldValues.FatherContactNo && fieldValues.FatherContactNo?.length > 10
+      ? "Must be less or equal to 10"
+      : fieldValues.FatherContactNo && fieldValues.FatherContactNo?.length < 7
+      ? "Must be greater or equal to 7"
+      : "";
+     
     // temp.LocalGuardianContactNo = !fieldValues.LocalGuardianContactNo
     //   ? "This feild is required"
     //   : fieldValues.LocalGuardianContactNo.length == 10

@@ -439,7 +439,7 @@ const PrintAdminCard = () => {
         <Toolbar>
           <InputControl
             className={classes.searchInput}
-            label="Search Student"
+            label="Search Student Admit Card"
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">

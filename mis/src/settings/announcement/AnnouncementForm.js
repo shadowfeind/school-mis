@@ -30,18 +30,14 @@ const AnnouncementForm = ({ announcement, setOpenPopup, fcmTokenList }) => {
 
     temp.NewsHeading = !fieldValues.NewsHeading
       ? "This feild is required"
-      : !fieldValues.NewsHeading.length > 20
-      ? "Must be less than 20 characters"
-      : !fieldValues.NewsHeading.trim()
-      ? "This feild is required"
+      : fieldValues.NewsHeading && fieldValues.NewsHeading?.length > 160
+      ? "Must be less than 160 characters"
       : "";
 
     temp.NewsDescription = !fieldValues.NewsDescription
       ? "This feild is required"
-      : !fieldValues.NewsDescription.length > 20
-      ? "Must be less than 20 characters"
-      : !fieldValues.NewsDescription.trim()
-      ? "This feild is required"
+      : fieldValues.NewsDescription && fieldValues.NewsDescription?.length > 160
+      ? "Must be less than 160 characters"
       : "";
 
     temp.IsActive = !fieldValues.IsActive ? "This feild is required" : "";
@@ -73,7 +69,7 @@ const AnnouncementForm = ({ announcement, setOpenPopup, fcmTokenList }) => {
   return (
     <Form onSubmit={handleSubmit}>
       <Grid container style={{ fontSize: "12px" }}>
-        <Grid item xs={6}>
+        <Grid item xs={12}>
           <InputControl
             name="NewsHeading"
             label="News Heading*"

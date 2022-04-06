@@ -184,7 +184,7 @@ const Header = () => {
                   </li>
                   <li>
                     <NavLink to={"/notification"} activeStyle={isActive}>
-                      Notification
+                      Push Notification
                     </NavLink>
                   </li>
                   {/* <li>

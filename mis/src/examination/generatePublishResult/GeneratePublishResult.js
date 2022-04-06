@@ -349,7 +349,7 @@ const GeneratePublishResult = () => {
         <Toolbar>
           <InputControl
             className={classes.searchInput}
-            label="Search Academic Faculty"
+            label="Search Generated Result"
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">

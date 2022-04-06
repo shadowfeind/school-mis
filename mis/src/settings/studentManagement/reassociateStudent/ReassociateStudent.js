@@ -426,7 +426,7 @@ const ReassociateStudent = () => {
       <Popup
         openPopup={openPopup}
         setOpenPopup={setOpenPopup}
-        title="Level Up Reassociate Students"
+        title="Level Up Students"
       >
     {loadingLevelUp ? (
           <LoadingComp />

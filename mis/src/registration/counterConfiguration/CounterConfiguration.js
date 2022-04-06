@@ -280,7 +280,7 @@ const CounterConfiguration = () => {
         <Toolbar>
           <InputControl
             className={classes.searchInput}
-            label="Search Academic Faculty"
+            label="Search Counter Configuration"
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">

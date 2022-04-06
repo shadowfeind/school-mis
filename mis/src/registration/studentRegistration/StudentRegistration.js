@@ -101,7 +101,7 @@ const StudentRegistration = () => {
           return item;
         } else {
           return item.filter((x) =>
-            x.EventName.toLowerCase().includes(e.target.value)
+            x.FirstName.toLowerCase().includes(e.target.value)
           );
         }
       },
@@ -264,7 +264,7 @@ const StudentRegistration = () => {
         <Toolbar>
           <InputControl
             className={classes.searchInput}
-            label="Search Academic Faculty"
+            label="Search Student Registration"
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">

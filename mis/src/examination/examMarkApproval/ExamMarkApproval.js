@@ -128,7 +128,7 @@ const ExamMarkApproval = () => {
           return item;
         } else {
           return item.filter((x) =>
-            x.EventName.toLowerCase().includes(e.target.value)
+            x.FullName.toLowerCase().includes(e.target.value)
           );
         }
       },
@@ -452,7 +452,7 @@ const ExamMarkApproval = () => {
         <Toolbar>
           <InputControl
             className={classes.searchInput}
-            label="Search Exam Mark"
+            label="Search Exam Mark Entry/Update"
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">

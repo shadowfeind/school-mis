@@ -396,7 +396,7 @@ const TeacherFacultySubject = () => {
         <Toolbar>
           <InputControl
             className={classes.searchInput}
-            label="Search Reassociate Student"
+            label="Search Teacher Class Subject"
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">

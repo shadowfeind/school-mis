@@ -366,7 +366,7 @@ const AssignFacultySubject = () => {
         <Toolbar>
           <InputControl
             className={classes.searchInput}
-            label="Search Academic Faculty"
+            label="Search Assign Faculty Subject"
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">

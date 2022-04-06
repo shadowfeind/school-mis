@@ -37,9 +37,13 @@ const TeacherNotificationForm = ({ setOpenPopup, fcmTokenList }) => {
 
     temp.MessageHeading = !fieldValues.MessageHeading
       ? "This Field is Required"
+      : fieldValues.MessageHeading && fieldValues.MessageHeading?.length > 160
+      ? "Must be less than 160 characters"
       : "";
     temp.MessageDescription = !fieldValues.MessageDescription
       ? "This Field is Required"
+      : fieldValues.MessageDescription && fieldValues.MessageDescription?.length > 160
+      ? "Must be less than 160 characters"
       : "";
 
     setErrors({ ...temp });

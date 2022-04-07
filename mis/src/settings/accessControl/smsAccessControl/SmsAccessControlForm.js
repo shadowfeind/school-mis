@@ -37,7 +37,7 @@ const SmsAccessControlForm = ({ smsCreate, setOpenPopup, smsEdit }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (validate()) {
-      if (values.IDHRCompany === 0) {
+      if (values.IDSMSControl === 0) {
         dispatch(postSmsAccessControlAction(values));
       } else {
         dispatch(putSmsAccessControlAction(values));
@@ -63,7 +63,7 @@ const SmsAccessControlForm = ({ smsCreate, setOpenPopup, smsEdit }) => {
     <>
       <Form onSubmit={handleSubmit}>
         <Grid container style={{ fontSize: "12px" }}>
-        <Grid item xs={12}>
+        <Grid item xs={6}>
           <SelectControl
             name="SMSHeader"
             label="SMS Header"
@@ -79,7 +79,7 @@ const SmsAccessControlForm = ({ smsCreate, setOpenPopup, smsEdit }) => {
             errors={errors.SMSHeader}
           />
           </Grid>
-          <Grid item xs={12}>
+          <Grid item xs={6}>
             <SelectControl
               name="IsActive"
               label="IsActive"

@@ -23,7 +23,7 @@ const useStyles = makeStyles({
 
   const SmsAccessControlTableCollapse = ({
     item,
-    updateCollegeHandler,
+    updateSMSHandler,
   }) => {
     const classes = useStyles();
 
@@ -39,7 +39,7 @@ const useStyles = makeStyles({
               variant="contained"
               color="secondary"
               className={classes.button}
-            //   onClick={() => updateCollegeHandler(item.dbModelLst)}
+              onClick={() => updateSMSHandler(item.IDSMSControl,item.IDHRCompany)}
             >
               <EditIcon style={{ fontSize: 12 }} />
             </Button>

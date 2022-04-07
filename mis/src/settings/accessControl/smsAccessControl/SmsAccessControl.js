@@ -219,7 +219,7 @@ const { singleEditSmsAccessControl,success: singleEditSmsAccessControlSuccess, e
         }
       };
 
-      const updateHrValueHandler = (id, company) => {
+      const updateSMSHandler = (id, company) => {
         dispatch(getSingleEditSmsAccessControlAction(id, company));
         setOpenPopup(true);
       };
@@ -294,7 +294,7 @@ const { singleEditSmsAccessControl,success: singleEditSmsAccessControlSuccess, e
                   <SmsAccessControlTableCollapse
                     item={item}
                     key={item.$id}
-                    updateHrValueHandler={updateHrValueHandler}
+                    updateSMSHandler={updateSMSHandler}
                   />
                 ))}
               </TableBody>

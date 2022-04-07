@@ -2,16 +2,17 @@
 // export const API_URL = "http://103.90.86.151:100";
 // export const API_URL = "http://192.168.1.85:88";
 
-// import jwt_decode from "jwt-decode";
-// import axios from "axios";
-// import moment from "moment";
+import jwt_decode from "jwt-decode";
+import axios from "axios";
+import moment from "moment";
 
 export const API_URL = "http://vidyacube.com";
 // export const API_URL = "http://localhost:4995";
 
-export const USER_SESSION = sessionStorage.getItem("blueberrytoken")
+const USER_SESSION = sessionStorage.getItem("blueberrytoken")
   ? sessionStorage.getItem("blueberrytoken")
   : null;
+
 let userSession = sessionStorage.getItem("blueberrytoken")
   ? sessionStorage.getItem("blueberrytoken")
   : null;
@@ -47,50 +48,50 @@ export const tokenHeader = {
 //   },
 // };
 
-// export const axiosInstance = axios.create({
-//   baseURL: API_URL,
-//   headers: {
-//     "Content-Type": "application/json",
-//     Authorization: `Bearer ${userSession}`,
-//   },
-// });
+export const axiosInstance = axios.create({
+  baseURL: API_URL,
+  headers: {
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${userSession}`,
+  },
+});
 
-// axiosInstance.interceptors.request.use(async (req) => {
-//   const user = jwt_decode(userSession);
-//   const isExpired = user.exp - moment().unix() < 1;
-//   console.log(user.exp);
-//   console.log(moment.unix(user.exp));
-//   console.log(moment().unix());
-//   console.log(isExpired);
+axiosInstance.interceptors.request.use(async (req) => {
+  const user = jwt_decode(userSession);
+  const isExpired = user.exp - moment().unix() < 1;
+  console.log(user.exp);
+  console.log(moment.unix(user.exp));
+  console.log(moment().unix());
+  console.log(isExpired);
 
-//   if (!isExpired) return req;
+  if (!isExpired) return req;
 
-//   const dataForRefreshToken = {
-//     AccessToken: userSession,
-//     RefreshToken: userRefreshToken,
-//   };
+  const dataForRefreshToken = {
+    AccessToken: userSession,
+    RefreshToken: userRefreshToken,
+  };
 
-//   const JSONdata = JSON.stringify(dataForRefreshToken);
-//   const config = { headers: { "Content-Type": "application/json" } };
+  const JSONdata = JSON.stringify(dataForRefreshToken);
+  const config = { headers: { "Content-Type": "application/json" } };
 
-//   console.log(JSONdata);
+  console.log(JSONdata);
 
-//   try {
-//     const { data } = await axios.post(
-//       "http://vidyacube.com/api/RefreshTokenGenerator/RefreshToken",
-//       JSONdata,
-//       config
-//     );
-//     console.log(data);
+  try {
+    const { data } = await axios.post(
+      "http://vidyacube.com/api/RefreshTokenGenerator/RefreshToken",
+      JSONdata,
+      config
+    );
+    console.log(data);
 
-//     sessionStorage.setItem("blueberrytoken", data.AccessToken);
-//     userSession = data.AccessToken;
-//     req.headers.Authorization = `Bearer ${data.AccessToken}`;
-//   } catch (error) {
-//     console.log(
-//       error.response.data.Message ? error.response.data.Message : error.message
-//     );
-//   }
+    sessionStorage.setItem("blueberrytoken", data.AccessToken);
+    userSession = data.AccessToken;
+    req.headers.Authorization = `Bearer ${data.AccessToken}`;
+  } catch (error) {
+    console.log(
+      error.response.data.Message ? error.response.data.Message : error.message
+    );
+  }
 
-//   return req;
-// });
+  return req;
+});

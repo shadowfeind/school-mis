@@ -20,6 +20,7 @@ import { GET_HEADER_CONTENT_RESET } from "../dashboard/DashboardConstants";
 import { API_URL } from "../constants";
 import { UPLOADPHOTO_RESET } from "../userProfile/uploadPhoto/UploadPhotoConstants";
 import { useHistory } from "react-router-dom";
+import { PUT_HR_VALUE_RESET } from "../settings/schoolConfiguration/hrValue/HrValueConstants";
 
 const useStyles = makeStyles({
   root: {
@@ -118,6 +119,11 @@ const Header = () => {
   const { success: uploadPhotoSuccess } = useSelector(
     (state) => state.uploadPhoto
   );
+
+  const { success: putUploadPhotoSuccess } = useSelector(
+    (state) => state.putHrValue
+  );
+
   if (uploadPhotoSuccess) {
     dispatch({ type: UPLOADPHOTO_RESET });
     dispatch(getHeaderContentAction());
@@ -127,6 +133,11 @@ const Header = () => {
       dispatch(getHeaderContentAction());
     }
   }, [headerContent, dispatch]);
+  useEffect(() => {
+    if (putUploadPhotoSuccess) {
+      dispatch(getHeaderContentAction());
+    }
+  }, [putUploadPhotoSuccess]);
   if (headerContentError) {
     dispatch({ type: GET_HEADER_CONTENT_RESET });
     setNotify({

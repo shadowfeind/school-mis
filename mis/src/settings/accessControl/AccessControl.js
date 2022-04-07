@@ -9,6 +9,9 @@ import { useDispatch } from "react-redux";
 const PermissionByRole = lazy(() =>
   import("./PermissionByRole/PermissionByRole")
 );
+const SmsAccessControl = lazy(() =>
+  import("./smsAccessControl/SmsAccessControl")
+);
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -78,11 +81,20 @@ const AccessControl = () => {
             label="Permission By Role"
             {...a11yProps(0)}
           />
-        </Tabs>
+       
+        <Tab
+            style={{ fontSize: "11px", color: "#fff" }}
+            label="SMS Access Control"
+            {...a11yProps(1)}
+          />
+           </Tabs>
       </AppBar>
       <Suspense fallback={<div></div>}>
         <TabPanel value={value} index={0}>
           <PermissionByRole />
+        </TabPanel>
+        <TabPanel value={value} index={1}>
+          <SmsAccessControl />
         </TabPanel>
       </Suspense>
     </div>

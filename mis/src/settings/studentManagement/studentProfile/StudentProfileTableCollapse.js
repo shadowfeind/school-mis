@@ -146,7 +146,7 @@ const StudentProfileTableCollapse = ({
             <Collapse in={index === selectedIndex} timeout="auto" unmountOnExit>
               <Box margin={1}>
                 <Typography variant="p" gutterBottom component="div">
-                  Details
+                  <h3>Details:</h3>
                 </Typography>
                 <Grid container>
                   <Grid item md={4}>
@@ -201,7 +201,7 @@ const StudentProfileTableCollapse = ({
                       </ListItem>
                     </List>
                   </Grid>
-                  <Grid item md={4} style={{alignItems:"right"}}>
+                  <Grid item md={4} style={{}}>
                   <List>
                     <ListItem>
                     <img src={`${API_URL}${detailImagePath}`}  width="150px" height="150px"/>

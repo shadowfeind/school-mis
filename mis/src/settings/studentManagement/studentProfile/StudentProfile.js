@@ -483,6 +483,7 @@ const StudentProfile = () => {
                   index={index}
                   setSelectedIndex={setSelectedIndex}
                   ImagePathLst={listStudentProfile.ImagePathLst}
+                  detailImagePath={singleStudentProfileDetails?.searchFilterModelStudent.ImageFullPath}
                   year={listStudentProfile.searchFilterModel.idAcademicYear}
                   program={
                     listStudentProfile.searchFilterModel.idFacultyProgramLink

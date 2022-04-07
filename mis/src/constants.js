@@ -2,9 +2,9 @@
 // export const API_URL = "http://103.90.86.151:100";
 // export const API_URL = "http://192.168.1.85:88";
 
-import jwt_decode from "jwt-decode";
+// import jwt_decode from "jwt-decode";
 import axios from "axios";
-import moment from "moment";
+// import moment from "moment";
 
 export const API_URL = "http://vidyacube.com";
 // export const API_URL = "http://localhost:4995";

@@ -396,6 +396,7 @@ import { getAllEcaDataReducer, getBulkEditEcaDataReducer, getListEcaDataReducer,
 import { getAllHrValueReducer, getListHrValueReducer, getSingleToCreateHrValueReducer, getSingleToEditHrValueReducer, postFileUploadHeaderBannerReducer, postFileUploadPrincipleSignatureReducer, postFileUploadSchoolLogoReducer, postHrValueReducer, putHrValueReducer } from "./settings/schoolConfiguration/hrValue/HrValueReducers";
 import { getAllClassNotificationReducer, getBulkClassNotificationReducer, getListClassNotificationReducer, postClassNotificationReducer } from "./notification/classNotification/ClassNotificationReducers";
 import { getAllTeacherNotificationReducer, getListTeacherNotificationReducer, getSingleCreateTeacherNotificationReducer, postTeacherNotificationReducer } from "./notification/teacherNotification/TeacherNotificationRedcuers";
+import { getAllSmsAccessControlReducer, getListSmsAccessControlReducer, getSingleToCreateSmsAccessControlReducer, getSingleToEditSmsAccessControlReducer, postSmsAccessControlReducer, putSmsAccessControlReducer } from "./settings/accessControl/smsAccessControl/SmsAccessControlReducers";
 
 //examination reducers link end
 export const reducers = combineReducers({
@@ -742,4 +743,12 @@ export const reducers = combineReducers({
   getListTeacherNotification : getListTeacherNotificationReducer,
   getSingleCreateTeacherNotification : getSingleCreateTeacherNotificationReducer,
   postTeacherNotification : postTeacherNotificationReducer,
+
+  //SMS Access Control Reducers:
+  getAllSmsAccessControl : getAllSmsAccessControlReducer,
+  getListSmsAccessControl : getListSmsAccessControlReducer,
+  getSingleToCreateSmsAccessControl : getSingleToCreateSmsAccessControlReducer,
+  getSingleToEditSmsAccessControl : getSingleToEditSmsAccessControlReducer,
+  postSmsAccessControl : postSmsAccessControlReducer,
+  putSmsAccessControl : putSmsAccessControlReducer,
 });

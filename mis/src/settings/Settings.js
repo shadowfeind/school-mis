@@ -108,7 +108,7 @@ const Settings = () => {
           />
           <Tab
             style={{ fontSize: "11px", color: "#fff" }}
-            label="HR Value"
+            label="School Value"
             {...a11yProps(5)}
           />
         </Tabs>

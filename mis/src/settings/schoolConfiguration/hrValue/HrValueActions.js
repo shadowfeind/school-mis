@@ -97,47 +97,68 @@ export const postCreateHrValueAction =
   (dbData, image, image1, image2) => async (dispatch) => {
     try {
       dispatch({ type: POST_HR_VALUE_REQUEST });
+      let headerBanner;
+      let schoolLookup;
+      let principleSignature;
 
-      let formData = new FormData();
-      formData.append("ImageUploaded", image);
+      if (image) {
+        let formData = new FormData();
+        formData.append("ImageUploaded", image);
 
-      const { data: headerBanner } = await axios.post(
-        `${API_URL}/api/HRValue/FileUploadHeaderBanner
+        const { data: headerBannerData } = await axios.post(
+          `${API_URL}/api/HRValue/FileUploadHeaderBanner
         `,
-        formData,
-        tokenConfig
-      );
+          formData,
+          tokenConfig
+        );
+        headerBanner = headerBannerData || "";
+      }
 
-      let formData1 = new FormData();
-      formData1.append("ImageUploaded1", image1);
+      if (image1) {
+        let formData1 = new FormData();
+        formData1.append("ImageUploaded1", image1);
 
-      const { data: schoolLookup } = await axios.post(
-        `${API_URL}/api/HRValue/FileUploadSchoolLogo
+        const { data: schoolLookupData } = await axios.post(
+          `${API_URL}/api/HRValue/FileUploadSchoolLogo
         `,
-        formData1,
-        tokenConfig
-      );
+          formData1,
+          tokenConfig
+        );
+        schoolLookup = schoolLookupData || "";
+      }
 
-      let formData2 = new FormData();
-      formData2.append("ImageUploaded2", image2);
+      if (image2) {
+        let formData2 = new FormData();
+        formData2.append("ImageUploaded2", image2);
 
-      const { data: PrincipleSignature } = await axios.post(
-        `${API_URL}/api/HRValue/FileUploadPrincipleSignature
+        const { data: principleSignatureData } = await axios.post(
+          `${API_URL}/api/HRValue/FileUploadPrincipleSignature
         `,
-        formData2,
-        tokenConfig
-      );
+          formData2,
+          tokenConfig
+        );
 
-      if ((headerBanner, schoolLookup, PrincipleSignature)) {
+        principleSignature = principleSignatureData || "";
+      }
+
+      if ((headerBanner, schoolLookup, principleSignature)) {
         const newData = {
           ...dbData,
           HeaderBanner: headerBanner,
           SchoolLogo: schoolLookup,
-          PrincipleSignature: PrincipleSignature,
+          PrincipleSignature: principleSignature,
         };
 
         const jsonData = JSON.stringify({ dbModel: newData });
-        console.log(jsonData);
+        console.log("with image", jsonData);
+        await axios.post(
+          `${API_URL}/api/HRValue/PostHRValue`,
+          jsonData,
+          tokenConfig
+        );
+      } else {
+        const jsonData = JSON.stringify({ dbModel: dbData });
+        console.log("without image", jsonData);
         await axios.post(
           `${API_URL}/api/HRValue/PostHRValue`,
           jsonData,
@@ -160,52 +181,72 @@ export const putEditHrValueAction =
     try {
       dispatch({ type: PUT_HR_VALUE_REQUEST });
 
-      let formData = new FormData();
-      formData.append("ImageUploaded", image);
+      let headerBanner;
+      let schoolLookup;
+      let principleSignature;
 
-      const { data: headerBanner } = await axios.post(
-        `${API_URL}/api/HRValue/FileUploadHeaderBanner
+      if (image) {
+        let formData = new FormData();
+        formData.append("ImageUploaded", image);
+
+        const { data: headerBannerData } = await axios.post(
+          `${API_URL}/api/HRValue/FileUploadHeaderBanner
         `,
-        formData,
-        tokenConfig
-      );
-
-      let formData1 = new FormData();
-      formData1.append("ImageUploaded1", image1);
-
-      const { data: schoolLookup } = await axios.post(
-        `${API_URL}/api/HRValue/FileUploadSchoolLogo
-        `,
-        formData1,
-        tokenConfig
-      );
-
-      let formData2 = new FormData();
-      formData2.append("ImageUploaded2", image2);
-
-      const { data: PrincipleSignature } = await axios.post(
-        `${API_URL}/api/HRValue/FileUploadPrincipleSignature
-        `,
-        formData2,
-        tokenConfig
-      );
-
-      if ((headerBanner, schoolLookup, PrincipleSignature)) {
-        const newData = {
-          ...dbData,
-          HeaderBanner: headerBanner,
-          SchoolLogo: schoolLookup,
-          PrincipleSignature: PrincipleSignature,
-        };
-
-        const jsonData = JSON.stringify({ dbModel: newData });
-        console.log(jsonData);
-        await axios.put(
-          `${API_URL}/api/HRValue/PutHRValue`,
-          jsonData,
+          formData,
           tokenConfig
         );
+
+        headerBanner = headerBannerData;
       }
+
+      if (image1) {
+        let formData1 = new FormData();
+        formData1.append("ImageUploaded1", image1);
+
+        const { data: schoolLookupData } = await axios.post(
+          `${API_URL}/api/HRValue/FileUploadSchoolLogo
+        `,
+          formData1,
+          tokenConfig
+        );
+        schoolLookup = schoolLookupData;
+      }
+
+      if (image2) {
+        let formData2 = new FormData();
+        formData2.append("ImageUploaded2", image2);
+
+        const { data: principleSignatureData } = await axios.post(
+          `${API_URL}/api/HRValue/FileUploadPrincipleSignature
+        `,
+          formData2,
+          tokenConfig
+        );
+
+        principleSignature = principleSignatureData;
+      }
+
+      let newData = {
+        ...dbData,
+      };
+      if (headerBanner) {
+        newData.HeaderBanner = headerBanner;
+      }
+      if (schoolLookup) {
+        newData.SchoolLogo = schoolLookup;
+      }
+      if (principleSignature) {
+        newData.PrincipleSignature = principleSignature;
+      }
+
+      const jsonData = JSON.stringify({ dbModel: newData });
+      console.log(jsonData);
+      await axios.put(
+        `${API_URL}/api/HRValue/PutHRValue`,
+        jsonData,
+        tokenConfig
+      );
+
       dispatch({
         type: PUT_HR_VALUE_SUCCESS,
       });

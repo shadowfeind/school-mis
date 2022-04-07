@@ -19,8 +19,9 @@ export const getAllHolidayAction = () => async (dispatch) => {
   try {
     dispatch({ type: GET_ALL_HOLIDAY_REQUEST });
 
-    const { data } = await axiosInstance.get(
-      `/api/Att_HRHoliday/GetAtt_HRHoliday`
+    const { data } = await axios.get(
+      `${API_URL}/api/Att_HRHoliday/GetAtt_HRHoliday`,
+      tokenConfig
     );
 
     dispatch({ type: GET_ALL_HOLIDAY_SUCCESS, payload: data });

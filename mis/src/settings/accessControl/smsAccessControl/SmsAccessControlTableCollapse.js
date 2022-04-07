@@ -37,7 +37,7 @@ const useStyles = makeStyles({
           <TableCell>
             <Button
               variant="contained"
-              color="secondary"
+              color="primary"
               className={classes.button}
               onClick={() => updateSMSHandler(item.IDSMSControl,item.IDHRCompany)}
             >

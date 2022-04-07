@@ -51,15 +51,15 @@ const StudentProfileUploadPhotoForm = ({ uploadPhoto }) => {
         errors={errors.image}
       />
 
-      {/* <img
+      <img
         src={
           imgSrc
             ? imgSrc
-            : uploadPhoto && `${API_URL}${uploadPhoto.IDHREmployee.ImagePathLst}`
+            : uploadPhoto && `${API_URL}${uploadPhoto.dbModel?.ImageUploaded}`
         }
         height={200}
         width={200}
-      /> */}
+      />
       <div
         style={{
           display: "flex",

@@ -228,7 +228,7 @@ export const updateSingleStudentAction =
   };
 
 
-  export const postUploadPhotoAction = (id,image, dbData) => async (dispatch) => {
+  export const postUploadPhotoAction = (id,image) => async (dispatch) => {
     try {
       dispatch({ type: POST_UPLOAD_PHOTO_REQUEST });
   
@@ -240,7 +240,7 @@ export const updateSingleStudentAction =
         formData,
         tokenConfig
       );
-
+console.log(data);
   // console.log(data)
       // if (data) {
       //   const newData = {

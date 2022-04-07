@@ -35,6 +35,7 @@ const useStyles = makeStyles({
 const StudentProfileTableCollapse = ({
   item,
   updateFormHandler,
+  detailImagePath,
   addHandler,
   index,
   ImagePathLst,
@@ -72,7 +73,6 @@ const StudentProfileTableCollapse = ({
   };
 
   const currentImagePath = ImagePathLst?.filter(x => x.Key === item.IDHREmployee)
-
 
   const handleReset = (id) => {
     dispatch(
@@ -149,7 +149,7 @@ const StudentProfileTableCollapse = ({
                   Details
                 </Typography>
                 <Grid container>
-                  <Grid item md={6}>
+                  <Grid item md={4}>
                     <List key={item.$id * 0.002}>
                       <ListItem>
                         <strong>Email</strong>: {studentDetails.EmailID}
@@ -171,7 +171,7 @@ const StudentProfileTableCollapse = ({
                       </ListItem>
                     </List>
                   </Grid>
-                  <Grid item md={6} style={{}}>
+                  <Grid item md={4} style={{}}>
                     <List>
                       <ListItem>
                         <Button
@@ -200,6 +200,13 @@ const StudentProfileTableCollapse = ({
                         {studentDetails.Status ? "Active" : "InActive"}
                       </ListItem>
                     </List>
+                  </Grid>
+                  <Grid item md={4} style={{alignItems:"right"}}>
+                  <List>
+                    <ListItem>
+                    <img src={`${API_URL}${detailImagePath}`}  width="150px" height="150px"/>
+                    </ListItem>
+                  </List>
                   </Grid>
                 </Grid>
               </Box>

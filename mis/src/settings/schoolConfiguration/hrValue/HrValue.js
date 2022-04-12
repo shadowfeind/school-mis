@@ -211,13 +211,12 @@ const HrValue = () => {
 
   useEffect(() => {
     dispatch({ type: "GET_LINK", payload: "/settings" });
-    if (!allHrValue) {
-      dispatch(getALLHrValueAction());
-    }
     if (allHrValue) {
       setCompanyDdl(allHrValue.searchFilterModel.ddlCompany);
     }
   }, [dispatch, allHrValue]);
+
+  
 
   const validate = () => {
     let temp = {};
@@ -231,6 +230,11 @@ const HrValue = () => {
       setTableData(listHrValue.dbModelLst);
     }
   }, [listHrValue]);
+
+  useEffect(()=>{
+    dispatch({ type : GET_LIST_HR_VALUE_RESET})
+    dispatch(getALLHrValueAction());
+  },[])
 
   const createHandler = () => {
     if (validate()) {
@@ -308,6 +312,7 @@ const HrValue = () => {
           <LoadingComp />
         ) : (
           <>
+          {listHrValue && (
         <TableContainer className={classes.table}>
           <TblHead />
           <TableBody>
@@ -320,7 +325,8 @@ const HrValue = () => {
             ))}
           </TableBody>
         </TableContainer>
-        <TblPagination />
+          )}
+        {listHrValue && <TblPagination />}
         </>
         )}
       </CustomContainer>

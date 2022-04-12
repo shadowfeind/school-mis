@@ -24,6 +24,7 @@ import {
   GET_SINGLE_STUDENT_REGISTRATION_DATA_SUCCESS,
   GET_STUDENT_REGISTRATION_DATA_FAIL,
   GET_STUDENT_REGISTRATION_DATA_REQUEST,
+  GET_STUDENT_REGISTRATION_DATA_RESET,
   GET_STUDENT_REGISTRATION_DATA_SUCCESS,
   SINGLE_STUDENT_REGISTRATION_CREATE_FAIL,
   SINGLE_STUDENT_REGISTRATION_CREATE_REQUEST,
@@ -58,6 +59,8 @@ export const getStudentRegistrationDataReducer = (state = {}, action) => {
       return { loading: false, studentRegistration: action.payload };
     case GET_STUDENT_REGISTRATION_DATA_FAIL:
       return { loading: false, error: action.payload };
+      case GET_STUDENT_REGISTRATION_DATA_RESET:
+      return {};
     default:
       return state;
   }

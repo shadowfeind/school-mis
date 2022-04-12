@@ -7,6 +7,7 @@ import {
   GET_ALL_EXAM_ENTRY_BULK_SUCCESS,
   GET_ALL_EXAM_ENTRY_SEARCHDATA_FAIL,
   GET_ALL_EXAM_ENTRY_SEARCHDATA_REQUEST,
+  GET_ALL_EXAM_ENTRY_SEARCHDATA_RESET,
   GET_ALL_EXAM_ENTRY_SEARCHDATA_SUCCESS,
   GET_EVENT_FAIL,
   GET_EVENT_REQUEST,
@@ -69,6 +70,8 @@ export const getExamEntrySearchDataReducer = (state = {}, action) => {
       return { loading: false, searchData: action.payload, success: true };
     case GET_ALL_EXAM_ENTRY_SEARCHDATA_FAIL:
       return { loading: false, error: action.payload };
+      case GET_ALL_EXAM_ENTRY_SEARCHDATA_RESET:
+      return {};
     default:
       return state;
   }

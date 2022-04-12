@@ -27,6 +27,7 @@ import {
   GET_ALL_ASSIGN_FACULTY_SUBJECT_SUCCESS,
   GET_LIST_ASSIGN_FACULTY_SUBJECT_FAIL,
   GET_LIST_ASSIGN_FACULTY_SUBJECT_REQUEST,
+  GET_LIST_ASSIGN_FACULTY_SUBJECT_RESET,
   GET_LIST_ASSIGN_FACULTY_SUBJECT_SUCCESS,
   GET_SINGLE_ASSIGN_FACULTY_SUBJECT_EDIT_REQUEST,
   GET_SINGLE_ASSIGN_FACULTY_SUBJECT_FAIL,
@@ -56,6 +57,8 @@ export const getListAssignFacultySubjectReducer = (state = {}, action) => {
       return { loading: false, academicSubjectsList: action.payload };
     case GET_LIST_ASSIGN_FACULTY_SUBJECT_FAIL:
       return { loading: false, error: action.payload };
+      case GET_LIST_ASSIGN_FACULTY_SUBJECT_RESET:
+      return {};
     default:
       return state;
   }

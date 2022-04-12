@@ -33,6 +33,7 @@ import {
   ASSIGN_FACULTY_SUBJECT_GENERATE_RESET,
   ASSIGN_FACULTY_SUBJECT_GET_RESET,
   ASSIGN_FACULTY_SUBJECT_POST_RESET,
+  GET_LIST_ASSIGN_FACULTY_SUBJECT_RESET,
 } from "./AssignFacultySubjectConstants";
 import AssignFacultySubjectFormEdit from "./AssignFacultySubjectFormEdit";
 
@@ -151,9 +152,6 @@ const AssignFacultySubject = () => {
   };
 
   useEffect(() => {
-    if (!allAcademicSubjects) {
-      dispatch(getALLAssignFacultySubject());
-    }
     if (allAcademicSubjects) {
       // setTableData(academicYearCalendar.dbModelLst);
       setProgramDdl(
@@ -163,6 +161,11 @@ const AssignFacultySubject = () => {
       setAcademicYearDdl(allAcademicSubjects.searchFilterModel.ddlAcademicYear);
     }
   }, [dispatch, allAcademicSubjects]);
+
+  useEffect(()=>{
+    dispatch({type:GET_LIST_ASSIGN_FACULTY_SUBJECT_RESET})
+    dispatch(getALLAssignFacultySubject());
+  },[])
 
   const {
     TableContainer,

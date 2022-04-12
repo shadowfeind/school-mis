@@ -158,13 +158,14 @@ const SchoolSettings = () => {
   };
 
   useEffect(() => {
-    if (!schoolSettings) {
-      dispatch(getAllSchoolSettingsAction());
-    }
     if (schoolSettings) {
       setTableData(schoolSettings.dbModelLstTest);
     }
   }, [dispatch, schoolSettings]);
+
+  useEffect(()=>{
+    dispatch(getAllSchoolSettingsAction());
+  },[])
 
   const {
     TableContainer,

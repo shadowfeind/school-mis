@@ -25,6 +25,7 @@ import {
 } from "./ExamMarkEntryActions";
 import SelectControl from "../../components/controls/SelectControl";
 import {
+  GET_ALL_EXAM_ENTRY_SEARCHDATA_RESET,
   GET_EVENT_RESET,
   GET_EXAM_SCHEDULE_HEADER_RESET,
 } from "./ExamMarkEntryConstants";
@@ -143,9 +144,6 @@ const ExamMarkEntry = () => {
   }
   useEffect(() => {
     dispatch({ type: "GET_LINK", payload: "examination" });
-    if (!allAcademicStudentExamData) {
-      dispatch(getAllAcademicStudentExamdataAction());
-    }
     if (allAcademicStudentExamData) {
       setProgramDdl(
         allAcademicStudentExamData.searchFilterModel.ddlFacultyProgramLink
@@ -160,6 +158,11 @@ const ExamMarkEntry = () => {
       setDdlSection(allAcademicStudentExamData.searchFilterModel.ddlSection);
     }
   }, [allAcademicStudentExamData, dispatch]);
+
+  useEffect(()=>{
+    dispatch({type:GET_ALL_EXAM_ENTRY_SEARCHDATA_RESET})
+    dispatch(getAllAcademicStudentExamdataAction());
+  },[])
 
   useEffect(() => {
     if (searchData) {

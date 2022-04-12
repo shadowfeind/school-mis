@@ -28,6 +28,7 @@ import StudentRegistrationForm from "./StudentRegistrationForm";
 import {
   CREATE_SINGLE_STUDENT_REGISTRATION_RESET,
   GET_SINGLE_STUDENT_REGISTRATION_DATA_RESET,
+  GET_STUDENT_REGISTRATION_DATA_RESET,
   SINGLE_STUDENT_REGISTRATION_EDIT_RESET,
 } from "./StudentRegistrationConstants";
 
@@ -156,9 +157,6 @@ const StudentRegistration = () => {
 
   useEffect(() => {
     dispatch({ type: "GET_LINK", payload: "registration" });
-    if (!studentRegistrationInitialData) {
-      dispatch(getInitialStudentRegistrationDataAction());
-    }
     if (studentRegistrationInitialData) {
       setAcademicYearDdl(
         studentRegistrationInitialData.searchFilterModel.ddlAcademicYear
@@ -169,6 +167,11 @@ const StudentRegistration = () => {
       setDdlClass(studentRegistrationInitialData.searchFilterModel.ddlClass);
     }
   }, [dispatch, studentRegistrationInitialData]);
+
+  useEffect(()=>{
+    dispatch({type: GET_STUDENT_REGISTRATION_DATA_RESET})
+    dispatch(getInitialStudentRegistrationDataAction());
+  },[])
 
   useEffect(() => {
     if (studentRegistration) {

@@ -190,13 +190,15 @@ const { singleEditSmsAccessControl,success: singleEditSmsAccessControlSuccess, e
 
       useEffect(() => {
         dispatch({ type: "GET_LINK", payload: "/settings" });
-        if (!allSmsAccessControl) {
-          dispatch(getAllSmsAccessControlAction());
-        }
         if (allSmsAccessControl) {
           setCompanyDdl(allSmsAccessControl.searchFilterModel.ddlCompany);
         }
       }, [dispatch, allSmsAccessControl]);
+
+      useEffect(()=>{
+        dispatch({type: GET_LIST_SMS_ACCESS_CONTROL_RESET})
+        dispatch(getAllSmsAccessControlAction());
+      },[])
 
       const validate = () => {
         let temp = {};
@@ -287,6 +289,7 @@ const { singleEditSmsAccessControl,success: singleEditSmsAccessControlSuccess, e
               <LoadingComp />
             ) : (
               <>
+              {listSmsAccessControl && (
             <TableContainer className={classes.table}>
               <TblHead />
               <TableBody>
@@ -299,7 +302,8 @@ const { singleEditSmsAccessControl,success: singleEditSmsAccessControlSuccess, e
                 ))}
               </TableBody>
             </TableContainer>
-            <TblPagination />
+              )}
+            {listSmsAccessControl && <TblPagination />}
             </>
             )}
           </CustomContainer>

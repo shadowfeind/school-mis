@@ -14,6 +14,7 @@ import {
   PRINT_STUDENTS_ADMIT_CARD_SUCCESS,
   SEARCH_STUDENTS_FOR_ADMIT_CARD_FAIL,
   SEARCH_STUDENTS_FOR_ADMIT_CARD_REQUEST,
+  SEARCH_STUDENTS_FOR_ADMIT_CARD_RESET,
   SEARCH_STUDENTS_FOR_ADMIT_CARD_SUCCESS,
 } from "./PrintAdminCardConstants";
 
@@ -64,6 +65,8 @@ export const searchStudentsForAdmitCardDataReducer = (state = {}, action) => {
       };
     case SEARCH_STUDENTS_FOR_ADMIT_CARD_FAIL:
       return { loading: false, error: action.payload };
+      case SEARCH_STUDENTS_FOR_ADMIT_CARD_RESET:
+      return {};
     default:
       return state;
   }

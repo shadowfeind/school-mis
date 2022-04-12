@@ -233,13 +233,15 @@ const ClassSubject = () => {
   }
 
   useEffect(() => {
-    if (!allClassSubjects) {
-      dispatch(getALLClassSubjectAction());
-    }
     if (allClassSubjects) {
       setDdlClass(allClassSubjects.searchFilterModel.ddlClass);
     }
   }, [dispatch, allClassSubjects]);
+
+  useEffect(()=>{
+    dispatch({type: GET_CLASS_SUBJECT_LIST_RESET})
+    dispatch(getALLClassSubjectAction());
+  },[])
 
   const validate = () => {
     let temp = {};

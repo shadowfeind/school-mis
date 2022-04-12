@@ -19,6 +19,7 @@ import ConfirmDialog from "../../../components/ConfirmDialog";
 import {
   ACADEMIC_YEAR_CALENDAR_CREATE_POST_RESET,
   ACADEMIC_YEAR_CALENDAR_CREATE_RESET,
+  ACADEMIC_YEAR_CALENDAR_SEARCH_RESET,
   GET_ALL_ACADEMIC_YEAR_CALENDAR_RESET,
   GET_SINGLE_ACADEMIC_YEAR_CALENDAR_RESET,
   UPDATE_SINGLE_ACADEMIC_YEAR_CALENDAR_RESET,
@@ -181,9 +182,6 @@ const AcademicYearCalendar = () => {
   };
 
   useEffect(() => {
-    if (!academicYearCalendar) {
-      dispatch(getAllAcademicYearCalendarAction());
-    }
     if (academicYearCalendar) {
       setProgramDdl(
         academicYearCalendar.searchFilterModel.ddlFacultyProgramLink
@@ -194,6 +192,11 @@ const AcademicYearCalendar = () => {
       );
     }
   }, [dispatch, academicYearCalendar]);
+
+  useEffect(()=>{
+    dispatch({type: ACADEMIC_YEAR_CALENDAR_SEARCH_RESET})
+    dispatch(getAllAcademicYearCalendarAction());
+  },[])
 
   useEffect(() => {
     if (academicSearch) {

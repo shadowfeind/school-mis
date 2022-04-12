@@ -194,9 +194,6 @@ const StudentMonthlyPresentSheet = () => {
   }
 
   useEffect(() => {
-    if (!allStudentMonthlyPresentSheetData) {
-      dispatch(getAllStudentPresentSheetDataAction());
-    }
     if (allStudentMonthlyPresentSheetData) {
       setProgramDdl(
         allStudentMonthlyPresentSheetData.searchFilterModel
@@ -228,6 +225,11 @@ const StudentMonthlyPresentSheet = () => {
       setNepYear(allStudentMonthlyPresentSheetData.searchFilterModel.npYear);
     }
   }, [allStudentMonthlyPresentSheetData, dispatch]);
+
+  useEffect(()=>{
+    dispatch({type:GET_LIST_STUDENT_PRESENT_RESET})
+    dispatch(getAllStudentPresentSheetDataAction());
+  },[])
 
   useEffect(() => {
     if (subjectOptions) {

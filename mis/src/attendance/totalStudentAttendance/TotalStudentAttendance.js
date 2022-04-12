@@ -156,9 +156,6 @@ const TotalStudentAttendance = () => {
   }
 
   useEffect(() => {
-    if (!allTotalStudentAttendanceData) {
-      dispatch(getAllTotalStudentAttendanceAction());
-    }
     if (allTotalStudentAttendanceData) {
       setProgramDdl(
         allTotalStudentAttendanceData.searchFilterModel.ddlFacultyProgramLink
@@ -179,6 +176,11 @@ const TotalStudentAttendance = () => {
       );
     }
   }, [allTotalStudentAttendanceData, dispatch]);
+
+  useEffect(()=>{
+    dispatch({type:GET_LIST_TOTAL_STUDENT_ATTENDANCE_RESET})
+    dispatch(getAllTotalStudentAttendanceAction());
+  },[])
 
   useEffect(() => {
     if (subjectOptions) {

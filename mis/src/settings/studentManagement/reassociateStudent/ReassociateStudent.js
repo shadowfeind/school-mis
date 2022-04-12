@@ -29,6 +29,7 @@ import ReassociateStudentLevelUp from "./ReassociateStudentLevelUp";
 import {
   GET_REASSOCIATE_STUDENTS_LEVEL_UP_POST_RESET,
   GET_REASSOCIATE_STUDENTS_LEVEL_UP_RESET,
+  GET_REASSOCIATE_STUDENTS_LISTS_RESET,
   GET_SINGLE_TO_EDIT_REASSOCIATE_STUDENTS_RESET,
   PUT_REASSOCIATE_STUDENTS_RESET,
 } from "./ReassociateStudentConstants";
@@ -221,9 +222,6 @@ const ReassociateStudent = () => {
     setAcademicYearValue(e.target.value);
   };
   useEffect(() => {
-    if (!allReassociateStudents) {
-      dispatch(getAllReassociateStudentsAction());
-    }
     if (allReassociateStudents) {
       setAcademicYear(allReassociateStudents.searchFilterModel.ddlAcademicYear);
       setShift(allReassociateStudents.searchFilterModel.ddlAcademicShift);
@@ -234,6 +232,11 @@ const ReassociateStudent = () => {
       setClassOpt(allReassociateStudents.searchFilterModel.ddlClass);
     }
   }, [allReassociateStudents]);
+
+  useEffect(()=>{
+    dispatch({type:GET_REASSOCIATE_STUDENTS_LISTS_RESET})
+    dispatch(getAllReassociateStudentsAction());
+  },[])
 
   useEffect(() => {
     if (reassociateStudentLists) {

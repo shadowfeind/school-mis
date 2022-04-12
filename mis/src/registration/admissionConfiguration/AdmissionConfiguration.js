@@ -205,9 +205,6 @@ const AdmissionConfiguration = () => {
 
   useEffect(() => {
     dispatch({ type: "GET_LINK", payload: "registration" });
-    if (!getAdmissionConfigInitialData) {
-      dispatch(getAdmissionConfigInitialDataAction());
-    }
     if (getAdmissionConfigInitialData) {
       setAcademicYearDdl(
         getAdmissionConfigInitialData.searchFilterModel.ddlAcademicYear
@@ -217,6 +214,11 @@ const AdmissionConfiguration = () => {
       );
     }
   }, [getAdmissionConfigInitialData, dispatch]);
+
+  useEffect(()=>{
+    dispatch({type: GET_ADMISSION_CONFIG_LIST_DATA_RESET})
+    dispatch(getAdmissionConfigInitialDataAction());
+  },[])
 
   useEffect(() => {
     if (getAdmissionConfigListData) {

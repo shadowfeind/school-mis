@@ -256,9 +256,6 @@ const StudentAttendance = () => {
 
   useEffect(() => {
     dispatch({ type: "GET_LINK", payload: "examination" });
-    if (!studentAttendanceInitData) {
-      dispatch(getAllStudentAttendanceInitialDataAction());
-    }
     if (studentAttendanceInitData) {
       setProgramDdl(
         studentAttendanceInitData.searchFilterModel.ddlFacultyProgramLink
@@ -276,6 +273,12 @@ const StudentAttendance = () => {
       setEndDate(studentAttendanceInitData.searchFilterModel.EndDate);
     }
   }, [studentAttendanceInitData, dispatch]);
+
+  useEffect(()=>{
+    dispatch({type:GET_ALL_STUDEN_ATTENDANCE_RESET})
+    dispatch({type:GET_GENERATED_STUDENT_ATTENDANCE_RESET})
+    dispatch(getAllStudentAttendanceInitialDataAction());
+  },[])
 
   useEffect(() => {
     if (allStudentAttendance) {

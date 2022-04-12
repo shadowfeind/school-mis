@@ -16,6 +16,7 @@ import ConfirmDialog from "../../../components/ConfirmDialog";
 import SelectControl from "../../../components/controls/SelectControl";
 import DatePickerControl from "../../../components/controls/DatePickerControl";
 import {
+  GET_ACTIVE_STUDENTS_FOR_STUDENT_ID_CARD_RESET,
   GET_INITIAL_STUDENT_ID_CARD_DATA_RESET,
   GET_PRINT_BULK_STUDENTS_FOR_STUDENT_ID_CARD_RESET,
 } from "./StudentIdCardConstants";
@@ -137,9 +138,6 @@ const StudentIdCard = () => {
   }
 
   useEffect(() => {
-    if (!studentIdCardInitialData) {
-      dispatch(getInitialStudentIdCardDataAction());
-    }
     if (studentIdCardInitialData) {
       setProgramDdl(
         studentIdCardInitialData.searchFilterModel.ddlFacultyProgramLink
@@ -153,6 +151,11 @@ const StudentIdCard = () => {
       setDate(studentIdCardInitialData.searchFilterModel.ValidityDate?.slice(0,10));
     }
   }, [studentIdCardInitialData, dispatch]);
+
+  useEffect(()=>{
+    dispatch({type:GET_ACTIVE_STUDENTS_FOR_STUDENT_ID_CARD_RESET})
+    dispatch(getInitialStudentIdCardDataAction());
+  },[])
 
   const validate = () => {
     let temp = {};

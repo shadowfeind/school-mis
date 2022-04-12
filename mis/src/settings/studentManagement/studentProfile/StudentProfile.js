@@ -270,9 +270,6 @@ const StudentProfile = () => {
   const deleteCollegeHandler = (id) => {};
 
   useEffect(() => {
-    if (!studentProfile) {
-      dispatch(getAllStudentProfileAction());
-    }
     if (studentProfile) {
       setAcademicYear(studentProfile.searchFilterModel.ddlAcademicYear);
       setShift(studentProfile.searchFilterModel.ddlAcademicShift);
@@ -282,6 +279,11 @@ const StudentProfile = () => {
       setStatus(studentProfile.searchFilterModel.ddlLevelStatus);
     }
   }, [dispatch, studentProfile]);
+
+  useEffect(()=>{
+    dispatch({type:GET_LIST_STUDENT_PROFILE_RESET})
+    dispatch(getAllStudentProfileAction());
+  },[])
 // useEffect(()=>{
 //   if(uploadPhoto){
 //     dispatch(getUploadPhotoAction())
@@ -470,10 +472,9 @@ const StudentProfile = () => {
           <LoadingComp />
         ) : (
           <>
-        <TableContainer className={classes.table}>
-          <TblHead />
-        
           {listStudentProfile && (
+        <TableContainer className={classes.table}>
+          <TblHead /> 
             <TableBody>
               {tableDataAfterPagingAndSorting().map((item, index) => (
                 <StudentProfileTableCollapse
@@ -492,7 +493,7 @@ const StudentProfile = () => {
                   classId={listStudentProfile.searchFilterModel.idClass}
                   shift={listStudentProfile.searchFilterModel.idShift}
                   status={listStudentProfile.searchFilterModel.LevelStatus}
-                  studentDetails={singleStudentProfileDetails}
+                  // studentDetails={singleStudentProfileDetails}
                   studentDetails={
                     singleStudentProfileDetails &&
                     singleStudentProfileDetails.hrEmployeeModel
@@ -505,8 +506,8 @@ const StudentProfile = () => {
                 />
               ))}
             </TableBody>
-          )}
         </TableContainer>
+         )}
         {listStudentProfile && <TblPagination />}
         </>
         )}

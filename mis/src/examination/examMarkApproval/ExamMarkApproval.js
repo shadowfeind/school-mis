@@ -36,6 +36,7 @@ import {
 import ExamMarkApprovalTableCollapse from "./ExamMarkApprovalTableCollapse";
 import ExamMarkApprovalBulk from "./ExamMarkApprovalBulk";
 import {
+  GET_ALL_EXAM_APPROVAL_SEARCHDATA_RESET,
   GET_EXAM_APPROVAL_SCHEULE_HEADER_RESET,
   POST_BULK_EXAM_APPROVAL_RESET,
 } from "./ExamMarkApprovalConstants";
@@ -250,9 +251,6 @@ const ExamMarkApproval = () => {
 
   useEffect(() => {
     dispatch({ type: "GET_LINK", payload: "examination" });
-    if (!examApprovalInitialDatas) {
-      dispatch(getInitialExamApprovalDataAction());
-    }
     if (examApprovalInitialDatas) {
       setProgramDdl(
         examApprovalInitialDatas.searchFilterModel.ddlFacultyProgramLink
@@ -265,6 +263,11 @@ const ExamMarkApproval = () => {
       setDdlSection(examApprovalInitialDatas.searchFilterModel.ddlSection);
     }
   }, [examApprovalInitialDatas, dispatch]);
+
+  useEffect(()=>{
+    dispatch({type:GET_ALL_EXAM_APPROVAL_SEARCHDATA_RESET})
+    dispatch(getInitialExamApprovalDataAction());
+  },[])
 
   useEffect(() => {
     if (searchData) {

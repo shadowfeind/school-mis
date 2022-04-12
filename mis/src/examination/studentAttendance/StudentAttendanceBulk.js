@@ -158,6 +158,9 @@ const StudentAttendanceBulk = ({
                       label="Absent Day"
                       variant="outlined"
                       name="AbsentDay"
+                      onWheelCapture={e => {
+  e.target.blur()
+}}
                       onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}
                       inputProps={{ tabIndex: "2" }}
                       onChange={(e) =>

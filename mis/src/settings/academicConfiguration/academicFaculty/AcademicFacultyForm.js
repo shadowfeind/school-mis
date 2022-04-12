@@ -115,6 +115,9 @@ const AcademicFacultyForm = ({ academicFaculty, selected, setOpenPopup }) => {
             name="TotalSeat"
             label="TotalSeat"
             value={values.TotalSeat}
+            onWheelCapture={e => {
+  e.target.blur()
+}}
             onFocus={e => {
       e.target.select();
     }}

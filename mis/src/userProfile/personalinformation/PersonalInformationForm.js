@@ -344,6 +344,9 @@ const PersonalInformationForm =({personalInformation, setOpenPopup})=>{
           label="Bank Account"
           value={values.BankAC}
           onChange={handleInputChange}
+          onWheelCapture={e => {
+  e.target.blur()
+}}
           onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()} 
           errors={errors.BankAC}
           type="number"

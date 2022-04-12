@@ -147,6 +147,9 @@ const AssignFacultySubjectFormEdit = ({
             onFocus={e => {
       e.target.select();
     }}
+    onWheelCapture={e => {
+  e.target.blur()
+}}
             onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}
             value={values.CreditHour}
             type="number"

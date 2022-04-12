@@ -281,6 +281,9 @@ const EmployeeForm = ({ employee, setOpenPopup }) => {
             name="MobileNumber"
             label="Mobile Number*"
             value={values.MobileNumber}
+            onWheelCapture={e => {
+  e.target.blur()
+}}
             onFocus={e => {
       e.target.select();
     }}
@@ -312,6 +315,9 @@ const EmployeeForm = ({ employee, setOpenPopup }) => {
             onFocus={e => {
       e.target.select();
     }}
+    onWheelCapture={e => {
+  e.target.blur()
+}}
             onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}
             type="number"
             onChange={handleInputChange}

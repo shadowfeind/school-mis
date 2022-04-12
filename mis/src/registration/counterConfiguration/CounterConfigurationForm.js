@@ -100,6 +100,9 @@ const CounterConfigurationForm = ({
             name="CounterYear"
             label="Counter Year"
             value={values.CounterYear}
+            onWheelCapture={e => {
+  e.target.blur()
+}}
             type="number"
             variant="outlined"
             onFocus={e => {
@@ -128,6 +131,9 @@ const CounterConfigurationForm = ({
             onFocus={e => {
       e.target.select();
     }}
+    onWheelCapture={e => {
+  e.target.blur()
+}}
             type="number"
             onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}
             variant="outlined"

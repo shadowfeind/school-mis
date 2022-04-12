@@ -20,6 +20,7 @@ import SelectControl from "../../components/controls/SelectControl";
 import {
   DOWNLOAD_OLD_QUESTIONS_RESET,
   GET_ALL_OLD_QUESTIONS_RESET,
+  GET_LIST_OF_OLD_QUESTIONS_RESET,
   GET_SINGLE_TO_CREATE_OLD_QUESTIONS_RESET,
   GET_SINGLE_TO_EDIT_OLD_QUESTIONS_RESET,
   GET_SUBJECT_OF_OLD_QUESTIONS_RESET,
@@ -225,13 +226,15 @@ const OldQuestions = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    if (!allOldQuestions) {
-      dispatch(getAllOldQuestionsAction());
-    }
     if (allOldQuestions) {
       setDdlClass(allOldQuestions.searchFilterModel.ddlClass);
     }
   }, [dispatch, allOldQuestions]);
+
+  useEffect(()=>{
+    dispatch({type: GET_LIST_OF_OLD_QUESTIONS_RESET})
+    dispatch(getAllOldQuestionsAction());
+  },[])
 
   useEffect(() => {
     if (listOldQuestions) {

@@ -25,7 +25,7 @@ import {
 } from "./PrintAdminCardActions";
 import { getEventAction } from "../examMarkEntry/ExamMarkEntryActions";
 import { GET_EVENT_RESET } from "../examMarkEntry/ExamMarkEntryConstants";
-import { GET_ACTIVE_STUDENTS_FOR_ADMIT_CARD_RESET } from "./PrintAdminCardConstants";
+import { GET_ACTIVE_STUDENTS_FOR_ADMIT_CARD_RESET, SEARCH_STUDENTS_FOR_ADMIT_CARD_RESET } from "./PrintAdminCardConstants";
 import PrintAdminCardTableCollapse from "./PrintAdminCardTableCollapse";
 import DatePickerControl from "../../components/controls/DatePickerControl";
 import PrintAdminCardPrint from "./PrintAdminCardPrint";
@@ -176,9 +176,6 @@ const PrintAdminCard = () => {
 
   useEffect(() => {
     dispatch({ type: "GET_LINK", payload: "examination" });
-    if (!admitCardInitialData) {
-      dispatch(getInitialStudentRegistrationDataAction());
-    }
     if (admitCardInitialData) {
       setProgramDdl(
         admitCardInitialData.searchFilterModel.ddlFacultyProgramLink
@@ -191,6 +188,11 @@ const PrintAdminCard = () => {
       setDdlSection(admitCardInitialData.searchFilterModel.ddlSection);
     }
   }, [admitCardInitialData, dispatch]);
+
+  useEffect(()=>{
+    dispatch({type:SEARCH_STUDENTS_FOR_ADMIT_CARD_RESET})
+    dispatch(getInitialStudentRegistrationDataAction());
+  },[])
 
   useEffect(() => {
     if (searchStudentsForAdmitCard) {

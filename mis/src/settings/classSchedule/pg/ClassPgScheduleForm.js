@@ -25,7 +25,7 @@ const ClassPgScheduleForm = ({ schedule, setOpenPopup }) => {
   const dispatch = useDispatch();
   const validate = () => {
     let temp = { ...errors };
-    temp.img = !image ? "This feild is required" : "";
+    // temp.img = !image ? "This feild is required" : "";
 
     setErrors({ ...temp });
     return Object.values(temp).every((x) => x === "");
@@ -66,7 +66,7 @@ const ClassPgScheduleForm = ({ schedule, setOpenPopup }) => {
             label="Select File"
             onChange={(e) => fileValidation(e, setImage, setImgSrc)}
             type="file"
-            errors={errors.img}
+            // errors={errors.img}
           />
 
           <img

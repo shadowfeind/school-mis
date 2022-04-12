@@ -179,6 +179,9 @@ const HrValueForm = ({ hrValueCreate, setOpenPopup, hrValueEdit }) => {
             name="TelNo"
             label="Tel-No*"
             value={values.TelNo}
+            onWheelCapture={e => {
+  e.target.blur()
+}}
             onFocus={e => {
       e.target.select();
     }}

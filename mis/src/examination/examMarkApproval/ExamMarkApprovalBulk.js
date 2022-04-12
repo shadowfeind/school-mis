@@ -131,6 +131,9 @@ const ExamMarkApprovalBulk = ({
                       id={`theory_${subject.IDHREmployee}`}
                       name="ObtainedMark"
                       value={subject.ObtainedMark}
+                      onWheelCapture={e => {
+  e.target.blur()
+}}
                       type="number"
                       label="Obtained Mark"
                       onFocus={e => {
@@ -156,6 +159,9 @@ const ExamMarkApprovalBulk = ({
                       id={`practical_${subject.IDHREmployee}`}
                       value={subject.ObtainedMarkPractical}
                       name="ObtainedMarkPractical"
+                      onWheelCapture={e => {
+  e.target.blur()
+}}
                       type="number"
                       label="Obtained Practical Mark"
                       variant="outlined"

@@ -50,7 +50,7 @@ export const SettingsRoute = [
     icon: ChromeReaderMode,
     exact: false,
   },
-  { name: "Notice", route: "/notice", icon: PostAdd, exact: false },
+  // { name: "Notice", route: "/notice", icon: PostAdd, exact: false },
   
   {
     name: "Old Questions",

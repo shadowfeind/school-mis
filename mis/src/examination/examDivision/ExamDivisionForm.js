@@ -86,6 +86,9 @@ const ExamDivisionForm = ({ examDivision, setOpenPopup }) => {
             onChange={handleInputChange}
             onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}
             type="number"
+            onWheelCapture={e => {
+  e.target.blur()
+}}
             errors={errors.StartRange}
           />
 
@@ -110,6 +113,9 @@ const ExamDivisionForm = ({ examDivision, setOpenPopup }) => {
             name="EndRange"
             label="End Range"
             type="number"
+            onWheelCapture={e => {
+  e.target.blur()
+}}
             value={values.EndRange}
             onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}
             onChange={handleInputChange}

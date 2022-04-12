@@ -30,6 +30,7 @@ import {
   GET_COUNTER_CONFIG_INITIAL_DATA_FOR_CREATE_RESET,
   GET_COUNTER_CONFIG_INITIAL_DATA_FOR_EDIT_RESET,
   GET_COUNTER_CONFIG_INITIAL_DATA_RESET,
+  GET_COUNTER_CONFIG_LIST_RESET,
 } from "./CounterConfigurationConstants";
 import CounterConfigurationTableCollapse from "./CounterConfigurationTableCollapse";
 
@@ -179,9 +180,6 @@ const CounterConfiguration = () => {
 
   useEffect(() => {
     dispatch({ type: "GET_LINK", payload: "registration" });
-    if (!getAcademicConfigInitialData) {
-      dispatch(getCounterConfigInitialDataAction());
-    }
     if (getAcademicConfigInitialData) {
       setAcademicYearDdl(
         getAcademicConfigInitialData.searchFilterModel.ddlAcademicYear
@@ -191,6 +189,11 @@ const CounterConfiguration = () => {
       );
     }
   }, [dispatch, getAcademicConfigInitialData]);
+
+  useEffect(()=>{
+    dispatch({type:GET_COUNTER_CONFIG_LIST_RESET})
+    dispatch(getCounterConfigInitialDataAction());
+  },[])
 
   useEffect(() => {
     if (counterConfigList) {

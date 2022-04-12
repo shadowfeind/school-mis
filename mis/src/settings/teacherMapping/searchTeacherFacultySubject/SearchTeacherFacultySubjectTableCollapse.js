@@ -3,20 +3,11 @@ import { Button, TableRow, TableCell, makeStyles } from "@material-ui/core";
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
 
-const useStyles = makeStyles({
-  button: {
-    marginRight: "1px",
-    padding: "5px",
-    minWidth: "10px",
-    fontSize: "12px",
-  },
-});
+
 
 const SearchTeacherFacultySubjectTableCollapse = ({
-  item,
-  updateTeacherHandler,
+  item
 }) => {
-  const classes = useStyles();
 
   return (
     <TableRow>

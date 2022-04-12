@@ -121,6 +121,9 @@ const ExamMarkEntryBulk = ({ bulkData, statusData }) => {
                       defaultValue={subject.ObtainedMark}
                       type="number"
                       onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}
+                      onWheelCapture={e => {
+  e.target.blur()
+}}
                       label="Obtained Mark"
                       variant="outlined"
                       inputProps={{ tabIndex: "1" }}
@@ -132,6 +135,9 @@ const ExamMarkEntryBulk = ({ bulkData, statusData }) => {
                       id={`practical_${subject.IDHREmployee}`}
                       defaultValue={subject.ObtainedMarkPractical}
                       type="number"
+                      onWheelCapture={e => {
+  e.target.blur()
+}}
                       onFocus={e => {
       e.target.select();
     }}
@@ -146,6 +152,9 @@ const ExamMarkEntryBulk = ({ bulkData, statusData }) => {
                     <TextField
                       id={`preterm_${subject.IDHREmployee}`}
                       defaultValue={subject.ObtainedMarkPreTerm}
+                      onWheelCapture={e => {
+  e.target.blur()
+}}
                       type="number"
                       onFocus={e => {
       e.target.select();

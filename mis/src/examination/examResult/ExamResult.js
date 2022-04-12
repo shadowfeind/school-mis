@@ -209,9 +209,6 @@ const ExamResult = () => {
 
   useEffect(() => {
     dispatch({ type: "GET_LINK", payload: "examination" });
-    if (!examResultInitialDatas) {
-      dispatch(getInitialExamResultDataAction());
-    }
     if (examResultInitialDatas) {
       setProgramDdl(
         examResultInitialDatas.searchFilterModel.ddlFacultyProgramLink
@@ -226,6 +223,11 @@ const ExamResult = () => {
       setNpYear(examResultInitialDatas.searchFilterModel.npYear);
     }
   }, [examResultInitialDatas, dispatch]);
+
+  useEffect(()=>{
+    dispatch({type:GET_EXAM_RESULT_LIST_RESET})
+    dispatch(getInitialExamResultDataAction());
+  },[])
 
   const validate = () => {
     let temp = {};

@@ -9,6 +9,7 @@ import {
   ACADEMIC_YEAR_CALENDAR_CREATE_SUCCESS,
   ACADEMIC_YEAR_CALENDAR_SEARCH_FAIL,
   ACADEMIC_YEAR_CALENDAR_SEARCH_REQUEST,
+  ACADEMIC_YEAR_CALENDAR_SEARCH_RESET,
   ACADEMIC_YEAR_CALENDAR_SEARCH_SUCCESS,
   GET_ACADEMIC_YEAR_CALENDAR_PROGRAM_FAIL,
   GET_ACADEMIC_YEAR_CALENDAR_PROGRAM_REQUEST,
@@ -102,6 +103,8 @@ export const academicYearCalendarSearchReducer = (state = {}, action) => {
       };
     case ACADEMIC_YEAR_CALENDAR_SEARCH_FAIL:
       return { loading: false, error: action.payload };
+      case ACADEMIC_YEAR_CALENDAR_SEARCH_RESET:
+      return {};
     default:
       return state;
   }

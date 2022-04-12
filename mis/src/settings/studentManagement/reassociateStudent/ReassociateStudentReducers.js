@@ -12,6 +12,7 @@ import {
   GET_REASSOCIATE_STUDENTS_LEVEL_UP_SUCCESS,
   GET_REASSOCIATE_STUDENTS_LISTS_FAIL,
   GET_REASSOCIATE_STUDENTS_LISTS_REQUEST,
+  GET_REASSOCIATE_STUDENTS_LISTS_RESET,
   GET_REASSOCIATE_STUDENTS_LISTS_SUCCESS,
   GET_SINGLE_TO_EDIT_REASSOCIATE_STUDENTS_FAIL,
   GET_SINGLE_TO_EDIT_REASSOCIATE_STUDENTS_REQUEST,
@@ -44,6 +45,8 @@ export const getReassociateStudentsListsReducer = (state = {}, action) => {
       return { loading: false, reassociateStudentLists: action.payload };
     case GET_REASSOCIATE_STUDENTS_LISTS_FAIL:
       return { loading: false, error: action.payload };
+      case GET_REASSOCIATE_STUDENTS_LISTS_RESET:
+        return {};
     default:
       return state;
   }

@@ -134,11 +134,11 @@ const AcademicConfiguration = () => {
             label="Assign Faculty Subject"
             {...a11yProps(9)}
           />
-          <Tab
+          {/* <Tab
             style={{ fontSize: "11px", color: "#fff" }}
             label="Assign Student Subject"
             {...a11yProps(10)}
-          />
+          /> */}
         
         </Tabs>
       </AppBar>
@@ -173,9 +173,9 @@ const AcademicConfiguration = () => {
         <TabPanel value={value} index={9}>
           <AssignFacultySubject />
         </TabPanel>
-        <TabPanel value={value} index={10}>
+        {/* <TabPanel value={value} index={10}>
           <AssignStudentSubject />
-        </TabPanel>
+        </TabPanel> */}
       </Suspense>
     </div>
   );

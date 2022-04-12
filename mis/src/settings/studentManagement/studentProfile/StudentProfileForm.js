@@ -298,6 +298,9 @@ const StudentProfileForm = ({ studentData, setOpenPopup }) => {
             name="MobileNumber"
             label="Mobile Number"
             value={values.MobileNumber}
+            onWheelCapture={e => {
+  e.target.blur()
+}}
             onFocus={e => {
       e.target.select();
     }}
@@ -310,6 +313,9 @@ const StudentProfileForm = ({ studentData, setOpenPopup }) => {
             name="OtherNumber"
             label="Other Number"
             value={values.OtherNumber}
+            onWheelCapture={e => {
+  e.target.blur()
+}}
             onFocus={e => {
       e.target.select();
     }}

@@ -144,6 +144,9 @@ const ExamScheduleForm = ({
                 name="FullMarkPractical"
                 label="Full Marks Practical"
                 value={values.FullMarkPractical}
+                onWheelCapture={e => {
+  e.target.blur()
+}}
                 onKeyDown={(e) =>
                   invalidChars.includes(e.key) && e.preventDefault()
                 }
@@ -165,6 +168,9 @@ const ExamScheduleForm = ({
                 invalidChars.includes(e.key) && e.preventDefault()
               }
               value={values.FullMark}
+              onWheelCapture={e => {
+  e.target.blur()
+}}
               onChange={(e) =>
                 (e.target.value <= 100) & (e.target.value >= 0) &&
                 handleInputChange(e)
@@ -227,6 +233,9 @@ const ExamScheduleForm = ({
       e.target.select();
     }}
               type="number"
+              onWheelCapture={e => {
+  e.target.blur()
+}}
               onKeyDown={(e) =>
                 invalidChars.includes(e.key) && e.preventDefault()
               }
@@ -240,6 +249,9 @@ const ExamScheduleForm = ({
               name="PassMark"
               label="Pass Mark"
               value={values.PassMark}
+              onWheelCapture={e => {
+  e.target.blur()
+}}
               onKeyDown={(e) =>
                 invalidChars.includes(e.key) && e.preventDefault()
               }
@@ -257,6 +269,9 @@ const ExamScheduleForm = ({
               name="GroupNumber"
               label="Group Number"
               value={values.GroupNumber}
+              onWheelCapture={e => {
+  e.target.blur()
+}}
               onFocus={e => {
       e.target.select();
     }}

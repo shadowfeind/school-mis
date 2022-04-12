@@ -464,6 +464,9 @@ const StudentRegistrationForm = ({
             onFocus={e => {
       e.target.select();
     }}
+    onWheelCapture={e => {
+  e.target.blur()
+}}
             onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}
             type="number"
             onChange={handleInputChange}
@@ -541,6 +544,9 @@ const StudentRegistrationForm = ({
             onFocus={e => {
       e.target.select();
     }}
+    onWheelCapture={e => {
+  e.target.blur()
+}}
             onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}
             onChange={handleInputChange}
             type="number"
@@ -608,6 +614,9 @@ const StudentRegistrationForm = ({
           <InputControl
             name="FatherContactNo"
             label="Father Contact Number*"
+            onWheelCapture={e => {
+  e.target.blur()
+}}
             onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}
             value={values.FatherContactNo}
             onFocus={e => {
@@ -644,6 +653,9 @@ const StudentRegistrationForm = ({
             name="LocalGuardianContactNo"
             label="SMS Number"
             value={values.LocalGuardianContactNo}
+            onWheelCapture={e => {
+  e.target.blur()
+}}
             onFocus={e => {
       e.target.select();
     }}

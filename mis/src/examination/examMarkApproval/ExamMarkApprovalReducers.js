@@ -1,6 +1,7 @@
 import {
   GET_ALL_EXAM_APPROVAL_SEARCHDATA_FAIL,
   GET_ALL_EXAM_APPROVAL_SEARCHDATA_REQUEST,
+  GET_ALL_EXAM_APPROVAL_SEARCHDATA_RESET,
   GET_ALL_EXAM_APPROVAL_SEARCHDATA_SUCCESS,
   GET_BULK_EXAM_APPROVAL_BLANK_PAGE_FAIL,
   GET_BULK_EXAM_APPROVAL_BLANK_PAGE_REQUEST,
@@ -44,6 +45,8 @@ export const getExamApprovalSearchDataReducer = (state = {}, action) => {
       return { loading: false, searchData: action.payload, success: true };
     case GET_ALL_EXAM_APPROVAL_SEARCHDATA_FAIL:
       return { loading: false, error: action.payload };
+      case GET_ALL_EXAM_APPROVAL_SEARCHDATA_RESET:
+      return {};
     default:
       return state;
   }

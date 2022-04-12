@@ -236,9 +236,6 @@ const TeacherFacultySubject = () => {
   };
 
   useEffect(() => {
-    if (!teacherFacInitData) {
-      dispatch(getAllTeacherFacSubInitialDataAction());
-    }
     if (teacherFacInitData) {
       setAcademicYear(teacherFacInitData.searchFilterModel.ddlAcademicYear);
       setShift(teacherFacInitData.searchFilterModel.ddlAcademicShift);
@@ -247,6 +244,11 @@ const TeacherFacultySubject = () => {
       setClassOpt(teacherFacInitData.searchFilterModel.ddlClass);
     }
   }, [teacherFacInitData]);
+
+  useEffect(()=>{
+    dispatch({type: GET_ALL_TEACHER_FAC_SUB_LIST_DATA_RESET})
+    dispatch(getAllTeacherFacSubInitialDataAction());
+  },[])
 
   useEffect(() => {
     if (teacherFacListData) {

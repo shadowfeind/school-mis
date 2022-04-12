@@ -111,6 +111,9 @@ const AcademicSectinoForm = ({ academicSection, setOpenPopup }) => {
             onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}
             onChange={handleInputChange}
             errors={errors.RoomCapacity}
+            onWheelCapture={e => {
+  e.target.blur()
+}}
             type="number"
           />
         </Grid>

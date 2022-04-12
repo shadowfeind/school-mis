@@ -47,9 +47,9 @@ const OldQuestionsForm =({singleCreateOldQuestions,
     temp.IsActive = !fieldValues.IsActive
     ? "This feild is required"
     : "";
-    temp.image = !image
-    ? "This feild is required"
-    : "";
+    // temp.image = !image
+    // ? "This feild is required"
+    // : "";
 
     setErrors({ ...temp });
     return Object.values(temp).every((x) => x === "");
@@ -148,14 +148,14 @@ const OldQuestionsForm =({singleCreateOldQuestions,
             // value={values.DocumentFile}
             onChange={(e) => fileValidation(e, setImage, setImgSrc)}
             type="file"
-            errors={errors.image}
+            // errors={errors.image}
           />
 
           <img
             src={
               imgSrc
                 ? imgSrc
-                : singleCreateOldQuestions && `${API_URL}${singleCreateOldQuestions.FullPath}`
+                : singleEditOldQuestions && `${API_URL}${singleEditOldQuestions.FullPath}`
             }
             height={200}
             width={200}

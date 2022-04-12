@@ -105,6 +105,9 @@ const AcademicGradingForm = ({ academicGradingEdit,academicGradingCreate, setOpe
             name="HonorPoint"
             label="Honor Point*"
             type="number"
+            onWheelCapture={e => {
+  e.target.blur()
+}}
             onFocus={e => {
       e.target.select();
     }}

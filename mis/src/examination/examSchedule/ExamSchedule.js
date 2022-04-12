@@ -20,6 +20,7 @@ import {
   DELETE_EXAM_SCHEDULE_RESET,
   GET_ALL_EXAM_SCHEDULE_INITIAL_DATA_RESET,
   GET_EVENT_FOR_EXAM_SCHEDULE_RESET,
+  GET_EXAM_SCHEDULE_LIST_RESET,
   GET_SINGLE_EXAM_SCHEDULE_CREATE_RESET,
   GET_SINGLE_EXAM_SCHEDULE_EDIT_RESET,
   POST_SINGLE_EXAM_SCHEDULE_CREATE_RESET,
@@ -238,9 +239,6 @@ const ExamSchedule = () => {
 
   useEffect(() => {
     dispatch({ type: "GET_LINK", payload: "examination" });
-    if (!examScheduleInitialData) {
-      dispatch(getAllExamScheduleInitialDataAction());
-    }
     if (examScheduleInitialData) {
       setProgramDdl(
         examScheduleInitialData.searchFilterModel.ddlFacultyProgramLink
@@ -251,6 +249,11 @@ const ExamSchedule = () => {
       );
     }
   }, [examScheduleInitialData, dispatch]);
+
+  useEffect(()=>{
+    dispatch({type:GET_EXAM_SCHEDULE_LIST_RESET})
+    dispatch(getAllExamScheduleInitialDataAction());
+  },[])
 
   useEffect(() => {
     if (examScheduleList) {

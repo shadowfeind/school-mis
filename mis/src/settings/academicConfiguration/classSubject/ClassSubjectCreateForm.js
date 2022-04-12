@@ -126,6 +126,9 @@ const ClassSubjectCreateForm = ({
                       id={`subject_${subject.IDAcademicSubject}`}
                       defaultValue={subject.CreditHour}
                       type="number"
+                      onWheelCapture={e => {
+  e.target.blur()
+}}
                       label="Credit Hours"
                       onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}
                       variant="outlined"

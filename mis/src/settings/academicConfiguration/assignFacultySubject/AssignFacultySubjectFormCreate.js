@@ -153,6 +153,9 @@ const AssignFacultySubjectFormCreate = ({
                     <TextField
                       id={`subject_${subject.IDAcademicSubject}`}
                       defaultValue={subject.CreditHour}
+                      onWheelCapture={e => {
+  e.target.blur()
+}}
                       type="number"
                       label="Credit Hours"
                       variant="outlined"

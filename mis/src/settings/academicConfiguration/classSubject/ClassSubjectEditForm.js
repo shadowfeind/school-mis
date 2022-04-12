@@ -62,6 +62,9 @@ const ClassSubjectEditForm = ({ singleClassSubject, setOpenPopupForm }) => {
             onFocus={e => {
       e.target.select();
     }}
+    onWheelCapture={e => {
+  e.target.blur()
+}}
             value={values.CreditHour}
             type="number"
             variant="outlined"

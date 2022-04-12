@@ -188,9 +188,6 @@ const GeneratePublishResult = () => {
 
   useEffect(() => {
     dispatch({ type: "GET_LINK", payload: "examination" });
-    if (!allGeneratePublish) {
-      dispatch(getAllGeneratePublishAction());
-    }
     if (allGeneratePublish) {
       setProgramDdl(allGeneratePublish.searchFilterModel.ddlFacultyProgramLink);
       setDdlClass(allGeneratePublish.searchFilterModel.ddlClass);
@@ -199,6 +196,12 @@ const GeneratePublishResult = () => {
       setDdlSection(allGeneratePublish.searchFilterModel.ddlSection);
     }
   }, [allGeneratePublish, dispatch]);
+
+  useEffect(()=>{
+    dispatch({type:GET_ALL_GENERATE_RESET})
+    dispatch({type:GET_ALL_GENERATE_PUBLISH_RESULT_RESET})
+    dispatch(getAllGeneratePublishAction());
+  },[])
 
   useEffect(() => {
     if (allGenerate) {

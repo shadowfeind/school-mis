@@ -156,9 +156,6 @@ const ClassNotification = () => {
 
   useEffect(() => {
     dispatch({ type: "GET_LINK", payload: "/notification" });
-    if (!classNotification) {
-      dispatch(getAllClassNotificationAction());
-    }
     if (classNotification) {
       setAcademicYear(classNotification.searchFilterModel.ddlAcademicYear);
       setShift(classNotification.searchFilterModel.ddlAcademicShift);
@@ -167,6 +164,11 @@ const ClassNotification = () => {
       setClassOpt(classNotification.searchFilterModel.ddlClass);
     }
   }, [dispatch, classNotification]);
+
+  useEffect(()=>{
+    dispatch({type:GET_LIST_CLASS_NOTIFICATION_RESET})
+    dispatch(getAllClassNotificationAction());
+  },[])
 
   useEffect(() => {
     if (listClassNotification) {
@@ -318,6 +320,7 @@ const ClassNotification = () => {
           <LoadingComp />
         ) : (
           <>
+          {listClassNotification && (
         <TableContainer className={classes.table}>
           <TblHead />
 
@@ -327,7 +330,8 @@ const ClassNotification = () => {
             ))}
           </TableBody>
         </TableContainer>
-        <TblPagination />
+          )}
+        {listClassNotification && <TblPagination />}
         </>
         )}
       </CustomContainer>

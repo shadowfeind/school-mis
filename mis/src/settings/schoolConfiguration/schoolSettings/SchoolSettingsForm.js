@@ -198,6 +198,9 @@ const SchoolSettingsForm = ({ college, setOpenPopup }) => {
             name="PhoneNo"
             label="Phone No*"
             value={values.PhoneNo}
+            onWheelCapture={e => {
+  e.target.blur()
+}}
             onFocus={e => {
       e.target.select();
     }}
@@ -210,6 +213,9 @@ const SchoolSettingsForm = ({ college, setOpenPopup }) => {
             name="AlternatePhoneNo"
             label="Alternative Phone No*"
             value={values.AlternatePhoneNo}
+            onWheelCapture={e => {
+  e.target.blur()
+}}
             onChange={handleInputChange}
             onFocus={e => {
       e.target.select();
@@ -234,6 +240,9 @@ const SchoolSettingsForm = ({ college, setOpenPopup }) => {
             name="FaxNo"
             label="Fax No*"
             value={values.FaxNo}
+            onWheelCapture={e => {
+  e.target.blur()
+}}
             onFocus={e => {
       e.target.select();
     }}
@@ -250,6 +259,9 @@ const SchoolSettingsForm = ({ college, setOpenPopup }) => {
       e.target.select();
     }}
             errors={errors.PanNo}
+            onWheelCapture={e => {
+  e.target.blur()
+}}
             onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}
             onChange={handleInputChange}
             type="number"

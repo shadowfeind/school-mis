@@ -113,17 +113,18 @@ const SearchTeacherFacultySubject = () => {
     tableDataAfterPagingAndSorting,
   } = useCustomTable(tableData, tableHeader, filterFn);
 
-  const handleSearch = (e) => {};
   useEffect(() => {
-    if (!searchTeacherFacInitData) {
-      dispatch(getAllSearchTeacherFacSubInitialDataAction());
-    }
     if (searchTeacherFacInitData) {
       setCreationAccountSection(
         searchTeacherFacInitData.searchFilterModel.ddlTeacher
       );
     }
   }, [searchTeacherFacInitData]);
+
+  useEffect(()=>{
+    dispatch({type:GET_ALL_SEARCH_TEACHER_FAC_SUB_LIST_DATA_RESET})
+    dispatch(getAllSearchTeacherFacSubInitialDataAction());
+  },[])
 
   useEffect(() => {
     if (searchTeacherFacListData) {
@@ -179,7 +180,7 @@ const SearchTeacherFacultySubject = () => {
           <LoadingComp />
         ) : (
           <>
-        {searchTeacherFacInitData && (
+        {searchTeacherFacListData && (
           <TableContainer className={classes.table}>
             <TblHead />
             <TableBody>
@@ -193,6 +194,7 @@ const SearchTeacherFacultySubject = () => {
             </TableBody>
           </TableContainer>
         )}
+        {searchTeacherFacListData && <TblPagination />}
         </>
         )}
       </CustomContainer>

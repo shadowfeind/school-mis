@@ -4,6 +4,9 @@ import {
   ACADEMIC_YEAR_CREATE_FAIL,
   ACADEMIC_YEAR_CREATE_REQUEST,
   ACADEMIC_YEAR_CREATE_SUCCESS,
+  GET_ACADEMIC_YEAR_CHECK_FAIL,
+  GET_ACADEMIC_YEAR_CHECK_REQUEST,
+  GET_ACADEMIC_YEAR_CHECK_SUCCESS,
   GET_ACADEMIC_YEAR_OPTION_FAIL,
   GET_ACADEMIC_YEAR_OPTION_REQUEST,
   GET_ACADEMIC_YEAR_OPTION_SUCCESS,
@@ -82,6 +85,24 @@ export const getAcademicYearOptionAction = () => async (dispatch) => {
     dispatch({
       type: GET_ACADEMIC_YEAR_OPTION_FAIL,
       payload: error.message ? error.message : error.Message,
+    });
+  }
+};
+
+export const getAcademicYearCheckAction = (yearName) => async (dispatch) => {
+  try {
+    dispatch({ type: GET_ACADEMIC_YEAR_CHECK_REQUEST });
+
+    const { data } = await axios.get(
+      `${API_URL}/api/AcademicYear/CheckAcademicYear?academicYearname=${yearName}`,
+      tokenConfig
+    );
+
+    dispatch({ type: GET_ACADEMIC_YEAR_CHECK_SUCCESS, payload: data });
+  } catch (error) {
+    dispatch({
+      type: GET_ACADEMIC_YEAR_CHECK_FAIL,
+      payload: error.Message ? error.Message : error.message,
     });
   }
 };

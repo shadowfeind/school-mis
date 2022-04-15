@@ -82,6 +82,7 @@ import {
 } from "./settings/academicConfiguration/academicFaculty/AcademicFacultyReducers";
 import {
   createAcademicYearReducer,
+  getAcademicYearCheckReducer,
   getAcademicYearOptionReducer,
   getAllAcademicYear,
   getSingleAcademicYearReducer,
@@ -388,7 +389,7 @@ import {
   getSubjectSyllabusReducer,
   putSyllabusReducer,
 } from "./settings/syllabus/syllabusPg/SyllabusReducers";
-import { getHeaderBannerReducer, getHeaderContentReducer } from "./dashboard/DashboardReducers";
+import { deleteLeaveRequestReducer, downloadLeaveRequestReducer, getAllLeaveRequestReducer, getHeaderBannerReducer, getHeaderContentReducer, getListLeaveRequestReducer, getSingleCreateLeaveRequestReducer, getSingleDeleteLeaveRequestReducer, getSingleEditLeaveRequestReducer, getSingleEditSentLeaveRequestReducer, postLeaveRequestReducer, putLeaveRequestReducer } from "./dashboard/DashboardReducers";
 
 import { getAllEcaLookUpReducer, getDetailEcaLookUpReducer, getListEcaLookUpReducer, getSingleCreateEcaLookUpReducer, getSingleEditEcaLookUpReducer, postEcaLookUpReducer, putEcaLookUpReducer } from "./settings/academicConfiguration/ecaLookUp/EcaLookUpReducers";
 import { getAllAssignEcaReducer, getListAssignEcaReducer, getSingleCreateAssignEcaReducer, postAssignEcaReducer } from "./settings/academicConfiguration/assignEca/AssignEcaReducers";
@@ -459,6 +460,7 @@ export const reducers = combineReducers({
   getSingleAcademicFaculty: getSingleAcademicFacultyReducer,
   updateSingleAcademicFaculty: updateSingleAcademicFacultyReducer,
   academicYear: getAllAcademicYear,
+  getAcademicYearCheck: getAcademicYearCheckReducer,
   createAcademicYear: createAcademicYearReducer,
   getAcademicYearOption: getAcademicYearOptionReducer,
   getSingleAcademicYear: getSingleAcademicYearReducer,
@@ -751,4 +753,16 @@ export const reducers = combineReducers({
   getSingleToEditSmsAccessControl : getSingleToEditSmsAccessControlReducer,
   postSmsAccessControl : postSmsAccessControlReducer,
   putSmsAccessControl : putSmsAccessControlReducer,
+
+  //Leave Request:
+  getAllLeaveRequest : getAllLeaveRequestReducer,
+  getListLeaveRequest : getListLeaveRequestReducer,
+  getSingleCreateLeaveRequest : getSingleCreateLeaveRequestReducer,
+  getSingleEditLeaveRequest : getSingleEditLeaveRequestReducer,
+  postLeaveRequest : postLeaveRequestReducer,
+  putLeaveRequest : putLeaveRequestReducer,
+  getSingleDeleteLeaveRequest : getSingleDeleteLeaveRequestReducer,
+  deleteLeaveRequest : deleteLeaveRequestReducer,
+  downloadLeaveRequest : downloadLeaveRequestReducer,
+  getSingleEditSentLeaveRequest : getSingleEditSentLeaveRequestReducer,
 });

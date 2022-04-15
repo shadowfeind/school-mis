@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import {
   withStyles,
   makeStyles,
+  Button,
   Card,
   Table,
   TableRow,
@@ -9,8 +10,19 @@ import {
   TableCell,
 } from "@material-ui/core";
 import useCustomTable from "../customHooks/useCustomTable";
+import { useDispatch, useSelector } from "react-redux";
+import EditIcon from "@material-ui/icons/Edit";
+import CloudDownloadIcon from "@material-ui/icons/CloudDownload";
+import { GET_LIST_LEAVE_REQUESTS_RESET } from "./DashboardConstants";
+import { getListLeaveRequestAction } from "./DashboardActions";
 
 const useStyles = makeStyles((theme) => ({
+  button: {
+    marginRight: "1px",
+    padding: "5px",
+    minWidth: "10px",
+    fontSize: "12px",
+  },
   table: {
     margin: "10px 0",
     "& thead th": {
@@ -42,27 +54,11 @@ const StyledTableRow = withStyles((theme) => ({
 }))(TableRow);
 
 const tableHeader = [
-  { id: "name", label: "Student Name" },
-  { id: "class", label: "Class" },
-  { id: "description", label: "Description" },
+  { id: "recieverName", label: "Sender Name" },
+  { id: "leaveDescription", label: "Leave Description" },
+  { id: "fromDate_toDate", label: "FromDate to ToDate" },
+  { id: "status", label: "Status" },
   { id: "actions", label: "Actions", disableSorting: true },
-];
-
-const data = [
-  { id: 1, name: "Suresh M. Sanu", class: "NINE", description: "Very tired" },
-  { id: 2, name: "Kiran Rai", class: "TWO", description: "Sick Leave" },
-  { id: 3, name: "Amir Karmacharya", class: "NINE", description: "Headache" },
-  { id: 4, name: "Ram Lal", class: "EN", description: "Stomach ache" },
-  { id: 5, name: "Pappu Singh", class: "EIGHT", description: "COVID" },
-  { id: 6, name: "Gita Maharjan", class: "SEVEN", description: "Injured" },
-  { id: 7, name: "Angelina Jolie", class: "FIVE", description: "Very tired" },
-  { id: 8, name: "Suresh M. Sanu", class: "NINE", description: "Very tired" },
-  { id: 9, name: "Kiran Rai", class: "TWO", description: "Sick Leave" },
-  { id: 10, name: "Amir Karmacharya", class: "NINE", description: "Headache" },
-  { id: 11, name: "Ram Lal", class: "EN", description: "Stomach ache" },
-  { id: 12, name: "Pappu Singh", class: "EIGHT", description: "COVID" },
-  { id: 13, name: "Gita Maharjan", class: "SEVEN", description: "Injured" },
-  { id: 14, name: "Angelina Jolie", class: "FIVE", description: "Very tired" },
 ];
 
 const DashboardLeaveApprove = () => {
@@ -77,11 +73,29 @@ const DashboardLeaveApprove = () => {
     useCustomTable(tableData, tableHeader, filterFn);
 
   const classes = useStyles();
+  const dispatch = useDispatch();
+
+  const { listLeaveRequest, listLeaveRequestError } = useSelector(
+    (state) => state.getListLeaveRequest
+  );
+
+  if (listLeaveRequestError) {
+    setNotify({
+      isOpen: true,
+      message: listLeaveRequestError,
+      type: "error",
+    });
+    dispatch({ type: GET_LIST_LEAVE_REQUESTS_RESET });
+  }
+
   useEffect(() => {
-    if (data) {
-      setTableData(data);
+    if (!listLeaveRequest) {
+      dispatch(getListLeaveRequestAction());
     }
-  }, [data]);
+    if (listLeaveRequest) {
+      setTableData(listLeaveRequest.dbModelReceiverLst);
+    }
+  }, [dispatch, listLeaveRequest]);
   return (
     <>
       <Table className={classes.table}>
@@ -91,31 +105,34 @@ const DashboardLeaveApprove = () => {
           {tableDataAfterPagingAndSorting().map((s) => (
             <StyledTableRow key={s.id}>
               <StyledTableCell component="th" scope="row">
-                {s.name}
+                {s.FirsName}
+                {s.MiddleName}
+                {s.LastName}
               </StyledTableCell>
-              <StyledTableCell align="left">{s.class}</StyledTableCell>
-              <StyledTableCell align="left">{s.description}</StyledTableCell>
               <StyledTableCell align="left">
-                <span
-                  style={{
-                    backgroundColor: "#ffd1d1",
-                    color: "#d14343",
-                    fontSize: "10px",
-                    padding: "5px 10px",
-                  }}
+                {s.LeaveDecription}
+              </StyledTableCell>
+              <StyledTableCell align="left">
+                {s.FromDate?.slice(0, 10)} /<div>{s.ToDate?.slice(0, 10)}</div>
+              </StyledTableCell>
+              <StyledTableCell align="left">{s.Status}</StyledTableCell>
+              <StyledTableCell align="left">
+                <Button
+                  variant="contained"
+                  color="primary"
+                  className={classes.button}
+                  // onClick={() => updateCollegeHandler(item.IDHREmployeeCategoryRole)}
                 >
-                  Approve
-                </span>
-                <span
-                  style={{
-                    backgroundColor: "#ddfaff",
-                    color: "#4f7b7f",
-                    fontSize: "10px",
-                    padding: "5px 10px",
-                  }}
+                  <EditIcon style={{ fontSize: 12 }} />
+                </Button>
+                <Button
+                  variant="contained"
+                  color="default"
+                  className={classes.button}
+                  // onClick={() => downloadHandler(item.Id)}
                 >
-                  Decline
-                </span>
+                  <CloudDownloadIcon style={{ fontSize: 12 }} />
+                </Button>
               </StyledTableCell>
             </StyledTableRow>
           ))}

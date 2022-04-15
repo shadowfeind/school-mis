@@ -3,6 +3,10 @@ import {
   ACADEMIC_YEAR_CREATE_REQUEST,
   ACADEMIC_YEAR_CREATE_RESET,
   ACADEMIC_YEAR_CREATE_SUCCESS,
+  GET_ACADEMIC_YEAR_CHECK_FAIL,
+  GET_ACADEMIC_YEAR_CHECK_REQUEST,
+  GET_ACADEMIC_YEAR_CHECK_RESET,
+  GET_ACADEMIC_YEAR_CHECK_SUCCESS,
   GET_ACADEMIC_YEAR_OPTION_FAIL,
   GET_ACADEMIC_YEAR_OPTION_REQUEST,
   GET_ACADEMIC_YEAR_OPTION_RESET,
@@ -60,6 +64,21 @@ export const getAcademicYearOptionReducer = (state = {}, action) => {
     case GET_ACADEMIC_YEAR_OPTION_FAIL:
       return { loading: false, error: action.payload };
     case GET_ACADEMIC_YEAR_OPTION_RESET:
+      return {};
+    default:
+      return state;
+  }
+};
+
+export const getAcademicYearCheckReducer = (state = {}, action) => {
+  switch (action.type) {
+    case GET_ACADEMIC_YEAR_CHECK_REQUEST:
+      return { loading: true };
+    case GET_ACADEMIC_YEAR_CHECK_SUCCESS:
+      return { loading: false, academicYearCheck: action.payload };
+    case GET_ACADEMIC_YEAR_CHECK_FAIL:
+      return { loading: false, error: action.payload };
+    case GET_ACADEMIC_YEAR_CHECK_RESET:
       return {};
     default:
       return state;

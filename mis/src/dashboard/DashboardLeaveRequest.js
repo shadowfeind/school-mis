@@ -3,13 +3,26 @@ import {
   withStyles,
   makeStyles,
   Table,
+  Button,
   TableRow,
   TableBody,
   TableCell,
 } from "@material-ui/core";
+import { useDispatch, useSelector } from "react-redux";
+import EditIcon from "@material-ui/icons/Edit";
+import DeleteIcon from "@material-ui/icons/Delete";
+import CloudDownloadIcon from "@material-ui/icons/CloudDownload";
 import useCustomTable from "../customHooks/useCustomTable";
+import { GET_ALL_LEAVE_REQUESTS_RESET, GET_LIST_LEAVE_REQUESTS_RESET } from "./DashboardConstants";
+import { getAllLeaveRequestAction, getListLeaveRequestAction } from "./DashboardActions";
 
 const useStyles = makeStyles((theme) => ({
+  button: {
+    marginRight: "1px",
+    padding: "5px",
+    minWidth: "10px",
+    fontSize: "12px",
+  },
   table: {
     margin: "10px 0",
     "& thead th": {
@@ -20,6 +33,7 @@ const useStyles = makeStyles((theme) => ({
       padding: "0.7vw",
     },
   },
+
 }));
 
 const StyledTableCell = withStyles((theme) => ({
@@ -41,29 +55,26 @@ const StyledTableRow = withStyles((theme) => ({
 }))(TableRow);
 
 const tableHeader = [
-  { id: "date", label: "Leave Date" },
-  { id: "description", label: "Description" },
-  { id: "actions", label: "Approved", disableSorting: true },
-];
-
-const data = [
-  { id: 1, date: "01-02-2021", description: "Very tired", approved: true },
-  { id: 2, date: "01-02-2021", description: "Sick Leave", approved: true },
-  { id: 3, date: "01-02-2021", description: "Headache", approved: false },
-  { id: 4, date: "01-02-2021", description: "Stomach ache", approved: true },
-  { id: 5, date: "01-02-2021", description: "COVID", approved: true },
-  { id: 6, date: "01-02-2021", description: "Injured", approved: true },
-  { id: 7, date: "01-02-2021", description: "Very tired", approved: false },
-  { id: 8, date: "01-02-2021", description: "Very tired", approved: true },
-  { id: 9, date: "01-02-2021", description: "Sick Leave", approved: true },
-  { id: 10, date: "01-02-2021", description: "Headache", approved: true },
-  { id: 11, date: "EN", description: "Stomach ache", approved: false },
-  { id: 12, date: "01-02-2021", description: "COVID", approved: true },
-  { id: 13, date: "01-02-2021", description: "Injured", approved: true },
-  { id: 14, date: "01-02-2021", description: "Very tired", approved: true },
+  { id: "recieverName", label: "Reciever Name" },
+  { id: "leaveDescription", label: "Leave Description" },
+  { id: "fromDate_toDate", label: "FromDate to ToDate" },
+  { id: "status", label: "Status" },
+  { id: "actions", label: "Actions", disableSorting: true },
 ];
 
 const DashboardLeaveRequest = () => {
+
+  const [notify, setNotify] = useState({
+    isOpen: false,
+    message: "",
+    type: "",
+  });
+  const [confirmDialog, setConfirmDialog] = useState({
+    isOpen: false,
+    title: "",
+    subTitle: "",
+  });
+
   const [tableData, setTableData] = useState([]);
   const [filterFn, setFilterFn] = useState({
     fn: (item) => {
@@ -74,12 +85,46 @@ const DashboardLeaveRequest = () => {
   const { TblHead, TblPagination, tableDataAfterPagingAndSorting } =
     useCustomTable(tableData, tableHeader, filterFn);
 
+    const dispatch = useDispatch();
   const classes = useStyles();
+
+  const { allLeaveRequest, error,loading } = useSelector(
+    (state) => state.getAllLeaveRequest
+  );
+
+  const { listLeaveRequest, listLeaveRequestError } = useSelector(
+    (state) => state.getListLeaveRequest
+  );
+
+  if (error) {
+    setNotify({
+      isOpen: true,
+      message: error,
+      type: "error",
+    });
+    dispatch({ type: GET_ALL_LEAVE_REQUESTS_RESET });
+  }
+
+  if (listLeaveRequestError) {
+    setNotify({
+      isOpen: true,
+      message: listLeaveRequestError,
+      type: "error",
+    });
+    dispatch({ type: GET_LIST_LEAVE_REQUESTS_RESET });
+  }
+
   useEffect(() => {
-    if (data) {
-      setTableData(data);
+    if (!listLeaveRequest) {
+      dispatch(getListLeaveRequestAction());
     }
-  }, [data]);
+    if (listLeaveRequest) {
+      setTableData(listLeaveRequest.dbModelLst);
+    }
+  }, [dispatch, listLeaveRequest]);
+
+
+
   return (
     <>
       <Table className={classes.table}>
@@ -89,34 +134,38 @@ const DashboardLeaveRequest = () => {
           {tableDataAfterPagingAndSorting().map((s) => (
             <StyledTableRow key={s.id}>
               <StyledTableCell component="th" scope="row">
-                {s.date}
+                {s.FirsName}{s.MiddleName}{s.LastName}
               </StyledTableCell>
-
-              <StyledTableCell align="left">{s.description}</StyledTableCell>
+              <StyledTableCell align="left">{s.LeaveDecription}</StyledTableCell>
+              <StyledTableCell align="left">{s.FromDate?.slice(0,10)} /<div>{s.ToDate?.slice(0,10)}</div></StyledTableCell>
               <StyledTableCell align="left">
-                {s.approved ? (
-                  <span
-                    style={{
-                      backgroundColor: "#ddfaff",
-                      color: "#4f7b7f",
-                      fontSize: "10px",
-                      padding: "5px 10px",
-                    }}
-                  >
-                    Approved
-                  </span>
-                ) : (
-                  <span
-                    style={{
-                      backgroundColor: "#ffd1d1",
-                      color: "#d14343",
-                      fontSize: "10px",
-                      padding: "5px 10px",
-                    }}
-                  >
-                    Declined
-                  </span>
-                )}
+                {s.Status}
+              </StyledTableCell>
+              <StyledTableCell>
+              <Button
+            variant="contained"
+            color="primary"
+            className={classes.button}
+            // onClick={() => updateCollegeHandler(item.IDHREmployeeCategoryRole)}
+          >
+            <EditIcon style={{ fontSize: 12 }} />
+          </Button>
+          <Button
+            variant="contained"
+            color="secondary"
+            className={classes.button}
+            // onClick={() => deleteCollegeHandler(item.IDHREmployeeCategoryRole)}
+          >
+            <DeleteIcon style={{ fontSize: 12 }} />
+          </Button>
+          <Button
+          variant="contained"
+          color="default"
+          className={classes.button}
+          // onClick={() => downloadHandler(item.Id)}
+        >
+          <CloudDownloadIcon style={{ fontSize: 12 }} />
+        </Button>
               </StyledTableCell>
             </StyledTableRow>
           ))}

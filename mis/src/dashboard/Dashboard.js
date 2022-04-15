@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Grid, makeStyles, Card } from "@material-ui/core";
+import { Grid,Button, makeStyles, Card } from "@material-ui/core";
 import { useDispatch } from "react-redux";
 
 import Holiday from "../settings/schoolConfiguration/holiday/Holiday";
@@ -11,6 +11,17 @@ import DashboardLeaveRequest from "./DashboardLeaveRequest";
 const useStyles = makeStyles((theme) => ({
   dashboardContainer: {
     padding: "30px",
+  },
+  button: {
+    float:"right",
+    display: "inline-block",
+    padding: "5px 10px",
+    margin: "0",
+    color:"#253053",
+    border: "2px solid #253053",
+    borderRadius: "10px",
+    fontSize: "12px",
+    cursor: "pointer",
   },
   cardStyle: {
     margin: "10px",
@@ -65,8 +76,17 @@ const Dashboard = () => {
                   onClick={() => setLeave("request")}
                 >
                   Leave Requests
-                </h4>
+                </h4>{" "}
+                {/* <div align="right"> */}
+                <Button
+                  className={classes.button}
+                  // onClick={() => setLeave("request")}
+                >
+                  Create
+                </Button>
+                {/* </div> */}
               </div>
+             
               {leave === "approve" ? (
                 <DashboardLeaveApprove />
               ) : (

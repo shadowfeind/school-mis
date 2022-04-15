@@ -10,8 +10,13 @@ import FormControl from "@material-ui/core/FormControl";
 import FormGroup from "@material-ui/core/FormGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
-import { AcademicYearCreateAction, updateSingleAcademicYearAction } from "./AcademicYearActions";
+import {
+  AcademicYearCreateAction,
+  getAcademicYearCheckAction,
+  updateSingleAcademicYearAction,
+} from "./AcademicYearActions";
 import DatePickerControl from "../../../components/controls/DatePickerControl";
+import { GET_ACADEMIC_YEAR_CHECK_RESET } from "./AcademicYearConstant";
 
 const initialFormValues = {
   IDAcademicYear: 0,
@@ -53,12 +58,8 @@ const AcademicYearForm = ({ academicYear, selected, setOpenPopup }) => {
       : !fieldValues.AcademicYear.trim()
       ? "This feild is required"
       : "";
-      temp.StartDate = !fieldValues.StartDate
-      ? "This feild is required"
-      : "";
-      temp.EndDate = !fieldValues.EndDate
-      ? "This feild is required"
-      : "";
+    temp.StartDate = !fieldValues.StartDate ? "This feild is required" : "";
+    temp.EndDate = !fieldValues.EndDate ? "This feild is required" : "";
 
     setErrors({ ...temp });
     return Object.values(temp).every((x) => x === "");
@@ -73,7 +74,7 @@ const AcademicYearForm = ({ academicYear, selected, setOpenPopup }) => {
       if (values.IDAcademicYear === 0) {
         dispatch(AcademicYearCreateAction(values, checkboxState));
       } else {
-        dispatch(updateSingleAcademicYearAction(values,checkboxState));
+        dispatch(updateSingleAcademicYearAction(values, checkboxState));
       }
     }
   };
@@ -82,7 +83,22 @@ const AcademicYearForm = ({ academicYear, selected, setOpenPopup }) => {
     (state) => state.getAcademicYearOption
   );
 
+  const { error: academicYearCheckError, success: academicYearCheckSuccess } =
+    useSelector((state) => state.getAcademicYearCheck);
+
   const { available } = academicYearOption;
+
+  if (academicYearCheckError) {
+    setErrors((prev) => ({
+      ...prev,
+      AcademicYearName: academicYearCheckError,
+    }));
+    dispatch({ type: GET_ACADEMIC_YEAR_CHECK_RESET });
+  }
+  if (academicYearCheckSuccess) {
+    setErrors((prev) => ({ ...prev, AcademicYearName: "" }));
+    dispatch({ type: GET_ACADEMIC_YEAR_CHECK_RESET });
+  }
 
   const handleChangeCheckbox = (e) => {
     setCheckboxState([...checkboxState, e.target.value]);
@@ -101,9 +117,10 @@ const AcademicYearForm = ({ academicYear, selected, setOpenPopup }) => {
             name="AcademicYearName"
             label="Academic Year Name*"
             value={values.AcademicYearName}
-            onFocus={e => {
-      e.target.select();
-    }}
+            onFocus={(e) => {
+              e.target.select();
+            }}
+            onBlur={(e) => dispatch(getAcademicYearCheckAction(e.target.value))}
             onChange={handleInputChange}
             errors={errors.AcademicYearName}
           />
@@ -112,9 +129,9 @@ const AcademicYearForm = ({ academicYear, selected, setOpenPopup }) => {
             name="AcademicYearCode"
             label="Academic Year Code*"
             value={values.AcademicYearCode}
-            onFocus={e => {
-      e.target.select();
-    }}
+            onFocus={(e) => {
+              e.target.select();
+            }}
             onChange={handleInputChange}
             errors={errors.AcademicYearCode}
           />
@@ -123,9 +140,9 @@ const AcademicYearForm = ({ academicYear, selected, setOpenPopup }) => {
             name="AcademicYear"
             label="Academic Year*"
             value={values.AcademicYear}
-            onFocus={e => {
-      e.target.select();
-    }}
+            onFocus={(e) => {
+              e.target.select();
+            }}
             onChange={handleInputChange}
             errors={errors.AcademicYear}
           />

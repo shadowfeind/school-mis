@@ -136,7 +136,9 @@ export const postSmsAccessControlAction =
     } catch (error) {
       dispatch({
         type: POST_SMS_ACCESS_CONTROL_FAIL,
-        payload: error.message ? error.message : error.Message,
+        payload: error.response.data.Message
+        ? error.response.data.Message
+        : error.message,
       });
     }
   };

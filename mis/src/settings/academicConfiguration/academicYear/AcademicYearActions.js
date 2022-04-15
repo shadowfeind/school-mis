@@ -102,7 +102,9 @@ export const getAcademicYearCheckAction = (yearName) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: GET_ACADEMIC_YEAR_CHECK_FAIL,
-      payload: error.Message ? error.Message : error.message,
+      payload: error.response.data.Message
+      ? error.response.data.Message
+      : error.message,
     });
   }
 };

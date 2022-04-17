@@ -20,7 +20,7 @@ const TeacherNotificationTableCollapse = ({ item }) => {
       <TableRow>
         <TableCell>{item.MessageHeading}</TableCell>
         <TableCell>{item.MessageDescription}</TableCell>
-        <TableCell>{item.ReceiverID}</TableCell>
+        <TableCell>{item.FirstName} {item.MiddleName} {item.LastName}</TableCell>
         <TableCell>{item.Created_On?.slice(0, 10)}</TableCell>
         <TableCell>
           <Button

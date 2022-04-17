@@ -50,7 +50,7 @@ const useStyles = makeStyles((theme) => ({
 const tableHeader = [
   { id: "MessageHeading", label: "Heading" },
   { id: "MessageDescription", label: "Description" },
-  { id: "ReceiverID", label: "Receiver ID" },
+  { id: "ReceiverID", label: "Receiver Name" },
   { id: "PostedDate", label: "Posted Date" },
   { id: "Action", label: "Action", disableSorting: true },
 ];
@@ -171,7 +171,7 @@ const TeacherNotification = () => {
       dispatch(getListTeacherNotificationAction());
     }
     if (listTeacherNotification) {
-      setTableData(listTeacherNotification.teacherNotificationModelLst);
+      setTableData(listTeacherNotification.teacherNotificationAllModelLst);
     }
   }, [dispatch, listTeacherNotification]);
 

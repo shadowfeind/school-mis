@@ -105,6 +105,8 @@ const LeaveRequestForm = ({ leaveRequestEdit,leaveRequestCreate, setOpenPopUp })
               onFocus={(e) => {
                 e.target.select();
               }}
+              multiline
+            rows={4}
               value={values.LeaveDecription}
               onChange={handleInputChange}
               errors={errors.LeaveDecription}

@@ -147,6 +147,12 @@ const Header = () => {
     });
   }
 
+  const handleLogout = () => {
+    dispatch({ type: GET_HEADER_CONTENT_RESET });
+    sessionStorage.removeItem("blueberrytoken");
+    window.location.href = "https://vidyacube.com/";
+  };
+
   return (
     <>
       <div>
@@ -221,7 +227,11 @@ const Header = () => {
                         </span>
                       </div>
                     )}
-                    <Badge color="secondary" onClick={handleClick("top-end")}>
+                    <Badge
+                      color="secondary"
+                      badgeContent={2}
+                      onClick={handleClick("top-end")}
+                    >
                       {headerContent && (
                         <img
                           src={`${API_URL}${headerContent.FullPath}`}
@@ -266,7 +276,7 @@ const Header = () => {
                               </h3>
                             </div>
                             <h4 onClick={handleProfileClick}>Profile</h4>
-                            <h4>Logout</h4>
+                            <h4 onClick={handleLogout}>Logout</h4>
                           </div>
                         )}
                       </div>

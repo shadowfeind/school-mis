@@ -138,7 +138,7 @@ const ClassNotificationForm = ({
               <StyledTableCell>Roll No. </StyledTableCell>
               <StyledTableCell>Student Name </StyledTableCell>
               <StyledTableCell>Batch </StyledTableCell>
-              <StyledTableCell>Program/Faculty </StyledTableCell>
+    
               <StyledTableCell style={{ textAlign: "right" }}>
                 <label>Select All</label>
                 <Checkbox

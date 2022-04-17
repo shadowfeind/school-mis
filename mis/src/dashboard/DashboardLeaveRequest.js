@@ -13,8 +13,15 @@ import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
 import CloudDownloadIcon from "@material-ui/icons/CloudDownload";
 import useCustomTable from "../customHooks/useCustomTable";
-import { GET_ALL_LEAVE_REQUESTS_RESET, GET_LIST_LEAVE_REQUESTS_RESET } from "./DashboardConstants";
-import { getAllLeaveRequestAction, getListLeaveRequestAction } from "./DashboardActions";
+import {
+  GET_ALL_LEAVE_REQUESTS_RESET,
+  GET_LIST_LEAVE_REQUESTS_RESET,
+} from "./DashboardConstants";
+import {
+  getAllLeaveRequestAction,
+  getListLeaveRequestAction,
+  getSingleEditLeaveRequestAction,
+} from "./DashboardActions";
 
 const useStyles = makeStyles((theme) => ({
   button: {
@@ -33,7 +40,6 @@ const useStyles = makeStyles((theme) => ({
       padding: "0.7vw",
     },
   },
-
 }));
 
 const StyledTableCell = withStyles((theme) => ({
@@ -62,8 +68,7 @@ const tableHeader = [
   { id: "actions", label: "Actions", disableSorting: true },
 ];
 
-const DashboardLeaveRequest = () => {
-
+const DashboardLeaveRequest = (setOpenPopup) => {
   const [notify, setNotify] = useState({
     isOpen: false,
     message: "",
@@ -85,10 +90,10 @@ const DashboardLeaveRequest = () => {
   const { TblHead, TblPagination, tableDataAfterPagingAndSorting } =
     useCustomTable(tableData, tableHeader, filterFn);
 
-    const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const classes = useStyles();
 
-  const { allLeaveRequest, error,loading } = useSelector(
+  const { allLeaveRequest, error, loading } = useSelector(
     (state) => state.getAllLeaveRequest
   );
 
@@ -123,7 +128,10 @@ const DashboardLeaveRequest = () => {
     }
   }, [dispatch, listLeaveRequest]);
 
-
+  const updateCollegeHandler = (id) => {
+    dispatch(getSingleEditLeaveRequestAction(id));
+    setOpenPopup(true);
+  };
 
   return (
     <>
@@ -134,38 +142,42 @@ const DashboardLeaveRequest = () => {
           {tableDataAfterPagingAndSorting().map((s) => (
             <StyledTableRow key={s.id}>
               <StyledTableCell component="th" scope="row">
-                {s.FirsName}{s.MiddleName}{s.LastName}
+                {s.FirsName}
+                {s.MiddleName}
+                {s.LastName}
               </StyledTableCell>
-              <StyledTableCell align="left">{s.LeaveDecription}</StyledTableCell>
-              <StyledTableCell align="left">{s.FromDate?.slice(0,10)} /<div>{s.ToDate?.slice(0,10)}</div></StyledTableCell>
               <StyledTableCell align="left">
-                {s.Status}
+                {s.LeaveDecription}
               </StyledTableCell>
+              <StyledTableCell align="left">
+                {s.FromDate?.slice(0, 10)} /<div>{s.ToDate?.slice(0, 10)}</div>
+              </StyledTableCell>
+              <StyledTableCell align="left">{s.Status}</StyledTableCell>
               <StyledTableCell>
-              <Button
-            variant="contained"
-            color="primary"
-            className={classes.button}
-            // onClick={() => updateCollegeHandler(item.IDHREmployeeCategoryRole)}
-          >
-            <EditIcon style={{ fontSize: 12 }} />
-          </Button>
-          <Button
-            variant="contained"
-            color="secondary"
-            className={classes.button}
-            // onClick={() => deleteCollegeHandler(item.IDHREmployeeCategoryRole)}
-          >
-            <DeleteIcon style={{ fontSize: 12 }} />
-          </Button>
-          <Button
-          variant="contained"
-          color="default"
-          className={classes.button}
-          // onClick={() => downloadHandler(item.Id)}
-        >
-          <CloudDownloadIcon style={{ fontSize: 12 }} />
-        </Button>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  className={classes.button}
+                  onClick={() => updateCollegeHandler(s.IDLeaveRequest)}
+                >
+                  <EditIcon style={{ fontSize: 12 }} />
+                </Button>
+                <Button
+                  variant="contained"
+                  color="secondary"
+                  className={classes.button}
+                  // onClick={() => deleteCollegeHandler(item.IDLeaveRequest)}
+                >
+                  <DeleteIcon style={{ fontSize: 12 }} />
+                </Button>
+                <Button
+                  variant="contained"
+                  color="default"
+                  className={classes.button}
+                  // onClick={() => downloadHandler(item.Id)}
+                >
+                  <CloudDownloadIcon style={{ fontSize: 12 }} />
+                </Button>
               </StyledTableCell>
             </StyledTableRow>
           ))}

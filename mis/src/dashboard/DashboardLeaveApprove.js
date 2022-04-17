@@ -14,7 +14,10 @@ import { useDispatch, useSelector } from "react-redux";
 import EditIcon from "@material-ui/icons/Edit";
 import CloudDownloadIcon from "@material-ui/icons/CloudDownload";
 import { GET_LIST_LEAVE_REQUESTS_RESET } from "./DashboardConstants";
-import { getListLeaveRequestAction } from "./DashboardActions";
+import {
+  getListLeaveRequestAction,
+  getSingleEditLeaveRequestAction,
+} from "./DashboardActions";
 
 const useStyles = makeStyles((theme) => ({
   button: {
@@ -61,7 +64,7 @@ const tableHeader = [
   { id: "actions", label: "Actions", disableSorting: true },
 ];
 
-const DashboardLeaveApprove = () => {
+const DashboardLeaveApprove = (setOpenPopup) => {
   const [tableData, setTableData] = useState([]);
   const [filterFn, setFilterFn] = useState({
     fn: (item) => {
@@ -87,6 +90,11 @@ const DashboardLeaveApprove = () => {
     });
     dispatch({ type: GET_LIST_LEAVE_REQUESTS_RESET });
   }
+
+  const updateCollegeHandler = (id) => {
+    dispatch(getSingleEditLeaveRequestAction(id));
+    setOpenPopup(true);
+  };
 
   useEffect(() => {
     if (!listLeaveRequest) {
@@ -121,7 +129,7 @@ const DashboardLeaveApprove = () => {
                   variant="contained"
                   color="primary"
                   className={classes.button}
-                  // onClick={() => updateCollegeHandler(item.IDHREmployeeCategoryRole)}
+                  onClick={() => updateCollegeHandler(s.IDLeaveRequest)}
                 >
                   <EditIcon style={{ fontSize: 12 }} />
                 </Button>

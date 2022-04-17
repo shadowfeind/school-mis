@@ -1,23 +1,34 @@
 import React, { useEffect, useState } from "react";
-import { Grid,Button, makeStyles, Card } from "@material-ui/core";
-import { useDispatch } from "react-redux";
-
+import { Grid, Button, makeStyles, Card } from "@material-ui/core";
+import Popup from "../components/Popup";
+import { useDispatch, useSelector } from "react-redux";
+import Notification from "../components/Notification";
+import ConfirmDialog from "../components/ConfirmDialog";
 import Holiday from "../settings/schoolConfiguration/holiday/Holiday";
 import DashboardHeader from "./DashboardHeader";
 import DashboardLeaveApprove from "./DashboardLeaveApprove";
 import DashboardNoticeBoard from "./DashboardNoticeBoard";
 import DashboardLeaveRequest from "./DashboardLeaveRequest";
+import {
+  getSingleCreateLeaveRequestAction,
+  getSingleEditLeaveRequestAction,
+} from "./DashboardActions";
+import {
+  GET_SINGLE_TO_CREATE_LEAVE_REQUESTS_RESET,
+  GET_SINGLE_TO_EDIT_LEAVE_REQUESTS_RESET,
+} from "./DashboardConstants";
+import LeaveRequestForm from "./LeaveRequestForm";
 
 const useStyles = makeStyles((theme) => ({
   dashboardContainer: {
     padding: "30px",
   },
   button: {
-    float:"right",
+    float: "right",
     display: "inline-block",
     padding: "5px 10px",
     margin: "0",
-    color:"#253053",
+    color: "#253053",
     border: "2px solid #253053",
     borderRadius: "10px",
     fontSize: "12px",
@@ -43,11 +54,57 @@ const useStyles = makeStyles((theme) => ({
 const Dashboard = () => {
   const [leave, setLeave] = useState("approve");
   const classes = useStyles();
+  const [openPopUp, setOpenPopUp] = useState(false);
   const dispatch = useDispatch();
+  const [notify, setNotify] = useState({
+    isOpen: false,
+    message: "",
+    type: "",
+  });
+  const [confirmDialog, setConfirmDialog] = useState({
+    isOpen: false,
+    title: "",
+    subTitle: "",
+  });
+  const [filterFn, setFilterFn] = useState({
+    fn: (item) => {
+      return item;
+    },
+  });
+
+  const { singleCreateLeaveRequest, error: singleCreateLeaveRequestError } =
+    useSelector((state) => state.getSingleCreateLeaveRequest);
+
+  const { singleEditLeaveRequest, error: singleEditLeaveRequestError } =
+    useSelector((state) => state.getSingleEditLeaveRequest);
+
+  if (singleCreateLeaveRequestError) {
+    setNotify({
+      isOpen: true,
+      message: singleCreateLeaveRequestError,
+      type: "error",
+    });
+    dispatch({ type: GET_SINGLE_TO_CREATE_LEAVE_REQUESTS_RESET });
+  }
+
+  if (singleEditLeaveRequestError) {
+    setNotify({
+      isOpen: true,
+      message: singleEditLeaveRequestError,
+      type: "error",
+    });
+    dispatch({ type: GET_SINGLE_TO_EDIT_LEAVE_REQUESTS_RESET });
+  }
 
   useEffect(() => {
     dispatch({ type: "GET_LINK", payload: "/" });
   }, [dispatch]);
+
+  const handleCreate = () => {
+    dispatch(getSingleCreateLeaveRequestAction());
+    setOpenPopUp(true);
+    dispatch({ type: GET_SINGLE_TO_EDIT_LEAVE_REQUESTS_RESET });
+  };
 
   return (
     <>
@@ -77,21 +134,49 @@ const Dashboard = () => {
                 >
                   Leave Requests
                 </h4>{" "}
-                {/* <div align="right"> */}
-                <Button
+                <h4
                   className={classes.button}
-                  // onClick={() => setLeave("request")}
+                  style={{
+                    backgroundColor: "#254053",
+                    color: "#fff",
+                  }}
+                  onClick={handleCreate}
                 >
                   Create
-                </Button>
+                </h4>
                 {/* </div> */}
               </div>
-             
+
               {leave === "approve" ? (
-                <DashboardLeaveApprove />
+                <DashboardLeaveApprove
+                 setOpenPopup={setOpenPopUp}
+                />
               ) : (
-                <DashboardLeaveRequest />
+                <DashboardLeaveRequest
+                  setOpenPopup={setOpenPopUp}
+                />
               )}
+
+              <Popup
+                openPopup={openPopUp}
+                setOpenPopup={setOpenPopUp}
+                title="Leave Request Form"
+              >
+                <LeaveRequestForm
+                  leaveRequestEdit={
+                    singleEditLeaveRequest && singleEditLeaveRequest
+                  }
+                  leaveRequestCreate={
+                    singleCreateLeaveRequest && singleCreateLeaveRequest
+                  }
+                  setOpenPopUp={setOpenPopUp}
+                />
+              </Popup>
+              <Notification notify={notify} setNotify={setNotify} />
+              <ConfirmDialog
+                confirmDialog={confirmDialog}
+                setConfirmDialog={setConfirmDialog}
+              />
             </Card>
           </Grid>
           <Grid item xs={6}>

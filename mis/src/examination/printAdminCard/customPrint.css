@@ -1,21 +1,34 @@
-/* .admitCard {
-  width: 350px;
-  height: 353.5px;
-  padding: 10px;
-  margin: 10px;
-  border: 1px solid #000;
-  border-radius: 10px;
-  text-align: center;
-} */
 
 .admitCard {
-  width: 550px !important;
-  height: 353.5px !important;
+  width: 360px !important;
+  height: 250px !important;
   padding: 10px !important;
   margin: 10px !important;
   border: 1px solid #000 !important;
   border-radius: 10px !important;
 }
+
+.admitCard-Top h3 {
+  text-align: center;
+  padding: 2px;
+  background-color : #eaeff5;
+  margin-bottom:  -10px;
+  font-size: 12px;
+}
+.admitCard-Bottom h4 {
+  text-align: center;
+  font-size: 12px !important;
+}
+.admitCard-Bottom h5 {
+  font-size: 11px !important;
+  margin: 2px !important;
+} 
+.admitCard-Bottom h5 {
+  font-size: 9px;
+ font-weight: lighter;
+ margin-top: 20px;
+ border-top: 1px soild #000 !important;
+} 
 
 @media print {
   /* styling goes here */
@@ -32,13 +45,12 @@
       margin-top: 0 !important;
     }
     .admitCard {
-      width: 350px !important;
-      height: 354.5px !important;
+      width: 360px !important;
+      height: 250px !important;
       padding: 10px !important;
       margin: 10px !important;
       border: 1px solid #000 !important;
       border-radius: 10px !important;
-      text-align: center !important;
     }
   }
 }

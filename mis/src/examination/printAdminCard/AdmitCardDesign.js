@@ -1,76 +1,57 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { API_URL } from "../../constants";
 import { useDispatch } from "react-redux";
 import { Grid } from "@material-ui/core";
-import {
-  getHeaderBannerAction,
-  getHeaderContentAction,
-} from "../../dashboard/DashboardActions";
-import {
-  GET_HEADER_BANNER_RESET,
-  GET_HEADER_CONTENT_RESET,
-} from "../../dashboard/DashboardConstants";
-import { useSelector } from "react-redux";
 
-
-const AdmitCardDesign = ({ student, imagePath,headerBanners, classname, examDate }) => {
-  
-
-  const dispatch = useDispatch();
+const AdmitCardDesign = ({
+  student,
+  imagePath,
+  headerBanners,
+  classname,
+  examDate,
+}) => {
+  const studentImage = imagePath?.filter((x) => x.Key === student.IDHREmployee);
 
   return (
     <div>
       <div className="admitCard">
-        <div style={{ textAlign: "center" }}>
-          <img
-            src={`${API_URL}${headerBanners}`}
-            height="60px"
-            style={{ marginTop: "15px" }}
-          />
+        <div className="admitCard-Top">
+          <div style={{ textAlign: "center" }}>
+            <img src={`${API_URL}${headerBanners}`} height="60px" />
+          </div>
+          <h3>Admit Card</h3>
         </div>
-        <h3
-          style={{
-            textAlign: "center",
-            padding: "6px",
-            backgroundColor: "#eaeff5",
-            marginBottom: "-10px",
-          }}
-        >
-          Admit Card
-        </h3>
-        <h4 style={{ textAlign: "center" }}>{student.EventName}</h4>
-        <Grid container>
-          <Grid item xs={9} style={{ padding: "0 0 0 12px" }}>
-            <h5 style={{ marginTop: "-4px" }}>
-              <strong>Name:</strong> {student.FullName}
-            </h5>
-            <h5 style={{ marginTop: "-4px" }}>
-              <strong>Class:</strong> {classname}
-            </h5>
-            <h5 style={{ marginTop: "-4px" }}>
-              <strong>Symbol No:</strong> {student.UniversityRegistrationNumber}
-            </h5>
-            <h5 style={{ marginTop: "-4px" }}>
-              <strong>Exam Date:</strong> {examDate.slice(0, 10)}
-            </h5>
+        <div className="admitCard-Bottom">
+          <h4>{student.EventName}</h4>
+          <Grid container>
+            <Grid item xs={8}>
+              <h5>
+                <strong>Name:</strong> {student.FullName}
+              </h5>
+              <h5>
+                <strong>Class:</strong> {classname}
+              </h5>
+              <h5>
+                <strong>Symbol No:</strong>{" "}
+                {student.UniversityRegistrationNumber}
+              </h5>
+              <h5>
+                <strong>Exam Date:</strong> {examDate.slice(0, 10)}
+              </h5>
+            </Grid>
+            <Grid item xs={4}>
+              {studentImage?.length > 0 && (
+                <img
+                  src={`${API_URL}${studentImage[0].Value}`}
+                  height="60px"
+                  width="60px"
+                />
+              )}
+
+              <h6>Principle Signature</h6>
+            </Grid>
           </Grid>
-          <Grid item xs={3} style={{ padding: "0 12px 0 0" }}>
-            <img
-              src="https://kimberlineducation.com/wp-content/uploads/2017/05/article-hero-image-2.jpg"
-              height="80px"
-              width="80px"
-            />
-            <h5
-              style={{
-                paddingTop: "8px",
-                marginTop: "40px",
-                borderTop: "1px solid #000",
-              }}
-            >
-              Principle Signature
-            </h5>
-          </Grid>
-        </Grid>
+        </div>
       </div>
     </div>
   );

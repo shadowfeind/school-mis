@@ -389,7 +389,7 @@ import {
   getSubjectSyllabusReducer,
   putSyllabusReducer,
 } from "./settings/syllabus/syllabusPg/SyllabusReducers";
-import { deleteLeaveRequestReducer, downloadLeaveRequestReducer, getAllLeaveRequestReducer, getHeaderBannerReducer, getHeaderContentReducer, getListLeaveRequestReducer, getSingleCreateLeaveRequestReducer, getSingleDeleteLeaveRequestReducer, getSingleEditLeaveRequestReducer, getSingleEditSentLeaveRequestReducer, postLeaveRequestReducer, putLeaveRequestReducer } from "./dashboard/DashboardReducers";
+import { deleteLeaveRequestReducer, downloadLeaveRequestReducer, getAllLeaveRequestReducer, getHeaderBannerReducer, getHeaderContentReducer, getListLeaveRequestReducer, getSingleCreateLeaveRequestReducer, getSingleDeleteLeaveRequestReducer, getSingleEditLeaveRequestReducer, getSingleEditSentLeaveRequestReducer, postFileUploadLeaveRequestReducer, postLeaveRequestReducer, putLeaveRequestReducer } from "./dashboard/DashboardReducers";
 
 import { getAllEcaLookUpReducer, getDetailEcaLookUpReducer, getListEcaLookUpReducer, getSingleCreateEcaLookUpReducer, getSingleEditEcaLookUpReducer, postEcaLookUpReducer, putEcaLookUpReducer } from "./settings/academicConfiguration/ecaLookUp/EcaLookUpReducers";
 import { getAllAssignEcaReducer, getListAssignEcaReducer, getSingleCreateAssignEcaReducer, postAssignEcaReducer } from "./settings/academicConfiguration/assignEca/AssignEcaReducers";

@@ -165,6 +165,7 @@ const CounterConfiguration = () => {
       type: "success",
     });
     dispatch({ type: COUNTER_CONFIG_EDIT_RESET });
+    dispatch(getCounterConfigListAction(acaYear,programValue))
     setOpenPopup(false);
   }
 

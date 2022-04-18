@@ -10,14 +10,21 @@ import DashboardLeaveApprove from "./DashboardLeaveApprove";
 import DashboardNoticeBoard from "./DashboardNoticeBoard";
 import DashboardLeaveRequest from "./DashboardLeaveRequest";
 import {
+  getListLeaveRequestAction,
   getSingleCreateLeaveRequestAction,
   getSingleEditLeaveRequestAction,
 } from "./DashboardActions";
 import {
+  DELETE_LEAVE_REQUESTS_RESET,
+  DOWNLOAD_DOC_LEAVE_REQUESTS_RESET,
   GET_SINGLE_TO_CREATE_LEAVE_REQUESTS_RESET,
+  GET_SINGLE_TO_DELETE_LEAVE_REQUESTS_RESET,
   GET_SINGLE_TO_EDIT_LEAVE_REQUESTS_RESET,
+  POST_LEAVE_REQUESTS_RESET,
+  PUT_LEAVE_REQUESTS_RESET,
 } from "./DashboardConstants";
 import LeaveRequestForm from "./LeaveRequestForm";
+import LeaveRequestDeleteForm from "./LeaveRequestDeleteForm";
 
 const useStyles = makeStyles((theme) => ({
   dashboardContainer: {
@@ -78,6 +85,26 @@ const Dashboard = () => {
   const { singleEditLeaveRequest, error: singleEditLeaveRequestError } =
     useSelector((state) => state.getSingleEditLeaveRequest);
 
+    const { postLeaveRequestSuccess, error: postLeaveRequestError } =
+    useSelector((state) => state.postLeaveRequest);
+
+    const { putLeaveRequestSuccess, error: putLeaveRequestError } =
+    useSelector((state) => state.putLeaveRequest);
+
+    const {
+      success: downloadDocSuccess,
+      file: downloadFile,
+      error: downloadDocError,
+    } = useSelector((state) => state.downloadLeaveRequest);
+  
+    if (downloadFile) {
+      
+      var blob = new Blob([downloadFile]);
+      var url = window.URL.createObjectURL(blob);
+      debugger;
+      window.open(url, "_blank");
+    }
+
   if (singleCreateLeaveRequestError) {
     setNotify({
       isOpen: true,
@@ -85,6 +112,56 @@ const Dashboard = () => {
       type: "error",
     });
     dispatch({ type: GET_SINGLE_TO_CREATE_LEAVE_REQUESTS_RESET });
+  }
+  if (postLeaveRequestError) {
+    setNotify({
+      isOpen: true,
+      message: postLeaveRequestError,
+      type: "error",
+    });
+    dispatch({ type: POST_LEAVE_REQUESTS_RESET });
+  }
+
+  if (downloadDocError) {
+    setNotify({
+      isOpen: true,
+      message: downloadDocError,
+      type: "error",
+    });
+    dispatch({ type: DOWNLOAD_DOC_LEAVE_REQUESTS_RESET });
+  }
+
+
+  if (putLeaveRequestError) {
+    setNotify({
+      isOpen: true,
+      message: putLeaveRequestError,
+      type: "error",
+    });
+    dispatch({ type: PUT_LEAVE_REQUESTS_RESET });
+  }
+
+
+  if (postLeaveRequestSuccess) {
+    setNotify({
+      isOpen: true,
+      message: "Leave Request Send Succesfully",
+      type: "success",
+    });
+    setOpenPopUp(false);
+    dispatch(getListLeaveRequestAction());
+    dispatch({ type: POST_LEAVE_REQUESTS_RESET });
+  }
+
+  if (putLeaveRequestSuccess) {
+    setNotify({
+      isOpen: true,
+      message: "Leave Request Edited Succesfully",
+      type: "success",
+    });
+    setOpenPopUp(false);
+    dispatch(getListLeaveRequestAction());
+    dispatch({ type: PUT_LEAVE_REQUESTS_RESET });
   }
 
   if (singleEditLeaveRequestError) {
@@ -149,11 +226,9 @@ const Dashboard = () => {
 
               {leave === "approve" ? (
                 <DashboardLeaveApprove
-                 setOpenPopup={setOpenPopUp}
                 />
               ) : (
                 <DashboardLeaveRequest
-                  setOpenPopup={setOpenPopUp}
                 />
               )}
 
@@ -163,9 +238,9 @@ const Dashboard = () => {
                 title="Leave Request Form"
               >
                 <LeaveRequestForm
-                  leaveRequestEdit={
-                    singleEditLeaveRequest && singleEditLeaveRequest
-                  }
+                  // leaveRequestEdit={
+                  //   singleEditLeaveRequest && singleEditLeaveRequest
+                  // }
                   leaveRequestCreate={
                     singleCreateLeaveRequest && singleCreateLeaveRequest
                   }

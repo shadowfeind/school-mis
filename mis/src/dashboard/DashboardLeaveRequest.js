@@ -10,18 +10,33 @@ import {
 } from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
 import EditIcon from "@material-ui/icons/Edit";
+import Popup from "../components/Popup";
 import DeleteIcon from "@material-ui/icons/Delete";
+import Notification from "../components/Notification";
+import ConfirmDialog from "../components/ConfirmDialog";
 import CloudDownloadIcon from "@material-ui/icons/CloudDownload";
 import useCustomTable from "../customHooks/useCustomTable";
 import {
+  DELETE_LEAVE_REQUESTS_RESET,
+  DOWNLOAD_DOC_LEAVE_REQUESTS_RESET,
   GET_ALL_LEAVE_REQUESTS_RESET,
   GET_LIST_LEAVE_REQUESTS_RESET,
+  GET_SINGLE_TO_CREATE_LEAVE_REQUESTS_RESET,
+  GET_SINGLE_TO_DELETE_LEAVE_REQUESTS_RESET,
+  GET_SINGLE_TO_EDIT_LEAVE_REQUESTS_RESET,
+  POST_LEAVE_REQUESTS_RESET,
+  PUT_LEAVE_REQUESTS_RESET,
 } from "./DashboardConstants";
 import {
+  deleteLeaveRequestAction,
+  downloadLeaveRequestAction,
   getAllLeaveRequestAction,
   getListLeaveRequestAction,
+  getSingleDeleteLeaveRequestAction,
   getSingleEditLeaveRequestAction,
 } from "./DashboardActions";
+import LeaveRequestForm from "./LeaveRequestForm";
+import LeaveRequestDeleteForm from "./LeaveRequestDeleteForm";
 
 const useStyles = makeStyles((theme) => ({
   button: {
@@ -68,7 +83,7 @@ const tableHeader = [
   { id: "actions", label: "Actions", disableSorting: true },
 ];
 
-const DashboardLeaveRequest = (setOpenPopup) => {
+const DashboardLeaveRequest = () => {
   const [notify, setNotify] = useState({
     isOpen: false,
     message: "",
@@ -79,7 +94,8 @@ const DashboardLeaveRequest = (setOpenPopup) => {
     title: "",
     subTitle: "",
   });
-
+  const [openPopUp, setOpenPopUp] = useState(false);
+  const [openDeletePopup, setOpenDeletePopup] = useState(false);
   const [tableData, setTableData] = useState([]);
   const [filterFn, setFilterFn] = useState({
     fn: (item) => {
@@ -97,6 +113,27 @@ const DashboardLeaveRequest = (setOpenPopup) => {
     (state) => state.getAllLeaveRequest
   );
 
+  const { singleCreateLeaveRequest, error: singleCreateLeaveRequestError } =
+    useSelector((state) => state.getSingleCreateLeaveRequest);
+
+  const {
+    singleDeleteLeaveRequest,
+    error: singleDeleteLeaveRequestError,
+  } = useSelector((state) => state.getSingleDeleteLeaveRequest);
+
+  const { success: deleteLeaveRequestSuccess, error: deleteLeaveRequestError } =
+    useSelector((state) => state.deleteLeaveRequest);
+
+  const { singleEditLeaveRequest, error: singleEditLeaveRequestError } =
+    useSelector((state) => state.getSingleEditLeaveRequest);
+
+    const { postLeaveRequestSuccess, error: postLeaveRequestError } =
+    useSelector((state) => state.postLeaveRequest);
+
+    const { putLeaveRequestSuccess, error: putLeaveRequestError } =
+    useSelector((state) => state.putLeaveRequest);
+
+
   const { listLeaveRequest, listLeaveRequestError } = useSelector(
     (state) => state.getListLeaveRequest
   );
@@ -108,6 +145,97 @@ const DashboardLeaveRequest = (setOpenPopup) => {
       type: "error",
     });
     dispatch({ type: GET_ALL_LEAVE_REQUESTS_RESET });
+  }
+
+  
+  if (singleCreateLeaveRequestError) {
+    setNotify({
+      isOpen: true,
+      message: singleCreateLeaveRequestError,
+      type: "error",
+    });
+    dispatch({ type: GET_SINGLE_TO_CREATE_LEAVE_REQUESTS_RESET });
+  }
+
+  if (postLeaveRequestError) {
+    setNotify({
+      isOpen: true,
+      message: postLeaveRequestError,
+      type: "error",
+    });
+    dispatch({ type: POST_LEAVE_REQUESTS_RESET });
+  }
+
+  if (putLeaveRequestError) {
+    setNotify({
+      isOpen: true,
+      message: putLeaveRequestError,
+      type: "error",
+    });
+    dispatch({ type: PUT_LEAVE_REQUESTS_RESET });
+  }
+
+
+  if (postLeaveRequestSuccess) {
+    dispatch(getListLeaveRequestAction());
+    setNotify({
+      isOpen: true,
+      message: "Leave Request Send Succesfully",
+      type: "success",
+    });
+    setOpenPopUp(false);
+    dispatch({ type: POST_LEAVE_REQUESTS_RESET });
+  }
+
+  if (putLeaveRequestSuccess) {
+    dispatch(getListLeaveRequestAction());
+    setNotify({
+      isOpen: true,
+      message: "Leave Request Edited Succesfully",
+      type: "success",
+    });
+    setOpenPopUp(false);
+    dispatch({ type: PUT_LEAVE_REQUESTS_RESET });
+  }
+
+  if (deleteLeaveRequestError) {
+    setNotify({
+      isOpen: true,
+      message: deleteLeaveRequestError,
+      type: "error",
+    });
+    setOpenDeletePopup(false);
+    dispatch({ type: DELETE_LEAVE_REQUESTS_RESET });
+  }
+
+  if (singleDeleteLeaveRequestError) {
+    setNotify({
+      isOpen: true,
+      message: singleDeleteLeaveRequestError,
+      type: "error",
+    });
+    setOpenDeletePopup(false);
+    dispatch({ type: GET_SINGLE_TO_DELETE_LEAVE_REQUESTS_RESET });
+  }
+
+  if (deleteLeaveRequestSuccess) {
+    dispatch(getListLeaveRequestAction());
+    setNotify({
+      isOpen: true,
+      message: "Deleted Succesfully",
+      type: "success",
+    });
+    setOpenDeletePopup(false);
+    dispatch({ type: DELETE_LEAVE_REQUESTS_RESET });
+  }
+
+  if (singleEditLeaveRequestError) {
+    setNotify({
+      isOpen: true,
+      message: singleEditLeaveRequestError,
+      type: "error",
+    });
+    dispatch({ type: GET_SINGLE_TO_EDIT_LEAVE_REQUESTS_RESET });
   }
 
   if (listLeaveRequestError) {
@@ -130,8 +258,19 @@ const DashboardLeaveRequest = (setOpenPopup) => {
 
   const updateCollegeHandler = (id) => {
     dispatch(getSingleEditLeaveRequestAction(id));
-    setOpenPopup(true);
+    setOpenPopUp(true);
   };
+
+    const deleteLeaveHandler = (id) => {
+      dispatch(getSingleDeleteLeaveRequestAction(id));
+      setOpenDeletePopup(true);
+    };
+
+
+  const downloadHandler = (id) => {
+    dispatch(downloadLeaveRequestAction(id));
+  };
+ 
 
   return (
     <>
@@ -166,7 +305,7 @@ const DashboardLeaveRequest = (setOpenPopup) => {
                   variant="contained"
                   color="secondary"
                   className={classes.button}
-                  // onClick={() => deleteCollegeHandler(item.IDLeaveRequest)}
+                  onClick={() => deleteLeaveHandler(s.IDLeaveRequest)}
                 >
                   <DeleteIcon style={{ fontSize: 12 }} />
                 </Button>
@@ -174,7 +313,7 @@ const DashboardLeaveRequest = (setOpenPopup) => {
                   variant="contained"
                   color="default"
                   className={classes.button}
-                  // onClick={() => downloadHandler(item.Id)}
+                  onClick={() => downloadHandler(s.IDLeaveRequest)}
                 >
                   <CloudDownloadIcon style={{ fontSize: 12 }} />
                 </Button>
@@ -184,6 +323,37 @@ const DashboardLeaveRequest = (setOpenPopup) => {
         </TableBody>
       </Table>
       <TblPagination />
+      <Popup
+        openPopup={openPopUp}
+        setOpenPopup={setOpenPopUp}
+        title="Leave Request Form"
+      >
+        <LeaveRequestForm
+          leaveRequestEdit={singleEditLeaveRequest && singleEditLeaveRequest}
+          setOpenPopUp={setOpenPopUp}
+        />
+      </Popup>
+      <Popup
+        openPopup={openDeletePopup}
+        setOpenPopup={setOpenDeletePopup}
+        title="Leave Request Delete Form"
+      >
+        <LeaveRequestDeleteForm
+          // leaveRequestEdit={
+          //   singleEditLeaveRequest && singleEditLeaveRequest
+          // }
+          leaveRequestDelete={
+            singleDeleteLeaveRequest &&
+            singleDeleteLeaveRequest
+          }
+          setOpenPopUp={setOpenDeletePopup}
+        />
+      </Popup>
+      <Notification notify={notify} setNotify={setNotify} />
+      <ConfirmDialog
+        confirmDialog={confirmDialog}
+        setConfirmDialog={setConfirmDialog}
+      />
     </>
   );
 };

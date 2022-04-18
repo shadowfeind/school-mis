@@ -10,14 +10,18 @@ import {
   TableCell,
 } from "@material-ui/core";
 import useCustomTable from "../customHooks/useCustomTable";
+import Notification from "../components/Notification";
+import ConfirmDialog from "../components/ConfirmDialog";
 import { useDispatch, useSelector } from "react-redux";
 import EditIcon from "@material-ui/icons/Edit";
+import Popup from "../components/Popup";
 import CloudDownloadIcon from "@material-ui/icons/CloudDownload";
-import { GET_LIST_LEAVE_REQUESTS_RESET } from "./DashboardConstants";
+import { GET_LIST_LEAVE_REQUESTS_RESET, GET_SINGLE_TO_EDIT_LEAVE_REQUESTS_RESET } from "./DashboardConstants";
 import {
   getListLeaveRequestAction,
   getSingleEditLeaveRequestAction,
 } from "./DashboardActions";
+import LeaveRequestForm from "./LeaveRequestForm";
 
 const useStyles = makeStyles((theme) => ({
   button: {
@@ -64,14 +68,25 @@ const tableHeader = [
   { id: "actions", label: "Actions", disableSorting: true },
 ];
 
-const DashboardLeaveApprove = (setOpenPopup) => {
+const DashboardLeaveApprove = () => {
+
+  const [approvalPopUp, setApprovalPopUp] = useState(false);
   const [tableData, setTableData] = useState([]);
   const [filterFn, setFilterFn] = useState({
     fn: (item) => {
       return item;
     },
   });
-
+  const [notify, setNotify] = useState({
+    isOpen: false,
+    message: "",
+    type: "",
+  });
+  const [confirmDialog, setConfirmDialog] = useState({
+    isOpen: false,
+    title: "",
+    subTitle: "",
+  });
   const { TblHead, TblPagination, tableDataAfterPagingAndSorting } =
     useCustomTable(tableData, tableHeader, filterFn);
 
@@ -81,6 +96,19 @@ const DashboardLeaveApprove = (setOpenPopup) => {
   const { listLeaveRequest, listLeaveRequestError } = useSelector(
     (state) => state.getListLeaveRequest
   );
+
+  const { singleEditLeaveRequest, error: singleEditLeaveRequestError } =
+  useSelector((state) => state.getSingleEditLeaveRequest);
+
+  if (singleEditLeaveRequestError) {
+    setNotify({
+      isOpen: true,
+      message: singleEditLeaveRequestError,
+      type: "error",
+    });
+    dispatch({ type: GET_SINGLE_TO_EDIT_LEAVE_REQUESTS_RESET });
+  }
+
 
   if (listLeaveRequestError) {
     setNotify({
@@ -93,7 +121,7 @@ const DashboardLeaveApprove = (setOpenPopup) => {
 
   const updateCollegeHandler = (id) => {
     dispatch(getSingleEditLeaveRequestAction(id));
-    setOpenPopup(true);
+    setApprovalPopUp(true);
   };
 
   useEffect(() => {
@@ -147,6 +175,26 @@ const DashboardLeaveApprove = (setOpenPopup) => {
         </TableBody>
       </Table>
       <TblPagination />
+      <Popup
+                openPopup={approvalPopUp}
+                setOpenPopup={setApprovalPopUp}
+                title="Leave Request Form"
+              >
+                <LeaveRequestForm
+                  leaveRequestEdit={
+                    singleEditLeaveRequest && singleEditLeaveRequest
+                  }
+                  // leaveRequestCreate={
+                  //   singleCreateLeaveRequest && singleCreateLeaveRequest
+                  // }
+                  setOpenPopUp={setApprovalPopUp}
+                />
+              </Popup>
+              <Notification notify={notify} setNotify={setNotify} />
+              <ConfirmDialog
+                confirmDialog={confirmDialog}
+                setConfirmDialog={setConfirmDialog}
+              />
     </>
   );
 };

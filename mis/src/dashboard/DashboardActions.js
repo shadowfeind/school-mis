@@ -124,7 +124,10 @@ export const getSingleCreateLeaveRequestAction = () => async (dispatch) => {
       tokenConfig
     );
 
-    dispatch({ type: GET_SINGLE_TO_CREATE_LEAVE_REQUESTS_SUCCESS, payload: data });
+    dispatch({
+      type: GET_SINGLE_TO_CREATE_LEAVE_REQUESTS_SUCCESS,
+      payload: data,
+    });
   } catch (error) {
     dispatch({
       type: GET_SINGLE_TO_CREATE_LEAVE_REQUESTS_FAIL,
@@ -143,7 +146,10 @@ export const getSingleEditLeaveRequestAction = (id) => async (dispatch) => {
       tokenConfig
     );
 
-    dispatch({ type: GET_SINGLE_TO_EDIT_LEAVE_REQUESTS_SUCCESS, payload: data });
+    dispatch({
+      type: GET_SINGLE_TO_EDIT_LEAVE_REQUESTS_SUCCESS,
+      payload: data,
+    });
   } catch (error) {
     dispatch({
       type: GET_SINGLE_TO_EDIT_LEAVE_REQUESTS_FAIL,
@@ -152,13 +158,23 @@ export const getSingleEditLeaveRequestAction = (id) => async (dispatch) => {
   }
 };
 
-
 export const postLeaveRequestAction =
-  (leaveRequest) => async (dispatch) => {
+  (leaveRequestPost,image) => async (dispatch) => {
     try {
       dispatch({ type: POST_LEAVE_REQUESTS_REQUEST });
 
-      const jsonData = JSON.stringify({ dbModel: leaveRequest });
+      let formData = new FormData();
+      formData.append("ImageUploaded", image);
+
+      const { data } = await axios.post(
+        `${API_URL}/api/LeaveRequest/FileUpload`,
+        formData,
+        tokenConfig
+      );
+
+      if (data) {
+        const newData = { ...leaveRequestPost, DocumentName: data };
+      const jsonData = JSON.stringify({ dbModel: newData });
 
       // const config = {
       //   headers: {
@@ -166,12 +182,13 @@ export const postLeaveRequestAction =
       //   },
       // };
 
-      const { data } = await axios.post(
+      console.log("jsonData",jsonData);
+      await axios.post(
         `${API_URL}/api/LeaveRequest/PostLeaveRequest`,
         jsonData,
         tokenConfig
       );
-
+      }
       dispatch({ type: POST_LEAVE_REQUESTS_SUCCESS, payload: data });
     } catch (error) {
       dispatch({
@@ -181,115 +198,129 @@ export const postLeaveRequestAction =
     }
   };
 
-  export const putLeaveRequestAction =
-  (leaveRequest) => async (dispatch) => {
-    try {
-      dispatch({ type: PUT_LEAVE_REQUESTS_REQUEST });
+export const putLeaveRequestAction = (leaveRequest,image) => async (dispatch) => {
+  try {
+    dispatch({ type: PUT_LEAVE_REQUESTS_REQUEST });
 
-      const jsonData = JSON.stringify({ dbModel: leaveRequest });
+    let formData = new FormData();
+      formData.append("ImageUploaded", image);
 
-      // const config = {
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //   },
-      // };
-
-      const { data } = await axios.put(
-        `${API_URL}/api/LeaveRequest/PutLeaveRequest`,
-        jsonData,
+      const { data } = await axios.post(
+        `${API_URL}/api/LeaveRequest/FileUpload`,
+        formData,
         tokenConfig
       );
+      if (data) {
+        const newData = { ...leaveRequest, DocumentName: data };
+    const jsonData = JSON.stringify({ dbModel: newData });
 
-      dispatch({ type: PUT_LEAVE_REQUESTS_SUCCESS, payload: data });
-    } catch (error) {
-      dispatch({
-        type: PUT_LEAVE_REQUESTS_FAIL,
-        payload: error.message ? error.message : error.Message,
-      });
-    }
-  };
+    // const config = {
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    // };
+    console.log("jsonData",jsonData);
+  await axios.put(
+      `${API_URL}/api/LeaveRequest/PutLeaveRequest`,
+      jsonData,
+      tokenConfig
+    );
+  }
+    dispatch({ type: PUT_LEAVE_REQUESTS_SUCCESS, payload: data });
+  } catch (error) {
+    dispatch({
+      type: PUT_LEAVE_REQUESTS_FAIL,
+      payload: error.message ? error.message : error.Message,
+    });
+  }
+};
 
-  export const getSingleDeleteLeaveRequestAction = (id) => async (dispatch) => {
-    try {
-      dispatch({ type: GET_SINGLE_TO_DELETE_LEAVE_REQUESTS_REQUEST });
-  
-      const { data } = await axios.get(
-        `${API_URL}/api/LeaveRequest/GetSingleToDeleteLeaveRequest/${id}
+export const getSingleDeleteLeaveRequestAction = (id) => async (dispatch) => {
+  try {
+    dispatch({ type: GET_SINGLE_TO_DELETE_LEAVE_REQUESTS_REQUEST });
+
+    const { data } = await axios.get(
+      `${API_URL}/api/LeaveRequest/GetSingleToDeleteLeaveRequest/${id}
         `,
-        tokenConfig
-      );
-  
-      dispatch({ type: GET_SINGLE_TO_DELETE_LEAVE_REQUESTS_SUCCESS, payload: data });
-    } catch (error) {
-      dispatch({
-        type: GET_SINGLE_TO_DELETE_LEAVE_REQUESTS_FAIL,
-        payload: error.message ? error.message : error.Message,
-      });
-    }
-  };
+      tokenConfig
+    );
 
-  export const deleteLeaveRequestAction =
-  (leaveRequest) => async (dispatch) => {
-    try {
-      dispatch({ type: DELETE_LEAVE_REQUESTS_REQUEST });
+    dispatch({
+      type: GET_SINGLE_TO_DELETE_LEAVE_REQUESTS_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: GET_SINGLE_TO_DELETE_LEAVE_REQUESTS_FAIL,
+      payload: error.message ? error.message : error.Message,
+    });
+  }
+};
 
-      const jsonData = JSON.stringify({ dbModel: leaveRequest });
+export const deleteLeaveRequestAction = (leaveRequest) => async (dispatch) => {
+  try {
+    dispatch({ type: DELETE_LEAVE_REQUESTS_REQUEST });
 
-      // const config = {
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //   },
-      // };
+    const jsonData = JSON.stringify({ dbModel: leaveRequest });
 
-      const { data } = await axios.delete(
-        `${API_URL}/api/LeaveRequest/DeleteLeaveRequest`,
-        jsonData,
-        tokenConfig
-      );
+    // const config = {
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    // };
 
-      dispatch({ type: DELETE_LEAVE_REQUESTS_SUCCESS, payload: data });
-    } catch (error) {
-      dispatch({
-        type: DELETE_LEAVE_REQUESTS_FAIL,
-        payload: error.message ? error.message : error.Message,
-      });
-    }
-  };
+    const { data } = await axios.post(
+      `${API_URL}/api/LeaveRequest/DeleteLeaveRequest`,
+      jsonData,
+      tokenConfig
+    );
 
-  export const getSingleEditSentLeaveRequestAction = (id) => async (dispatch) => {
-    try {
-      dispatch({ type: GET_SINGLE_TO_EDIT_SENT_LEAVE_REQUESTS_REQUEST });
-  
-      const { data } = await axios.get(
-        `${API_URL}/api/LeaveRequest/GetSingleToEditSentLeaveRequest/${id}
+    dispatch({ type: DELETE_LEAVE_REQUESTS_SUCCESS, payload: data });
+  } catch (error) {
+    dispatch({
+      type: DELETE_LEAVE_REQUESTS_FAIL,
+      payload: error.message ? error.message : error.Message,
+    });
+  }
+};
+
+export const getSingleEditSentLeaveRequestAction = (id) => async (dispatch) => {
+  try {
+    dispatch({ type: GET_SINGLE_TO_EDIT_SENT_LEAVE_REQUESTS_REQUEST });
+
+    const { data } = await axios.get(
+      `${API_URL}/api/LeaveRequest/GetSingleToEditSentLeaveRequest/${id}
         `,
-        tokenConfig
-      );
-  
-      dispatch({ type: GET_SINGLE_TO_EDIT_SENT_LEAVE_REQUESTS_SUCCESS, payload: data });
-    } catch (error) {
-      dispatch({
-        type: GET_SINGLE_TO_EDIT_SENT_LEAVE_REQUESTS_FAIL,
-        payload: error.message ? error.message : error.Message,
-      });
-    }
-  };
+      tokenConfig
+    );
 
-  export const downloadLeaveRequestAction = (id) => async (dispatch) => {
-    try {
-      dispatch({ type: DOWNLOAD_DOC_LEAVE_REQUESTS_REQUEST });
-  
-      const { data } = await axios.get(
-        `${API_URL}/api/LeaveRequest/DownloadDoc/${id}
+    dispatch({
+      type: GET_SINGLE_TO_EDIT_SENT_LEAVE_REQUESTS_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: GET_SINGLE_TO_EDIT_SENT_LEAVE_REQUESTS_FAIL,
+      payload: error.message ? error.message : error.Message,
+    });
+  }
+};
+
+export const downloadLeaveRequestAction = (id) => async (dispatch) => {
+  try {
+    dispatch({ type: DOWNLOAD_DOC_LEAVE_REQUESTS_REQUEST });
+
+    const { data } = await axios.get(
+      `${API_URL}/api/LeaveRequest/DownloadDoc/${id}
         `,
-        tokenConfig
-      );
-  
-      dispatch({ type: DOWNLOAD_DOC_LEAVE_REQUESTS_SUCCESS, payload: data });
-    } catch (error) {
-      dispatch({
-        type: DOWNLOAD_DOC_LEAVE_REQUESTS_FAIL,
-        payload: error.message ? error.message : error.Message,
-      });
-    }
-  };
+      tokenConfig
+    );
+
+    dispatch({ type: DOWNLOAD_DOC_LEAVE_REQUESTS_SUCCESS, payload: data });
+  } catch (error) {
+    dispatch({
+      type: DOWNLOAD_DOC_LEAVE_REQUESTS_FAIL,
+      payload: error.message ? error.message : error.Message,
+    });
+  }
+};

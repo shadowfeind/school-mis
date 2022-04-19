@@ -64,7 +64,14 @@ const HrValueForm = ({ hrValueCreate, setOpenPopup, hrValueEdit }) => {
     e.preventDefault();
     if (validate()) {
       if (values.IDHRCompanyValue === 0) {
-        dispatch(postCreateHrValueAction(values, headerBanner, schoolLogo, principleSignature));
+        dispatch(
+          postCreateHrValueAction(
+            values,
+            headerBanner,
+            schoolLogo,
+            principleSignature
+          )
+        );
       } else {
         dispatch(
           putEditHrValueAction(
@@ -114,9 +121,9 @@ const HrValueForm = ({ hrValueCreate, setOpenPopup, hrValueEdit }) => {
   useEffect(() => {
     if (hrValueEdit) {
       setValues({ ...hrValueEdit.dbModel });
-      setHeaderBanner(`${API_URL}${hrValueEdit.HeaderBanner}`)
-      setSchoolLogo(`${API_URL}${hrValueEdit.SchoolLogo}`)
-      setPrincipleSignature(`${API_URL}${hrValueEdit.PrincipleSignature}`)
+      setHeaderBanner(`${API_URL}${hrValueEdit.HeaderBanner}`);
+      setSchoolLogo(`${API_URL}${hrValueEdit.SchoolLogo}`);
+      setPrincipleSignature(`${API_URL}${hrValueEdit.PrincipleSignature}`);
       console.log(hrValueEdit.dbModel);
     }
   }, [hrValueEdit]);
@@ -127,7 +134,7 @@ const HrValueForm = ({ hrValueCreate, setOpenPopup, hrValueEdit }) => {
     }
   }, [hrValueCreate]);
 
-  const symbolsArr = ["e", "E", "+", "-", ".","ArrowUp","ArrowDown"];
+  const symbolsArr = ["e", "E", "+", "-", ".", "ArrowUp", "ArrowDown"];
 
   const test = [{ Key: "", Value: "" }];
 
@@ -139,9 +146,9 @@ const HrValueForm = ({ hrValueCreate, setOpenPopup, hrValueEdit }) => {
             name="SchoolName"
             label="SchoolName*"
             value={values.SchoolName}
-            onFocus={e => {
-      e.target.select();
-    }}
+            onFocus={(e) => {
+              e.target.select();
+            }}
             onChange={handleInputChange}
             errors={errors.SchoolName}
           />
@@ -149,9 +156,9 @@ const HrValueForm = ({ hrValueCreate, setOpenPopup, hrValueEdit }) => {
             name="FullAddress"
             label="Full Address*"
             value={values.FullAddress}
-            onFocus={e => {
-      e.target.select();
-    }}
+            onFocus={(e) => {
+              e.target.select();
+            }}
             onChange={handleInputChange}
             errors={errors.FullAddress}
           />
@@ -159,19 +166,19 @@ const HrValueForm = ({ hrValueCreate, setOpenPopup, hrValueEdit }) => {
             name="Slogan"
             label="Slogan*"
             value={values.Slogan}
-            onFocus={e => {
-      e.target.select();
-    }}
+            onFocus={(e) => {
+              e.target.select();
+            }}
             onChange={handleInputChange}
             errors={errors.Slogan}
           />
           <InputControl
             name="SchoolType"
-            label="School Type*"
+            label="School Short Name*"
             value={values.SchoolType}
-            onFocus={e => {
-      e.target.select();
-    }}
+            onFocus={(e) => {
+              e.target.select();
+            }}
             onChange={handleInputChange}
             errors={errors.SchoolType}
           />
@@ -179,12 +186,12 @@ const HrValueForm = ({ hrValueCreate, setOpenPopup, hrValueEdit }) => {
             name="TelNo"
             label="Tel-No*"
             value={values.TelNo}
-            onWheelCapture={e => {
-  e.target.blur()
-}}
-            onFocus={e => {
-      e.target.select();
-    }}
+            onWheelCapture={(e) => {
+              e.target.blur();
+            }}
+            onFocus={(e) => {
+              e.target.select();
+            }}
             onChange={handleInputChange}
             onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}
             type="number"
@@ -194,9 +201,9 @@ const HrValueForm = ({ hrValueCreate, setOpenPopup, hrValueEdit }) => {
             name="Email"
             label="Email*"
             value={values.Email}
-            onFocus={e => {
-      e.target.select();
-    }}
+            onFocus={(e) => {
+              e.target.select();
+            }}
             onChange={handleInputChange}
             errors={errors.Email}
           />
@@ -204,9 +211,9 @@ const HrValueForm = ({ hrValueCreate, setOpenPopup, hrValueEdit }) => {
             name="RegNo"
             label="RegNo*"
             value={values.RegNo}
-            onFocus={e => {
-      e.target.select();
-    }}
+            onFocus={(e) => {
+              e.target.select();
+            }}
             onChange={handleInputChange}
             errors={errors.RegNo}
           />
@@ -214,9 +221,9 @@ const HrValueForm = ({ hrValueCreate, setOpenPopup, hrValueEdit }) => {
             name="Url"
             label="Url*"
             value={values.Url}
-            onFocus={e => {
-      e.target.select();
-    }}
+            onFocus={(e) => {
+              e.target.select();
+            }}
             onChange={handleInputChange}
             errors={errors.Url}
           />

@@ -16,10 +16,11 @@ import { useDispatch, useSelector } from "react-redux";
 import EditIcon from "@material-ui/icons/Edit";
 import Popup from "../components/Popup";
 import CloudDownloadIcon from "@material-ui/icons/CloudDownload";
-import { GET_LIST_LEAVE_REQUESTS_RESET, GET_SINGLE_TO_EDIT_LEAVE_REQUESTS_RESET } from "./DashboardConstants";
+import { DOWNLOAD_DOC_LEAVE_REQUESTS_RESET, GET_LIST_LEAVE_REQUESTS_RESET, GET_SINGLE_TO_EDIT_LEAVE_REQUESTS_RESET } from "./DashboardConstants";
 import {
+  downloadLeaveRequestAction,
   getListLeaveRequestAction,
-  getSingleEditLeaveRequestAction,
+  getSingleEditSentLeaveRequestAction,
 } from "./DashboardActions";
 import LeaveRequestForm from "./LeaveRequestForm";
 
@@ -97,16 +98,39 @@ const DashboardLeaveApprove = () => {
     (state) => state.getListLeaveRequest
   );
 
-  const { singleEditLeaveRequest, error: singleEditLeaveRequestError } =
-  useSelector((state) => state.getSingleEditLeaveRequest);
+  const { singleEditSentLeaveRequest, error: singleEditSentLeaveRequestError } =
+  useSelector((state) => state.getSingleEditSentLeaveRequest);
 
-  if (singleEditLeaveRequestError) {
+  const {
+    success: downloadDocSuccess,
+    file: downloadFile,
+    error: downloadDocError,
+  } = useSelector((state) => state.downloadLeaveRequest);
+
+  if (downloadFile) {
+    
+    var blob = new Blob([downloadFile]);
+    var url = window.URL.createObjectURL(blob);
+    debugger;
+    window.open(url, "_blank");
+  }
+
+  if (singleEditSentLeaveRequestError) {
     setNotify({
       isOpen: true,
-      message: singleEditLeaveRequestError,
+      message: singleEditSentLeaveRequestError,
       type: "error",
     });
     dispatch({ type: GET_SINGLE_TO_EDIT_LEAVE_REQUESTS_RESET });
+  }
+
+  if (downloadDocError) {
+    setNotify({
+      isOpen: true,
+      message: downloadDocError,
+      type: "error",
+    });
+    dispatch({ type: DOWNLOAD_DOC_LEAVE_REQUESTS_RESET });
   }
 
 
@@ -120,7 +144,7 @@ const DashboardLeaveApprove = () => {
   }
 
   const updateCollegeHandler = (id) => {
-    dispatch(getSingleEditLeaveRequestAction(id));
+    dispatch(getSingleEditSentLeaveRequestAction(id));
     setApprovalPopUp(true);
   };
 
@@ -132,6 +156,10 @@ const DashboardLeaveApprove = () => {
       setTableData(listLeaveRequest.dbModelReceiverLst);
     }
   }, [dispatch, listLeaveRequest]);
+
+  const downloadHandler = (id) => {
+    dispatch(downloadLeaveRequestAction(id));
+  };
   return (
     <>
       <Table className={classes.table}>
@@ -165,7 +193,7 @@ const DashboardLeaveApprove = () => {
                   variant="contained"
                   color="default"
                   className={classes.button}
-                  // onClick={() => downloadHandler(item.Id)}
+                  onClick={() => downloadHandler(s.IDLeaveRequest)}
                 >
                   <CloudDownloadIcon style={{ fontSize: 12 }} />
                 </Button>
@@ -181,8 +209,8 @@ const DashboardLeaveApprove = () => {
                 title="Leave Request Form"
               >
                 <LeaveRequestForm
-                  leaveRequestEdit={
-                    singleEditLeaveRequest && singleEditLeaveRequest
+                  leaveRequestEditApproval={
+                    singleEditSentLeaveRequest && singleEditSentLeaveRequest
                   }
                   // leaveRequestCreate={
                   //   singleCreateLeaveRequest && singleCreateLeaveRequest

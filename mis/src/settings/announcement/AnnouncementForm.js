@@ -78,9 +78,12 @@ const AnnouncementForm = ({
           <InputControl
             name="NewsHeading"
             label="News Heading*"
-            onFocus={(e) => {
-              e.target.select();
-            }}
+            onKeyDown={(e) => values.MessageDescription?.length > 160 && e.preventDefault()}
+            onFocus={e => {
+      e.target.select();
+    }}
+
+           
             value={values.NewsHeading}
             onChange={handleInputChange}
             errors={errors.NewsHeading}
@@ -93,9 +96,13 @@ const AnnouncementForm = ({
             multiline
             rows={4}
             value={values.NewsDescription}
-            onFocus={(e) => {
-              e.target.select();
-            }}
+
+            onKeyDown={(e) => values.MessageDescription?.length > 160 && e.preventDefault()}
+            onFocus={e => {
+      e.target.select();
+    }}
+
+        
             onChange={handleInputChange}
             errors={errors.NewsDescription}
           />

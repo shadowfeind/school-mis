@@ -82,6 +82,7 @@ const TeacherNotificationForm = ({ setOpenPopup, fcmTokenList }) => {
               onFocus={e => {
       e.target.select();
     }}
+    onKeyDown={(e) => values.MessageDescription?.length > 160 && e.preventDefault()}
               value={values.MessageDescription}
               onChange={handleInputChange}
               errors={errors.MessageDescription}

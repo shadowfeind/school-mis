@@ -246,6 +246,7 @@ const HrValue = () => {
 
   const updateHrValueHandler = (id, company) => {
     dispatch(getSingleEditHrValueAction(id, company));
+    dispatch({type: GET_SINGLE_TO_CREATE_HR_VALUE_RESET});
     setOpenPopup(true);
   };
 

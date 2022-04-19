@@ -163,33 +163,37 @@ export const postLeaveRequestAction =
     try {
       dispatch({ type: POST_LEAVE_REQUESTS_REQUEST });
 
-      let formData = new FormData();
-      formData.append("ImageUploaded", image);
-
-      const { data } = await axios.post(
-        `${API_URL}/api/LeaveRequest/FileUpload`,
-        formData,
-        tokenConfig
-      );
-
-      if (data) {
-        const newData = { ...leaveRequestPost, DocumentName: data };
+      if(image){
+        let formData = new FormData();
+        formData.append("ImageUploaded", image);
+    
+        const { data } = await axios.post(
+          `${API_URL}/api/LeaveRequest/FileUpload`,
+          formData,
+          tokenConfig
+        );
+        if (data) {
+          const newData = { ...leaveRequestPost, DocumentName: data };
       const jsonData = JSON.stringify({ dbModel: newData });
-
-      // const config = {
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //   },
-      // };
-
-      console.log("jsonData",jsonData);
-      await axios.post(
+          
+    await axios.post(
         `${API_URL}/api/LeaveRequest/PostLeaveRequest`,
         jsonData,
         tokenConfig
       );
-      }
-      dispatch({ type: POST_LEAVE_REQUESTS_SUCCESS, payload: data });
+    }
+    }else{
+        const newData = { ...leaveRequestPost};
+    const jsonData = JSON.stringify({ dbModel: newData });
+        
+    await axios.post(
+      `${API_URL}/api/LeaveRequest/PostLeaveRequest`,
+      jsonData,
+      tokenConfig
+    );
+    }
+
+      dispatch({ type: POST_LEAVE_REQUESTS_SUCCESS});
     } catch (error) {
       dispatch({
         type: POST_LEAVE_REQUESTS_FAIL,
@@ -202,31 +206,36 @@ export const putLeaveRequestAction = (leaveRequest,image) => async (dispatch) =>
   try {
     dispatch({ type: PUT_LEAVE_REQUESTS_REQUEST });
 
+   if(image){
     let formData = new FormData();
-      formData.append("ImageUploaded", image);
+    formData.append("ImageUploaded", image);
 
-      const { data } = await axios.post(
-        `${API_URL}/api/LeaveRequest/FileUpload`,
-        formData,
-        tokenConfig
-      );
-      if (data) {
-        const newData = { ...leaveRequest, DocumentName: data };
-    const jsonData = JSON.stringify({ dbModel: newData });
-
-    // const config = {
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    // };
-    console.log("jsonData",jsonData);
-  await axios.put(
-      `${API_URL}/api/LeaveRequest/PutLeaveRequest`,
-      jsonData,
+    const { data } = await axios.post(
+      `${API_URL}/api/LeaveRequest/FileUpload`,
+      formData,
       tokenConfig
     );
-  }
-    dispatch({ type: PUT_LEAVE_REQUESTS_SUCCESS, payload: data });
+    if (data) {
+      const newData = { ...leaveRequest, DocumentName: data };
+  const jsonData = JSON.stringify({ dbModel: newData });
+      
+await axios.put(
+    `${API_URL}/api/LeaveRequest/PutLeaveRequest`,
+    jsonData,
+    tokenConfig
+  );
+}
+}else{
+    const newData = { ...leaveRequest};
+const jsonData = JSON.stringify({ dbModel: newData });
+    
+await axios.put(
+  `${API_URL}/api/LeaveRequest/PutLeaveRequest`,
+  jsonData,
+  tokenConfig
+);
+}
+    dispatch({ type: PUT_LEAVE_REQUESTS_SUCCESS});
   } catch (error) {
     dispatch({
       type: PUT_LEAVE_REQUESTS_FAIL,
@@ -310,13 +319,11 @@ export const downloadLeaveRequestAction = (id) => async (dispatch) => {
   try {
     dispatch({ type: DOWNLOAD_DOC_LEAVE_REQUESTS_REQUEST });
 
-    const { data } = await axios.get(
-      `${API_URL}/api/LeaveRequest/DownloadDoc/${id}
-        `,
-      tokenConfig
-    );
+    const File  =`${API_URL}/api/LeaveRequest/DownloadDoc/${id}`;
 
-    dispatch({ type: DOWNLOAD_DOC_LEAVE_REQUESTS_SUCCESS, payload: data });
+    window.open(File, "_blank");
+
+    dispatch({ type: DOWNLOAD_DOC_LEAVE_REQUESTS_SUCCESS, payload: File });
   } catch (error) {
     dispatch({
       type: DOWNLOAD_DOC_LEAVE_REQUESTS_FAIL,

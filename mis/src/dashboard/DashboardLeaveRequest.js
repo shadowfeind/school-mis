@@ -127,16 +127,30 @@ const DashboardLeaveRequest = () => {
   const { singleEditLeaveRequest, error: singleEditLeaveRequestError } =
     useSelector((state) => state.getSingleEditLeaveRequest);
 
-    const { postLeaveRequestSuccess, error: postLeaveRequestError } =
-    useSelector((state) => state.postLeaveRequest);
+    // const { postLeaveRequestSuccess, error: postLeaveRequestError } =
+    // useSelector((state) => state.postLeaveRequest);
 
-    const { putLeaveRequestSuccess, error: putLeaveRequestError } =
+    const { success:putLeaveRequestSuccess, error: putLeaveRequestError } =
     useSelector((state) => state.putLeaveRequest);
 
 
   const { listLeaveRequest, listLeaveRequestError } = useSelector(
     (state) => state.getListLeaveRequest
   );
+
+  const {
+    // success: downloadDocSuccess,
+    // file: downloadFile,
+    error: downloadDocError,
+  } = useSelector((state) => state.downloadLeaveRequest);
+
+  // if (downloadFile) {
+    
+  //   var blob = new Blob([downloadFile]);
+  //   var url = window.URL.createObjectURL(blob);
+  //   debugger;
+  //   window.open(url, "_blank");
+  // }
 
   if (error) {
     setNotify({
@@ -145,6 +159,15 @@ const DashboardLeaveRequest = () => {
       type: "error",
     });
     dispatch({ type: GET_ALL_LEAVE_REQUESTS_RESET });
+  }
+
+  if (downloadDocError) {
+    setNotify({
+      isOpen: true,
+      message: downloadDocError,
+      type: "error",
+    });
+    dispatch({ type: DOWNLOAD_DOC_LEAVE_REQUESTS_RESET });
   }
 
   
@@ -157,14 +180,14 @@ const DashboardLeaveRequest = () => {
     dispatch({ type: GET_SINGLE_TO_CREATE_LEAVE_REQUESTS_RESET });
   }
 
-  if (postLeaveRequestError) {
-    setNotify({
-      isOpen: true,
-      message: postLeaveRequestError,
-      type: "error",
-    });
-    dispatch({ type: POST_LEAVE_REQUESTS_RESET });
-  }
+  // if (postLeaveRequestError) {
+  //   setNotify({
+  //     isOpen: true,
+  //     message: postLeaveRequestError,
+  //     type: "error",
+  //   });
+  //   dispatch({ type: POST_LEAVE_REQUESTS_RESET });
+  // }
 
   if (putLeaveRequestError) {
     setNotify({
@@ -176,16 +199,16 @@ const DashboardLeaveRequest = () => {
   }
 
 
-  if (postLeaveRequestSuccess) {
-    dispatch(getListLeaveRequestAction());
-    setNotify({
-      isOpen: true,
-      message: "Leave Request Send Succesfully",
-      type: "success",
-    });
-    setOpenPopUp(false);
-    dispatch({ type: POST_LEAVE_REQUESTS_RESET });
-  }
+  // if (postLeaveRequestSuccess) {
+  //   dispatch(getListLeaveRequestAction());
+  //   setNotify({
+  //     isOpen: true,
+  //     message: "Leave Request Send Succesfully",
+  //     type: "success",
+  //   });
+  //   setOpenPopUp(false);
+  //   dispatch({ type: POST_LEAVE_REQUESTS_RESET });
+  // }
 
   if (putLeaveRequestSuccess) {
     dispatch(getListLeaveRequestAction());

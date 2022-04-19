@@ -77,7 +77,7 @@ const SyllabusForm =({syllabus,setOpenPopup}) => {
               />
               <InputControl
                 name="ImageUploaded"
-                label="Select File"
+                // label="Select File"
                 onChange={(e) => fileValidation(e, setImage, setImgSrc)}
                 type="file"
                 // errors={errors.img}

@@ -3,6 +3,7 @@ import { Button, Grid } from "@material-ui/core";
 import InputControl from "../../components/controls/InputControl";
 import { useForm, Form } from "../../customHooks/useForm";
 import { useDispatch, useSelector } from "react-redux";
+import fileValidation from "../../helpers/fileValidation";
 import SelectControl from "../../components/controls/SelectControl";
 import DatePickerControl from "../../components/controls/DatePickerControl";
 import { API_URL } from "../../constants";
@@ -557,6 +558,7 @@ const StudentRegistrationForm = ({
             // label="Select Profile Photo"
             // value={values.ClassLocation}
             onChange={(e) => handleImage(e)}
+            onChange={(e) => fileValidation(e, setImage, setImgSrc)}
             type="file"
             // errors={errors.ClassLocation}
           />

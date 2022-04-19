@@ -5,6 +5,7 @@ import { useForm, Form } from "../customHooks/useForm";
 import { useDispatch } from "react-redux";
 import CheckBoxControl from "../components/controls/CheckBoxControl";
 import SelectControl from "../components/controls/SelectControl";
+import fileValidation from "../helpers/fileValidation";
 import DatePickerControl from "../components/controls/DatePickerControl";
 import { API_URL } from "../constants";
 import {
@@ -29,6 +30,7 @@ const initialFormValues = {
 
 const LeaveRequestForm = ({
   leaveRequestEdit,
+  leaveRequestEditApproval,
   leaveRequestCreate,
   setOpenPopUp,
 }) => {
@@ -87,6 +89,12 @@ const LeaveRequestForm = ({
       setValues({ ...leaveRequestEdit.dbModel });
     }
   }, [leaveRequestEdit]);
+
+  useEffect(() => {
+    if (leaveRequestEditApproval) {
+      setValues({ ...leaveRequestEditApproval.dbModel });
+    }
+  }, [leaveRequestEditApproval]);
 
   const gender = [{ Key: "", Value: "" }];
 
@@ -151,6 +159,7 @@ const LeaveRequestForm = ({
             // value={values.ClassLocation}
             onChange={(e) => handleImage(e)}
             type="file"
+            onChange={(e) => fileValidation(e, setImage, setImgSrc)}
             // errors={errors.ClassLocation}
           />
           <img

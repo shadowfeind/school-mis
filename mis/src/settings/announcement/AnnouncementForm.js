@@ -73,6 +73,7 @@ const AnnouncementForm = ({ announcement, setOpenPopup, fcmTokenList }) => {
           <InputControl
             name="NewsHeading"
             label="News Heading*"
+            onKeyDown={(e) => values.MessageDescription?.length > 160 && e.preventDefault()}
             onFocus={e => {
       e.target.select();
     }}
@@ -88,6 +89,7 @@ const AnnouncementForm = ({ announcement, setOpenPopup, fcmTokenList }) => {
             multiline
             rows={4}
             value={values.NewsDescription}
+            onKeyDown={(e) => values.MessageDescription?.length > 160 && e.preventDefault()}
             onFocus={e => {
       e.target.select();
     }}

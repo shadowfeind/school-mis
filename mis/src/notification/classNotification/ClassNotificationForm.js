@@ -212,6 +212,7 @@ const ClassNotificationForm = ({
               onFocus={e => {
       e.target.select();
     }}
+    onKeyDown={(e) => values.MessageDescription?.length > 160 && e.preventDefault()}
               onChange={handleInputChange}
               errors={errors.MessageDescription}
             />

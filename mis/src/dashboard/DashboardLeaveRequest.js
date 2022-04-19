@@ -139,18 +139,18 @@ const DashboardLeaveRequest = () => {
   );
 
   const {
-    success: downloadDocSuccess,
-    file: downloadFile,
+    // success: downloadDocSuccess,
+    // file: downloadFile,
     error: downloadDocError,
   } = useSelector((state) => state.downloadLeaveRequest);
 
-  if (downloadFile) {
+  // if (downloadFile) {
     
-    var blob = new Blob([downloadFile]);
-    var url = window.URL.createObjectURL(blob);
-    debugger;
-    window.open(url, "_blank");
-  }
+  //   var blob = new Blob([downloadFile]);
+  //   var url = window.URL.createObjectURL(blob);
+  //   debugger;
+  //   window.open(url, "_blank");
+  // }
 
   if (error) {
     setNotify({

@@ -130,8 +130,8 @@ const DashboardLeaveRequest = () => {
     // const { postLeaveRequestSuccess, error: postLeaveRequestError } =
     // useSelector((state) => state.postLeaveRequest);
 
-    // const { putLeaveRequestSuccess, error: putLeaveRequestError } =
-    // useSelector((state) => state.putLeaveRequest);
+    const { success:putLeaveRequestSuccess, error: putLeaveRequestError } =
+    useSelector((state) => state.putLeaveRequest);
 
 
   const { listLeaveRequest, listLeaveRequestError } = useSelector(
@@ -189,14 +189,14 @@ const DashboardLeaveRequest = () => {
   //   dispatch({ type: POST_LEAVE_REQUESTS_RESET });
   // }
 
-  // if (putLeaveRequestError) {
-  //   setNotify({
-  //     isOpen: true,
-  //     message: putLeaveRequestError,
-  //     type: "error",
-  //   });
-  //   dispatch({ type: PUT_LEAVE_REQUESTS_RESET });
-  // }
+  if (putLeaveRequestError) {
+    setNotify({
+      isOpen: true,
+      message: putLeaveRequestError,
+      type: "error",
+    });
+    dispatch({ type: PUT_LEAVE_REQUESTS_RESET });
+  }
 
 
   // if (postLeaveRequestSuccess) {
@@ -210,16 +210,16 @@ const DashboardLeaveRequest = () => {
   //   dispatch({ type: POST_LEAVE_REQUESTS_RESET });
   // }
 
-  // if (putLeaveRequestSuccess) {
-  //   dispatch(getListLeaveRequestAction());
-  //   setNotify({
-  //     isOpen: true,
-  //     message: "Leave Request Edited Succesfully",
-  //     type: "success",
-  //   });
-  //   setOpenPopUp(false);
-  //   dispatch({ type: PUT_LEAVE_REQUESTS_RESET });
-  // }
+  if (putLeaveRequestSuccess) {
+    dispatch(getListLeaveRequestAction());
+    setNotify({
+      isOpen: true,
+      message: "Leave Request Edited Succesfully",
+      type: "success",
+    });
+    setOpenPopUp(false);
+    dispatch({ type: PUT_LEAVE_REQUESTS_RESET });
+  }
 
   if (deleteLeaveRequestError) {
     setNotify({

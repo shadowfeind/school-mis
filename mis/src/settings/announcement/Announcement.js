@@ -73,7 +73,9 @@ const AnnouncementTest = () => {
 
   const dispatch = useDispatch();
 
-  const { announcement, error,loading } = useSelector((state) => state.announcement);
+  const { announcement, error, loading } = useSelector(
+    (state) => state.announcement
+  );
 
   const { success: createAnnouncementSuccess, error: createAnnouncementError } =
     useSelector((state) => state.createAnnouncement);
@@ -235,22 +237,22 @@ const AnnouncementTest = () => {
           <LoadingComp />
         ) : (
           <>
-        <TableContainer className={classes.table}>
-          <TblHead />
+            <TableContainer className={classes.table}>
+              <TblHead />
 
-          <TableBody>
-            {tableDataAfterPagingAndSorting().map((item) => (
-              <AnnouncementTableCollapse
-                item={item}
-                key={item.$id}
-                updateCollegeHandler={updateCollegeHandler}
-                deleteCollegeHandler={deleteCollegeHandler}
-              />
-            ))}
-          </TableBody>
-        </TableContainer>
-        <TblPagination />
-        </>
+              <TableBody>
+                {tableDataAfterPagingAndSorting().map((item) => (
+                  <AnnouncementTableCollapse
+                    item={item}
+                    key={item.$id}
+                    updateCollegeHandler={updateCollegeHandler}
+                    deleteCollegeHandler={deleteCollegeHandler}
+                  />
+                ))}
+              </TableBody>
+            </TableContainer>
+            <TblPagination />
+          </>
         )}
       </CustomContainer>
       <Popup
@@ -259,7 +261,8 @@ const AnnouncementTest = () => {
         title="Announcement Form"
       >
         <AnnouncementForm
-          announcement={singleAnnouncement && singleAnnouncement.dbModel}
+          announcement={announcementFCM && announcementFCM.dbModel}
+          schoolName={announcementFCM && announcementFCM.SchoolShortName}
           fcmTokenList={announcementFCM && announcementFCM.fcmTokenValueLst}
           setOpenPopup={setOpenPopup}
         />

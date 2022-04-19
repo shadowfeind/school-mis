@@ -138,7 +138,6 @@ const ClassNotificationForm = ({
               <StyledTableCell>Roll No. </StyledTableCell>
               <StyledTableCell>Student Name </StyledTableCell>
               <StyledTableCell>Batch </StyledTableCell>
-    
               <StyledTableCell style={{ textAlign: "right" }}>
                 <label>Select All</label>
                 <Checkbox
@@ -162,9 +161,6 @@ const ClassNotificationForm = ({
                     </StyledTableCell>
                     <StyledTableCell component="th" scope="row">
                       {s.AcademicYear}
-                    </StyledTableCell>
-                    <StyledTableCell component="th" scope="row">
-                      {s.FacultyPath}
                     </StyledTableCell>
                     <StyledTableCell
                       component="th"

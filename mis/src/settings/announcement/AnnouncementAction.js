@@ -56,7 +56,7 @@ export const getFCMForAnnouncementAction = () => async (dispatch) => {
 };
 
 export const announcementCreateAction =
-  (announcementCreate, fcmTokenList) => async (dispatch) => {
+  (announcementCreate, fcmTokenList, schoolName) => async (dispatch) => {
     try {
       dispatch({ type: ANNOUNCEMENT_CREATE_REQUEST });
 
@@ -64,8 +64,8 @@ export const announcementCreateAction =
         registration_ids: fcmTokenList,
         collapse_key: "type_a",
         notification: {
-          body: announcementCreate.NewsDescription,
-          title: announcementCreate.NewsHeading,
+          body: announcementCreate.NewsHeading,
+          title: schoolName,
         },
       };
 
@@ -121,12 +121,6 @@ export const updateSingleAnnouncementAction =
       dispatch({ type: UPDATE_SINGLE_ANNOUNCEMENT_REQUEST });
 
       const jsonData = JSON.stringify({ dbModel: announcementSingle });
-
-      // const config = {
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //   },
-      // };
 
       const { data } = await axios.put(
         `${API_URL}/api/Announcement/Put`,

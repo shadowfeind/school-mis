@@ -19,11 +19,17 @@ const initialFormValues = {
   NoticeImage: "",
   IDHREmployee: 0,
   IsActive: true,
+  SchoolShortName: "",
   Created_On: "2022-01-27T04:45:28.146Z",
   Updated_On: "2022-01-27T04:45:28.146Z",
 };
 
-const AnnouncementForm = ({ announcement, setOpenPopup, fcmTokenList }) => {
+const AnnouncementForm = ({
+  announcement,
+  setOpenPopup,
+  fcmTokenList,
+  schoolName,
+}) => {
   const dispatch = useDispatch();
   const validate = (fieldValues = values) => {
     let temp = { ...errors };
@@ -54,18 +60,17 @@ const AnnouncementForm = ({ announcement, setOpenPopup, fcmTokenList }) => {
 
     if (validate()) {
       if (values.IDHREmployee === 0) {
-        dispatch(announcementCreateAction(values, fcmTokenList));
-      } else {
-        dispatch(updateSingleAnnouncementAction(values));
+        dispatch(announcementCreateAction(values, fcmTokenList, schoolName));
       }
     }
   };
 
-  useEffect(() => {
-    if (announcement) {
-      setValues({ ...announcement });
-    }
-  }, [announcement]);
+  //uncomment in case of edit but we dont need edit
+  // useEffect(() => {
+  //   if (announcement) {
+  //     setValues({ ...announcement });
+  //   }
+  // }, [announcement]);
   return (
     <Form onSubmit={handleSubmit}>
       <Grid container style={{ fontSize: "12px" }}>
@@ -77,6 +82,8 @@ const AnnouncementForm = ({ announcement, setOpenPopup, fcmTokenList }) => {
             onFocus={e => {
       e.target.select();
     }}
+
+           
             value={values.NewsHeading}
             onChange={handleInputChange}
             errors={errors.NewsHeading}
@@ -89,21 +96,24 @@ const AnnouncementForm = ({ announcement, setOpenPopup, fcmTokenList }) => {
             multiline
             rows={4}
             value={values.NewsDescription}
+
             onKeyDown={(e) => values.MessageDescription?.length > 160 && e.preventDefault()}
             onFocus={e => {
       e.target.select();
     }}
+
+        
             onChange={handleInputChange}
             errors={errors.NewsDescription}
           />
         </Grid>
         <CheckBoxControl
-            name="IsActive"
-            label="IsActive"
-            value={values.IsActive}
-            onChange={handleInputChange}
-            errors={errors.IsActive}
-          />
+          name="IsActive"
+          label="IsActive"
+          value={values.IsActive}
+          onChange={handleInputChange}
+          errors={errors.IsActive}
+        />
       </Grid>
       <div
         style={{

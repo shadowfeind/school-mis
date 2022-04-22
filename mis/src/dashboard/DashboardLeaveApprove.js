@@ -16,13 +16,18 @@ import { useDispatch, useSelector } from "react-redux";
 import EditIcon from "@material-ui/icons/Edit";
 import Popup from "../components/Popup";
 import CloudDownloadIcon from "@material-ui/icons/CloudDownload";
-import { DOWNLOAD_DOC_LEAVE_REQUESTS_RESET, GET_LIST_LEAVE_REQUESTS_RESET, GET_SINGLE_TO_EDIT_LEAVE_REQUESTS_RESET } from "./DashboardConstants";
+import {
+  DOWNLOAD_DOC_LEAVE_REQUESTS_RESET,
+  GET_LIST_LEAVE_REQUESTS_RESET,
+  GET_SINGLE_TO_EDIT_LEAVE_REQUESTS_RESET,
+} from "./DashboardConstants";
 import {
   downloadLeaveRequestAction,
   getListLeaveRequestAction,
   getSingleEditSentLeaveRequestAction,
 } from "./DashboardActions";
 import LeaveRequestForm from "./LeaveRequestForm";
+import LeaveApprovlForm from "./LeaveApprovalForm";
 
 const useStyles = makeStyles((theme) => ({
   button: {
@@ -70,7 +75,6 @@ const tableHeader = [
 ];
 
 const DashboardLeaveApprove = () => {
-
   const [approvalPopUp, setApprovalPopUp] = useState(false);
   const [tableData, setTableData] = useState([]);
   const [filterFn, setFilterFn] = useState({
@@ -99,7 +103,7 @@ const DashboardLeaveApprove = () => {
   );
 
   const { singleEditSentLeaveRequest, error: singleEditSentLeaveRequestError } =
-  useSelector((state) => state.getSingleEditSentLeaveRequest);
+    useSelector((state) => state.getSingleEditSentLeaveRequest);
 
   const {
     success: downloadDocSuccess,
@@ -108,7 +112,6 @@ const DashboardLeaveApprove = () => {
   } = useSelector((state) => state.downloadLeaveRequest);
 
   if (downloadFile) {
-    
     var blob = new Blob([downloadFile]);
     var url = window.URL.createObjectURL(blob);
     debugger;
@@ -132,7 +135,6 @@ const DashboardLeaveApprove = () => {
     });
     dispatch({ type: DOWNLOAD_DOC_LEAVE_REQUESTS_RESET });
   }
-
 
   if (listLeaveRequestError) {
     setNotify({
@@ -203,26 +205,27 @@ const DashboardLeaveApprove = () => {
         </TableBody>
       </Table>
       <TblPagination />
+
       <Popup
-                openPopup={approvalPopUp}
-                setOpenPopup={setApprovalPopUp}
-                title="Leave Request Form"
-              >
-                <LeaveRequestForm
-                  leaveRequestEditApproval={
-                    singleEditSentLeaveRequest && singleEditSentLeaveRequest
-                  }
-                  // leaveRequestCreate={
-                  //   singleCreateLeaveRequest && singleCreateLeaveRequest
-                  // }
-                  setOpenPopUp={setApprovalPopUp}
-                />
-              </Popup>
-              <Notification notify={notify} setNotify={setNotify} />
-              <ConfirmDialog
-                confirmDialog={confirmDialog}
-                setConfirmDialog={setConfirmDialog}
-              />
+        openPopup={approvalPopUp}
+        setOpenPopup={setApprovalPopUp}
+        title="Leave Request Form"
+      >
+        <LeaveApprovlForm
+          leaveRequestEditApproval={
+            singleEditSentLeaveRequest && singleEditSentLeaveRequest
+          }
+          // leaveRequestCreate={
+          //   singleCreateLeaveRequest && singleCreateLeaveRequest
+          // }
+          setOpenPopUp={setApprovalPopUp}
+        />
+      </Popup>
+      <Notification notify={notify} setNotify={setNotify} />
+      <ConfirmDialog
+        confirmDialog={confirmDialog}
+        setConfirmDialog={setConfirmDialog}
+      />
     </>
   );
 };

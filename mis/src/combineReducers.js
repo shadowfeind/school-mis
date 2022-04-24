@@ -398,6 +398,7 @@ import { getAllHrValueReducer, getListHrValueReducer, getSingleToCreateHrValueRe
 import { getAllClassNotificationReducer, getBulkClassNotificationReducer, getListClassNotificationReducer, postClassNotificationReducer } from "./notification/classNotification/ClassNotificationReducers";
 import { getAllTeacherNotificationReducer, getListTeacherNotificationReducer, getSingleCreateTeacherNotificationReducer, postTeacherNotificationReducer } from "./notification/teacherNotification/TeacherNotificationRedcuers";
 import { getAllSmsAccessControlReducer, getListSmsAccessControlReducer, getSingleToCreateSmsAccessControlReducer, getSingleToEditSmsAccessControlReducer, postSmsAccessControlReducer, putSmsAccessControlReducer } from "./settings/accessControl/smsAccessControl/SmsAccessControlReducers";
+import { getAllSuperAdminSmsAccessControlReducer, getListSuperAdminSmsAccessControlReducer, getSingleToCreateSuperAdminSmsAccessControlReducer, getSingleToEditSuperAdminSmsAccessControlReducer, postSuperAdminSmsAccessControlReducer, putSuperAdminSmsAccessControlReducer } from "./settings/accessControl/superAdminSmsAccessControl/SuperAdminReducers";
 
 //examination reducers link end
 export const reducers = combineReducers({
@@ -765,4 +766,12 @@ export const reducers = combineReducers({
   deleteLeaveRequest : deleteLeaveRequestReducer,
   downloadLeaveRequest : downloadLeaveRequestReducer,
   getSingleEditSentLeaveRequest : getSingleEditSentLeaveRequestReducer,
+
+  //Super Admin SMS:
+  getAllSuperAdminSmsAccessControl : getAllSuperAdminSmsAccessControlReducer,
+  getListSuperAdminSmsAccessControl : getListSuperAdminSmsAccessControlReducer,
+  getSingleToCreateSuperAdminSmsAccessControl : getSingleToCreateSuperAdminSmsAccessControlReducer,
+  getSingleToEditSuperAdminSmsAccessControl : getSingleToEditSuperAdminSmsAccessControlReducer,
+  postSuperAdminSmsAccessControl : postSuperAdminSmsAccessControlReducer,
+  putSuperAdminSmsAccessControl : putSuperAdminSmsAccessControlReducer,
 });

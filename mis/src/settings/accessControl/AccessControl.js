@@ -13,6 +13,10 @@ const SmsAccessControl = lazy(() =>
   import("./smsAccessControl/SmsAccessControl")
 );
 
+const SuperAdminSmsAccessControl = lazy(() =>
+  import("./superAdminSmsAccessControl/SuperAdmin")
+);
+
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -87,6 +91,12 @@ const AccessControl = () => {
             label="SMS Access Control"
             {...a11yProps(1)}
           />
+
+<Tab
+            style={{ fontSize: "11px", color: "#fff" }}
+            label="Super Admin SMS Access Control"
+            {...a11yProps(2)}
+          />
            </Tabs>
       </AppBar>
       <Suspense fallback={<div></div>}>
@@ -95,6 +105,10 @@ const AccessControl = () => {
         </TabPanel>
         <TabPanel value={value} index={1}>
           <SmsAccessControl />
+        </TabPanel>
+
+        <TabPanel value={value} index={2}>
+          <SuperAdminSmsAccessControl />
         </TabPanel>
       </Suspense>
     </div>

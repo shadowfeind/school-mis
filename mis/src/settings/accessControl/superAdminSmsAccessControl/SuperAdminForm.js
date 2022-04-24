@@ -67,7 +67,7 @@ const SuperAdminForm = ({ smsCreate, setOpenPopup, smsEdit }) => {
             <SelectControl
               name="SchoolName"
               label="SchoolName"
-              value={values.SchoolName}
+              value={values.IDHRCompany}
               onChange={handleInputChange}
               options={
                 smsEdit

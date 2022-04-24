@@ -273,7 +273,7 @@ const StudentProfile = () => {
     if (studentProfile) {
       setAcademicYear(studentProfile.searchFilterModel.ddlAcademicYear);
       setShift(studentProfile.searchFilterModel.ddlAcademicShift);
-      setProgram(studentProfile.searchFilterModel.ddlFacultyProgramLink);
+      setProgramValue(studentProfile.searchFilterModel.ddlFacultyProgramLink[0].Key);
       setSection(studentProfile.searchFilterModel.ddlSection);
       setClassOpt(studentProfile.searchFilterModel.ddlClass);
       setStatus(studentProfile.searchFilterModel.ddlLevelStatus);
@@ -387,7 +387,7 @@ const StudentProfile = () => {
                 errors={errors.academicYearValue}
               />
             </Grid>
-            <Grid item xs={3}>
+            {/* <Grid item xs={3}>
               <SelectControl
                 name="ddlFacultyProgramLink"
                 label="Program / Faculty"
@@ -396,7 +396,7 @@ const StudentProfile = () => {
                 options={program}
                 errors={errors.programValue}
               />
-            </Grid>
+            </Grid> */}
             <Grid item xs={3}>
               <SelectControl
                 name="ddlClass"

@@ -89,7 +89,9 @@ console.log(jsonData)
     } catch (error) {
       dispatch({
         type: COUNTER_CONFIG_CREATE_FAIL,
-        payload: error.message ? error.message : error.Message,
+        payload: error.response.data.Message
+        ? error.response.data.Message
+        : error.message,
       });
     }
   };

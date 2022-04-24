@@ -14,7 +14,7 @@ const initialFormValues = {
   SenderID: 0,
   ReceiverID: 0,
   LeaveDecription: "",
-  Status: "",
+  Status: "PENDING",
   DocumentName: "",
   FromDate: "2022-04-16T08:14:34.805Z",
   ToDate: "2022-04-16T08:14:34.805Z",

@@ -177,8 +177,8 @@ const PrintAdminCard = () => {
   useEffect(() => {
     dispatch({ type: "GET_LINK", payload: "examination" });
     if (admitCardInitialData) {
-      setProgramDdl(
-        admitCardInitialData.searchFilterModel.ddlFacultyProgramLink
+      setProgramValue(
+        admitCardInitialData.searchFilterModel.ddlFacultyProgramLink[0].Key
       );
       setDdlClass(admitCardInitialData.searchFilterModel.ddlClass);
       setAcademicYearDdl(
@@ -341,7 +341,7 @@ const PrintAdminCard = () => {
                 errors={errors.acaYear}
               />
             </Grid>
-            <Grid item xs={3}>
+            {/* <Grid item xs={3}>
               <SelectControl
                 name="Program/Faculty"
                 label="Program/Faculty"
@@ -350,7 +350,7 @@ const PrintAdminCard = () => {
                 options={programDdl}
                 errors={errors.programValue}
               />
-            </Grid>
+            </Grid> */}
             <Grid item xs={3}>
               <SelectControl
                 name="Classes"

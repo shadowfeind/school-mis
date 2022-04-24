@@ -159,7 +159,7 @@ const ClassNotification = () => {
     if (classNotification) {
       setAcademicYear(classNotification.searchFilterModel.ddlAcademicYear);
       setShift(classNotification.searchFilterModel.ddlAcademicShift);
-      setProgram(classNotification.searchFilterModel.ddlFacultyProgramLink);
+      setProgramValue(classNotification.searchFilterModel.ddlFacultyProgramLink[0].Key);
       setSection(classNotification.searchFilterModel.ddlSection);
       setClassOpt(classNotification.searchFilterModel.ddlClass);
     }
@@ -252,7 +252,7 @@ const ClassNotification = () => {
                 errors={errors.academicYearValue}
               />
             </Grid>
-            <Grid item xs={3}>
+            {/* <Grid item xs={3}>
               <SelectControl
                 name="ddlFacultyProgramLink"
                 label="Program / Faculty"
@@ -261,7 +261,7 @@ const ClassNotification = () => {
                 options={program}
                 errors={errors.programValue}
               />
-            </Grid>
+            </Grid> */}
             <Grid item xs={3}>
               <SelectControl
                 name="ddlClass"
@@ -284,7 +284,6 @@ const ClassNotification = () => {
               />
             </Grid>
             <Grid item xs={3}>
-              <div style={{ height: "10px" }}></div>
               <SelectControl
                 name="ddlAcademicShift"
                 label="Shift"

@@ -195,9 +195,9 @@ const StudentMonthlyPresentSheet = () => {
 
   useEffect(() => {
     if (allStudentMonthlyPresentSheetData) {
-      setProgramDdl(
+      setProgramValue(
         allStudentMonthlyPresentSheetData.searchFilterModel
-          .ddlFacultyProgramLink
+          .ddlFacultyProgramLink[0].Key
       );
       setDdlClass(allStudentMonthlyPresentSheetData.searchFilterModel.ddlClass);
       setAcademicYearDdl(
@@ -342,7 +342,7 @@ const StudentMonthlyPresentSheet = () => {
                 errors={errors.acaYear}
               />
             </Grid>
-            <Grid item xs={3}>
+            {/* <Grid item xs={3}>
               <SelectControl
                 name="Program/Faculty"
                 label="Program/Faculty"
@@ -351,7 +351,7 @@ const StudentMonthlyPresentSheet = () => {
                 options={programDdl ? programDdl : test}
                 errors={errors.programValue}
               />
-            </Grid>
+            </Grid> */}
             <Grid item xs={3}>
               <SelectControl
                 name="Classes"

@@ -225,8 +225,8 @@ const ReassociateStudent = () => {
     if (allReassociateStudents) {
       setAcademicYear(allReassociateStudents.searchFilterModel.ddlAcademicYear);
       setShift(allReassociateStudents.searchFilterModel.ddlAcademicShift);
-      setProgram(
-        allReassociateStudents.searchFilterModel.ddlFacultyProgramLink
+      setProgramValue(
+        allReassociateStudents.searchFilterModel.ddlFacultyProgramLink[0].Key
       );
       setSection(allReassociateStudents.ddlSection);
       setClassOpt(allReassociateStudents.searchFilterModel.ddlClass);
@@ -324,7 +324,7 @@ const ReassociateStudent = () => {
                 errors={errors.academicYearValue}
               />
             </Grid>
-            <Grid item xs={3}>
+            {/* <Grid item xs={3}>
               <SelectControl
                 name="ddlFacultyProgramLink"
                 label="Program / Faculty"
@@ -333,7 +333,7 @@ const ReassociateStudent = () => {
                 options={program}
                 errors={errors.programValue}
               />
-            </Grid>
+            </Grid> */}
             <Grid item xs={2}>
               <SelectControl
                 name="ddlClass"

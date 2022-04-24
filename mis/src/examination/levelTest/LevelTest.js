@@ -174,8 +174,8 @@ const LevelTest = () => {
       dispatch(getInitialLevelTestDataAction());
     }
     if (levelTestInitialDatas) {
-      setProgramDdl(
-        levelTestInitialDatas.searchFilterModel.ddlFacultyProgramLink
+      setProgramValue(
+        levelTestInitialDatas.searchFilterModel.ddlFacultyProgramLink[0].Key
       );
       setDdlClass(levelTestInitialDatas.searchFilterModel.ddlClass);
       setAcademicYearDdl(
@@ -262,7 +262,7 @@ const LevelTest = () => {
                 errors={errors.acaYear}
               />
             </Grid>
-            <Grid item xs={3}>
+            {/* <Grid item xs={3}>
               <SelectControl
                 name="Program/Faculty"
                 label="Program/Faculty"
@@ -271,7 +271,7 @@ const LevelTest = () => {
                 options={programDdl}
                 errors={errors.programValue}
               />
-            </Grid>
+            </Grid> */}
             <Grid item xs={3}>
               <SelectControl
                 name="Classes"

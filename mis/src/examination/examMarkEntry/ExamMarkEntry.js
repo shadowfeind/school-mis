@@ -145,8 +145,8 @@ const ExamMarkEntry = () => {
   useEffect(() => {
     dispatch({ type: "GET_LINK", payload: "examination" });
     if (allAcademicStudentExamData) {
-      setProgramDdl(
-        allAcademicStudentExamData.searchFilterModel.ddlFacultyProgramLink
+      setProgramValue(
+        allAcademicStudentExamData.searchFilterModel.ddlFacultyProgramLink[0].Key
       );
       setDdlClass(allAcademicStudentExamData.searchFilterModel.ddlClass);
       setAcademicYearDdl(
@@ -231,7 +231,7 @@ const ExamMarkEntry = () => {
                 options={academicYearDdl}
               />
             </Grid>
-            <Grid item xs={3}>
+            {/* <Grid item xs={3}>
               <SelectControl
                 name="Program/Faculty"
                 label="Program/Faculty"
@@ -239,7 +239,7 @@ const ExamMarkEntry = () => {
                 // onChange={handleInputChange}
                 options={programDdl}
               />
-            </Grid>
+            </Grid> */}
             <Grid item xs={3}>
               <SelectControl
                 name="Classes"

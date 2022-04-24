@@ -185,8 +185,8 @@ const CounterConfiguration = () => {
       setAcademicYearDdl(
         getAcademicConfigInitialData.searchFilterModel.ddlAcademicYear
       );
-      setProgramDdl(
-        getAcademicConfigInitialData.searchFilterModel.ddlFacultyProgramLink
+      setProgramValue(
+        getAcademicConfigInitialData.searchFilterModel.ddlFacultyProgramLink[0].Key
       );
     }
   }, [dispatch, getAcademicConfigInitialData]);
@@ -245,7 +245,7 @@ const CounterConfiguration = () => {
                 errors={errors.acaYear}
               />
             </Grid>
-            <Grid item xs={3}>
+            {/* <Grid item xs={3}>
               <SelectControl
                 name="program"
                 label="Program/Faculty"
@@ -254,7 +254,7 @@ const CounterConfiguration = () => {
                 options={programDdl}
                 errors={errors.programValue}
               />
-            </Grid>
+            </Grid> */}
 
             <Grid item xs={3}>
               <Button

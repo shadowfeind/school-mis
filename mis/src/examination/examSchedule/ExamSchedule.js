@@ -240,8 +240,8 @@ const ExamSchedule = () => {
   useEffect(() => {
     dispatch({ type: "GET_LINK", payload: "examination" });
     if (examScheduleInitialData) {
-      setProgramDdl(
-        examScheduleInitialData.searchFilterModel.ddlFacultyProgramLink
+      setProgramValue(
+        examScheduleInitialData.searchFilterModel.ddlFacultyProgramLink[0].Key
       );
       setDdlClass(examScheduleInitialData.searchFilterModel.ddlClass);
       setAcademicYearDdl(
@@ -344,7 +344,7 @@ const ExamSchedule = () => {
                 errors={errors.acaYear}
               />
             </Grid>
-            <Grid item xs={3}>
+            {/* <Grid item xs={3}>
               <SelectControl
                 name="Program/Faculty"
                 label="Program/Faculty"
@@ -353,7 +353,7 @@ const ExamSchedule = () => {
                 options={programDdl}
                 errors={errors.programValue}
               />
-            </Grid>
+            </Grid> */}
             <Grid item xs={3}>
               <SelectControl
                 name="Classes"

@@ -161,8 +161,8 @@ const StudentRegistration = () => {
       setAcademicYearDdl(
         studentRegistrationInitialData.searchFilterModel.ddlAcademicYear
       );
-      setProgramDdl(
-        studentRegistrationInitialData.searchFilterModel.ddlFacultyProgramLink
+      setProgramValue(
+        studentRegistrationInitialData.searchFilterModel.ddlFacultyProgramLink[0].Key
       );
       setDdlClass(studentRegistrationInitialData.searchFilterModel.ddlClass);
     }
@@ -220,7 +220,7 @@ const StudentRegistration = () => {
                 errors={errors.acaYear}
               />
             </Grid>
-            <Grid item xs={3}>
+            {/* <Grid item xs={3}>
               <SelectControl
                 name="Program/Faculty"
                 label="Program/Faculty"
@@ -229,7 +229,7 @@ const StudentRegistration = () => {
                 options={programDdl}
                 errors={errors.programValue}
               />
-            </Grid>
+            </Grid> */}
             <Grid item xs={3}>
               <SelectControl
                 name="Classes"

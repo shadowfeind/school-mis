@@ -239,7 +239,7 @@ const TeacherFacultySubject = () => {
     if (teacherFacInitData) {
       setAcademicYear(teacherFacInitData.searchFilterModel.ddlAcademicYear);
       setShift(teacherFacInitData.searchFilterModel.ddlAcademicShift);
-      setProgram(teacherFacInitData.searchFilterModel.ddlFacultyProgramLink);
+      setProgramValue(teacherFacInitData.searchFilterModel.ddlFacultyProgramLink[0].Key);
       setSection(teacherFacInitData.searchFilterModel.ddlSection);
       setClassOpt(teacherFacInitData.searchFilterModel.ddlClass);
     }
@@ -321,7 +321,7 @@ const TeacherFacultySubject = () => {
       <CustomContainer>
         <Toolbar>
           <Grid container style={{ fontSize: "12px" }}>
-            <Grid item xs={2}>
+            <Grid item xs={3}>
               <SelectControl
                 name="academicYear"
                 label="Academic Year"
@@ -331,7 +331,7 @@ const TeacherFacultySubject = () => {
                 errors={errors.academicYearValue}
               />
             </Grid>
-            <Grid item xs={2}>
+            {/* <Grid item xs={2}>
               <SelectControl
                 name="ddlFacultyProgramLink"
                 label="Program / Faculty"
@@ -340,8 +340,8 @@ const TeacherFacultySubject = () => {
                 options={program ? program : test}
                 errors={errors.programValue}
               />
-            </Grid>
-            <Grid item xs={2}>
+            </Grid> */}
+            <Grid item xs={3}>
               <SelectControl
                 name="ddlClass"
                 label="Class"
@@ -352,7 +352,7 @@ const TeacherFacultySubject = () => {
               />
             </Grid>
 
-            <Grid item xs={2}>
+            <Grid item xs={3}>
               <SelectControl
                 name="ddlSection"
                 label="Section"
@@ -362,7 +362,7 @@ const TeacherFacultySubject = () => {
                 errors={errors.sectionValue}
               />
             </Grid>
-            <Grid item xs={2}>
+            <Grid item xs={3}>
               <SelectControl
                 name="ddlAcademicShift"
                 label="Shift"
@@ -372,7 +372,7 @@ const TeacherFacultySubject = () => {
                 errors={errors.shiftValue}
               />
             </Grid>
-            <Grid item xs={3}>
+            <Grid item xs={6}>
               <Button
                 variant="contained"
                 color="primary"

@@ -295,7 +295,7 @@ const ClassSubject = () => {
       <CustomContainer>
         <Toolbar>
           <Grid container style={{ fontSize: "12px" }}>
-            <Grid item xs={3}>
+            <Grid item xs={4}>
               <SelectControl
                 name="classes"
                 label="Classes"
@@ -305,7 +305,7 @@ const ClassSubject = () => {
                 errors={errors.classId}
               />
             </Grid>
-            <Grid item xs={3}>
+            <Grid item xs={6}>
               <Button
                 variant="contained"
                 color="primary"

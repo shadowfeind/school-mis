@@ -209,7 +209,7 @@ const DashboardLeaveApprove = () => {
       <Popup
         openPopup={approvalPopUp}
         setOpenPopup={setApprovalPopUp}
-        title="Leave Request Form"
+        title="Leave Approval Form"
       >
         <LeaveApprovlForm
           leaveRequestEditApproval={

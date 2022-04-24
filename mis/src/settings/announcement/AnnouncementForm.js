@@ -65,6 +65,8 @@ const AnnouncementForm = ({
     }
   };
 
+  const symbolsArr = ["e", "E", "+", "-", ".","ArrowUp","ArrowDown"];
+
   //uncomment in case of edit but we dont need edit
   // useEffect(() => {
   //   if (announcement) {
@@ -78,12 +80,12 @@ const AnnouncementForm = ({
           <InputControl
             name="NewsHeading"
             label="News Heading*"
-            onKeyDown={(e) => values.MessageDescription?.length > 160 && e.preventDefault()}
-            onFocus={e => {
-      e.target.select();
-    }}
-
-           
+            onKeyDown={(e) =>
+              values.NewsHeading?.length > 160 && e.preventDefault()
+            }
+            onFocus={(e) => {
+              e.target.select();
+            }}
             value={values.NewsHeading}
             onChange={handleInputChange}
             errors={errors.NewsHeading}
@@ -96,13 +98,12 @@ const AnnouncementForm = ({
             multiline
             rows={4}
             value={values.NewsDescription}
-
-            onKeyDown={(e) => values.MessageDescription?.length > 160 && e.preventDefault()}
-            onFocus={e => {
-      e.target.select();
-    }}
-
-        
+            onFocus={(e) => {
+              e.target.select();
+            }}
+            onKeyDown={(e) =>
+              values.NewsDescription?.length > 160 && e.preventDefault()
+            }
             onChange={handleInputChange}
             errors={errors.NewsDescription}
           />

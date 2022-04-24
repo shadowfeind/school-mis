@@ -154,9 +154,7 @@ const AssignFacultySubject = () => {
   useEffect(() => {
     if (allAcademicSubjects) {
       // setTableData(academicYearCalendar.dbModelLst);
-      setProgramDdl(
-        allAcademicSubjects.searchFilterModel.ddlFacultyProgramLink
-      );
+      setProgramValue(allAcademicSubjects.searchFilterModel.ddlFacultyProgramLink[0].Key)
       setDdlClass(allAcademicSubjects.searchFilterModel.ddlClass);
       setAcademicYearDdl(allAcademicSubjects.searchFilterModel.ddlAcademicYear);
     }
@@ -300,7 +298,7 @@ const AssignFacultySubject = () => {
       <CustomContainer>
         <Toolbar>
           <Grid container style={{ fontSize: "12px" }}>
-            <Grid item xs={3}>
+            <Grid item xs={4}>
               <SelectControl
                 name="academic year"
                 label="Academic Year"
@@ -310,7 +308,7 @@ const AssignFacultySubject = () => {
                 errors={errors.acaYear}
               />
             </Grid>
-            <Grid item xs={3}>
+            {/* <Grid item xs={4}>
               <SelectControl
                 name="program"
                 label="Program/Faculty"
@@ -320,8 +318,8 @@ const AssignFacultySubject = () => {
                 options={programDdl}
                 errors={errors.programValue}
               />
-            </Grid>
-            <Grid item xs={3}>
+            </Grid> */}
+            <Grid item xs={4}>
               <SelectControl
                 name="classes"
                 label="Classes"
@@ -331,7 +329,7 @@ const AssignFacultySubject = () => {
                 errors={errors.classId}
               />
             </Grid>
-            <Grid item xs={3}>
+            <Grid item xs={6}>
               <Button
                 variant="contained"
                 color="primary"

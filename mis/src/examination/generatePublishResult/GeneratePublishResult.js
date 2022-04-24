@@ -189,7 +189,7 @@ const GeneratePublishResult = () => {
   useEffect(() => {
     dispatch({ type: "GET_LINK", payload: "examination" });
     if (allGeneratePublish) {
-      setProgramDdl(allGeneratePublish.searchFilterModel.ddlFacultyProgramLink);
+      setProgramValue(allGeneratePublish.searchFilterModel.ddlFacultyProgramLink[0].Key);
       setDdlClass(allGeneratePublish.searchFilterModel.ddlClass);
       setAcademicYearDdl(allGeneratePublish.searchFilterModel.ddlAcademicYear);
       setDdlShift(allGeneratePublish.searchFilterModel.ddlAcademicShift);
@@ -273,7 +273,7 @@ const GeneratePublishResult = () => {
                 errors={errors.acaYear}
               />
             </Grid>
-            <Grid item xs={3}>
+            {/* <Grid item xs={3}>
               <SelectControl
                 name="Program/Faculty"
                 label="Program/Faculty"
@@ -282,7 +282,7 @@ const GeneratePublishResult = () => {
                 options={programDdl}
                 errors={errors.programValue}
               />
-            </Grid>
+            </Grid> */}
             <Grid item xs={3}>
               <SelectControl
                 name="Classes"

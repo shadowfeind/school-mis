@@ -139,8 +139,8 @@ const StudentIdCard = () => {
 
   useEffect(() => {
     if (studentIdCardInitialData) {
-      setProgramDdl(
-        studentIdCardInitialData.searchFilterModel.ddlFacultyProgramLink
+      setProgramValue(
+        studentIdCardInitialData.searchFilterModel.ddlFacultyProgramLink[0].Key
       );
       setDdlClass(studentIdCardInitialData.searchFilterModel.ddlClass);
       setAcademicYearDdl(
@@ -276,7 +276,7 @@ const StudentIdCard = () => {
                 errors={errors.acaYear}
               />
             </Grid>
-            <Grid item xs={3}>
+            {/* <Grid item xs={3}>
               <SelectControl
                 name="Program/Faculty"
                 label="Program/Faculty"
@@ -285,7 +285,7 @@ const StudentIdCard = () => {
                 options={programDdl}
                 errors={errors.programValue}
               />
-            </Grid>
+            </Grid> */}
             <Grid item xs={3}>
               <SelectControl
                 name="Classes"

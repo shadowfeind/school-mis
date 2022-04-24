@@ -252,8 +252,8 @@ const ExamMarkApproval = () => {
   useEffect(() => {
     dispatch({ type: "GET_LINK", payload: "examination" });
     if (examApprovalInitialDatas) {
-      setProgramDdl(
-        examApprovalInitialDatas.searchFilterModel.ddlFacultyProgramLink
+      setProgramValue(
+        examApprovalInitialDatas.searchFilterModel.ddlFacultyProgramLink[0].Key
       );
       setDdlClass(examApprovalInitialDatas.searchFilterModel.ddlClass);
       setAcademicYearDdl(
@@ -354,7 +354,7 @@ const ExamMarkApproval = () => {
                 errors={errors.acaYear}
               />
             </Grid>
-            <Grid item xs={3}>
+            {/* <Grid item xs={3}>
               <SelectControl
                 name="Program/Faculty"
                 label="Program/Faculty"
@@ -363,7 +363,7 @@ const ExamMarkApproval = () => {
                 options={programDdl}
                 errors={errors.programValue}
               />
-            </Grid>
+            </Grid> */}
             <Grid item xs={3}>
               <SelectControl
                 name="Classes"

@@ -257,8 +257,8 @@ const StudentAttendance = () => {
   useEffect(() => {
     dispatch({ type: "GET_LINK", payload: "examination" });
     if (studentAttendanceInitData) {
-      setProgramDdl(
-        studentAttendanceInitData.searchFilterModel.ddlFacultyProgramLink
+      setProgramValue(
+        studentAttendanceInitData.searchFilterModel.ddlFacultyProgramLink[0].Key
       );
       setDdlClass(studentAttendanceInitData.searchFilterModel.ddlClass);
       setAcademicYearDdl(
@@ -300,6 +300,7 @@ const StudentAttendance = () => {
     temp.shift1 = !shift ? "This feild is required" : "";
     temp.section = !section ? "This feild is required" : "";
     temp.event = !event ? "This feild is required" : "";
+    temp.WorkingDayTotal = !workingDaysTotal ? "This feild is required" : "";
 
     setErrors({ ...temp });
     return Object.values(temp).every((x) => x === "");
@@ -393,7 +394,7 @@ const StudentAttendance = () => {
                 errors={errors.acaYear}
               />
             </Grid>
-            <Grid item xs={3}>
+            {/* <Grid item xs={3}>
               <SelectControl
                 name="Program/Faculty"
                 label="Program/Faculty"
@@ -402,7 +403,7 @@ const StudentAttendance = () => {
                 options={programDdl ? programDdl : test}
                 errors={errors.programValue}
               />
-            </Grid>
+            </Grid> */}
             <Grid item xs={3}>
               <SelectControl
                 name="Classes"
@@ -456,7 +457,7 @@ const StudentAttendance = () => {
                 value={workingDaysTotal}
                 onChange={(e) => setWorkingDaysTotal(e.target.value)}
                 type="number"
-                // errors={errors.WorkingDayTotal}
+                errors={errors.WorkingDayTotal}
               />
             </Grid>
             <Grid item xs={3}>

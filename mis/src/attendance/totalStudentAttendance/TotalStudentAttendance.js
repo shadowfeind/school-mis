@@ -157,8 +157,8 @@ const TotalStudentAttendance = () => {
 
   useEffect(() => {
     if (allTotalStudentAttendanceData) {
-      setProgramDdl(
-        allTotalStudentAttendanceData.searchFilterModel.ddlFacultyProgramLink
+      setProgramValue(
+        allTotalStudentAttendanceData.searchFilterModel.ddlFacultyProgramLink[0].Key
       );
       setDdlClass(allTotalStudentAttendanceData.searchFilterModel.ddlClass);
       setAcademicYearDdl(
@@ -264,7 +264,7 @@ const TotalStudentAttendance = () => {
                 errors={errors.acaYear}
               />
             </Grid>
-            <Grid item xs={3}>
+            {/* <Grid item xs={3}>
               <SelectControl
                 name="Program/Faculty"
                 label="Program/Faculty"
@@ -273,7 +273,7 @@ const TotalStudentAttendance = () => {
                 options={programDdl ? programDdl : test}
                 errors={errors.programValue}
               />
-            </Grid>
+            </Grid> */}
             <Grid item xs={3}>
               <SelectControl
                 name="Classes"
@@ -363,7 +363,7 @@ const TotalStudentAttendance = () => {
               >
                 SEARCH
               </Button>
-              <div style={{ height: "10px" }}></div>
+              <div style={{ height: "20px" }}></div>
             </Grid>
           </Grid>
         </Toolbar>

@@ -209,8 +209,8 @@ const AdmissionConfiguration = () => {
       setAcademicYearDdl(
         getAdmissionConfigInitialData.searchFilterModel.ddlAcademicYear
       );
-      setProgramDdl(
-        getAdmissionConfigInitialData.searchFilterModel.ddlFacultyProgramLink
+      setProgramValue(
+        getAdmissionConfigInitialData.searchFilterModel.ddlFacultyProgramLink[0].Key
       );
     }
   }, [getAdmissionConfigInitialData, dispatch]);
@@ -270,7 +270,7 @@ const AdmissionConfiguration = () => {
                 errors={errors.acaYear}
               />
             </Grid>
-            <Grid item xs={3}>
+            {/* <Grid item xs={3}>
               <SelectControl
                 name="program"
                 label="Program/Faculty"
@@ -279,7 +279,7 @@ const AdmissionConfiguration = () => {
                 options={programDdl}
                 errors={errors.programValue}
               />
-            </Grid>
+            </Grid> */}
 
             <Grid item xs={3}>
               <Button

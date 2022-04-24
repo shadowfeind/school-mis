@@ -183,9 +183,7 @@ const AcademicYearCalendar = () => {
 
   useEffect(() => {
     if (academicYearCalendar) {
-      setProgramDdl(
-        academicYearCalendar.searchFilterModel.ddlFacultyProgramLink
-      );
+      setProgramValue( academicYearCalendar.searchFilterModel.ddlFacultyProgramLink[0].Key)
       setDdlClass(academicYearCalendar.searchFilterModel.ddlClass);
       setAcademicYearDdl(
         academicYearCalendar.searchFilterModel.ddlAcademicYear
@@ -278,7 +276,7 @@ const AcademicYearCalendar = () => {
                 errors={errors.acaYear}
               />
             </Grid>
-            <Grid item xs={3}>
+            {/* <Grid item xs={3}>
               <SelectControl
                 name="Sex"
                 label="Program/Faculty"
@@ -287,7 +285,7 @@ const AcademicYearCalendar = () => {
                 options={programDdl}
                 errors={errors.programValue}
               />
-            </Grid>
+            </Grid> */}
             <Grid item xs={3}>
               <SelectControl
                 name="Sex"
@@ -298,7 +296,7 @@ const AcademicYearCalendar = () => {
                 errors={errors.classId}
               />
             </Grid>
-            <Grid item xs={3}>
+            <Grid item xs={6}>
               <Button
                 variant="contained"
                 color="primary"

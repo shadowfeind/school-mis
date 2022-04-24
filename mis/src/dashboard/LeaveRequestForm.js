@@ -61,7 +61,13 @@ const LeaveRequestForm = ({
 
     if (validate()) {
       if (values.IDLeaveRequest === 0) {
-        dispatch(postLeaveRequestAction(values, image));
+        dispatch(
+          postLeaveRequestAction(
+            values,
+            image,
+            leaveRequestCreate.SchoolShortName
+          )
+        );
       } else {
         dispatch(putLeaveRequestAction(values, image));
       }
@@ -157,7 +163,6 @@ const LeaveRequestForm = ({
             name="ImageUploaded"
             // label="Select Profile Photo"
             // value={values.ClassLocation}
-            onChange={(e) => handleImage(e)}
             type="file"
             onChange={(e) => fileValidation(e, setImage, setImgSrc)}
             // errors={errors.ClassLocation}

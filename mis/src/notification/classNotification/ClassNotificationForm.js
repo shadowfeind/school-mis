@@ -135,6 +135,7 @@ const ClassNotificationForm = ({
 
   return (
     <>
+      <h5>**only app users are shown**</h5>
       <TableContainer component={Paper}>
         <Table className={classes.table} aria-label="customized table">
           <TableHead>

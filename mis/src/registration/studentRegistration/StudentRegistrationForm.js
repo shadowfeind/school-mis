@@ -177,6 +177,7 @@ const StudentRegistrationForm = ({
   singleStudent,
   setOpenPopup,
   getCreateSingleStudentData,
+  acaYear,
 }) => {
   const [image, setImage] = useState("");
   const [imgSrc, setImgSrc] = useState("");
@@ -335,7 +336,10 @@ const StudentRegistrationForm = ({
 
   useEffect(() => {
     if (getCreateSingleStudentData) {
-      setValues({ ...getCreateSingleStudentData.dbModel });
+      setValues({
+        ...getCreateSingleStudentData.dbModel,
+        idAcademicYear: acaYear,
+      });
     }
   }, [getCreateSingleStudentData]);
 
@@ -557,7 +561,7 @@ const StudentRegistrationForm = ({
             name="ImageUploaded"
             // label="Select Profile Photo"
             // value={values.ClassLocation}
-            onChange={(e) => handleImage(e)}
+            // onChange={(e) => handleImage(e)}
             onChange={(e) => fileValidation(e, setImage, setImgSrc)}
             type="file"
             // errors={errors.ClassLocation}

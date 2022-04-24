@@ -88,11 +88,17 @@ const ClassNotification = () => {
     (state) => state.getAllClassNotification
   );
 
-  const { listClassNotification,loading, error: listClassNotificationError } =
-    useSelector((state) => state.getListClassNotification);
+  const {
+    listClassNotification,
+    loading,
+    error: listClassNotificationError,
+  } = useSelector((state) => state.getListClassNotification);
 
-  const { bulkClassNotification,loading:loadingBulk, error: bulkClassNotificationError } =
-    useSelector((state) => state.getBulkClassNotification);
+  const {
+    bulkClassNotification,
+    loading: loadingBulk,
+    error: bulkClassNotificationError,
+  } = useSelector((state) => state.getBulkClassNotification);
 
   const {
     success: postClassNotificationSuccess,
@@ -165,10 +171,10 @@ const ClassNotification = () => {
     }
   }, [dispatch, classNotification]);
 
-  useEffect(()=>{
-    dispatch({type:GET_LIST_CLASS_NOTIFICATION_RESET})
+  useEffect(() => {
+    dispatch({ type: GET_LIST_CLASS_NOTIFICATION_RESET });
     dispatch(getAllClassNotificationAction());
-  },[])
+  }, []);
 
   useEffect(() => {
     if (listClassNotification) {
@@ -320,19 +326,22 @@ const ClassNotification = () => {
           <LoadingComp />
         ) : (
           <>
-          {listClassNotification && (
-        <TableContainer className={classes.table}>
-          <TblHead />
+            {listClassNotification && (
+              <TableContainer className={classes.table}>
+                <TblHead />
 
-          <TableBody>
-            {tableDataAfterPagingAndSorting().map((item) => (
-              <ClassNotificationTableCollapse item={item} key={item.$id} />
-            ))}
-          </TableBody>
-        </TableContainer>
-          )}
-        {listClassNotification && <TblPagination />}
-        </>
+                <TableBody>
+                  {tableDataAfterPagingAndSorting().map((item) => (
+                    <ClassNotificationTableCollapse
+                      item={item}
+                      key={item.$id}
+                    />
+                  ))}
+                </TableBody>
+              </TableContainer>
+            )}
+            {listClassNotification && <TblPagination />}
+          </>
         )}
       </CustomContainer>
       <Popup
@@ -340,18 +349,23 @@ const ClassNotification = () => {
         setOpenPopup={setOpenPopup}
         title="Class Notification"
       >
-       {loadingBulk ? (
+        {loadingBulk ? (
           <LoadingComp />
         ) : (
           <>
-        <ClassNotificationForm
-          students={bulkClassNotification && bulkClassNotification.dbModelLst}
-          classNotification={
-            bulkClassNotification && bulkClassNotification.dbModel
-          }
-          setOpenPopup={setOpenPopup}
-        />
-        </>
+            <ClassNotificationForm
+              students={
+                bulkClassNotification && bulkClassNotification.dbModelLst
+              }
+              SchoolShortName={
+                bulkClassNotification && bulkClassNotification.SchoolShortName
+              }
+              classNotification={
+                bulkClassNotification && bulkClassNotification.dbModel
+              }
+              setOpenPopup={setOpenPopup}
+            />
+          </>
         )}
       </Popup>
       <Notification notify={notify} setNotify={setNotify} />

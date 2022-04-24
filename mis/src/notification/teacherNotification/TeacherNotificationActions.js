@@ -80,7 +80,7 @@ export const getSingleCreateTeacherNotificationAction =
   };
 
 export const postTeacherNotificationAction =
-  (teacherNotification, fcmTokenList) => async (dispatch) => {
+  (teacherNotification, fcmTokenList, SchoolShortName) => async (dispatch) => {
     try {
       dispatch({ type: POST_TEACHER_NOTIFICATION_REQUEST });
 
@@ -88,8 +88,8 @@ export const postTeacherNotificationAction =
         registration_ids: fcmTokenList,
         collapse_key: "type_a",
         notification: {
-          body: teacherNotification.MessageDescription,
-          title: teacherNotification.MessageHeading,
+          body: teacherNotification.MessageHeading,
+          title: SchoolShortName,
         },
       };
 

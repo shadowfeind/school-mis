@@ -104,8 +104,11 @@ const TeacherNotification = () => {
     (state) => state.getAllTeacherNotification
   );
 
-  const { listTeacherNotification,loading, error: listTeacherNotificationError } =
-    useSelector((state) => state.getListTeacherNotification);
+  const {
+    listTeacherNotification,
+    loading,
+    error: listTeacherNotificationError,
+  } = useSelector((state) => state.getListTeacherNotification);
 
   const {
     singleCreateTeacherNotification,
@@ -211,20 +214,20 @@ const TeacherNotification = () => {
           <LoadingComp />
         ) : (
           <>
-                  <TableContainer className={classes.table}>
-          <TblHead />
-          <TableBody>
-            {tableDataAfterPagingAndSorting().map((item) => (
-              <TeacherNotificationTableCollapse
-                item={item}
-                key={item.$id}
-                setOpenPopup={setOpenPopup}
-              />
-            ))}
-          </TableBody>
-        </TableContainer>
-        <TblPagination />
-        </>
+            <TableContainer className={classes.table}>
+              <TblHead />
+              <TableBody>
+                {tableDataAfterPagingAndSorting().map((item) => (
+                  <TeacherNotificationTableCollapse
+                    item={item}
+                    key={item.$id}
+                    setOpenPopup={setOpenPopup}
+                  />
+                ))}
+              </TableBody>
+            </TableContainer>
+            <TblPagination />
+          </>
         )}
       </CustomContainer>
       <Popup
@@ -237,6 +240,10 @@ const TeacherNotification = () => {
           fcmTokenList={
             singleCreateTeacherNotification &&
             singleCreateTeacherNotification.fcmTokenValueLst
+          }
+          SchoolShortName={
+            singleCreateTeacherNotification &&
+            singleCreateTeacherNotification.SchoolShortName
           }
         />
       </Popup>

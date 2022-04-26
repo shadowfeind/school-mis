@@ -82,10 +82,11 @@ const LeaveApprovlForm = ({
       <Grid container style={{ fontSize: "12px" }}>
         <Grid item xs={6}>
           <SelectControl
+          disabled
             name="ReceiverID"
-            label="ReceiverID"
+            label="Receiver Name"
             value={values.ReceiverID}
-            onChange={handleInputChange}
+            onChange={null}
             options={
               leaveRequestEditApproval
                 ? leaveRequestEditApproval.ddlTeacher
@@ -96,6 +97,7 @@ const LeaveApprovlForm = ({
         </Grid>
         <Grid item xs={12}>
           <InputControl
+          disabled
             name="LeaveDecription"
             label="Leave Decription*"
             onFocus={(e) => {
@@ -110,18 +112,20 @@ const LeaveApprovlForm = ({
         </Grid>
         <Grid item xs={6}>
           <DatePickerControl
+          disabled
             name="FromDate"
             label="FromDate*"
             value={values.FromDate}
-            onChange={handleInputChange}
+            onChange={null}
             errors={errors.FromDate}
           />
 
           <SelectControl
+          disabled
             name="IsActive"
             label="IsActive"
             value={values.IsActive}
-            onChange={handleInputChange}
+            onChange={null}
             options={
               leaveRequestEditApproval
                 ? leaveRequestEditApproval.ddlIsActive
@@ -129,6 +133,7 @@ const LeaveApprovlForm = ({
             }
           />
           <InputControl
+          disabled
             name="ImageUploaded"
             // label="Select Profile Photo"
             // value={values.ClassLocation}
@@ -149,13 +154,15 @@ const LeaveApprovlForm = ({
         </Grid>
         <Grid item xs={4}>
           <DatePickerControl
+          disabled
             name="ToDate"
             label="ToDate*"
             value={values.ToDate}
-            onChange={handleInputChange}
+            onChange={null}
             errors={errors.ToDate}
           />
           <SelectControl
+          
             name="Status"
             label="Status"
             value={values.Status}

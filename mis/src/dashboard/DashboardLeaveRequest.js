@@ -76,7 +76,7 @@ const StyledTableRow = withStyles((theme) => ({
 }))(TableRow);
 
 const tableHeader = [
-  { id: "recieverName", label: "Reciever Name" },
+  { id: "recieverName", label: "Leave Request To" },
   { id: "leaveDescription", label: "Leave Description" },
   { id: "fromDate_toDate", label: "FromDate to ToDate" },
   { id: "status", label: "Status" },
@@ -316,6 +316,7 @@ const DashboardLeaveRequest = () => {
               </StyledTableCell>
               <StyledTableCell align="left">{s.Status}</StyledTableCell>
               <StyledTableCell>
+              {s.Status !== "APPROVED" && (
                 <Button
                   variant="contained"
                   color="primary"
@@ -324,6 +325,7 @@ const DashboardLeaveRequest = () => {
                 >
                   <EditIcon style={{ fontSize: 12 }} />
                 </Button>
+              )}{" "}
                 <Button
                   variant="contained"
                   color="secondary"
@@ -331,7 +333,8 @@ const DashboardLeaveRequest = () => {
                   onClick={() => deleteLeaveHandler(s.IDLeaveRequest)}
                 >
                   <DeleteIcon style={{ fontSize: 12 }} />
-                </Button>
+                </Button>{" "}
+                {s.DocumentName !== null && (
                 <Button
                   variant="contained"
                   color="default"
@@ -340,6 +343,7 @@ const DashboardLeaveRequest = () => {
                 >
                   <CloudDownloadIcon style={{ fontSize: 12 }} />
                 </Button>
+                )}
               </StyledTableCell>
             </StyledTableRow>
           ))}

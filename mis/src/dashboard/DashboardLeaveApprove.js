@@ -20,6 +20,7 @@ import {
   DOWNLOAD_DOC_LEAVE_REQUESTS_RESET,
   GET_LIST_LEAVE_REQUESTS_RESET,
   GET_SINGLE_TO_EDIT_LEAVE_REQUESTS_RESET,
+  PUT_LEAVE_REQUESTS_RESET,
 } from "./DashboardConstants";
 import {
   downloadLeaveRequestAction,
@@ -67,7 +68,7 @@ const StyledTableRow = withStyles((theme) => ({
 }))(TableRow);
 
 const tableHeader = [
-  { id: "recieverName", label: "Sender Name" },
+  { id: "recieverName", label: "Leave Request By" },
   { id: "leaveDescription", label: "Leave Description" },
   { id: "fromDate_toDate", label: "FromDate to ToDate" },
   { id: "status", label: "Status" },
@@ -104,6 +105,9 @@ const DashboardLeaveApprove = () => {
 
   const { singleEditSentLeaveRequest, error: singleEditSentLeaveRequestError } =
     useSelector((state) => state.getSingleEditSentLeaveRequest);
+
+    const { success: putLeaveRequestSuccess, error: putLeaveRequestError } =
+    useSelector((state) => state.putLeaveRequest);
 
   const {
     success: downloadDocSuccess,
@@ -143,6 +147,26 @@ const DashboardLeaveApprove = () => {
       type: "error",
     });
     dispatch({ type: GET_LIST_LEAVE_REQUESTS_RESET });
+  }
+
+  if (putLeaveRequestError) {
+    setNotify({
+      isOpen: true,
+      message: putLeaveRequestError,
+      type: "error",
+    });
+    dispatch({ type: PUT_LEAVE_REQUESTS_RESET });
+  }
+
+  if (putLeaveRequestSuccess) {
+    dispatch(getListLeaveRequestAction());
+    setNotify({
+      isOpen: true,
+      message: "Leave AApproval Edited Succesfully",
+      type: "success",
+    });
+    setApprovalPopUp(false);
+    dispatch({ type: PUT_LEAVE_REQUESTS_RESET });
   }
 
   const updateCollegeHandler = (id) => {
@@ -190,7 +214,8 @@ const DashboardLeaveApprove = () => {
                   onClick={() => updateCollegeHandler(s.IDLeaveRequest)}
                 >
                   <EditIcon style={{ fontSize: 12 }} />
-                </Button>
+                </Button>{" "}
+                {s.DocumentName !== null && (
                 <Button
                   variant="contained"
                   color="default"
@@ -199,6 +224,7 @@ const DashboardLeaveApprove = () => {
                 >
                   <CloudDownloadIcon style={{ fontSize: 12 }} />
                 </Button>
+                )}
               </StyledTableCell>
             </StyledTableRow>
           ))}

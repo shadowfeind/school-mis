@@ -295,7 +295,7 @@ const TotalStudentAttendance = () => {
               />
             </Grid>
             <Grid item xs={3}>
-              <div style={{ height: "10px" }}></div>
+              
               <SelectControl
                 name="Section"
                 label="Section"
@@ -352,8 +352,9 @@ const TotalStudentAttendance = () => {
                   }}
                 />
               </MuiPickersUtilsProvider>
-            </Grid>
+            </Grid>{" "}
             <Grid item xs={3}>
+            <div style={{ height: "10px" }}></div>
               <Button
                 variant="contained"
                 color="primary"
@@ -368,6 +369,7 @@ const TotalStudentAttendance = () => {
           </Grid>
         </Toolbar>
         <Toolbar>
+        <div style={{ height: "15px" }}></div>
           <InputControl
             className={classes.searchInput}
             label="Search Student"

@@ -1,30 +1,24 @@
-import {
-    Accessible,
-    PeopleOutline,
-    ChromeReaderMode,
-    Face,
-    Settings,
-    PostAdd,
-    RecordVoiceOver,
-  } from "@material-ui/icons";
+import AnnouncementIcon from '@material-ui/icons/Announcement';
+import NotificationsActiveIcon from '@material-ui/icons/NotificationsActive';
+import RecordVoiceOverIcon from '@material-ui/icons/RecordVoiceOver';
 
   export const NotificationRoute = [
     {
       name: "Announcement",
       route: "/notification",
-      icon: RecordVoiceOver,
+      icon: AnnouncementIcon,
       exact: false,
     },
     {
         name: "Class Notification",
         route: "/class-notification",
-        icon: PostAdd,
+        icon: NotificationsActiveIcon,
         exact: true,
       },
       {
         name: "Teacher Notification",
         route: "/teacher-notification",
-        icon: Accessible,
+        icon: RecordVoiceOverIcon,
         exact: false,
       },
   ]

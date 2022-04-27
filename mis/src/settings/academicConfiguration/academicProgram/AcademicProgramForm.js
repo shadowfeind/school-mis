@@ -114,7 +114,7 @@ const AcademicProgramForm = ({ academicProgram, selected, setOpenPopup }) => {
         </Grid>
         <Grid item xs={6}>
           <FormControl component="fieldset">
-            <FormLabel component="legend">School Board</FormLabel>
+            <FormLabel component="legend">School Board:</FormLabel>
             <FormGroup>
               {selected
                 ? selected.map((item) => <p> {item.Name}</p>)

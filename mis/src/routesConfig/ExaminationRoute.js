@@ -1,13 +1,10 @@
-import {
-  School,
-  Accessible,
-  PeopleOutline,
-  ChromeReaderMode,
-  Face,
-  Settings,
-  PostAdd,
-  RecordVoiceOver,
-} from "@material-ui/icons";
+import AssignmentIndIcon from '@material-ui/icons/AssignmentInd';
+import SystemUpdateAltIcon from '@material-ui/icons/SystemUpdateAlt';
+import PublishIcon from '@material-ui/icons/Publish';
+import HowToRegIcon from '@material-ui/icons/HowToReg';
+import SportsKabaddiIcon from '@material-ui/icons/SportsKabaddi';
+import AssessmentIcon from '@material-ui/icons/Assessment';
+import ListAltIcon from '@material-ui/icons/ListAlt';
 export const ExaminationRoute = [
   // {
   //   name: "Academic Grading",
@@ -24,13 +21,13 @@ export const ExaminationRoute = [
   {
     name: "Full/Pass Marks",
     route: "/examination",
-    icon: ChromeReaderMode,
+    icon: ListAltIcon,
     exact: false,
   },
   {
     name: "Admit Card",
     route: "/print-admit-card",
-    icon: PeopleOutline,
+    icon: AssignmentIndIcon,
     exact: false,
   },
   // {
@@ -42,26 +39,26 @@ export const ExaminationRoute = [
   {
     name: "Exam Mark Entry/Update",
     route: "/exam-mark-approval",
-    icon: Settings,
+    icon: SystemUpdateAltIcon,
     exact: false,
   },
   {
     name: "Generate/Publish Result",
     route: "/generatepublish-result",
-    icon: PostAdd,
+    icon: PublishIcon,
     exact: false,
   },
 
   {
     name: "Student Attendance",
     route: "/student-attendance",
-    icon: School,
+    icon: HowToRegIcon,
     exact: false,
   },
   {
     name: "ECA",
     route: "/level-test",
-    icon: Accessible,
+    icon: SportsKabaddiIcon,
     exact: false,
   },
   // {
@@ -73,7 +70,7 @@ export const ExaminationRoute = [
   {
     name: "Exam Result(Print)",
     route: "/exam-result",
-    icon: RecordVoiceOver,
+    icon: AssessmentIcon,
     exact: false,
   },
 ];

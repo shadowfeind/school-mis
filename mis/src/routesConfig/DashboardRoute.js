@@ -1,9 +1,9 @@
-import { Accessible } from "@material-ui/icons";
+import DashboardRoundedIcon from '@material-ui/icons/DashboardRounded';
 export const DashboardRoute = [
   {
     name: "Dashboard",
     route: "/",
-    icon: Accessible,
+    icon: DashboardRoundedIcon,
     exact: false,
   },
 ];

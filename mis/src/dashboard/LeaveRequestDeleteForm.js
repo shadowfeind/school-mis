@@ -142,7 +142,7 @@ const LeaveRequestDeleteForm = ({ leaveRequestDelete, setOpenPopUp }) => {
               onChange={handleInputChange}
               
             />
-            <SelectControl
+            <InputControl
             disabled
               name="Status"
               label="Status"

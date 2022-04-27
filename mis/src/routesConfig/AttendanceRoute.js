@@ -3,11 +3,12 @@ import {
   PeopleOutline,
   ChromeReaderMode,
 } from "@material-ui/icons";
+import HowToRegIcon from '@material-ui/icons/HowToReg';
 export const AttendanceRoute = [
   {
     name: "Student Attendance Mgmt",
     route: "/attendance",
-    icon: PeopleOutline,
+    icon: HowToRegIcon,
     exact: false,
   },
   // {

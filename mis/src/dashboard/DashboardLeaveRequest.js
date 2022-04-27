@@ -304,12 +304,10 @@ const DashboardLeaveRequest = () => {
           {tableDataAfterPagingAndSorting().map((s) => (
             <StyledTableRow key={s.id}>
               <StyledTableCell component="th" scope="row">
-                {s.FirsName}
-                {s.MiddleName}
-                {s.LastName}
+                {s.FirsName} {s.MiddleName} {s.LastName}
               </StyledTableCell>
               <StyledTableCell align="left">
-                {s.LeaveDecription}
+                {s.LeaveDecription?.slice(0,20)}
               </StyledTableCell>
               <StyledTableCell align="left">
                 {s.FromDate?.slice(0, 10)} /<div>{s.ToDate?.slice(0, 10)}</div>

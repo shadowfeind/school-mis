@@ -122,7 +122,7 @@ const StudentRegistration = () => {
     (state) => state.getSingleStudentRegistrationData
   );
 
-  const { success:checkAcademicYearForStudentSuccess } = useSelector(
+  const { data:checkAcademicYearForStudentData } = useSelector(
     (state) => state.checkAcademicYearForStudent
   );
 
@@ -212,8 +212,11 @@ const StudentRegistration = () => {
 
   const onChangeHandler = (year) =>{
     setAcaYear(year);
-    dispatch(checkAcademicYearForStudentAction(year, program));
+    dispatch(checkAcademicYearForStudentAction(year, programValue));
     }
+    // if(checkAcademicYearForStudentData){
+    //   console.log(checkAcademicYearForStudentData.data);
+    // }
 
   return (
     <>
@@ -261,7 +264,7 @@ const StudentRegistration = () => {
               >
                 SEARCH
               </Button>
-              {/* {checkAcademicYearForStudentSuccess==="true" */}
+              {checkAcademicYearForStudentData && checkAcademicYearForStudentData==="Date exists !!!" &&
               <Button
                 variant="contained"
                 color="primary"
@@ -271,7 +274,7 @@ const StudentRegistration = () => {
               >
                 CREATE
               </Button>
-              {/* } */}
+              }
             </Grid>
           </Grid>
         </Toolbar>

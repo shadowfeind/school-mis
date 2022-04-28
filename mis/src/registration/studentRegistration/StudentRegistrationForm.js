@@ -177,10 +177,20 @@ const StudentRegistrationForm = ({
   singleStudent,
   setOpenPopup,
   getCreateSingleStudentData,
+  acaYear,
 }) => {
   const [image, setImage] = useState("");
   const [imgSrc, setImgSrc] = useState("");
   const dispatch = useDispatch();
+
+  const { error: regCheckError, success: regCheckSuccess } = useSelector(
+    (state) => state.checkRegistrationForStudent
+  );
+
+  const { error: rollCheckError, success: rollCheckSuccess } = useSelector(
+    (state) => state.checkRollNoForStudent
+  );
+
   const validate = (fieldValues = values) => {
     let temp = { ...errors };
     temp.idAcademicYear = !fieldValues.idAcademicYear.length !== 0 ? "" : "";
@@ -188,11 +198,15 @@ const StudentRegistrationForm = ({
       ? "This feild is required"
       : !fieldValues.RegistrationKey.trim()
       ? "This feild is required"
+      : regCheckError
+      ? regCheckError
       : "";
     temp.RollNo = !fieldValues.RollNo
       ? "This feild is required"
       : !fieldValues.RollNo.trim()
       ? "This feild is required"
+      : rollCheckError
+      ? rollCheckError
       : "";
     temp.FirstName = !fieldValues.FirstName
       ? "This feild is required"
@@ -212,8 +226,6 @@ const StudentRegistrationForm = ({
       : fieldValues.MobileNo && fieldValues.MobileNo?.length < 7
       ? "Must be greater or equal to 7"
       : "";
-
-    // temp.MobileNo = !fieldValues.MobileNo ? "This feild is required" : "";
 
     temp.EmailAddress = !fieldValues.EmailAddress
       ? "This feild is required"
@@ -243,19 +255,6 @@ const StudentRegistrationForm = ({
       ? "Must be greater or equal to 7"
       : "";
 
-    // temp.LocalGuardianContactNo = !fieldValues.LocalGuardianContactNo
-    //   ? "This feild is required"
-    //   : fieldValues.LocalGuardianContactNo.length == 10
-    //   ? ""
-    //   : "Must be 10 number";
-
-    // temp.FatherContactNo = !fieldValues.FatherContactNo
-    //   ? "This feild is required"
-    //   : "";
-    // temp.LocalGuardianContactNo = !fieldValues.LocalGuardianContactNo
-    //   ? "This feild is required"
-    //   : "";
-
     temp.ClassLocation =
       fieldValues.ClassLocation && fieldValues.ClassLocation?.length > 200
         ? "Must be less than 501 characters"
@@ -267,30 +266,22 @@ const StudentRegistrationForm = ({
   const { values, setValues, handleInputChange, errors, setErrors } =
     useForm(initialFormValues);
 
-  const { error: regCheckError, success: regCheckSuccess } = useSelector(
-    (state) => state.checkRegistrationForStudent
-  );
-
-  const { error: rollCheckError, success: rollCheckSuccess } = useSelector(
-    (state) => state.checkRollNoForStudent
-  );
-
-  if (regCheckError) {
-    setErrors((prev) => ({ ...prev, RegistrationKey: regCheckError }));
-    dispatch({ type: CHECK_REGISTRATION_FOR_STUDENT_RESET });
-  }
-  if (regCheckSuccess) {
-    setErrors((prev) => ({ ...prev, RegistrationKey: "" }));
-    dispatch({ type: CHECK_REGISTRATION_FOR_STUDENT_RESET });
-  }
-  if (rollCheckError) {
-    setErrors((prev) => ({ ...prev, RollNo: rollCheckError }));
-    dispatch({ type: CHECK_ROLLNO_FOR_STUDENT_RESET });
-  }
-  if (rollCheckSuccess) {
-    setErrors((prev) => ({ ...prev, RollNo: "" }));
-    dispatch({ type: CHECK_ROLLNO_FOR_STUDENT_RESET });
-  }
+  // if (regCheckError) {
+  //   setErrors((prev) => ({ ...prev, RegistrationKey: regCheckError }));
+  //   dispatch({ type: CHECK_REGISTRATION_FOR_STUDENT_RESET });
+  // }
+  // if (regCheckSuccess) {
+  //   setErrors((prev) => ({ ...prev, RegistrationKey: "" }));
+  //   dispatch({ type: CHECK_REGISTRATION_FOR_STUDENT_RESET });
+  // }
+  // if (rollCheckError) {
+  //   setErrors((prev) => ({ ...prev, RollNo: rollCheckError }));
+  //   dispatch({ type: CHECK_ROLLNO_FOR_STUDENT_RESET });
+  // }
+  // if (rollCheckSuccess) {
+  //   setErrors((prev) => ({ ...prev, RollNo: "" }));
+  //   dispatch({ type: CHECK_ROLLNO_FOR_STUDENT_RESET });
+  // }
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -335,7 +326,10 @@ const StudentRegistrationForm = ({
 
   useEffect(() => {
     if (getCreateSingleStudentData) {
-      setValues({ ...getCreateSingleStudentData.dbModel });
+      setValues({
+        ...getCreateSingleStudentData.dbModel,
+        idAcademicYear: acaYear,
+      });
     }
   }, [getCreateSingleStudentData]);
 
@@ -427,6 +421,19 @@ const StudentRegistrationForm = ({
             }
             errors={errors.RegistrationKey}
           />
+          {regCheckError && (
+            <h5
+              style={{
+                color: "red",
+                fontWeight: "normal",
+                margin: "0",
+                paddingLeft: "10px",
+                display: errors.RegistrationKey ? "none" : "block",
+              }}
+            >
+              {regCheckError}
+            </h5>
+          )}
         </Grid>
         <Grid item xs={6}>
           <SelectControl
@@ -472,6 +479,19 @@ const StudentRegistrationForm = ({
             onBlur={(e) => handleRollNo(e.target.value)}
             errors={errors.RollNo}
           />
+          {rollCheckError && (
+            <h5
+              style={{
+                color: "red",
+                fontWeight: "normal",
+                margin: "0",
+                paddingLeft: "10px",
+                display: errors.RollNo ? "none" : "block",
+              }}
+            >
+              {rollCheckError}
+            </h5>
+          )}
         </Grid>
       </Grid>
       <h4>Personal Details</h4>
@@ -649,62 +669,62 @@ const StudentRegistrationForm = ({
             errors={errors.LocalGuardianName}
           />
 
-          <InputControl
-            name="LocalGuardianContactNo"
-            label="SMS Number"
-            value={values.LocalGuardianContactNo}
-            onWheelCapture={(e) => {
-              e.target.blur();
-            }}
-            onFocus={(e) => {
-              e.target.select();
-            }}
-            onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}
-            onChange={handleInputChange}
-            type="number"
-            // errors={errors.LocalGuardianContactNo}
-          />
+<InputControl
+ name="LocalGuardianContactNo"
+ label="SMS Number"
+ value={values.LocalGuardianContactNo}
+ onWheelCapture={(e) => {
+ e.target.blur();
+ }}
+ onFocus={(e) => {
+ e.target.select();
+ }}
+ onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}
+ onChange={handleInputChange}
+ type="number"
+ // errors={errors.LocalGuardianContactNo}
+ />
 
-          <InputControl
-            name="LocalGuardianEmail"
-            label="Email Address"
-            value={values.LocalGuardianEmail}
-            onFocus={(e) => {
-              e.target.select();
-            }}
-            onChange={handleInputChange}
-            type="email"
-          />
-        </Grid>
-      </Grid>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "end",
-          paddingTop: "10px",
-          marginTop: "10px",
-          borderTop: "1px solid #f3f3f3",
-        }}
-      >
-        <Button
-          variant="contained"
-          color="secondary"
-          onClick={() => setOpenPopup(false)}
-          style={{ margin: "10px 0 0 10px" }}
-        >
-          CANCEL
-        </Button>
-        <Button
-          variant="contained"
-          color="primary"
-          type="submit"
-          style={{ margin: "10px 0 0 10px" }}
-        >
-          SUBMIT
-        </Button>
-      </div>
-    </Form>
-  );
+ <InputControl
+ name="LocalGuardianEmail"
+ label="Email Address"
+ value={values.LocalGuardianEmail}
+ onFocus={(e) => {
+ e.target.select();
+ }}
+ onChange={handleInputChange}
+ type="email"
+ />
+ </Grid>
+ </Grid>
+ <div
+ style={{
+ display: "flex",
+ justifyContent: "end",
+ paddingTop: "10px",
+ marginTop: "10px",
+ borderTop: "1px solid #f3f3f3",
+ }}
+ >
+ <Button
+ variant="contained"
+ color="secondary"
+ onClick={() => setOpenPopup(false)}
+ style={{ margin: "10px 0 0 10px" }}
+ >
+ CANCEL
+ </Button>
+ <Button
+ variant="contained"
+ color="primary"
+ type="submit"
+ style={{ margin: "10px 0 0 10px" }}
+ >
+ SUBMIT
+ </Button>
+ </div>
+ </Form>
+ );
 };
 
 export default StudentRegistrationForm;

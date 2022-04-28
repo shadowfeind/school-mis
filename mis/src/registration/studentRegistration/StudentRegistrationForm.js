@@ -669,62 +669,62 @@ const StudentRegistrationForm = ({
             errors={errors.LocalGuardianName}
           />
 
-          <InputControl
-            name="LocalGuardianContactNo"
-            label="SMS Number"
-            value={values.LocalGuardianContactNo}
-            onWheelCapture={(e) => {
-              e.target.blur();
-            }}
-            onFocus={(e) => {
-              e.target.select();
-            }}
-            onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}
-            onChange={handleInputChange}
-            type="number"
-            // errors={errors.LocalGuardianContactNo}
-          />
+<InputControl
+ name="LocalGuardianContactNo"
+ label="SMS Number"
+ value={values.LocalGuardianContactNo}
+ onWheelCapture={(e) => {
+ e.target.blur();
+ }}
+ onFocus={(e) => {
+ e.target.select();
+ }}
+ onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}
+ onChange={handleInputChange}
+ type="number"
+ // errors={errors.LocalGuardianContactNo}
+ />
 
-          <InputControl
-            name="LocalGuardianEmail"
-            label="Email Address"
-            value={values.LocalGuardianEmail}
-            onFocus={(e) => {
-              e.target.select();
-            }}
-            onChange={handleInputChange}
-            type="email"
-          />
-        </Grid>
-      </Grid>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "end",
-          paddingTop: "10px",
-          marginTop: "10px",
-          borderTop: "1px solid #f3f3f3",
-        }}
-      >
-        <Button
-          variant="contained"
-          color="secondary"
-          onClick={() => setOpenPopup(false)}
-          style={{ margin: "10px 0 0 10px" }}
-        >
-          CANCEL
-        </Button>
-        <Button
-          variant="contained"
-          color="primary"
-          type="submit"
-          style={{ margin: "10px 0 0 10px" }}
-        >
-          SUBMIT
-        </Button>
-      </div>
-    </Form>
-  );
+ <InputControl
+ name="LocalGuardianEmail"
+ label="Email Address"
+ value={values.LocalGuardianEmail}
+ onFocus={(e) => {
+ e.target.select();
+ }}
+ onChange={handleInputChange}
+ type="email"
+ />
+ </Grid>
+ </Grid>
+ <div
+ style={{
+ display: "flex",
+ justifyContent: "end",
+ paddingTop: "10px",
+ marginTop: "10px",
+ borderTop: "1px solid #f3f3f3",
+ }}
+ >
+ <Button
+ variant="contained"
+ color="secondary"
+ onClick={() => setOpenPopup(false)}
+ style={{ margin: "10px 0 0 10px" }}
+ >
+ CANCEL
+ </Button>
+ <Button
+ variant="contained"
+ color="primary"
+ type="submit"
+ style={{ margin: "10px 0 0 10px" }}
+ >
+ SUBMIT
+ </Button>
+ </div>
+ </Form>
+ );
 };
 
 export default StudentRegistrationForm;

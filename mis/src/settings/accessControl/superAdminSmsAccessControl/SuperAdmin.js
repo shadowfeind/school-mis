@@ -135,6 +135,7 @@ const { singleEditSuperAdminSmsAccessControl,success: singleEditSuperAdminSmsAcc
           message: singleCreateSuperAdminSmsAccessControlError,
           type: "error",
         });
+        setOpenPopup(false);
         dispatch({ type: GET_SINGLE_CREATE_SUPER_ADMIN_SMS_ACCESS_CONTROL_RESET });
       }
 

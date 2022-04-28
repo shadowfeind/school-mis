@@ -18,6 +18,7 @@ import Notification from "../../components/Notification";
 import ConfirmDialog from "../../components/ConfirmDialog";
 import SelectControl from "../../components/controls/SelectControl";
 import {
+  checkAcademicYearForStudentAction,
   getCreateSingleStudentRegistrationDataAction,
   getInitialStudentRegistrationDataAction,
   getSingleStudentRegistrationDataAction,
@@ -62,9 +63,9 @@ const StudentRegistration = () => {
   const [ddlClass, setDdlClass] = useState([]);
   const [academicYearDdl, setAcademicYearDdl] = useState([]);
   const [programDdl, setProgramDdl] = useState([]);
-  const [programValue, setProgramValue] = useState();
-  const [classId, setClassId] = useState();
-  const [acaYear, setAcaYear] = useState();
+  const [programValue, setProgramValue] = useState("");
+  const [classId, setClassId] = useState("");
+  const [acaYear, setAcaYear] = useState("");
   const [selectedIndex, setSelectedIndex] = useState("");
   const [errors, setErrors] = useState([]);
   const [tableData, setTableData] = useState([]);
@@ -119,6 +120,10 @@ const StudentRegistration = () => {
 
   const { singleStudentRegistration, loading: loadingEdit } = useSelector(
     (state) => state.getSingleStudentRegistrationData
+  );
+
+  const { data:checkAcademicYearForStudentData } = useSelector(
+    (state) => state.checkAcademicYearForStudent
   );
 
   const { success: editSuccess } = useSelector(
@@ -205,6 +210,14 @@ const StudentRegistration = () => {
     }
   };
 
+  const onChangeHandler = (year) =>{
+    setAcaYear(year);
+    dispatch(checkAcademicYearForStudentAction(year, programValue));
+    }
+    // if(checkAcademicYearForStudentData){
+    //   console.log(checkAcademicYearForStudentData.data);
+    // }
+
   return (
     <>
       <CustomContainer>
@@ -215,7 +228,7 @@ const StudentRegistration = () => {
                 name="Academic Year"
                 label="Academic Year"
                 value={acaYear}
-                onChange={(e) => setAcaYear(e.target.value)}
+                onChange={(e) => onChangeHandler(e.target.value)}
                 options={academicYearDdl}
                 errors={errors.acaYear}
               />
@@ -251,6 +264,7 @@ const StudentRegistration = () => {
               >
                 SEARCH
               </Button>
+              {checkAcademicYearForStudentData && checkAcademicYearForStudentData==="Date exists !!!" &&
               <Button
                 variant="contained"
                 color="primary"
@@ -260,6 +274,7 @@ const StudentRegistration = () => {
               >
                 CREATE
               </Button>
+              }
             </Grid>
           </Grid>
         </Toolbar>

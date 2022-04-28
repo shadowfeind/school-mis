@@ -1,6 +1,9 @@
 import axios from "axios";
 import { API_URL, tokenConfig } from "../../constants";
 import {
+  CHECK_ACADEMIC_YEAR_FOR_STUDENT_FAIL,
+  CHECK_ACADEMIC_YEAR_FOR_STUDENT_REQUEST,
+  CHECK_ACADEMIC_YEAR_FOR_STUDENT_SUCCESS,
   CHECK_REGISTRATION_FOR_STUDENT_FAIL,
   CHECK_REGISTRATION_FOR_STUDENT_REQUEST,
   CHECK_REGISTRATION_FOR_STUDENT_SUCCESS,
@@ -299,3 +302,30 @@ export const checkRollNoForStudentAction =
       });
     }
   };
+
+
+  export const checkAcademicYearForStudentAction =
+  (year, program) => async (dispatch) => {
+    console.log(year, program);
+    try {
+      dispatch({ type: CHECK_ACADEMIC_YEAR_FOR_STUDENT_REQUEST });
+
+      const { data } = await axios.get(
+        `${API_URL}/api/StudentRegistration/ShowAddRegistrationButton?idAcademicYear=${year}&idFacultyProgramLink=${program}`,
+        tokenConfig
+      );
+
+      dispatch({
+        type: CHECK_ACADEMIC_YEAR_FOR_STUDENT_SUCCESS,
+        payload: data,
+      });
+    } catch (error) {
+      dispatch({
+        type: CHECK_ACADEMIC_YEAR_FOR_STUDENT_FAIL,
+        payload: error.response.data.Message
+          ? error.response.data.Message
+          : error.message,
+      });
+    }
+  };
+

@@ -27,7 +27,7 @@ export const getAllSuperAdminSmsAccessControlAction =
       dispatch({ type: GET_ALL_SUPER_ADMIN_SMS_ACCESS_CONTROL_REQUEST });
 
       const { data } = await axios.get(
-        `${API_URL}/api/SuperAdminSMSAccessControl/GetAllSuperAdminSMSAccessControl
+        `${API_URL}/api/SuperAdminSMSAccessControlS/GetAllSuperAdminSMSAccessControl
                 `,
         tokenConfig
       );
@@ -50,7 +50,7 @@ export const getListSuperAdminSmsAccessControlAction =
       dispatch({ type: GET_LIST_SUPER_ADMIN_SMS_ACCESS_CONTROL_REQUEST });
 
       const { data } = await axios.get(
-        `${API_URL}/api/SuperAdminSMSAccessControl/GetListSuperAdminSMSAccessControl?company=${company}&searchKey=1
+        `${API_URL}/api/SuperAdminSMSAccessControlS/GetListSuperAdminSMSAccessControl?company=${company}&searchKey=1
                 `,
         tokenConfig
       );
@@ -75,7 +75,7 @@ export const getSingleCreateSuperAdminSmsAccessControlAction =
       });
 
       const { data } = await axios.get(
-        `${API_URL}/api/SuperAdminSMSAccessControl/GetSingleToCreateSuperADinSMSAccessControl?company=${company}&searchKey=1
+        `${API_URL}/api/SuperAdminSMSAccessControlS/GetSingleToCreateSuperADinSMSAccessControl?company=${company}&searchKey=1
                 `,
         tokenConfig
       );
@@ -87,7 +87,9 @@ export const getSingleCreateSuperAdminSmsAccessControlAction =
     } catch (error) {
       dispatch({
         type: GET_SINGLE_CREATE_SUPER_ADMIN_SMS_ACCESS_CONTROL_FAIL,
-        payload: error.message ? error.message : error.Message,
+        payload: error.response.data.Message
+        ? error.response.data.Message
+        : error.message,
       });
     }
   };
@@ -100,7 +102,7 @@ export const getSingleEditSuperAdminSmsAccessControlAction =
       });
 
       const { data } = await axios.get(
-        `${API_URL}/api/SuperAdminSMSAccessControl/GetSingleToEditSuperAdminSMSAccessControl/${id}?company=${company}&searchKey=1
+        `${API_URL}/api/SuperAdminSMSAccessControlS/GetSingleToEditSuperAdminSMSAccessControl/${id}?company=${company}&searchKey=1
                 `,
         tokenConfig
       );
@@ -131,7 +133,7 @@ export const postSuperAdminSmsAccessControlAction =
       // };
 
       const { data } = await axios.post(
-        `${API_URL}/api/SuperAdminSMSAccessControl/PostSuperAdminSMSAccessControl`,
+        `${API_URL}/api/SuperAdminSMSAccessControlS/PostSuperAdminSMSAccessControl`,
         jsonData,
         tokenConfig
       );
@@ -164,7 +166,7 @@ export const putSuperAdminSmsAccessControlAction =
       // };
 
       const { data } = await axios.put(
-        `${API_URL}/api/SuperAdminSMSAccessControl/PutSuperAdminSMSAccessControl`,
+        `${API_URL}/api/SuperAdminSMSAccessControlS/PutSuperAdminSMSAccessControl`,
         jsonData,
         tokenConfig
       );

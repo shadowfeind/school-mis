@@ -207,6 +207,7 @@ import {
   postBulkStudentAttendanceReducer,
 } from "./examination/studentAttendance/StudentAttendanceReducers";
 import {
+  checkAcademicYearForStudentReducer,
   checkRegistrationForStudentReducer,
   checkRollNoForStudentReducer,
   createSingleStudentRegistrationReducer,
@@ -596,6 +597,7 @@ export const reducers = combineReducers({
   createSingleStudentRegistration: createSingleStudentRegistrationReducer,
   checkRegistrationForStudent: checkRegistrationForStudentReducer,
   checkRollNoForStudent: checkRollNoForStudentReducer,
+  checkAcademicYearForStudent : checkAcademicYearForStudentReducer,
   getAdmissionConfigInitialData: getAdmissionConfigInitialDataReducer,
   getAdmissionConfigListData: getAdmissionConfigListDataReducer,
   getSingleAdmissionConfig: getSingleAdmissionConfigReducer,

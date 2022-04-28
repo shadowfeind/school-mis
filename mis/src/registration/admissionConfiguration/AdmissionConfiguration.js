@@ -255,6 +255,11 @@ const AdmissionConfiguration = () => {
   };
 };
 
+const onChangeHandler = (year) =>{
+setAcaYear(year);
+dispatch(getAdmissionConfigListDataAction(year, programValue));
+}
+
   return (
     <>
       <CustomContainer>
@@ -264,7 +269,7 @@ const AdmissionConfiguration = () => {
               <SelectControl
                 name="academic year"
                 label="Academic Year"
-                onChange={(e) => setAcaYear(e.target.value)}
+                onChange={(e) => onChangeHandler(e.target.value)}
                 options={academicYearDdl}
                 value={acaYear}
                 errors={errors.acaYear}
@@ -282,23 +287,25 @@ const AdmissionConfiguration = () => {
             </Grid> */}
 
             <Grid item xs={3}>
+            {getAdmissionConfigListData?.dbModelLst?.length===0 && 
               <Button
                 variant="contained"
                 color="primary"
                 type="submit"
                 style={{ margin: "10px 0 0 10px" }}
                 onClick={handleCreateClick}
-                type="submit"
+              
               >
                 CREATE
               </Button>
+            }
               <Button
                 variant="contained"
                 color="primary"
                 type="submit"
                 style={{ margin: "10px 0 0 10px" }}
                 onClick={listSearchHandler}
-                type="submit"
+           
               >
                 SEARCH
               </Button>

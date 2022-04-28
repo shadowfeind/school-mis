@@ -486,7 +486,7 @@ const StudentRegistrationForm = ({
                 fontWeight: "normal",
                 margin: "0",
                 paddingLeft: "10px",
-                display: errors.rollCheckError ? "none" : "block",
+                display: errors.RollNo ? "none" : "block",
               }}
             >
               {rollCheckError}

@@ -1,4 +1,8 @@
 import {
+  CHECK_ACADEMIC_YEAR_FOR_STUDENT_FAIL,
+  CHECK_ACADEMIC_YEAR_FOR_STUDENT_REQUEST,
+  CHECK_ACADEMIC_YEAR_FOR_STUDENT_RESET,
+  CHECK_ACADEMIC_YEAR_FOR_STUDENT_SUCCESS,
   CHECK_REGISTRATION_FOR_STUDENT_FAIL,
   CHECK_REGISTRATION_FOR_STUDENT_REQUEST,
   CHECK_REGISTRATION_FOR_STUDENT_RESET,
@@ -187,3 +191,23 @@ export const checkRollNoForStudentReducer = (state = {}, action) => {
       return state;
   }
 };
+
+export const checkAcademicYearForStudentReducer = (state = {}, action) => {
+  switch (action.type) {
+    case CHECK_ACADEMIC_YEAR_FOR_STUDENT_REQUEST:
+      return { loading: true };
+    case CHECK_ACADEMIC_YEAR_FOR_STUDENT_SUCCESS:
+      return {
+        loading: false,
+        success: true,
+        data: action.payload,
+      };
+    case CHECK_ACADEMIC_YEAR_FOR_STUDENT_FAIL:
+      return { loading: false, error: action.payload };
+    case CHECK_ACADEMIC_YEAR_FOR_STUDENT_RESET:
+      return {};
+    default:
+      return state;
+  }
+};
+

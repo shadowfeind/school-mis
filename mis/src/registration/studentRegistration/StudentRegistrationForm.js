@@ -557,7 +557,7 @@ const StudentRegistrationForm = ({
             name="ImageUploaded"
             // label="Select Profile Photo"
             // value={values.ClassLocation}
-            onChange={(e) => handleImage(e)}
+            // onChange={(e) => handleImage(e)}
             onChange={(e) => fileValidation(e, setImage, setImgSrc)}
             type="file"
             // errors={errors.ClassLocation}

@@ -419,7 +419,6 @@ const StudentProfile = () => {
               />
             </Grid>
             <Grid item xs={3}>
-              <div style={{ height: "10px" }}></div>
               <SelectControl
                 name="ddlAcademicShift"
                 label="Shift"

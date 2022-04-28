@@ -70,7 +70,9 @@ export const getSingleCreateHrValueAction = (company) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: GET_SINGLE_TO_CREATE_HR_VALUE_FAIL,
-      payload: error.message ? error.message : error.Message,
+      payload: error.response.data.Message
+      ? error.response.data.Message
+      : error.message,
     });
   }
 };

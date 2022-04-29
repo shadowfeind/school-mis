@@ -7,7 +7,10 @@ import CheckBoxControl from "../components/controls/CheckBoxControl";
 import SelectControl from "../components/controls/SelectControl";
 import DatePickerControl from "../components/controls/DatePickerControl";
 import { API_URL } from "../constants";
-import { putLeaveRequestAction } from "./DashboardActions";
+import {
+  putApproveRequestAction,
+  putLeaveRequestAction,
+} from "./DashboardActions";
 
 const initialFormValues = {
   IDLeaveRequest: 0,
@@ -55,7 +58,13 @@ const LeaveApprovlForm = ({
     e.preventDefault();
 
     if (validate()) {
-      dispatch(putLeaveRequestAction(values, image));
+      dispatch(
+        putApproveRequestAction(
+          values,
+          image,
+          leaveRequestEditApproval.SchoolShortName
+        )
+      );
     }
   };
 
@@ -80,9 +89,9 @@ const LeaveApprovlForm = ({
   return (
     <Form onSubmit={handleSubmit}>
       <Grid container style={{ fontSize: "12px" }}>
-        <Grid item xs={6}>
+        {/* <Grid item xs={6}>
           <SelectControl
-          disabled
+            disabled
             name="ReceiverID"
             label="Receiver Name"
             value={values.ReceiverID}
@@ -94,10 +103,10 @@ const LeaveApprovlForm = ({
             }
             errors={errors.ReceiverID}
           />
-        </Grid>
+        </Grid> */}
         <Grid item xs={12}>
           <InputControl
-          disabled
+            disabled
             name="LeaveDecription"
             label="Leave Decription*"
             onFocus={(e) => {
@@ -111,17 +120,15 @@ const LeaveApprovlForm = ({
           />
         </Grid>
         <Grid item xs={6}>
-          <DatePickerControl
-          disabled
+          <InputControl
+            disabled
             name="FromDate"
             label="FromDate*"
-            value={values.FromDate}
-            onChange={null}
-            errors={errors.FromDate}
+            value={values.FromDate?.slice(0, 10)}
           />
 
           <SelectControl
-          disabled
+            disabled
             name="IsActive"
             label="IsActive"
             value={values.IsActive}
@@ -133,7 +140,7 @@ const LeaveApprovlForm = ({
             }
           />
           <InputControl
-          disabled
+            disabled
             name="ImageUploaded"
             // label="Select Profile Photo"
             // value={values.ClassLocation}
@@ -153,16 +160,13 @@ const LeaveApprovlForm = ({
           />
         </Grid>
         <Grid item xs={4}>
-          <DatePickerControl
-          disabled
+          <InputControl
+            disabled
             name="ToDate"
             label="ToDate*"
-            value={values.ToDate}
-            onChange={null}
-            errors={errors.ToDate}
+            value={values.ToDate?.slice(0, 10)}
           />
           <SelectControl
-          
             name="Status"
             label="Status"
             value={values.Status}

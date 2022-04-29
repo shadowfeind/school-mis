@@ -65,7 +65,7 @@ const AnnouncementForm = ({
     }
   };
 
-  const symbolsArr = ["e", "E", "+", "-", ".","ArrowUp","ArrowDown"];
+  const symbolsArr = ["e", "E", "+", "-", ".", "ArrowUp", "ArrowDown"];
 
   //uncomment in case of edit but we dont need edit
   // useEffect(() => {
@@ -102,11 +102,15 @@ const AnnouncementForm = ({
               e.target.select();
             }}
             onKeyDown={(e) =>
-              values.NewsDescription?.length > 160 && e.preventDefault()
+              values.NewsDescription?.length > 159 && e.preventDefault()
             }
             onChange={handleInputChange}
             errors={errors.NewsDescription}
           />
+          <p style={{ paddingLeft: "10px" }}>
+            {" "}
+            {160 - values?.NewsDescription?.length} chars left{" "}
+          </p>
         </Grid>
         <CheckBoxControl
           name="IsActive"

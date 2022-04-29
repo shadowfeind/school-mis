@@ -85,16 +85,12 @@ const Dashboard = () => {
   const { singleEditLeaveRequest, error: singleEditLeaveRequestError } =
     useSelector((state) => state.getSingleEditLeaveRequest);
 
-    const { success: postLeaveRequestSuccess, error: postLeaveRequestError } =
+  const { success: postLeaveRequestSuccess, error: postLeaveRequestError } =
     useSelector((state) => state.postLeaveRequest);
 
-
-
-    const {
-      error: downloadDocError,
-    } = useSelector((state) => state.downloadLeaveRequest);
-  
-    
+  const { error: downloadDocError } = useSelector(
+    (state) => state.downloadLeaveRequest
+  );
 
   if (singleCreateLeaveRequestError) {
     setNotify({
@@ -122,10 +118,6 @@ const Dashboard = () => {
     dispatch({ type: DOWNLOAD_DOC_LEAVE_REQUESTS_RESET });
   }
 
-
-
-
-
   if (postLeaveRequestSuccess) {
     setNotify({
       isOpen: true,
@@ -136,8 +128,6 @@ const Dashboard = () => {
     dispatch(getListLeaveRequestAction());
     dispatch({ type: POST_LEAVE_REQUESTS_RESET });
   }
-
-  
 
   if (singleEditLeaveRequestError) {
     setNotify({
@@ -200,11 +190,9 @@ const Dashboard = () => {
               </div>
 
               {leave === "approve" ? (
-                <DashboardLeaveApprove
-                />
+                <DashboardLeaveApprove />
               ) : (
-                <DashboardLeaveRequest
-                />
+                <DashboardLeaveRequest />
               )}
 
               <Popup

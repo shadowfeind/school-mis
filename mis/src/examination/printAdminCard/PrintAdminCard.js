@@ -25,7 +25,10 @@ import {
 } from "./PrintAdminCardActions";
 import { getEventAction } from "../examMarkEntry/ExamMarkEntryActions";
 import { GET_EVENT_RESET } from "../examMarkEntry/ExamMarkEntryConstants";
-import { GET_ACTIVE_STUDENTS_FOR_ADMIT_CARD_RESET, SEARCH_STUDENTS_FOR_ADMIT_CARD_RESET } from "./PrintAdminCardConstants";
+import {
+  GET_ACTIVE_STUDENTS_FOR_ADMIT_CARD_RESET,
+  SEARCH_STUDENTS_FOR_ADMIT_CARD_RESET,
+} from "./PrintAdminCardConstants";
 import PrintAdminCardTableCollapse from "./PrintAdminCardTableCollapse";
 import DatePickerControl from "../../components/controls/DatePickerControl";
 import PrintAdminCardPrint from "./PrintAdminCardPrint";
@@ -131,7 +134,7 @@ const PrintAdminCard = () => {
     (state) => state.getEvent
   );
 
-  const { searchStudentsForAdmitCard,loading } = useSelector(
+  const { searchStudentsForAdmitCard, loading } = useSelector(
     (state) => state.searchStudentsForAdmitCardData
   );
 
@@ -140,7 +143,7 @@ const PrintAdminCard = () => {
     success: activeStudentsForAdmitCardSuccess,
   } = useSelector((state) => state.getActiveStudentsForAdmitCardData);
 
-  const { printStudentsAdmitCard ,loading:loadingBulk} = useSelector(
+  const { printStudentsAdmitCard, loading: loadingBulk } = useSelector(
     (state) => state.printStudentsAdmitCardData
   );
 
@@ -173,7 +176,6 @@ const PrintAdminCard = () => {
     });
   }
 
-
   useEffect(() => {
     dispatch({ type: "GET_LINK", payload: "examination" });
     if (admitCardInitialData) {
@@ -189,10 +191,10 @@ const PrintAdminCard = () => {
     }
   }, [admitCardInitialData, dispatch]);
 
-  useEffect(()=>{
-    dispatch({type:SEARCH_STUDENTS_FOR_ADMIT_CARD_RESET})
+  useEffect(() => {
+    dispatch({ type: SEARCH_STUDENTS_FOR_ADMIT_CARD_RESET });
     dispatch(getInitialStudentRegistrationDataAction());
-  },[])
+  }, []);
 
   useEffect(() => {
     if (searchStudentsForAdmitCard) {
@@ -253,8 +255,8 @@ const PrintAdminCard = () => {
         )
       );
     }
-    if(event){
-      setEvent("")
+    if (event) {
+      setEvent("");
     }
   };
 
@@ -274,8 +276,8 @@ const PrintAdminCard = () => {
         )
       );
     }
-    if(event){
-      setEvent("")
+    if (event) {
+      setEvent("");
     }
   };
 
@@ -372,7 +374,6 @@ const PrintAdminCard = () => {
               />
             </Grid>
             <Grid item xs={3}>
-              <div style={{ height: "10px" }}></div>
               <SelectControl
                 name="Section"
                 label="Section"
@@ -456,38 +457,44 @@ const PrintAdminCard = () => {
           <LoadingComp />
         ) : (
           <>
-        {searchStudentsForAdmitCard && (
-          <TableContainer className={classes.table}>
-            <TblHead />
-            <TableBody>
-              {tableDataAfterPagingAndSorting().map((item) => (
-                <PrintAdminCardTableCollapse item={item} key={item.$id}/>
-              ))}
-            </TableBody>
-          </TableContainer>
-        )}
+            {searchStudentsForAdmitCard && (
+              <TableContainer className={classes.table}>
+                <TblHead />
+                <TableBody>
+                  {tableDataAfterPagingAndSorting().map((item) => (
+                    <PrintAdminCardTableCollapse item={item} key={item.$id} />
+                  ))}
+                </TableBody>
+              </TableContainer>
+            )}
 
-        {searchStudentsForAdmitCard && <TblPagination />}
-        </>
+            {searchStudentsForAdmitCard && <TblPagination />}
+          </>
         )}
       </CustomContainer>
       <Popup openPopup={openPopup} setOpenPopup={setOpenPopup}>
-      {loadingBulk ? (
+        {loadingBulk ? (
           <LoadingComp />
         ) : (
           <>
-        <PrintAdminCardPrint
-          students={printStudentsAdmitCard && printStudentsAdmitCard.dbModelLst}
-          imagePath={
-            printStudentsAdmitCard && printStudentsAdmitCard.ImagePathLst
-          }
-          classname={printStudentsAdmitCard && printStudentsAdmitCard.ClassName}
-          examDate={printStudentsAdmitCard && printStudentsAdmitCard.examDate}
-          print={printPdf}
-          componentRef={componentRef}
-          headerBanners={headerBanners && headerBanners}
-        />
-        </>
+            <PrintAdminCardPrint
+              students={
+                printStudentsAdmitCard && printStudentsAdmitCard.dbModelLst
+              }
+              imagePath={
+                printStudentsAdmitCard && printStudentsAdmitCard.ImagePathLst
+              }
+              classname={
+                printStudentsAdmitCard && printStudentsAdmitCard.ClassName
+              }
+              examDate={
+                printStudentsAdmitCard && printStudentsAdmitCard.examDate
+              }
+              print={printPdf}
+              componentRef={componentRef}
+              headerBanners={headerBanners && headerBanners}
+            />
+          </>
         )}
       </Popup>
 

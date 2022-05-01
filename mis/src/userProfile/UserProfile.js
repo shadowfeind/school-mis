@@ -138,9 +138,9 @@ const UserProfile = () => {
         </Tabs>
       </AppBar> */}
       <Suspense fallback={<div></div>}>
-        <TabPanel value={value} index={0}>
-          <PersonalInformation />
-        </TabPanel>
+        {/* <TabPanel value={value} index={0}> */}
+        <PersonalInformation />
+        {/* </TabPanel> */}
         {/* <TabPanel value={value} index={1}>
           <UploadPhoto />
         </TabPanel>

@@ -11,6 +11,7 @@ import {
 
 import { HashRouter as Router, Route, Switch } from "react-router-dom";
 
+const AutoSearch = lazy(() => import("./userProfile/autoSearch/AutoSearch"));
 const PageNotFound = lazy(() => import("./pageNotFound/PageNotFound"));
 const ClassSchedule = lazy(() =>
   import("./settings/classSchedule/ClassSchedule")
@@ -80,11 +81,13 @@ const StudentRegistration = lazy(() =>
 const OldQuestions = lazy(() => import("./settings/oldQuestions/OldQuestions"));
 const Syllabus = lazy(() => import("./settings/syllabus/SyllabusMain"));
 
-
 //Notification
-const ClassNotification = lazy(()=> import ("./notification/classNotification/ClassNotification"));
-const TeacherNotification = lazy(()=> import ("./notification/teacherNotification/TeacherNotification"));
-
+const ClassNotification = lazy(() =>
+  import("./notification/classNotification/ClassNotification")
+);
+const TeacherNotification = lazy(() =>
+  import("./notification/teacherNotification/TeacherNotification")
+);
 
 const theme = createTheme({
   palette: {
@@ -133,7 +136,7 @@ const App = () => {
               <Route path={"/exam-result"} component={ExamResult} />
 
               <Route path={"/level-test"} component={LevelTest} />
-
+              <Route path={"/auto-search"} component={AutoSearch} />
               <Route
                 path={"/student-attendance"}
                 component={StudentAttendance}
@@ -180,8 +183,14 @@ const App = () => {
               {/* class schedule ends */}
               <Route path={"/settings"} component={Settings} />
               {/* <Route path={"/eca-data"} component={EcaData} /> */}
-              <Route path={"/class-notification"} component={ClassNotification} />
-              <Route path={"/teacher-notification"} component={TeacherNotification} />
+              <Route
+                path={"/class-notification"}
+                component={ClassNotification}
+              />
+              <Route
+                path={"/teacher-notification"}
+                component={TeacherNotification}
+              />
               <Route exact path={"/"} component={Dashboard} />
               <Route path="*" component={PageNotFound} />
             </Switch>

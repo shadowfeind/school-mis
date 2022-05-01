@@ -193,7 +193,7 @@ const StudentRegistrationForm = ({
 
   const validate = (fieldValues = values) => {
     let temp = { ...errors };
-    temp.idAcademicYear = !fieldValues.idAcademicYear.length !== 0 ? "" : "";
+    temp.idAcademicYear = !fieldValues.idAcademicYear  ? "This feild is required" : "";
     temp.RegistrationKey = !fieldValues.RegistrationKey
       ? "This feild is required"
       : !fieldValues.RegistrationKey.trim()

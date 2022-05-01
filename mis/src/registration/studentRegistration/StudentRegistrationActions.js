@@ -207,13 +207,15 @@ export const createSingleStudentRegistrationAction =
       let formData = new FormData();
       formData.append("ImageUploaded", image);
 
-      const { data } = await axios.put(
-        `${API_URL}/api/StudentRegistrationImage/Put`,
-        formData,
-        tokenConfig
-      );
+     
+      if (image) {
 
-      if (data) {
+        const { data } = await axios.put(
+          `${API_URL}/api/StudentRegistrationImage/Put`,
+          formData,
+          tokenConfig
+        );
+  
         const newData = { ...studentReg, photoName: data };
         const jsonData = JSON.stringify({
           dbModel: newData,
@@ -227,7 +229,7 @@ export const createSingleStudentRegistrationAction =
           tokenConfig
         );
       } else {
-        const newData = { ...studentReg, photoName: "" };
+        const newData = { ...studentReg};
         const jsonData = JSON.stringify({
           dbModel: newData,
           idAcademicYear: studentReg.idAcademicYear,
@@ -243,7 +245,7 @@ export const createSingleStudentRegistrationAction =
 
       dispatch({
         type: CREATE_SINGLE_STUDENT_REGISTRATION_SUCCESS,
-        payload: data,
+        payload: image,
       });
     } catch (error) {
       console.log(error);

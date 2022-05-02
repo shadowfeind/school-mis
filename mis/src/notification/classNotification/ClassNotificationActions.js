@@ -72,7 +72,7 @@ export const getBulkClassNotificationAction =
   };
 
 export const postClassNotificationAction =
-  (dbModel, selectedStudents) => async (dispatch) => {
+  (dbModel, selectedStudents, SchoolShortName) => async (dispatch) => {
     try {
       dispatch({ type: POST_CLASS_NOTIFICATION_REQUEST });
 
@@ -85,8 +85,8 @@ export const postClassNotificationAction =
         registration_ids: fcmTokenList,
         collapse_key: "type_a",
         notification: {
-          body: dbModel.MessageDescription,
-          title: dbModel.MessageHeading,
+          body: dbModel.MessageHeading,
+          title: SchoolShortName,
         },
       };
 

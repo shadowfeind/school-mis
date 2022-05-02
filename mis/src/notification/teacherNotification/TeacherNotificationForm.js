@@ -25,7 +25,11 @@ const useStyles = makeStyles({
   },
 });
 
-const TeacherNotificationForm = ({ setOpenPopup, fcmTokenList }) => {
+const TeacherNotificationForm = ({
+  setOpenPopup,
+  fcmTokenList,
+  SchoolShortName,
+}) => {
   const classes = useStyles();
   const dispatch = useDispatch();
 
@@ -42,7 +46,8 @@ const TeacherNotificationForm = ({ setOpenPopup, fcmTokenList }) => {
       : "";
     temp.MessageDescription = !fieldValues.MessageDescription
       ? "This Field is Required"
-      : fieldValues.MessageDescription && fieldValues.MessageDescription?.length > 160
+      : fieldValues.MessageDescription &&
+        fieldValues.MessageDescription?.length > 160
       ? "Must be less than 160 characters"
       : "";
 
@@ -53,7 +58,9 @@ const TeacherNotificationForm = ({ setOpenPopup, fcmTokenList }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (validate()) {
-      dispatch(postTeacherNotificationAction(values, fcmTokenList));
+      dispatch(
+        postTeacherNotificationAction(values, fcmTokenList, SchoolShortName)
+      );
     }
   };
 
@@ -65,9 +72,9 @@ const TeacherNotificationForm = ({ setOpenPopup, fcmTokenList }) => {
             <InputControl
               name="MessageHeading"
               label="Message Heading"
-              onFocus={e => {
-      e.target.select();
-    }}
+              onFocus={(e) => {
+                e.target.select();
+              }}
               value={values.MessageHeading}
               onChange={handleInputChange}
               errors={errors.MessageHeading}
@@ -79,10 +86,12 @@ const TeacherNotificationForm = ({ setOpenPopup, fcmTokenList }) => {
               label="Message Descriptions"
               multiline
               rows={4}
-              onFocus={e => {
-      e.target.select();
-    }}
-    onKeyDown={(e) => values.MessageDescription?.length > 160 && e.preventDefault()}
+              onFocus={(e) => {
+                e.target.select();
+              }}
+              onKeyDown={(e) =>
+                values.MessageDescription?.length > 160 && e.preventDefault()
+              }
               value={values.MessageDescription}
               onChange={handleInputChange}
               errors={errors.MessageDescription}

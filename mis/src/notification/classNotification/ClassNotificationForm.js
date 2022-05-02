@@ -58,6 +58,7 @@ const useStyles = makeStyles({
 
 const ClassNotificationForm = ({
   classNotification,
+  SchoolShortName,
   students,
   setOpenPopup,
 }) => {
@@ -81,7 +82,8 @@ const ClassNotificationForm = ({
       : "";
     temp.MessageDescription = !fieldValues.MessageDescription
       ? "This Field is Required"
-      : fieldValues.MessageDescription && fieldValues.MessageDescription?.length > 160
+      : fieldValues.MessageDescription &&
+        fieldValues.MessageDescription?.length > 160
       ? "Must be less than 160 characters"
       : "";
     setErrors({ ...temp });
@@ -124,13 +126,16 @@ const ClassNotificationForm = ({
   const handleSubmit = (e) => {
     e.preventDefault();
     if (validate()) {
-      dispatch(postClassNotificationAction(values, selectedStudents));
+      dispatch(
+        postClassNotificationAction(values, selectedStudents, SchoolShortName)
+      );
     }
   };
-  const symbolsArr = ["e", "E", "+", "-", ".","ArrowUp","ArrowDown"];
+  const symbolsArr = ["e", "E", "+", "-", ".", "ArrowUp", "ArrowDown"];
 
   return (
     <>
+      <h5>**only app users are shown**</h5>
       <TableContainer component={Paper}>
         <Table className={classes.table} aria-label="customized table">
           <TableHead>
@@ -191,9 +196,9 @@ const ClassNotificationForm = ({
               name="MessageHeading"
               label="Message Heading"
               value={values.MessageHeading}
-              onFocus={e => {
-      e.target.select();
-    }}
+              onFocus={(e) => {
+                e.target.select();
+              }}
               onChange={handleInputChange}
               errors={errors.MessageHeading}
             />
@@ -205,10 +210,12 @@ const ClassNotificationForm = ({
               multiline
               rows={4}
               value={values.MessageDescription}
-              onFocus={e => {
-      e.target.select();
-    }}
-    onKeyDown={(e) => values.MessageDescription?.length > 160 && e.preventDefault()}
+              onFocus={(e) => {
+                e.target.select();
+              }}
+              onKeyDown={(e) =>
+                values.MessageDescription?.length > 160 && e.preventDefault()
+              }
               onChange={handleInputChange}
               errors={errors.MessageDescription}
             />

@@ -1,5 +1,5 @@
 import axios from "axios";
-import { API_URL, axiosInstance, tokenConfig } from "../constants";
+import { API_URL, axiosInstance, tokenConfig, tokenHeader } from "../constants";
 import {
   DELETE_LEAVE_REQUESTS_FAIL,
   DELETE_LEAVE_REQUESTS_REQUEST,
@@ -159,14 +159,38 @@ export const getSingleEditLeaveRequestAction = (id) => async (dispatch) => {
 };
 
 export const postLeaveRequestAction =
-  (leaveRequestPost,image) => async (dispatch) => {
+  (leaveRequestPost, image, SchoolShortName) => async (dispatch, getState) => {
     try {
       dispatch({ type: POST_LEAVE_REQUESTS_REQUEST });
+      const {
+        getHeaderContent: { headerContent },
+      } = getState();
+      const { data } = await axios.get(
+        `${API_URL}/api/LeaveRequest/GetFCMToken/${leaveRequestPost.ReceiverID}`,
+        tokenConfig
+      );
+      if (data) {
+        const fcmBody = {
+          registration_ids: [data.Message],
+          collapse_key: "type_a",
+          notification: {
+            body: leaveRequestPost.LeaveDecription?.slice(0, 25),
+            title: SchoolShortName,
+          },
+        };
+        const fbody = JSON.stringify(fcmBody);
 
-      if(image){
+        await axios.post(
+          "https://fcm.googleapis.com/fcm/send",
+          fbody,
+          tokenHeader
+        );
+      }
+
+      if (image) {
         let formData = new FormData();
         formData.append("ImageUploaded", image);
-    
+
         const { data } = await axios.post(
           `${API_URL}/api/LeaveRequest/FileUpload`,
           formData,
@@ -174,26 +198,26 @@ export const postLeaveRequestAction =
         );
         if (data) {
           const newData = { ...leaveRequestPost, DocumentName: data };
-      const jsonData = JSON.stringify({ dbModel: newData });
-          
-    await axios.post(
-        `${API_URL}/api/LeaveRequest/PostLeaveRequest`,
-        jsonData,
-        tokenConfig
-      );
-    }
-    }else{
-        const newData = { ...leaveRequestPost};
-    const jsonData = JSON.stringify({ dbModel: newData });
-        
-    await axios.post(
-      `${API_URL}/api/LeaveRequest/PostLeaveRequest`,
-      jsonData,
-      tokenConfig
-    );
-    }
+          const jsonData = JSON.stringify({ dbModel: newData });
 
-      dispatch({ type: POST_LEAVE_REQUESTS_SUCCESS});
+          await axios.post(
+            `${API_URL}/api/LeaveRequest/PostLeaveRequest`,
+            jsonData,
+            tokenConfig
+          );
+        }
+      } else {
+        const newData = { ...leaveRequestPost };
+        const jsonData = JSON.stringify({ dbModel: newData });
+
+        await axios.post(
+          `${API_URL}/api/LeaveRequest/PostLeaveRequest`,
+          jsonData,
+          tokenConfig
+        );
+      }
+
+      dispatch({ type: POST_LEAVE_REQUESTS_SUCCESS });
     } catch (error) {
       dispatch({
         type: POST_LEAVE_REQUESTS_FAIL,
@@ -202,47 +226,113 @@ export const postLeaveRequestAction =
     }
   };
 
-export const putLeaveRequestAction = (leaveRequest,image) => async (dispatch) => {
-  try {
-    dispatch({ type: PUT_LEAVE_REQUESTS_REQUEST });
+export const putApproveRequestAction =
+  (leaveRequest, image, SchoolShortName) => async (dispatch) => {
+    try {
+      dispatch({ type: PUT_LEAVE_REQUESTS_REQUEST });
 
-   if(image){
-    let formData = new FormData();
-    formData.append("ImageUploaded", image);
+      const { data } = await axios.get(
+        `${API_URL}/api/LeaveRequest/GetFCMToken/${leaveRequest.SenderID}`,
+        tokenConfig
+      );
+      if (data) {
+        const fcmBody = {
+          registration_ids: [data.Message],
+          collapse_key: "type_a",
+          notification: {
+            body: `Your leave request has been ${leaveRequest.Status}`,
+            title: SchoolShortName,
+          },
+        };
+        const fbody = JSON.stringify(fcmBody);
 
-    const { data } = await axios.post(
-      `${API_URL}/api/LeaveRequest/FileUpload`,
-      formData,
-      tokenConfig
-    );
-    if (data) {
-      const newData = { ...leaveRequest, DocumentName: data };
-  const jsonData = JSON.stringify({ dbModel: newData });
-      
-await axios.put(
-    `${API_URL}/api/LeaveRequest/PutLeaveRequest`,
-    jsonData,
-    tokenConfig
-  );
-}
-}else{
-    const newData = { ...leaveRequest};
-const jsonData = JSON.stringify({ dbModel: newData });
-    
-await axios.put(
-  `${API_URL}/api/LeaveRequest/PutLeaveRequest`,
-  jsonData,
-  tokenConfig
-);
-}
-    dispatch({ type: PUT_LEAVE_REQUESTS_SUCCESS});
-  } catch (error) {
-    dispatch({
-      type: PUT_LEAVE_REQUESTS_FAIL,
-      payload: error.message ? error.message : error.Message,
-    });
-  }
-};
+        await axios.post(
+          "https://fcm.googleapis.com/fcm/send",
+          fbody,
+          tokenHeader
+        );
+      }
+
+      if (image) {
+        let formData = new FormData();
+        formData.append("ImageUploaded", image);
+
+        const { data } = await axios.post(
+          `${API_URL}/api/LeaveRequest/FileUpload`,
+          formData,
+          tokenConfig
+        );
+        if (data) {
+          const newData = { ...leaveRequest, DocumentName: data };
+          const jsonData = JSON.stringify({ dbModel: newData });
+
+          await axios.put(
+            `${API_URL}/api/LeaveRequest/PutLeaveRequest`,
+            jsonData,
+            tokenConfig
+          );
+        }
+      } else {
+        const newData = { ...leaveRequest };
+        const jsonData = JSON.stringify({ dbModel: newData });
+
+        await axios.put(
+          `${API_URL}/api/LeaveRequest/PutLeaveRequest`,
+          jsonData,
+          tokenConfig
+        );
+      }
+      dispatch({ type: PUT_LEAVE_REQUESTS_SUCCESS });
+    } catch (error) {
+      dispatch({
+        type: PUT_LEAVE_REQUESTS_FAIL,
+        payload: error.message ? error.message : error.Message,
+      });
+    }
+  };
+
+export const putLeaveRequestAction =
+  (leaveRequest, image) => async (dispatch) => {
+    try {
+      dispatch({ type: PUT_LEAVE_REQUESTS_REQUEST });
+
+      if (image) {
+        let formData = new FormData();
+        formData.append("ImageUploaded", image);
+
+        const { data } = await axios.post(
+          `${API_URL}/api/LeaveRequest/FileUpload`,
+          formData,
+          tokenConfig
+        );
+        if (data) {
+          const newData = { ...leaveRequest, DocumentName: data };
+          const jsonData = JSON.stringify({ dbModel: newData });
+
+          await axios.put(
+            `${API_URL}/api/LeaveRequest/PutLeaveRequest`,
+            jsonData,
+            tokenConfig
+          );
+        }
+      } else {
+        const newData = { ...leaveRequest };
+        const jsonData = JSON.stringify({ dbModel: newData });
+
+        await axios.put(
+          `${API_URL}/api/LeaveRequest/PutLeaveRequest`,
+          jsonData,
+          tokenConfig
+        );
+      }
+      dispatch({ type: PUT_LEAVE_REQUESTS_SUCCESS });
+    } catch (error) {
+      dispatch({
+        type: PUT_LEAVE_REQUESTS_FAIL,
+        payload: error.message ? error.message : error.Message,
+      });
+    }
+  };
 
 export const getSingleDeleteLeaveRequestAction = (id) => async (dispatch) => {
   try {
@@ -319,7 +409,7 @@ export const downloadLeaveRequestAction = (id) => async (dispatch) => {
   try {
     dispatch({ type: DOWNLOAD_DOC_LEAVE_REQUESTS_REQUEST });
 
-    const File  =`${API_URL}/api/LeaveRequest/DownloadDoc/${id}`;
+    const File = `${API_URL}/api/LeaveRequest/DownloadDoc/${id}`;
 
     window.open(File, "_blank");
 

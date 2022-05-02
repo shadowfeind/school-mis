@@ -46,7 +46,8 @@ const AcademicProgramForm = ({ academicProgram, selected, setOpenPopup }) => {
       ? "Must be less than 1000 characters"
       : "";
 
-      temp.checkboxState = checkboxState?.length<1 ? "Please Select Atleast One Option" : "";
+    temp.checkboxState =
+      checkboxState?.length < 1 ? "Please Select Atleast One Option" : "";
     setErrors({ ...temp });
     return Object.values(temp).every((x) => x === "");
   };
@@ -88,9 +89,9 @@ const AcademicProgramForm = ({ academicProgram, selected, setOpenPopup }) => {
           <InputControl
             name="AcademicProgramName"
             label="Academic Program Name*"
-            onFocus={e => {
-      e.target.select();
-    }}
+            onFocus={(e) => {
+              e.target.select();
+            }}
             value={values.AcademicProgramName}
             onChange={handleInputChange}
             errors={errors.AcademicProgramName}
@@ -98,9 +99,9 @@ const AcademicProgramForm = ({ academicProgram, selected, setOpenPopup }) => {
           <InputControl
             name="Description"
             label="Description*"
-            onFocus={e => {
-      e.target.select();
-    }}
+            onFocus={(e) => {
+              e.target.select();
+            }}
             value={values.Description}
             onChange={handleInputChange}
             errors={errors.Description}
@@ -116,7 +117,9 @@ const AcademicProgramForm = ({ academicProgram, selected, setOpenPopup }) => {
         <Grid item xs={6}>
           <FormControl component="fieldset">
             <FormLabel component="legend">School Board:</FormLabel>
-            {errors.checkboxState && <h4 style={{color:"red"}}>{errors.checkboxState}</h4>}
+            {errors.checkboxState && (
+              <h4 style={{ color: "red" }}>{errors.checkboxState}</h4>
+            )}
             <FormGroup>
               {selected
                 ? selected.map((item) => <p> {item.Name}</p>)

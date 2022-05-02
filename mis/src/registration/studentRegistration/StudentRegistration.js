@@ -114,11 +114,11 @@ const StudentRegistration = () => {
     (state) => state.getInitialStudentRegistrationData
   );
 
-  const { studentRegistration,loading } = useSelector(
+  const { studentRegistration, loading } = useSelector(
     (state) => state.getStudentRegistrationData
   );
 
-  const { singleStudentRegistration ,loading:loadingEdit} = useSelector(
+  const { singleStudentRegistration, loading: loadingEdit } = useSelector(
     (state) => state.getSingleStudentRegistrationData
   );
 
@@ -173,10 +173,10 @@ const StudentRegistration = () => {
     }
   }, [dispatch, studentRegistrationInitialData]);
 
-  useEffect(()=>{
-    dispatch({type: GET_STUDENT_REGISTRATION_DATA_RESET})
+  useEffect(() => {
+    dispatch({ type: GET_STUDENT_REGISTRATION_DATA_RESET });
     dispatch(getInitialStudentRegistrationDataAction());
-  },[])
+  }, []);
 
   useEffect(() => {
     if (studentRegistration) {
@@ -297,47 +297,48 @@ const StudentRegistration = () => {
           <LoadingComp />
         ) : (
           <>
-        {studentRegistration && (
-          <TableContainer className={classes.table}>
-            <TblHead />
+            {studentRegistration && (
+              <TableContainer className={classes.table}>
+                <TblHead />
 
-            <TableBody>
-              {tableDataAfterPagingAndSorting().map((item, index) => (
-                <StudentRegistrationTableCollapse
-                  index={index}
-                  item={item}
-                  key={item.$id}
-                  year={
-                    studentRegistration &&
-                    studentRegistration.searchFilterModel.idAcademicYear
-                  }
-                  program={
-                    studentRegistration &&
-                    studentRegistration.searchFilterModel.idFacultyProgramLink
-                  }
-                  classId={
-                    studentRegistration &&
-                    studentRegistration.searchFilterModel.idClass
-                  }
-                  selectedIndex={selectedIndex}
-                  singleStudent={
-                    singleStudentRegistration &&
-                    singleStudentRegistration.dbModel
-                  }
-                  studentImage={
-                    singleStudentRegistration &&
-                    singleStudentRegistration.FullPath
-                  }
-                  setSelectedIndex={setSelectedIndex}
-                  setOpenPopup={setOpenPopup}
-                />
-              ))}
-            </TableBody>
-          </TableContainer>
-        )}
+                <TableBody>
+                  {tableDataAfterPagingAndSorting().map((item, index) => (
+                    <StudentRegistrationTableCollapse
+                      index={index}
+                      item={item}
+                      key={item.$id}
+                      year={
+                        studentRegistration &&
+                        studentRegistration.searchFilterModel.idAcademicYear
+                      }
+                      program={
+                        studentRegistration &&
+                        studentRegistration.searchFilterModel
+                          .idFacultyProgramLink
+                      }
+                      classId={
+                        studentRegistration &&
+                        studentRegistration.searchFilterModel.idClass
+                      }
+                      selectedIndex={selectedIndex}
+                      singleStudent={
+                        singleStudentRegistration &&
+                        singleStudentRegistration.dbModel
+                      }
+                      studentImage={
+                        singleStudentRegistration &&
+                        singleStudentRegistration.FullPath
+                      }
+                      setSelectedIndex={setSelectedIndex}
+                      setOpenPopup={setOpenPopup}
+                    />
+                  ))}
+                </TableBody>
+              </TableContainer>
+            )}
 
-        {studentRegistration && <TblPagination />}
-        </>
+            {studentRegistration && <TblPagination />}
+          </>
         )}
       </CustomContainer>
       <Popup
@@ -345,16 +346,19 @@ const StudentRegistration = () => {
         setOpenPopup={setOpenPopup}
         title="Student Registration Form"
       >
-      {loadingEdit ? (
+        {loadingEdit ? (
           <LoadingComp />
         ) : (
           <>
-        <StudentRegistrationForm
-          singleStudent={singleStudentRegistration && singleStudentRegistration}
-          getCreateSingleStudentData={getCreateSingleStudentData}
-          setOpenPopup={setOpenPopup}
-        />
-        </>
+            <StudentRegistrationForm
+              acaYear={acaYear && acaYear}
+              singleStudent={
+                singleStudentRegistration && singleStudentRegistration
+              }
+              getCreateSingleStudentData={getCreateSingleStudentData}
+              setOpenPopup={setOpenPopup}
+            />
+          </>
         )}
       </Popup>
       <Notification notify={notify} setNotify={setNotify} />

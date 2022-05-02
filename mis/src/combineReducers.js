@@ -250,7 +250,9 @@ import {
 } from "./settings/teacherMapping/teacherFacultySubject/TeacherFacultySubjectReducers";
 import {
   getAllPersonalInformation,
+  getEmployeeListSearchReducer,
   getSinglePersonalInformationReducer,
+  getSinglePersonalInformationSearchReducer,
   updateSinglePersonalInformationReducer,
 } from "./userProfile/personalinformation/PersonalInformationReducers";
 import {
@@ -390,23 +392,89 @@ import {
   getSubjectSyllabusReducer,
   putSyllabusReducer,
 } from "./settings/syllabus/syllabusPg/SyllabusReducers";
-import { deleteLeaveRequestReducer, downloadLeaveRequestReducer, getAllLeaveRequestReducer, getHeaderBannerReducer, getHeaderContentReducer, getListLeaveRequestReducer, getSingleCreateLeaveRequestReducer, getSingleDeleteLeaveRequestReducer, getSingleEditLeaveRequestReducer, getSingleEditSentLeaveRequestReducer, postFileUploadLeaveRequestReducer, postLeaveRequestReducer, putLeaveRequestReducer } from "./dashboard/DashboardReducers";
+import {
+  deleteLeaveRequestReducer,
+  downloadLeaveRequestReducer,
+  getAllLeaveRequestReducer,
+  getHeaderBannerReducer,
+  getHeaderContentReducer,
+  getListLeaveRequestReducer,
+  getSingleCreateLeaveRequestReducer,
+  getSingleDeleteLeaveRequestReducer,
+  getSingleEditLeaveRequestReducer,
+  getSingleEditSentLeaveRequestReducer,
+  postFileUploadLeaveRequestReducer,
+  postLeaveRequestReducer,
+  putLeaveRequestReducer,
+} from "./dashboard/DashboardReducers";
 
-import { getAllEcaLookUpReducer, getDetailEcaLookUpReducer, getListEcaLookUpReducer, getSingleCreateEcaLookUpReducer, getSingleEditEcaLookUpReducer, postEcaLookUpReducer, putEcaLookUpReducer } from "./settings/academicConfiguration/ecaLookUp/EcaLookUpReducers";
-import { getAllAssignEcaReducer, getListAssignEcaReducer, getSingleCreateAssignEcaReducer, postAssignEcaReducer } from "./settings/academicConfiguration/assignEca/AssignEcaReducers";
-import { getAllEcaDataReducer, getBulkEditEcaDataReducer, getListEcaDataReducer, postBulkEditEcaDataReducer } from "./examination/ecaData/EcaDataReducers";
-import { getAllHrValueReducer, getListHrValueReducer, getSingleToCreateHrValueReducer, getSingleToEditHrValueReducer, postFileUploadHeaderBannerReducer, postFileUploadPrincipleSignatureReducer, postFileUploadSchoolLogoReducer, postHrValueReducer, putHrValueReducer } from "./settings/schoolConfiguration/hrValue/HrValueReducers";
-import { getAllClassNotificationReducer, getBulkClassNotificationReducer, getListClassNotificationReducer, postClassNotificationReducer } from "./notification/classNotification/ClassNotificationReducers";
-import { getAllTeacherNotificationReducer, getListTeacherNotificationReducer, getSingleCreateTeacherNotificationReducer, postTeacherNotificationReducer } from "./notification/teacherNotification/TeacherNotificationRedcuers";
-import { getAllSmsAccessControlReducer, getListSmsAccessControlReducer, getSingleToCreateSmsAccessControlReducer, getSingleToEditSmsAccessControlReducer, postSmsAccessControlReducer, putSmsAccessControlReducer } from "./settings/accessControl/smsAccessControl/SmsAccessControlReducers";
-import { getAllSuperAdminSmsAccessControlReducer, getListSuperAdminSmsAccessControlReducer, getSingleToCreateSuperAdminSmsAccessControlReducer, getSingleToEditSuperAdminSmsAccessControlReducer, postSuperAdminSmsAccessControlReducer, putSuperAdminSmsAccessControlReducer } from "./settings/accessControl/superAdminSmsAccessControl/SuperAdminReducers";
+import {
+  getAllEcaLookUpReducer,
+  getDetailEcaLookUpReducer,
+  getListEcaLookUpReducer,
+  getSingleCreateEcaLookUpReducer,
+  getSingleEditEcaLookUpReducer,
+  postEcaLookUpReducer,
+  putEcaLookUpReducer,
+} from "./settings/academicConfiguration/ecaLookUp/EcaLookUpReducers";
+import {
+  getAllAssignEcaReducer,
+  getListAssignEcaReducer,
+  getSingleCreateAssignEcaReducer,
+  postAssignEcaReducer,
+} from "./settings/academicConfiguration/assignEca/AssignEcaReducers";
+import {
+  getAllEcaDataReducer,
+  getBulkEditEcaDataReducer,
+  getListEcaDataReducer,
+  postBulkEditEcaDataReducer,
+} from "./examination/ecaData/EcaDataReducers";
+import {
+  getAllHrValueReducer,
+  getListHrValueReducer,
+  getSingleToCreateHrValueReducer,
+  getSingleToEditHrValueReducer,
+  postFileUploadHeaderBannerReducer,
+  postFileUploadPrincipleSignatureReducer,
+  postFileUploadSchoolLogoReducer,
+  postHrValueReducer,
+  putHrValueReducer,
+} from "./settings/schoolConfiguration/hrValue/HrValueReducers";
+import {
+  getAllClassNotificationReducer,
+  getBulkClassNotificationReducer,
+  getListClassNotificationReducer,
+  postClassNotificationReducer,
+} from "./notification/classNotification/ClassNotificationReducers";
+import {
+  getAllTeacherNotificationReducer,
+  getListTeacherNotificationReducer,
+  getSingleCreateTeacherNotificationReducer,
+  postTeacherNotificationReducer,
+} from "./notification/teacherNotification/TeacherNotificationRedcuers";
+import {
+  getAllSmsAccessControlReducer,
+  getListSmsAccessControlReducer,
+  getSingleToCreateSmsAccessControlReducer,
+  getSingleToEditSmsAccessControlReducer,
+  postSmsAccessControlReducer,
+  putSmsAccessControlReducer,
+} from "./settings/accessControl/smsAccessControl/SmsAccessControlReducers";
+import {
+  getAllSuperAdminSmsAccessControlReducer,
+  getListSuperAdminSmsAccessControlReducer,
+  getSingleToCreateSuperAdminSmsAccessControlReducer,
+  getSingleToEditSuperAdminSmsAccessControlReducer,
+  postSuperAdminSmsAccessControlReducer,
+  putSuperAdminSmsAccessControlReducer,
+} from "./settings/accessControl/superAdminSmsAccessControl/SuperAdminReducers";
 
 //examination reducers link end
 export const reducers = combineReducers({
   //header
   navLink: navLinkReducer,
   getHeaderContent: getHeaderContentReducer,
-  getHeaderBanner : getHeaderBannerReducer,
+  getHeaderBanner: getHeaderBannerReducer,
   //header ends
   position: getAllPosition,
   createPosition: createPositionReducer,
@@ -505,8 +573,8 @@ export const reducers = combineReducers({
   getReassociateStudentsLists: getReassociateStudentsListsReducer,
   getReassociateStudentsLevelup: getReassociateStudentsLevelupReducer,
   getReassociateStudentsLevelupPost: getReassociateStudentsLevelupPostReducer,
-  getSingleEditReassociateStudents:getSingleEditReassociateStudentsReducer,
-  putReassociateStudents : putReassociateStudentsReducer,
+  getSingleEditReassociateStudents: getSingleEditReassociateStudentsReducer,
+  putReassociateStudents: putReassociateStudentsReducer,
   getAllSearchTeacherFacSubInitialData:
     getAllSearchTeacherFacSubInitialDataReducer,
   getAllSearchTeacherFacSubListData: getAllSearchTeacherFacSubListDataReducer,
@@ -535,7 +603,7 @@ export const reducers = combineReducers({
   getAllStudentAttendance: getAllStudentAttendanceReducer,
   getBulkStudentAttendance: getBulkStudentAttendanceReducer,
   postBulkStudentAttendance: postBulkStudentAttendanceReducer,
-  getGeneratedStudentAttendance : getGeneratedStudentAttendanceReducer,
+  getGeneratedStudentAttendance: getGeneratedStudentAttendanceReducer,
   getInitialExamApprovalData: getInitialExamApprovalDataReducer,
   getExamApprovalScheduleHeader: getExamApprovalScheduleHeaderReducer,
   getExamApprovalSearchData: getExamApprovalSearchDataReducer,
@@ -597,7 +665,7 @@ export const reducers = combineReducers({
   createSingleStudentRegistration: createSingleStudentRegistrationReducer,
   checkRegistrationForStudent: checkRegistrationForStudentReducer,
   checkRollNoForStudent: checkRollNoForStudentReducer,
-  checkAcademicYearForStudent : checkAcademicYearForStudentReducer,
+  checkAcademicYearForStudent: checkAcademicYearForStudentReducer,
   getAdmissionConfigInitialData: getAdmissionConfigInitialDataReducer,
   getAdmissionConfigListData: getAdmissionConfigListDataReducer,
   getSingleAdmissionConfig: getSingleAdmissionConfigReducer,
@@ -609,7 +677,9 @@ export const reducers = combineReducers({
   //PID PersonalInformation
   getAllPersonalInformation: getAllPersonalInformation,
   getSinglePersonalInformation: getSinglePersonalInformationReducer,
+  getSinglePersonalInformationSearch: getSinglePersonalInformationSearchReducer,
   updateSinglePersonalInformation: updateSinglePersonalInformationReducer,
+  getEmployeeListSearch: getEmployeeListSearchReducer,
   //PID ContactAddress
   getAllContactAddress: getAllContactAddress,
   getSingleContactAddress: getSingleContactAddressReducer,
@@ -728,52 +798,54 @@ export const reducers = combineReducers({
   getBulkEditEcaData: getBulkEditEcaDataReducer,
   postBulkEditEcaData: postBulkEditEcaDataReducer,
   //HR VALUE reducers:
-  getAllHrValue : getAllHrValueReducer,
-  getListHrValue : getListHrValueReducer,
-  getSingleToCreateHrValue : getSingleToCreateHrValueReducer,
-  getSingleToEditHrValue : getSingleToEditHrValueReducer,
-  postHrValue : postHrValueReducer,
-  putHrValue : putHrValueReducer,
-  postFileUploadHeaderBanner : postFileUploadHeaderBannerReducer,
-  postFileUploadSchoolLogo : postFileUploadSchoolLogoReducer,
-  postFileUploadPrincipleSignature : postFileUploadPrincipleSignatureReducer,
+  getAllHrValue: getAllHrValueReducer,
+  getListHrValue: getListHrValueReducer,
+  getSingleToCreateHrValue: getSingleToCreateHrValueReducer,
+  getSingleToEditHrValue: getSingleToEditHrValueReducer,
+  postHrValue: postHrValueReducer,
+  putHrValue: putHrValueReducer,
+  postFileUploadHeaderBanner: postFileUploadHeaderBannerReducer,
+  postFileUploadSchoolLogo: postFileUploadSchoolLogoReducer,
+  postFileUploadPrincipleSignature: postFileUploadPrincipleSignatureReducer,
   //ClassNotification Reducers
-  getAllClassNotification : getAllClassNotificationReducer,
-  getListClassNotification : getListClassNotificationReducer,
-  getBulkClassNotification : getBulkClassNotificationReducer,
-  postClassNotification : postClassNotificationReducer,
+  getAllClassNotification: getAllClassNotificationReducer,
+  getListClassNotification: getListClassNotificationReducer,
+  getBulkClassNotification: getBulkClassNotificationReducer,
+  postClassNotification: postClassNotificationReducer,
 
   //TeacherNotification Reducers:
-  getAllTeacherNotification : getAllTeacherNotificationReducer,
-  getListTeacherNotification : getListTeacherNotificationReducer,
-  getSingleCreateTeacherNotification : getSingleCreateTeacherNotificationReducer,
-  postTeacherNotification : postTeacherNotificationReducer,
+  getAllTeacherNotification: getAllTeacherNotificationReducer,
+  getListTeacherNotification: getListTeacherNotificationReducer,
+  getSingleCreateTeacherNotification: getSingleCreateTeacherNotificationReducer,
+  postTeacherNotification: postTeacherNotificationReducer,
 
   //SMS Access Control Reducers:
-  getAllSmsAccessControl : getAllSmsAccessControlReducer,
-  getListSmsAccessControl : getListSmsAccessControlReducer,
-  getSingleToCreateSmsAccessControl : getSingleToCreateSmsAccessControlReducer,
-  getSingleToEditSmsAccessControl : getSingleToEditSmsAccessControlReducer,
-  postSmsAccessControl : postSmsAccessControlReducer,
-  putSmsAccessControl : putSmsAccessControlReducer,
+  getAllSmsAccessControl: getAllSmsAccessControlReducer,
+  getListSmsAccessControl: getListSmsAccessControlReducer,
+  getSingleToCreateSmsAccessControl: getSingleToCreateSmsAccessControlReducer,
+  getSingleToEditSmsAccessControl: getSingleToEditSmsAccessControlReducer,
+  postSmsAccessControl: postSmsAccessControlReducer,
+  putSmsAccessControl: putSmsAccessControlReducer,
 
   //Leave Request:
-  getAllLeaveRequest : getAllLeaveRequestReducer,
-  getListLeaveRequest : getListLeaveRequestReducer,
-  getSingleCreateLeaveRequest : getSingleCreateLeaveRequestReducer,
-  getSingleEditLeaveRequest : getSingleEditLeaveRequestReducer,
-  postLeaveRequest : postLeaveRequestReducer,
-  putLeaveRequest : putLeaveRequestReducer,
-  getSingleDeleteLeaveRequest : getSingleDeleteLeaveRequestReducer,
-  deleteLeaveRequest : deleteLeaveRequestReducer,
-  downloadLeaveRequest : downloadLeaveRequestReducer,
-  getSingleEditSentLeaveRequest : getSingleEditSentLeaveRequestReducer,
+  getAllLeaveRequest: getAllLeaveRequestReducer,
+  getListLeaveRequest: getListLeaveRequestReducer,
+  getSingleCreateLeaveRequest: getSingleCreateLeaveRequestReducer,
+  getSingleEditLeaveRequest: getSingleEditLeaveRequestReducer,
+  postLeaveRequest: postLeaveRequestReducer,
+  putLeaveRequest: putLeaveRequestReducer,
+  getSingleDeleteLeaveRequest: getSingleDeleteLeaveRequestReducer,
+  deleteLeaveRequest: deleteLeaveRequestReducer,
+  downloadLeaveRequest: downloadLeaveRequestReducer,
+  getSingleEditSentLeaveRequest: getSingleEditSentLeaveRequestReducer,
 
   //Super Admin SMS:
-  getAllSuperAdminSmsAccessControl : getAllSuperAdminSmsAccessControlReducer,
-  getListSuperAdminSmsAccessControl : getListSuperAdminSmsAccessControlReducer,
-  getSingleToCreateSuperAdminSmsAccessControl : getSingleToCreateSuperAdminSmsAccessControlReducer,
-  getSingleToEditSuperAdminSmsAccessControl : getSingleToEditSuperAdminSmsAccessControlReducer,
-  postSuperAdminSmsAccessControl : postSuperAdminSmsAccessControlReducer,
-  putSuperAdminSmsAccessControl : putSuperAdminSmsAccessControlReducer,
+  getAllSuperAdminSmsAccessControl: getAllSuperAdminSmsAccessControlReducer,
+  getListSuperAdminSmsAccessControl: getListSuperAdminSmsAccessControlReducer,
+  getSingleToCreateSuperAdminSmsAccessControl:
+    getSingleToCreateSuperAdminSmsAccessControlReducer,
+  getSingleToEditSuperAdminSmsAccessControl:
+    getSingleToEditSuperAdminSmsAccessControlReducer,
+  postSuperAdminSmsAccessControl: postSuperAdminSmsAccessControlReducer,
+  putSuperAdminSmsAccessControl: putSuperAdminSmsAccessControlReducer,
 });

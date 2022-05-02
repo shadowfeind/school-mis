@@ -53,7 +53,8 @@ const AcademicYearForm = ({ academicYear, selected, setOpenPopup }) => {
       ? "Must be less than 11 characters"
       : "";
 
-      temp.checkboxState = checkboxState?.length<1 ? "Please Select Atleast One Option" : "";
+    temp.checkboxState =
+      checkboxState?.length < 1 ? "Please Select Atleast One Option" : "";
     temp.AcademicYear = !fieldValues.AcademicYear
       ? "This feild is required"
       : !fieldValues.AcademicYear.trim()
@@ -174,7 +175,10 @@ const AcademicYearForm = ({ academicYear, selected, setOpenPopup }) => {
         <Grid item xs={6}>
           <FormControl component="fieldset">
             <FormLabel component="legend">Academic Program:</FormLabel>
-            {errors.checkboxState && <h4 style={{color:"red"}}>{errors.checkboxState}</h4>}
+            {errors.checkboxState && (
+              <h4 style={{ color: "red" }}>{errors.checkboxState}</h4>
+            )}
+
             <FormGroup>
               {selected
                 ? selected.map((item) => <p> {item.Name}</p>)

@@ -352,6 +352,7 @@ const StudentRegistration = () => {
           <>
             <StudentRegistrationForm
               acaYear={acaYear && acaYear}
+              classId={classId && classId}
               singleStudent={
                 singleStudentRegistration && singleStudentRegistration
               }

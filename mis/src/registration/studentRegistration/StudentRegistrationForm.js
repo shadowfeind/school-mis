@@ -178,6 +178,7 @@ const StudentRegistrationForm = ({
   setOpenPopup,
   getCreateSingleStudentData,
   acaYear,
+  classId,
 }) => {
   const [image, setImage] = useState("");
   const [imgSrc, setImgSrc] = useState("");
@@ -329,6 +330,7 @@ const StudentRegistrationForm = ({
       setValues({
         ...getCreateSingleStudentData.dbModel,
         idAcademicYear: acaYear,
+        IDLevel: classId,
       });
     }
   }, [getCreateSingleStudentData]);

@@ -264,7 +264,7 @@ const StudentRegistration = () => {
               >
                 SEARCH
               </Button>
-              {checkAcademicYearForStudentData && checkAcademicYearForStudentData==="Date exists !!!" &&
+              {/* {checkAcademicYearForStudentData && checkAcademicYearForStudentData==="Date exists !!!" && */}
               <Button
                 variant="contained"
                 color="primary"
@@ -274,7 +274,7 @@ const StudentRegistration = () => {
               >
                 CREATE
               </Button>
-              }
+              {/* } */}
             </Grid>
           </Grid>
         </Toolbar>
@@ -352,6 +352,7 @@ const StudentRegistration = () => {
           <>
             <StudentRegistrationForm
               acaYear={acaYear && acaYear}
+              classId={classId && classId}
               singleStudent={
                 singleStudentRegistration && singleStudentRegistration
               }

@@ -178,6 +178,7 @@ const StudentRegistrationForm = ({
   setOpenPopup,
   getCreateSingleStudentData,
   acaYear,
+  classId,
 }) => {
   const [image, setImage] = useState("");
   const [imgSrc, setImgSrc] = useState("");
@@ -193,7 +194,7 @@ const StudentRegistrationForm = ({
 
   const validate = (fieldValues = values) => {
     let temp = { ...errors };
-    temp.idAcademicYear = !fieldValues.idAcademicYear.length !== 0 ? "" : "";
+    temp.idAcademicYear = !fieldValues.idAcademicYear  ? "This feild is required" : "";
     temp.RegistrationKey = !fieldValues.RegistrationKey
       ? "This feild is required"
       : !fieldValues.RegistrationKey.trim()
@@ -329,6 +330,7 @@ const StudentRegistrationForm = ({
       setValues({
         ...getCreateSingleStudentData.dbModel,
         idAcademicYear: acaYear,
+        IDLevel: classId,
       });
     }
   }, [getCreateSingleStudentData]);

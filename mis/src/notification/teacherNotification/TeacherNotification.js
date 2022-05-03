@@ -173,7 +173,7 @@ const TeacherNotification = () => {
       type: "success",
     });
     dispatch({ type: POST_TEACHER_NOTIFICATION_RESET });
-    dispatch(getListTeacherNotificationAction());
+    dispatch(getListTeacherNotificationAction(date));
     setOpenPopup(false);
   }
 
@@ -183,6 +183,9 @@ const TeacherNotification = () => {
 
   useEffect(() => {
     if (allTeacherNotification) {
+      setDate(
+        allTeacherNotification?.searchFilterModel?.CreatedDate?.slice(0, 10)
+      );
       setTableData(allTeacherNotification?.teacherNotificationAllModelLst);
     }
   }, [allTeacherNotification]);

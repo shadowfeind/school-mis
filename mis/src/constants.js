@@ -41,6 +41,7 @@ export const tokenHeader = {
   },
 };
 
+//for JWT token for prod mode
 // export const tokenConfig = {
 //   headers: {
 //     "Content-Type": "application/json",

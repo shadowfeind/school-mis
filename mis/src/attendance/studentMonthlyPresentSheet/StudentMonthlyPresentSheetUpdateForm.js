@@ -40,7 +40,7 @@ const useStyles = makeStyles({
   },
 });
 
-const StudentMonthlyPresentSheetUpdateForm = ({ students,setOpenPopup }) => {
+const StudentMonthlyPresentSheetUpdateForm = ({ students, setOpenPopup }) => {
   const [stuAttendance, setStuAttendance] = useState([]);
   const [checked, setChecked] = useState(false);
   const classes = useStyles();
@@ -79,7 +79,12 @@ const StudentMonthlyPresentSheetUpdateForm = ({ students,setOpenPopup }) => {
 
   const formCheckSubmitHandler = () => {
     dispatch(
-      postStudentPresentListAction(stuAttendance, students.searchFilterModel)
+      postStudentPresentListAction(
+        stuAttendance,
+        students.searchFilterModel,
+        students.SchoolShortName,
+        students.SubjectName
+      )
     );
   };
 
@@ -142,7 +147,7 @@ const StudentMonthlyPresentSheetUpdateForm = ({ students,setOpenPopup }) => {
             <Button
               variant="contained"
               color="secondary"
-                onClick={() => setOpenPopup(false)}
+              onClick={() => setOpenPopup(false)}
               style={{ margin: "10px 0 0 10px" }}
             >
               CANCEL

@@ -1,5 +1,5 @@
 import axios from "axios";
-import { API_URL, tokenConfig } from "../../constants";
+import { API_URL, tokenConfig, tokenHeader } from "../../constants";
 import {
   GET_ALL_STUDEN_MONTHLY_PRESENT_SHEET_FAIL,
   GET_ALL_STUDEN_MONTHLY_PRESENT_SHEET_REQUEST,
@@ -177,9 +177,32 @@ export const getListForPresentStudentAction =
   };
 
 export const postStudentPresentListAction =
-  (attendance, searchFilterModel) => async (dispatch) => {
+  (attendance, searchFilterModel, SchoolShortName, subject) =>
+  async (dispatch) => {
     try {
       dispatch({ type: POST_LIST_STUDENT_PRESENT_REQUEST });
+
+      let absentStudent = attendance?.filter((x) => x.IsPresent !== true);
+      let absentStudentFcm = [];
+      absentStudent.forEach((x) => absentStudentFcm.push(x.FCMTokenValue));
+
+      if (absentStudentFcm.length > 0) {
+        const fcmBody = {
+          registration_ids: [...absentStudentFcm],
+          collapse_key: "type_a",
+          notification: {
+            body: `Absent in ${subject}`,
+            title: SchoolShortName,
+          },
+        };
+        const fbody = JSON.stringify(fcmBody);
+
+        await axios.post(
+          "https://fcm.googleapis.com/fcm/send",
+          fbody,
+          tokenHeader
+        );
+      }
 
       const jsonData = JSON.stringify({
         dbStudentClassAttendanceModelAttendanceLst: attendance,

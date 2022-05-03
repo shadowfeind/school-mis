@@ -161,6 +161,7 @@ const AnnouncementTest = () => {
       type: "success",
     });
     setOpenPopup(false);
+    dispatch(getListAnnouncementAction(date));
     dispatch({ type: ANNOUNCEMENT_CREATE_RESET });
   }
 
@@ -181,7 +182,8 @@ const AnnouncementTest = () => {
 
   useEffect(() => {
     if (announcement) {
-      setTableData(announcement.dbModelLst);
+      setDate(announcement?.searchFilterModel?.CreatedDate?.slice(0, 10));
+      setTableData(announcement?.dbModelLst);
     }
   }, [dispatch, announcement]);
   useEffect(() => {

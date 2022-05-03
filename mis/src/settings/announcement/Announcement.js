@@ -20,6 +20,7 @@ import AnnouncementForm from "./AnnouncementForm";
 import {
   getAllAnnouncementAction,
   getFCMForAnnouncementAction,
+  getListAnnouncementAction,
   getSingleAnnouncementAction,
 } from "./AnnouncementAction";
 import AnnouncementTableCollapse from "./AnnouncementTableCollapse";
@@ -27,17 +28,20 @@ import {
   ANNOUNCEMENT_CREATE_RESET,
   ANNOUNCEMENT_FCM_RESET,
   GET_ALL_ANNOUNCEMENT_RESET,
+  GET_LIST_ANNOUNCEMENT_RESET,
   GET_SINGLE_ANNOUNCEMENT_RESET,
   UPDATE_SINGLE_ANNOUNCEMENT_RESET,
 } from "./AnnouncementConstants";
+import {
+  KeyboardDatePicker,
+  MuiPickersUtilsProvider,
+} from "@material-ui/pickers";
+import DateFnsUtils from "@date-io/date-fns";
+
 const useStyles = makeStyles((theme) => ({
   searchInput: {
-    width: "75%",
+    width: "25%",
     fontSize: "12px",
-  },
-  button: {
-    position: "absolute",
-    right: "10px",
   },
 }));
 
@@ -50,6 +54,7 @@ const tableHeader = [
   { id: "actions", label: "Actions", disableSorting: true },
 ];
 const AnnouncementTest = () => {
+  const [date, setDate] = useState();
   const [tableData, setTableData] = useState([]);
   const [filterFn, setFilterFn] = useState({
     fn: (item) => {
@@ -77,6 +82,12 @@ const AnnouncementTest = () => {
     (state) => state.announcement
   );
 
+  const {
+    announcementList,
+    error: announcementListError,
+    loading: announcementListLoading,
+  } = useSelector((state) => state.getListAnnouncement);
+
   const { success: createAnnouncementSuccess, error: createAnnouncementError } =
     useSelector((state) => state.createAnnouncement);
 
@@ -100,6 +111,14 @@ const AnnouncementTest = () => {
       type: "error",
     });
     dispatch({ type: GET_ALL_ANNOUNCEMENT_RESET });
+  }
+  if (announcementListError) {
+    setNotify({
+      isOpen: true,
+      message: announcementListError,
+      type: "error",
+    });
+    dispatch({ type: GET_LIST_ANNOUNCEMENT_RESET });
   }
   if (announcementFCMError) {
     setNotify({
@@ -157,16 +176,23 @@ const AnnouncementTest = () => {
   }
 
   useEffect(() => {
-    if (!announcement) {
-      dispatch(getAllAnnouncementAction());
-    }
+    dispatch(getAllAnnouncementAction());
+  }, []);
+
+  useEffect(() => {
     if (announcement) {
       setTableData(announcement.dbModelLst);
     }
   }, [dispatch, announcement]);
   useEffect(() => {
     dispatch({ type: "GET_LINK", payload: "/notification" });
-  }, [dispatch]);
+  }, []);
+
+  useEffect(() => {
+    if (announcementList) {
+      setTableData(announcementList.dbModelLst);
+    }
+  }, [announcementList]);
 
   const {
     TableContainer,
@@ -207,6 +233,10 @@ const AnnouncementTest = () => {
       subTitle: "You cannot undo this action",
     });
   };
+
+  const listSearchHandler = () => {
+    dispatch(getListAnnouncementAction(date));
+  };
   return (
     <>
       <CustomContainer>
@@ -223,16 +253,41 @@ const AnnouncementTest = () => {
             }}
             onChange={handleSearch}
           />
+          <div style={{ marginLeft: "12px" }}>
+            <MuiPickersUtilsProvider utils={DateFnsUtils}>
+              <KeyboardDatePicker
+                disableToolbar
+                variant="inline"
+                inputVariant="outlined"
+                format="dd-MM-yyyy"
+                name="CurrentYear"
+                label="Current Year"
+                value={date}
+                onChange={(e) => {
+                  const newDate = new Date(e);
+                  setDate(newDate.toLocaleDateString().slice(0, 10));
+                }}
+              />
+            </MuiPickersUtilsProvider>
+          </div>
           <Button
             variant="contained"
             color="primary"
-            startIcon={<AddIcon />}
-            className={classes.button}
-            onClick={addHandler}
+            onClick={listSearchHandler}
+            style={{ marginLeft: "12px" }}
           >
-            Add{" "}
+            Search By Date
+          </Button>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={addHandler}
+            style={{ marginLeft: "12px" }}
+          >
+            Create{" "}
           </Button>
         </Toolbar>
+        {announcementListLoading && <LoadingComp />}
         {loading ? (
           <LoadingComp />
         ) : (

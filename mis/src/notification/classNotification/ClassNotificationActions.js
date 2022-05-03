@@ -34,12 +34,12 @@ export const getAllClassNotificationAction = () => async (dispatch) => {
 };
 
 export const getListClassNotificationAction =
-  (year, program, classId, shift, section) => async (dispatch) => {
+  (year, program, classId, shift, section, date) => async (dispatch) => {
     try {
       dispatch({ type: GET_LIST_CLASS_NOTIFICATION_REQUEST });
 
       const { data } = await axios.get(
-        `${API_URL}/api/ClassNotification/GetListClassNotification?idAcademicYear=${year}&idFacultyProgramLink=${program}&idClass=${classId}&idShift=${shift}&classSection=${section}`,
+        `${API_URL}/api/ClassNotification/GetListClassNotification?idAcademicYear=${year}&idFacultyProgramLink=${program}&idClass=${classId}&idShift=${shift}&classSection=${section}&createdDate=${date}`,
         tokenConfig
       );
 

@@ -19,6 +19,10 @@ import {
   ANNOUNCEMENT_FCM_SUCCESS,
   ANNOUNCEMENT_FCM_FAIL,
   ANNOUNCEMENT_FCM_RESET,
+  GET_LIST_ANNOUNCEMENT_REQUEST,
+  GET_LIST_ANNOUNCEMENT_SUCCESS,
+  GET_LIST_ANNOUNCEMENT_FAIL,
+  GET_LIST_ANNOUNCEMENT_RESET,
 } from "./AnnouncementConstants";
 
 export const getAllAnnouncement = (state = {}, action) => {
@@ -30,6 +34,21 @@ export const getAllAnnouncement = (state = {}, action) => {
     case GET_ALL_ANNOUNCEMENT_FAIL:
       return { loading: false, error: action.payload };
     case GET_ALL_ANNOUNCEMENT_RESET:
+      return {};
+    default:
+      return state;
+  }
+};
+
+export const getListAnnouncement = (state = {}, action) => {
+  switch (action.type) {
+    case GET_LIST_ANNOUNCEMENT_REQUEST:
+      return { loading: true };
+    case GET_LIST_ANNOUNCEMENT_SUCCESS:
+      return { loading: false, announcementList: action.payload };
+    case GET_LIST_ANNOUNCEMENT_FAIL:
+      return { loading: false, error: action.payload };
+    case GET_LIST_ANNOUNCEMENT_RESET:
       return {};
     default:
       return state;

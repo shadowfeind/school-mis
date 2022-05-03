@@ -364,6 +364,7 @@ import {
   createAnnouncementReducer,
   getAllAnnouncement,
   getFCMForAnnouncementReducer,
+  getListAnnouncement,
   getSingleAnnouncementReducer,
   updateSingleAnnouncementReducer,
 } from "./settings/announcement/AnnouncementReducers";
@@ -752,6 +753,7 @@ export const reducers = combineReducers({
   //attendance reducers ends
   //announcement
   announcement: getAllAnnouncement,
+  getListAnnouncement: getListAnnouncement,
   getFCMForAnnouncement: getFCMForAnnouncementReducer,
   createAnnouncement: createAnnouncementReducer,
   getSingleAnnouncement: getSingleAnnouncementReducer,

@@ -36,12 +36,12 @@ export const getAllTeacherNotificationAction = () => async (dispatch) => {
   }
 };
 
-export const getListTeacherNotificationAction = () => async (dispatch) => {
+export const getListTeacherNotificationAction = (date) => async (dispatch) => {
   try {
     dispatch({ type: GET_LIST_TEACHER_NOTIFICATION_REQUEST });
 
     const { data } = await axios.get(
-      `${API_URL}/api/TeacherNotification/GetListTeacherNotification`,
+      `${API_URL}/api/TeacherNotification/GetListTeacherNotification?createdDate=${date}`,
       tokenConfig
     );
 

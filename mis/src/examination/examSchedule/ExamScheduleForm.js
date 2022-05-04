@@ -104,7 +104,7 @@ const ExamScheduleForm = ({
 
   const test = [{ Key: "", Value: "" }];
 
-  const invalidChars = ["-", "e", "+", "E","."];
+  const invalidChars = ["-", "e", "+", "E", "."];
 
   return (
     <>
@@ -139,20 +139,41 @@ const ExamScheduleForm = ({
               onChange={handleInputChange}
               errors={errors.ExamType}
             />
+
+            <InputControl
+              name="FullMark"
+              label="Full Marks*"
+              onKeyDown={(e) =>
+                invalidChars.includes(e.key) && e.preventDefault()
+              }
+              value={values.FullMark}
+              onWheelCapture={(e) => {
+                e.target.blur();
+              }}
+              onChange={(e) =>
+                (e.target.value <= 100) & (e.target.value >= 0) &&
+                handleInputChange(e)
+              }
+              onFocus={(e) => {
+                e.target.select();
+              }}
+              errors={errors.FullMark}
+              type="number"
+            />
             {values.ExamType == "P" && (
               <InputControl
                 name="FullMarkPractical"
                 label="Full Marks Practical"
                 value={values.FullMarkPractical}
-                onWheelCapture={e => {
-  e.target.blur()
-}}
+                onWheelCapture={(e) => {
+                  e.target.blur();
+                }}
                 onKeyDown={(e) =>
                   invalidChars.includes(e.key) && e.preventDefault()
                 }
-                onFocus={e => {
-      e.target.select();
-    }}
+                onFocus={(e) => {
+                  e.target.select();
+                }}
                 onChange={(e) =>
                   (e.target.value <= 100) & (e.target.value >= 0) &&
                   handleInputChange(e)
@@ -161,26 +182,6 @@ const ExamScheduleForm = ({
                 type="number"
               />
             )}
-            <InputControl
-              name="FullMark"
-              label="Full Marks*"
-              onKeyDown={(e) =>
-                invalidChars.includes(e.key) && e.preventDefault()
-              }
-              value={values.FullMark}
-              onWheelCapture={e => {
-  e.target.blur()
-}}
-              onChange={(e) =>
-                (e.target.value <= 100) & (e.target.value >= 0) &&
-                handleInputChange(e)
-              }
-              onFocus={e => {
-      e.target.select();
-    }}
-              errors={errors.FullMark}
-              type="number"
-            />
             <SelectControl
               name="ApplyGroup"
               label="Apply Group"
@@ -206,9 +207,9 @@ const ExamScheduleForm = ({
               name="ExamScheduleFromTime"
               label="From"
               value={values.ExamScheduleFromTime}
-              onFocus={e => {
-      e.target.select();
-    }}
+              onFocus={(e) => {
+                e.target.select();
+              }}
               onChange={handleInputChange}
               errors={errors.ExamScheduleFromTime}
               type="time"
@@ -219,9 +220,9 @@ const ExamScheduleForm = ({
               name="DisplayName"
               label="Display Name"
               value={values.DisplayName}
-              onFocus={e => {
-      e.target.select();
-    }}
+              onFocus={(e) => {
+                e.target.select();
+              }}
               onChange={handleInputChange}
               errors={errors.DisplayName}
             />
@@ -229,13 +230,13 @@ const ExamScheduleForm = ({
               name="SubjectOrder"
               label="Subject Order"
               value={values.SubjectOrder}
-              onFocus={e => {
-      e.target.select();
-    }}
+              onFocus={(e) => {
+                e.target.select();
+              }}
               type="number"
-              onWheelCapture={e => {
-  e.target.blur()
-}}
+              onWheelCapture={(e) => {
+                e.target.blur();
+              }}
               onKeyDown={(e) =>
                 invalidChars.includes(e.key) && e.preventDefault()
               }
@@ -249,15 +250,15 @@ const ExamScheduleForm = ({
               name="PassMark"
               label="Pass Mark"
               value={values.PassMark}
-              onWheelCapture={e => {
-  e.target.blur()
-}}
+              onWheelCapture={(e) => {
+                e.target.blur();
+              }}
               onKeyDown={(e) =>
                 invalidChars.includes(e.key) && e.preventDefault()
               }
-              onFocus={e => {
-      e.target.select();
-    }}
+              onFocus={(e) => {
+                e.target.select();
+              }}
               onChange={(e) =>
                 (e.target.value <= 100) & (e.target.value >= 0) &&
                 handleInputChange(e)
@@ -269,12 +270,12 @@ const ExamScheduleForm = ({
               name="GroupNumber"
               label="Group Number"
               value={values.GroupNumber}
-              onWheelCapture={e => {
-  e.target.blur()
-}}
-              onFocus={e => {
-      e.target.select();
-    }}
+              onWheelCapture={(e) => {
+                e.target.blur();
+              }}
+              onFocus={(e) => {
+                e.target.select();
+              }}
               onChange={handleInputChange}
               // errors={errors.GroupNumber}
             />
@@ -289,9 +290,9 @@ const ExamScheduleForm = ({
               name="ExamScheduleToTime"
               label="To"
               value={values.ExamScheduleToTime}
-              onFocus={e => {
-      e.target.select();
-    }}
+              onFocus={(e) => {
+                e.target.select();
+              }}
               onChange={handleInputChange}
               errors={errors.ExamScheduleToTime}
               type="time"

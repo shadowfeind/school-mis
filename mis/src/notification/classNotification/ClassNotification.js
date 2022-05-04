@@ -30,6 +30,11 @@ import {
 } from "./ClassNotificationActions";
 import ClassNotificationTableCollapse from "./ClassNotificationTableCollapse";
 import ClassNotificationForm from "./ClassNotificationForm";
+import {
+  KeyboardDatePicker,
+  MuiPickersUtilsProvider,
+} from "@material-ui/pickers";
+import DateFnsUtils from "@date-io/date-fns";
 
 const useStyles = makeStyles((theme) => ({
   searchInput: {
@@ -62,6 +67,7 @@ const ClassNotification = () => {
   const [classOptValue, setClassOptValue] = useState("");
   const [tableData, setTableData] = useState([]);
   const [errors, setErrors] = useState({});
+  const [date, setDate] = useState();
   const [filterFn, setFilterFn] = useState({
     fn: (item) => {
       return item;
@@ -154,7 +160,8 @@ const ClassNotification = () => {
         programValue,
         classOptValue,
         shiftValue,
-        sectionValue
+        sectionValue,
+        date
       )
     );
     setOpenPopup(false);
@@ -165,9 +172,12 @@ const ClassNotification = () => {
     if (classNotification) {
       setAcademicYear(classNotification.searchFilterModel.ddlAcademicYear);
       setShift(classNotification.searchFilterModel.ddlAcademicShift);
-      setProgramValue(classNotification.searchFilterModel.ddlFacultyProgramLink[0].Key);
+      setProgramValue(
+        classNotification.searchFilterModel.ddlFacultyProgramLink[0].Key
+      );
       setSection(classNotification.searchFilterModel.ddlSection);
       setClassOpt(classNotification.searchFilterModel.ddlClass);
+      setDate(classNotification.searchFilterModel.currentDate.slice(0, 10));
     }
   }, [dispatch, classNotification]);
 
@@ -200,19 +210,19 @@ const ClassNotification = () => {
     tableDataAfterPagingAndSorting,
   } = useCustomTable(tableData, tableHeader, filterFn);
 
-  const handleSearch = (e) => {
-    setFilterFn({
-      fn: (item) => {
-        if (e.target.value === "") {
-          return item;
-        } else {
-          return item.filter((x) =>
-            x.FullName.toLowerCase().includes(e.target.value)
-          );
-        }
-      },
-    });
-  };
+  // const handleSearch = (e) => {
+  //   setFilterFn({
+  //     fn: (item) => {
+  //       if (e.target.value === "") {
+  //         return item;
+  //       } else {
+  //         return item.filter((x) =>
+  //           x.FullName.toLowerCase().includes(e.target.value)
+  //         );
+  //       }
+  //     },
+  //   });
+  // };
 
   const handleMessage = () => {
     if (validate()) {
@@ -237,7 +247,8 @@ const ClassNotification = () => {
           programValue,
           classOptValue,
           shiftValue,
-          sectionValue
+          sectionValue,
+          date
         )
       );
     }
@@ -299,6 +310,28 @@ const ClassNotification = () => {
                 errors={errors.shiftValue}
               />
             </Grid>
+
+            <Grid item xs={3}>
+              <div style={{ marginTop: "10px" }}>
+                <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                  <KeyboardDatePicker
+                    disableToolbar
+                    variant="inline"
+                    inputVariant="outlined"
+                    format="dd-MM-yyyy"
+                    name="CurrentYear"
+                    label="Current Year"
+                    value={date}
+                    onChange={(e) => {
+                      const newDate = new Date(e);
+                      setDate(newDate.toLocaleDateString().slice(0, 10));
+                    }}
+                    style={{ width: "80%" }}
+                  />
+                </MuiPickersUtilsProvider>
+              </div>
+            </Grid>
+
             <Grid item xs={6}>
               <Button
                 variant="contained"

@@ -108,7 +108,7 @@ const AutoSearch = () => {
         </Grid>
         {loading && <LoadingComp />}
         {singleLoading && <LoadingComp />}
-        {getAllPersonalInformation && (
+        {/* {getAllPersonalInformation && (
           <div style={{ padding: "10px" }}>
             <Button
               variant="contained"
@@ -119,7 +119,7 @@ const AutoSearch = () => {
               Edit{" "}
             </Button>
           </div>
-        )}
+        )} */}
         {getAllPersonalInformation && (
           <ListPersonalInformation
             list={

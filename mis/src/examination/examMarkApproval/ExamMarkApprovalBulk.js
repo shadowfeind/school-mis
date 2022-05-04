@@ -93,12 +93,15 @@ const ExamMarkApprovalBulk = ({
         if (bulk.StudentExamStatus === null) {
           bulk.StudentExamStatus = 1;
         }
+        if (bulk.FullMarkPractical === null) {
+          bulk.FullMarkPractical = 0;
+        }
       });
       setBulk(bulkData);
     }
   }, [bulkData]);
 
-  const symbolsArr = ["e", "E", "+", "-", ".","ArrowUp","ArrowDown"];
+  const symbolsArr = ["e", "E", "+", "-", ".", "ArrowUp", "ArrowDown"];
 
   return (
     <>
@@ -109,9 +112,14 @@ const ExamMarkApprovalBulk = ({
               <StyledTableCell>Roll No.</StyledTableCell>
               <StyledTableCell align="right">FullName</StyledTableCell>
               <StyledTableCell align="right">Mark Obtained(TH)</StyledTableCell>
-              <StyledTableCell align="right">Mark Obtained(PT)</StyledTableCell>
+              {bulk && bulk?.length > 0 && bulk[0].FullMarkPractical !== 0 && (
+                <StyledTableCell align="right">
+                  Mark Obtained(PT)
+                </StyledTableCell>
+              )}
               <StyledTableCell align="right">Status</StyledTableCell>
               <StyledTableCell align="right">Full Mark</StyledTableCell>
+
               <StyledTableCell align="right">Full Mark(PT)</StyledTableCell>
             </TableRow>
           </TableHead>
@@ -131,14 +139,14 @@ const ExamMarkApprovalBulk = ({
                       id={`theory_${subject.IDHREmployee}`}
                       name="ObtainedMark"
                       value={subject.ObtainedMark}
-                      onWheelCapture={e => {
-  e.target.blur()
-}}
+                      onWheelCapture={(e) => {
+                        e.target.blur();
+                      }}
                       type="number"
                       label="Obtained Mark"
-                      onFocus={e => {
-      e.target.select();
-    }}
+                      onFocus={(e) => {
+                        e.target.select();
+                      }}
                       onKeyDown={(e) =>
                         symbolsArr.includes(e.key) && e.preventDefault()
                       }
@@ -154,34 +162,36 @@ const ExamMarkApprovalBulk = ({
                       }
                     />
                   </StyledTableCell>
-                  <StyledTableCell align="right">
-                    <TextField
-                      id={`practical_${subject.IDHREmployee}`}
-                      value={subject.ObtainedMarkPractical}
-                      name="ObtainedMarkPractical"
-                      onWheelCapture={e => {
-  e.target.blur()
-}}
-                      type="number"
-                      label="Obtained Practical Mark"
-                      variant="outlined"
-                      onFocus={e => {
-      e.target.select();
-    }}
-                      onKeyDown={(e) =>
-                        symbolsArr.includes(e.key) && e.preventDefault()
-                      }
-                      inputProps={{ tabIndex: "2" }}
-                      onChange={(e) =>
-                        onChangeHandler(
-                          subject,
-                          e.target.value,
-                          e.target.name,
-                          index
-                        )
-                      }
-                    />
-                  </StyledTableCell>
+                  {subject.FullMarkPractical !== 0 && (
+                    <StyledTableCell align="right">
+                      <TextField
+                        id={`practical_${subject.IDHREmployee}`}
+                        value={subject.ObtainedMarkPractical}
+                        name="ObtainedMarkPractical"
+                        onWheelCapture={(e) => {
+                          e.target.blur();
+                        }}
+                        type="number"
+                        label="Obtained Practical Mark"
+                        variant="outlined"
+                        onFocus={(e) => {
+                          e.target.select();
+                        }}
+                        onKeyDown={(e) =>
+                          symbolsArr.includes(e.key) && e.preventDefault()
+                        }
+                        inputProps={{ tabIndex: "2" }}
+                        onChange={(e) =>
+                          onChangeHandler(
+                            subject,
+                            e.target.value,
+                            e.target.name,
+                            index
+                          )
+                        }
+                      />
+                    </StyledTableCell>
+                  )}
                   <StyledTableCell align="right">
                     <FormControl
                       variant="filled"
@@ -194,9 +204,9 @@ const ExamMarkApprovalBulk = ({
                         native
                         defaultValue={subject.StudentExamStatus}
                         name="StudentExamStatus"
-                        onFocus={e => {
-      e.target.select();
-    }}
+                        onFocus={(e) => {
+                          e.target.select();
+                        }}
                         id={`status_${subject.IDHREmployee}`}
                         onChange={(e) =>
                           onChangeHandler(
@@ -219,6 +229,7 @@ const ExamMarkApprovalBulk = ({
                   <StyledTableCell align="right">
                     {subject.FullMark}
                   </StyledTableCell>
+
                   <StyledTableCell align="right">
                     {subject.FullMarkPractical}
                   </StyledTableCell>

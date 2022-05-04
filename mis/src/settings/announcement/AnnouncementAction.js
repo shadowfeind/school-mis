@@ -16,6 +16,9 @@ import {
   ANNOUNCEMENT_FCM_REQUEST,
   ANNOUNCEMENT_FCM_SUCCESS,
   ANNOUNCEMENT_FCM_FAIL,
+  GET_LIST_ANNOUNCEMENT_REQUEST,
+  GET_LIST_ANNOUNCEMENT_SUCCESS,
+  GET_LIST_ANNOUNCEMENT_FAIL,
 } from "./AnnouncementConstants";
 
 export const getAllAnnouncementAction = () => async (dispatch) => {
@@ -32,6 +35,24 @@ export const getAllAnnouncementAction = () => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: GET_ALL_ANNOUNCEMENT_FAIL,
+      payload: error.message ? error.message : error.Message,
+    });
+  }
+};
+
+export const getListAnnouncementAction = (date) => async (dispatch) => {
+  try {
+    dispatch({ type: GET_LIST_ANNOUNCEMENT_REQUEST });
+
+    const { data } = await axios.get(
+      `${API_URL}/api/Announcement/GetListAnnouncement?createdDate=${date}`,
+      tokenConfig
+    );
+
+    dispatch({ type: GET_LIST_ANNOUNCEMENT_SUCCESS, payload: data });
+  } catch (error) {
+    dispatch({
+      type: GET_LIST_ANNOUNCEMENT_FAIL,
       payload: error.message ? error.message : error.Message,
     });
   }

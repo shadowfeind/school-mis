@@ -27,23 +27,22 @@ import {
   POST_TEACHER_NOTIFICATION_RESET,
 } from "./TeacherNotificationConstants";
 import {
+  getAllTeacherNotificationAction,
   getListTeacherNotificationAction,
   getSingleCreateTeacherNotificationAction,
 } from "./TeacherNotificationActions";
 import TeacherNotificationTableCollapse from "./TeacherNotificationTableCollapse";
 import TeacherNotificationForm from "./TeacherNotificationForm";
+import {
+  KeyboardDatePicker,
+  MuiPickersUtilsProvider,
+} from "@material-ui/pickers";
+import DateFnsUtils from "@date-io/date-fns";
 
 const useStyles = makeStyles((theme) => ({
   searchInput: {
-    width: "75%",
+    width: "25%",
     fontSize: "12px",
-  },
-  button: {
-    position: "absolute",
-    right: "10px",
-  },
-  customInput: {
-    minWidth: "200px",
   },
 }));
 
@@ -56,6 +55,8 @@ const tableHeader = [
 ];
 
 const TeacherNotification = () => {
+  // const [errors, setErrors] = useState({});
+  const [date, setDate] = useState();
   const [tableData, setTableData] = useState([]);
   const [filterFn, setFilterFn] = useState({
     fn: (item) => {
@@ -83,6 +84,14 @@ const TeacherNotification = () => {
       },
     });
   };
+
+  // const validate = () => {
+  //   let temp = {};
+  //   temp.date = !date ? "This feild is required" : "";
+
+  //   setErrors({ ...temp });
+  //   return Object.values(temp).every((x) => x === "");
+  // };
 
   const dispatch = useDispatch();
   const classes = useStyles();
@@ -164,19 +173,33 @@ const TeacherNotification = () => {
       type: "success",
     });
     dispatch({ type: POST_TEACHER_NOTIFICATION_RESET });
-    dispatch(getListTeacherNotificationAction());
+    dispatch(getListTeacherNotificationAction(date));
     setOpenPopup(false);
   }
 
   useEffect(() => {
-    dispatch({ type: "GET_LINK", payload: "/notification" });
-    if (!listTeacherNotification) {
-      dispatch(getListTeacherNotificationAction());
+    dispatch(getAllTeacherNotificationAction());
+  }, []);
+
+  useEffect(() => {
+    if (allTeacherNotification) {
+      setDate(
+        allTeacherNotification?.searchFilterModel?.CreatedDate?.slice(0, 10)
+      );
+      setTableData(allTeacherNotification?.teacherNotificationAllModelLst);
     }
+  }, [allTeacherNotification]);
+
+  useEffect(() => {
+    dispatch({ type: "GET_LINK", payload: "/notification" });
     if (listTeacherNotification) {
       setTableData(listTeacherNotification.teacherNotificationAllModelLst);
     }
   }, [dispatch, listTeacherNotification]);
+
+  const listSearchHandler = () => {
+    dispatch(getListTeacherNotificationAction(date));
+  };
 
   const createHandler = () => {
     dispatch(getSingleCreateTeacherNotificationAction());
@@ -200,12 +223,38 @@ const TeacherNotification = () => {
             }}
             onChange={handleSearch}
           />
+          <div style={{ marginLeft: "12px" }}>
+            <MuiPickersUtilsProvider utils={DateFnsUtils}>
+              <KeyboardDatePicker
+                disableToolbar
+                variant="inline"
+                inputVariant="outlined"
+                format="dd-MM-yyyy"
+                name="CurrentYear"
+                label="Current Year"
+                value={date}
+                onChange={(e) => {
+                  const newDate = new Date(e);
+                  setDate(newDate.toLocaleDateString().slice(0, 10));
+                }}
+              />
+            </MuiPickersUtilsProvider>
+          </div>
           <Button
             variant="contained"
             color="primary"
-            startIcon={<AddIcon />}
+            className={classes.button}
+            onClick={listSearchHandler}
+            style={{ marginLeft: "12px" }}
+          >
+            Search By Date
+          </Button>
+          <Button
+            variant="contained"
+            color="primary"
             className={classes.button}
             onClick={createHandler}
+            style={{ marginLeft: "12px" }}
           >
             Create{" "}
           </Button>

@@ -55,7 +55,7 @@ const StudentProfileUploadPhotoForm = ({ uploadPhoto }) => {
         src={
           imgSrc
             ? imgSrc
-            : uploadPhoto && `${API_URL}${uploadPhoto?.ImageUploaded}`
+            : uploadPhoto && `${API_URL}${uploadPhoto?.FullPath}`
         }
         height={200}
         width={200}

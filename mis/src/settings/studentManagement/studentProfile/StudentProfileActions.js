@@ -240,17 +240,12 @@ export const updateSingleStudentAction =
         formData,
         tokenConfig
       );
-console.log(data);
-  // console.log(data)
       if (data) {
-        // const newData = {
-        //   ...dbData,
-        //   thumbimagename:data,
-        //   imagename:data
-        // };
-        // debugger
+     
         const jsonData = JSON.stringify({
-          dbModel: data,
+          dbModel:{IDHREmployee: data.IDHREmployee},
+          imagename: data.imagename,
+          thumbimagename: data.thumbimagename
         });
 
         console.log("jsonData",jsonData);

@@ -4,19 +4,19 @@ import RecordVoiceOverIcon from '@material-ui/icons/RecordVoiceOver';
 
   export const SMSNotificationRoute = [
     {
-      name: "Announcement",
+      name: "ALL SMS Notification",
       route: "/sms-notification",
       icon: AnnouncementIcon,
       exact: false,
     },
     {
-        name: "Class Notification",
+        name: "SMS Class Notification",
         route: "/sms-class-notification",
         icon: NotificationsActiveIcon,
         exact: true,
       },
       {
-        name: "Teacher Notification",
+        name: "SMS Teacher Notification",
         route: "/sms-teacher-notification",
         icon: RecordVoiceOverIcon,
         exact: false,

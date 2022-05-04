@@ -204,6 +204,11 @@ const Header = () => {
                       Push Notification
                     </NavLink>
                   </li>
+                  <li>
+                    <NavLink to={"/sms-notification"} activeStyle={isActive}>
+                      SMS Notification
+                    </NavLink>
+                  </li>
                   {/* <li>
                     <a>Assignment</a>
                   </li> */}

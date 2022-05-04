@@ -89,6 +89,8 @@ const TeacherNotification = lazy(() =>
   import("./notification/teacherNotification/TeacherNotification")
 );
 
+//SMS Notification
+
 const theme = createTheme({
   palette: {
     background: {

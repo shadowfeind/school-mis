@@ -1,29 +1,56 @@
-import React, { Fragment, memo, useEffect, useState } from "react";
+import React, { Fragment, memo, useEffect, useRef, useState } from "react";
+import { useReactToPrint } from "react-to-print";
+import ReactHTMLTableToExcel from "react-html-table-to-excel";
+import { Button, Grid } from "@material-ui/core";
 import "./examLedger.css";
 
 const ExamResultTableCollapse = memo(
-  ({ ledgerHeader, student, mark, showDataTable, result, rank }) => {
+  ({
+    ledgerHeader,
+    student,
+    mark,
+    showDataTable,
+    result,
+    rank,
+    searchFilterModel,
+    currentClass,
+    currentSection,
+    SchoolShortName,
+  }) => {
     const [ledgerData, setLedgeData] = useState([]);
+    const componentRef = useRef();
+    const printPdf = useReactToPrint({
+      content: () => componentRef.current,
+    });
     let newLedger = [];
+
+    let termExamName = searchFilterModel.ddlAcademicYearCalendar?.filter(
+      (x) => (x.Key = searchFilterModel.idAcademicYearCalendar)
+    );
+
+    let currentClassToDisplay = currentClass?.filter(
+      (x) => x.Key === searchFilterModel.level
+    );
+    let currentSectionToDisplay = currentSection?.filter(
+      (x) => x.Key === searchFilterModel.classSection
+    );
 
     useEffect(() => {
       if (student) {
         student
           .sort((a, b) => a.RollNo - b.RollNo)
           .map((d) => {
-            let markModel = mark.filter(
+            let markModel = mark?.filter(
               (m) => m.IDHREmployee === d.IDHREmployee
             );
             if (ledgerHeader) {
               ledgerHeader.map((l) => {
-                let obtainedMark = markModel.find(
+                let obtainedMark = markModel?.find(
                   (o) => o.IdAcademicSubject === l.IDAcademicSubject
                 );
                 if (obtainedMark) {
                   newLedger.push(obtainedMark);
-                  console.log({ ...obtainedMark });
                 } else {
-                  console.log("no data");
                   newLedger.push({ IDHREmployee: d.IDHREmployee });
                 }
               });
@@ -34,8 +61,30 @@ const ExamResultTableCollapse = memo(
     }, []);
 
     return showDataTable ? (
-      <div className="ledgerResult">
-        <table border="1">
+      <div className="ledgerResult" ref={componentRef}>
+        <Grid container style={{ marginBottom: "12px" }}>
+          <Grid item xs={4}>
+            School Name: {SchoolShortName && SchoolShortName}
+          </Grid>
+          <Grid item xs={4}>
+            Year:{" "}
+            {searchFilterModel && searchFilterModel.StartDate?.slice(0, 10)}
+          </Grid>
+          <Grid item xs={4}>
+            Class: {currentClassToDisplay && currentClassToDisplay[0]?.Value}
+          </Grid>
+          <Grid item xs={4}>
+            Section:{" "}
+            {currentSectionToDisplay && currentSectionToDisplay[0]?.Value}
+          </Grid>
+          <Grid item xs={4}>
+            Term: {termExamName && termExamName[0]?.Value}
+          </Grid>
+          <Grid item xs={4}>
+            Date: {searchFilterModel && searchFilterModel.npYear}
+          </Grid>
+        </Grid>
+        <table border="1" id="table-xls-button">
           <thead>
             <tr>
               <th rowSpan="2" style={{ width: "5%" }}>
@@ -89,8 +138,14 @@ const ExamResultTableCollapse = memo(
                         return (
                           n.IDHREmployee === d.IDHREmployee && (
                             <Fragment key={d.$id}>
-                              <td>{n.ObtainedMarks}</td>
-                              <td>{n.ObtainedMarksPractical}</td>
+                              <td>
+                                {n.ObtainedMarks === 0 ? "" : n.ObtainedMarks}
+                              </td>
+                              <td>
+                                {n.ObtainedMarksPractical === 0
+                                  ? ""
+                                  : n.ObtainedMarksPractical}
+                              </td>
                             </Fragment>
                           )
                         );
@@ -103,6 +158,26 @@ const ExamResultTableCollapse = memo(
               })}
           </tbody>
         </table>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "end",
+            paddingTop: "10px",
+            marginTop: "10px",
+            borderTop: "1px solid #f3f3f3",
+          }}
+        >
+          <Button onClick={printPdf} variant="contained" color="primary">
+            PRINT
+          </Button>
+          <ReactHTMLTableToExcel
+            className="download-table-xls-button"
+            table="table-xls-button"
+            filename="ledger"
+            sheet="Sheet"
+            buttonText="Download as XLS"
+          />
+        </div>
       </div>
     ) : (
       <div></div>

@@ -15,7 +15,7 @@ const ExamResultWithMarksDesign = ({
   studentClass,
   studentYear,
   studentSection,
-  headerBanners
+  headerBanners,
 }) => {
   let trackSubject = [];
   let tdToRender = [];
@@ -187,9 +187,11 @@ const ExamResultWithMarksDesign = ({
                   GRADE POINT AVERAGE (GPA)
                 </td>
                 <td style={{ textAlign: "center" }}>
-                  {trackSubject.reduce((acc, cur) => {
-                    return acc + cur.totalMarks;
-                  }, 0) / trackSubject.length}
+                  {(
+                    trackSubject.reduce((acc, cur) => {
+                      return acc + cur.totalMarks;
+                    }, 0) / trackSubject.length
+                  ).toFixed(2)}
                 </td>
                 <td></td>
               </tr>
@@ -332,9 +334,11 @@ const ExamResultWithMarksDesign = ({
                     </td>
                     <td>
                       G.P.A:{" "}
-                      {trackSubject.reduce((acc, cur) => {
-                        return acc + cur.totalMarks;
-                      }, 0) / trackSubject.length}
+                      {(
+                        trackSubject.reduce((acc, cur) => {
+                          return acc + cur.totalMarks;
+                        }, 0) / trackSubject.length
+                      ).toFixed(2)}
                     </td>
                     <td>
                       {gpaToRemarks(

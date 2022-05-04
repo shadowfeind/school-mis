@@ -1,0 +1,7 @@
+.ledgerResult {
+    overflow-x: scroll; 
+}
+
+.ledgerResult table {
+    width: 100%;
+}

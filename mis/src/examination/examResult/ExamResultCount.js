@@ -169,7 +169,7 @@ const ExamResultCount = ({ result }) => {
           </table>
         </div>
       </div>
-      {/* <div
+      <div
         style={{
           display: "flex",
           justifyContent: "end",
@@ -181,7 +181,7 @@ const ExamResultCount = ({ result }) => {
         <Button onClick={printPdf} variant="contained" color="primary">
           PRINT
         </Button>
-      </div> */}
+      </div>
     </div>
   );
 };

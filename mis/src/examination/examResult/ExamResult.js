@@ -224,10 +224,10 @@ const ExamResult = () => {
     }
   }, [examResultInitialDatas, dispatch]);
 
-  useEffect(()=>{
-    dispatch({type:GET_EXAM_RESULT_LIST_RESET})
+  useEffect(() => {
+    dispatch({ type: GET_EXAM_RESULT_LIST_RESET });
     dispatch(getInitialExamResultDataAction());
-  },[])
+  }, []);
 
   const validate = () => {
     let temp = {};
@@ -440,6 +440,10 @@ const ExamResult = () => {
       setOpenPopupCount(true);
     }
   }, [printExamResultCountSuccess]);
+  useEffect(() => {
+    setOpenPopupCount(false);
+    dispatch({ type: PRINT_EXAM_RESULT_COUNT_RESET });
+  }, []);
   return (
     <>
       <CustomContainer>
@@ -486,7 +490,6 @@ const ExamResult = () => {
               />
             </Grid>
             <Grid item xs={3}>
-              <div style={{ height: "10px" }}></div>
               <SelectControl
                 name="Section"
                 label="Section"
@@ -615,6 +618,12 @@ const ExamResult = () => {
               showDataTable={showDataTable}
               result={examResultList && examResultList.dbModelResultLst}
               rank={examResultList && examResultList.dbModelRankLst}
+              searchFilterModel={
+                examResultList && examResultList.searchFilterModel
+              }
+              currentClass={ddlClass && ddlClass}
+              currentSection={ddlSection && ddlSection}
+              schoolName={examResultList && examResultList.SchoolShortName}
             />
           )
         )}
@@ -627,7 +636,10 @@ const ExamResult = () => {
         )}
       </CustomContainer>
       <Popup openPopup={openPopup} setOpenPopup={setOpenPopup} title="">
-        <ExamResultModel headerBanners={headerBanners && headerBanners} examReport={printExamResult && printExamResult} />
+        <ExamResultModel
+          headerBanners={headerBanners && headerBanners}
+          examReport={printExamResult && printExamResult}
+        />
       </Popup>
       <Popup
         openPopup={openPopupResultMark}
@@ -635,7 +647,7 @@ const ExamResult = () => {
         title=""
       >
         <ExamResultWithMarksModel
-        headerBanners={headerBanners && headerBanners}
+          headerBanners={headerBanners && headerBanners}
           examReport={printExamResult && printExamResult}
         />
       </Popup>
@@ -644,9 +656,10 @@ const ExamResult = () => {
         setOpenPopup={setOpenPopupFinal}
         title=""
       >
-        <FinalExamResult 
-        headerBanners={headerBanners && headerBanners}
-        result={printFinalResult} />
+        <FinalExamResult
+          headerBanners={headerBanners && headerBanners}
+          result={printFinalResult}
+        />
       </Popup>
       <Popup
         openPopup={openPopupCount}

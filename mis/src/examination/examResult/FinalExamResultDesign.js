@@ -17,7 +17,7 @@ const FinalExamResultDesign = ({
   studentSection,
   studentYear,
   resultDate,
-  headerBanners
+  headerBanners,
 }) => {
   let avgGpa = [];
   let tdToRender = [];
@@ -83,8 +83,8 @@ const FinalExamResultDesign = ({
                   );
                   totalMarksAcc.push({
                     marks: firstTermMarks
-                      ? (firstTermMarks[0].ObtainedMark +
-                          firstTermMarks[0].ObtainedMarkPractical) *
+                      ? (firstTermMarks[0]?.ObtainedMark +
+                          firstTermMarks[0]?.ObtainedMarkPractical) *
                         0.15
                       : "",
                   });
@@ -93,8 +93,8 @@ const FinalExamResultDesign = ({
                   );
                   totalMarksAcc.push({
                     marks: secondTermMarks
-                      ? (secondTermMarks[0].ObtainedMark +
-                          secondTermMarks[0].ObtainedMarkPractical) *
+                      ? (secondTermMarks[0]?.ObtainedMark +
+                          secondTermMarks[0]?.ObtainedMarkPractical) *
                         0.15
                       : "",
                   });
@@ -103,8 +103,8 @@ const FinalExamResultDesign = ({
                   );
                   totalMarksAcc.push({
                     marks: thirdTermMarks
-                      ? (thirdTermMarks[0].ObtainedMark +
-                          thirdTermMarks[0].ObtainedMarkPractical) *
+                      ? (thirdTermMarks[0]?.ObtainedMark +
+                          thirdTermMarks[0]?.ObtainedMarkPractical) *
                         0.15
                       : "",
                   });
@@ -113,8 +113,8 @@ const FinalExamResultDesign = ({
                   );
                   totalMarksAcc.push({
                     marks: finalTermMarks
-                      ? (finalTermMarks[0].ObtainedMark +
-                          finalTermMarks[0].ObtainedMarkPractical) *
+                      ? (finalTermMarks[0]?.ObtainedMark +
+                          finalTermMarks[0]?.ObtainedMarkPractical) *
                         0.15
                       : "",
                   });
@@ -136,10 +136,10 @@ const FinalExamResultDesign = ({
                       <td style={{ textAlign: "center" }}>
                         {firstTermMarks &&
                           gradeCalc(
-                            ((firstTermMarks[0].ObtainedMark +
-                              firstTermMarks[0].ObtainedMarkPractical) /
-                              (firstTermMarks[0].FullMark +
-                                firstTermMarks[0].FullMarkPractical)) *
+                            ((firstTermMarks[0]?.ObtainedMark +
+                              firstTermMarks[0]?.ObtainedMarkPractical) /
+                              (firstTermMarks[0]?.FullMark +
+                                firstTermMarks[0]?.FullMarkPractical)) *
                               100
                           )}
                       </td>
@@ -147,10 +147,10 @@ const FinalExamResultDesign = ({
                         {" "}
                         {secondTermMarks &&
                           gradeCalc(
-                            ((secondTermMarks[0].ObtainedMark +
-                              secondTermMarks[0].ObtainedMarkPractical) /
-                              (secondTermMarks[0].FullMark +
-                                secondTermMarks[0].FullMarkPractical)) *
+                            ((secondTermMarks[0]?.ObtainedMark +
+                              secondTermMarks[0]?.ObtainedMarkPractical) /
+                              (secondTermMarks[0]?.FullMark +
+                                secondTermMarks[0]?.FullMarkPractical)) *
                               100
                           )}
                       </td>
@@ -158,20 +158,20 @@ const FinalExamResultDesign = ({
                         {" "}
                         {thirdTermMarks &&
                           gradeCalc(
-                            ((thirdTermMarks[0].ObtainedMark +
-                              thirdTermMarks[0].ObtainedMarkPractical) /
-                              (thirdTermMarks[0].FullMark +
-                                thirdTermMarks[0].FullMarkPractical)) *
+                            ((thirdTermMarks[0]?.ObtainedMark +
+                              thirdTermMarks[0]?.ObtainedMarkPractical) /
+                              (thirdTermMarks[0]?.FullMark +
+                                thirdTermMarks[0]?.FullMarkPractical)) *
                               100
                           )}{" "}
                       </td>
                       <td style={{ textAlign: "center" }}>
                         {finalTermMarks &&
                           gradeCalc(
-                            ((finalTermMarks[0].ObtainedMark +
-                              finalTermMarks[0].ObtainedMarkPractical) /
-                              (finalTermMarks[0].FullMark +
-                                finalTermMarks[0].FullMarkPractical)) *
+                            ((finalTermMarks[0]?.ObtainedMark +
+                              finalTermMarks[0]?.ObtainedMarkPractical) /
+                              (finalTermMarks[0]?.FullMark +
+                                finalTermMarks[0]?.FullMarkPractical)) *
                               100
                           )}
                       </td>

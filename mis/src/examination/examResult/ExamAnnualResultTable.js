@@ -1,13 +1,52 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useRef } from "react";
 import { memo } from "react";
 import "./ExamAnnualResultTable.css";
 import { gradeCalc, pointCalc } from "./Helpers";
-// import { ledgerData } from "./ledgerData";
+import { useReactToPrint } from "react-to-print";
+import { Button, Grid } from "@material-ui/core";
+import ReactHTMLTableToExcel from "react-html-table-to-excel";
 
 const ExamAnnualResultTable = memo(({ ledgerData }) => {
+  const componentRef = useRef();
+  const printPdf = useReactToPrint({
+    content: () => componentRef.current,
+  });
+
+  let currentClassSection =
+    ledgerData &&
+    ledgerData.ddlSection?.filter((x) => x.Key === ledgerData.classSection);
+  let currentClassLevel =
+    ledgerData &&
+    ledgerData.ddlLevel?.filter((x) => x.Key === ledgerData.level);
+  let currentEventName =
+    ledgerData &&
+    ledgerData.ddlAcademicYearCalendar?.filter(
+      (x) => x.Key === ledgerData.idAcademicYearCalendar
+    );
+
   return (
-    <div className="ledgerResult">
-      <table border="1">
+    <div className="ledgerResult" ref={componentRef}>
+      <Grid container style={{ marginBottom: "12px" }}>
+        <Grid item xs={4}>
+          School Name: {ledgerData && ledgerData.SchoolShortName}
+        </Grid>
+        <Grid item xs={4}>
+          Year: {ledgerData && ledgerData.npYear}
+        </Grid>
+        <Grid item xs={4}>
+          Class: {currentClassLevel && currentClassLevel[0]?.Value}
+        </Grid>
+        <Grid item xs={4}>
+          Section: {currentClassSection && currentClassSection[0]?.Value}
+        </Grid>
+        <Grid item xs={4}>
+          Term: {currentEventName && currentEventName[0]?.Value}
+        </Grid>
+        <Grid item xs={4}>
+          Date: {ledgerData && ledgerData.StartDate?.slice(0, 10)}
+        </Grid>
+      </Grid>
+      <table border="1" id="table-xls-ledger">
         <thead>
           <tr>
             <th rowSpan="2" style={{ width: "5%" }}>
@@ -56,7 +95,7 @@ const ExamAnnualResultTable = memo(({ ledgerData }) => {
               ?.sort((a, b) => a.RollNo - b.RollNo)
               .map((s) => {
                 let totalMarksAcc = [];
-                let crrentStudentId = ledgerData.dbModelResultLst.filter(
+                let crrentStudentId = ledgerData?.dbModelResultLst?.filter(
                   (x) => x.Key === s.IDHREmployee
                 );
                 let currentStudentRank = [];
@@ -64,7 +103,7 @@ const ExamAnnualResultTable = memo(({ ledgerData }) => {
                   crrentStudentId.length > 0 &&
                   crrentStudentId.value !== "Fail"
                 ) {
-                  currentStudentRank = ledgerData.dbModelRankLst.filter(
+                  currentStudentRank = ledgerData?.dbModelRankLst?.filter(
                     (x) => x.Key === s.IDHREmployee
                   );
                 }
@@ -92,8 +131,8 @@ const ExamAnnualResultTable = memo(({ ledgerData }) => {
                           );
                         totalMarksAcc.push({
                           marks: firstTerm
-                            ? (firstTerm[0].ObtainedMark +
-                                firstTerm[0].ObtainedMarkPractical) *
+                            ? (firstTerm[0]?.ObtainedMark +
+                                firstTerm[0]?.ObtainedMarkPractical) *
                               0.15
                             : "",
                         });
@@ -109,8 +148,8 @@ const ExamAnnualResultTable = memo(({ ledgerData }) => {
                           );
                         totalMarksAcc.push({
                           marks: secondTerm
-                            ? (secondTerm[0].ObtainedMark +
-                                secondTerm[0].ObtainedMarkPractical) *
+                            ? (secondTerm[0]?.ObtainedMark +
+                                secondTerm[0]?.ObtainedMarkPractical) *
                               0.2
                             : "",
                         });
@@ -126,8 +165,8 @@ const ExamAnnualResultTable = memo(({ ledgerData }) => {
                           );
                         totalMarksAcc.push({
                           marks: thirdTerm
-                            ? (thirdTerm[0].ObtainedMark +
-                                thirdTerm[0].ObtainedMarkPractical) *
+                            ? (thirdTerm[0]?.ObtainedMark +
+                                thirdTerm[0]?.ObtainedMarkPractical) *
                               0.15
                             : "",
                         });
@@ -143,8 +182,8 @@ const ExamAnnualResultTable = memo(({ ledgerData }) => {
                           );
                         totalMarksAcc.push({
                           marks: finalTerm
-                            ? (finalTerm[0].ObtainedMark +
-                                finalTerm[0].ObtainedMarkPractical) *
+                            ? (finalTerm[0]?.ObtainedMark +
+                                finalTerm[0]?.ObtainedMarkPractical) *
                               0.5
                             : "",
                         });
@@ -154,68 +193,76 @@ const ExamAnnualResultTable = memo(({ ledgerData }) => {
                             <td>
                               (
                               {firstTerm
-                                ? (firstTerm[0].ObtainedMark +
-                                    firstTerm[0].ObtainedMarkPractical) *
-                                  0.15
+                                ? (
+                                    (firstTerm[0]?.ObtainedMark +
+                                      firstTerm[0]?.ObtainedMarkPractical) *
+                                    0.15
+                                  )?.toFixed(2)
                                 : ""}
                               )
                               {firstTerm &&
                                 gradeCalc(
-                                  ((firstTerm[0].ObtainedMark +
-                                    firstTerm[0].ObtainedMarkPractical) /
-                                    (firstTerm[0].FullMark +
-                                      firstTerm[0].FullMarkPractical)) *
+                                  ((firstTerm[0]?.ObtainedMark +
+                                    firstTerm[0]?.ObtainedMarkPractical) /
+                                    (firstTerm[0]?.FullMark +
+                                      firstTerm[0]?.FullMarkPractical)) *
                                     100
                                 )}
                             </td>
                             <td>
                               (
                               {secondTerm
-                                ? (secondTerm[0].ObtainedMark +
-                                    secondTerm[0].ObtainedMarkPractical) *
-                                  0.2
+                                ? (
+                                    (secondTerm[0]?.ObtainedMark +
+                                      secondTerm[0]?.ObtainedMarkPractical) *
+                                    0.2
+                                  )?.toFixed(2)
                                 : ""}
                               )
                               {secondTerm &&
                                 gradeCalc(
-                                  ((secondTerm[0].ObtainedMark +
-                                    secondTerm[0].ObtainedMarkPractical) /
-                                    (secondTerm[0].FullMark +
-                                      secondTerm[0].FullMarkPractical)) *
+                                  ((secondTerm[0]?.ObtainedMark +
+                                    secondTerm[0]?.ObtainedMarkPractical) /
+                                    (secondTerm[0]?.FullMark +
+                                      secondTerm[0]?.FullMarkPractical)) *
                                     100
                                 )}
                             </td>
                             <td>
                               (
                               {thirdTerm
-                                ? (thirdTerm[0].ObtainedMark +
-                                    thirdTerm[0].ObtainedMarkPractical) *
-                                  0.15
+                                ? (
+                                    (thirdTerm[0]?.ObtainedMark +
+                                      thirdTerm[0]?.ObtainedMarkPractical) *
+                                    0.15
+                                  )?.toFixed(2)
                                 : ""}
                               )
                               {thirdTerm &&
                                 gradeCalc(
-                                  ((thirdTerm[0].ObtainedMark +
-                                    thirdTerm[0].ObtainedMarkPractical) /
-                                    (thirdTerm[0].FullMark +
-                                      thirdTerm[0].FullMarkPractical)) *
+                                  ((thirdTerm[0]?.ObtainedMark +
+                                    thirdTerm[0]?.ObtainedMarkPractical) /
+                                    (thirdTerm[0]?.FullMark +
+                                      thirdTerm[0]?.FullMarkPractical)) *
                                     100
                                 )}
                             </td>
                             <td>
                               (
                               {finalTerm
-                                ? (finalTerm[0].ObtainedMark +
-                                    finalTerm[0].ObtainedMarkPractical) *
-                                  0.5
+                                ? (
+                                    (finalTerm[0]?.ObtainedMark +
+                                      finalTerm[0]?.ObtainedMarkPractical) *
+                                    0.5
+                                  ).toFixed(2)
                                 : ""}
                               )
                               {finalTerm &&
                                 gradeCalc(
-                                  ((finalTerm[0].ObtainedMark +
-                                    finalTerm[0].ObtainedMarkPractical) /
-                                    (finalTerm[0].FullMark +
-                                      finalTerm[0].FullMarkPractical)) *
+                                  ((finalTerm[0]?.ObtainedMark +
+                                    finalTerm[0]?.ObtainedMarkPractical) /
+                                    (finalTerm[0]?.FullMark +
+                                      finalTerm[0]?.FullMarkPractical)) *
                                     100
                                 )}
                             </td>
@@ -253,6 +300,26 @@ const ExamAnnualResultTable = memo(({ ledgerData }) => {
               })}
         </tbody>
       </table>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "end",
+          paddingTop: "10px",
+          marginTop: "10px",
+          borderTop: "1px solid #f3f3f3",
+        }}
+      >
+        <Button onClick={printPdf} variant="contained" color="primary">
+          PRINT
+        </Button>
+        <ReactHTMLTableToExcel
+          className="download-table-xls-button"
+          table="table-xls-ledger"
+          filename="annual ledger"
+          sheet="Sheet"
+          buttonText="Download as XLS"
+        />
+      </div>
     </div>
   );
 });

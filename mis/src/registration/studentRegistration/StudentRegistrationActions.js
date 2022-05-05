@@ -273,9 +273,9 @@ export const checkRegistrationForStudentAction = (id) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: CHECK_REGISTRATION_FOR_STUDENT_FAIL,
-      payload: error.response.data.Message
-        ? error.response.data.Message
-        : error.message,
+      payload: error?.response?.data?.Message
+        ? error?.response?.data?.Message
+        : error?.message,
     });
   }
 };
@@ -298,9 +298,9 @@ export const checkRollNoForStudentAction =
     } catch (error) {
       dispatch({
         type: CHECK_ROLLNO_FOR_STUDENT_FAIL,
-        payload: error.response.data.Message
-          ? error.response.data.Message
-          : error.message,
+        payload: error?.response?.data?.Message
+        ? error?.response?.data?.Message
+        : error?.message,
       });
     }
   };
@@ -324,9 +324,9 @@ export const checkRollNoForStudentAction =
     } catch (error) {
       dispatch({
         type: CHECK_ACADEMIC_YEAR_FOR_STUDENT_FAIL,
-        payload: error.response.data.Message
-          ? error.response.data.Message
-          : error.message,
+        payload: error?.response?.data?.Message
+        ? error?.response?.data?.Message
+        : error?.message,
       });
     }
   };

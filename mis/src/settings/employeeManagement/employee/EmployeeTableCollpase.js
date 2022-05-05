@@ -105,16 +105,16 @@ const EmployeeTableCollapse = ({
                       <strong>LoginID</strong>: {item.LoginIDHREmployee}
                     </ListItem>
                     <ListItem>
-                      <strong>BranchName</strong>: {item.BranchName}
+                      <strong>Branch Name</strong>: {item.BranchName}
                     </ListItem>
                     <ListItem>
                       <strong>Department Name</strong>: {item.DepartmentName}
                     </ListItem>
                     <ListItem>
-                      <strong>PositionHead</strong>: {item.PositionHead}
+                      <strong>Position Head</strong>: {item.PositionHead}
                     </ListItem>
                     <ListItem>
-                      <strong>EmployeeTypeName</strong>: {item.EmployeeTypeName}
+                      <strong>EmployeeType Name</strong>: {item.EmployeeTypeName}
                     </ListItem>
                   </List>
                 </Grid>
@@ -134,10 +134,10 @@ const EmployeeTableCollapse = ({
                       <strong>Email ID</strong>: {item.EmailID}
                     </ListItem>
                     <ListItem>
-                      <strong>PhoneNo</strong>: {item.PhoneNo}
+                      <strong>Phone No.</strong>: {item.PhoneNo}
                     </ListItem>
                     <ListItem>
-                      <strong>MobileNumber</strong>: {item.MobileNumber}
+                      <strong>Mobile Number</strong>: {item.MobileNumber}
                     </ListItem>
 
                     <ListItem>

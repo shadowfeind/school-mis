@@ -317,7 +317,7 @@ const ExamResultWithMarksDesign = ({
               </table>
             </Grid>
             <Grid item xs={6}>
-              <table style={{ marginLeft: "40px" }}>
+              <table>
                 <thead>
                   <tr>
                     <td colSpan={2}>Result:</td>

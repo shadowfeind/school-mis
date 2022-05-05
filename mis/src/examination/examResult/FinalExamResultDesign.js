@@ -339,7 +339,7 @@ const FinalExamResultDesign = ({
               </table>
             </Grid>
             <Grid item xs={6}>
-              <table style={{ marginLeft: "40px" }}>
+              <table>
                 <thead>
                   <tr>
                     <td>

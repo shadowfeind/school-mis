@@ -91,12 +91,12 @@ const AccessControl = () => {
             label="SMS Access Control"
             {...a11yProps(1)}
           />
-
+{/* 
 <Tab
             style={{ fontSize: "11px", color: "#fff" }}
             label="Super Admin SMS Access Control"
             {...a11yProps(2)}
-          />
+          /> */}
            </Tabs>
       </AppBar>
       <Suspense fallback={<div></div>}>
@@ -107,9 +107,9 @@ const AccessControl = () => {
           <SmsAccessControl />
         </TabPanel>
 
-        <TabPanel value={value} index={2}>
+        {/* <TabPanel value={value} index={2}>
           <SuperAdminSmsAccessControl />
-        </TabPanel>
+        </TabPanel> */}
       </Suspense>
     </div>
   );

@@ -87,7 +87,8 @@ const StudentAttendance = () => {
   const [shift, setShift] = useState("");
   const [section, setSection] = useState("");
   const [event, setEvent] = useState("");
-  const [errors, setErrors] = useState([]);
+  const [errors, setErrors] = useState({});
+  const [errorsGenerate, setErrorsGenerate] = useState({});
   const [workingDaysTotal, setWorkingDaysTotal] = useState("");
   const [StartDate, setStartDate] = useState();
   const [EndDate, setEndDate] = useState();
@@ -266,9 +267,6 @@ const StudentAttendance = () => {
       );
       setDdlShift(studentAttendanceInitData.searchFilterModel.ddlAcademicShift);
       setDdlSection(studentAttendanceInitData.searchFilterModel.ddlSection);
-      setWorkingDaysTotal(
-        studentAttendanceInitData.searchFilterModel.WorkingDayTotal
-      );
       setStartDate(studentAttendanceInitData.searchFilterModel.StartDate);
       setEndDate(studentAttendanceInitData.searchFilterModel.EndDate);
     }
@@ -300,18 +298,31 @@ const StudentAttendance = () => {
     temp.shift1 = !shift ? "This feild is required" : "";
     temp.section = !section ? "This feild is required" : "";
     temp.event = !event ? "This feild is required" : "";
-    temp.WorkingDayTotal = !workingDaysTotal ? "This feild is required" : "";
-
+  
     setErrors({ ...temp });
     return Object.values(temp).every((x) => x === "");
   };
 
-  const handleProgramValue = (value) => {
-    setProgramValue(value);
-    if ((acaYear, classId, shift)) {
-      dispatch(getEventAction(value, acaYear, classId, shift));
-    }
+  const generateValidate = () => {
+    let temp = {};
+    temp.acaYear = !acaYear ? "This feild is required" : "";
+    temp.programValue = !programValue ? "This feild is required" : "";
+    temp.classId = !classId ? "This feild is required" : "";
+    temp.shift1 = !shift ? "This feild is required" : "";
+    temp.section = !section ? "This feild is required" : "";
+    temp.event = !event ? "This feild is required" : "";
+    temp.WorkingDayTotal = !workingDaysTotal ? "This feild is required" : "";
+
+    setErrorsGenerate({ ...temp });
+    return Object.values(temp).every((x) => x === "");
   };
+
+  // const handleProgramValue = (value) => {
+  //   setProgramValue(value);
+  //   if ((acaYear, classId, shift)) {
+  //     dispatch(getEventAction(value, acaYear, classId, shift));
+  //   }
+  // };
 
   const handleYearChange = (value) => {
     setAcaYear(value);
@@ -330,6 +341,7 @@ const StudentAttendance = () => {
 
   const handleStudentSearch = () => {
     if (validate()) {
+      setErrorsGenerate({})
       dispatch(
         getAllStudentAttendanceAction(
           acaYear,
@@ -344,7 +356,7 @@ const StudentAttendance = () => {
   };
 
   const handleStudentGenerate = () => {
-    if (validate()) {
+    if (generateValidate()) {
       dispatch(
         getGeneratedStudentAttendanceAction(
           acaYear,
@@ -363,6 +375,7 @@ const StudentAttendance = () => {
 
   const handleBulkEdit = () => {
     if (validate()) {
+      setErrorsGenerate({})
       dispatch(
         getBulkStudentAttendanceAction(
           acaYear,
@@ -391,7 +404,7 @@ const StudentAttendance = () => {
                 value={acaYear}
                 onChange={(e) => handleYearChange(e.target.value)}
                 options={academicYearDdl ? academicYearDdl : test}
-                errors={errors.acaYear}
+                errors={errors.acaYear ? errors.acaYear : errorsGenerate.acaYear && errorsGenerate.acaYear}
               />
             </Grid>
             {/* <Grid item xs={3}>
@@ -411,7 +424,7 @@ const StudentAttendance = () => {
                 value={classId}
                 onChange={(e) => handleClassIdChange(e.target.value)}
                 options={ddlClass ? ddlClass : test}
-                errors={errors.classId}
+                errors={errors.classId ? errors.classId : errorsGenerate.classId && errorsGenerate.classId}
               />
             </Grid>
             <Grid item xs={3}>
@@ -421,18 +434,18 @@ const StudentAttendance = () => {
                 value={shift}
                 onChange={(e) => setShift(e.target.value)}
                 options={ddlShift ? ddlShift : test}
-                errors={errors.shift1}
+                errors={errors.shift1 ? errors.shift1 : errorsGenerate.shift1 && errorsGenerate.shift1}
               />
             </Grid>
             <Grid item xs={3}>
-              <div style={{ height: "10px" }}></div>
               <SelectControl
                 name="Section"
                 label="Section"
                 value={section}
                 onChange={(e) => setSection(e.target.value)}
                 options={ddlSection ? ddlSection : test}
-                errors={errors.section}
+                
+                errors={errors.section ? errors.section : errorsGenerate.section && errorsGenerate.section}
               />
             </Grid>
             <Grid item xs={3}>
@@ -443,7 +456,7 @@ const StudentAttendance = () => {
                 value={event}
                 onChange={(e) => setEvent(e.target.value)}
                 options={ddlEvent ? ddlEvent : test}
-                errors={errors.event}
+                errors={errors.event ? errors.event : errorsGenerate.event && errorsGenerate.event}
               />
             </Grid>
             <Grid item xs={3}>
@@ -451,13 +464,17 @@ const StudentAttendance = () => {
               <InputControl
                 name="Working Days"
                 label="Working Days"
-                onKeyDown={(e) =>
-                  symbolsArr.includes(e.key) && e.preventDefault()
-                }
+                onFocus={(e) => {
+              e.target.select();
+            }}
+            onWheelCapture={(e) => {
+              e.target.blur();
+            }}
+            onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}
                 value={workingDaysTotal}
                 onChange={(e) => setWorkingDaysTotal(e.target.value)}
                 type="number"
-                errors={errors.WorkingDayTotal}
+                errors={errorsGenerate.WorkingDayTotal}
               />
             </Grid>
             <Grid item xs={3}>

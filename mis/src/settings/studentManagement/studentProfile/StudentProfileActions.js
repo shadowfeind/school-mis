@@ -231,7 +231,7 @@ export const updateSingleStudentAction =
   export const postUploadPhotoAction = (id,image,dbData) => async (dispatch) => {
     try {
       dispatch({ type: POST_UPLOAD_PHOTO_REQUEST });
-  
+  if(image){
       let formData = new FormData();
       formData.append("ImageUploaded", image);
 
@@ -240,15 +240,12 @@ export const updateSingleStudentAction =
         formData,
         tokenConfig
       );
-console.log(data);
-  // console.log(data)
       if (data) {
-        // const newData = {
-        //   ...dbData,
-        //   FileName:data
-        // };
+     
         const jsonData = JSON.stringify({
-          dbModel: data,
+          dbModel:{IDHREmployee: data.IDHREmployee},
+          imagename: data.imagename,
+          thumbimagename: data.thumbimagename
         });
 
         console.log("jsonData",jsonData);
@@ -258,6 +255,7 @@ console.log(data);
           tokenConfig
         );
       }
+    }
   
       dispatch({
         type: POST_UPLOAD_PHOTO_SUCCESS,

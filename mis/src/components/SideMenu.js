@@ -10,6 +10,7 @@ import { ExaminationRoute } from "../routesConfig/ExaminationRoute";
 import { RegistrationRoute } from "../routesConfig/RegistrationRoute";
 import { SettingsRoute } from "../routesConfig/SettingsRoute";
 import { NotificationRoute } from "../routesConfig/NotificationRoute";
+import { SMSNotificationRoute } from "../routesConfig/SmsNotificationRoute";
 
 const useStyles = makeStyles({
   sideMenu: {
@@ -95,6 +96,13 @@ const SideMenu = () => {
     if (routeCheck !== "/notification") {
       setRouteCheck("/notification");
       setRouteLinks(NotificationRoute);
+    }
+  }
+
+  if (navLink === "/sms-notification") {
+    if (routeCheck !== "/sms-notification") {
+      setRouteCheck("/sms-notification");
+      setRouteLinks(SMSNotificationRoute);
     }
   }
   return (

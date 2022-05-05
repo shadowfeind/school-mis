@@ -89,6 +89,17 @@ const TeacherNotification = lazy(() =>
   import("./notification/teacherNotification/TeacherNotification")
 );
 
+//SMS Notification
+const SmsClassNotification = lazy(() =>
+  import("./smsNotification/smsClassNotification/SmsClassNotification")
+);
+const SmsTeacherNotification = lazy(() =>
+  import("./smsNotification/smsTeacherNotification/SmsTeacherNotification")
+);
+const SmsAllNotification = lazy(() =>
+  import("./smsNotification/smsAllNotification/SmsAllNotification")
+);
+
 const theme = createTheme({
   palette: {
     background: {
@@ -190,6 +201,20 @@ const App = () => {
               <Route
                 path={"/teacher-notification"}
                 component={TeacherNotification}
+              />
+
+              <Route
+                path={"/sms-class-notification"}
+                component={SmsClassNotification}
+              />
+
+              <Route
+                path={"/sms-teacher-notification"}
+                component={SmsTeacherNotification}
+              />
+              <Route
+                path={"/sms-notification"}
+                component={SmsAllNotification}
               />
               <Route exact path={"/"} component={Dashboard} />
               <Route path="*" component={PageNotFound} />

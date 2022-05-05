@@ -11,6 +11,10 @@ import {
   GET_ALL_LEAVE_REQUESTS_REQUEST,
   GET_ALL_LEAVE_REQUESTS_RESET,
   GET_ALL_LEAVE_REQUESTS_SUCCESS,
+  GET_DASHBOARD_TOP_CONTENT_FAIL,
+  GET_DASHBOARD_TOP_CONTENT_REQUEST,
+  GET_DASHBOARD_TOP_CONTENT_RESET,
+  GET_DASHBOARD_TOP_CONTENT_SUCCESS,
   GET_HEADER_BANNER_FAIL,
   GET_HEADER_BANNER_REQUEST,
   GET_HEADER_BANNER_RESET,
@@ -23,6 +27,10 @@ import {
   GET_LIST_LEAVE_REQUESTS_REQUEST,
   GET_LIST_LEAVE_REQUESTS_RESET,
   GET_LIST_LEAVE_REQUESTS_SUCCESS,
+  GET_PRINCIPLE_SIGNATURE_FAIL,
+  GET_PRINCIPLE_SIGNATURE_REQUEST,
+  GET_PRINCIPLE_SIGNATURE_RESET,
+  GET_PRINCIPLE_SIGNATURE_SUCCESS,
   GET_SINGLE_TO_CREATE_LEAVE_REQUESTS_FAIL,
   GET_SINGLE_TO_CREATE_LEAVE_REQUESTS_REQUEST,
   GET_SINGLE_TO_CREATE_LEAVE_REQUESTS_RESET,
@@ -83,6 +91,35 @@ export const getHeaderBannerReducer = (state = {}, action) => {
   }
 };
 
+export const getDashboardTopContentReducer = (state = {}, action) => {
+  switch (action.type) {
+    case GET_DASHBOARD_TOP_CONTENT_REQUEST:
+      return { loading: true };
+    case GET_DASHBOARD_TOP_CONTENT_SUCCESS:
+      return { loading: false, dashboardTopContent: action.payload };
+    case GET_DASHBOARD_TOP_CONTENT_FAIL:
+      return { loading: false, error: action.payload };
+    case GET_DASHBOARD_TOP_CONTENT_RESET:
+      return {};
+    default:
+      return state;
+  }
+};
+
+export const getPrincipleSignatureReducer = (state = {}, action) => {
+  switch (action.type) {
+    case GET_PRINCIPLE_SIGNATURE_REQUEST:
+      return { loading: true };
+    case GET_PRINCIPLE_SIGNATURE_SUCCESS:
+      return { loading: false, principleSignature: action.payload };
+    case GET_PRINCIPLE_SIGNATURE_FAIL:
+      return { loading: false, error: action.payload };
+    case GET_PRINCIPLE_SIGNATURE_RESET:
+      return {};
+    default:
+      return state;
+  }
+};
 
 export const getAllLeaveRequestReducer = (state = {}, action) => {
   switch (action.type) {
@@ -99,7 +136,6 @@ export const getAllLeaveRequestReducer = (state = {}, action) => {
   }
 };
 
-
 export const getListLeaveRequestReducer = (state = {}, action) => {
   switch (action.type) {
     case GET_LIST_LEAVE_REQUESTS_REQUEST:
@@ -115,7 +151,6 @@ export const getListLeaveRequestReducer = (state = {}, action) => {
   }
 };
 
-
 export const getSingleCreateLeaveRequestReducer = (state = {}, action) => {
   switch (action.type) {
     case GET_SINGLE_TO_CREATE_LEAVE_REQUESTS_REQUEST:
@@ -130,7 +165,6 @@ export const getSingleCreateLeaveRequestReducer = (state = {}, action) => {
       return state;
   }
 };
-
 
 export const getSingleEditLeaveRequestReducer = (state = {}, action) => {
   switch (action.type) {
@@ -192,7 +226,6 @@ export const getSingleDeleteLeaveRequestReducer = (state = {}, action) => {
   }
 };
 
-
 export const deleteLeaveRequestReducer = (state = {}, action) => {
   switch (action.type) {
     case DELETE_LEAVE_REQUESTS_REQUEST:
@@ -237,5 +270,3 @@ export const getSingleEditSentLeaveRequestReducer = (state = {}, action) => {
       return state;
   }
 };
-
-

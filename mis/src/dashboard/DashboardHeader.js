@@ -2,6 +2,8 @@ import React from "react";
 import { Grid, makeStyles, Card } from "@material-ui/core";
 import { School, PeopleOutline, Face, Settings } from "@material-ui/icons";
 import ArrowUpwardIcon from "@material-ui/icons/ArrowUpward";
+import StayCurrentPortraitIcon from "@material-ui/icons/StayCurrentPortrait";
+import MenuBookIcon from "@material-ui/icons/MenuBook";
 
 const useStyles = makeStyles((theme) => ({
   cardStyle: {
@@ -26,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const DashboardHeader = () => {
+const DashboardHeader = ({ dashboardTopContent }) => {
   const classes = useStyles();
   return (
     <Grid container>
@@ -35,7 +37,9 @@ const DashboardHeader = () => {
           <Grid container alignItems="center" justifyContent="center">
             <Grid item xs={9}>
               <h4 className={classes.heading}>Total No. Of Teachers</h4>
-              <h1 className={classes.numberHeading}>12</h1>
+              <h1 className={classes.numberHeading}>
+                {dashboardTopContent && dashboardTopContent?.activeTeacher}
+              </h1>
             </Grid>
             <Grid
               item
@@ -69,7 +73,9 @@ const DashboardHeader = () => {
           <Grid container alignItems="center" justifyContent="center">
             <Grid item xs={9}>
               <h4 className={classes.heading}>Total No. Of Students</h4>
-              <h1 className={classes.numberHeading}>316</h1>
+              <h1 className={classes.numberHeading}>
+                {dashboardTopContent && dashboardTopContent?.activeStudent}
+              </h1>
             </Grid>
             <Grid
               item
@@ -102,8 +108,10 @@ const DashboardHeader = () => {
         >
           <Grid container alignItems="center" justifyContent="center">
             <Grid item xs={9}>
-              <h4 className={classes.heading}>Total No. Of Staffs</h4>
-              <h1 className={classes.numberHeading}>24</h1>
+              <h4 className={classes.heading}>Total No. Of Subjects</h4>
+              <h1 className={classes.numberHeading}>
+                {dashboardTopContent && dashboardTopContent?.activeSubject}
+              </h1>
             </Grid>
             <Grid
               item
@@ -116,7 +124,7 @@ const DashboardHeader = () => {
               }}
             >
               {" "}
-              <Face style={{ fontSize: "30px", color: "#fff" }} />
+              <MenuBookIcon style={{ fontSize: "30px", color: "#fff" }} />
             </Grid>
           </Grid>
           <Grid container alignItems="center">
@@ -136,8 +144,10 @@ const DashboardHeader = () => {
         >
           <Grid container alignItems="center" justifyContent="center">
             <Grid item xs={9}>
-              <h4 className={classes.heading}>Total No. Of Logins</h4>
-              <h1 className={classes.numberHeading}>59</h1>
+              <h4 className={classes.heading}>Total No. Of Mobile Users</h4>
+              <h1 className={classes.numberHeading}>
+                {dashboardTopContent && dashboardTopContent?.activeMobileUsers}
+              </h1>
             </Grid>
             <Grid
               item
@@ -150,7 +160,9 @@ const DashboardHeader = () => {
               }}
             >
               {" "}
-              <Settings style={{ fontSize: "30px", color: "#fff" }} />
+              <StayCurrentPortraitIcon
+                style={{ fontSize: "30px", color: "#fff" }}
+              />
             </Grid>
           </Grid>
           <Grid container alignItems="center">

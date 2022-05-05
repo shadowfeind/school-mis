@@ -10,6 +10,7 @@ import DashboardLeaveApprove from "./DashboardLeaveApprove";
 import DashboardNoticeBoard from "./DashboardNoticeBoard";
 import DashboardLeaveRequest from "./DashboardLeaveRequest";
 import {
+  getDashboardTopContentAction,
   getListLeaveRequestAction,
   getSingleCreateLeaveRequestAction,
   getSingleEditLeaveRequestAction,
@@ -17,6 +18,7 @@ import {
 import {
   DELETE_LEAVE_REQUESTS_RESET,
   DOWNLOAD_DOC_LEAVE_REQUESTS_RESET,
+  GET_DASHBOARD_TOP_CONTENT_RESET,
   GET_SINGLE_TO_CREATE_LEAVE_REQUESTS_RESET,
   GET_SINGLE_TO_DELETE_LEAVE_REQUESTS_RESET,
   GET_SINGLE_TO_EDIT_LEAVE_REQUESTS_RESET,
@@ -82,6 +84,10 @@ const Dashboard = () => {
   const { singleCreateLeaveRequest, error: singleCreateLeaveRequestError } =
     useSelector((state) => state.getSingleCreateLeaveRequest);
 
+  const { dashboardTopContent, error: dashboardTopContentError } = useSelector(
+    (state) => state.getDashboardTopContent
+  );
+
   const { singleEditLeaveRequest, error: singleEditLeaveRequestError } =
     useSelector((state) => state.getSingleEditLeaveRequest);
 
@@ -99,6 +105,14 @@ const Dashboard = () => {
       type: "error",
     });
     dispatch({ type: GET_SINGLE_TO_CREATE_LEAVE_REQUESTS_RESET });
+  }
+  if (dashboardTopContentError) {
+    setNotify({
+      isOpen: true,
+      message: dashboardTopContentError,
+      type: "error",
+    });
+    dispatch({ type: GET_DASHBOARD_TOP_CONTENT_RESET });
   }
   if (postLeaveRequestError) {
     setNotify({
@@ -142,6 +156,10 @@ const Dashboard = () => {
     dispatch({ type: "GET_LINK", payload: "/" });
   }, [dispatch]);
 
+  useEffect(() => {
+    dispatch(getDashboardTopContentAction());
+  }, []);
+
   const handleCreate = () => {
     dispatch(getSingleCreateLeaveRequestAction());
     setOpenPopUp(true);
@@ -151,7 +169,9 @@ const Dashboard = () => {
   return (
     <>
       <div className={classes.dashboardContainer}>
-        <DashboardHeader />
+        <DashboardHeader
+          dashboardTopContent={dashboardTopContent && dashboardTopContent}
+        />
         <Grid container>
           <Grid item xs={6}>
             <Card className={classes.cardStyle}>

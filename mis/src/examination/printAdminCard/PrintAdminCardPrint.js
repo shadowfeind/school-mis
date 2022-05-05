@@ -9,7 +9,10 @@ const PrintAdminCardPrint = ({
   examDate,
   print,
   headerBanners,
+  principleSignature,
   componentRef,
+  year,
+  yearDdl,
 }) => {
   return (
     <div id="test-print-blueberry" ref={componentRef}>
@@ -24,6 +27,9 @@ const PrintAdminCardPrint = ({
                 classname={classname}
                 examDate={examDate}
                 headerBanners={headerBanners}
+                principleSignature={principleSignature}
+                year={year}
+                yearDdl={yearDdl}
               />
             </Grid>
           ))}

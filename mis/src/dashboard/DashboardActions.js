@@ -19,6 +19,9 @@ import {
   GET_LIST_LEAVE_REQUESTS_FAIL,
   GET_LIST_LEAVE_REQUESTS_REQUEST,
   GET_LIST_LEAVE_REQUESTS_SUCCESS,
+  GET_PRINCIPLE_SIGNATURE_FAIL,
+  GET_PRINCIPLE_SIGNATURE_REQUEST,
+  GET_PRINCIPLE_SIGNATURE_SUCCESS,
   GET_SINGLE_TO_CREATE_LEAVE_REQUESTS_FAIL,
   GET_SINGLE_TO_CREATE_LEAVE_REQUESTS_REQUEST,
   GET_SINGLE_TO_CREATE_LEAVE_REQUESTS_SUCCESS,
@@ -37,6 +40,10 @@ import {
   PUT_LEAVE_REQUESTS_FAIL,
   PUT_LEAVE_REQUESTS_REQUEST,
   PUT_LEAVE_REQUESTS_SUCCESS,
+  GET_DASHBOARD_TOP_CONTENT_FAIL,
+  GET_DASHBOARD_TOP_CONTENT_REQUEST,
+  GET_DASHBOARD_TOP_CONTENT_RESET,
+  GET_DASHBOARD_TOP_CONTENT_SUCCESS,
 } from "./DashboardConstants";
 
 export const getHeaderContentAction = () => async (dispatch) => {
@@ -71,6 +78,73 @@ export const getHeaderBannerAction = () => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: GET_HEADER_BANNER_FAIL,
+      payload: error.message ? error.message : error.Message,
+    });
+  }
+};
+
+export const getDashboardTopContentAction = () => async (dispatch) => {
+  try {
+    dispatch({ type: GET_DASHBOARD_TOP_CONTENT_REQUEST });
+
+    const { data: activeTeacher } = await axios.get(
+      `${API_URL}/api/Home/GetTotalActiveTeacher
+      `,
+      tokenConfig
+    );
+
+    const { data: activeStudent } = await axios.get(
+      `${API_URL}/api/Home/GetTotalActiveStudent
+      `,
+      tokenConfig
+    );
+
+    const { data: activeSubject } = await axios.get(
+      `${API_URL}/api/Home/GetTotalActiveSubject
+      `,
+      tokenConfig
+    );
+
+    const { data: activeMobileUsers } = await axios.get(
+      `${API_URL}/api/Home/GetTotalNoOfMobileUsers
+      `,
+      tokenConfig
+    );
+
+    dispatch({
+      type: GET_DASHBOARD_TOP_CONTENT_SUCCESS,
+      payload: {
+        activeTeacher,
+        activeStudent,
+        activeSubject,
+        activeMobileUsers,
+      },
+    });
+  } catch (error) {
+    dispatch({
+      type: GET_DASHBOARD_TOP_CONTENT_FAIL,
+      payload: error.message ? error.message : error.Message,
+    });
+  }
+};
+
+export const getPrincipleSignatureAction = () => async (dispatch) => {
+  try {
+    dispatch({ type: GET_PRINCIPLE_SIGNATURE_REQUEST });
+
+    const { data } = await axios.get(
+      `${API_URL}/api/Home/GetPrincipleSignature
+      `,
+      tokenConfig
+    );
+
+    dispatch({
+      type: GET_PRINCIPLE_SIGNATURE_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: GET_PRINCIPLE_SIGNATURE_FAIL,
       payload: error.message ? error.message : error.Message,
     });
   }

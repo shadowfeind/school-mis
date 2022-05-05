@@ -151,6 +151,9 @@ const StudentProfileTableCollapse = ({
                 <Grid container>
                   <Grid item md={4}>
                     <List key={item.$id * 0.002}>
+                    <ListItem>
+                        <strong>Login ID:</strong>: {studentDetails.LoginIDHREmployee}
+                      </ListItem>
                       <ListItem>
                         <strong>Email</strong>: {studentDetails.EmailID}
                       </ListItem>

@@ -56,7 +56,7 @@ const useStyles = makeStyles((theme) => ({
 const tableHeader = [
   { id: "rollNo", label: "Roll No" },
   { id: "thumbimagename", label: "Image" },
-  { id: "UniversityRegistrationNumber", label: "Registration Number" },
+  { id: "UniversityRegistrationNumber", label: "Registration No." },
   { id: "StudentFullName", label: "Full Name" },
   { id: "AcademicProgramName", label: "Program" },
   { id: "FacultyName", label: "Faculty" },

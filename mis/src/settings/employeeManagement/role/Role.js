@@ -45,7 +45,7 @@ const tableHeader = [
   { id: "Description", label: "Description" },
   { id: "Created_On", label: "Created_On" },
   { id: "Updated_On", label: "Updated_On" },
-  { id: "MarkAsAdmin", label: "MarkAsAdmin" },
+  { id: "MarkAsAdmin", label: "Mark As Admin" },
   { id: "actions", label: "Actions", disableSorting: true },
 ];
 

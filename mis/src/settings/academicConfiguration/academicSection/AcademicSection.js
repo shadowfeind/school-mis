@@ -43,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
 const tableHeader = [
   { id: "RoomName", label: "Room Name" },
   { id: "RoomLocation", label: "Room Location" },
-  { id: "RoomCapacity", label: "RoomCapacity" },
+  { id: "RoomCapacity", label: "Room Capacity" },
   { id: "IsActive", label: "IsActive" },
   { id: "Created_On", label: "Created On" },
   { id: "Updated_On", label: "Updated On" },

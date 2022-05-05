@@ -86,6 +86,9 @@
 }
 
 @media print {
+  .print-button-hide {
+    display: none !important;
+  }
   .resultContainer {
     page-break-before: always;
     width: 773px;
@@ -124,3 +127,4 @@
     padding: 7px;
   }
 }
+

@@ -9,8 +9,12 @@ const AdmitCardDesign = ({
   headerBanners,
   classname,
   examDate,
+  principleSignature,
+  year,
+  yearDdl,
 }) => {
   const studentImage = imagePath?.filter((x) => x.Key === student.IDHREmployee);
+  const yearToShow = yearDdl?.filter((x) => x.Key === year);
 
   return (
     <div>
@@ -22,7 +26,10 @@ const AdmitCardDesign = ({
           <h3>Admit Card</h3>
         </div>
         <div className="admitCard-Bottom">
-          <h4>{student.EventName}</h4>
+          <h4>
+            {student.EventName} :{" "}
+            {yearToShow?.length > 0 && yearToShow[0]?.Value}
+          </h4>
           <Grid container>
             <Grid item xs={8}>
               <h5>
@@ -43,12 +50,25 @@ const AdmitCardDesign = ({
               {studentImage?.length > 0 && (
                 <img
                   src={`${API_URL}${studentImage[0].Value}`}
-                  height="60px"
-                  width="60px"
+                  height="50px"
+                  width="50px"
                 />
               )}
+              <div style={{ marginTop: "10px" }}>
+                {principleSignature && (
+                  <img src={`${API_URL}${principleSignature}`} height="20px" />
+                )}
+              </div>
 
-              <h6>Principle Signature</h6>
+              <h6
+                style={{
+                  margin: "3px",
+                  borderTop: "1px solid #000",
+                  display: "inline-block",
+                }}
+              >
+                Principle Signature
+              </h6>
             </Grid>
           </Grid>
         </div>

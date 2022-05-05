@@ -1,9 +1,8 @@
 
 .admitCard {
-  width: 360px !important;
-  height: 250px !important;
-  padding: 10px !important;
-  margin: 10px !important;
+  height: 70.2mm !important;
+  padding: 2mm !important;
+  margin: 2mm !important;
   border: 1px solid #000 !important;
   border-radius: 10px !important;
 }
@@ -12,12 +11,13 @@
   text-align: center;
   padding: 2px;
   background-color : #eaeff5;
-  margin-bottom:  -10px;
+  /* margin-bottom:  -10px; */
   font-size: 12px;
 }
 .admitCard-Bottom h4 {
   text-align: center;
   font-size: 12px !important;
+  margin-top: 5px;
 }
 .admitCard-Bottom h5 {
   font-size: 11px !important;
@@ -32,9 +32,9 @@
 
 @media print {
   /* styling goes here */
-  #test-print-blueberry {
-    padding-left: 3%;
-  }
+ #card-print {
+   display: none !important;
+ }
 
   @-moz-document url-prefix() {
     /* #test-print-blueberry {
@@ -42,13 +42,13 @@
    } */
     * {
       box-sizing: border-box !important;
-      margin-top: 0 !important;
+      margin: 0 !important;
+      padding: 0 !important;
     }
     .admitCard {
-      width: 360px !important;
-      height: 250px !important;
-      padding: 10px !important;
-      margin: 10px !important;
+      height: 70.2mm !important;
+      padding: 2mm !important;
+      margin: 2.5mm !important;
       border: 1px solid #000 !important;
       border-radius: 10px !important;
     }

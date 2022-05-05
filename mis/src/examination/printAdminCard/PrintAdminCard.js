@@ -34,8 +34,14 @@ import DatePickerControl from "../../components/controls/DatePickerControl";
 import PrintAdminCardPrint from "./PrintAdminCardPrint";
 import { useReactToPrint } from "react-to-print";
 import "./customPrint.css";
-import { getHeaderBannerAction } from "../../dashboard/DashboardActions";
-import { GET_HEADER_BANNER_RESET } from "../../dashboard/DashboardConstants";
+import {
+  getHeaderBannerAction,
+  getPrincipleSignatureAction,
+} from "../../dashboard/DashboardActions";
+import {
+  GET_HEADER_BANNER_RESET,
+  GET_PRINCIPLE_SIGNATURE_RESET,
+} from "../../dashboard/DashboardConstants";
 
 const useStyles = makeStyles((theme) => ({
   searchInput: {
@@ -161,17 +167,36 @@ const PrintAdminCard = () => {
     (state) => state.getHeaderBanner
   );
 
+  const { principleSignature, error: getPrincipleSignatureError } = useSelector(
+    (state) => state.getPrincipleSignature
+  );
+
   useEffect(() => {
     if (!headerBanners) {
       dispatch(getHeaderBannerAction());
     }
   }, [headerBanners, dispatch]);
 
+  useEffect(() => {
+    if (!principleSignature) {
+      dispatch(getPrincipleSignatureAction());
+    }
+  }, [principleSignature, dispatch]);
+
   if (headerBannersError) {
     dispatch({ type: GET_HEADER_BANNER_RESET });
     setNotify({
       isOpen: true,
       message: headerBannersError,
+      type: "error",
+    });
+  }
+
+  if (getPrincipleSignatureError) {
+    dispatch({ type: GET_PRINCIPLE_SIGNATURE_RESET });
+    setNotify({
+      isOpen: true,
+      message: getPrincipleSignatureError,
       type: "error",
     });
   }
@@ -490,9 +515,16 @@ const PrintAdminCard = () => {
               examDate={
                 printStudentsAdmitCard && printStudentsAdmitCard.examDate
               }
+              principleSignature={principleSignature && principleSignature}
               print={printPdf}
               componentRef={componentRef}
               headerBanners={headerBanners && headerBanners}
+              year={
+                printStudentsAdmitCard && printStudentsAdmitCard.idAcademicYear
+              }
+              yearDdl={
+                printStudentsAdmitCard && printStudentsAdmitCard.ddlAcademicYear
+              }
             />
           </>
         )}

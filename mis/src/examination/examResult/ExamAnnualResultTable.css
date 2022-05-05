@@ -5,3 +5,9 @@
 .ledgerResult table {
     width: 100%;
 }
+
+@media print {
+    .print-button-hide {
+      display: none !important;
+    }
+    }

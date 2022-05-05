@@ -397,9 +397,11 @@ import {
   deleteLeaveRequestReducer,
   downloadLeaveRequestReducer,
   getAllLeaveRequestReducer,
+  getDashboardTopContentReducer,
   getHeaderBannerReducer,
   getHeaderContentReducer,
   getListLeaveRequestReducer,
+  getPrincipleSignatureReducer,
   getSingleCreateLeaveRequestReducer,
   getSingleDeleteLeaveRequestReducer,
   getSingleEditLeaveRequestReducer,
@@ -469,16 +471,35 @@ import {
   postSuperAdminSmsAccessControlReducer,
   putSuperAdminSmsAccessControlReducer,
 } from "./settings/accessControl/superAdminSmsAccessControl/SuperAdminReducers";
-import { getAllSmsClassNotificationReducer, getBulkSmsClassNotificationReducer, getListSmsClassNotificationReducer, postSmsClassNotificationReducer } from "./smsNotification/smsClassNotification/SmsClassNotificationReducers";
-import { getAllSmsTeacherNotificationReducer, getListSmsTeacherNotificationReducer, getSingleCreateSmsTeacherNotificationReducer, postSmsTeacherNotificationReducer } from "./smsNotification/smsTeacherNotification/SmsTeacherNotificationReducers";
-import { createSmsAnnouncementReducer, getAllSmsAnnouncement, getFCMForSmsAnnouncementReducer, getListSmsAnnouncementReducer, getSingleSmsAnnouncementReducer, updateSingleSmsAnnouncementReducer } from "./smsNotification/smsAllNotification/SmsAllNotificationReducers";
+import {
+  getAllSmsClassNotificationReducer,
+  getBulkSmsClassNotificationReducer,
+  getListSmsClassNotificationReducer,
+  postSmsClassNotificationReducer,
+} from "./smsNotification/smsClassNotification/SmsClassNotificationReducers";
+import {
+  getAllSmsTeacherNotificationReducer,
+  getListSmsTeacherNotificationReducer,
+  getSingleCreateSmsTeacherNotificationReducer,
+  postSmsTeacherNotificationReducer,
+} from "./smsNotification/smsTeacherNotification/SmsTeacherNotificationReducers";
+import {
+  createSmsAnnouncementReducer,
+  getAllSmsAnnouncement,
+  getFCMForSmsAnnouncementReducer,
+  getListSmsAnnouncementReducer,
+  getSingleSmsAnnouncementReducer,
+  updateSingleSmsAnnouncementReducer,
+} from "./smsNotification/smsAllNotification/SmsAllNotificationReducers";
 
 //examination reducers link end
 export const reducers = combineReducers({
   //header
   navLink: navLinkReducer,
   getHeaderContent: getHeaderContentReducer,
+  getDashboardTopContent: getDashboardTopContentReducer,
   getHeaderBanner: getHeaderBannerReducer,
+  getPrincipleSignature: getPrincipleSignatureReducer,
   //header ends
   position: getAllPosition,
   createPosition: createPositionReducer,
@@ -855,21 +876,22 @@ export const reducers = combineReducers({
   putSuperAdminSmsAccessControl: putSuperAdminSmsAccessControlReducer,
 
   //All SMS Notification
-  getAllSmsAnnouncement:getAllSmsAnnouncement,
+  getAllSmsAnnouncement: getAllSmsAnnouncement,
   getListSmsAnnouncement: getListSmsAnnouncementReducer,
-  getFCMForSmsAnnouncement : getFCMForSmsAnnouncementReducer,
-  createSmsAnnouncement : createSmsAnnouncementReducer,
+  getFCMForSmsAnnouncement: getFCMForSmsAnnouncementReducer,
+  createSmsAnnouncement: createSmsAnnouncementReducer,
   getSingleSmsAnnouncement: getSingleSmsAnnouncementReducer,
-  updateSingleSmsAnnouncement : updateSingleSmsAnnouncementReducer,
+  updateSingleSmsAnnouncement: updateSingleSmsAnnouncementReducer,
   //SMS Class Notification
-  getAllSmsClassNotification : getAllSmsClassNotificationReducer,
-  getListSmsClassNotification : getListSmsClassNotificationReducer,
-  getBulkSmsClassNotification : getBulkSmsClassNotificationReducer,
-  postSmsClassNotification : postSmsClassNotificationReducer,
+  getAllSmsClassNotification: getAllSmsClassNotificationReducer,
+  getListSmsClassNotification: getListSmsClassNotificationReducer,
+  getBulkSmsClassNotification: getBulkSmsClassNotificationReducer,
+  postSmsClassNotification: postSmsClassNotificationReducer,
 
   //SMS Teacher Notification
-  getAllSmsTeacherNotification : getAllSmsTeacherNotificationReducer,
-  getListSmsTeacherNotification : getListSmsTeacherNotificationReducer,
-  getSingleCreateSmsTeacherNotification : getSingleCreateSmsTeacherNotificationReducer,
-  postSmsTeacherNotification : postSmsTeacherNotificationReducer,
+  getAllSmsTeacherNotification: getAllSmsTeacherNotificationReducer,
+  getListSmsTeacherNotification: getListSmsTeacherNotificationReducer,
+  getSingleCreateSmsTeacherNotification:
+    getSingleCreateSmsTeacherNotificationReducer,
+  postSmsTeacherNotification: postSmsTeacherNotificationReducer,
 });

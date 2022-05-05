@@ -17,3 +17,9 @@
   padding: 4px 8px;
   font-weight: lighter;
 }
+
+@media print {
+.print-button-hide {
+  display: none !important;
+}
+}

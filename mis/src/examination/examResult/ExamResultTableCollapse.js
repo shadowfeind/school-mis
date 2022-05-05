@@ -167,11 +167,16 @@ const ExamResultTableCollapse = memo(
             borderTop: "1px solid #f3f3f3",
           }}
         >
-          <Button onClick={printPdf} variant="contained" color="primary">
+          <Button
+            onClick={printPdf}
+            variant="contained"
+            className="print-button-hide"
+            color="primary"
+          >
             PRINT
           </Button>
           <ReactHTMLTableToExcel
-            className="download-table-xls-button"
+            className="download-table-xls-button print-button-hide"
             table="table-xls-button"
             filename="ledger"
             sheet="Sheet"

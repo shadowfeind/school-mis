@@ -3,7 +3,7 @@ import ExamResultWithMarksDesign from "./ExamResultWithMarksDesign";
 import { useReactToPrint } from "react-to-print";
 import { Button } from "@material-ui/core";
 
-const ExamResultWithMarksModel = ({ examReport,headerBanners }) => {
+const ExamResultWithMarksModel = ({ examReport, headerBanners }) => {
   const componentRef = useRef();
   const printPdf = useReactToPrint({
     content: () => componentRef.current,
@@ -63,7 +63,12 @@ const ExamResultWithMarksModel = ({ examReport,headerBanners }) => {
           borderTop: "1px solid #f3f3f3",
         }}
       >
-        <Button onClick={printPdf} variant="contained" color="primary">
+        <Button
+          onClick={printPdf}
+          className="print-button-hide"
+          variant="contained"
+          color="primary"
+        >
           PRINT
         </Button>
       </div>

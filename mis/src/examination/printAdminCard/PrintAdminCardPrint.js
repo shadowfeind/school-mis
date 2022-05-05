@@ -37,7 +37,12 @@ const PrintAdminCardPrint = ({
           borderTop: "1px solid #f3f3f3",
         }}
       >
-        <Button onClick={print} variant="contained" color="primary">
+        <Button
+          onClick={print}
+          variant="contained"
+          color="primary"
+          id="card-print"
+        >
           PRINT
         </Button>
       </div>

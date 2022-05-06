@@ -46,8 +46,8 @@ const localizer = momentLocalizer(moment);
 
 const Holiday = () => {
   const [openPopup, setOpenPopup] = useState(false);
-  const [startDate, setStartDate] = useState("");
-  const [endDate, setEndDate] = useState("");
+  const [startDate, setStartDate] = useState("2022-03-11");
+  const [endDate, setEndDate] = useState("2022-03-13");
   const [notify, setNotify] = useState({
     isOpen: false,
     message: "",
@@ -63,7 +63,7 @@ const Holiday = () => {
 
   const dispatch = useDispatch();
 
-  const { holiday, error,loading } = useSelector((state) => state.holiday);
+  const { holiday, error, loading } = useSelector((state) => state.holiday);
 
   const { success: createHolidaySuccess, error: createHolidayError } =
     useSelector((state) => state.createHoliday);
@@ -166,21 +166,21 @@ const Holiday = () => {
           <LoadingComp />
         ) : (
           <>
-        <Calendar
-          localizer={localizer}
-          events={holiday && holiday.att_HRHolidayModelLst}
-          startAccessor="FromDate"
-          endAccessor="ToDate"
-          titleAccessor="HolidayName"
-          views={months}
-          selectable
-          onSelectSlot={handleCalendarSelect}
-          style={{ height: "60vh" }}
-        />
-           </>
+            <Calendar
+              localizer={localizer}
+              events={holiday && holiday.att_HRHolidayModelLst}
+              startAccessor="FromDate"
+              endAccessor="ToDate"
+              titleAccessor="HolidayName"
+              views={months}
+              selectable
+              onSelectSlot={handleCalendarSelect}
+              style={{ height: "60vh" }}
+            />
+          </>
         )}
       </div>
-   
+
       <Popup
         openPopup={openPopup}
         setOpenPopup={setOpenPopup}

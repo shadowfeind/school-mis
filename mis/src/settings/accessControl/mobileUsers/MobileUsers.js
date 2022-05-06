@@ -134,7 +134,7 @@ const MobileUsers = () => {
   }, []);
 
   useEffect(() => {
-    dispatch({ type: "GET_LINK", payload: "/notification" });
+    dispatch({ type: "GET_LINK", payload: "/settings" });
   }, []);
 
   useEffect(() => {

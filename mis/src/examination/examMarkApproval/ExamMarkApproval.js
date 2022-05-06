@@ -152,11 +152,11 @@ const ExamMarkApproval = () => {
     (state) => state.getExamApprovalScheduleHeader
   );
 
-  const { searchData,loading } = useSelector(
+  const { searchData, loading } = useSelector(
     (state) => state.getExamApprovalSearchData
   );
 
-  const { bulkData ,loading:loadingBulk} = useSelector(
+  const { bulkData, loading: loadingBulk } = useSelector(
     (state) => state.getBulkExamApprovalSearchData
   );
 
@@ -264,10 +264,10 @@ const ExamMarkApproval = () => {
     }
   }, [examApprovalInitialDatas, dispatch]);
 
-  useEffect(()=>{
-    dispatch({type:GET_ALL_EXAM_APPROVAL_SEARCHDATA_RESET})
+  useEffect(() => {
+    dispatch({ type: GET_ALL_EXAM_APPROVAL_SEARCHDATA_RESET });
     dispatch(getInitialExamApprovalDataAction());
-  },[])
+  }, []);
 
   useEffect(() => {
     if (searchData) {
@@ -385,7 +385,6 @@ const ExamMarkApproval = () => {
               />
             </Grid>
             <Grid item xs={3}>
-              <div style={{ height: "10px" }}></div>
               <SelectControl
                 name="Section"
                 label="Section"
@@ -470,20 +469,20 @@ const ExamMarkApproval = () => {
           <LoadingComp />
         ) : (
           <>
-        {searchData && (
-          <TableContainer className={classes.table}>
-            <TblHead />
+            {searchData && (
+              <TableContainer className={classes.table}>
+                <TblHead />
 
-            <TableBody>
-              {tableDataAfterPagingAndSorting().map((item) => (
-                <ExamMarkApprovalTableCollapse item={item} key={item.$id} />
-              ))}
-            </TableBody>
-          </TableContainer>
-        )}
+                <TableBody>
+                  {tableDataAfterPagingAndSorting().map((item) => (
+                    <ExamMarkApprovalTableCollapse item={item} key={item.$id} />
+                  ))}
+                </TableBody>
+              </TableContainer>
+            )}
 
-        {searchData && <TblPagination />}
-        </>
+            {searchData && <TblPagination />}
+          </>
         )}
       </CustomContainer>
       <Popup
@@ -491,19 +490,19 @@ const ExamMarkApproval = () => {
         setOpenPopup={setOpenPopup}
         title="Bulk Edit"
       >
-      {loadingBulk ? (
+        {loadingBulk ? (
           <LoadingComp />
         ) : (
           <>
-        <ExamMarkApprovalBulk
-          statusData={
-            bulkData && bulkData.searchFilterModel.ddlStudentExamStatus
-          }
-          search={bulkData && bulkData.searchFilterModel}
-          bulkData={bulkData && bulkData.dbModelLsts}
-          setOpenPopup={setOpenPopup}
-        />
-        </>
+            <ExamMarkApprovalBulk
+              statusData={
+                bulkData && bulkData.searchFilterModel.ddlStudentExamStatus
+              }
+              search={bulkData && bulkData.searchFilterModel}
+              bulkData={bulkData && bulkData.dbModelLsts}
+              setOpenPopup={setOpenPopup}
+            />
+          </>
         )}
       </Popup>
       <Popup

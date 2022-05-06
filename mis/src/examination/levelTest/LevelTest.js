@@ -293,7 +293,6 @@ const LevelTest = () => {
               />
             </Grid>
             <Grid item xs={3}>
-              <div style={{ height: "10px" }}></div>
               <SelectControl
                 name="Section"
                 label="Section"
@@ -316,6 +315,7 @@ const LevelTest = () => {
             </Grid>
 
             <Grid item xs={3}>
+            <div style={{ height: "10px" }}></div>
               <Button
                 variant="contained"
                 color="primary"

@@ -12,7 +12,9 @@ const PermissionByRole = lazy(() =>
 const SmsAccessControl = lazy(() =>
   import("./smsAccessControl/SmsAccessControl")
 );
-
+const MobileUsers = lazy(() =>
+  import("./mobileUsers/MobileUsers")
+);
 const SuperAdminSmsAccessControl = lazy(() =>
   import("./superAdminSmsAccessControl/SuperAdmin")
 );
@@ -80,16 +82,22 @@ const AccessControl = () => {
           aria-label="scrollable force tabs example"
           TabIndicatorProps={{ className: classes.indicator }}
         >
-          <Tab
+         <Tab
             style={{ fontSize: "11px", color: "#fff" }}
-            label="Permission By Role"
+            label="Mobile Users"
             {...a11yProps(0)}
           />
+         
        
         <Tab
             style={{ fontSize: "11px", color: "#fff" }}
             label="SMS Access Control"
             {...a11yProps(1)}
+          />
+          <Tab
+            style={{ fontSize: "11px", color: "#fff" }}
+            label="Permission By Role"
+            {...a11yProps(2)}
           />
 {/* 
 <Tab
@@ -100,11 +108,15 @@ const AccessControl = () => {
            </Tabs>
       </AppBar>
       <Suspense fallback={<div></div>}>
-        <TabPanel value={value} index={0}>
-          <PermissionByRole />
+      <TabPanel value={value} index={0}>
+          <MobileUsers />
         </TabPanel>
+       
         <TabPanel value={value} index={1}>
           <SmsAccessControl />
+        </TabPanel>
+        <TabPanel value={value} index={2}>
+          <PermissionByRole />
         </TabPanel>
 
         {/* <TabPanel value={value} index={2}>

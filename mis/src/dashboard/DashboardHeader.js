@@ -68,7 +68,7 @@ const DashboardHeader = ({ dashboardTopContent }) => {
                 />
               </Grid>
               <Grid item xs={11}>
-                <p className={classes.smallHeading}>5% Increase</p>
+                <p className={classes.smallHeading}>View More...</p>
               </Grid>
             </Grid>
           </Link>
@@ -105,7 +105,7 @@ const DashboardHeader = ({ dashboardTopContent }) => {
                 />
               </Grid>
               <Grid item xs={11}>
-                <p className={classes.smallHeading}>10% Increase</p>
+                <p className={classes.smallHeading}>View More...</p>
               </Grid>
             </Grid>
           </Link>
@@ -142,7 +142,7 @@ const DashboardHeader = ({ dashboardTopContent }) => {
                 />
               </Grid>
               <Grid item xs={11}>
-                <p className={classes.smallHeading}>2% Increase</p>
+                <p className={classes.smallHeading}>View More...</p>
               </Grid>
             </Grid>
           </Link>
@@ -150,7 +150,7 @@ const DashboardHeader = ({ dashboardTopContent }) => {
       </Grid>
       <Grid item xs={3}>
         <Card className={classes.cardStyle}>
-          <Link to={"/student-management"}>
+          <Link to={"/access-control"}>
             <Grid container alignItems="center" justifyContent="center">
               <Grid item xs={9}>
                 <h4 className={classes.heading}>Total No. Of Mobile Users</h4>
@@ -182,7 +182,7 @@ const DashboardHeader = ({ dashboardTopContent }) => {
                 />
               </Grid>
               <Grid item xs={11}>
-                <p className={classes.smallHeading}>4% Increase</p>
+                <p className={classes.smallHeading}>View More...</p>
               </Grid>
             </Grid>
           </Link>

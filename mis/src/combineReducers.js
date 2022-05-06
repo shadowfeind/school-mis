@@ -493,6 +493,7 @@ import {
   getSingleSmsAnnouncementReducer,
   updateSingleSmsAnnouncementReducer,
 } from "./smsNotification/smsAllNotification/SmsAllNotificationReducers";
+import { getAllMobileUserReducer, getMobileUserListsReducer, getSingleMobileUserReducer, putMobileUserReducer } from "./settings/accessControl/mobileUsers/MobileUsersReducers";
 
 //examination reducers link end
 export const reducers = combineReducers({
@@ -898,4 +899,10 @@ export const reducers = combineReducers({
   getSingleCreateSmsTeacherNotification:
     getSingleCreateSmsTeacherNotificationReducer,
   postSmsTeacherNotification: postSmsTeacherNotificationReducer,
+
+  //Mobile Users Reducers:
+  getAllMobileUser : getAllMobileUserReducer,
+  getMobileUserLists : getMobileUserListsReducer,
+  getSingleMobileUser : getSingleMobileUserReducer,
+  putMobileUser : putMobileUserReducer,
 });

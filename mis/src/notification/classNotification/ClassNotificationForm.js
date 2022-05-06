@@ -214,11 +214,15 @@ const ClassNotificationForm = ({
                 e.target.select();
               }}
               onKeyDown={(e) =>
-                values.MessageDescription?.length > 160 && e.preventDefault()
+                values.MessageDescription?.length > 159 && e.preventDefault()
               }
               onChange={handleInputChange}
               errors={errors.MessageDescription}
             />
+             <p style={{ paddingLeft: "10px" }}>
+            {" "}
+            {160 - values?.MessageDescription?.length} chars left{" "}
+          </p>
           </Grid>
         </Grid>
         <div

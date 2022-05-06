@@ -26,6 +26,7 @@ const initialFormValues = {
 
 const AcademicProgramForm = ({ academicProgram, selected, setOpenPopup }) => {
   const [checkboxState, setCheckboxState] = useState([]);
+  const [errorsEdit,setErrorsEdit] = useState({});
   const dispatch = useDispatch();
   const validate = (fieldValues = values) => {
     let temp = { ...errors };
@@ -52,20 +53,49 @@ const AcademicProgramForm = ({ academicProgram, selected, setOpenPopup }) => {
     return Object.values(temp).every((x) => x === "");
   };
 
+  const validateEdit = (fieldValues = values) => {
+    let temp = { ...errors };
+
+    temp.AcademicProgramName = !fieldValues.AcademicProgramName
+      ? "This feild is required"
+      : !fieldValues.AcademicProgramName.trim()
+      ? "This feild is required"
+      : fieldValues.AcademicProgramName.length > 100
+      ? "Must be less than 101 characters"
+      : "";
+
+    temp.Description = !fieldValues.Description
+      ? "This feild is required"
+      : !fieldValues.Description.trim()
+      ? "This feild is required"
+      : fieldValues.Description.length > 1000
+      ? "Must be less than 1000 characters"
+      : "";
+
+    
+      setErrorsEdit({ ...temp });
+    return Object.values(temp).every((x) => x === "");
+  };
+
   const { values, setValues, handleInputChange, errors, setErrors } =
     useForm(initialFormValues);
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (validate()) {
+    
       if (values.IDAcademicProgram === 0) {
-        dispatch(AcademicProgramCreateAction(values, checkboxState));
+        if (validate()) {
+        // dispatch(AcademicProgramCreateAction(values, checkboxState));
+        alert("Post")
+      }
       } else {
-        dispatch(updateSingleAcademicProgramAction(values));
+        if(validateEdit()){
+        // dispatch(updateSingleAcademicProgramAction(values));
+        alert("Put")
+        }
       }
     }
-  };
 
   const { academicProgramOption } = useSelector(
     (state) => state.getAcademicProgramOption

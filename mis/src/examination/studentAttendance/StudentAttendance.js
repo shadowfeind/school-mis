@@ -62,9 +62,9 @@ const tableHeader = [
   { id: "FullName", label: "Full Name" },
   { id: "MobileNumber", label: "Mobile Number" },
   { id: "EmailID", label: "Email ID" },
+  { id: "WorkingDay", label: "Working Day" },
   { id: "PresentDay", label: "Present Day" },
   { id: "AbsentDay", label: "Absent Day" },
-  { id: "WorkingDay", label: "Working Day" },
   { id: "Actions", label: "Actions", disablesorting: true },
 ];
 

@@ -116,10 +116,8 @@ const DashboardLeaveRequest = () => {
   const { singleCreateLeaveRequest, error: singleCreateLeaveRequestError } =
     useSelector((state) => state.getSingleCreateLeaveRequest);
 
-  const {
-    singleDeleteLeaveRequest,
-    error: singleDeleteLeaveRequestError,
-  } = useSelector((state) => state.getSingleDeleteLeaveRequest);
+  const { singleDeleteLeaveRequest, error: singleDeleteLeaveRequestError } =
+    useSelector((state) => state.getSingleDeleteLeaveRequest);
 
   const { success: deleteLeaveRequestSuccess, error: deleteLeaveRequestError } =
     useSelector((state) => state.deleteLeaveRequest);
@@ -127,12 +125,11 @@ const DashboardLeaveRequest = () => {
   const { singleEditLeaveRequest, error: singleEditLeaveRequestError } =
     useSelector((state) => state.getSingleEditLeaveRequest);
 
-    // const { postLeaveRequestSuccess, error: postLeaveRequestError } =
-    // useSelector((state) => state.postLeaveRequest);
+  // const { postLeaveRequestSuccess, error: postLeaveRequestError } =
+  // useSelector((state) => state.postLeaveRequest);
 
-    const { success:putLeaveRequestSuccess, error: putLeaveRequestError } =
+  const { success: putLeaveRequestSuccess, error: putLeaveRequestError } =
     useSelector((state) => state.putLeaveRequest);
-
 
   const { listLeaveRequest, listLeaveRequestError } = useSelector(
     (state) => state.getListLeaveRequest
@@ -145,7 +142,7 @@ const DashboardLeaveRequest = () => {
   } = useSelector((state) => state.downloadLeaveRequest);
 
   // if (downloadFile) {
-    
+
   //   var blob = new Blob([downloadFile]);
   //   var url = window.URL.createObjectURL(blob);
   //   debugger;
@@ -170,7 +167,6 @@ const DashboardLeaveRequest = () => {
     dispatch({ type: DOWNLOAD_DOC_LEAVE_REQUESTS_RESET });
   }
 
-  
   if (singleCreateLeaveRequestError) {
     setNotify({
       isOpen: true,
@@ -197,7 +193,6 @@ const DashboardLeaveRequest = () => {
     });
     dispatch({ type: PUT_LEAVE_REQUESTS_RESET });
   }
-
 
   // if (postLeaveRequestSuccess) {
   //   dispatch(getListLeaveRequestAction());
@@ -284,16 +279,14 @@ const DashboardLeaveRequest = () => {
     setOpenPopUp(true);
   };
 
-    const deleteLeaveHandler = (id) => {
-      dispatch(getSingleDeleteLeaveRequestAction(id));
-      setOpenDeletePopup(true);
-    };
-
+  const deleteLeaveHandler = (id) => {
+    dispatch(getSingleDeleteLeaveRequestAction(id));
+    setOpenDeletePopup(true);
+  };
 
   const downloadHandler = (id) => {
     dispatch(downloadLeaveRequestAction(id));
   };
- 
 
   return (
     <>
@@ -307,23 +300,34 @@ const DashboardLeaveRequest = () => {
                 {s.FirsName} {s.MiddleName} {s.LastName}
               </StyledTableCell>
               <StyledTableCell align="left">
-                {s.LeaveDecription?.slice(0,20)}
+                {s.LeaveDecription?.slice(0, 20)}
               </StyledTableCell>
               <StyledTableCell align="left">
                 {s.FromDate?.slice(0, 10)} /<div>{s.ToDate?.slice(0, 10)}</div>
               </StyledTableCell>
-              <StyledTableCell align="left">{s.Status}</StyledTableCell>
+              <StyledTableCell
+                align="left"
+                style={
+                  s.Status === "PENDING"
+                    ? { color: "blue" }
+                    : s.Status === "APPROVED"
+                    ? { color: "green" }
+                    : { color: "red" }
+                }
+              >
+                {s.Status}
+              </StyledTableCell>
               <StyledTableCell>
-              {s.Status !== "APPROVED" && (
-                <Button
-                  variant="contained"
-                  color="primary"
-                  className={classes.button}
-                  onClick={() => updateCollegeHandler(s.IDLeaveRequest)}
-                >
-                  <EditIcon style={{ fontSize: 12 }} />
-                </Button>
-              )}{" "}
+                {s.Status !== "APPROVED" && (
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    className={classes.button}
+                    onClick={() => updateCollegeHandler(s.IDLeaveRequest)}
+                  >
+                    <EditIcon style={{ fontSize: 12 }} />
+                  </Button>
+                )}{" "}
                 <Button
                   variant="contained"
                   color="secondary"
@@ -333,14 +337,14 @@ const DashboardLeaveRequest = () => {
                   <DeleteIcon style={{ fontSize: 12 }} />
                 </Button>{" "}
                 {s.DocumentName !== null && (
-                <Button
-                  variant="contained"
-                  color="default"
-                  className={classes.button}
-                  onClick={() => downloadHandler(s.IDLeaveRequest)}
-                >
-                  <CloudDownloadIcon style={{ fontSize: 12 }} />
-                </Button>
+                  <Button
+                    variant="contained"
+                    color="default"
+                    className={classes.button}
+                    onClick={() => downloadHandler(s.IDLeaveRequest)}
+                  >
+                    <CloudDownloadIcon style={{ fontSize: 12 }} />
+                  </Button>
                 )}
               </StyledTableCell>
             </StyledTableRow>
@@ -368,8 +372,7 @@ const DashboardLeaveRequest = () => {
           //   singleEditLeaveRequest && singleEditLeaveRequest
           // }
           leaveRequestDelete={
-            singleDeleteLeaveRequest &&
-            singleDeleteLeaveRequest
+            singleDeleteLeaveRequest && singleDeleteLeaveRequest
           }
           setOpenPopUp={setOpenDeletePopup}
         />

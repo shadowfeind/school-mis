@@ -41,14 +41,14 @@ const HolidayForm = ({ holiday, setOpenPopup, startDate, endDate }) => {
       ? "This feild is required"
       : "";
 
-      temp.startDate =
+    temp.startDate =
       startDate.toString() === "Invalid Date"
         ? "Invalid Date"
         : !startDate
         ? "Date is required"
         : "";
 
-        temp.endDate =
+    temp.endDate =
       endDate.toString() === "Invalid Date"
         ? "Invalid Date"
         : !endDate

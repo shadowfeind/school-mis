@@ -102,14 +102,20 @@ const AnnouncementForm = ({
               e.target.select();
             }}
             onKeyDown={(e) =>
-              values.NewsDescription?.length > 159 && e.preventDefault()
+              values.NewsDescription?.length > 159 &&
+              e.key !== "Backspace" &&
+              e.preventDefault()
             }
             onChange={handleInputChange}
             errors={errors.NewsDescription}
           />
           <p style={{ paddingLeft: "10px" }}>
             {" "}
-            {160 - values?.NewsDescription?.length} chars left{" "}
+            {160 -
+              (values.NewsDescription
+                ? values?.NewsDescription?.length
+                : 0)}{" "}
+            chars left{" "}
           </p>
         </Grid>
         <CheckBoxControl

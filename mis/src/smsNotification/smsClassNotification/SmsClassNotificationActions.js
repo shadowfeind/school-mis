@@ -82,27 +82,27 @@ export const postSmsClassNotificationAction =
     try {
       dispatch({ type: POST_SMS_CLASS_NOTIFICATION_REQUEST });
 
-      const fcmTokenList = [];
-      selectedStudents.forEach((student) => {
-        fcmTokenList.push(student.fcmToken);
-      });
+      // const fcmTokenList = [];
+      // selectedStudents.forEach((student) => {
+      //   fcmTokenList.push(student.fcmToken);
+      // });
 
-      const fcmBody = {
-        registration_ids: fcmTokenList,
-        collapse_key: "type_a",
-        notification: {
-          body: dbModel.MessageHeading,
-          title: SchoolShortName,
-        },
-      };
+      // const fcmBody = {
+      //   registration_ids: fcmTokenList,
+      //   collapse_key: "type_a",
+      //   notification: {
+      //     body: dbModel.MessageHeading,
+      //     title: SchoolShortName,
+      //   },
+      // };
 
-      const fbody = JSON.stringify(fcmBody);
+      // const fbody = JSON.stringify(fcmBody);
 
-      await axios.post(
-        "https://fcm.googleapis.com/fcm/send",
-        fbody,
-        tokenHeader
-      );
+      // await axios.post(
+      //   "https://fcm.googleapis.com/fcm/send",
+      //   fbody,
+      //   tokenHeader
+      // );
 
       const jsonData = JSON.stringify({
         dbModel,

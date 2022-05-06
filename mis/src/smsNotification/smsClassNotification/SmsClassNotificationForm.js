@@ -127,7 +127,11 @@ const SmsClassNotificationForm = ({
     e.preventDefault();
     if (validate()) {
       dispatch(
-        postSmsClassNotificationAction(values, selectedStudents, SchoolShortName)
+        postSmsClassNotificationAction(
+          values,
+          selectedStudents,
+          SchoolShortName
+        )
       );
     }
   };
@@ -214,15 +218,21 @@ const SmsClassNotificationForm = ({
                 e.target.select();
               }}
               onKeyDown={(e) =>
-                values.MessageDescription?.length > 159 && e.preventDefault()
+                values.MessageDescription?.length > 159 &&
+                e.key !== "Backspace" &&
+                e.preventDefault()
               }
               onChange={handleInputChange}
               errors={errors.MessageDescription}
             />
-             <p style={{ paddingLeft: "10px" }}>
-            {" "}
-            {160 - values?.MessageDescription?.length} chars left{" "}
-          </p>
+            <p style={{ paddingLeft: "10px" }}>
+              {" "}
+              {160 -
+                (values.MessageDescription
+                  ? values?.MessageDescription?.length
+                  : 0)}{" "}
+              chars left{" "}
+            </p>
           </Grid>
         </Grid>
         <div

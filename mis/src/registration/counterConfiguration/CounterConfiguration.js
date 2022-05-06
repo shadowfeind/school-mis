@@ -263,7 +263,7 @@ const CounterConfiguration = () => {
                 type="submit"
                 style={{ margin: "10px 0 0 10px" }}
                 onClick={handleCreateClick}
-                type="submit"
+              
               >
                 CREATE
               </Button>
@@ -273,7 +273,7 @@ const CounterConfiguration = () => {
                 type="submit"
                 style={{ margin: "10px 0 0 10px" }}
                 onClick={listSearchHandler}
-                type="submit"
+               
               >
                 SEARCH
               </Button>

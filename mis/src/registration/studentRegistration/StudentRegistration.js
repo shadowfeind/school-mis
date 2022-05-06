@@ -28,6 +28,7 @@ import StudentRegistrationTableCollapse from "./StudentRegistrationTableCollapse
 import StudentRegistrationForm from "./StudentRegistrationForm";
 import {
   CREATE_SINGLE_STUDENT_REGISTRATION_RESET,
+  GET_CREATE_SINGLE_STUDENT_REGISTRATION_DATA_RESET,
   GET_SINGLE_STUDENT_REGISTRATION_DATA_RESET,
   GET_STUDENT_REGISTRATION_DATA_RESET,
   SINGLE_STUDENT_REGISTRATION_EDIT_RESET,
@@ -134,9 +135,19 @@ const StudentRegistration = () => {
     (state) => state.createSingleStudentRegistration
   );
 
-  const { getCreateSingleStudentData } = useSelector(
+  const { getCreateSingleStudentData,error:getCreateSingleStudentDataError } = useSelector(
     (state) => state.getCreateSingleStudentRegistrationData
   );
+
+  if (getCreateSingleStudentDataError) {
+    setNotify({
+      isOpen: true,
+      message: getCreateSingleStudentDataError,
+      type: "error",
+    });
+    setOpenPopup(false);
+    dispatch({ type: GET_CREATE_SINGLE_STUDENT_REGISTRATION_DATA_RESET });
+  }
 
   if (editSuccess) {
     dispatch({ type: SINGLE_STUDENT_REGISTRATION_EDIT_RESET });

@@ -87,6 +87,12 @@ const AcademicFacultyForm = ({ academicFaculty, selected, setOpenPopup }) => {
     setCheckboxState([...checkboxState, e.target.value]);
   };
 
+  useEffect(()=>{
+    if(academicFaculty){
+      setValues({...academicFaculty});
+    }
+  })
+
   useEffect(() => {
     if (academicFacultyOption) {
       setValues(academicFacultyOption.dbModel);

@@ -13,12 +13,18 @@ import {
   GET_EXAM_SCHEDULE_LIST_FAIL,
   GET_EXAM_SCHEDULE_LIST_REQUEST,
   GET_EXAM_SCHEDULE_LIST_SUCCESS,
+  GET_GENERATE_EXAM_SCHEDULE_FAIL,
+  GET_GENERATE_EXAM_SCHEDULE_REQUEST,
+  GET_GENERATE_EXAM_SCHEDULE_SUCCESS,
   GET_SINGLE_EXAM_SCHEDULE_CREATE_FAIL,
   GET_SINGLE_EXAM_SCHEDULE_CREATE_REQUEST,
   GET_SINGLE_EXAM_SCHEDULE_CREATE_SUCCESS,
   GET_SINGLE_EXAM_SCHEDULE_EDIT_FAIL,
   GET_SINGLE_EXAM_SCHEDULE_EDIT_REQUEST,
   GET_SINGLE_EXAM_SCHEDULE_EDIT_SUCCESS,
+  POST_GENERATE_EXAM_SCHEDULE_FAIL,
+  POST_GENERATE_EXAM_SCHEDULE_REQUEST,
+  POST_GENERATE_EXAM_SCHEDULE_SUCCESS,
   POST_SINGLE_EXAM_SCHEDULE_CREATE_FAIL,
   POST_SINGLE_EXAM_SCHEDULE_CREATE_REQUEST,
   POST_SINGLE_EXAM_SCHEDULE_CREATE_SUCCESS,
@@ -115,6 +121,8 @@ export const getSingleExamScheduleCreateAction =
     }
   };
 
+
+
 export const postSingleExamScheduleCreateAction =
   (schedule, searchFilterModel) => async (dispatch) => {
     try {
@@ -210,3 +218,53 @@ export const deleteExamScheduleAction = (schedule,searchFilterModel) => async (d
     });
   }
 };
+
+
+export const getGenerateExamScheduleCreateAction =
+  (year, program, classId, event) => async (dispatch) => {
+    try {
+      dispatch({ type: GET_GENERATE_EXAM_SCHEDULE_REQUEST });
+
+      const { data } = await axios.get(
+        `${API_URL}/api/AcademicExamSchedule/GetToGenerate?idAcademicYear=${year}&idFacultyProgramLink=${program}&level=${classId}&idAcademicYearCalendar=${event}`,
+        tokenConfig
+      );
+
+      dispatch({
+        type: GET_GENERATE_EXAM_SCHEDULE_SUCCESS,
+        payload: data,
+      });
+    } catch (error) {
+      dispatch({
+        type: GET_GENERATE_EXAM_SCHEDULE_FAIL,
+        payload: error.message ? error.message : error.Message,
+      });
+    }
+  };
+
+
+  export const postGenerateExamScheduleCreateAction =
+  (schedule, searchFilterModel) => async (dispatch) => {
+    try {
+      dispatch({ type: POST_GENERATE_EXAM_SCHEDULE_REQUEST });
+
+      const jsonData = JSON.stringify({ dbModel: schedule, searchFilterModel });
+
+      const { data } = await axios.post(
+        `${API_URL}/api/AcademicExamSchedule/Post`,
+        jsonData,
+        tokenConfig
+      );
+
+      dispatch({
+        type: POST_GENERATE_EXAM_SCHEDULE_SUCCESS,
+        payload: data,
+      });
+    } catch (error) {
+      dispatch({
+        type: POST_GENERATE_EXAM_SCHEDULE_FAIL,
+        payload: error.Message ? error.Message : error.message,
+        // payload: "Subject already exists",
+      });
+    }
+  };

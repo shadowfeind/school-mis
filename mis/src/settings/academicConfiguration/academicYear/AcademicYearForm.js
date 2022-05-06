@@ -33,6 +33,7 @@ const initialFormValues = {
 
 const AcademicYearForm = ({ academicYear, selected, setOpenPopup }) => {
   const [checkboxState, setCheckboxState] = useState([]);
+  const [errorsEdit, setErrorsEdit] = useState({});
   const dispatch = useDispatch();
   const validate = (fieldValues = values) => {
     let temp = { ...errors };
@@ -67,17 +68,54 @@ const AcademicYearForm = ({ academicYear, selected, setOpenPopup }) => {
     return Object.values(temp).every((x) => x === "");
   };
 
+  const validateEdit = (fieldValues = values) => {
+    let temp = { ...errors };
+
+    temp.AcademicYearName = !fieldValues.AcademicYearName
+      ? "This feild is required"
+      : !fieldValues.AcademicYearName.trim()
+      ? "This feild is required"
+      : fieldValues.AcademicYearName.length > 100
+      ? "Must be less than 101 characters"
+      : "";
+
+    temp.AcademicYearCode = !fieldValues.AcademicYearCode
+      ? "This feild is required"
+      : !fieldValues.AcademicYearCode.trim()
+      ? "This feild is required"
+      : fieldValues.AcademicYearCode.length > 10
+      ? "Must be less than 11 characters"
+      : "";
+
+  
+    temp.AcademicYear = !fieldValues.AcademicYear
+      ? "This feild is required"
+      : !fieldValues.AcademicYear.trim()
+      ? "This feild is required"
+      : "";
+    temp.StartDate = !fieldValues.StartDate ? "This feild is required" : "";
+    temp.EndDate = !fieldValues.EndDate ? "This feild is required" : "";
+
+    setErrorsEdit({ ...temp });
+    return Object.values(temp).every((x) => x === "");
+  };
+
   const { values, setValues, handleInputChange, errors, setErrors } =
     useForm(initialFormValues);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (validate()) {
+    
       if (values.IDAcademicYear === 0) {
+        if (validate()) {
         dispatch(AcademicYearCreateAction(values, checkboxState));
+        
+        }
       } else {
+        if(validateEdit()){
         dispatch(updateSingleAcademicYearAction(values, checkboxState));
-      }
+        
+        }
     }
   };
 

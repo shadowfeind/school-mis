@@ -180,6 +180,8 @@ import {
   getExamScheduleListReducer,
   getSingleExamScheduleCreateReducer,
   getSingleExamScheduleEditReducer,
+  getToGenerateExamScheduleCreateReducer,
+  postGenerateExamScheduleCreateReducer,
   postSingleExamScheduleCreateReducer,
   singleExamScheduleEditReducer,
 } from "./examination/examSchedule/ExamScheduleReducers";
@@ -671,6 +673,8 @@ export const reducers = combineReducers({
   getSingleExamScheduleEdit: getSingleExamScheduleEditReducer,
   singleExamScheduleEdit: singleExamScheduleEditReducer,
   deleteExamSchedule: deleteExamScheduleReducer,
+  getToGenerateExamScheduleCreate : getToGenerateExamScheduleCreateReducer,
+  postGenerateExamScheduleCreate : postGenerateExamScheduleCreateReducer,
   //examination reducers end
   //registration reducers starts
   getCounterConfigInitialData: getCounterConfigInitialDataReducer,

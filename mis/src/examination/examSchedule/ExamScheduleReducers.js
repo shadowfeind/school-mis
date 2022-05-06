@@ -15,6 +15,10 @@ import {
   GET_EXAM_SCHEDULE_LIST_REQUEST,
   GET_EXAM_SCHEDULE_LIST_RESET,
   GET_EXAM_SCHEDULE_LIST_SUCCESS,
+  GET_GENERATE_EXAM_SCHEDULE_FAIL,
+  GET_GENERATE_EXAM_SCHEDULE_REQUEST,
+  GET_GENERATE_EXAM_SCHEDULE_RESET,
+  GET_GENERATE_EXAM_SCHEDULE_SUCCESS,
   GET_SINGLE_EXAM_SCHEDULE_CREATE_FAIL,
   GET_SINGLE_EXAM_SCHEDULE_CREATE_REQUEST,
   GET_SINGLE_EXAM_SCHEDULE_CREATE_RESET,
@@ -23,6 +27,10 @@ import {
   GET_SINGLE_EXAM_SCHEDULE_EDIT_REQUEST,
   GET_SINGLE_EXAM_SCHEDULE_EDIT_RESET,
   GET_SINGLE_EXAM_SCHEDULE_EDIT_SUCCESS,
+  POST_GENERATE_EXAM_SCHEDULE_FAIL,
+  POST_GENERATE_EXAM_SCHEDULE_REQUEST,
+  POST_GENERATE_EXAM_SCHEDULE_RESET,
+  POST_GENERATE_EXAM_SCHEDULE_SUCCESS,
   POST_SINGLE_EXAM_SCHEDULE_CREATE_FAIL,
   POST_SINGLE_EXAM_SCHEDULE_CREATE_REQUEST,
   POST_SINGLE_EXAM_SCHEDULE_CREATE_RESET,
@@ -147,6 +155,39 @@ export const deleteExamScheduleReducer = (state = {}, action) => {
     case DELETE_EXAM_SCHEDULE_FAIL:
       return { loading: false, error: action.payload };
     case DELETE_EXAM_SCHEDULE_RESET:
+      return {};
+    default:
+      return state;
+  }
+};
+
+export const getToGenerateExamScheduleCreateReducer = (state = {}, action) => {
+  switch (action.type) {
+    case GET_GENERATE_EXAM_SCHEDULE_REQUEST:
+      return { loading: true };
+    case GET_GENERATE_EXAM_SCHEDULE_SUCCESS:
+      return {
+        loading: false,
+        getToGenerateExamScheduleCreate: action.payload,
+      };
+    case GET_GENERATE_EXAM_SCHEDULE_FAIL:
+      return { loading: false, error: action.payload };
+    case GET_GENERATE_EXAM_SCHEDULE_RESET:
+      return {};
+    default:
+      return state;
+  }
+};
+
+export const postGenerateExamScheduleCreateReducer = (state = {}, action) => {
+  switch (action.type) {
+    case POST_GENERATE_EXAM_SCHEDULE_REQUEST:
+      return { loading: true };
+    case POST_GENERATE_EXAM_SCHEDULE_SUCCESS:
+      return { loading: false, success: true };
+    case POST_GENERATE_EXAM_SCHEDULE_FAIL:
+      return { loading: false, error: action.payload };
+    case POST_GENERATE_EXAM_SCHEDULE_RESET:
       return {};
     default:
       return state;

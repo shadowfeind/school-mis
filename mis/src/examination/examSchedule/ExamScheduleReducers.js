@@ -184,7 +184,7 @@ export const postGenerateExamScheduleCreateReducer = (state = {}, action) => {
     case POST_GENERATE_EXAM_SCHEDULE_REQUEST:
       return { loading: true };
     case POST_GENERATE_EXAM_SCHEDULE_SUCCESS:
-      return { loading: false, success: true };
+      return { loading: false, success: true, eventName: action.payload };
     case POST_GENERATE_EXAM_SCHEDULE_FAIL:
       return { loading: false, error: action.payload };
     case POST_GENERATE_EXAM_SCHEDULE_RESET:

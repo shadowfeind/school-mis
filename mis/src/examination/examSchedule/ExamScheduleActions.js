@@ -121,8 +121,6 @@ export const getSingleExamScheduleCreateAction =
     }
   };
 
-
-
 export const postSingleExamScheduleCreateAction =
   (schedule, searchFilterModel) => async (dispatch) => {
     try {
@@ -196,29 +194,29 @@ export const singleExamScheduleEditAction =
     }
   };
 
-export const deleteExamScheduleAction = (schedule,searchFilterModel) => async (dispatch) => {
-  try {
-    dispatch({ type: DELETE_EXAM_SCHEDULE_REQUEST });
+export const deleteExamScheduleAction =
+  (schedule, searchFilterModel) => async (dispatch) => {
+    try {
+      dispatch({ type: DELETE_EXAM_SCHEDULE_REQUEST });
 
-    const jsonData = JSON.stringify({ dbModel: schedule,searchFilterModel });
+      const jsonData = JSON.stringify({ dbModel: schedule, searchFilterModel });
 
-    await axios.post(
-      `${API_URL}/api/AcademicExamSchedule/Delete`,
-      jsonData,
-      tokenConfig
-    );
+      await axios.post(
+        `${API_URL}/api/AcademicExamSchedule/Delete`,
+        jsonData,
+        tokenConfig
+      );
 
-    dispatch({
-      type: DELETE_EXAM_SCHEDULE_SUCCESS,
-    });
-  } catch (error) {
-    dispatch({
-      type: DELETE_EXAM_SCHEDULE_FAIL,
-      payload: error.Message ? error.Message : error.message,
-    });
-  }
-};
-
+      dispatch({
+        type: DELETE_EXAM_SCHEDULE_SUCCESS,
+      });
+    } catch (error) {
+      dispatch({
+        type: DELETE_EXAM_SCHEDULE_FAIL,
+        payload: error.Message ? error.Message : error.message,
+      });
+    }
+  };
 
 export const getGenerateExamScheduleCreateAction =
   (year, program, classId, event) => async (dispatch) => {
@@ -242,29 +240,35 @@ export const getGenerateExamScheduleCreateAction =
     }
   };
 
-
-  export const postGenerateExamScheduleCreateAction =
-  (schedule, searchFilterModel) => async (dispatch) => {
+export const postGenerateExamScheduleCreateAction =
+  (year, classes, event, dbModelLst, searchFilterModel) => async (dispatch) => {
     try {
       dispatch({ type: POST_GENERATE_EXAM_SCHEDULE_REQUEST });
 
-      const jsonData = JSON.stringify({ dbModel: schedule, searchFilterModel });
+      const jsonData = JSON.stringify({
+        dbModelLst,
+        searchFilterModel: {
+          ...searchFilterModel,
+          idAcademicYear: year,
+          level: classes,
+          idAcademicYearCalendar: event,
+        },
+      });
 
-      const { data } = await axios.post(
-        `${API_URL}/api/AcademicExamSchedule/Post`,
+      await axios.post(
+        `${API_URL}/api/AcademicExamSchedule/PostGenerate`,
         jsonData,
         tokenConfig
       );
 
       dispatch({
         type: POST_GENERATE_EXAM_SCHEDULE_SUCCESS,
-        payload: data,
+        payload: event,
       });
     } catch (error) {
       dispatch({
         type: POST_GENERATE_EXAM_SCHEDULE_FAIL,
         payload: error.Message ? error.Message : error.message,
-        // payload: "Subject already exists",
       });
     }
   };

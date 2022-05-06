@@ -21,8 +21,10 @@ import {
   GET_ALL_EXAM_SCHEDULE_INITIAL_DATA_RESET,
   GET_EVENT_FOR_EXAM_SCHEDULE_RESET,
   GET_EXAM_SCHEDULE_LIST_RESET,
+  GET_GENERATE_EXAM_SCHEDULE_RESET,
   GET_SINGLE_EXAM_SCHEDULE_CREATE_RESET,
   GET_SINGLE_EXAM_SCHEDULE_EDIT_RESET,
+  POST_GENERATE_EXAM_SCHEDULE_RESET,
   POST_SINGLE_EXAM_SCHEDULE_CREATE_RESET,
   SINGLE_EXAM_SCHEDULE_EDIT_RESET,
 } from "./ExamScheduleConstants";
@@ -30,12 +32,14 @@ import {
   getAllExamScheduleInitialDataAction,
   getEventForExamScheduleAction,
   getExamScheduleListAction,
+  getGenerateExamScheduleCreateAction,
   getSingleExamScheduleCreateAction,
   getSingleExamScheduleEditAction,
 } from "./ExamScheduleActions";
 import ExamScheduleTableCollapse from "./ExamScheduleTableCollapse";
 import ExamScheduleForm from "./ExamScheduleForm";
 import ExamScheduleDeleteForm from "./ExamScheduleDeleteForm";
+import ExamScheduleGenerateForm from "./ExamScheduleGenerateForm";
 
 const useStyles = makeStyles((theme) => ({
   searchInput: {
@@ -86,6 +90,7 @@ const ExamSchedule = () => {
     },
   });
   const [openPopup, setOpenPopup] = useState(false);
+  const [generatePopUp, setGeneratePopUp] = useState(false);
   const [openDeletePopup, setOpenDeletePopup] = useState(false);
   const [notify, setNotify] = useState({
     isOpen: false,
@@ -143,11 +148,56 @@ const ExamSchedule = () => {
     error: putSingleExamScheduleEditError,
   } = useSelector((state) => state.singleExamScheduleEdit);
 
-  const {
-    success: deleteExamScheduleSuccess,
-    error: deleteExamScheduleError,
-  } = useSelector((state) => state.deleteExamSchedule);
+  const { success: deleteExamScheduleSuccess, error: deleteExamScheduleError } =
+    useSelector((state) => state.deleteExamSchedule);
 
+  const {
+    getToGenerateExamScheduleCreate,
+    error: getToGenerateExamScheduleCreateError,
+  } = useSelector((state) => state.getToGenerateExamScheduleCreate);
+
+  const {
+    success: postGenerateExamScheduleCreateSuccess,
+    error: postGenerateExamScheduleCreateError,
+    eventName: postGenerateExamScheduleCreateEventName,
+  } = useSelector((state) => state.postGenerateExamScheduleCreate);
+
+  if (postGenerateExamScheduleCreateSuccess) {
+    setNotify({
+      isOpen: true,
+      message: "Posted Successfully",
+      type: "success",
+    });
+    setGeneratePopUp(false);
+    setEvent(postGenerateExamScheduleCreateEventName);
+    dispatch(
+      getExamScheduleListAction(
+        acaYear,
+        programValue,
+        classId,
+        postGenerateExamScheduleCreateEventName
+      )
+    );
+    dispatch({ type: POST_GENERATE_EXAM_SCHEDULE_RESET });
+  }
+
+  if (postGenerateExamScheduleCreateError) {
+    setNotify({
+      isOpen: true,
+      message: postGenerateExamScheduleCreateError,
+      type: "error",
+    });
+    dispatch({ type: POST_GENERATE_EXAM_SCHEDULE_RESET });
+  }
+
+  if (getToGenerateExamScheduleCreateError) {
+    setNotify({
+      isOpen: true,
+      message: getToGenerateExamScheduleCreateError,
+      type: "error",
+    });
+    dispatch({ type: GET_GENERATE_EXAM_SCHEDULE_RESET });
+  }
   if (singleExamScheduleCreateError) {
     setNotify({
       isOpen: true,
@@ -250,10 +300,10 @@ const ExamSchedule = () => {
     }
   }, [examScheduleInitialData, dispatch]);
 
-  useEffect(()=>{
-    dispatch({type:GET_EXAM_SCHEDULE_LIST_RESET})
+  useEffect(() => {
+    dispatch({ type: GET_EXAM_SCHEDULE_LIST_RESET });
     dispatch(getAllExamScheduleInitialDataAction());
-  },[])
+  }, []);
 
   useEffect(() => {
     if (examScheduleList) {
@@ -274,14 +324,14 @@ const ExamSchedule = () => {
     temp.classId = !classId ? "This feild is required" : "";
     temp.event = !event ? "This feild is required" : "";
 
-    setErrors({ ...temp });event
+    setErrors({ ...temp });
     return Object.values(temp).every((x) => x === "");
   };
 
   const handleClassIdChange = (value) => {
     setClassId(value);
     dispatch(getEventForExamScheduleAction(acaYear, programValue, value));
-    setEvent("")
+    setEvent("");
   };
 
   const handleYearChange = (value) => {
@@ -289,7 +339,7 @@ const ExamSchedule = () => {
     if (classId) {
       dispatch(getEventForExamScheduleAction(value, programValue, classId));
     }
-    setEvent("")
+    setEvent("");
   };
 
   const handleExamScheduleSearch = () => {
@@ -304,8 +354,21 @@ const ExamSchedule = () => {
       dispatch(
         getSingleExamScheduleCreateAction(acaYear, programValue, classId, event)
       );
-      dispatch({type:GET_SINGLE_EXAM_SCHEDULE_EDIT_RESET});
+      dispatch({ type: GET_SINGLE_EXAM_SCHEDULE_EDIT_RESET });
       setOpenPopup(true);
+    }
+  };
+  const handleGenerate = () => {
+    if (validate()) {
+      dispatch(
+        getGenerateExamScheduleCreateAction(
+          acaYear,
+          programValue,
+          classId,
+          event
+        )
+      );
+      setGeneratePopUp(true);
     }
   };
 
@@ -322,11 +385,15 @@ const ExamSchedule = () => {
     setOpenPopup(true);
   };
   const deleteCollegeHandler = (id) => {
-    dispatch(getSingleExamScheduleEditAction(id,
-      examScheduleList.searchFilterModel.idAcademicYear,
-      examScheduleList.searchFilterModel.idFacultyProgramLink,
-      examScheduleList.searchFilterModel.level,
-      examScheduleList.searchFilterModel.idAcademicYearCalendar));
+    dispatch(
+      getSingleExamScheduleEditAction(
+        id,
+        examScheduleList.searchFilterModel.idAcademicYear,
+        examScheduleList.searchFilterModel.idFacultyProgramLink,
+        examScheduleList.searchFilterModel.level,
+        examScheduleList.searchFilterModel.idAcademicYearCalendar
+      )
+    );
     setOpenDeletePopup(true);
   };
   return (
@@ -395,6 +462,15 @@ const ExamSchedule = () => {
               >
                 SEARCH
               </Button>
+              <Button
+                variant="contained"
+                color="primary"
+                type="submit"
+                style={{ margin: "10px 0 0 10px" }}
+                onClick={handleGenerate}
+              >
+                GENERATE
+              </Button>
             </Grid>
           </Grid>
         </Toolbar>
@@ -449,14 +525,29 @@ const ExamSchedule = () => {
         />
       </Popup>
       <Popup
-      openPopup={openDeletePopup}
-      setOpenPopup={setOpenDeletePopup}
-      title="Exam Schedule Delete Form"
+        openPopup={openDeletePopup}
+        setOpenPopup={setOpenDeletePopup}
+        title="Exam Schedule Delete Form"
       >
-      <ExamScheduleDeleteForm
-      examScheduleDelete={singleExamScheduleEdit && singleExamScheduleEdit}
-      setOpenDeletePopup={setOpenDeletePopup}
-      />
+        <ExamScheduleDeleteForm
+          examScheduleDelete={singleExamScheduleEdit && singleExamScheduleEdit}
+          setOpenDeletePopup={setOpenDeletePopup}
+        />
+      </Popup>
+      <Popup
+        openPopup={generatePopUp}
+        setOpenPopup={setGeneratePopUp}
+        title="List Exam Generate"
+      >
+        <ExamScheduleGenerateForm
+          generate={
+            getToGenerateExamScheduleCreate && getToGenerateExamScheduleCreate
+          }
+          eventName={ddlEvent && ddlEvent}
+          acaYear={acaYear}
+          classValue={classId}
+          setGeneratePopUp={setGeneratePopUp}
+        />
       </Popup>
       <Notification notify={notify} setNotify={setNotify} />
       <ConfirmDialog

@@ -16,7 +16,10 @@ import { useDispatch, useSelector } from "react-redux";
 import Notification from "../../components/Notification";
 import ConfirmDialog from "../../components/ConfirmDialog";
 import SelectControl from "../../components/controls/SelectControl";
-import { GET_BULK_EDIT_ECA_DATA_RESET, POST_BULK_ECA_DATA_RESET } from "./EcaDataConstants";
+import {
+  GET_BULK_EDIT_ECA_DATA_RESET,
+  POST_BULK_ECA_DATA_RESET,
+} from "./EcaDataConstants";
 import {
   getAllEcaDataAction,
   getBulkEditEcaDataAction,
@@ -38,7 +41,6 @@ const useStyles = makeStyles((theme) => ({
     minWidth: "200px",
   },
 }));
-
 
 const test = [{ Key: "", Value: "" }];
 
@@ -128,7 +130,6 @@ const EcaData = () => {
     error: postBulkEditEcaDataError,
   } = useSelector((state) => state.postBulkEditEcaData);
 
-
   if (getEventSuccess) {
     setDdlEvent(allEvents);
     dispatch({ type: GET_EVENT_RESET });
@@ -192,7 +193,7 @@ const EcaData = () => {
   const handleProgramValue = (value) => {
     setProgramValue(value);
     if ((acaYear, value, classId, shift)) {
-      dispatch(getEventAction(acaYear,value,  classId, shift));
+      dispatch(getEventAction(acaYear, value, classId, shift));
     }
   };
 
@@ -334,7 +335,10 @@ const EcaData = () => {
       >
         <EcaDataBulkEdit
           bulkData={bulkEditData && bulkEditData.dbModelLst}
-          academicSubject={bulkEditData && bulkEditData.ddlAcademicFacultyECASubModel}
+          academicSubject={
+            bulkEditData && bulkEditData.ddlAcademicFacultyECASubModel
+          }
+          search={bulkEditData && bulkEditData.searchFilterModel}
           setOpenPopup={setOpenPopup}
         />
       </Popup>

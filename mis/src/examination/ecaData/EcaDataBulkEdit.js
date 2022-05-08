@@ -40,9 +40,15 @@ const useStyles = makeStyles({
   },
 });
 
-const EcaDataBulkEdit = ({ bulkData, academicSubject, setOpenPopup }) => {
+const EcaDataBulkEdit = ({
+  bulkData,
+  academicSubject,
+  search,
+  setOpenPopup,
+}) => {
   const [bulk, setBulk] = useState([]);
   const [selectSubject, setSelectSubject] = useState([]);
+  const [ecaData, setEcaData] = useState([]);
   const classes = useStyles();
   const dispatch = useDispatch();
 
@@ -50,18 +56,40 @@ const EcaDataBulkEdit = ({ bulkData, academicSubject, setOpenPopup }) => {
     setBulk((prev) => {
       const newReassoc = {
         ...subject,
-        [name]: value,
+        ECAValue:
+          subject.ECAValue === null
+            ? [{ [name]: value }]
+            : [...subject.ECAValue, { [name]: value }],
       };
 
       let newArray = [...prev];
       newArray[index] = newReassoc;
 
+      console.log(newArray);
       return [...newArray];
     });
   };
 
+  // const onChangeHandler = (subject, value, name, index) => {
+  //   setEcaData((prev) => {
+  //     const newReassoc = {
+  //       ...subject,
+  //       ECAValue:
+  //         subject.ECAValue === null
+  //           ? [{ [name]: value }]
+  //           : [...subject.ECAValue, { [name]: value }],
+  //     };
+
+  //     let newArray = [...prev];
+  //     newArray[index] = newReassoc;
+
+  //     console.log(newArray);
+  //     return [...newArray];
+  //   });
+  // };
+
   const formCheckSubmitHandler = () => {
-    dispatch(postBulkEditEcaAction(bulk, selectSubject));
+    dispatch(postBulkEditEcaAction(bulk, search, selectSubject));
   };
   useEffect(() => {
     if (bulkData) {
@@ -83,25 +111,25 @@ const EcaDataBulkEdit = ({ bulkData, academicSubject, setOpenPopup }) => {
               <StyledTableCell>Roll No.</StyledTableCell>
               <StyledTableCell>Full Name</StyledTableCell>
               {selectSubject &&
-                selectSubject.map((subject, index) => (
-                  <StyledTableCell>{subject.ECAName}</StyledTableCell>
+                selectSubject.map((subject, i) => (
+                  <StyledTableCell key={i}>{subject.ECAName}</StyledTableCell>
                 ))}
             </TableRow>
           </TableHead>
           <TableBody>
             {bulk &&
               bulk.map((subject, index) => (
-                <StyledTableRow>
+                <StyledTableRow key={index}>
                   <StyledTableCell>{subject.RollNo}</StyledTableCell>
                   <StyledTableCell>{subject.FullName}</StyledTableCell>
                   {selectSubject &&
-                    selectSubject.map((subject, index) => (
-                      <StyledTableCell align="right">
+                    selectSubject.map((s, i) => (
+                      <StyledTableCell align="right" key={i}>
                         <TextField
-                          defaultValue={subject.ECAValue}
-                          label={subject.ECAName}
+                          defaultValue={s.ECAValue}
+                          label={s.ECAName}
                           variant="outlined"
-                          name={subject.ECAName}
+                          name={s.ECAName}
                           onChange={(e) =>
                             onChangeHandler(
                               subject,

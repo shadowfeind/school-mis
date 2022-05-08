@@ -57,7 +57,7 @@ export const getBulkEditEcaDataAction =
     }
   };
 
-  export const getListEcaDataAction =
+export const getListEcaDataAction =
   (year, program, classId, section, shift, event) => async (dispatch) => {
     try {
       dispatch({ type: GET_LIST_ECA_DATA_REQUEST });
@@ -79,8 +79,8 @@ export const getBulkEditEcaDataAction =
     }
   };
 
-  export const postBulkEditEcaAction =
-  (students, search,ddlAcademicFacultyECASubModel) => async (dispatch) => {
+export const postBulkEditEcaAction =
+  (students, search, ddlAcademicFacultyECASubModel) => async (dispatch) => {
     try {
       dispatch({ type: POST_BULK_ECA_DATA_REQUEST });
 
@@ -91,12 +91,6 @@ export const getBulkEditEcaDataAction =
       });
 
       console.log(jsonData);
-
-      // const config = {
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //   },
-      // };
 
       await axios.post(
         `${API_URL}/api/LevelTest/PostLevelTest`,
@@ -112,5 +106,3 @@ export const getBulkEditEcaDataAction =
       });
     }
   };
-
-

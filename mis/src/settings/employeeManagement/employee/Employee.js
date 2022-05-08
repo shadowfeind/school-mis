@@ -46,10 +46,10 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const tableHeader = [
+  { id: "LoginName", label: "Login Name" },
   { id: "FullName", label: "Full Name" },
-  { id: "BranchName", label: "Branch Name" },
-  { id: "DepartmentName", label: "Department Name" },
-  { id: "EmaiPositionHeadlID", label: "Position Head" },
+  { id: "Category", label: "Category" },
+  { id: "EmailID", label: "Email Id" },
   { id: "MobileNumber", label: "Mobile Number" },
   { id: "actions", label: "Actions", disableSorting: true },
 ];

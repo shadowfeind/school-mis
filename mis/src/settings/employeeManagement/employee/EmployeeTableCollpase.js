@@ -55,10 +55,10 @@ const EmployeeTableCollapse = ({
   return (
     <>
       <TableRow>
+      <TableCell>{item.LoginIDHREmployee}</TableCell>
         <TableCell>{item.FullName}</TableCell>
-        <TableCell>{item.BranchName}</TableCell>
-        <TableCell>{item.DepartmentName}</TableCell>
-        <TableCell>{item.PositionHead}</TableCell>
+        <TableCell>{item.IDHREmployeeCategoryRole}</TableCell>
+        <TableCell>{item.EmailID}</TableCell>
         <TableCell>{item.MobileNumber}</TableCell>
         <TableCell>
           <Button

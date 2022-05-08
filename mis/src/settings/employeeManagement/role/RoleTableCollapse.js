@@ -34,9 +34,10 @@ const RoleTableCollapse = ({
       <TableRow>
         <TableCell>{item.RoleName}</TableCell>
         <TableCell>{item.Description}</TableCell>
-        <TableCell>{item.Created_On?.slice(0,10)}</TableCell>
-        <TableCell>{item.Updated_On?.slice(0,10)}</TableCell>
-        <TableCell>{item.MarkAsAdmin ? "Admin" : "NotAdmin"}</TableCell>
+        {/* <TableCell>{item.Created_On?.slice(0,10)}</TableCell>
+        <TableCell>{item.Updated_On?.slice(0,10)}</TableCell> */}
+        <TableCell>{item.IsSystemDefined ? "Defined" : "Not Defined"}</TableCell>
+        <TableCell>{item.MarkAsAdmin ? "Admin" : "Not Admin"}</TableCell>
         <TableCell>
           <Button
             variant="contained"

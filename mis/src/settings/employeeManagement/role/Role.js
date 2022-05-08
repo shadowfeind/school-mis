@@ -43,8 +43,9 @@ const useStyles = makeStyles((theme) => ({
 const tableHeader = [
   { id: "RoleName", label: "Role Name" },
   { id: "Description", label: "Description" },
-  { id: "Created_On", label: "Created_On" },
-  { id: "Updated_On", label: "Updated_On" },
+  // { id: "Created_On", label: "Created_On" },
+  // { id: "Updated_On", label: "Updated_On" },
+  { id: "IsSystemDefined", label: "System Defined" },
   { id: "MarkAsAdmin", label: "Mark As Admin" },
   { id: "actions", label: "Actions", disableSorting: true },
 ];

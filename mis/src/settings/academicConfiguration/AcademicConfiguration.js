@@ -7,7 +7,6 @@ import Box from "@material-ui/core/Box";
 import { makeStyles } from "@material-ui/core";
 import { useDispatch } from "react-redux";
 
-
 const ClassSubject = lazy(() => import("./classSubject/ClassSubject"));
 const AcademicClass = lazy(() => import("./academicClass/AcademicClass"));
 const AcademicFaculty = lazy(() => import("./academicFaculty/AcademicFaculty"));
@@ -25,6 +24,8 @@ const AssignStudentSubject = lazy(() =>
 );
 const SchoolBoard = lazy(() => import("./schoolBoard/SchoolBoard"));
 const AcademicYear = lazy(() => import("./academicYear/AcademicYear"));
+const AssignEca = lazy(() => import("./assignEca/AssignEca"));
+const EcaLookup = lazy(() => import("./ecaLookUp/EcaLookUp"));
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -134,12 +135,21 @@ const AcademicConfiguration = () => {
             label="Assign Faculty Subject"
             {...a11yProps(9)}
           />
+          <Tab
+            style={{ fontSize: "11px", color: "#fff" }}
+            label="ECA LookUp"
+            {...a11yProps(10)}
+          />
+          <Tab
+            style={{ fontSize: "11px", color: "#fff" }}
+            label="Assign ECA"
+            {...a11yProps(11)}
+          />
           {/* <Tab
             style={{ fontSize: "11px", color: "#fff" }}
             label="Assign Student Subject"
             {...a11yProps(10)}
           /> */}
-        
         </Tabs>
       </AppBar>
       <Suspense fallback={<div></div>}>
@@ -172,6 +182,12 @@ const AcademicConfiguration = () => {
         </TabPanel>
         <TabPanel value={value} index={9}>
           <AssignFacultySubject />
+        </TabPanel>
+        <TabPanel value={value} index={10}>
+          <EcaLookup />
+        </TabPanel>
+        <TabPanel value={value} index={11}>
+          <AssignEca />
         </TabPanel>
         {/* <TabPanel value={value} index={10}>
           <AssignStudentSubject />

@@ -11,6 +11,7 @@ import {
 
 import { HashRouter as Router, Route, Switch } from "react-router-dom";
 
+const EcaData = lazy(() => import("./examination/ecaData/EcaData"));
 const AutoSearch = lazy(() => import("./userProfile/autoSearch/AutoSearch"));
 const PageNotFound = lazy(() => import("./pageNotFound/PageNotFound"));
 const ClassSchedule = lazy(() =>
@@ -193,7 +194,7 @@ const App = () => {
               <Route path={"/class-schedule"} component={ClassSchedule} />
               {/* class schedule ends */}
               <Route path={"/settings"} component={Settings} />
-              {/* <Route path={"/eca-data"} component={EcaData} /> */}
+              <Route path={"/eca-data"} component={EcaData} />
               <Route
                 path={"/class-notification"}
                 component={ClassNotification}

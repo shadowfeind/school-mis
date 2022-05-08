@@ -1,10 +1,10 @@
-import AssignmentIndIcon from '@material-ui/icons/AssignmentInd';
-import SystemUpdateAltIcon from '@material-ui/icons/SystemUpdateAlt';
-import PublishIcon from '@material-ui/icons/Publish';
-import HowToRegIcon from '@material-ui/icons/HowToReg';
-import SportsKabaddiIcon from '@material-ui/icons/SportsKabaddi';
-import AssessmentIcon from '@material-ui/icons/Assessment';
-import ListAltIcon from '@material-ui/icons/ListAlt';
+import AssignmentIndIcon from "@material-ui/icons/AssignmentInd";
+import SystemUpdateAltIcon from "@material-ui/icons/SystemUpdateAlt";
+import PublishIcon from "@material-ui/icons/Publish";
+import HowToRegIcon from "@material-ui/icons/HowToReg";
+import SportsKabaddiIcon from "@material-ui/icons/SportsKabaddi";
+import AssessmentIcon from "@material-ui/icons/Assessment";
+import ListAltIcon from "@material-ui/icons/ListAlt";
 export const ExaminationRoute = [
   // {
   //   name: "Academic Grading",
@@ -61,12 +61,12 @@ export const ExaminationRoute = [
     icon: SportsKabaddiIcon,
     exact: false,
   },
-  // {
-  //   name: "ECA Data",
-  //   route: "/eca-data",
-  //   icon: Accessible,
-  //   exact: false,
-  // },
+  {
+    name: "ECA Data",
+    route: "/eca-data",
+    icon: SportsKabaddiIcon,
+    exact: false,
+  },
   {
     name: "Exam Result(Print)",
     route: "/exam-result",

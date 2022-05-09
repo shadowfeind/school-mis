@@ -18,8 +18,7 @@ const PrintAdminCardTableCollapse = ({ item }) => {
         <TableCell>{item.StudentFullName}</TableCell>
         <TableCell>{item.RollNo}</TableCell>
         <TableCell>{item.UniversityRegistrationNumber}</TableCell>
-        <TableCell>{item.AcademicProgramName}</TableCell>
-        <TableCell>{item.FacultyName}</TableCell>
+        <TableCell>{item.AcademicProgramName}/{item.FacultyName}</TableCell>
         <TableCell>{item.Section}</TableCell>
         <TableCell>{item.EventName}</TableCell>
         <TableCell>{item.Status}</TableCell>

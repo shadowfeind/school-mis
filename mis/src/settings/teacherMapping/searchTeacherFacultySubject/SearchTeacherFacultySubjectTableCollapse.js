@@ -6,20 +6,23 @@ import DeleteIcon from "@material-ui/icons/Delete";
 
 
 const SearchTeacherFacultySubjectTableCollapse = ({
-  item
+  item,classId,section,shift
 }) => {
+
+  const classNameToShow = classId?.filter( s => s.Key === item.Level)
+  const sectionNameToShow = section?.filter( s => s.Key === item.Section)
+  const shiftNameToShow = shift?.filter( s => s.Key === item.IDAcademicShift)
 
   return (
     <TableRow>
       <TableCell>{item.TeacherName}</TableCell>
       <TableCell>{item.IDYearFacultyLink}</TableCell>
-      <TableCell>{item.IDAcademicFacultySubjectLink}</TableCell>
-      <TableCell>{item.Level}</TableCell>
+      <TableCell>{classNameToShow?.length > 0 && classNameToShow[0].Value}</TableCell>
       <TableCell>
         {item.SubjectName} ({item.SubjectCode})
       </TableCell>
-      <TableCell>{item.Section}</TableCell>
-      <TableCell>{item.IDAcademicShift}</TableCell>
+      <TableCell>{sectionNameToShow?.length > 0 && sectionNameToShow[0].Value}</TableCell>
+      <TableCell>{shiftNameToShow?.length > 0 && shiftNameToShow[0].Value}</TableCell>
       <TableCell>{item.Created_On.slice(0, 10)}</TableCell>
       <TableCell>{item.IsActive ? "Active" : "Not Active"}</TableCell>
     </TableRow>

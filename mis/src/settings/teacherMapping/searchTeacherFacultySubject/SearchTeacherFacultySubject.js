@@ -44,7 +44,6 @@ const useStyles = makeStyles((theme) => ({
 const tableHeader = [
   { id: "TeacherName", label: "Teacher Name" },
   { id: "IDYearFacultyLink", label: "Academic Year" },
-  { id: "IDAcademicFacultySubjectLink", label: "Faculty/Program" },
   { id: "Level", label: "Class" },
   { id: "SubjectName", label: "Subject" },
   { id: "Section", label: "Section" },
@@ -60,7 +59,7 @@ const SearchTeacherFacultySubject = () => {
       return item;
     },
   });
-
+  const [classId, setClassId] = useState("");
   const [openPopup, setOpenPopup] = useState(false);
   const [notify, setNotify] = useState({
     isOpen: false,
@@ -72,6 +71,11 @@ const SearchTeacherFacultySubject = () => {
     title: "",
     subTitle: "",
   });
+
+  const { admitCardInitialData } = useSelector(
+    (state) => state.getInitialAdmitCardData
+  );
+
   const [creationAccountSection, setCreationAccountSection] = useState([]);
   const [creationAccountSectionValue, setCreationAccountSectionValue] =
     useState();
@@ -121,10 +125,10 @@ const SearchTeacherFacultySubject = () => {
     }
   }, [searchTeacherFacInitData]);
 
-  useEffect(()=>{
-    dispatch({type:GET_ALL_SEARCH_TEACHER_FAC_SUB_LIST_DATA_RESET})
+  useEffect(() => {
+    dispatch({ type: GET_ALL_SEARCH_TEACHER_FAC_SUB_LIST_DATA_RESET });
     dispatch(getAllSearchTeacherFacSubInitialDataAction());
-  },[])
+  }, []);
 
   useEffect(() => {
     if (searchTeacherFacListData) {
@@ -180,22 +184,25 @@ const SearchTeacherFacultySubject = () => {
           <LoadingComp />
         ) : (
           <>
-        {searchTeacherFacListData && (
-          <TableContainer className={classes.table}>
-            <TblHead />
-            <TableBody>
-              {tableDataAfterPagingAndSorting().map((item) => (
-                <SearchTeacherFacultySubjectTableCollapse
-                  item={item}
-                  key={item.$id}
-                  //   updateTeacherHandler={updateTeacherHandler}
-                />
-              ))}
-            </TableBody>
-          </TableContainer>
-        )}
-        {searchTeacherFacListData && <TblPagination />}
-        </>
+            {searchTeacherFacListData && (
+              <TableContainer className={classes.table}>
+                <TblHead />
+                <TableBody>
+                  {tableDataAfterPagingAndSorting().map((item) => (
+                    <SearchTeacherFacultySubjectTableCollapse
+                      item={item}
+                      key={item.$id}
+                      classId={searchTeacherFacListData?.searchFilterModel.ddlClass}
+                      section={searchTeacherFacListData?.searchFilterModel.ddlSection}
+                      shift={searchTeacherFacListData?.searchFilterModel.ddlAcademicShift}
+                      //   updateTeacherHandler={updateTeacherHandler}
+                    />
+                  ))}
+                </TableBody>
+              </TableContainer>
+            )}
+            {searchTeacherFacListData && <TblPagination />}
+          </>
         )}
       </CustomContainer>
       <Notification notify={notify} setNotify={setNotify} />

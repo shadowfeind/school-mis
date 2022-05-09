@@ -52,22 +52,51 @@ const EcaDataBulkEdit = ({
   const classes = useStyles();
   const dispatch = useDispatch();
 
-  const onChangeHandler = (subject, value, name, index) => {
-    setBulk((prev) => {
-      const newReassoc = {
-        ...subject,
-        ECAValue:
-          subject.ECAValue === null
-            ? [{ [name]: value }]
-            : [...subject.ECAValue, { [name]: value }],
-      };
+  const onChangeHandler = (subject, value, name, id) => {
+    console.log("subject", subject);
+    console.log("value", value);
+    console.log("name", name);
+    console.log("id", id);
+    const newReassoc = {
+      ...subject,
+      ECAValue: value,
+      IDHREmployee: id,
+    };
 
-      let newArray = [...prev];
-      newArray[index] = newReassoc;
+    const filteredEca = ecaData?.filter(
+      (x) => !(x.IDHREmployee == id && x.ECAName == name)
+    );
+    console.log("filteredEca", filteredEca);
+    if (filteredEca?.length > 0) {
+      console.log("final result", [...filteredEca, newReassoc]);
+      setEcaData([...filteredEca, newReassoc]);
+    }
 
-      console.log(newArray);
-      return [...newArray];
-    });
+    // setEcaData((prev) => {
+    //   console.log(prev);
+    //   const newReassoc = {
+    //     ...subject,
+    //     ECAValue: value,
+    //     IDHREmployee: id,
+    //   };
+
+    //   let filteredEca = [];
+
+    //   for (let i = 0; i < prev.length; i++) {
+    //     if (prev[i].IDHREmployee !== id && prev[i].ECAName !== name) {
+    //       filteredEca.push(prev[i]);
+    //     }
+    //   }
+
+    //   console.log(filteredEca);
+    //   const filteredEca = prev?.filter(
+    //     (x) => x.IDHREmployee !== id && x.ECAName !== name
+    //   );
+
+    //   if (filteredEca?.length > 0) {
+    //     return [...filteredEca, newReassoc];
+    //   }
+    // });
   };
 
   // const onChangeHandler = (subject, value, name, index) => {
@@ -89,7 +118,7 @@ const EcaDataBulkEdit = ({
   // };
 
   const formCheckSubmitHandler = () => {
-    dispatch(postBulkEditEcaAction(bulk, search, selectSubject));
+    dispatch(postBulkEditEcaAction(bulk, search, ecaData));
   };
   useEffect(() => {
     if (bulkData) {
@@ -102,6 +131,21 @@ const EcaDataBulkEdit = ({
       setSelectSubject(academicSubject);
     }
   }, [academicSubject]);
+
+  useEffect(() => {
+    if (bulkData) {
+      let tempArray = [];
+
+      bulkData?.forEach((d) => {
+        let test = academicSubject?.map((s) => {
+          tempArray.push({ ...s, IDHREmployee: d.IDHREmployee });
+        });
+      });
+      setEcaData([...tempArray]);
+      console.log(tempArray);
+    }
+  }, [bulkData]);
+
   return (
     <>
       <TableContainer component={Paper}>
@@ -132,10 +176,10 @@ const EcaDataBulkEdit = ({
                           name={s.ECAName}
                           onChange={(e) =>
                             onChangeHandler(
-                              subject,
+                              s,
                               e.target.value,
                               e.target.name,
-                              index
+                              subject.IDHREmployee
                             )
                           }
                         />

@@ -80,20 +80,29 @@ export const getListEcaDataAction =
   };
 
 export const postBulkEditEcaAction =
-  (students, search, ddlAcademicFacultyECASubModel) => async (dispatch) => {
+  (students, search, ecaData) => async (dispatch) => {
     try {
       dispatch({ type: POST_BULK_ECA_DATA_REQUEST });
+
+      // console.log(students);
+      // console.log(typeof students);
+      // let ecaData = [];
+
+      // let test = students.map((s) => [...s.ECAValue]);
+
+      // ecaData.push(test);
+      // console.log(ecaData);
 
       const jsonData = JSON.stringify({
         dbModelLst: students,
         searchFilterModel: search,
-        ddlAcademicFacultyECASubModel,
+        ddlAcademicFacultyECASubModel: ecaData,
       });
 
-      console.log(jsonData);
+      console.log("this is the one", jsonData);
 
       await axios.post(
-        `${API_URL}/api/LevelTest/PostLevelTest`,
+        `${API_URL}/api/ECAData/PostECAData`,
         jsonData,
         tokenConfig
       );

@@ -118,23 +118,23 @@ const OldQuestions = () => {
     (state) => state.getSubjectOldQuestions
   );
 
-  const { singleEditOldQuestions,loading:loadingEdit, error: singleEditOldQuestionsError } = useSelector(
-    (state) => state.getSingleEditOldQuestions
-  );
+  const {
+    singleEditOldQuestions,
+    loading: loadingEdit,
+    error: singleEditOldQuestionsError,
+  } = useSelector((state) => state.getSingleEditOldQuestions);
 
   const { singleCreateOldQuestions } = useSelector(
     (state) => state.getSingleCreateOldQuestions
   );
 
-  const { success:postOldQuestionsSuccess ,error: postOldQuestionsError } = useSelector(
-    (state) => state.postOldQuestions
-  );
+  const { success: postOldQuestionsSuccess, error: postOldQuestionsError } =
+    useSelector((state) => state.postOldQuestions);
 
-  const { success:putOldQuestionsSuccess ,error: putOldQuestionsError } = useSelector(
-    (state) => state.putOldQuestions
-  );
+  const { success: putOldQuestionsSuccess, error: putOldQuestionsError } =
+    useSelector((state) => state.putOldQuestions);
 
-  const { listOldQuestions ,loading} = useSelector(
+  const { listOldQuestions, loading } = useSelector(
     (state) => state.getListOldQuestions
   );
 
@@ -145,7 +145,6 @@ const OldQuestions = () => {
   } = useSelector((state) => state.downloadOldQuestions);
 
   if (downloadFile) {
-    
     var blob = new Blob([downloadFile]);
     var url = window.URL.createObjectURL(blob);
     debugger;
@@ -207,7 +206,7 @@ const OldQuestions = () => {
       type: "success",
     });
     setOpenPopup(false);
-    dispatch(getListOldQuestionsAction(classId , facultySubject));
+    dispatch(getListOldQuestionsAction(classId, facultySubject));
     dispatch({ type: POST_OLD_QUESTIONS_RESET });
   }
   if (putOldQuestionsSuccess) {
@@ -217,7 +216,7 @@ const OldQuestions = () => {
       type: "success",
     });
     setOpenPopup(false);
-    dispatch(getListOldQuestionsAction(classId , facultySubject));
+    dispatch(getListOldQuestionsAction(classId, facultySubject));
     dispatch({ type: PUT_OLD_QUESTIONS_RESET });
   }
 
@@ -227,14 +226,15 @@ const OldQuestions = () => {
 
   useEffect(() => {
     if (allOldQuestions) {
-      setDdlClass(allOldQuestions.searchFilterModel.ddlClass);
+      setDdlClass(allOldQuestions?.searchFilterModel.ddlClass);
+      // setClassId(allOldQuestions?.searchFilterModel.ddlClass[0].Key)
     }
   }, [dispatch, allOldQuestions]);
 
-  useEffect(()=>{
-    dispatch({type: GET_LIST_OF_OLD_QUESTIONS_RESET})
+  useEffect(() => {
+    dispatch({ type: GET_LIST_OF_OLD_QUESTIONS_RESET });
     dispatch(getAllOldQuestionsAction());
-  },[])
+  }, []);
 
   useEffect(() => {
     if (listOldQuestions) {
@@ -264,18 +264,18 @@ const OldQuestions = () => {
   };
 
   const handleCreate = () => {
-    if(validate()){
-    dispatch(getSingleCreateOldQuestionsAction(classId, facultySubject));
-    setOpenPopup(true);
-    dispatch({ type: GET_SINGLE_TO_EDIT_OLD_QUESTIONS_RESET });
+    if (validate()) {
+      dispatch(getSingleCreateOldQuestionsAction(classId, facultySubject));
+      setOpenPopup(true);
+      dispatch({ type: GET_SINGLE_TO_EDIT_OLD_QUESTIONS_RESET });
+    }
   };
-};
 
-const updateOldQuestions = (id) => {
-  dispatch({ type:GET_SINGLE_TO_CREATE_OLD_QUESTIONS_RESET });
-  dispatch(getSingleEditOldQuestionsAction(id));
-  setOpenPopup(true);
-};
+  const updateOldQuestions = (id) => {
+    dispatch({ type: GET_SINGLE_TO_CREATE_OLD_QUESTIONS_RESET });
+    dispatch(getSingleEditOldQuestionsAction(id));
+    setOpenPopup(true);
+  };
 
   const handleClassIdChange = (value) => {
     setClassId(value);
@@ -314,7 +314,6 @@ const updateOldQuestions = (id) => {
                 type="submit"
                 style={{ margin: "10px 0 0 10px" }}
                 onClick={handleCreate}
-                type="submit"
               >
                 CREATE
               </Button>
@@ -324,7 +323,6 @@ const updateOldQuestions = (id) => {
                 type="submit"
                 style={{ margin: "10px 0 0 10px" }}
                 onClick={listSearchHandler}
-                type="submit"
               >
                 SEARCH
               </Button>
@@ -350,23 +348,23 @@ const updateOldQuestions = (id) => {
           <LoadingComp />
         ) : (
           <>
-        {listOldQuestions && (
-          <TableContainer className={classes.table}>
-            <TblHead />
+            {listOldQuestions && (
+              <TableContainer className={classes.table}>
+                <TblHead />
 
-            <TableBody>
-              {tableDataAfterPagingAndSorting().map((item) => (
-                <OldQuestionsTableCollapse
-                  item={item}
-                  key={item.$id}
-                  updateOldQuestions={updateOldQuestions}
-                />
-              ))}
-            </TableBody>
-          </TableContainer>
-        )}
-        {listOldQuestions && <TblPagination />}
-        </>
+                <TableBody>
+                  {tableDataAfterPagingAndSorting().map((item) => (
+                    <OldQuestionsTableCollapse
+                      item={item}
+                      key={item.$id}
+                      updateOldQuestions={updateOldQuestions}
+                    />
+                  ))}
+                </TableBody>
+              </TableContainer>
+            )}
+            {listOldQuestions && <TblPagination />}
+          </>
         )}
       </CustomContainer>
       <Popup
@@ -374,16 +372,20 @@ const updateOldQuestions = (id) => {
         setOpenPopup={setOpenPopup}
         title="Old Questions Form"
       >
-       {loadingEdit ? (
+        {loadingEdit ? (
           <LoadingComp />
         ) : (
           <>
-        <OldQuestionsForm
-        singleEditOldQuestions={singleEditOldQuestions && singleEditOldQuestions}
-        singleCreateOldQuestions={singleCreateOldQuestions && singleCreateOldQuestions}
-        setOpenPopup={setOpenPopup}
-        />
-        </>
+            <OldQuestionsForm
+              singleEditOldQuestions={
+                singleEditOldQuestions && singleEditOldQuestions
+              }
+              singleCreateOldQuestions={
+                singleCreateOldQuestions && singleCreateOldQuestions
+              }
+              setOpenPopup={setOpenPopup}
+            />
+          </>
         )}
       </Popup>
       <Notification notify={notify} setNotify={setNotify} />

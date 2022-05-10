@@ -78,7 +78,7 @@ const SearchTeacherFacultySubject = () => {
 
   const [creationAccountSection, setCreationAccountSection] = useState([]);
   const [creationAccountSectionValue, setCreationAccountSectionValue] =
-    useState();
+    useState("");
   const [errors, setErrors] = useState([]);
   const dispatch = useDispatch();
   const classes = useStyles();
@@ -120,7 +120,10 @@ const SearchTeacherFacultySubject = () => {
   useEffect(() => {
     if (searchTeacherFacInitData) {
       setCreationAccountSection(
-        searchTeacherFacInitData.searchFilterModel.ddlTeacher
+        searchTeacherFacInitData?.searchFilterModel.ddlTeacher
+      );
+      setCreationAccountSectionValue(
+        searchTeacherFacInitData?.searchFilterModel.ddlTeacher[0].Key
       );
     }
   }, [searchTeacherFacInitData]);
@@ -192,6 +195,8 @@ const SearchTeacherFacultySubject = () => {
                     <SearchTeacherFacultySubjectTableCollapse
                       item={item}
                       key={item.$id}
+                      year= {searchTeacherFacListData?.searchFilterModel.ddlAcademicYear}
+                      subject={searchTeacherFacListData?.ddlFacultySubject}
                       classId={searchTeacherFacListData?.searchFilterModel.ddlClass}
                       section={searchTeacherFacListData?.searchFilterModel.ddlSection}
                       shift={searchTeacherFacListData?.searchFilterModel.ddlAcademicShift}

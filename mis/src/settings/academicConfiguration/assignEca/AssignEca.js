@@ -39,12 +39,12 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const tableHeader = [
+  { id: "IDHRCompany", label: "Company" },
   { id: "ECAName", label: "ECA Name" },
   { id: "ECADescription", label: "ECA Description" },
   { id: "Created_On", label: "Created_On" },
   { id: "Updated_On", label: "Updated_On" },
   { id: "IsActive", label: "IsActive" },
-  { id: "IDHRCompany", label: "Company" },
 ];
 
 const AssignECA = () => {
@@ -84,7 +84,6 @@ const AssignECA = () => {
     TblPagination,
     tableDataAfterPagingAndSorting,
   } = useCustomTable(tableData, tableHeader, filterFn);
-
 
   const { allAssignEca, error } = useSelector((state) => state.getAllAssignEca);
 
@@ -149,9 +148,11 @@ const AssignECA = () => {
       dispatch(getALLAssignEcaAction());
     }
     if (allAssignEca) {
-      setAcademicYear(allAssignEca.searchFilterModel.ddlAcademicYear);
-      setDdlProgram(allAssignEca.searchFilterModel.ddlFacultyProgramLink);
-      setDdlClass(allAssignEca.searchFilterModel.ddlClass);
+      setAcademicYear(allAssignEca?.searchFilterModel.ddlAcademicYear);
+      // setDdlProgram(allAssignEca.searchFilterModel.ddlFacultyProgramLink);
+      setProgramValue(allAssignEca?.searchFilterModel.ddlFacultyProgramLink[0].Key);
+      setDdlClass(allAssignEca?.searchFilterModel.ddlClass);
+      setClassId(allAssignEca?.searchFilterModel.ddlClass[0].Key);
     }
   }, [dispatch, allAssignEca]);
 
@@ -178,9 +179,9 @@ const AssignECA = () => {
   };
 
   const createHandler = () => {
-    if(validate()){
-    dispatch(getSingleCreateAssignEcaAction(acaYear, programValue, classId));
-    setOpenPopup(true);
+    if (validate()) {
+      dispatch(getSingleCreateAssignEcaAction(acaYear, programValue, classId));
+      setOpenPopup(true);
     }
   };
 
@@ -199,7 +200,7 @@ const AssignECA = () => {
                 errors={errors.acaYear}
               />
             </Grid>
-            <Grid item xs={3}>
+            {/* <Grid item xs={3}>
               <SelectControl
                 name="Program/Faculty"
                 label="Program/Faculty"
@@ -208,7 +209,7 @@ const AssignECA = () => {
                 options={ddlprogram}
                 errors={errors.programValue}
               />
-            </Grid>
+            </Grid> */}
             <Grid item xs={3}>
               <SelectControl
                 name="Classes"
@@ -249,9 +250,7 @@ const AssignECA = () => {
 
             <TableBody>
               {tableDataAfterPagingAndSorting().map((item) => (
-                <AssignEcaTableCollapse item={item} key={item.$id} 
-                
-                />
+                <AssignEcaTableCollapse item={item} key={item.$id} level={listAssignEca?.ddlLevel}/>
               ))}
             </TableBody>
           </TableContainer>
@@ -265,10 +264,11 @@ const AssignECA = () => {
         title="Assign ECA"
       >
         <AssignEcaForm
-          assignEca={
-            singleCreateAssignEca && singleCreateAssignEca.ddlECA
+          assignEca={singleCreateAssignEca && singleCreateAssignEca.ddlECA}
+          idYearFacultyProgramLink={
+            singleCreateAssignEca &&
+            singleCreateAssignEca.idYearFacultyProgramLink
           }
-          idYearFacultyProgramLink={singleCreateAssignEca && singleCreateAssignEca.idYearFacultyProgramLink}
           level={singleCreateAssignEca && singleCreateAssignEca.level}
           setOpenPopup={setOpenPopup}
         />

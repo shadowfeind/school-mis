@@ -158,21 +158,26 @@ const TotalStudentAttendance = () => {
   useEffect(() => {
     if (allTotalStudentAttendanceData) {
       setProgramValue(
-        allTotalStudentAttendanceData.searchFilterModel.ddlFacultyProgramLink[0].Key
+        allTotalStudentAttendanceData?.searchFilterModel.ddlFacultyProgramLink[0].Key
       );
-      setDdlClass(allTotalStudentAttendanceData.searchFilterModel.ddlClass);
+      setDdlClass(allTotalStudentAttendanceData?.searchFilterModel.ddlClass);
+      setClassId(allTotalStudentAttendanceData?.searchFilterModel.ddlClass[0].Key);
       setAcademicYearDdl(
-        allTotalStudentAttendanceData.searchFilterModel.ddlAcademicYear
+        allTotalStudentAttendanceData?.searchFilterModel.ddlAcademicYear
       );
       setDdlShift(
-        allTotalStudentAttendanceData.searchFilterModel.ddlAcademicShift
+        allTotalStudentAttendanceData?.searchFilterModel.ddlAcademicShift
       );
-      setDdlSection(allTotalStudentAttendanceData.searchFilterModel.ddlSection);
+      setShift(
+        allTotalStudentAttendanceData?.searchFilterModel.ddlAcademicShift[0].Key
+      );
+      setDdlSection(allTotalStudentAttendanceData?.searchFilterModel.ddlSection);
+      setSection(allTotalStudentAttendanceData?.searchFilterModel.ddlSection[0].Key);
       setStartDate(
-        allTotalStudentAttendanceData.searchFilterModel.currentDate.slice(0, 10)
+        allTotalStudentAttendanceData?.searchFilterModel.currentDate.slice(0, 10)
       );
       setEndDate(
-        allTotalStudentAttendanceData.searchFilterModel.currentDate.slice(0, 10)
+        allTotalStudentAttendanceData?.searchFilterModel.currentDate.slice(0, 10)
       );
     }
   }, [allTotalStudentAttendanceData, dispatch]);

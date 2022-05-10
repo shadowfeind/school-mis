@@ -40,9 +40,9 @@ const AcademicProgramTableCollapse = ({
       <TableRow>
         <TableCell>{item.AcademicProgramName}</TableCell>
         <TableCell>{item.Description}</TableCell>
-        <TableCell>{item.IsActive ? "IsActive" : "NotActive"}</TableCell>
         <TableCell>{item.Created_On.slice(0, 10)}</TableCell>
         <TableCell>{item.Updated_On.slice(0, 10)}</TableCell>
+        <TableCell>{item.IsActive ? "IsActive" : "NotActive"}</TableCell>
         <TableCell>
           <Button
             variant="contained"

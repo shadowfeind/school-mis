@@ -196,33 +196,40 @@ const StudentMonthlyPresentSheet = () => {
   useEffect(() => {
     if (allStudentMonthlyPresentSheetData) {
       setProgramValue(
-        allStudentMonthlyPresentSheetData.searchFilterModel
+        allStudentMonthlyPresentSheetData?.searchFilterModel
           .ddlFacultyProgramLink[0].Key
       );
-      setDdlClass(allStudentMonthlyPresentSheetData.searchFilterModel.ddlClass);
+      setDdlClass(allStudentMonthlyPresentSheetData?.searchFilterModel.ddlClass);
+      setClassId(allStudentMonthlyPresentSheetData?.searchFilterModel.ddlClass[0].Key);
       setAcademicYearDdl(
-        allStudentMonthlyPresentSheetData.searchFilterModel.ddlAcademicYear
+        allStudentMonthlyPresentSheetData?.searchFilterModel.ddlAcademicYear
       );
       setDdlShift(
-        allStudentMonthlyPresentSheetData.searchFilterModel.ddlAcademicShift
+        allStudentMonthlyPresentSheetData?.searchFilterModel.ddlAcademicShift
+      );
+      setShift(
+        allStudentMonthlyPresentSheetData?.searchFilterModel.ddlAcademicShift[0].Key
       );
       setDdlSection(
-        allStudentMonthlyPresentSheetData.searchFilterModel.ddlSection
+        allStudentMonthlyPresentSheetData?.searchFilterModel.ddlSection
+      );
+      setSection(
+        allStudentMonthlyPresentSheetData?.searchFilterModel.ddlSection[0].Key
       );
       setDdlNepMonth(
-        allStudentMonthlyPresentSheetData.searchFilterModel.ddlnpMonth
+        allStudentMonthlyPresentSheetData?.searchFilterModel.ddlnpMonth
       );
       setDdlNepYear(
-        allStudentMonthlyPresentSheetData.searchFilterModel.ddlnpYear
+        allStudentMonthlyPresentSheetData?.searchFilterModel.ddlnpYear
       );
       setDate(
-        allStudentMonthlyPresentSheetData.searchFilterModel.currentDate.slice(
+        allStudentMonthlyPresentSheetData?.searchFilterModel.currentDate.slice(
           0,
           10
         )
       );
-      setNepMonth(allStudentMonthlyPresentSheetData.searchFilterModel.npMonth);
-      setNepYear(allStudentMonthlyPresentSheetData.searchFilterModel.npYear);
+      setNepMonth(allStudentMonthlyPresentSheetData?.searchFilterModel.npMonth);
+      setNepYear(allStudentMonthlyPresentSheetData?.searchFilterModel.npYear);
     }
   }, [allStudentMonthlyPresentSheetData, dispatch]);
 

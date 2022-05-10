@@ -74,7 +74,7 @@ const ExamResult = () => {
   const [date, setDate] = useState("2022-01-28");
   const [dateValue, setDateValue] = useState("2022-01-28");
   const [npYear, setNpYear] = useState("");
-  const [errors, setErrors] = useState([]);
+  const [errors, setErrors] = useState({});
   const dispatch = useDispatch();
   const classes = useStyles();
   const [openPopup, setOpenPopup] = useState(false);
@@ -211,16 +211,19 @@ const ExamResult = () => {
     dispatch({ type: "GET_LINK", payload: "examination" });
     if (examResultInitialDatas) {
       setProgramValue(
-        examResultInitialDatas.searchFilterModel.ddlFacultyProgramLink[0].Key
+        examResultInitialDatas?.searchFilterModel.ddlFacultyProgramLink[0].Key
       );
-      setDdlClass(examResultInitialDatas.searchFilterModel.ddlClass);
+      setDdlClass(examResultInitialDatas?.searchFilterModel.ddlClass);
+      setClassId(examResultInitialDatas?.searchFilterModel.ddlClass[0].Key);
       setAcademicYearDdl(
-        examResultInitialDatas.searchFilterModel.ddlAcademicYear
+        examResultInitialDatas?.searchFilterModel.ddlAcademicYear
       );
-      setDdlShift(examResultInitialDatas.searchFilterModel.ddlAcademicShift);
-      setDdlSection(examResultInitialDatas.searchFilterModel.ddlSection);
-      setDdlNpYear(examResultInitialDatas.searchFilterModel.ddlnpYear);
-      setNpYear(examResultInitialDatas.searchFilterModel.npYear);
+      setDdlShift(examResultInitialDatas?.searchFilterModel.ddlAcademicShift);
+      setShift(examResultInitialDatas?.searchFilterModel.ddlAcademicShift[0].Key);
+      setDdlSection(examResultInitialDatas?.searchFilterModel.ddlSection);
+      setSection(examResultInitialDatas?.searchFilterModel.ddlSection[0].Key);
+      setDdlNpYear(examResultInitialDatas?.searchFilterModel.ddlnpYear);
+      setNpYear(examResultInitialDatas?.searchFilterModel.npYear);
     }
   }, [examResultInitialDatas, dispatch]);
 
@@ -275,6 +278,7 @@ const ExamResult = () => {
 
   const handleClassIdChange = (value) => {
     setShowDatatable(false);
+    setDdlEvent([]);
     setClassId(value);
     setEvent("");
     dispatch(getEventForExamMarkAction(acaYear, programValue, value));

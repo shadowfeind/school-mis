@@ -6,8 +6,10 @@ import { GET_HEADER_BANNER_RESET, GET_HEADER_CONTENT_RESET } from "../../../dash
 import { useSelector } from "react-redux";
 import CustomContainer from "../../../components/CustomContainer";
 
-const StudentIdCardPrint = ({ studentId,headerBanners, classNames, examDates }) => {
+const StudentIdCardPrint = ({ studentId,headerBanners, classnames,section, examDates }) => {
 
+  const classNameToShow = classnames?.filter(s=> s.Key === studentId.IdLevel)
+  const sectionNameToShow = section?.filter(s=> s.Key == studentId.Section)
   const dispatch = useDispatch();
   
   return (
@@ -35,13 +37,16 @@ const StudentIdCardPrint = ({ studentId,headerBanners, classNames, examDates }) 
           <strong>Name:</strong> {studentId.StudentFullName}
         </h6>
         <h6>
-          <strong>Class:</strong> {classNames?.IdLevel}
+          <strong>Class:</strong> {classNameToShow?.length>0 && classNameToShow[0].Value}
         </h6>
         <h6>
-          <strong>Symbol No:</strong> {studentId.UniversityRegistrationNumber}
+          <strong>Section:</strong> {sectionNameToShow?.length>0 && sectionNameToShow[0].Value}
         </h6>
         <h6>
-          <strong>Section:</strong>
+          <strong>Roll No:</strong> {studentId.rollNo}
+        </h6>
+        <h6>
+          <strong>Mobile No:</strong> {studentId.MobileNumber}
         </h6>
       </div>
     </div>

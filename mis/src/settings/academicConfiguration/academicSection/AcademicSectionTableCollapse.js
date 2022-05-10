@@ -35,9 +35,9 @@ const AcademicSectionTableCollapse = ({
         <TableCell>{item.RoomName}</TableCell>
         <TableCell>{item.RoomLocation}</TableCell>
         <TableCell>{item.RoomCapacity}</TableCell>
-        <TableCell>{item.IsActive ? "Active" : "InActive"}</TableCell>
         <TableCell>{item.Created_On.slice(0, 10)}</TableCell>
         <TableCell>{item.Updated_On.slice(0, 10)}</TableCell>
+        <TableCell>{item.IsActive ? "Active" : "InActive"}</TableCell>
         <TableCell>
           <Button
             variant="contained"

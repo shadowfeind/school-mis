@@ -88,7 +88,7 @@ const PrintAdminCard = () => {
   const [student, setStudent] = useState(0);
   const [date, setDate] = useState();
   const [dateValue, setDateValue] = useState();
-  const [errors, setErrors] = useState([]);
+  const [errors, setErrors] = useState({});
   const dispatch = useDispatch();
   const classes = useStyles();
 
@@ -204,14 +204,17 @@ const PrintAdminCard = () => {
     dispatch({ type: "GET_LINK", payload: "examination" });
     if (admitCardInitialData) {
       setProgramValue(
-        admitCardInitialData.searchFilterModel.ddlFacultyProgramLink[0].Key
+        admitCardInitialData?.searchFilterModel.ddlFacultyProgramLink[0].Key
       );
-      setDdlClass(admitCardInitialData.searchFilterModel.ddlClass);
+      setDdlClass(admitCardInitialData?.searchFilterModel.ddlClass);
+      setClassId(admitCardInitialData?.searchFilterModel.ddlClass[0].Key);
       setAcademicYearDdl(
-        admitCardInitialData.searchFilterModel.ddlAcademicYear
+        admitCardInitialData?.searchFilterModel.ddlAcademicYear
       );
-      setDdlShift(admitCardInitialData.searchFilterModel.ddlAcademicShift);
-      setDdlSection(admitCardInitialData.searchFilterModel.ddlSection);
+      setDdlShift(admitCardInitialData?.searchFilterModel.ddlAcademicShift);
+      setShift(admitCardInitialData?.searchFilterModel.ddlAcademicShift[0].Key);
+      setDdlSection(admitCardInitialData?.searchFilterModel.ddlSection);
+      setSection(admitCardInitialData?.searchFilterModel.ddlSection[0].Key)
     }
   }, [admitCardInitialData, dispatch]);
 
@@ -286,6 +289,7 @@ const PrintAdminCard = () => {
 
   const handleClassIdChange = (value) => {
     setClassId(value);
+    setDdlEvent([]);
     if (acaYear) {
       dispatch(getEventAction(acaYear, programValue, value));
     }

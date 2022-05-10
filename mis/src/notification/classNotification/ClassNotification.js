@@ -170,14 +170,19 @@ const ClassNotification = () => {
   useEffect(() => {
     dispatch({ type: "GET_LINK", payload: "/notification" });
     if (classNotification) {
-      setAcademicYear(classNotification.searchFilterModel.ddlAcademicYear);
-      setShift(classNotification.searchFilterModel.ddlAcademicShift);
-      setProgramValue(
-        classNotification.searchFilterModel.ddlFacultyProgramLink[0].Key
+      setAcademicYear(classNotification?.searchFilterModel.ddlAcademicYear);
+      setShift(classNotification?.searchFilterModel.ddlAcademicShift);
+      setShiftValue(
+        classNotification?.searchFilterModel.ddlAcademicShift[0].Key
       );
-      setSection(classNotification.searchFilterModel.ddlSection);
-      setClassOpt(classNotification.searchFilterModel.ddlClass);
-      setDate(classNotification.searchFilterModel.currentDate.slice(0, 10));
+      setProgramValue(
+        classNotification?.searchFilterModel.ddlFacultyProgramLink[0].Key
+      );
+      setSection(classNotification?.searchFilterModel.ddlSection);
+      setSectionValue(classNotification?.searchFilterModel.ddlSection[0].Key);
+      setClassOpt(classNotification?.searchFilterModel.ddlClass);
+      setClassOptValue(classNotification?.searchFilterModel.ddlClass[0].Key);
+      setDate(classNotification?.searchFilterModel.currentDate.slice(0, 10));
     }
   }, [dispatch, classNotification]);
 

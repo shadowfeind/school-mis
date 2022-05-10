@@ -44,9 +44,9 @@ const tableHeader = [
   { id: "RoomName", label: "Room Name" },
   { id: "RoomLocation", label: "Room Location" },
   { id: "RoomCapacity", label: "Room Capacity" },
-  { id: "IsActive", label: "IsActive" },
   { id: "Created_On", label: "Created On" },
   { id: "Updated_On", label: "Updated On" },
+  { id: "IsActive", label: "IsActive" },
   { id: "actions", label: "Actions", disableSorting: true },
 ];
 

@@ -291,11 +291,12 @@ const ExamSchedule = () => {
     dispatch({ type: "GET_LINK", payload: "examination" });
     if (examScheduleInitialData) {
       setProgramValue(
-        examScheduleInitialData.searchFilterModel.ddlFacultyProgramLink[0].Key
+        examScheduleInitialData?.searchFilterModel.ddlFacultyProgramLink[0].Key
       );
-      setDdlClass(examScheduleInitialData.searchFilterModel.ddlClass);
+      setDdlClass(examScheduleInitialData?.searchFilterModel.ddlClass);
+      setClassId(examScheduleInitialData?.searchFilterModel.ddlClass[0].Key);
       setAcademicYearDdl(
-        examScheduleInitialData.searchFilterModel.ddlAcademicYear
+        examScheduleInitialData?.searchFilterModel.ddlAcademicYear
       );
     }
   }, [examScheduleInitialData, dispatch]);
@@ -330,6 +331,7 @@ const ExamSchedule = () => {
 
   const handleClassIdChange = (value) => {
     setClassId(value);
+    setDdlEvent([]);
     dispatch(getEventForExamScheduleAction(acaYear, programValue, value));
     setEvent("");
   };

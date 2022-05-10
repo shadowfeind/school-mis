@@ -191,7 +191,8 @@ const { singleEditSmsAccessControl,success: singleEditSmsAccessControlSuccess, e
       useEffect(() => {
         dispatch({ type: "GET_LINK", payload: "/settings" });
         if (allSmsAccessControl) {
-          setCompanyDdl(allSmsAccessControl.searchFilterModel.ddlCompany);
+          setCompanyDdl(allSmsAccessControl?.searchFilterModel.ddlCompany);
+          setCompany(allSmsAccessControl?.searchFilterModel.ddlCompany[0].Key);
         }
       }, [dispatch, allSmsAccessControl]);
 

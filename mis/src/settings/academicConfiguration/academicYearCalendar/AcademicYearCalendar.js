@@ -79,9 +79,9 @@ const AcademicYearCalendar = () => {
   const [ddlClass, setDdlClass] = useState([]);
   const [academicYearDdl, setAcademicYearDdl] = useState([]);
   const [programDdl, setProgramDdl] = useState([]);
-  const [programValue, setProgramValue] = useState();
-  const [classId, setClassId] = useState();
-  const [acaYear, setAcaYear] = useState();
+  const [programValue, setProgramValue] = useState("");
+  const [classId, setClassId] = useState("");
+  const [acaYear, setAcaYear] = useState("");
   const [errors, setErrors] = useState({});
 
   const classes = useStyles();
@@ -183,10 +183,11 @@ const AcademicYearCalendar = () => {
 
   useEffect(() => {
     if (academicYearCalendar) {
-      setProgramValue( academicYearCalendar.searchFilterModel.ddlFacultyProgramLink[0].Key)
-      setDdlClass(academicYearCalendar.searchFilterModel.ddlClass);
+      setProgramValue( academicYearCalendar?.searchFilterModel.ddlFacultyProgramLink[0].Key)
+      setDdlClass(academicYearCalendar?.searchFilterModel.ddlClass);
+      setClassId(academicYearCalendar?.searchFilterModel.ddlClass[0].Key);
       setAcademicYearDdl(
-        academicYearCalendar.searchFilterModel.ddlAcademicYear
+        academicYearCalendar?.searchFilterModel.ddlAcademicYear
       );
     }
   }, [dispatch, academicYearCalendar]);

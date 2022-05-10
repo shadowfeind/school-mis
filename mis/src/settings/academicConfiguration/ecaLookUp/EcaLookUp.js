@@ -37,10 +37,10 @@ const useStyles = makeStyles((theme) => ({
 const tableHeader = [
   { id: "ECAName", label: "ECA Name" },
   { id: "ECADescription", label: "ECA Description" },
+  { id: "IDHRCompany", label: "Company" },
   { id: "Created_On", label: "Created_On" },
   { id: "Updated_On", label: "Updated_On" },
   { id: "IsActive", label: "IsActive" },
-  { id: "IDHRCompany", label: "Company" },
   { id: "actions", label: "Actions", disableSorting: true },
 ];
 

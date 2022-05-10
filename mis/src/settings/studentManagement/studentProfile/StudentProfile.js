@@ -271,12 +271,16 @@ const StudentProfile = () => {
 
   useEffect(() => {
     if (studentProfile) {
-      setAcademicYear(studentProfile.searchFilterModel.ddlAcademicYear);
-      setShift(studentProfile.searchFilterModel.ddlAcademicShift);
-      setProgramValue(studentProfile.searchFilterModel.ddlFacultyProgramLink[0].Key);
-      setSection(studentProfile.searchFilterModel.ddlSection);
-      setClassOpt(studentProfile.searchFilterModel.ddlClass);
-      setStatus(studentProfile.searchFilterModel.ddlLevelStatus);
+      setAcademicYear(studentProfile?.searchFilterModel.ddlAcademicYear);
+      setShift(studentProfile?.searchFilterModel.ddlAcademicShift);
+      setShiftValue(studentProfile?.searchFilterModel.ddlAcademicShift[0].Key);
+      setProgramValue(studentProfile?.searchFilterModel.ddlFacultyProgramLink[0].Key);
+      setSection(studentProfile?.searchFilterModel.ddlSection);
+      setSectionValue(studentProfile?.searchFilterModel.ddlSection[0].Key);
+      setClassOpt(studentProfile?.searchFilterModel.ddlClass);
+      setClassOptValue(studentProfile?.searchFilterModel.ddlClass[0].Key);
+      setStatus(studentProfile?.searchFilterModel.ddlLevelStatus);
+      setStatusValue(studentProfile?.searchFilterModel.ddlLevelStatus[0].Key);
     }
   }, [dispatch, studentProfile]);
 
@@ -483,16 +487,17 @@ const StudentProfile = () => {
                   selectedIndex={selectedIndex}
                   index={index}
                   setSelectedIndex={setSelectedIndex}
-                  ImagePathLst={listStudentProfile.ImagePathLst}
+                  ImagePathLst={listStudentProfile?.ImagePathLst}
                   detailImagePath={singleStudentProfileDetails?.searchFilterModelStudent.ImageFullPath}
-                  year={listStudentProfile.searchFilterModel.idAcademicYear}
+                  year={listStudentProfile?.searchFilterModel.idAcademicYear}
                   program={
-                    listStudentProfile.searchFilterModel.idFacultyProgramLink
+                    listStudentProfile?.searchFilterModel.idFacultyProgramLink
                   }
-                  section={listStudentProfile.searchFilterModel.classSection}
-                  classId={listStudentProfile.searchFilterModel.idClass}
-                  shift={listStudentProfile.searchFilterModel.idShift}
-                  status={listStudentProfile.searchFilterModel.LevelStatus}
+                  section={listStudentProfile?.searchFilterModel.classSection}
+                  classId={listStudentProfile?.searchFilterModel.idClass}
+                  shift={listStudentProfile?.searchFilterModel.idShift}
+                  ddlShift={listStudentProfile?.searchFilterModel.ddlAcademicShift}
+                  status={listStudentProfile?.searchFilterModel.LevelStatus}
                   // studentDetails={singleStudentProfileDetails}
                   studentDetails={
                     singleStudentProfileDetails &&

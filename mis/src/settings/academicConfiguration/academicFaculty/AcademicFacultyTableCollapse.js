@@ -40,9 +40,9 @@ const AcademicFacultyTableCollapse = ({
       <TableRow>
         <TableCell>{item.Header}</TableCell>
         <TableCell>{item.TotalLevel}</TableCell>
-        <TableCell>{item.IsActive ? "IsActive" : "NotActive"}</TableCell>
         <TableCell>{item.LevelMOU}</TableCell>
         <TableCell>{item.TotalSeat}</TableCell>
+        <TableCell>{item.IsActive ? "IsActive" : "NotActive"}</TableCell>
         <TableCell>
           <Button
             variant="contained"

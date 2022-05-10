@@ -92,7 +92,7 @@ const ExamMarkApproval = () => {
   const [section, setSection] = useState("");
   const [event, setEvent] = useState("");
   const [schedule, setSchedule] = useState("");
-  const [errors, setErrors] = useState([]);
+  const [errors, setErrors] = useState({});
   const dispatch = useDispatch();
   const classes = useStyles();
 
@@ -219,6 +219,7 @@ const ExamMarkApproval = () => {
 
   const handleClassIdChange = (value) => {
     setClassId(value);
+    setDdlEvent([]);
     dispatch(getEventAction(acaYear, programValue, value, shift));
   };
 
@@ -253,14 +254,17 @@ const ExamMarkApproval = () => {
     dispatch({ type: "GET_LINK", payload: "examination" });
     if (examApprovalInitialDatas) {
       setProgramValue(
-        examApprovalInitialDatas.searchFilterModel.ddlFacultyProgramLink[0].Key
+        examApprovalInitialDatas?.searchFilterModel.ddlFacultyProgramLink[0].Key
       );
-      setDdlClass(examApprovalInitialDatas.searchFilterModel.ddlClass);
+      setDdlClass(examApprovalInitialDatas?.searchFilterModel.ddlClass);
+      setClassId(examApprovalInitialDatas?.searchFilterModel.ddlClass[0].Key);
       setAcademicYearDdl(
-        examApprovalInitialDatas.searchFilterModel.ddlAcademicYear
+        examApprovalInitialDatas?.searchFilterModel.ddlAcademicYear
       );
-      setDdlShift(examApprovalInitialDatas.searchFilterModel.ddlAcademicShift);
-      setDdlSection(examApprovalInitialDatas.searchFilterModel.ddlSection);
+      setDdlShift(examApprovalInitialDatas?.searchFilterModel.ddlAcademicShift);
+      setShift(examApprovalInitialDatas?.searchFilterModel.ddlAcademicShift[0].Key);
+      setDdlSection(examApprovalInitialDatas?.searchFilterModel.ddlSection);
+      setSection(examApprovalInitialDatas?.searchFilterModel.ddlSection[0].Key);
     }
   }, [examApprovalInitialDatas, dispatch]);
 

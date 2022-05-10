@@ -175,12 +175,13 @@ const StudentRegistration = () => {
     dispatch({ type: "GET_LINK", payload: "registration" });
     if (studentRegistrationInitialData) {
       setAcademicYearDdl(
-        studentRegistrationInitialData.searchFilterModel.ddlAcademicYear
+        studentRegistrationInitialData?.searchFilterModel.ddlAcademicYear
       );
       setProgramValue(
-        studentRegistrationInitialData.searchFilterModel.ddlFacultyProgramLink[0].Key
+        studentRegistrationInitialData?.searchFilterModel.ddlFacultyProgramLink[0].Key
       );
-      setDdlClass(studentRegistrationInitialData.searchFilterModel.ddlClass);
+      setDdlClass(studentRegistrationInitialData?.searchFilterModel.ddlClass);
+      setClassId(studentRegistrationInitialData?.searchFilterModel.ddlClass[0].Key)
     }
   }, [dispatch, studentRegistrationInitialData]);
 

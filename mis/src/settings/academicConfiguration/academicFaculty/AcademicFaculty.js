@@ -43,9 +43,9 @@ const useStyles = makeStyles((theme) => ({
 const tableHeader = [
   { id: "Header", label: "Academic Header" },
   { id: "TotalLevel", label: "Total Level" },
-  { id: "IsActive", label: "IsActive" },
   { id: "LevelMOU", label: "Level MOU" },
   { id: "TotalSeat", label: "Total Seat" },
+  { id: "IsActive", label: "IsActive" },
   { id: "actions", label: "Actions", disableSorting: true },
 ];
 

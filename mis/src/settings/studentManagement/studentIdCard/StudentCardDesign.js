@@ -5,9 +5,11 @@ import { getHeaderBannerAction, getHeaderContentAction } from "../../../dashboar
 import { GET_HEADER_BANNER_RESET, GET_HEADER_CONTENT_RESET } from "../../../dashboard/DashboardConstants";
 import { useSelector } from "react-redux";
 
-const StudentCardDesign = ({ student, imagePath, classname,headerBanners, examDate }) => {
+const StudentCardDesign = ({ student, imagePath,section, classname,headerBanners, examDate }) => {
 
   const dispatch = useDispatch();
+  const classNameToShow = classname?.filter( s => s.Key === student.IdLevel)
+  const sectionNameToShow = section?.filter( s => s.Key == student.Section)
   return (
     <div
       style={{
@@ -33,14 +35,18 @@ const StudentCardDesign = ({ student, imagePath, classname,headerBanners, examDa
           <strong>Name:</strong> {student.StudentFullName}
         </h6>
         <h6>
-          <strong>Class:</strong> {classname}
+          <strong>Class:</strong> {classNameToShow?.length>0 && classNameToShow[0].Value}
         </h6>
         <h6>
-          <strong>Symbol No:</strong> {student.UniversityRegistrationNumber}
+          <strong>Section:</strong> {sectionNameToShow?.length>0 && sectionNameToShow[0].Value}
         </h6>
         <h6>
-          <strong>Section:</strong>
+          <strong>Roll No:</strong> {student.rollNo}
         </h6>
+        <h6>
+          <strong>Mobile No:</strong> {student.MobileNumber}
+        </h6>
+    
       </div>
     </div>
   );

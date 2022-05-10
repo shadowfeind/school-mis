@@ -219,6 +219,7 @@ const ExamMarkApproval = () => {
 
   const handleClassIdChange = (value) => {
     setClassId(value);
+    setDdlEvent([]);
     dispatch(getEventAction(acaYear, programValue, value, shift));
   };
 

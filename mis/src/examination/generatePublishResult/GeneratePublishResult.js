@@ -71,7 +71,7 @@ const GeneratePublishResult = () => {
   const [shift, setShift] = useState("");
   const [section, setSection] = useState("");
   const [event, setEvent] = useState("");
-  const [errors, setErrors] = useState([]);
+  const [errors, setErrors] = useState({});
   const dispatch = useDispatch();
   const classes = useStyles();
 
@@ -189,11 +189,14 @@ const GeneratePublishResult = () => {
   useEffect(() => {
     dispatch({ type: "GET_LINK", payload: "examination" });
     if (allGeneratePublish) {
-      setProgramValue(allGeneratePublish.searchFilterModel.ddlFacultyProgramLink[0].Key);
-      setDdlClass(allGeneratePublish.searchFilterModel.ddlClass);
-      setAcademicYearDdl(allGeneratePublish.searchFilterModel.ddlAcademicYear);
-      setDdlShift(allGeneratePublish.searchFilterModel.ddlAcademicShift);
-      setDdlSection(allGeneratePublish.searchFilterModel.ddlSection);
+      setProgramValue(allGeneratePublish?.searchFilterModel.ddlFacultyProgramLink[0].Key);
+      setDdlClass(allGeneratePublish?.searchFilterModel.ddlClass);
+      setClassId(allGeneratePublish?.searchFilterModel.ddlClass[0].Key);
+      setAcademicYearDdl(allGeneratePublish?.searchFilterModel.ddlAcademicYear);
+      setDdlShift(allGeneratePublish?.searchFilterModel.ddlAcademicShift);
+      setShift(allGeneratePublish?.searchFilterModel.ddlAcademicShift[0].Key);
+      setDdlSection(allGeneratePublish?.searchFilterModel.ddlSection);
+      setSection(allGeneratePublish?.searchFilterModel.ddlSection[0].Key);
     }
   }, [allGeneratePublish, dispatch]);
 

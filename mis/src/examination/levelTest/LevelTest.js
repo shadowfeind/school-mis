@@ -75,7 +75,7 @@ const LevelTest = () => {
   const [shift, setShift] = useState("");
   const [section, setSection] = useState("");
   const [event, setEvent] = useState("");
-  const [errors, setErrors] = useState([]);
+  const [errors, setErrors] = useState({});
 
   const dispatch = useDispatch();
   const classes = useStyles();
@@ -175,14 +175,17 @@ const LevelTest = () => {
     }
     if (levelTestInitialDatas) {
       setProgramValue(
-        levelTestInitialDatas.searchFilterModel.ddlFacultyProgramLink[0].Key
+        levelTestInitialDatas?.searchFilterModel.ddlFacultyProgramLink[0].Key
       );
-      setDdlClass(levelTestInitialDatas.searchFilterModel.ddlClass);
+      setDdlClass(levelTestInitialDatas?.searchFilterModel.ddlClass);
+      setClassId(levelTestInitialDatas?.searchFilterModel.ddlClass[0].Key);
       setAcademicYearDdl(
-        levelTestInitialDatas.searchFilterModel.ddlAcademicYear
+        levelTestInitialDatas?.searchFilterModel.ddlAcademicYear
       );
-      setDdlShift(levelTestInitialDatas.searchFilterModel.ddlAcademicShift);
-      setDdlSection(levelTestInitialDatas.searchFilterModel.ddlSection);
+      setDdlShift(levelTestInitialDatas?.searchFilterModel.ddlAcademicShift);
+      setShift(levelTestInitialDatas?.searchFilterModel.ddlAcademicShift[0].Key);
+      setDdlSection(levelTestInitialDatas?.searchFilterModel.ddlSection);
+      setSection(levelTestInitialDatas?.searchFilterModel.ddlSection[0].Key);
     }
   }, [levelTestInitialDatas, dispatch]);
 

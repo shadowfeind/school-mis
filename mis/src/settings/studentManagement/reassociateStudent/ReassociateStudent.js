@@ -223,13 +223,16 @@ const ReassociateStudent = () => {
   };
   useEffect(() => {
     if (allReassociateStudents) {
-      setAcademicYear(allReassociateStudents.searchFilterModel.ddlAcademicYear);
-      setShift(allReassociateStudents.searchFilterModel.ddlAcademicShift);
+      setAcademicYear(allReassociateStudents?.searchFilterModel.ddlAcademicYear);
+      setShift(allReassociateStudents?.searchFilterModel.ddlAcademicShift);
+      setShiftValue(allReassociateStudents?.searchFilterModel.ddlAcademicShift[0].Key)
       setProgramValue(
-        allReassociateStudents.searchFilterModel.ddlFacultyProgramLink[0].Key
+        allReassociateStudents?.searchFilterModel.ddlFacultyProgramLink[0].Key
       );
-      setSection(allReassociateStudents.ddlSection);
-      setClassOpt(allReassociateStudents.searchFilterModel.ddlClass);
+      setSection(allReassociateStudents?.ddlSection);
+      setSectionValue(allReassociateStudents?.ddlSection[0].Key);
+      setClassOpt(allReassociateStudents?.searchFilterModel.ddlClass);
+      setClassOptValue(allReassociateStudents?.searchFilterModel.ddlClass[0].Key);
     }
   }, [allReassociateStudents]);
 

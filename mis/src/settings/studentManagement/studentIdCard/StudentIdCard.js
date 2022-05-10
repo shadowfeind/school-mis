@@ -58,15 +58,15 @@ const StudentIdCard = () => {
   const [ddlShift, setDdlShift] = useState([]);
   const [ddlSection, setDdlSection] = useState([]);
   const [ddlStudent, setDdlStudent] = useState([]);
-  const [programValue, setProgramValue] = useState();
-  const [classId, setClassId] = useState();
-  const [acaYear, setAcaYear] = useState();
-  const [shift, setShift] = useState();
-  const [section, setSection] = useState();
-  const [student, setStudent] = useState(0);
+  const [programValue, setProgramValue] = useState("");
+  const [classId, setClassId] = useState("");
+  const [acaYear, setAcaYear] = useState("");
+  const [shift, setShift] = useState("");
+  const [section, setSection] = useState("");
+  const [student, setStudent] = useState("");
   const [date, setDate] = useState();
-  const [dateValue, setDateValue] = useState();
-  const [errors, setErrors] = useState([]);
+  const [dateValue, setDateValue] = useState("");
+  const [errors, setErrors] = useState({});
   const dispatch = useDispatch();
   const classes = useStyles();
 
@@ -140,14 +140,17 @@ const StudentIdCard = () => {
   useEffect(() => {
     if (studentIdCardInitialData) {
       setProgramValue(
-        studentIdCardInitialData.searchFilterModel.ddlFacultyProgramLink[0].Key
+        studentIdCardInitialData?.searchFilterModel.ddlFacultyProgramLink[0].Key
       );
-      setDdlClass(studentIdCardInitialData.searchFilterModel.ddlClass);
+      setDdlClass(studentIdCardInitialData?.searchFilterModel.ddlClass);
+      setClassId(studentIdCardInitialData?.searchFilterModel.ddlClass[0].Key);
       setAcademicYearDdl(
-        studentIdCardInitialData.searchFilterModel.ddlAcademicYear
+        studentIdCardInitialData?.searchFilterModel.ddlAcademicYear
       );
-      setDdlShift(studentIdCardInitialData.searchFilterModel.ddlAcademicShift);
-      setDdlSection(studentIdCardInitialData.searchFilterModel.ddlSection);
+      setDdlShift(studentIdCardInitialData?.searchFilterModel.ddlAcademicShift);
+      setShift(studentIdCardInitialData?.searchFilterModel.ddlAcademicShift[0].Key);
+      setDdlSection(studentIdCardInitialData?.searchFilterModel.ddlSection);
+      setSection(studentIdCardInitialData?.searchFilterModel.ddlSection[0].Key);
       setDate(studentIdCardInitialData.searchFilterModel.ValidityDate?.slice(0,10));
     }
   }, [studentIdCardInitialData, dispatch]);
@@ -374,7 +377,8 @@ const StudentIdCard = () => {
               <StudentCardDesign
                 key={student.$id}
                 student={student}
-                classname={classId}
+                classname={activeStudentsForIdCard?.ddlClass}
+                section={activeStudentsForIdCard?.ddlSection}
                 examDate={date}
                 headerBanners={headerBanners && headerBanners}
               />
@@ -399,8 +403,9 @@ const StudentIdCard = () => {
             student
           }
           classnames={
-            classId
+            printBulkStudentsForIdCard?.ddlClass
           }
+          section={printBulkStudentsForIdCard?.ddlSection}
           examDates={
             date
           }

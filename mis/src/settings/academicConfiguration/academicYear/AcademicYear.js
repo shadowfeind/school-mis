@@ -44,9 +44,9 @@ const useStyles = makeStyles((theme) => ({
 const tableHeader = [
   { id: "AcademicYearName", label: "Academic Year Name" },
   { id: "AcademicYearCode", label: "Academic Year Code" },
-  { id: "IsActive", label: "IsActive" },
   { id: "StartDate", label: "Start Date" },
   { id: "EndDate", label: "End Date" },
+  { id: "IsActive", label: "IsActive" },
   { id: "actions", label: "Actions", disableSorting: true },
 ];
 

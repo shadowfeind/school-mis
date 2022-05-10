@@ -212,7 +212,8 @@ const HrValue = () => {
   useEffect(() => {
     dispatch({ type: "GET_LINK", payload: "/settings" });
     if (allHrValue) {
-      setCompanyDdl(allHrValue.searchFilterModel.ddlCompany);
+      setCompanyDdl(allHrValue?.searchFilterModel.ddlCompany);
+      setCompany(allHrValue?.searchFilterModel.ddlCompany[0].Key)
     }
   }, [dispatch, allHrValue]);
 

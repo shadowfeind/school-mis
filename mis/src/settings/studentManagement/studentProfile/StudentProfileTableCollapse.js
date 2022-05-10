@@ -47,12 +47,14 @@ const StudentProfileTableCollapse = ({
   classId,
   shift,
   status,
+  ddlShift,
   studentDetails,
   setOpenResetPopup,
   //   deleteCollegeHandler,
 }) => {
   const dispatch = useDispatch();
   const classes = useStyles();
+  const shiftNameToShow = ddlShift?.filter(s => s.Key === item.IDAcademicShift)
   const handleClick = (index, id) => {
     if (selectedIndex === index) {
       setSelectedIndex("");
@@ -97,8 +99,8 @@ const StudentProfileTableCollapse = ({
         <TableCell>{item.UniversityRegistrationNumber}</TableCell>
         <TableCell>{item.StudentFullName}</TableCell>
         <TableCell>{item.AcademicProgramName}</TableCell>
-        <TableCell>{item.FacultyName} {item.LevelMOU}</TableCell>
-        <TableCell>{item.IDAcademicShift}</TableCell>
+        <TableCell>{item.FacultyPath}</TableCell>
+        <TableCell>{shiftNameToShow?.length > 0 && shiftNameToShow[0].Value}</TableCell>
         <TableCell>{item.MobileNumber}</TableCell>
         <TableCell>{item.LevelStatus}</TableCell>
         <TableCell> <Button

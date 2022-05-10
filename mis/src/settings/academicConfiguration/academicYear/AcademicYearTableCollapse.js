@@ -40,9 +40,9 @@ const AcademicYearTableCollapse = ({
       <TableRow>
         <TableCell>{item.AcademicYearName}</TableCell>
         <TableCell>{item.AcademicYearCode}</TableCell>
-        <TableCell>{item.IsActive ? "IsActive" : "NotActive"}</TableCell>
         <TableCell>{item.StartDate.slice(0, 10)}</TableCell>
         <TableCell>{item.EndDate.slice(0, 10)}</TableCell>
+        <TableCell>{item.IsActive ? "IsActive" : "NotActive"}</TableCell>
         <TableCell>
           <Button
             variant="contained"

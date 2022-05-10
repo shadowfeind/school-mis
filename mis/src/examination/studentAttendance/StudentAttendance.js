@@ -259,16 +259,19 @@ const StudentAttendance = () => {
     dispatch({ type: "GET_LINK", payload: "examination" });
     if (studentAttendanceInitData) {
       setProgramValue(
-        studentAttendanceInitData.searchFilterModel.ddlFacultyProgramLink[0].Key
+        studentAttendanceInitData?.searchFilterModel.ddlFacultyProgramLink[0].Key
       );
-      setDdlClass(studentAttendanceInitData.searchFilterModel.ddlClass);
+      setDdlClass(studentAttendanceInitData?.searchFilterModel.ddlClass);
+      setClassId(studentAttendanceInitData?.searchFilterModel.ddlClass[0].Key);
       setAcademicYearDdl(
-        studentAttendanceInitData.searchFilterModel.ddlAcademicYear
+        studentAttendanceInitData?.searchFilterModel.ddlAcademicYear
       );
-      setDdlShift(studentAttendanceInitData.searchFilterModel.ddlAcademicShift);
-      setDdlSection(studentAttendanceInitData.searchFilterModel.ddlSection);
-      setStartDate(studentAttendanceInitData.searchFilterModel.StartDate);
-      setEndDate(studentAttendanceInitData.searchFilterModel.EndDate);
+      setDdlShift(studentAttendanceInitData?.searchFilterModel.ddlAcademicShift);
+      setShift(studentAttendanceInitData?.searchFilterModel.ddlAcademicShift[0].Key);
+      setDdlSection(studentAttendanceInitData?.searchFilterModel.ddlSection);
+      setSection(studentAttendanceInitData?.searchFilterModel.ddlSection[0].Key);
+      setStartDate(studentAttendanceInitData?.searchFilterModel.StartDate);
+      setEndDate(studentAttendanceInitData?.searchFilterModel.EndDate);
     }
   }, [studentAttendanceInitData, dispatch]);
 

@@ -86,7 +86,7 @@ const ClassSubject = () => {
     subTitle: "",
   });
   const [ddlClass, setDdlClass] = useState([]);
-  const [classId, setClassId] = useState();
+  const [classId, setClassId] = useState("");
   const [formCheck, setFormCheck] = useState([]);
   const [errors, setErrors] = useState([]);
   const classes = useStyles();
@@ -118,17 +118,23 @@ const ClassSubject = () => {
     (state) => state.getAllClassSubject
   );
 
-  const { listClassSubjects,loading, error: listClassSubjectsError } = useSelector(
-    (state) => state.getClassSubjectList
-  );
+  const {
+    listClassSubjects,
+    loading,
+    error: listClassSubjectsError,
+  } = useSelector((state) => state.getClassSubjectList);
 
-  const { createClassSubjects,loading:loadingCreate, error: createClassSubjectsError } = useSelector(
-    (state) => state.getToCreateClassSubject
-  );
+  const {
+    createClassSubjects,
+    loading: loadingCreate,
+    error: createClassSubjectsError,
+  } = useSelector((state) => state.getToCreateClassSubject);
 
-  const { singleClassSubject, loading:loadingEdit,error: singleClassSubjectError } = useSelector(
-    (state) => state.getSingleClassSubject
-  );
+  const {
+    singleClassSubject,
+    loading: loadingEdit,
+    error: singleClassSubjectError,
+  } = useSelector((state) => state.getSingleClassSubject);
 
   const {
     success: updateSingleClassSubjectSuccess,
@@ -136,8 +142,7 @@ const ClassSubject = () => {
   } = useSelector((state) => state.updateSingleClassSubject);
 
   const { success: deleteClassSubjectSuccess, error: deleteClassSubjectError } =
-  useSelector((state) => state.deleteClassSubject);
-
+    useSelector((state) => state.deleteClassSubject);
 
   const {
     success: postToCreateClassSubjectSuccess,
@@ -234,14 +239,15 @@ const ClassSubject = () => {
 
   useEffect(() => {
     if (allClassSubjects) {
-      setDdlClass(allClassSubjects.searchFilterModel.ddlClass);
+      setDdlClass(allClassSubjects?.searchFilterModel.ddlClass);
+      setClassId(allClassSubjects?.searchFilterModel.ddlClass[0].Key);
     }
   }, [dispatch, allClassSubjects]);
 
-  useEffect(()=>{
-    dispatch({type: GET_CLASS_SUBJECT_LIST_RESET})
+  useEffect(() => {
+    dispatch({ type: GET_CLASS_SUBJECT_LIST_RESET });
     dispatch(getALLClassSubjectAction());
-  },[])
+  }, []);
 
   const validate = () => {
     let temp = {};
@@ -262,7 +268,6 @@ const ClassSubject = () => {
       setOpenPopup(true);
     }
   };
-
 
   const deleteCollegeHandler = (id) => {
     dispatch(getSingleClassSubjectAction(id));
@@ -312,7 +317,6 @@ const ClassSubject = () => {
                 type="submit"
                 style={{ margin: "10px 0 0 10px" }}
                 onClick={handleCreateClick}
-                type="submit"
               >
                 CREATE
               </Button>
@@ -322,7 +326,6 @@ const ClassSubject = () => {
                 type="submit"
                 style={{ margin: "10px 0 0 10px" }}
                 onClick={listSearchHandler}
-                type="submit"
               >
                 SEARCH
               </Button>
@@ -348,27 +351,27 @@ const ClassSubject = () => {
           <LoadingComp />
         ) : (
           <>
-        {listClassSubjects && (
-          <TableContainer className={classes.table}>
-            <TblHead />
+            {listClassSubjects && (
+              <TableContainer className={classes.table}>
+                <TblHead />
 
-            <TableBody>
-              {tableDataAfterPagingAndSorting().map((item) => (
-                <ClassSubjectTableCollapse
-                  item={item}
-                  key={item.$id}
-                  updateClassSubject={updateClassSubject}
-                    deleteCollegeHandler={deleteCollegeHandler}
-                    setOpenPopup={setOpenPopup}
-                    setOpenPopupForm={setOpenPopupForm}
-                setOpenDeletePopup={setOpenDeletePopup}
-                />
-              ))}
-            </TableBody>
-          </TableContainer>
-        )}
-        {listClassSubjects && <TblPagination />}
-        </>
+                <TableBody>
+                  {tableDataAfterPagingAndSorting().map((item) => (
+                    <ClassSubjectTableCollapse
+                      item={item}
+                      key={item.$id}
+                      updateClassSubject={updateClassSubject}
+                      deleteCollegeHandler={deleteCollegeHandler}
+                      setOpenPopup={setOpenPopup}
+                      setOpenPopupForm={setOpenPopupForm}
+                      setOpenDeletePopup={setOpenDeletePopup}
+                    />
+                  ))}
+                </TableBody>
+              </TableContainer>
+            )}
+            {listClassSubjects && <TblPagination />}
+          </>
         )}
       </CustomContainer>
       <Popup
@@ -376,18 +379,18 @@ const ClassSubject = () => {
         setOpenPopup={setOpenPopup}
         title="Add Class Subject"
       >
-      {loadingCreate ? (
+        {loadingCreate ? (
           <LoadingComp />
         ) : (
           <>
-        <ClassSubjectCreateForm
-          subjectOptions={
-            createClassSubjects && createClassSubjects.ddlSubjectModelLst
-          }
-          setFormCheck={setFormCheck}
-          formCheckSubmitHandler={formCheckSubmitHandler}
-        />
-        </>
+            <ClassSubjectCreateForm
+              subjectOptions={
+                createClassSubjects && createClassSubjects.ddlSubjectModelLst
+              }
+              setFormCheck={setFormCheck}
+              formCheckSubmitHandler={formCheckSubmitHandler}
+            />
+          </>
         )}
       </Popup>
       <Popup
@@ -395,25 +398,27 @@ const ClassSubject = () => {
         setOpenPopup={setOpenPopupForm}
         title="Edit Class Subject"
       >
-       {loadingEdit ? (
+        {loadingEdit ? (
           <LoadingComp />
         ) : (
           <>
-        <ClassSubjectEditForm
-          singleClassSubject={singleClassSubject && singleClassSubject.dbModel}
-          setOpenPopupForm={setOpenPopupForm}
-        />
-        </>
+            <ClassSubjectEditForm
+              singleClassSubject={
+                singleClassSubject && singleClassSubject.dbModel
+              }
+              setOpenPopupForm={setOpenPopupForm}
+            />
+          </>
         )}
       </Popup>
       <Popup
-      openPopup={openDeletePopup}
-      setOpenPopup={setOpenDeletePopup}
-      title="Delete Class Subject"
+        openPopup={openDeletePopup}
+        setOpenPopup={setOpenDeletePopup}
+        title="Delete Class Subject"
       >
         <ClassSubjectDeleteForm
-        deleteClassSubject={singleClassSubject && singleClassSubject.dbModel}
-        setOpenDeletePopup={setOpenDeletePopup}
+          deleteClassSubject={singleClassSubject && singleClassSubject.dbModel}
+          setOpenDeletePopup={setOpenDeletePopup}
         />
       </Popup>
       <Notification notify={notify} setNotify={setNotify} />

@@ -85,11 +85,11 @@ const AssignFacultySubject = () => {
   const [ddlClass, setDdlClass] = useState([]);
   const [academicYearDdl, setAcademicYearDdl] = useState([]);
   const [programDdl, setProgramDdl] = useState([]);
-  const [programValue, setProgramValue] = useState();
-  const [classId, setClassId] = useState();
-  const [acaYear, setAcaYear] = useState();
+  const [programValue, setProgramValue] = useState("");
+  const [classId, setClassId] = useState("");
+  const [acaYear, setAcaYear] = useState("");
   const [formCheck, setFormCheck] = useState([]);
-  const [errors, setErrors] = useState([]);
+  const [errors, setErrors] = useState({});
 
   const classes = useStyles();
 
@@ -103,18 +103,18 @@ const AssignFacultySubject = () => {
     (state) => state.getAcademicYearCalendarProgram
   );
 
-  const { academicSubjectsList,loading } = useSelector(
+  const { academicSubjectsList, loading } = useSelector(
     (state) => state.getListAssignFacultySubject
   );
 
-  const { academicSubjects,loading:loadingCreate } = useSelector(
+  const { academicSubjects, loading: loadingCreate } = useSelector(
     (state) => state.getAssignFacultySubjectOption
   );
 
   const { success: facultySubjectSuccess, error: facultySubjectError } =
     useSelector((state) => state.assignFacultySubjectPost);
 
-  const { singleFacultySubject,loading:loadingEdit } = useSelector(
+  const { singleFacultySubject, loading: loadingEdit } = useSelector(
     (state) => state.assignFacultySubjectEdit
   );
 
@@ -122,8 +122,11 @@ const AssignFacultySubject = () => {
     (state) => state.assignFacultySubjectEditPost
   );
 
-  const { assignFacSubGenerate,loading:loadingGenerate, error: assignFacSubGenerateError } =
-    useSelector((state) => state.assignFacultySubjectGenerate);
+  const {
+    assignFacSubGenerate,
+    loading: loadingGenerate,
+    error: assignFacSubGenerateError,
+  } = useSelector((state) => state.assignFacultySubjectGenerate);
 
   if (singleFacultyEditSuccess) {
     setNotify({
@@ -154,16 +157,21 @@ const AssignFacultySubject = () => {
   useEffect(() => {
     if (allAcademicSubjects) {
       // setTableData(academicYearCalendar.dbModelLst);
-      setProgramValue(allAcademicSubjects.searchFilterModel.ddlFacultyProgramLink[0].Key)
-      setDdlClass(allAcademicSubjects.searchFilterModel.ddlClass);
-      setAcademicYearDdl(allAcademicSubjects.searchFilterModel.ddlAcademicYear);
+      setProgramValue(
+        allAcademicSubjects?.searchFilterModel.ddlFacultyProgramLink[0].Key
+      );
+      setDdlClass(allAcademicSubjects?.searchFilterModel.ddlClass);
+      setClassId(allAcademicSubjects?.searchFilterModel.ddlClass[0].Key);
+      setAcademicYearDdl(
+        allAcademicSubjects?.searchFilterModel.ddlAcademicYear
+      );
     }
   }, [dispatch, allAcademicSubjects]);
 
-  useEffect(()=>{
-    dispatch({type:GET_LIST_ASSIGN_FACULTY_SUBJECT_RESET})
+  useEffect(() => {
+    dispatch({ type: GET_LIST_ASSIGN_FACULTY_SUBJECT_RESET });
     dispatch(getALLAssignFacultySubject());
-  },[])
+  }, []);
 
   const {
     TableContainer,
@@ -336,7 +344,6 @@ const AssignFacultySubject = () => {
                 type="submit"
                 style={{ margin: "10px 0 0 10px" }}
                 onClick={handleCreateClick}
-                type="submit"
               >
                 CREATE
               </Button>
@@ -346,7 +353,6 @@ const AssignFacultySubject = () => {
                 type="submit"
                 style={{ margin: "10px 0 0 10px" }}
                 onClick={generateHandler}
-                type="submit"
               >
                 GENERATE
               </Button>
@@ -356,7 +362,6 @@ const AssignFacultySubject = () => {
                 type="submit"
                 style={{ margin: "10px 0 0 10px" }}
                 onClick={listSearchHandler}
-                type="submit"
               >
                 SEARCH
               </Button>
@@ -382,24 +387,24 @@ const AssignFacultySubject = () => {
           <LoadingComp />
         ) : (
           <>
-        {academicSubjectsList && (
-          <TableContainer className={classes.table}>
-            <TblHead />
+            {academicSubjectsList && (
+              <TableContainer className={classes.table}>
+                <TblHead />
 
-            <TableBody>
-              {tableDataAfterPagingAndSorting().map((item) => (
-                <AssignFacultySubjectTableCollepse
-                  item={item}
-                  key={item.$id}
-                  updateFacultySubjectHandler={updateFacultySubjectHandler}
-                  deleteCollegeHandler={deleteCollegeHandler}
-                />
-              ))}
-            </TableBody>
-          </TableContainer>
-        )}
-        {academicSubjectsList && <TblPagination />}
-        </>
+                <TableBody>
+                  {tableDataAfterPagingAndSorting().map((item) => (
+                    <AssignFacultySubjectTableCollepse
+                      item={item}
+                      key={item.$id}
+                      updateFacultySubjectHandler={updateFacultySubjectHandler}
+                      deleteCollegeHandler={deleteCollegeHandler}
+                    />
+                  ))}
+                </TableBody>
+              </TableContainer>
+            )}
+            {academicSubjectsList && <TblPagination />}
+          </>
         )}
       </CustomContainer>
       <Popup
@@ -407,31 +412,30 @@ const AssignFacultySubject = () => {
         setOpenPopup={setOpenPopup}
         title="Add Assign Faculty Subject"
       >
-      {loadingCreate ? (
+        {loadingCreate ? (
           <LoadingComp />
         ) : (
           <>
-      {loadingGenerate ? (
-          <LoadingComp />
-        ) : (
-          <>
-        <AssignFacultySubjectFormCreate
-       
-          subjectOptions={
-            academicSubjects && academicSubjects.ddlSubjectModelLst
-          }
-          assignFacSubGenerate={
-            assignFacSubGenerate &&
-            assignFacSubGenerate.ddlSubjectFromClassSubject
-          }
-          setFormCheck={setFormCheck}
-          formCheck={formCheck}
-          formCheckSubmitHandler={formCheckSubmitHandler}
-          setOpenPopup={setOpenPopup}
-        />
-        </>
-        )}
-        </>
+            {loadingGenerate ? (
+              <LoadingComp />
+            ) : (
+              <>
+                <AssignFacultySubjectFormCreate
+                  subjectOptions={
+                    academicSubjects && academicSubjects.ddlSubjectModelLst
+                  }
+                  assignFacSubGenerate={
+                    assignFacSubGenerate &&
+                    assignFacSubGenerate.ddlSubjectFromClassSubject
+                  }
+                  setFormCheck={setFormCheck}
+                  formCheck={formCheck}
+                  formCheckSubmitHandler={formCheckSubmitHandler}
+                  setOpenPopup={setOpenPopup}
+                />
+              </>
+            )}
+          </>
         )}
       </Popup>
       <Popup
@@ -439,23 +443,23 @@ const AssignFacultySubject = () => {
         setOpenPopup={setOpenPopupForm}
         title="Edit Assign Faculty Subject"
       >
-       {loadingEdit ? (
+        {loadingEdit ? (
           <LoadingComp />
         ) : (
           <>
-        <AssignFacultySubjectFormEdit
-          singleFacultySubject={
-            singleFacultySubject && singleFacultySubject.model
-          }
-          dbModel={singleFacultySubject && singleFacultySubject.dbModel}
-          idYearFacultyProgramLink={
-            singleFacultySubject &&
-            singleFacultySubject.idYearFacultyProgramLink
-          }
-          level={singleFacultySubject && singleFacultySubject.level}
-          setOpenPopupForm={setOpenPopupForm}
-        />
-        </>
+            <AssignFacultySubjectFormEdit
+              singleFacultySubject={
+                singleFacultySubject && singleFacultySubject.model
+              }
+              dbModel={singleFacultySubject && singleFacultySubject.dbModel}
+              idYearFacultyProgramLink={
+                singleFacultySubject &&
+                singleFacultySubject.idYearFacultyProgramLink
+              }
+              level={singleFacultySubject && singleFacultySubject.level}
+              setOpenPopupForm={setOpenPopupForm}
+            />
+          </>
         )}
       </Popup>
       <Notification notify={notify} setNotify={setNotify} />

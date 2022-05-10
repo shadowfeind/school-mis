@@ -76,16 +76,16 @@ const TeacherFacultySubject = () => {
     subTitle: "",
   });
   const [academicYear, setAcademicYear] = useState([]);
-  const [academicYearValue, setAcademicYearValue] = useState();
+  const [academicYearValue, setAcademicYearValue] = useState("");
   const [shift, setShift] = useState([]);
-  const [shiftValue, setShiftValue] = useState();
+  const [shiftValue, setShiftValue] = useState("");
   const [program, setProgram] = useState([]);
-  const [programValue, setProgramValue] = useState();
+  const [programValue, setProgramValue] = useState("");
   const [section, setSection] = useState([]);
-  const [sectionValue, setSectionValue] = useState();
+  const [sectionValue, setSectionValue] = useState("");
   const [classOpt, setClassOpt] = useState([]);
-  const [classOptValue, setClassOptValue] = useState();
-  const [errors, setErrors] = useState([]);
+  const [classOptValue, setClassOptValue] = useState("");
+  const [errors, setErrors] = useState({});
   const dispatch = useDispatch();
   const classes = useStyles();
 
@@ -237,11 +237,14 @@ const TeacherFacultySubject = () => {
 
   useEffect(() => {
     if (teacherFacInitData) {
-      setAcademicYear(teacherFacInitData.searchFilterModel.ddlAcademicYear);
-      setShift(teacherFacInitData.searchFilterModel.ddlAcademicShift);
-      setProgramValue(teacherFacInitData.searchFilterModel.ddlFacultyProgramLink[0].Key);
-      setSection(teacherFacInitData.searchFilterModel.ddlSection);
-      setClassOpt(teacherFacInitData.searchFilterModel.ddlClass);
+      setAcademicYear(teacherFacInitData?.searchFilterModel.ddlAcademicYear);
+      setShift(teacherFacInitData?.searchFilterModel.ddlAcademicShift);
+      setShiftValue(teacherFacInitData?.searchFilterModel.ddlAcademicShift[0].Key);
+      setProgramValue(teacherFacInitData?.searchFilterModel.ddlFacultyProgramLink[0].Key);
+      setSection(teacherFacInitData?.searchFilterModel.ddlSection);
+      setSectionValue(teacherFacInitData?.searchFilterModel.ddlSection[0].Key);
+      setClassOpt(teacherFacInitData?.searchFilterModel.ddlClass);
+      setClassOptValue(teacherFacInitData?.searchFilterModel.ddlClass[0].Key);
     }
   }, [teacherFacInitData]);
 

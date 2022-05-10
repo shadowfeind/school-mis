@@ -61,8 +61,8 @@ const tableHeader = [
 const CounterConfiguration = () => {
   const [academicYearDdl, setAcademicYearDdl] = useState([]);
   const [programDdl, setProgramDdl] = useState([]);
-  const [acaYear, setAcaYear] = useState();
-  const [programValue, setProgramValue] = useState();
+  const [acaYear, setAcaYear] = useState("");
+  const [programValue, setProgramValue] = useState("");
   const [tableData, setTableData] = useState([]);
   const [errors, setErrors] = useState([]);
   const [filterFn, setFilterFn] = useState({
@@ -183,10 +183,13 @@ const CounterConfiguration = () => {
     dispatch({ type: "GET_LINK", payload: "registration" });
     if (getAcademicConfigInitialData) {
       setAcademicYearDdl(
-        getAcademicConfigInitialData.searchFilterModel.ddlAcademicYear
+        getAcademicConfigInitialData?.searchFilterModel.ddlAcademicYear
+      );
+      setAcaYear(
+        getAcademicConfigInitialData?.searchFilterModel.ddlAcademicYear[0].Key
       );
       setProgramValue(
-        getAcademicConfigInitialData.searchFilterModel.ddlFacultyProgramLink[0].Key
+        getAcademicConfigInitialData?.searchFilterModel.ddlFacultyProgramLink[0].Key
       );
     }
   }, [dispatch, getAcademicConfigInitialData]);

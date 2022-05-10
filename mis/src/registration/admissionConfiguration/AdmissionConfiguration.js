@@ -57,8 +57,8 @@ const tableHeader = [
 const AdmissionConfiguration = () => {
   const [academicYearDdl, setAcademicYearDdl] = useState([]);
   const [programDdl, setProgramDdl] = useState([]);
-  const [acaYear, setAcaYear] = useState();
-  const [programValue, setProgramValue] = useState();
+  const [acaYear, setAcaYear] = useState("");
+  const [programValue, setProgramValue] = useState("");
   const [tableData, setTableData] = useState([]);
   const [errors, setErrors] = useState([]);
   const [filterFn, setFilterFn] = useState({
@@ -207,10 +207,13 @@ const AdmissionConfiguration = () => {
     dispatch({ type: "GET_LINK", payload: "registration" });
     if (getAdmissionConfigInitialData) {
       setAcademicYearDdl(
-        getAdmissionConfigInitialData.searchFilterModel.ddlAcademicYear
+        getAdmissionConfigInitialData?.searchFilterModel.ddlAcademicYear
+      );
+      setAcaYear(
+        getAdmissionConfigInitialData?.searchFilterModel.ddlAcademicYear[0].Key
       );
       setProgramValue(
-        getAdmissionConfigInitialData.searchFilterModel.ddlFacultyProgramLink[0].Key
+        getAdmissionConfigInitialData?.searchFilterModel.ddlFacultyProgramLink[0].Key
       );
     }
   }, [getAdmissionConfigInitialData, dispatch]);

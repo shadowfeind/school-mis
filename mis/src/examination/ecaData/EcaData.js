@@ -18,15 +18,18 @@ import ConfirmDialog from "../../components/ConfirmDialog";
 import SelectControl from "../../components/controls/SelectControl";
 import {
   GET_BULK_EDIT_ECA_DATA_RESET,
+  GET_LIST_ECA_DATA_RESET,
   POST_BULK_ECA_DATA_RESET,
 } from "./EcaDataConstants";
 import {
   getAllEcaDataAction,
   getBulkEditEcaDataAction,
+  getListEcaDataAction,
 } from "./EcaDataActions";
 import { GET_EVENT_RESET } from "../examMarkEntry/ExamMarkEntryConstants";
 import { getEventAction } from "../examMarkEntry/ExamMarkEntryActions";
 import EcaDataBulkEdit from "./EcaDataBulkEdit";
+import EcaDataTableCollapse from "./EcaDataTableCollapse";
 
 const useStyles = makeStyles((theme) => ({
   searchInput: {
@@ -48,12 +51,6 @@ const tableHeader = [
   { id: "RollNo", label: "Roll No" },
   { id: "FullName", label: "Full Name" },
   { id: "SubjectName", label: "Subject" },
-  { id: "FullMark", label: "Full Marks(TH)" },
-  { id: "FullMarkPractical", label: "Full Marks(PR)" },
-  { id: "FullMarkPreTerm", label: "Full Marks(Pre Term)" },
-  { id: "ObtainedMark", label: "ObtainedMark(TH)" },
-  { id: "ObtainedMarkPractical", label: "ObtainedMark(PR)" },
-  { id: "ObtainedMarkPreTerm", label: "ObtainedMark(Pre Term)" },
 ];
 
 const EcaData = () => {
@@ -69,7 +66,7 @@ const EcaData = () => {
   const [shift, setShift] = useState("");
   const [section, setSection] = useState("");
   const [event, setEvent] = useState("");
-  const [errors, setErrors] = useState([]);
+  const [errors, setErrors] = useState({});
 
   const dispatch = useDispatch();
   const classes = useStyles();
@@ -125,6 +122,10 @@ const EcaData = () => {
     (state) => state.getBulkEditEcaData
   );
 
+  const { listEcaData, error: listEcaDataError } = useSelector(
+    (state) => state.getListEcaData
+  );
+
   const {
     success: postBulkEditEcaDataSuccess,
     error: postBulkEditEcaDataError,
@@ -133,6 +134,15 @@ const EcaData = () => {
   if (getEventSuccess) {
     setDdlEvent(allEvents);
     dispatch({ type: GET_EVENT_RESET });
+  }
+
+  if (listEcaDataError) {
+    setNotify({
+      isOpen: true,
+      message: listEcaDataError,
+      type: "error",
+    });
+    dispatch({ type: GET_LIST_ECA_DATA_RESET });
   }
 
   if (bulkEditDataError) {
@@ -195,6 +205,13 @@ const EcaData = () => {
     setErrors({ ...temp });
     return Object.values(temp).every((x) => x === "");
   };
+
+  useEffect(() => {
+    if (listEcaData) {
+      setTableData(listEcaData.dbModelLst);
+    }
+  }, [listEcaData]);
+
   const handleProgramValue = (value) => {
     setProgramValue(value);
     if ((acaYear, value, classId, shift)) {
@@ -217,7 +234,23 @@ const EcaData = () => {
 
   const handleClassIdChange = (value) => {
     setClassId(value);
+    setDdlEvent([]);
     dispatch(getEventAction(acaYear, programValue, value, shift));
+  };
+
+  const handleEcaSearch = () => {
+    if (validate()) {
+      dispatch(
+        getListEcaDataAction(
+          acaYear,
+          programValue,
+          classId,
+          section,
+          shift,
+          event
+        )
+      );
+    }
   };
 
   const handleBulkEdit = () => {
@@ -304,6 +337,7 @@ const EcaData = () => {
             </Grid>
 
             <Grid item xs={3}>
+              <div style={{ height: "10px" }}></div>
               <Button
                 variant="contained"
                 color="primary"
@@ -312,6 +346,15 @@ const EcaData = () => {
                 onClick={handleBulkEdit}
               >
                 BULKEDIT
+              </Button>
+              <Button
+                variant="contained"
+                color="primary"
+                type="submit"
+                style={{ margin: "15px 0 0 15px" }}
+                onClick={handleEcaSearch}
+              >
+                SEARCH
               </Button>
             </Grid>
           </Grid>
@@ -331,22 +374,34 @@ const EcaData = () => {
             onChange={handleSearch}
           />
         </Toolbar>
-      </CustomContainer>
-      <Popup
-        openPopup={openPopup}
-        setOpenPopup={setOpenPopup}
-        title="Bulk Edit"
-      >
-        <EcaDataBulkEdit
-          bulkData={bulkEditData && bulkEditData.dbModelLst}
-          academicSubject={
-            bulkEditData && bulkEditData.ddlAcademicFacultyECASubModel
-          }
-          eca={bulkEditData && bulkEditData.ecaData}
-          search={bulkEditData && bulkEditData.searchFilterModel}
+        {listEcaData && (
+          <TableContainer className={classes.table}>
+            <TblHead />
+
+            <TableBody>
+              {tableDataAfterPagingAndSorting().map((item) => (
+                <EcaDataTableCollapse key={item.$id} item={item} />
+              ))}
+            </TableBody>
+          </TableContainer>
+        )}
+        {listEcaData && <TblPagination />}
+        <Popup
+          openPopup={openPopup}
           setOpenPopup={setOpenPopup}
-        />
-      </Popup>
+          title="Bulk Edit"
+        >
+          <EcaDataBulkEdit
+            bulkData={bulkEditData && bulkEditData.dbModelLst}
+            academicSubject={
+              bulkEditData && bulkEditData.ddlAcademicFacultyECASubModel
+            }
+            eca={bulkEditData && bulkEditData.ecaData}
+            search={bulkEditData && bulkEditData.searchFilterModel}
+            setOpenPopup={setOpenPopup}
+          />
+        </Popup>
+      </CustomContainer>
       <Notification notify={notify} setNotify={setNotify} />
       <ConfirmDialog
         confirmDialog={confirmDialog}

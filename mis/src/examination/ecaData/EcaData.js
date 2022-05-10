@@ -338,6 +338,7 @@ const EcaData = () => {
           academicSubject={
             bulkEditData && bulkEditData.ddlAcademicFacultyECASubModel
           }
+          eca={bulkEditData && bulkEditData.ecaData}
           search={bulkEditData && bulkEditData.searchFilterModel}
           setOpenPopup={setOpenPopup}
         />

@@ -43,6 +43,7 @@ const useStyles = makeStyles({
 const EcaDataBulkEdit = ({
   bulkData,
   academicSubject,
+  eca,
   search,
   setOpenPopup,
 }) => {
@@ -52,25 +53,34 @@ const EcaDataBulkEdit = ({
   const classes = useStyles();
   const dispatch = useDispatch();
 
-  const onChangeHandler = (subject, value, name, id) => {
-    console.log("subject", subject);
-    console.log("value", value);
-    console.log("name", name);
-    console.log("id", id);
-    const newReassoc = {
-      ...subject,
-      ECAValue: value,
-      IDHREmployee: id,
-    };
+  const onChangeHandler = (subject, value, name, id, index) => {
+    // console.log("subject", subject);
+    // console.log("value", value);
+    // console.log("name", name);
+    // console.log("id", id);
 
-    const filteredEca = ecaData?.filter(
-      (x) => !(x.IDHREmployee == id && x.ECAName == name)
-    );
-    console.log("filteredEca", filteredEca);
-    if (filteredEca?.length > 0) {
-      console.log("final result", [...filteredEca, newReassoc]);
-      setEcaData([...filteredEca, newReassoc]);
-    }
+    setEcaData((prev) => {
+      const newReassoc = {
+        ...subject,
+        ECAValue: value,
+        IDHREmployee: id,
+      };
+
+      let newArray = [...prev];
+      newArray[index] = newReassoc;
+
+      // console.log(newArray);
+      return [...newArray];
+    });
+
+    // const filteredEca = ecaData?.filter(
+    //   (x) => !(x.IDHREmployee == id && x.ECAName == name)
+    // );
+    // console.log("filteredEca", filteredEca);
+    // if (filteredEca?.length > 0) {
+    //   console.log("final result", [...filteredEca, newReassoc]);
+    //   setEcaData([...filteredEca, newReassoc]);
+    // }
 
     // setEcaData((prev) => {
     //   console.log(prev);
@@ -137,14 +147,25 @@ const EcaDataBulkEdit = ({
       let tempArray = [];
 
       bulkData?.forEach((d) => {
+        console.log("eca", eca);
+        let currentUser = eca?.filter((x) => x.IDHREmployee === d.IDHREmployee);
+        console.log("currentUser", currentUser);
         let test = academicSubject?.map((s) => {
-          tempArray.push({ ...s, IDHREmployee: d.IDHREmployee });
+          let userEca = currentUser?.find(
+            (x) => x.IDAssignECA === s.IDAssignECA
+          );
+          console.log("userEca", userEca);
+          tempArray.push({
+            ...s,
+            IDHREmployee: d.IDHREmployee,
+            ECAValue: userEca ? userEca.ECAValue : "",
+          });
         });
       });
       setEcaData([...tempArray]);
       console.log(tempArray);
     }
-  }, [bulkData]);
+  }, [bulkData, eca]);
 
   return (
     <>
@@ -166,25 +187,29 @@ const EcaDataBulkEdit = ({
                 <StyledTableRow key={index}>
                   <StyledTableCell>{subject.RollNo}</StyledTableCell>
                   <StyledTableCell>{subject.FullName}</StyledTableCell>
-                  {selectSubject &&
-                    selectSubject.map((s, i) => (
-                      <StyledTableCell align="right" key={i}>
-                        <TextField
-                          defaultValue={s.ECAValue}
-                          label={s.ECAName}
-                          variant="outlined"
-                          name={s.ECAName}
-                          onChange={(e) =>
-                            onChangeHandler(
-                              s,
-                              e.target.value,
-                              e.target.name,
-                              subject.IDHREmployee
-                            )
-                          }
-                        />
-                      </StyledTableCell>
-                    ))}
+                  {ecaData &&
+                    ecaData.map(
+                      (s, i) =>
+                        s.IDHREmployee === subject.IDHREmployee && (
+                          <StyledTableCell align="left" key={i}>
+                            <TextField
+                              defaultValue={s.ECAValue}
+                              label={s.ECAName}
+                              variant="outlined"
+                              name={s.ECAName}
+                              onChange={(e) =>
+                                onChangeHandler(
+                                  s,
+                                  e.target.value,
+                                  e.target.name,
+                                  subject.IDHREmployee,
+                                  i
+                                )
+                              }
+                            />
+                          </StyledTableCell>
+                        )
+                    )}
                 </StyledTableRow>
               ))}
           </TableBody>

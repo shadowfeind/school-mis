@@ -182,6 +182,7 @@ const GeneratePublishResult = () => {
 
   const handleClassIdChange = (value) => {
     setClassId(value);
+    setDdlEvent([]);
     setEvent("")
     dispatch(getEventAction(acaYear, programValue, value,shift));
   };

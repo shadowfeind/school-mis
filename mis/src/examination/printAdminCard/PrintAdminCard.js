@@ -289,6 +289,7 @@ const PrintAdminCard = () => {
 
   const handleClassIdChange = (value) => {
     setClassId(value);
+    setDdlEvent([]);
     if (acaYear) {
       dispatch(getEventAction(acaYear, programValue, value));
     }

@@ -278,6 +278,7 @@ const ExamResult = () => {
 
   const handleClassIdChange = (value) => {
     setShowDatatable(false);
+    setDdlEvent([]);
     setClassId(value);
     setEvent("");
     dispatch(getEventForExamMarkAction(acaYear, programValue, value));

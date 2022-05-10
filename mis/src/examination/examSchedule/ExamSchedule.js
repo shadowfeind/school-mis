@@ -331,6 +331,7 @@ const ExamSchedule = () => {
 
   const handleClassIdChange = (value) => {
     setClassId(value);
+    setDdlEvent([]);
     dispatch(getEventForExamScheduleAction(acaYear, programValue, value));
     setEvent("");
   };

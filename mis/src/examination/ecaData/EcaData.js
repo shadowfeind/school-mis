@@ -166,15 +166,20 @@ const EcaData = () => {
 
   useEffect(() => {
     dispatch({ type: "GET_LINK", payload: "examination" });
-    if (!allEcaData) {
-      dispatch(getAllEcaDataAction());
-    }
+    dispatch(getAllEcaDataAction());
+  }, []);
+  useEffect(() => {
     if (allEcaData) {
       setAcademicYearDdl(allEcaData.searchFilterModel.ddlAcademicYear);
-      setProgramDdl(allEcaData.searchFilterModel.ddlFacultyProgramLink);
+      setProgramValue(
+        allEcaData.searchFilterModel.ddlFacultyProgramLink[0]?.Key
+      );
       setDdlClass(allEcaData.searchFilterModel.ddlClass);
+      setClassId(allEcaData.searchFilterModel.ddlClass[0]?.Key);
       setDdlShift(allEcaData.searchFilterModel.ddlAcademicShift);
+      setShift(allEcaData.searchFilterModel.ddlAcademicShift[0]?.Key);
       setDdlSection(allEcaData.searchFilterModel.ddlSection);
+      setSection(allEcaData.searchFilterModel.ddlSection[0]?.Key);
     }
   }, [allEcaData, dispatch]);
 
@@ -246,7 +251,7 @@ const EcaData = () => {
                 errors={errors.acaYear}
               />
             </Grid>
-            <Grid item xs={3}>
+            {/* <Grid item xs={3}>
               <SelectControl
                 name="Program/Faculty"
                 label="Program/Faculty"
@@ -255,7 +260,7 @@ const EcaData = () => {
                 options={programDdl}
                 errors={errors.programValue}
               />
-            </Grid>
+            </Grid> */}
             <Grid item xs={3}>
               <SelectControl
                 name="Classes"
@@ -277,7 +282,6 @@ const EcaData = () => {
               />
             </Grid>
             <Grid item xs={3}>
-              <div style={{ height: "10px" }}></div>
               <SelectControl
                 name="Section"
                 label="Section"

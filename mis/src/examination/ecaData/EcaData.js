@@ -124,10 +124,10 @@ const [showTableData, setShowTableData] = useState(false);
     error: postBulkEditEcaDataError,
   } = useSelector((state) => state.postBulkEditEcaData);
 
-  if (getEventSuccess) {
-    setDdlEvent(allEvents);
-    dispatch({ type: GET_EVENT_RESET });
-  }
+  // if (getEventSuccess) {
+  //   setDdlEvent(allEvents);
+  //   dispatch({ type: GET_EVENT_RESET });
+  // }
 
   if (listEcaDataError) {
     setNotify({
@@ -164,12 +164,22 @@ const [showTableData, setShowTableData] = useState(false);
       type: "success",
     });
     setOpenPopup(false);
+   dispatch(getBulkEditEcaDataAction(
+      acaYear,
+      programValue,
+      classId,
+      section,
+      shift,
+      event
+    ))
+    setShowTableData(true);
     dispatch({ type: POST_BULK_ECA_DATA_RESET });
   }
 
   useEffect(() => {
     dispatch({ type: "GET_LINK", payload: "examination" });
     dispatch(getAllEcaDataAction());
+    setDdlEvent([]);
   }, []);
   useEffect(() => {
     if (allEcaData) {
@@ -220,6 +230,7 @@ const [showTableData, setShowTableData] = useState(false);
     if (event) {
       setEvent("");
     }
+    setDdlEvent([]);
   };
 
   const handleClassIdChange = (value) => {
@@ -260,6 +271,13 @@ const [showTableData, setShowTableData] = useState(false);
       setOpenPopup(true);
     }
   };
+
+  useEffect(()=>{
+    if(allEvents){
+      setDdlEvent(allEvents);
+      setEvent(allEvents[0]?.Key)
+    }
+  },[allEvents])
 
   return (
     <>

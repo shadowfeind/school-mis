@@ -169,15 +169,15 @@ const ExamMarkApproval = () => {
     error: postBulkExamApprovalError,
   } = useSelector((state) => state.postBulkExamApproval);
 
-  if (getEventSuccess) {
-    setDdlEvent(allEvents);
-    dispatch({ type: GET_EVENT_RESET });
-  }
+  // if (getEventSuccess) {
+  //   setDdlEvent(allEvents);
+  //   dispatch({ type: GET_EVENT_RESET });
+  // }
 
-  if (scheduleHeader) {
-    setDdlSchedule(scheduleHeader);
-    dispatch({ type: GET_EXAM_APPROVAL_SCHEULE_HEADER_RESET });
-  }
+  // if (scheduleHeader) {
+  //   setDdlSchedule(scheduleHeader);
+  //   dispatch({ type: GET_EXAM_APPROVAL_SCHEULE_HEADER_RESET });
+  // }
   if (postBulkExamApprovalSuccess) {
     setNotify({
       isOpen: true,
@@ -208,31 +208,52 @@ const ExamMarkApproval = () => {
     setOpenPopup(false);
   }
 
-  const handleProgramValue = (value) => {
-    setProgramValue(value);
-    if ((acaYear, value, classId, shift)) {
-      dispatch(
-        getExamApprovalScheduleHeaderAction(value, acaYear, classId, shift)
-      );
-    }
-  };
+  // const handleProgramValue = (value) => {
+  //   setProgramValue(value);
+  //   if ((acaYear, value, classId, shift)) {
+  //     dispatch(
+  //       getExamApprovalScheduleHeaderAction(value, acaYear, classId, shift)
+  //     );
+  //   }
+  // };
 
   const handleClassIdChange = (value) => {
     setClassId(value);
     setDdlEvent([]);
+    setEvent("");
+    setSchedule("");
+    setDdlSchedule([]);
     dispatch(getEventAction(acaYear, programValue, value, shift));
   };
 
   const handleYearChange = (value) => {
     setAcaYear(value);
-    setClassId("");
     if (classId) {
       dispatch(getEventAction(value, programValue, classId, shift));
     }
     if (event) {
       setEvent("");
     }
+    setDdlEvent([]);
+    setSchedule("");
+    setDdlSchedule([]);
   };
+
+  const handleSchedule = (value) =>{
+    setSchedule(value);
+    if(allEvents){
+      dispatch(
+        getExamApprovalScheduleHeaderAction(
+          acaYear,
+          programValue,
+          classId,
+          section,
+          event,
+          value
+        )
+      );
+        }
+  }
 
   const eventHandler = (value) => {
     setEvent(value);
@@ -248,6 +269,7 @@ const ExamMarkApproval = () => {
     if (schedule) {
       setSchedule("");
     }
+    setDdlSchedule([]);
   };
 
   useEffect(() => {
@@ -269,9 +291,33 @@ const ExamMarkApproval = () => {
   }, [examApprovalInitialDatas, dispatch]);
 
   useEffect(() => {
+    setDdlEvent([]);
     dispatch({ type: GET_ALL_EXAM_APPROVAL_SEARCHDATA_RESET });
     dispatch(getInitialExamApprovalDataAction());
   }, []);
+
+  useEffect(()=>{
+    if(allEvents){
+      setDdlEvent(allEvents);
+      setEvent(allEvents[0]?.Key)
+      dispatch(
+      getExamApprovalScheduleHeaderAction(
+        acaYear,
+        programValue,
+        classId,
+        section,
+        allEvents[0]?.Key
+      )
+    );
+    }
+  },[allEvents])
+
+  useEffect(()=>{
+    if(scheduleHeader){
+      setDdlSchedule(scheduleHeader)
+      setSchedule(scheduleHeader[0]?.Key)
+    }
+  },[scheduleHeader])
 
   useEffect(() => {
     if (searchData) {
@@ -415,7 +461,7 @@ const ExamMarkApproval = () => {
                 name="ExamScheduleHeader"
                 label="Exam Schedule Header"
                 value={schedule}
-                onChange={(e) => setSchedule(e.target.value)}
+                onChange={(e) => handleSchedule(e.target.value)}
                 options={ddlSchedule ? ddlSchedule : test}
                 errors={errors.schedule}
               />

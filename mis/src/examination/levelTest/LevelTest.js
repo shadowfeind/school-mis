@@ -136,10 +136,10 @@ const LevelTest = () => {
     error: postBulkLevelTestDataError,
   } = useSelector((state) => state.postBulkLevelTestData);
 
-  if (getEventSuccess) {
-    setDdlEvent(allEvents);
-    dispatch({ type: GET_EVENT_RESET });
-  }
+  // if (getEventSuccess) {
+  //   setDdlEvent(allEvents);
+  //   dispatch({ type: GET_EVENT_RESET });
+  // }
 
   if (getbulkDatasError) {
     setNotify({
@@ -168,11 +168,13 @@ const LevelTest = () => {
     dispatch({ type: POST_BULK_LEVEL_TEST_DATA_RESET });
   }
 
-  useEffect(() => {
+  useEffect(()=>{
     dispatch({ type: "GET_LINK", payload: "examination" });
-    if (!levelTestInitialDatas) {
-      dispatch(getInitialLevelTestDataAction());
-    }
+    dispatch(getInitialLevelTestDataAction());
+    setDdlEvent([]);
+  },[])
+
+  useEffect(() => {
     if (levelTestInitialDatas) {
       setProgramValue(
         levelTestInitialDatas?.searchFilterModel.ddlFacultyProgramLink[0].Key
@@ -218,15 +220,14 @@ const LevelTest = () => {
 
   const handleYearChange = (value) => {
     setAcaYear(value);
+    setDdlEvent([]);
     if (classId) {
       dispatch(getEventAction(value, programValue, classId,shift));
     }
     if(event){
       setEvent("")
     }
-    if(classId){
-      setClassId("")
-    }
+
   };
 
   const handleClassIdChange = (value) => {
@@ -250,6 +251,14 @@ const LevelTest = () => {
       setOpenPopup(true);
     }
   };
+
+  useEffect(()=>{
+    if(allEvents){
+      setDdlEvent(allEvents);
+      setEvent(allEvents[0]?.Key)
+    }
+  },[allEvents])
+
 
   return (
     <>

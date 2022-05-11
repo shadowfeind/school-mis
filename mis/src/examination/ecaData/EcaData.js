@@ -47,12 +47,6 @@ const useStyles = makeStyles((theme) => ({
 
 const test = [{ Key: "", Value: "" }];
 
-const tableHeader = [
-  { id: "RollNo", label: "Roll No" },
-  { id: "FullName", label: "Full Name" },
-  { id: "SubjectName", label: "Subject" },
-];
-
 const EcaData = () => {
   const [ddlClass, setDdlClass] = useState([]);
   const [academicYearDdl, setAcademicYearDdl] = useState([]);
@@ -67,7 +61,7 @@ const EcaData = () => {
   const [section, setSection] = useState("");
   const [event, setEvent] = useState("");
   const [errors, setErrors] = useState({});
-
+const [showTableData, setShowTableData] = useState(false);
   const dispatch = useDispatch();
   const classes = useStyles();
 
@@ -93,10 +87,9 @@ const EcaData = () => {
 
   const {
     TableContainer,
-    TblHead,
     TblPagination,
     tableDataAfterPagingAndSorting,
-  } = useCustomTable(tableData, tableHeader, filterFn);
+  } = useCustomTable(tableData, filterFn);
 
   const handleSearch = (e) => {
     setFilterFn({
@@ -227,21 +220,19 @@ const EcaData = () => {
     if (event) {
       setEvent("");
     }
-    if (classId) {
-      setClassId("");
-    }
   };
 
   const handleClassIdChange = (value) => {
     setClassId(value);
     setDdlEvent([]);
+    setEvent("");
     dispatch(getEventAction(acaYear, programValue, value, shift));
   };
 
   const handleEcaSearch = () => {
     if (validate()) {
       dispatch(
-        getListEcaDataAction(
+        getBulkEditEcaDataAction(
           acaYear,
           programValue,
           classId,
@@ -250,6 +241,7 @@ const EcaData = () => {
           event
         )
       );
+      setShowTableData(true);
     }
   };
 
@@ -359,33 +351,26 @@ const EcaData = () => {
             </Grid>
           </Grid>
         </Toolbar>
-        <div style={{ height: "15px" }}></div>
-        <Toolbar>
-          <InputControl
-            className={classes.searchInput}
-            label="ECA Data"
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <Search />
-                </InputAdornment>
-              ),
-            }}
-            onChange={handleSearch}
-          />
-        </Toolbar>
-        {listEcaData && (
+        <div style={{ height: "40px" }}></div>
+        {/* {listEcaData && (
           <TableContainer className={classes.table}>
-            <TblHead />
 
             <TableBody>
-              {tableDataAfterPagingAndSorting().map((item) => (
-                <EcaDataTableCollapse key={item.$id} item={item} />
-              ))}
+              {tableDataAfterPagingAndSorting().map((item) => ( */}
+              {showTableData && (
+                <EcaDataTableCollapse 
+                 bulkDatas={bulkEditData && bulkEditData.dbModelLst}
+            academicSubjects={
+              bulkEditData && bulkEditData.ddlAcademicFacultyECASubModel
+            }
+            ecas={bulkEditData && bulkEditData.ecaData}
+            searchs={bulkEditData && bulkEditData.searchFilterModel}
+             />)}
+              {/* ))}
             </TableBody>
           </TableContainer>
         )}
-        {listEcaData && <TblPagination />}
+        {listEcaData && <TblPagination />} */}
         <Popup
           openPopup={openPopup}
           setOpenPopup={setOpenPopup}

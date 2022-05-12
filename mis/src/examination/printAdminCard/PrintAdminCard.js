@@ -247,13 +247,11 @@ const PrintAdminCard = () => {
     setShift(value);
     setDdlStudent([]);
     setStudent("");
-    if (event) {
-      setEvent("");
-    }
+    setEvent("");
+    setDdlEvent([]);
     if (shift) {
       dispatch(getEventAction(acaYear, programValue, classId, shift, value));
     }
-    setDdlEvent([]);
     if ((acaYear, programValue, classId)) {
       dispatch(
         getActiveStudentsForAdmitCardDataAction(

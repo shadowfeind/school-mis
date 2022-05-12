@@ -226,6 +226,46 @@ const ExamMarkApproval = () => {
     dispatch(getEventAction(acaYear, programValue, value, shift));
   };
 
+  const handleShift = (value) =>{
+    setShift(value);
+    setDdlSchedule([]);
+    setSchedule("");
+    setEvent("");
+    setDdlEvent([]);
+      dispatch(getEventAction(acaYear, programValue, classId, shift,section, value));
+    if((acaYear, programValue,classId,section)){
+      dispatch(getExamApprovalScheduleHeaderAction(
+        acaYear,
+          programValue,
+          classId,
+          shift,
+          section,
+          event,
+          value
+          
+      ))
+    }
+  }
+
+  const handleSection = (value)=>{
+    setSection(value);
+    setDdlSchedule([]);
+    setSchedule("");
+    setEvent("");
+    setDdlEvent([]);
+    if (section) {
+      dispatch(getEventAction(acaYear, programValue, classId, shift, value));
+    }
+    if((acaYear, programValue,classId,shift)){
+      dispatch(getExamApprovalScheduleHeaderAction(
+        acaYear,
+          programValue,
+          classId,
+          shift,
+          value
+      ))
+    }
+  }
   const handleYearChange = (value) => {
     setAcaYear(value);
     if (classId) {
@@ -429,7 +469,7 @@ const ExamMarkApproval = () => {
                 name="Shift"
                 label="Shift"
                 value={shift}
-                onChange={(e) => setShift(e.target.value)}
+                onChange={(e) => handleShift(e.target.value)}
                 options={ddlShift}
                 errors={errors.shift1}
               />
@@ -439,7 +479,7 @@ const ExamMarkApproval = () => {
                 name="Section"
                 label="Section"
                 value={section}
-                onChange={(e) => setSection(e.target.value)}
+                onChange={(e) => handleSection(e.target.value)}
                 options={ddlSection}
                 errors={errors.section}
               />

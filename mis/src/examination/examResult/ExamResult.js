@@ -197,10 +197,10 @@ const ExamResult = () => {
     dispatch({ type: PRINT_EXAM_RESULT_RESET });
   }
 
-  if (getExamMarkEventSuccess) {
-    setDdlEvent(allEventsForExamMark);
-    dispatch({ type: GET_EVENT_FOR_EXAM_MARK_RESET });
-  }
+  // if (getExamMarkEventSuccess) {
+  //   setDdlEvent(allEventsForExamMark);
+  //   dispatch({ type: GET_EVENT_FOR_EXAM_MARK_RESET });
+  // }
 
   if (studentOptionsForExamMarkSuccess) {
     setDdlStudent(studentOptionsForExamMark);
@@ -219,7 +219,9 @@ const ExamResult = () => {
         examResultInitialDatas?.searchFilterModel.ddlAcademicYear
       );
       setDdlShift(examResultInitialDatas?.searchFilterModel.ddlAcademicShift);
-      setShift(examResultInitialDatas?.searchFilterModel.ddlAcademicShift[0].Key);
+      setShift(
+        examResultInitialDatas?.searchFilterModel.ddlAcademicShift[0].Key
+      );
       setDdlSection(examResultInitialDatas?.searchFilterModel.ddlSection);
       setSection(examResultInitialDatas?.searchFilterModel.ddlSection[0].Key);
       setDdlNpYear(examResultInitialDatas?.searchFilterModel.ddlnpYear);
@@ -228,6 +230,7 @@ const ExamResult = () => {
   }, [examResultInitialDatas, dispatch]);
 
   useEffect(() => {
+    setDdlEvent([]);
     dispatch({ type: GET_EXAM_RESULT_LIST_RESET });
     dispatch(getInitialExamResultDataAction());
   }, []);
@@ -266,8 +269,8 @@ const ExamResult = () => {
   const handleYearChange = (value) => {
     setShowDatatable(false);
     setAcaYear(value);
+    setDdlEvent([]);
     setEvent("");
-    setClassId("");
     if (classId) {
       dispatch(getEventForExamMarkAction(value, programValue, classId));
       dispatch(
@@ -279,6 +282,8 @@ const ExamResult = () => {
   const handleClassIdChange = (value) => {
     setShowDatatable(false);
     setDdlEvent([]);
+    setDdlStudent([]);
+    setStudent("");
     setClassId(value);
     setEvent("");
     dispatch(getEventForExamMarkAction(acaYear, programValue, value));
@@ -299,6 +304,13 @@ const ExamResult = () => {
     setShowDatatable(false);
     setStudent(value);
   };
+
+  useEffect(() => {
+    if (allEventsForExamMark) {
+      setDdlEvent(allEventsForExamMark);
+      setEvent(allEventsForExamMark[0]?.Key);
+    }
+  }, [allEventsForExamMark]);
 
   const eventHandler = (value) => {
     setShowDatatable(false);

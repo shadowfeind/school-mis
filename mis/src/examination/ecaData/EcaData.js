@@ -47,12 +47,6 @@ const useStyles = makeStyles((theme) => ({
 
 const test = [{ Key: "", Value: "" }];
 
-const tableHeader = [
-  { id: "RollNo", label: "Roll No" },
-  { id: "FullName", label: "Full Name" },
-  { id: "SubjectName", label: "Subject" },
-];
-
 const EcaData = () => {
   const [ddlClass, setDdlClass] = useState([]);
   const [academicYearDdl, setAcademicYearDdl] = useState([]);
@@ -67,7 +61,7 @@ const EcaData = () => {
   const [section, setSection] = useState("");
   const [event, setEvent] = useState("");
   const [errors, setErrors] = useState({});
-
+const [showTableData, setShowTableData] = useState(false);
   const dispatch = useDispatch();
   const classes = useStyles();
 
@@ -93,10 +87,9 @@ const EcaData = () => {
 
   const {
     TableContainer,
-    TblHead,
     TblPagination,
     tableDataAfterPagingAndSorting,
-  } = useCustomTable(tableData, tableHeader, filterFn);
+  } = useCustomTable(tableData, filterFn);
 
   const handleSearch = (e) => {
     setFilterFn({
@@ -131,10 +124,10 @@ const EcaData = () => {
     error: postBulkEditEcaDataError,
   } = useSelector((state) => state.postBulkEditEcaData);
 
-  if (getEventSuccess) {
-    setDdlEvent(allEvents);
-    dispatch({ type: GET_EVENT_RESET });
-  }
+  // if (getEventSuccess) {
+  //   setDdlEvent(allEvents);
+  //   dispatch({ type: GET_EVENT_RESET });
+  // }
 
   if (listEcaDataError) {
     setNotify({
@@ -171,12 +164,22 @@ const EcaData = () => {
       type: "success",
     });
     setOpenPopup(false);
+   dispatch(getBulkEditEcaDataAction(
+      acaYear,
+      programValue,
+      classId,
+      section,
+      shift,
+      event
+    ))
+    setShowTableData(true);
     dispatch({ type: POST_BULK_ECA_DATA_RESET });
   }
 
   useEffect(() => {
     dispatch({ type: "GET_LINK", payload: "examination" });
     dispatch(getAllEcaDataAction());
+    setDdlEvent([]);
   }, []);
   useEffect(() => {
     if (allEcaData) {
@@ -227,21 +230,20 @@ const EcaData = () => {
     if (event) {
       setEvent("");
     }
-    if (classId) {
-      setClassId("");
-    }
+    setDdlEvent([]);
   };
 
   const handleClassIdChange = (value) => {
     setClassId(value);
     setDdlEvent([]);
+    setEvent("");
     dispatch(getEventAction(acaYear, programValue, value, shift));
   };
 
   const handleEcaSearch = () => {
     if (validate()) {
       dispatch(
-        getListEcaDataAction(
+        getBulkEditEcaDataAction(
           acaYear,
           programValue,
           classId,
@@ -250,6 +252,7 @@ const EcaData = () => {
           event
         )
       );
+      setShowTableData(true);
     }
   };
 
@@ -268,6 +271,13 @@ const EcaData = () => {
       setOpenPopup(true);
     }
   };
+
+  useEffect(()=>{
+    if(allEvents){
+      setDdlEvent(allEvents);
+      setEvent(allEvents[0]?.Key)
+    }
+  },[allEvents])
 
   return (
     <>
@@ -359,33 +369,26 @@ const EcaData = () => {
             </Grid>
           </Grid>
         </Toolbar>
-        <div style={{ height: "15px" }}></div>
-        <Toolbar>
-          <InputControl
-            className={classes.searchInput}
-            label="ECA Data"
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <Search />
-                </InputAdornment>
-              ),
-            }}
-            onChange={handleSearch}
-          />
-        </Toolbar>
-        {listEcaData && (
+        <div style={{ height: "40px" }}></div>
+        {/* {listEcaData && (
           <TableContainer className={classes.table}>
-            <TblHead />
 
             <TableBody>
-              {tableDataAfterPagingAndSorting().map((item) => (
-                <EcaDataTableCollapse key={item.$id} item={item} />
-              ))}
+              {tableDataAfterPagingAndSorting().map((item) => ( */}
+              {showTableData && (
+                <EcaDataTableCollapse 
+                 bulkDatas={bulkEditData && bulkEditData.dbModelLst}
+            academicSubjects={
+              bulkEditData && bulkEditData.ddlAcademicFacultyECASubModel
+            }
+            ecas={bulkEditData && bulkEditData.ecaData}
+            searchs={bulkEditData && bulkEditData.searchFilterModel}
+             />)}
+              {/* ))}
             </TableBody>
           </TableContainer>
         )}
-        {listEcaData && <TblPagination />}
+        {listEcaData && <TblPagination />} */}
         <Popup
           openPopup={openPopup}
           setOpenPopup={setOpenPopup}

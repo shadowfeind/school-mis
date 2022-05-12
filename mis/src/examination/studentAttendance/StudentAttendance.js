@@ -165,10 +165,10 @@ const StudentAttendance = () => {
     error: generateStudentAttendanceError,
   } = useSelector((state) => state.getGeneratedStudentAttendance);
 
-  if (getEventSuccess) {
-    setDdlEvent(allEvents);
-    dispatch({ type: GET_EVENT_RESET });
-  }
+  // if (getEventSuccess) {
+  //   setDdlEvent(allEvents);
+  //   dispatch({ type: GET_EVENT_RESET });
+  // }
 
   if (studentAttendanceInitDataError) {
     setNotify({
@@ -330,7 +330,6 @@ const StudentAttendance = () => {
   const handleYearChange = (value) => {
     setAcaYear(value);
     setEvent("");
-    setClassId("");
     if (classId) {
       dispatch(getEventAction(value, programValue, classId));
     }
@@ -393,6 +392,14 @@ const StudentAttendance = () => {
       setOpenPopup(true);
     }
   };
+
+  useEffect(()=>{
+    if(allEvents){
+      setDdlEvent(allEvents);
+      setEvent(allEvents[0]?.Key)
+    }
+  },[allEvents])
+
 
   const symbolsArr = ["e", "E", "+", "-", ".","ArrowUp","ArrowDown"];
 

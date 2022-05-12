@@ -128,10 +128,10 @@ const GeneratePublishResult = () => {
     (state) => state.getAllGeneratePublishResult
   );
 
-  if (getEventSuccess) {
-    setDdlEvent(allEvents);
-    dispatch({ type: GET_EVENT_RESET });
-  }
+  // if (getEventSuccess) {
+  //   setDdlEvent(allEvents);
+  //   dispatch({ type: GET_EVENT_RESET });
+  // }
 
   if (allGeneratePublishResult) {    
     setNotify({
@@ -164,13 +164,13 @@ const GeneratePublishResult = () => {
 
   const handleYearChange = (value) => {
     setAcaYear(value);
-    setClassId("")
     if (classId) {
       dispatch(getEventAction(value, programValue, classId,shift));
     }
     if(event){
       setEvent("")
     }
+    setDdlEvent([]);
   };
 
   const handleProgramValue = (value) => {
@@ -202,6 +202,7 @@ const GeneratePublishResult = () => {
   }, [allGeneratePublish, dispatch]);
 
   useEffect(()=>{
+    setDdlEvent([]);
     dispatch({type:GET_ALL_GENERATE_RESET})
     dispatch({type:GET_ALL_GENERATE_PUBLISH_RESULT_RESET})
     dispatch(getAllGeneratePublishAction());
@@ -261,6 +262,13 @@ const GeneratePublishResult = () => {
       );
     }
   };
+
+  useEffect(()=>{
+    if(allEvents){
+      setDdlEvent(allEvents);
+      setEvent(allEvents[0]?.Key)
+    }
+  },[allEvents])
 
   return (
     <>

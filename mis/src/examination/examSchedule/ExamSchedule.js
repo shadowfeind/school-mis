@@ -302,6 +302,7 @@ const ExamSchedule = () => {
   }, [examScheduleInitialData, dispatch]);
 
   useEffect(() => {
+    setDdlEvent([]);
     dispatch({ type: GET_EXAM_SCHEDULE_LIST_RESET });
     dispatch(getAllExamScheduleInitialDataAction());
   }, []);
@@ -315,6 +316,7 @@ const ExamSchedule = () => {
   useEffect(() => {
     if (eventExamSchedule) {
       setDdlEvent(eventExamSchedule);
+      setEvent(eventExamSchedule[0]?.Key)
     }
   }, [eventExamSchedule]);
 
@@ -342,6 +344,7 @@ const ExamSchedule = () => {
       dispatch(getEventForExamScheduleAction(value, programValue, classId));
     }
     setEvent("");
+    setDdlEvent([]);
   };
 
   const handleExamScheduleSearch = () => {

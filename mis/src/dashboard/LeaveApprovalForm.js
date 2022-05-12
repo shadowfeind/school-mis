@@ -89,7 +89,7 @@ const LeaveApprovlForm = ({
   return (
     <Form onSubmit={handleSubmit}>
       <Grid container style={{ fontSize: "12px" }}>
-        {/* <Grid item xs={6}>
+        <Grid item xs={6}>
           <SelectControl
             disabled
             name="ReceiverID"
@@ -103,7 +103,7 @@ const LeaveApprovlForm = ({
             }
             errors={errors.ReceiverID}
           />
-        </Grid> */}
+        </Grid>
         <Grid item xs={12}>
           <InputControl
             disabled

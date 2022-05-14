@@ -173,12 +173,19 @@ const GeneratePublishResult = () => {
     setDdlEvent([]);
   };
 
-  const handleProgramValue = (value) => {
-    setProgramValue(value);
-    if ((acaYear, classId, shift)) {
-      dispatch(getEventAction( acaYear,value, classId, shift));
-    }
+  const handleSection = (value) => {
+    setSection(value);
+    setDdlEvent([]);
+    setEvent("");
+      dispatch(getEventAction( acaYear,programValue, classId, shift,value));
   };
+
+  const handleShiftChange =(value)=>{
+    setShift(value);
+    setDdlEvent([]);
+    setEvent("")
+    dispatch(getEventAction(acaYear, programValue, classId,value));
+  }
 
   const handleClassIdChange = (value) => {
     setClassId(value);
@@ -310,7 +317,7 @@ const GeneratePublishResult = () => {
                 name="Shift"
                 label="Shift"
                 value={shift}
-                onChange={(e) => setShift(e.target.value)}
+                onChange={(e) => handleShiftChange(e.target.value)}
                 options={ddlShift}
                 errors={errors.shift1}
               />
@@ -320,7 +327,7 @@ const GeneratePublishResult = () => {
                 name="Section"
                 label="Section"
                 value={section}
-                onChange={(e) => setSection(e.target.value)}
+                onChange={(e) => handleSection(e.target.value)}
                 options={ddlSection}
                 errors={errors.section}
               />

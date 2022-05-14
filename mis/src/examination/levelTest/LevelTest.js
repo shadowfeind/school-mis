@@ -204,19 +204,38 @@ const LevelTest = () => {
     return Object.values(temp).every((x) => x === "");
   }
 
-  const handleProgramValue =(value=>{
-    setProgramValue(value);
-    if ((acaYear,value, classId, shift)) {
+  const handleShiftChange =(value)=>{
+    setShift(value);
+    setDdlEvent([]);
+    setEvent("");
+    // if ((acaYear,programValue, classId, value)) {
       dispatch(
         getEventAction(
-          value,
           acaYear,
+          programValue,
           classId,
-          shift
+          value
         )
       );
     }
-  })
+  // }
+
+  const handleSectionChange =(value)=>{
+    setSection(value);
+    setDdlEvent([]);
+    setEvent("");
+    if ((acaYear,programValue, classId, shift,value)) {
+      dispatch(
+        getEventAction(
+          acaYear,
+          programValue,
+          classId,
+          shift,
+          value
+        )
+      );
+    }
+  }
 
   const handleYearChange = (value) => {
     setAcaYear(value);
@@ -300,7 +319,7 @@ const LevelTest = () => {
                 name="Shift"
                 label="Shift"
                 value={shift}
-                onChange={(e) => setShift(e.target.value)}
+                onChange={(e) => handleShiftChange(e.target.value)}
                 options={ddlShift}
                 errors={errors.shift1}
               />
@@ -310,7 +329,7 @@ const LevelTest = () => {
                 name="Section"
                 label="Section"
                 value={section}
-                onChange={(e) => setSection(e.target.value)}
+                onChange={(e) => handleSectionChange(e.target.value)}
                 options={ddlSection}
                 errors={errors.section}
               />

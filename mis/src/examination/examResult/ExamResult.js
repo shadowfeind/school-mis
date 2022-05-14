@@ -257,14 +257,6 @@ const ExamResult = () => {
     }
   };
 
-  const handleProgramValue = (value) => {
-    setProgramValue(value);
-    if ((acaYear, classId, shift)) {
-      dispatch(
-        getExamApprovalScheduleHeaderAction(value, acaYear, classId, shift)
-      );
-    }
-  };
 
   const handleYearChange = (value) => {
     setShowDatatable(false);
@@ -292,12 +284,43 @@ const ExamResult = () => {
     );
   };
 
+
   const handleShiftChange = (value) => {
-    setShowDatatable(false);
     setShift(value);
-    dispatch(
-      getStudentOptionsForExamMarkAction(acaYear, programValue, classId, value)
-    );
+    setShowDatatable(false);
+    setDdlEvent([]);
+    setEvent("");
+    setDdlStudent([]);
+    setStudent("");
+    // if ((acaYear,programValue, classId, value)) {
+      dispatch(
+        getEventForExamMarkAction( acaYear,programValue, classId, value)
+      );
+    // }
+    // if((acaYear,programValue, classId, shift,section,event,value)){
+      dispatch(
+        getStudentOptionsForExamMarkAction(acaYear,programValue, classId, value,section)
+      );
+    // }
+  };
+
+  const handleSectionChange = (value) => {
+    setSection(value);
+    setShowDatatable(false);
+    setDdlEvent([]);
+    setEvent("");
+    setDdlStudent([]);
+    setStudent("");
+    // if ((acaYear,programValue, classId,shift, value)) {
+      dispatch(
+        getEventForExamMarkAction( acaYear,programValue, classId,shift, value)
+      );
+    // }
+    // if((acaYear,programValue, classId, shift,section,event,value)){
+      dispatch(
+        getStudentOptionsForExamMarkAction(acaYear,programValue, classId, shift,value,event)
+      );
+    // }
   };
 
   const studentHandler = (value) => {
@@ -510,7 +533,7 @@ const ExamResult = () => {
                 name="Section"
                 label="Section"
                 value={section}
-                onChange={(e) => setSection(e.target.value)}
+                onChange={(e) => handleSectionChange(e.target.value)}
                 options={ddlSection}
                 errors={errors.section}
               />

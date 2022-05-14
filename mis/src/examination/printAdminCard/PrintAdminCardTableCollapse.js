@@ -10,8 +10,9 @@ const useStyles = makeStyles({
   },
 });
 
-const PrintAdminCardTableCollapse = ({ item }) => {
+const PrintAdminCardTableCollapse = ({ item,section }) => {
   const classes = useStyles();
+  const sectionNameToShow = section?.filter( s => s.Key == item.Section)
   return (
     <>
       <TableRow>
@@ -19,7 +20,7 @@ const PrintAdminCardTableCollapse = ({ item }) => {
         <TableCell>{item.RollNo}</TableCell>
         <TableCell>{item.UniversityRegistrationNumber}</TableCell>
         <TableCell>{item.AcademicProgramName}/{item.FacultyName}</TableCell>
-        <TableCell>{item.Section}</TableCell>
+        <TableCell>{sectionNameToShow?.length > 0 && sectionNameToShow[0].Value}</TableCell>
         <TableCell>{item.EventName}</TableCell>
         <TableCell>{item.Status}</TableCell>
       </TableRow>

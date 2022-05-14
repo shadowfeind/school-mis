@@ -29,6 +29,7 @@ const useStyles = makeStyles({
 
 const EmployeeTableCollapse = ({
   item,
+  category,
   updateCollegeHandler,
   deleteCollegeHandler,
   index,
@@ -46,7 +47,7 @@ const EmployeeTableCollapse = ({
   };
 
   const classes = useStyles();
-
+const categoryName = category?.filter(s => s.Key === item.IDHREmployeeCategoryRole)
   const handleReset = (id) => {
     dispatch(getSingleEmployeeAction(id));
     setOpenResetPopup(true);
@@ -57,7 +58,7 @@ const EmployeeTableCollapse = ({
       <TableRow>
       <TableCell>{item.LoginIDHREmployee}</TableCell>
         <TableCell>{item.FullName}</TableCell>
-        <TableCell>{item.IDHREmployeeCategoryRole}</TableCell>
+        <TableCell>{categoryName?.length>0 && categoryName[0].Value}</TableCell>
         <TableCell>{item.EmailID}</TableCell>
         <TableCell>{item.MobileNumber}</TableCell>
         <TableCell>

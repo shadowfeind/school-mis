@@ -1,4 +1,4 @@
-import axios from "axios";
+// import axios from "axios";
 import { API_URL, axiosInstance, tokenConfig, tokenHeader } from "../constants";
 import {
   DELETE_LEAVE_REQUESTS_FAIL,
@@ -50,9 +50,9 @@ export const getHeaderContentAction = () => async (dispatch) => {
   try {
     dispatch({ type: GET_HEADER_CONTENT_REQUEST });
 
-    const { data } = await axios.get(
-      `${API_URL}/api/Home/GetHeaderContent`,
-      tokenConfig
+    const { data } = await axiosInstance.get(
+      `/api/Home/GetHeaderContent`,
+      tokenConfig()
     );
 
     dispatch({ type: GET_HEADER_CONTENT_SUCCESS, payload: data });
@@ -68,10 +68,10 @@ export const getHeaderBannerAction = () => async (dispatch) => {
   try {
     dispatch({ type: GET_HEADER_BANNER_REQUEST });
 
-    const { data } = await axios.get(
-      `${API_URL}/api/Home/GetHeaderBanner
+    const { data } = await axiosInstance.get(
+      `/api/Home/GetHeaderBanner
       `,
-      tokenConfig
+      tokenConfig()
     );
 
     dispatch({ type: GET_HEADER_BANNER_SUCCESS, payload: data });
@@ -87,28 +87,28 @@ export const getDashboardTopContentAction = () => async (dispatch) => {
   try {
     dispatch({ type: GET_DASHBOARD_TOP_CONTENT_REQUEST });
 
-    const { data: activeTeacher } = await axios.get(
-      `${API_URL}/api/Home/GetTotalActiveTeacher
+    const { data: activeTeacher } = await axiosInstance.get(
+      `/api/Home/GetTotalActiveTeacher
       `,
-      tokenConfig
+      tokenConfig()
     );
 
-    const { data: activeStudent } = await axios.get(
-      `${API_URL}/api/Home/GetTotalActiveStudent
+    const { data: activeStudent } = await axiosInstance.get(
+      `/api/Home/GetTotalActiveStudent
       `,
-      tokenConfig
+      tokenConfig()
     );
 
-    const { data: activeSubject } = await axios.get(
-      `${API_URL}/api/Home/GetTotalActiveSubject
+    const { data: activeSubject } = await axiosInstance.get(
+      `/api/Home/GetTotalActiveSubject
       `,
-      tokenConfig
+      tokenConfig()
     );
 
-    const { data: activeMobileUsers } = await axios.get(
-      `${API_URL}/api/Home/GetTotalNoOfMobileUsers
+    const { data: activeMobileUsers } = await axiosInstance.get(
+      `/api/Home/GetTotalNoOfMobileUsers
       `,
-      tokenConfig
+      tokenConfig()
     );
 
     dispatch({
@@ -132,10 +132,10 @@ export const getPrincipleSignatureAction = () => async (dispatch) => {
   try {
     dispatch({ type: GET_PRINCIPLE_SIGNATURE_REQUEST });
 
-    const { data } = await axios.get(
-      `${API_URL}/api/Home/GetPrincipleSignature
+    const { data } = await axiosInstance.get(
+      `/api/Home/GetPrincipleSignature
       `,
-      tokenConfig
+      tokenConfig()
     );
 
     dispatch({
@@ -154,10 +154,10 @@ export const getAllLeaveRequestAction = () => async (dispatch) => {
   try {
     dispatch({ type: GET_ALL_LEAVE_REQUESTS_REQUEST });
 
-    const { data } = await axios.get(
-      `${API_URL}/api/LeaveRequest/GetAllLeaveRequest
+    const { data } = await axiosInstance.get(
+      `/api/LeaveRequest/GetAllLeaveRequest
       `,
-      tokenConfig
+      tokenConfig()
     );
 
     dispatch({ type: GET_ALL_LEAVE_REQUESTS_SUCCESS, payload: data });
@@ -173,10 +173,10 @@ export const getListLeaveRequestAction = () => async (dispatch) => {
   try {
     dispatch({ type: GET_LIST_LEAVE_REQUESTS_REQUEST });
 
-    const { data } = await axios.get(
-      `${API_URL}/api/LeaveRequest/GetListLeaveRequest
+    const { data } = await axiosInstance.get(
+      `/api/LeaveRequest/GetListLeaveRequest
       `,
-      tokenConfig
+      tokenConfig()
     );
 
     dispatch({ type: GET_LIST_LEAVE_REQUESTS_SUCCESS, payload: data });
@@ -192,10 +192,10 @@ export const getSingleCreateLeaveRequestAction = () => async (dispatch) => {
   try {
     dispatch({ type: GET_SINGLE_TO_CREATE_LEAVE_REQUESTS_REQUEST });
 
-    const { data } = await axios.get(
-      `${API_URL}/api/LeaveRequest/GetSingleToCreateLeaveRequest
+    const { data } = await axiosInstance.get(
+      `/api/LeaveRequest/GetSingleToCreateLeaveRequest
       `,
-      tokenConfig
+      tokenConfig()
     );
 
     dispatch({
@@ -214,10 +214,10 @@ export const getSingleEditLeaveRequestAction = (id) => async (dispatch) => {
   try {
     dispatch({ type: GET_SINGLE_TO_EDIT_LEAVE_REQUESTS_REQUEST });
 
-    const { data } = await axios.get(
-      `${API_URL}/api/LeaveRequest/GetSingleToEditLeaveRequest/${id}
+    const { data } = await axiosInstance.get(
+      `/api/LeaveRequest/GetSingleToEditLeaveRequest/${id}
       `,
-      tokenConfig
+      tokenConfig()
     );
 
     dispatch({
@@ -239,9 +239,9 @@ export const postLeaveRequestAction =
       const {
         getHeaderContent: { headerContent },
       } = getState();
-      const { data } = await axios.get(
-        `${API_URL}/api/LeaveRequest/GetFCMToken/${leaveRequestPost.ReceiverID}`,
-        tokenConfig
+      const { data } = await axiosInstance.get(
+        `/api/LeaveRequest/GetFCMToken/${leaveRequestPost.ReceiverID}`,
+        tokenConfig()
       );
       if (data) {
         const fcmBody = {
@@ -254,7 +254,7 @@ export const postLeaveRequestAction =
         };
         const fbody = JSON.stringify(fcmBody);
 
-        await axios.post(
+        await axiosInstance.post(
           "https://fcm.googleapis.com/fcm/send",
           fbody,
           tokenHeader
@@ -265,29 +265,29 @@ export const postLeaveRequestAction =
         let formData = new FormData();
         formData.append("ImageUploaded", image);
 
-        const { data } = await axios.post(
-          `${API_URL}/api/LeaveRequest/FileUpload`,
+        const { data } = await axiosInstance.post(
+          `/api/LeaveRequest/FileUpload`,
           formData,
-          tokenConfig
+          tokenConfig()
         );
         if (data) {
           const newData = { ...leaveRequestPost, DocumentName: data };
           const jsonData = JSON.stringify({ dbModel: newData });
 
-          await axios.post(
-            `${API_URL}/api/LeaveRequest/PostLeaveRequest`,
+          await axiosInstance.post(
+            `/api/LeaveRequest/PostLeaveRequest`,
             jsonData,
-            tokenConfig
+            tokenConfig()
           );
         }
       } else {
         const newData = { ...leaveRequestPost };
         const jsonData = JSON.stringify({ dbModel: newData });
 
-        await axios.post(
-          `${API_URL}/api/LeaveRequest/PostLeaveRequest`,
+        await axiosInstance.post(
+          `/api/LeaveRequest/PostLeaveRequest`,
           jsonData,
-          tokenConfig
+          tokenConfig()
         );
       }
 
@@ -305,9 +305,9 @@ export const putApproveRequestAction =
     try {
       dispatch({ type: PUT_LEAVE_REQUESTS_REQUEST });
 
-      const { data } = await axios.get(
-        `${API_URL}/api/LeaveRequest/GetFCMToken/${leaveRequest.SenderID}`,
-        tokenConfig
+      const { data } = await axiosInstance.get(
+        `/api/LeaveRequest/GetFCMToken/${leaveRequest.SenderID}`,
+        tokenConfig()
       );
       if (data) {
         const fcmBody = {
@@ -320,7 +320,7 @@ export const putApproveRequestAction =
         };
         const fbody = JSON.stringify(fcmBody);
 
-        await axios.post(
+        await axiosInstance.post(
           "https://fcm.googleapis.com/fcm/send",
           fbody,
           tokenHeader
@@ -332,18 +332,18 @@ export const putApproveRequestAction =
         formData.append("ImageUploaded", image);
 
         const { data } = await axios.post(
-          `${API_URL}/api/LeaveRequest/FileUpload`,
+          `/api/LeaveRequest/FileUpload`,
           formData,
-          tokenConfig
+          tokenConfig()
         );
         if (data) {
           const newData = { ...leaveRequest, DocumentName: data };
           const jsonData = JSON.stringify({ dbModel: newData });
 
           await axios.put(
-            `${API_URL}/api/LeaveRequest/PutLeaveRequest`,
+            `/api/LeaveRequest/PutLeaveRequest`,
             jsonData,
-            tokenConfig
+            tokenConfig()
           );
         }
       } else {
@@ -351,9 +351,9 @@ export const putApproveRequestAction =
         const jsonData = JSON.stringify({ dbModel: newData });
 
         await axios.put(
-          `${API_URL}/api/LeaveRequest/PutLeaveRequest`,
+          `/api/LeaveRequest/PutLeaveRequest`,
           jsonData,
-          tokenConfig
+          tokenConfig()
         );
       }
       dispatch({ type: PUT_LEAVE_REQUESTS_SUCCESS });
@@ -375,18 +375,18 @@ export const putLeaveRequestAction =
         formData.append("ImageUploaded", image);
 
         const { data } = await axios.post(
-          `${API_URL}/api/LeaveRequest/FileUpload`,
+          `/api/LeaveRequest/FileUpload`,
           formData,
-          tokenConfig
+          tokenConfig()
         );
         if (data) {
           const newData = { ...leaveRequest, DocumentName: data };
           const jsonData = JSON.stringify({ dbModel: newData });
 
           await axios.put(
-            `${API_URL}/api/LeaveRequest/PutLeaveRequest`,
+            `/api/LeaveRequest/PutLeaveRequest`,
             jsonData,
-            tokenConfig
+            tokenConfig()
           );
         }
       } else {
@@ -394,9 +394,9 @@ export const putLeaveRequestAction =
         const jsonData = JSON.stringify({ dbModel: newData });
 
         await axios.put(
-          `${API_URL}/api/LeaveRequest/PutLeaveRequest`,
+          `/api/LeaveRequest/PutLeaveRequest`,
           jsonData,
-          tokenConfig
+          tokenConfig()
         );
       }
       dispatch({ type: PUT_LEAVE_REQUESTS_SUCCESS });
@@ -413,9 +413,9 @@ export const getSingleDeleteLeaveRequestAction = (id) => async (dispatch) => {
     dispatch({ type: GET_SINGLE_TO_DELETE_LEAVE_REQUESTS_REQUEST });
 
     const { data } = await axios.get(
-      `${API_URL}/api/LeaveRequest/GetSingleToDeleteLeaveRequest/${id}
+      `/api/LeaveRequest/GetSingleToDeleteLeaveRequest/${id}
         `,
-      tokenConfig
+      tokenConfig()
     );
 
     dispatch({
@@ -443,9 +443,9 @@ export const deleteLeaveRequestAction = (leaveRequest) => async (dispatch) => {
     // };
 
     const { data } = await axios.post(
-      `${API_URL}/api/LeaveRequest/DeleteLeaveRequest`,
+      `/api/LeaveRequest/DeleteLeaveRequest`,
       jsonData,
-      tokenConfig
+      tokenConfig()
     );
 
     dispatch({ type: DELETE_LEAVE_REQUESTS_SUCCESS, payload: data });
@@ -462,9 +462,9 @@ export const getSingleEditSentLeaveRequestAction = (id) => async (dispatch) => {
     dispatch({ type: GET_SINGLE_TO_EDIT_SENT_LEAVE_REQUESTS_REQUEST });
 
     const { data } = await axios.get(
-      `${API_URL}/api/LeaveRequest/GetSingleToEditSentLeaveRequest/${id}
+      `/api/LeaveRequest/GetSingleToEditSentLeaveRequest/${id}
         `,
-      tokenConfig
+      tokenConfig()
     );
 
     dispatch({
@@ -483,7 +483,7 @@ export const downloadLeaveRequestAction = (id) => async (dispatch) => {
   try {
     dispatch({ type: DOWNLOAD_DOC_LEAVE_REQUESTS_REQUEST });
 
-    const File = `${API_URL}/api/LeaveRequest/DownloadDoc/${id}`;
+    const File = `/api/LeaveRequest/DownloadDoc/${id}`;
 
     window.open(File, "_blank");
 

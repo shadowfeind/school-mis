@@ -18,6 +18,7 @@ const FinalExamResultDesign = ({
   studentYear,
   resultDate,
   headerBanners,
+  ecaDataWithName,
 }) => {
   let avgGpa = [];
   let tdToRender = [];

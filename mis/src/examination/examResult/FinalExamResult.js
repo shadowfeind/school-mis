@@ -55,6 +55,17 @@ const FinalExamResult = ({ result, headerBanners }) => {
           let studentSection = result.ddlSection.filter(
             (x) => x.Key === result.classSection
           );
+          let ecaData = result.ecaData?.filter(
+            (s) => s.IDHREmployee === student.IDHREmployee
+          );
+          let ecaDataWithName = [];
+          ecaData?.map((x) => {
+            result.ddlAcademicFacultyECASubModel?.forEach((s) => {
+              if (s.IDAssignECA === x.IDAssignECA) {
+                ecaDataWithName.push({ ...s, ECAValue: x.ECAValue });
+              }
+            });
+          });
           let studentYear = result.ddlAcademicYear.filter(
             (x) => x.Key === result.idAcademicYear
           );
@@ -75,6 +86,7 @@ const FinalExamResult = ({ result, headerBanners }) => {
               studentYear={result.npYear}
               resultDate={result.footerModel.PublishDate}
               headerBanners={headerBanners}
+              ecaDataWithName={ecaDataWithName}
             />
           );
         })}

@@ -1,4 +1,4 @@
-import React,{useEffect} from "react";
+import React, { useEffect } from "react";
 import { Grid } from "@material-ui/core";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
@@ -19,11 +19,11 @@ const ExamResultDesign = ({
   studentClass,
   studentYear,
   studentSection,
-  headerBanners
+  headerBanners,
+  ecaDataWithName,
 }) => {
   let trackSubject = [];
   let tdToRender = [];
-
 
   const dispatch = useDispatch();
 
@@ -200,39 +200,25 @@ const ExamResultDesign = ({
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td>
-                      AptitudeTest:{" "}
-                      {levelTest.length > 0 && levelTest[0].AptitudeTest}
-                    </td>
-                    <td>
-                      Handwriting:{" "}
-                      {levelTest.length > 0 && levelTest[0].Handwriting}
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      Home/Class Work:{" "}
-                      {levelTest.length > 0 && levelTest[0].HomeClassWork}
-                    </td>
-                    <td>
-                      Drawing: {levelTest.length > 0 && levelTest[0].Drawing}
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      Fluency: {levelTest.length > 0 && levelTest[0].Fluency}
-                    </td>
-                    <td>
-                      Rhymes: {levelTest.length > 0 && levelTest[0].Rhyme}
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      Creation: {levelTest.length > 0 && levelTest[0].Creation}
-                    </td>
-                    <td></td>
-                  </tr>
+                  <Grid container>
+                    {ecaDataWithName?.map((x) => {
+                      return (
+                        <Grid item xs={6}>
+                          <div
+                            style={{
+                              width: "100%",
+                              borderBottom: "1px solid #000",
+                              borderLeft: "1px solid #000",
+                              borderRight: "1px solid #000",
+                              padding: "7px 15px",
+                            }}
+                          >
+                            {x?.ECAName}: {x?.ECAValue}
+                          </div>
+                        </Grid>
+                      );
+                    })}
+                  </Grid>
                 </tbody>
               </table>
             </Grid>

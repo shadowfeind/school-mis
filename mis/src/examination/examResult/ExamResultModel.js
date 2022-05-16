@@ -18,16 +18,27 @@ const ExamResultModel = ({ examReport, headerBanners }) => {
     <div id="result-with-grades" ref={componentRef}>
       {examReport &&
         examReport.dbStudentModelLst.map((student) => {
-          let subjects = examReport.dbModelLst.filter(
+          let subjects = examReport.dbModelLst?.filter(
             (s) => s.IDHREmployee === student.IDHREmployee
           );
-          let levelTest = examReport.LevelTestLst.filter(
+          let levelTest = examReport.LevelTestLst?.filter(
             (s) => s.IDHREmployee === student.IDHREmployee
           );
-          let studentAttendance = examReport.StudentAttendanceDay.filter(
+          let studentAttendance = examReport.StudentAttendanceDay?.filter(
             (s) => s.IDHREmployee === student.IDHREmployee
           );
 
+          let ecaData = examReport.ecaData?.filter(
+            (s) => s.IDHREmployee === student.IDHREmployee
+          );
+          let ecaDataWithName = [];
+          ecaData?.map((x) => {
+            examReport.ddlAcademicFacultyECASubModel?.forEach((s) => {
+              if (s.IDAssignECA === x.IDAssignECA) {
+                ecaDataWithName.push({ ...s, ECAValue: x.ECAValue });
+              }
+            });
+          });
           let studentClass = examReport.ddlLevel.filter(
             (x) => x.Key === examReport.level
           );
@@ -51,6 +62,7 @@ const ExamResultModel = ({ examReport, headerBanners }) => {
               studentYear={examReport.npYear}
               studentSection={studentSection[0]}
               headerBanners={headerBanners}
+              ecaDataWithName={ecaDataWithName}
             />
           );
         })}

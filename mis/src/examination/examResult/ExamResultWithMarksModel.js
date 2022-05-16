@@ -28,6 +28,18 @@ const ExamResultWithMarksModel = ({ examReport, headerBanners }) => {
             (s) => s.IDHREmployee === student.IDHREmployee
           );
 
+          let ecaData = examReport.ecaData?.filter(
+            (s) => s.IDHREmployee === student.IDHREmployee
+          );
+          let ecaDataWithName = [];
+          ecaData?.map((x) => {
+            examReport.ddlAcademicFacultyECASubModel?.forEach((s) => {
+              if (s.IDAssignECA === x.IDAssignECA) {
+                ecaDataWithName.push({ ...s, ECAValue: x.ECAValue });
+              }
+            });
+          });
+
           let studentClass = examReport.ddlLevel.filter(
             (x) => x.Key === examReport.level
           );
@@ -51,6 +63,7 @@ const ExamResultWithMarksModel = ({ examReport, headerBanners }) => {
               studentYear={examReport.npYear}
               studentSection={studentSection[0]}
               headerBanners={headerBanners}
+              ecaDataWithName={ecaDataWithName}
             />
           );
         })}

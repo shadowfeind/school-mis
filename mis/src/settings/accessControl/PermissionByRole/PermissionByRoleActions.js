@@ -1,5 +1,5 @@
-import axios from "axios";
-import { API_URL, tokenConfig } from "../../../constants";
+
+import { API_URL, axiosInstance, tokenConfig } from "../../../constants";
 import {
   GET_INITIAL_ROLE_FOR_PERMISSION_FAIL,
   GET_INITIAL_ROLE_FOR_PERMISSION_REQUEST,
@@ -13,9 +13,9 @@ export const getInitialRoleForPermissionAction = () => async (dispatch) => {
   try {
     dispatch({ type: GET_INITIAL_ROLE_FOR_PERMISSION_REQUEST });
 
-    const { data } = await axios.get(
+    const { data } = await axiosInstance.get(
       `${API_URL}/api/PermissionByRole/GetAllPermissionByRole`,
-      tokenConfig
+      tokenConfig()
     );
 
     dispatch({
@@ -35,9 +35,9 @@ export const getListPermissionByRoleAction =
     try {
       dispatch({ type: GET_LIST_PERMISSION_BY_ROLE_REQUEST });
 
-      const { data } = await axios.get(
+      const { data } = await axiosInstance.get(
         `${API_URL}/api/PermissionByRole/GetListPermissionByRole?/${companyId}/${id}`,
-        tokenConfig
+        tokenConfig()
       );
 
       dispatch({

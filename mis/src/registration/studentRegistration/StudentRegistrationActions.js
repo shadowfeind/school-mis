@@ -1,5 +1,5 @@
-import axios from "axios";
-import { API_URL, tokenConfig } from "../../constants";
+
+import { API_URL, axiosInstance, tokenConfig } from "../../constants";
 import {
   CHECK_ACADEMIC_YEAR_FOR_STUDENT_FAIL,
   CHECK_ACADEMIC_YEAR_FOR_STUDENT_REQUEST,
@@ -38,10 +38,10 @@ export const getInitialStudentRegistrationDataAction =
     try {
       dispatch({ type: GET_INITIAL_STUDENT_REGISTRATION_DATA_REQUEST });
 
-      const { data } = await axios.get(
+      const { data } = await axiosInstance.get(
         `${API_URL}/api/StudentRegistration/GetAllStudentRegistration
         `,
-        tokenConfig
+        tokenConfig()
       );
 
       dispatch({
@@ -61,9 +61,9 @@ export const getStudentRegistrationDataAction =
     try {
       dispatch({ type: GET_STUDENT_REGISTRATION_DATA_REQUEST });
 
-      const { data } = await axios.get(
+      const { data } = await axiosInstance.get(
         `${API_URL}/api/StudentRegistration/GetListStudentRegistration?idAcademicYear=${year}&idFacultyProgramLink=${program}&idClass=${classId}`,
-        tokenConfig
+        tokenConfig()
       );
 
       dispatch({
@@ -83,9 +83,9 @@ export const getSingleStudentRegistrationDataAction =
     try {
       dispatch({ type: GET_SINGLE_STUDENT_REGISTRATION_DATA_REQUEST });
 
-      const { data } = await axios.get(
+      const { data } = await axiosInstance.get(
         `${API_URL}/api/StudentRegistration/GetSingleToEditStudentRegistration/${id}?idAcademicYear=${year}&idFacultyProgramLink=${program}&idClass=${classId}`,
-        tokenConfig
+        tokenConfig()
       );
 
       dispatch({
@@ -104,9 +104,9 @@ export const singleStudentRegistrationCreateAction = () => async (dispatch) => {
   try {
     dispatch({ type: SINGLE_STUDENT_REGISTRATION_CREATE_REQUEST });
 
-    const { data } = await axios.get(
+    const { data } = await axiosInstance.get(
       `${API_URL}/api/StudentRegistration/GetSingleToCreate`,
-      tokenConfig
+      tokenConfig()
     );
 
     dispatch({
@@ -131,10 +131,10 @@ export const singleStudentRegistrationEditAction =
       if (image) {
         let formData = new FormData();
         formData.append("ImageUploaded", image);
-        const { data } = await axios.put(
+        const { data } = await axiosInstance.put(
           `${API_URL}/api/StudentRegistrationImage/Put`,
           formData,
-          tokenConfig
+          tokenConfig()
         );
         if (data) {
           const newData = { ...studentReg, photoName: data };
@@ -145,10 +145,10 @@ export const singleStudentRegistrationEditAction =
             IDLevel: classId,
             searchFilterModel: searchFilterModel,
           });
-          await axios.put(
+          await axiosInstance.put(
             `${API_URL}/api/StudentRegistration/Put`,
             jsonData,
-            tokenConfig
+            tokenConfig()
           );
         }
       } else {
@@ -159,10 +159,10 @@ export const singleStudentRegistrationEditAction =
           IDLevel: classId,
           searchFilterModel: searchFilterModel,
         });
-        await axios.put(
+        await axiosInstance.put(
           `${API_URL}/api/StudentRegistration/Put`,
           jsonData,
-          tokenConfig
+          tokenConfig()
         );
       }
       dispatch({
@@ -181,9 +181,9 @@ export const getCreateSingleStudentRegistrationDataAction =
     try {
       dispatch({ type: GET_CREATE_SINGLE_STUDENT_REGISTRATION_DATA_REQUEST });
 
-      const { data } = await axios.get(
+      const { data } = await axiosInstance.get(
         `${API_URL}/api/StudentRegistration/GetSingleToCreate`,
-        tokenConfig
+        tokenConfig()
       );
 
       dispatch({
@@ -210,10 +210,10 @@ export const createSingleStudentRegistrationAction =
      
       if (image) {
 
-        const { data } = await axios.put(
+        const { data } = await axiosInstance.put(
           `${API_URL}/api/StudentRegistrationImage/Put`,
           formData,
-          tokenConfig
+          tokenConfig()
         );
   
         const newData = { ...studentReg, photoName: data };
@@ -223,10 +223,10 @@ export const createSingleStudentRegistrationAction =
         });
         console.log(jsonData);
 
-        await axios.post(
+        await axiosInstance.post(
           `${API_URL}/api/StudentRegistration/Post`,
           jsonData,
-          tokenConfig
+          tokenConfig()
         );
       } else {
         const newData = { ...studentReg};
@@ -236,10 +236,10 @@ export const createSingleStudentRegistrationAction =
         });
         console.log(jsonData);
 
-        await axios.post(
+        await axiosInstance.post(
           `${API_URL}/api/StudentRegistration/Post`,
           jsonData,
-          tokenConfig
+          tokenConfig()
         );
       }
 
@@ -261,9 +261,9 @@ export const checkRegistrationForStudentAction = (id) => async (dispatch) => {
   try {
     dispatch({ type: CHECK_REGISTRATION_FOR_STUDENT_REQUEST });
 
-    const { data } = await axios.get(
+    const { data } = await axiosInstance.get(
       `${API_URL}/api/StudentRegistration/CheckRegistrationNo?registrationKey=${id}`,
-      tokenConfig
+      tokenConfig()
     );
 
     dispatch({
@@ -286,9 +286,9 @@ export const checkRollNoForStudentAction =
     try {
       dispatch({ type: CHECK_ROLLNO_FOR_STUDENT_REQUEST });
 
-      const { data } = await axios.get(
+      const { data } = await axiosInstance.get(
         `${API_URL}/api/StudentRegistration/CheckRollNo?idAcademicYear=${year}&idFacultyProgramLink=${program}&idLevel=${classId}&section=${section}&rollNo=${rollNo}`,
-        tokenConfig
+        tokenConfig()
       );
 
       dispatch({
@@ -312,9 +312,9 @@ export const checkRollNoForStudentAction =
     try {
       dispatch({ type: CHECK_ACADEMIC_YEAR_FOR_STUDENT_REQUEST });
 
-      const { data } = await axios.get(
+      const { data } = await axiosInstance.get(
         `${API_URL}/api/StudentRegistration/ShowAddRegistrationButton?idAcademicYear=${year}&idFacultyProgramLink=${program}`,
-        tokenConfig
+        tokenConfig()
       );
 
       dispatch({

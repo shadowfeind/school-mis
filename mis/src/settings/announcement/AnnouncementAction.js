@@ -1,5 +1,5 @@
 import axios from "axios";
-import { API_URL, tokenConfig, tokenHeader } from "../../constants";
+import { API_URL, axiosInstance, tokenConfig, tokenHeader } from "../../constants";
 import {
   GET_ALL_ANNOUNCEMENT_REQUEST,
   GET_ALL_ANNOUNCEMENT_SUCCESS,
@@ -25,10 +25,10 @@ export const getAllAnnouncementAction = () => async (dispatch) => {
   try {
     dispatch({ type: GET_ALL_ANNOUNCEMENT_REQUEST });
 
-    const { data } = await axios.get(
+    const { data } = await axiosInstance.get(
       `${API_URL}/api/Announcement/GetAllAnnouncement
       `,
-      tokenConfig
+      tokenConfig()
     );
 
     dispatch({ type: GET_ALL_ANNOUNCEMENT_SUCCESS, payload: data });
@@ -44,9 +44,9 @@ export const getListAnnouncementAction = (date) => async (dispatch) => {
   try {
     dispatch({ type: GET_LIST_ANNOUNCEMENT_REQUEST });
 
-    const { data } = await axios.get(
+    const { data } = await axiosInstance.get(
       `${API_URL}/api/Announcement/GetListAnnouncement?createdDate=${date}`,
-      tokenConfig
+      tokenConfig()
     );
 
     dispatch({ type: GET_LIST_ANNOUNCEMENT_SUCCESS, payload: data });
@@ -62,9 +62,9 @@ export const getFCMForAnnouncementAction = () => async (dispatch) => {
   try {
     dispatch({ type: ANNOUNCEMENT_FCM_REQUEST });
 
-    const { data } = await axios.get(
+    const { data } = await axiosInstance.get(
       `${API_URL}/api/Announcement/GetSingleCreateAnnouncement`,
-      tokenConfig
+      tokenConfig()
     );
 
     dispatch({ type: ANNOUNCEMENT_FCM_SUCCESS, payload: data });
@@ -100,10 +100,10 @@ export const announcementCreateAction =
 
       const jsonData = JSON.stringify({ dbModel: announcementCreate });
 
-      const { data } = await axios.post(
+      const { data } = await axiosInstance.post(
         `${API_URL}/api/Announcement/Post`,
         jsonData,
-        tokenConfig
+        tokenConfig()
       );
 
       dispatch({ type: ANNOUNCEMENT_CREATE_SUCCESS, payload: data });
@@ -119,9 +119,9 @@ export const getSingleAnnouncementAction = (id) => async (dispatch) => {
   try {
     dispatch({ type: GET_SINGLE_ANNOUNCEMENT_REQUEST });
 
-    const { data } = await axios.get(
+    const { data } = await axiosInstance.get(
       `${API_URL}/api/Announcement/GetSingleEditAnnouncement/1?searchKey=1`,
-      tokenConfig
+      tokenConfig()
     );
 
     dispatch({
@@ -143,10 +143,10 @@ export const updateSingleAnnouncementAction =
 
       const jsonData = JSON.stringify({ dbModel: announcementSingle });
 
-      const { data } = await axios.put(
+      const { data } = await axiosInstance.put(
         `${API_URL}/api/Announcement/Put`,
         jsonData,
-        tokenConfig
+        tokenConfig()
       );
 
       dispatch({

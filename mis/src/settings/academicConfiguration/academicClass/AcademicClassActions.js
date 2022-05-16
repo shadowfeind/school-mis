@@ -1,5 +1,5 @@
-import axios from "axios";
-import { API_URL, tokenConfig } from "../../../constants";
+
+import { API_URL, axiosInstance, tokenConfig } from "../../../constants";
 import {
   ACADEMIC_CLASS_CREATE_FAIL,
   ACADEMIC_CLASS_CREATE_REQUEST,
@@ -19,9 +19,9 @@ export const getAllAcademicClassAction = () => async (dispatch) => {
   try {
     dispatch({ type: GET_ALL_ACADEMIC_CLASS_REQUEST });
 
-    const { data } = await axios.get(
+    const { data } = await axiosInstance.get(
       `${API_URL}/api/AcademicClass/GetAcademicClass`,
-      tokenConfig
+      tokenConfig()
     );
 
     dispatch({ type: GET_ALL_ACADEMIC_CLASS_SUCCESS, payload: data });
@@ -46,10 +46,10 @@ export const academicClassCreateAction =
       //   },
       // };
 
-      const { data } = await axios.post(
+      const { data } = await axiosInstance.post(
         `${API_URL}/api/AcademicClass/PostHRPosition`,
         jsonData,
-        tokenConfig
+        tokenConfig()
       );
 
       dispatch({ type: ACADEMIC_CLASS_CREATE_SUCCESS, payload: data });
@@ -65,9 +65,9 @@ export const getSingleAcademicClassAction = (id) => async (dispatch) => {
   try {
     dispatch({ type: GET_SINGLE_ACADEMIC_CLASS_REQUEST });
 
-    const { data } = await axios.get(
+    const { data } = await axiosInstance.get(
       `${API_URL}/api/AcademicClass/GetAcademicClassById/${id}`,
-      tokenConfig
+      tokenConfig()
     );
 
     dispatch({ type: GET_SINGLE_ACADEMIC_CLASS_SUCCESS, payload: data });
@@ -86,10 +86,10 @@ export const updateSingleAcademicClassAction =
 
       const jsonData = JSON.stringify({ dbModel: academicClass });
 
-      const { data } = await axios.put(
+      const { data } = await axiosInstance.put(
         `${API_URL}/api/AcademicClass/PutHRPosition`,
         jsonData,
-        tokenConfig
+        tokenConfig()
       );
 
       dispatch({ type: UPDATE_SINGLE_ACADEMIC_CLASS_SUCCESS, payload: data });

@@ -1,5 +1,5 @@
-import axios from "axios";
-import { API_URL, tokenConfig } from "../../../constants";
+
+import { API_URL, axiosInstance, tokenConfig } from "../../../constants";
 import {
   GET_ALL_STUDENT_PROFILE_REQUEST,
   GET_ALL_STUDENT_PROFILE_SUCCESS,
@@ -35,9 +35,9 @@ export const getAllStudentProfileAction = () => async (dispatch) => {
   try {
     dispatch({ type: GET_ALL_STUDENT_PROFILE_REQUEST });
 
-    const { data } = await axios.get(
+    const { data } = await axiosInstance.get(
       `${API_URL}/api/StudentProfile/GetStudentProfile`,
-      tokenConfig
+      tokenConfig()
     );
 
     dispatch({ type: GET_ALL_STUDENT_PROFILE_SUCCESS, payload: data });
@@ -54,9 +54,9 @@ export const getListStudentProfileAction =
     try {
       dispatch({ type: GET_LIST_STUDENT_PROFILE_REQUEST });
 
-      const { data } = await axios.get(
+      const { data } = await axiosInstance.get(
         `${API_URL}/api/StudentProfile/GetListStudentProfile?idAcademicYear=${year}&idFacultyProgramLink=${program}&idShift=${shift}&idClass=${classId}&classSection=${section}&LevelStatus=${status}`,
-        tokenConfig
+        tokenConfig()
       );
 
       dispatch({ type: GET_LIST_STUDENT_PROFILE_SUCCESS, payload: data });
@@ -73,9 +73,9 @@ export const getSingleStudentProfileDetailsAction =
     try {
       dispatch({ type: SINGLE_STUDENT_PROFILE_DETAILS_REQUEST });
 
-      const { data } = await axios.get(
+      const { data } = await axiosInstance.get(
         `${API_URL}/api/StudentProfile/GetSingleStudentProfileForDetail/${id}?idAcademicYear=${year}&idFacultyProgramLink=${program}&level=${classId}&section=${section}&idShift=${shift}&LevelStatus=${status}`,
-        tokenConfig
+        tokenConfig()
       );
 
       dispatch({ type: SINGLE_STUDENT_PROFILE_DETAILS_SUCCESS, payload: data });
@@ -92,9 +92,9 @@ export const getSingleStudentProfilePasswordresetDataAction =
     try {
       dispatch({ type: GET_SINGLE_STUDENT_PROFILE_PASSWORDRESET_DATA_REQUEST });
 
-      const { data } = await axios.get(
+      const { data } = await axiosInstance.get(
         `${API_URL}/api/StudentProfile/GetResetPasswordStudent/${id}?idAcademicYear=${year}&idFacultyProgramLink=${program}&level=${classId}&section=${section}&idShift=${shift}&LevelStatus=${status}`,
-        tokenConfig
+        tokenConfig()
       );
 
       dispatch({
@@ -114,9 +114,9 @@ export const getSingleStudentProfilePasswordresetDataAction =
     try {
       dispatch({ type: GET_UPLOAD_PHOTO_REQUEST });
 
-      const { data } = await axios.get(
+      const { data } = await axiosInstance.get(
         `${API_URL}/api/StudentProfile/GetUploadPhoto/${id}?idAcademicYear=${year}&idFacultyProgramLink=${program}&level=${classId}&section=${section}&idShift=${shift}&LevelStatus=${status}`,
-        tokenConfig
+        tokenConfig()
       );
 
       dispatch({
@@ -148,11 +148,11 @@ export const resetSingleStudentPasswordAction =
 
       console.log(jsonData);
 
-      const { data } = await axios.put(
+      const { data } = await axiosInstance.put(
         `${API_URL}/api/StudentProfile/PutResetPasswordStudent
         `,
         jsonData,
-        tokenConfig
+        tokenConfig()
       );
 
       dispatch({
@@ -172,9 +172,9 @@ export const getSingleStudentProfileEditDataAction =
     try {
       dispatch({ type: GET_SINGLE_STUDENT_PROFILE_EDIT_DATA_REQUEST });
 
-      const { data } = await axios.get(
+      const { data } = await axiosInstance.get(
         `${API_URL}/api/StudentProfile/GetSingleStudentProfileForEdit/${id}?idAcademicYear=${year}&idFacultyProgramLink=${program}&level=${classId}&section=${section}&idShift=${shift}&LevelStatus=${status}`,
-        tokenConfig
+        tokenConfig()
       );
 
       dispatch({
@@ -208,11 +208,11 @@ export const updateSingleStudentAction =
 
       console.log(jsonData);
 
-      const { data } = await axios.put(
+      const { data } = await axiosInstance.put(
         `${API_URL}/api/StudentProfile/PutSingleStudentProfile
         `,
         jsonData,
-        tokenConfig
+        tokenConfig()
       );
 
       dispatch({
@@ -235,10 +235,10 @@ export const updateSingleStudentAction =
       let formData = new FormData();
       formData.append("ImageUploaded", image);
 
-      const { data } = await axios.post(
+      const { data } = await axiosInstance.post(
         `${API_URL}/api/StudentProfile/FileUpload/${id}`,
         formData,
-        tokenConfig
+        tokenConfig()
       );
       if (data) {
      
@@ -249,10 +249,10 @@ export const updateSingleStudentAction =
         });
 
         console.log("jsonData",jsonData);
-        await axios.put(
+        await axiosInstance.put(
           `${API_URL}/api/StudentProfile/PutPhoto`,
           jsonData,
-          tokenConfig
+          tokenConfig()
         );
       }
     }

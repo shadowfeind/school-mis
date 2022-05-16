@@ -1,5 +1,5 @@
-import axios from "axios";
-import { API_URL, tokenConfig } from "../../constants";
+
+import { API_URL, axiosInstance, tokenConfig } from "../../constants";
 import {
   GET_BULK_LEVEL_TEST_DATA_FAIL,
   GET_BULK_LEVEL_TEST_DATA_REQUEST,
@@ -16,10 +16,10 @@ export const getInitialLevelTestDataAction = () => async (dispatch) => {
   try {
     dispatch({ type: GET_INITIAL_LEVEL_TEST_DATA_REQUEST });
 
-    const { data } = await axios.get(
+    const { data } = await axiosInstance.get(
       `${API_URL}/api/LevelTest/GetAllLevelTest
         `,
-      tokenConfig
+      tokenConfig()
     );
 
     dispatch({
@@ -39,9 +39,9 @@ export const getBulkLevelTestDataAction =
     try {
       dispatch({ type: GET_BULK_LEVEL_TEST_DATA_REQUEST });
 
-      const { data } = await axios.get(
+      const { data } = await axiosInstance.get(
         `${API_URL}/api/LevelTest/GetBulkLevelTest?idAcademicYear=${year}&idFacultyProgramLink=${program}&level=${classId}&section=${section}&idShift=${shift}&idAcademicYearCalendar=${event}&searchKey=1`,
-        tokenConfig
+        tokenConfig()
       );
 
       dispatch({
@@ -74,10 +74,10 @@ export const postBulkLevelTestAction =
       //   },
       // };
 
-      await axios.post(
+      await axiosInstance.post(
         `${API_URL}/api/LevelTest/PostLevelTest`,
         jsonData,
-        tokenConfig
+        tokenConfig()
       );
 
       dispatch({ type: POST_BULK_LEVEL_TEST_DATA_SUCCESS });

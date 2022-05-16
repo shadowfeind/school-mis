@@ -1,5 +1,5 @@
-import axios from "axios";
-import { API_URL, tokenConfig } from "../../constants";
+
+import { API_URL, axiosInstance, tokenConfig } from "../../constants";
 import {
   GET_ALL_ECA_DATA_FAIL,
   GET_ALL_ECA_DATA_REQUEST,
@@ -19,9 +19,9 @@ export const getAllEcaDataAction = () => async (dispatch) => {
   try {
     dispatch({ type: GET_ALL_ECA_DATA_REQUEST });
 
-    const { data } = await axios.get(
+    const { data } = await axiosInstance.get(
       `${API_URL}/api/ECAData/GetAllECAData`,
-      tokenConfig
+      tokenConfig()
     );
     dispatch({
       type: GET_ALL_ECA_DATA_SUCCESS,
@@ -40,9 +40,9 @@ export const getBulkEditEcaDataAction =
     try {
       dispatch({ type: GET_BULK_EDIT_ECA_DATA_REQUEST });
 
-      const { data } = await axios.get(
+      const { data } = await axiosInstance.get(
         `${API_URL}/api/ECAData/GetBulkToCreateAssignECAData?idAcademicYear=${year}&idFacultyProgramLink=${program}&level=${classId}&section=${section}&idShift=${shift}&idAcademicYearCalendar=${event}&searchKey=1`,
-        tokenConfig
+        tokenConfig()
       );
 
       dispatch({
@@ -62,9 +62,9 @@ export const getListEcaDataAction =
     try {
       dispatch({ type: GET_LIST_ECA_DATA_REQUEST });
 
-      const { data } = await axios.get(
+      const { data } = await axiosInstance.get(
         `${API_URL}/api/ECAData/GetListECAData?idAcademicYear=${year}&idFacultyProgramLink=${program}&level=${classId}&section=${section}&idShift=${shift}&idAcademicYearCalendar=${event}&searchKey=1`,
-        tokenConfig
+        tokenConfig()
       );
 
       dispatch({
@@ -98,10 +98,10 @@ export const postBulkEditEcaAction =
 
       // console.log("this is the one", jsonData);
 
-      await axios.post(
+      await axiosInstance.post(
         `${API_URL}/api/ECAData/PostECAData`,
         jsonData,
-        tokenConfig
+        tokenConfig()
       );
 
       dispatch({ type: POST_BULK_ECA_DATA_SUCCESS });

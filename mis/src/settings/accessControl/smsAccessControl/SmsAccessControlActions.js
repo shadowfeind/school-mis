@@ -1,5 +1,5 @@
-import axios from "axios";
-import { API_URL, tokenConfig } from "../../../constants";
+
+import { API_URL, axiosInstance, tokenConfig } from "../../../constants";
 import {
   GET_ALL_SMS_ACCESS_CONTROL_FAIL,
   GET_ALL_SMS_ACCESS_CONTROL_REQUEST,
@@ -25,10 +25,10 @@ export const getAllSmsAccessControlAction = () => async (dispatch) => {
   try {
     dispatch({ type: GET_ALL_SMS_ACCESS_CONTROL_REQUEST });
 
-    const { data } = await axios.get(
+    const { data } = await axiosInstance.get(
       `${API_URL}/api/SMSAccessControl/GetAllSMSAccessControl
               `,
-      tokenConfig
+      tokenConfig()
     );
 
     dispatch({
@@ -47,10 +47,10 @@ export const getListSmsAccessControlAction = (company) => async (dispatch) => {
   try {
     dispatch({ type: GET_LIST_SMS_ACCESS_CONTROL_REQUEST });
 
-    const { data } = await axios.get(
+    const { data } = await axiosInstance.get(
       `${API_URL}/api/SMSAccessControl/GetListSMSAccessControl?company=${company}&searchKey=1
               `,
-      tokenConfig
+      tokenConfig()
     );
 
     dispatch({
@@ -69,10 +69,10 @@ export const getSingleCreateSmsAccessControlAction = (company) => async (dispatc
   try {
     dispatch({ type: GET_SINGLE_TO_CREATE_SMS_ACCESS_CONTROL_REQUEST });
 
-    const { data } = await axios.get(
+    const { data } = await axiosInstance.get(
       `${API_URL}/api/SMSAccessControl/GetSingleToCreateSMSAccessControl?company=${company}&searchKey=1
               `,
-      tokenConfig
+      tokenConfig()
     );
 
     dispatch({
@@ -91,10 +91,10 @@ export const getSingleEditSmsAccessControlAction = (id,company) => async (dispat
   try {
     dispatch({ type: GET_SINGLE_TO_EDIT_SMS_ACCESS_CONTROL_REQUEST });
 
-    const { data } = await axios.get(
+    const { data } = await axiosInstance.get(
       `${API_URL}/api/SMSAccessControl/GetSingleToEditSMSAccessControl/${id}?company=${company}&searchKey=1
               `,
-      tokenConfig
+      tokenConfig()
     );
 
     dispatch({
@@ -123,10 +123,10 @@ export const postSmsAccessControlAction =
       //   },
       // };
 
-      const { data } = await axios.post(
+      const { data } = await axiosInstance.post(
         `${API_URL}/api/SMSAccessControl/PostSMSAccessControl`,
         jsonData,
-        tokenConfig
+        tokenConfig()
       );
 
       dispatch({
@@ -156,10 +156,10 @@ export const postSmsAccessControlAction =
       //   },
       // };
 
-      const { data } = await axios.put(
+      const { data } = await axiosInstance.put(
         `${API_URL}/api/SMSAccessControl/PutSMSAccessControl`,
         jsonData,
-        tokenConfig
+        tokenConfig()
       );
 
       dispatch({

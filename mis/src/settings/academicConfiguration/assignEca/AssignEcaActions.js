@@ -1,5 +1,5 @@
-import axios from "axios";
-import { API_URL, tokenConfig } from "../../../constants";
+
+import { API_URL, axiosInstance, tokenConfig } from "../../../constants";
 import {
   GET_ALL_ASSIGN_ECA_FAIL,
   GET_ALL_ASSIGN_ECA_REQUEST,
@@ -19,9 +19,9 @@ export const getALLAssignEcaAction = () => async (dispatch) => {
   try {
     dispatch({ type: GET_ALL_ASSIGN_ECA_REQUEST });
 
-    const { data } = await axios.get(
+    const { data } = await axiosInstance.get(
       `${API_URL}/api/AssignECA/GetAllAssignECA`,
-      tokenConfig
+      tokenConfig()
     );
 
     dispatch({ type: GET_ALL_ASSIGN_ECA_SUCCESS, payload: data });
@@ -37,9 +37,9 @@ export const getListAssignEcaAction = (year,program,classId) => async (dispatch)
     try {
       dispatch({ type: GET_LIST_ASSIGN_ECA_REQUEST });
   
-      const { data } = await axios.get(
+      const { data } = await axiosInstance.get(
         `${API_URL}/api/AssignECA/GetListAssignECA?idAcademicYear=${year}&idFacultyProgramLink=${program}&idClass=${classId}`,
-        tokenConfig
+        tokenConfig()
       );
   
       dispatch({ type: GET_LIST_ASSIGN_ECA_SUCCESS, payload: data });
@@ -55,9 +55,9 @@ export const getListAssignEcaAction = (year,program,classId) => async (dispatch)
     try {
       dispatch({ type: GET_SINGLE_CREATE_ASSIGN_ECA_REQUEST });
   
-      const { data } = await axios.get(
+      const { data } = await axiosInstance.get(
         `${API_URL}/api/AssignECA/GetSingleToCreateAssignECA?idAcademicYear=${year}&idFacultyProgramLink=${program}&idClass=${classId}`,
-        tokenConfig
+        tokenConfig()
       );
   
       dispatch({ type: GET_SINGLE_CREATE_ASSIGN_ECA_SUCCESS, payload: data });
@@ -80,10 +80,10 @@ export const getListAssignEcaAction = (year,program,classId) => async (dispatch)
         level,
       });
 
-      const { data } = await axios.post(
+      const { data } = await axiosInstance.post(
         `${API_URL}/api/AssignECA/PostAssignECA`,
         jsonData,
-        tokenConfig
+        tokenConfig()
       );
 
       dispatch({ type: POST_ASSIGN_ECA_SUCCESS, payload: data });

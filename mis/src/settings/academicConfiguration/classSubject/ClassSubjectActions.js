@@ -1,5 +1,5 @@
-import axios from "axios";
-import { API_URL, tokenConfig } from "../../../constants";
+
+import { API_URL, axiosInstance, tokenConfig } from "../../../constants";
 import {
   DELETE_CLASS_SUBJECT_FAIL,
   DELETE_CLASS_SUBJECT_REQUEST,
@@ -28,9 +28,9 @@ export const getALLClassSubjectAction = () => async (dispatch) => {
   try {
     dispatch({ type: GET_ALL_CLASS_SUBJECT_REQUEST });
 
-    const { data } = await axios.get(
+    const { data } = await axiosInstance.get(
       `${API_URL}/api/ClassSubject/GetAllClassSubject`,
-      tokenConfig
+      tokenConfig()
     );
 
     dispatch({ type: GET_ALL_CLASS_SUBJECT_SUCCESS, payload: data });
@@ -46,9 +46,9 @@ export const getClassSubjectListAction = (classId) => async (dispatch) => {
   try {
     dispatch({ type: GET_CLASS_SUBJECT_LIST_REQUEST });
 
-    const { data } = await axios.get(
+    const { data } = await axiosInstance.get(
       `${API_URL}/api/ClassSubject/GetListClassSubject?idClass=${classId}`,
-      tokenConfig
+      tokenConfig()
     );
 
     dispatch({ type: GET_CLASS_SUBJECT_LIST_SUCCESS, payload: data });
@@ -64,9 +64,9 @@ export const getSingleClassSubjectAction = (id) => async (dispatch) => {
   try {
     dispatch({ type: GET_SINGLE_CLASS_SUBJECT_REQUEST });
 
-    const { data } = await axios.get(
+    const { data } = await axiosInstance.get(
       `${API_URL}/api/ClassSubject/GetSingleToEditClassSubject/${id}`,
-      tokenConfig
+      tokenConfig()
     );
 
     dispatch({ type: GET_SINGLE_CLASS_SUBJECT_SUCCESS, payload: data });
@@ -82,9 +82,9 @@ export const getToCreateClassSubjectAction = (classId) => async (dispatch) => {
   try {
     dispatch({ type: GET_TO_CREATE_CLASS_SUBJECT_REQUEST });
 
-    const { data } = await axios.get(
+    const { data } = await axiosInstance.get(
       `${API_URL}/api/ClassSubject/GetSingleToCreateClassSubject?idClass=${classId}`,
-      tokenConfig
+      tokenConfig()
     );
 
     dispatch({ type: GET_TO_CREATE_CLASS_SUBJECT_SUCCESS, payload: data });
@@ -104,10 +104,10 @@ export const updateSingleClassSubjectAction = (subject) => async (dispatch) => {
       dbModel: subject,
     });
 
-    const { data } = await axios.put(
+    const { data } = await axiosInstance.put(
       `${API_URL}/api/ClassSubject/PutClassSubject`,
       jsonData,
-      tokenConfig
+      tokenConfig()
     );
 
     dispatch({
@@ -135,10 +135,10 @@ export const createSingleClassSubjectAction =
       });
 
       console.log(jsonData);
-      const { data } = await axios.post(
+      const { data } = await axiosInstance.post(
         `${API_URL}/api/ClassSubject/PostAcademicFacultySubjectLinkA`,
         jsonData,
-        tokenConfig
+        tokenConfig()
       );
 
       dispatch({ type: POST_TO_CREATE_CLASS_SUBJECT_SUCCESS, payload: data });
@@ -157,10 +157,10 @@ export const createSingleClassSubjectAction =
       const jsonData = JSON.stringify({ dbModel: classSubject });
   console.log(jsonData);
   
-      await axios.post(
+      await axiosInstance.post(
         `${API_URL}/api/ClassSubject/DeleteClassSubject`,
         jsonData,
-        tokenConfig
+        tokenConfig()
       );
   
       dispatch({ type: DELETE_CLASS_SUBJECT_SUCCESS });

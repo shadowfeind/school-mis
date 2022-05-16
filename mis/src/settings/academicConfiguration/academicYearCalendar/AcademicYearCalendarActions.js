@@ -1,5 +1,5 @@
-import axios from "axios";
-import { API_URL, tokenConfig } from "../../../constants";
+
+import { API_URL, axiosInstance, tokenConfig } from "../../../constants";
 import {
   ACADEMIC_YEAR_CALENDAR_CREATE_FAIL,
   ACADEMIC_YEAR_CALENDAR_CREATE_POST_FAIL,
@@ -28,9 +28,9 @@ export const getAllAcademicYearCalendarAction = () => async (dispatch) => {
   try {
     dispatch({ type: GET_ALL_ACADEMIC_YEAR_CALENDAR_REQUEST });
 
-    const { data } = await axios.get(
+    const { data } = await axiosInstance.get(
       `${API_URL}/api/AcademicYearCalendar/GetAcademicYearCalendarLst`,
-      tokenConfig
+      tokenConfig()
     );
 
     dispatch({ type: GET_ALL_ACADEMIC_YEAR_CALENDAR_SUCCESS, payload: data });
@@ -47,9 +47,9 @@ export const getAcademicYearCalendarProgramAction =
     try {
       dispatch({ type: GET_ACADEMIC_YEAR_CALENDAR_PROGRAM_REQUEST });
 
-      const { data } = await axios.get(
+      const { data } = await axiosInstance.get(
         `${API_URL}/api/AcademicYearCalendar/GetUniversityProgramFaculty?idAcademicYear=${id}`,
-        tokenConfig
+        tokenConfig()
       );
       dispatch({
         type: GET_ACADEMIC_YEAR_CALENDAR_PROGRAM_SUCCESS,
@@ -68,9 +68,9 @@ export const createAcademicYearCalendarAction =
     try {
       dispatch({ type: ACADEMIC_YEAR_CALENDAR_CREATE_REQUEST });
 
-      const { data } = await axios.get(
+      const { data } = await axiosInstance.get(
         `${API_URL}/api/AcademicYearCalendar/GetToCreateAcademicYearCalendar?idAcademicYear=${acaYear}&idFacultyProgramLink=${program}&idClass=${classId}`,
-        tokenConfig
+        tokenConfig()
       );
       dispatch({
         type: ACADEMIC_YEAR_CALENDAR_CREATE_SUCCESS,
@@ -93,10 +93,10 @@ export const createAcademicYearCalendarPostAction =
         dbModel: calendar,
       });
 
-      await axios.post(
+      await axiosInstance.post(
         `${API_URL}/api/AcademicYearCalendar/PostAcademicYearCalendar`,
         jsonData,
-        tokenConfig
+        tokenConfig()
       );
 
       dispatch({
@@ -115,11 +115,11 @@ export const academicYearCalendarSearchAction =
     try {
       dispatch({ type: ACADEMIC_YEAR_CALENDAR_SEARCH_REQUEST });
 
-      const { data } = await axios.get(
+      const { data } = await axiosInstance.get(
         // `${API_URL}/api/GetToSearchAcdemicYearCalendar/${acaYear}/${program}/${classId}/Search
         // `,
         `${API_URL}/api/AcademicYearCalendar/GetToSearchAcdemicYearCalendar?idAcademicYear=${acaYear}&idFacultyProgramLink=${program}&idClass=${classId}`,
-        tokenConfig
+        tokenConfig()
       );
 
       dispatch({
@@ -139,9 +139,9 @@ export const getSingleAcademicYearCalendarAction =
     try {
       dispatch({ type: GET_SINGLE_ACADEMIC_YEAR_CALENDAR_REQUEST });
 
-      const { data } = await axios.get(
+      const { data } = await axiosInstance.get(
         `${API_URL}/api/AcademicYearCalendar/GetAcademicYearCalendarById/${id}?idAcademicYear=${acaYear}&idFacultyProgramLink=${program}&level=${classId}`,
-        tokenConfig
+        tokenConfig()
       );
 
       dispatch({
@@ -171,10 +171,10 @@ export const updateSingleAcademicYearCalendarAction =
       //   },
       // };
 
-      await axios.put(
+      await axiosInstance.put(
         `${API_URL}/api/AcademicYearCalendar/Put`,
         jsonData,
-        tokenConfig
+        tokenConfig()
       );
 
       dispatch({

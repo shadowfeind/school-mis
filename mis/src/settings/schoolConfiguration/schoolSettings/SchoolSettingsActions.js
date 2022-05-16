@@ -1,5 +1,5 @@
-import axios from "axios";
-import { API_URL, axiosInstance, tokenConfig } from "../../../constants";
+
+import { API_URL, axiosInstance, tokenConfig} from "../../../constants";
 import {
   GET_ALL_SCHOOL_SETTINGS_FAIL,
   GET_ALL_SCHOOL_SETTINGS_REQUEST,
@@ -19,9 +19,9 @@ export const getAllSchoolSettingsAction = () => async (dispatch) => {
   try {
     dispatch({ type: GET_ALL_SCHOOL_SETTINGS_REQUEST });
 
-    const { data } = await axios.get(
+    const { data } = await axiosInstance.get(
       `${API_URL}/api/ReactHRCompany/GetHRCompany`,
-      tokenConfig
+      tokenConfig()
     );
 
     dispatch({ type: GET_ALL_SCHOOL_SETTINGS_SUCCESS, payload: data });
@@ -39,10 +39,10 @@ export const schoolSettingCreateAction = (position) => async (dispatch) => {
 
     const jsonData = JSON.stringify({ dbModel: position });
 
-    const { data } = await axios.post(
+    const { data } = await axiosInstance.post(
       `${API_URL}/api/ReactHRCompany/PostHRCompany`,
       jsonData,
-      tokenConfig
+      tokenConfig()
     );
 
     dispatch({ type: SCHOOL_SETTINGS_CREATE_SUCCESS, payload: data });
@@ -58,9 +58,9 @@ export const getSingleSchoolSettingAction = (id) => async (dispatch) => {
   try {
     dispatch({ type: GET_SINGLE_SCHOOL_SETTINGS_REQUEST });
 
-    const { data } = await axios.get(
+    const { data } = await axiosInstance.get(
       `${API_URL}/api/ReactHRCompany/GetHRCompany/${id}`,
-      tokenConfig
+      tokenConfig()
     );
 
     dispatch({ type: GET_SINGLE_SCHOOL_SETTINGS_SUCCESS, payload: data });
@@ -85,10 +85,10 @@ export const updateSingleScholSettingAction =
       //   },
       // };
 
-      const { data } = await axios.put(
+      const { data } = await axiosInstance.put(
         `${API_URL}/api/ReactHRCompany/PutHRCompany`,
         jsonData,
-        tokenConfig
+        tokenConfig()
       );
 
       dispatch({ type: UPDATE_SINGLE_SCHOOL_SETTINGS_SUCCESS, payload: data });

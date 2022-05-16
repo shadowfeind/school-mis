@@ -1,5 +1,5 @@
-import axios from "axios";
-import { API_URL, tokenConfig } from "../../constants";
+
+import { API_URL, axiosInstance, tokenConfig } from "../../constants";
 import {
   CREATE_SINGLE_ADMISSION_CONFIG_FAIL,
   CREATE_SINGLE_ADMISSION_CONFIG_REQUEST,
@@ -25,9 +25,9 @@ export const getAdmissionConfigInitialDataAction = () => async (dispatch) => {
   try {
     dispatch({ type: GET_ADMISSION_CONFIG_INITIAL_DATA_REQUEST });
 
-    const { data } = await axios.get(
+    const { data } = await axiosInstance.get(
       `${API_URL}/api/AdmFacultyConfiguration/GetAllAdmFacultyConfiguration`,
-      tokenConfig
+      tokenConfig()
     );
 
     dispatch({
@@ -47,9 +47,9 @@ export const getAdmissionConfigListDataAction =
     try {
       dispatch({ type: GET_ADMISSION_CONFIG_LIST_DATA_REQUEST });
 
-      const { data } = await axios.get(
+      const { data } = await axiosInstance.get(
         `${API_URL}/api/AdmFacultyConfiguration/GetListAdmFacultyConfiguration?idAcademicYear=${year}&idFacultyProgramLink=${program}`,
-        tokenConfig
+        tokenConfig()
       );
 
       dispatch({
@@ -69,9 +69,9 @@ export const getSingleAdmissionConfigAction =
     try {
       dispatch({ type: GET_SINGLE_ADMISSION_CONFIG_REQUEST });
 
-      const { data } = await axios.get(
+      const { data } = await axiosInstance.get(
         `${API_URL}/api/AdmFacultyConfiguration/SingleGetToEditAdmFacultyConfiguration/${id}?idAcademicYear=${year}&idFacultyProgramLink=${program}`,
-        tokenConfig
+        tokenConfig()
       );
 
       dispatch({
@@ -98,10 +98,10 @@ export const updateSingleAdmissionConfigAction =
       //   },
       // };
 
-      const { data } = await axios.put(
+      const { data } = await axiosInstance.put(
         `${API_URL}/api/AdmFacultyConfiguration/Put?actionType=0`,
         jsonData,
-        tokenConfig
+        tokenConfig()
       );
 
       dispatch({
@@ -121,9 +121,9 @@ export const getCreateSingleAdmissionConfigAction =
     try {
       dispatch({ type: GET_CREATE_SINGLE_ADMISSION_CONFIG_REQUEST });
 
-      const { data } = await axios.get(
+      const { data } = await axiosInstance.get(
         `${API_URL}/api/AdmFacultyConfiguration/SingleGetToCreateAdmFacultyConfiguration?idAcademicYear=${year}&idFacultyProgramLink=${program}`,
-        tokenConfig
+        tokenConfig()
       );
 
       dispatch({
@@ -153,10 +153,10 @@ export const createSingleAdmissionConfigAction =
       //   },
       // };
 
-      const { data } = await axios.post(
+      const { data } = await axiosInstance.post(
         `${API_URL}/api/AdmFacultyConfiguration/Post`,
         jsonData,
-        tokenConfig
+        tokenConfig()
       );
 
       dispatch({

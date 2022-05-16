@@ -1,5 +1,5 @@
-import axios from "axios";
-import { API_URL, tokenConfig } from "../../../constants";
+
+import { API_URL, axiosInstance, tokenConfig} from "../../../constants";
 import {
   GET_ALL_REASSOCIATE_STUDENTS_FAIL,
   GET_ALL_REASSOCIATE_STUDENTS_REQUEST,
@@ -25,9 +25,9 @@ export const getAllReassociateStudentsAction = () => async (dispatch) => {
   try {
     dispatch({ type: GET_ALL_REASSOCIATE_STUDENTS_REQUEST });
 
-    const { data } = await axios.get(
+    const { data } = await axiosInstance.get(
       `${API_URL}/api/ReassociateStudent/Get`,
-      tokenConfig
+      tokenConfig()
     );
 
     dispatch({ type: GET_ALL_REASSOCIATE_STUDENTS_SUCCESS, payload: data });
@@ -44,9 +44,9 @@ export const getReassociateStudentsListsAction =
     try {
       dispatch({ type: GET_REASSOCIATE_STUDENTS_LISTS_REQUEST });
 
-      const { data } = await axios.get(
+      const { data } = await axiosInstance.get(
         `${API_URL}/api/ReassociateStudent/GetAllReassociateStudent?idAcademicYear=${year}&idFacultyProgramLink=${program}&idShift=${shift}&idClass=${classId}&classSection=${section}`,
-        tokenConfig
+        tokenConfig()
       );
 
       dispatch({ type: GET_REASSOCIATE_STUDENTS_LISTS_SUCCESS, payload: data });
@@ -63,9 +63,9 @@ export const getReassociateStudentsLevelupAction =
     try {
       dispatch({ type: GET_REASSOCIATE_STUDENTS_LEVEL_UP_REQUEST });
 
-      const { data } = await axios.get(
+      const { data } = await axiosInstance.get(
         `${API_URL}/api/ReassociateStudent/GetBulkLevelUp?idAcademicYear=${year}&idFacultyProgramLink=${program}&idShift=${shift}&level=${classId}&classSection=${section}`,
-        tokenConfig
+        tokenConfig()
       );
 
       dispatch({
@@ -95,10 +95,10 @@ export const getReassociateStudentsLevelupPostAction =
 
       console.log(jsonData)
 
-      const { data } = await axios.post(
+      const { data } = await axiosInstance.post(
         `${API_URL}/api/ReassociateStudent/PostBulkLevelUp`,
         jsonData,
-        tokenConfig
+        tokenConfig()
       );
 
       dispatch({
@@ -118,9 +118,9 @@ export const getReassociateStudentsLevelupPostAction =
     try {
       dispatch({ type: GET_SINGLE_TO_EDIT_REASSOCIATE_STUDENTS_REQUEST });
   
-      const { data } = await axios.get(
+      const { data } = await axiosInstance.get(
         `${API_URL}/api/ReassociateStudent/GetSingleToEditReassociateStudent/${id}?idAcademicYear=${year}&idFacultyProgramLink=${program}&idClass=${classId}&idShift=${shift}&classSection=${section}`,
-        tokenConfig
+        tokenConfig()
       );
   
       dispatch({ type: GET_SINGLE_TO_EDIT_REASSOCIATE_STUDENTS_SUCCESS, payload: data });
@@ -145,10 +145,10 @@ export const getReassociateStudentsLevelupPostAction =
         academicYear,
       });
 
-      const { data } = await axios.put(
+      const { data } = await axiosInstance.put(
         `${API_URL}/api/ReassociateStudent/PutReassociateStudent`,
         jsonData,
-        tokenConfig
+        tokenConfig()
       );
 
       dispatch({

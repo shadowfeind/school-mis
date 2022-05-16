@@ -1,5 +1,5 @@
-import axios from "axios";
-import { API_URL, tokenConfig } from "../../constants";
+
+import { API_URL, axiosInstance, tokenConfig } from "../../constants";
 import {
   GET_ALL_ACADEMIC_STUDENT_EXAMDATA_FAIL,
   GET_ALL_ACADEMIC_STUDENT_EXAMDATA_REQUEST,
@@ -22,10 +22,10 @@ export const getAllAcademicStudentExamdataAction = () => async (dispatch) => {
   try {
     dispatch({ type: GET_ALL_ACADEMIC_STUDENT_EXAMDATA_REQUEST });
 
-    const { data } = await axios.get(
+    const { data } = await axiosInstance.get(
       `${API_URL}/api/AcademicStudentExamData/GetAllAcademicStudentExamData
     `,
-      tokenConfig
+      tokenConfig()
     );
 
     dispatch({
@@ -44,9 +44,9 @@ export const getEventAction = (year, program, classId) => async (dispatch) => {
   try {
     dispatch({ type: GET_EVENT_REQUEST });
 
-    const { data } = await axios.get(
+    const { data } = await axiosInstance.get(
       `${API_URL}/api/AcademicExamSchedule/GetActiveAcademicYearCalendar?idAcademicYear=${year}&idFacultyProgramLink=${program}&level=${classId}`,
-      tokenConfig
+      tokenConfig()
     );
 
     dispatch({
@@ -66,10 +66,10 @@ export const getEventScheduleAction =
     try {
       dispatch({ type: GET_EXAM_SCHEDULE_HEADER_REQUEST });
 
-      const { data } = await axios.get(
+      const { data } = await axiosInstance.get(
         `${API_URL}/api/GetActiveExamScheduleListForExamMarkEntry/${year}/${program}/${classId}/${section}/${event}/2
     `,
-        tokenConfig
+        tokenConfig()
       );
 
       dispatch({
@@ -90,10 +90,10 @@ export const getExamEntrySearchDataAction =
     try {
       dispatch({ type: GET_ALL_EXAM_ENTRY_SEARCHDATA_REQUEST });
 
-      const { data } = await axios.get(
+      const { data } = await axiosInstance.get(
         `${API_URL}/api/GetLstAcademicStudentExamData/${year}/${program}/${classId}/${section}/${shift}/${event}/${schedule}/1
     `,
-        tokenConfig
+        tokenConfig()
       );
 
       dispatch({
@@ -114,10 +114,10 @@ export const getExamEntryBulkAction =
     try {
       dispatch({ type: GET_ALL_EXAM_ENTRY_BULK_REQUEST });
 
-      const { data } = await axios.get(
+      const { data } = await axiosInstance.get(
         `${API_URL}/api/GetBulk/${year}/${program}/${classId}/${section}/${shift}/${event}/${schedule}/1
     `,
-        tokenConfig
+        tokenConfig()
       );
 
       dispatch({

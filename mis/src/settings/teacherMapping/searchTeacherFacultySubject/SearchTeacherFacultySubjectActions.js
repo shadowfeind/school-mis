@@ -1,5 +1,5 @@
-import axios from "axios";
-import { API_URL, tokenConfig } from "../../../constants";
+
+import { API_URL, axiosInstance, tokenConfig } from "../../../constants";
 import {
   GET_ALL_SEARCH_TEACHER_FAC_SUB_INITIAL_DATA_FAIL,
   GET_ALL_SEARCH_TEACHER_FAC_SUB_INITIAL_DATA_REQUEST,
@@ -14,9 +14,9 @@ export const getAllSearchTeacherFacSubInitialDataAction =
     try {
       dispatch({ type: GET_ALL_SEARCH_TEACHER_FAC_SUB_INITIAL_DATA_REQUEST });
 
-      const { data } = await axios.get(
+      const { data } = await axiosInstance.get(
         `${API_URL}/api/SearchTeacherFacultySubject/GetAllSearchTeacherFacultySubject?searchKey=1`,
-        tokenConfig
+        tokenConfig()
       );
       dispatch({
         type: GET_ALL_SEARCH_TEACHER_FAC_SUB_INITIAL_DATA_SUCCESS,
@@ -35,9 +35,9 @@ export const getAllSearchTeacherFacSubListDataAction =
     try {
       dispatch({ type: GET_ALL_SEARCH_TEACHER_FAC_SUB_LIST_DATA_REQUEST });
 
-      const { data } = await axios.get(
+      const { data } = await axiosInstance.get(
         `${API_URL}/api/SearchTeacherFacultySubject/GetListSearchTeacherFacultySubject?idTeacher=${id}`,
-        tokenConfig
+        tokenConfig()
       );
 
       dispatch({

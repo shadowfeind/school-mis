@@ -1,5 +1,5 @@
 import axios from "axios";
-import { API_URL, tokenConfig, tokenHeader } from "../../constants";
+import { API_URL, axiosInstance, tokenConfig, tokenHeader } from "../../constants";
 import {
   GET_ALL_SMS_ANNOUNCEMENT_FAIL,
   GET_ALL_SMS_ANNOUNCEMENT_REQUEST,
@@ -25,10 +25,10 @@ export const getAllSmsAnnouncementAction = () => async (dispatch) => {
   try {
     dispatch({ type: GET_ALL_SMS_ANNOUNCEMENT_REQUEST });
 
-    const { data } = await axios.get(
+    const { data } = await axiosInstance.get(
       `${API_URL}/api/SMSAllNotification/GetAllAnnouncement
         `,
-      tokenConfig
+      tokenConfig()
     );
 
     dispatch({ type: GET_ALL_SMS_ANNOUNCEMENT_SUCCESS, payload: data });
@@ -44,9 +44,9 @@ export const getListSmsAnnouncementAction = (date) => async (dispatch) => {
   try {
     dispatch({ type: GET_LIST_SMS_ANNOUNCEMENT_REQUEST });
 
-    const { data } = await axios.get(
+    const { data } = await axiosInstance.get(
       `${API_URL}/api/SMSAllNotification/GetListAnnouncement?createdDate=${date}`,
-      tokenConfig
+      tokenConfig()
     );
 
     dispatch({ type: GET_LIST_SMS_ANNOUNCEMENT_SUCCESS, payload: data });
@@ -62,9 +62,9 @@ export const getFCMForSmsAnnouncementAction = () => async (dispatch) => {
   try {
     dispatch({ type: SMS_ANNOUNCEMENT_FCM_REQUEST });
 
-    const { data } = await axios.get(
+    const { data } = await axiosInstance.get(
       `${API_URL}/api/SMSAllNotification/GetSingleCreateAnnouncement`,
-      tokenConfig
+      tokenConfig()
     );
 
     dispatch({ type: SMS_ANNOUNCEMENT_FCM_SUCCESS, payload: data });
@@ -100,10 +100,10 @@ export const announcementSmsCreateAction =
 
       const jsonData = JSON.stringify({ dbModel: announcementCreate });
 
-      const { data } = await axios.post(
+      const { data } = await axiosInstance.post(
         `${API_URL}/api/SMSAllNotification/Post`,
         jsonData,
-        tokenConfig
+        tokenConfig()
       );
 
       dispatch({ type: SMS_ANNOUNCEMENT_CREATE_SUCCESS, payload: data });
@@ -119,9 +119,9 @@ export const getSingleSmsAnnouncementAction = (id) => async (dispatch) => {
   try {
     dispatch({ type: GET_SINGLE_SMS_ANNOUNCEMENT_REQUEST });
 
-    const { data } = await axios.get(
+    const { data } = await axiosInstance.get(
       `${API_URL}/api/SMSAllNotification/GetSingleEditAnnouncement/1?searchKey=1`,
-      tokenConfig
+      tokenConfig()
     );
 
     dispatch({
@@ -143,10 +143,10 @@ export const updateSingleSmsAnnouncementAction =
 
       const jsonData = JSON.stringify({ dbModel: announcementSingle });
 
-      const { data } = await axios.put(
+      const { data } = await axiosInstance.put(
         `${API_URL}/api/SMSAllNotification/Put`,
         jsonData,
-        tokenConfig
+        tokenConfig()
       );
 
       dispatch({

@@ -1,5 +1,5 @@
-import axios from "axios";
-import { API_URL, tokenConfig } from "../../constants";
+
+import { API_URL, axiosInstance, tokenConfig } from "../../constants";
 import {
   DOWNLOAD_OLD_QUESTIONS_FAIL,
   DOWNLOAD_OLD_QUESTIONS_REQUEST,
@@ -31,9 +31,9 @@ export const getAllOldQuestionsAction = () => async (dispatch) => {
   try {
     dispatch({ type: GET_ALL_OLD_QUESTIONS_REQUEST });
 
-    const { data } = await axios.get(
+    const { data } = await axiosInstance.get(
       `${API_URL}/api/OldQuestion/GetAllOldQuestion`,
-      tokenConfig
+      tokenConfig()
     );
 
     dispatch({
@@ -53,9 +53,9 @@ export const getListOldQuestionsAction =
     try {
       dispatch({ type: GET_LIST_OF_OLD_QUESTIONS_REQUEST });
 
-      const { data } = await axios.get(
+      const { data } = await axiosInstance.get(
         `${API_URL}/api/OldQuestion/GetListOldQuestion?level=${classId}&idAcademicSubject=${subject}`,
-        tokenConfig
+        tokenConfig()
       );
 
       dispatch({
@@ -74,9 +74,9 @@ export const getSubjectOldQuestionsAction = (classId) => async (dispatch) => {
   try {
     dispatch({ type: GET_SUBJECT_OF_OLD_QUESTIONS_REQUEST });
 
-    const { data } = await axios.get(
+    const { data } = await axiosInstance.get(
       `${API_URL}/api/OldQuestion/GetSubjectByIDLevel?level=${classId}`,
-      tokenConfig
+      tokenConfig()
     );
 
     dispatch({
@@ -97,9 +97,9 @@ export const getSingleCreateOldQuestionsAction =
     try {
       dispatch({ type: GET_SINGLE_TO_CREATE_OLD_QUESTIONS_REQUEST });
 
-      const { data } = await axios.get(
+      const { data } = await axiosInstance.get(
         `${API_URL}/api/OldQuestion/GetSingleToCreateOldQuestion?level=${classId}&idAcademicSubject=${subject}`,
-        tokenConfig
+        tokenConfig()
       );
 
       dispatch({
@@ -119,9 +119,9 @@ export const getSingleEditOldQuestionsAction = (id) => async (dispatch) => {
   try {
     dispatch({ type: GET_SINGLE_TO_EDIT_OLD_QUESTIONS_REQUEST });
 
-    const { data } = await axios.get(
+    const { data } = await axiosInstance.get(
       `${API_URL}/api/OldQuestion/GetSingleToEditOldQuestion/${id}`,
-      tokenConfig
+      tokenConfig()
     );
 
     dispatch({
@@ -146,10 +146,10 @@ export const postOldQuestionsAction =
 
       // console.log(image)
 
-      const { data } = await axios.post(
+      const { data } = await axiosInstance.post(
         `${API_URL}/api/OldQuestion/FileUpload`,
         formData,
-        tokenConfig
+        tokenConfig()
       );
 
       if (data) {
@@ -159,10 +159,10 @@ export const postOldQuestionsAction =
           
         });
 
-        await axios.post(
+        await axiosInstance.post(
           `${API_URL}/api/OldQuestion/PostOldQuestion`,
           jsonData,
-          tokenConfig
+          tokenConfig()
         );
         // console.log(jsonData);
       }
@@ -188,10 +188,10 @@ export const postOldQuestionsAction =
 
       // console.log(image)
 
-      const { data } = await axios.post(
+      const { data } = await axiosInstance.post(
         `${API_URL}/api/OldQuestion/FileUpload`,
         formData,
-        tokenConfig
+        tokenConfig()
       );
 
       if (data) {
@@ -201,10 +201,10 @@ export const postOldQuestionsAction =
           
         });
 
-        await axios.put(
+        await axiosInstance.put(
           `${API_URL}/api/OldQuestion/PutOldQuestion`,
           jsonData,
-          tokenConfig
+          tokenConfig()
         );
         // console.log(jsonData);
       }

@@ -1,5 +1,5 @@
-import axios from "axios";
-import { API_URL, tokenConfig } from "../../../constants";
+
+import { API_URL, axiosInstance, tokenConfig } from "../../../constants";
 
 import {
   GET_ALL_ECA_LOOK_UP_FAIL,
@@ -29,9 +29,9 @@ export const getAllEcaLookUpAction = () => async (dispatch) => {
   try {
     dispatch({ type: GET_ALL_ECA_LOOK_UP_REQUEST });
 
-    const { data } = await axios.get(
+    const { data } = await axiosInstance.get(
       `${API_URL}/api/ECA/GetAllECA`,
-      tokenConfig
+      tokenConfig()
     );
 
     dispatch({ type: GET_ALL_ECA_LOOK_UP_SUCCESS, payload: data });
@@ -47,9 +47,9 @@ export const getListEcaLookUpAction = () => async (dispatch) => {
   try {
     dispatch({ type: GET_LIST_ECA_LOOK_UP_REQUEST });
 
-    const { data } = await axios.get(
+    const { data } = await axiosInstance.get(
       `${API_URL}/api/ECA/GetListECA?company=2`,
-      tokenConfig
+      tokenConfig()
     );
 
     dispatch({ type: GET_LIST_ECA_LOOK_UP_SUCCESS, payload: data });
@@ -65,9 +65,9 @@ export const getSingleEditEcaLookUpAction = (id) => async (dispatch) => {
     try {
       dispatch({ type: GET_SINGLE_EDIT_ECA_LOOK_UP_REQUEST });
   
-      const { data } = await axios.get(
+      const { data } = await axiosInstance.get(
         `${API_URL}/api/ECA/GetSingleToEditECA/${id}?company=2`,
-        tokenConfig
+        tokenConfig()
       );
   
       dispatch({ type: GET_SINGLE_EDIT_ECA_LOOK_UP_SUCCESS, payload: data });
@@ -84,9 +84,9 @@ export const getSingleEditEcaLookUpAction = (id) => async (dispatch) => {
     try {
       dispatch({ type: GET_SINGLE_CREATE_ECA_LOOK_UP_REQUEST });
   
-      const { data } = await axios.get(
+      const { data } = await axiosInstance.get(
         `${API_URL}/api/ECA/GetSingleToCreateECA?company=2`,
-        tokenConfig
+        tokenConfig()
       );
   
       dispatch({ type: GET_SINGLE_CREATE_ECA_LOOK_UP_SUCCESS, payload: data });
@@ -102,9 +102,9 @@ export const getSingleEditEcaLookUpAction = (id) => async (dispatch) => {
     try {
       dispatch({ type: GET_DETAIL_ECA_LOOK_UP_REQUEST });
   
-      const { data } = await axios.get(
+      const { data } = await axiosInstance.get(
         `${API_URL}/api/ECA/GetSingleDetialECA?company=${company}`,
-        tokenConfig
+        tokenConfig()
       );
   
       dispatch({ type: GET_DETAIL_ECA_LOOK_UP_SUCCESS, payload: data });
@@ -124,10 +124,10 @@ export const getSingleEditEcaLookUpAction = (id) => async (dispatch) => {
         dbModel: eca
       });
   
-      const { data } = await axios.put(
+      const { data } = await axiosInstance.put(
         `${API_URL}/api/ECA/PutECA`,
         jsonData,
-        tokenConfig
+        tokenConfig()
       );
   
       dispatch({
@@ -150,10 +150,10 @@ export const getSingleEditEcaLookUpAction = (id) => async (dispatch) => {
         dbModel: eca,
       });
   
-      const { data } = await axios.post(
+      const { data } = await axiosInstance.post(
         `${API_URL}/api/ECA/PostECA`,
         jsonData,
-        tokenConfig
+        tokenConfig()
       );
       
       dispatch({

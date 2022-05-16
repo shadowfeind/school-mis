@@ -1,5 +1,5 @@
-import axios from "axios";
-import { API_URL, tokenConfig } from "../../constants";
+
+import { API_URL, axiosInstance, tokenConfig } from "../../constants";
 import {
   GET_ALL_STUDEN_ATTENDANCE_FAIL,
   GET_ALL_STUDEN_ATTENDANCE_INITIAL_DATA_FAIL,
@@ -23,10 +23,10 @@ export const getAllStudentAttendanceInitialDataAction =
     try {
       dispatch({ type: GET_ALL_STUDEN_ATTENDANCE_INITIAL_DATA_REQUEST });
 
-      const { data } = await axios.get(
+      const { data } = await axiosInstance.get(
         `${API_URL}/api/StudentAttendance/GetAllStudentAttendance
       `,
-        tokenConfig
+        tokenConfig()
       );
 
       dispatch({
@@ -46,9 +46,9 @@ export const getAllStudentAttendanceAction =
     try {
       dispatch({ type: GET_ALL_STUDEN_ATTENDANCE_REQUEST });
 
-      const { data } = await axios.get(
+      const { data } = await axiosInstance.get(
         `${API_URL}/api/StudentAttendance/GetListStudentAttendance?idAcademicYear=${year}&idFacultyProgramLink=${program}&level=${classId}&section=${section}&idShift=${shift}&idAcademicYearCalendar=${event}&searchKey=1`,
-        tokenConfig
+        tokenConfig()
       );
 
       dispatch({
@@ -68,9 +68,9 @@ export const getBulkStudentAttendanceAction =
     try {
       dispatch({ type: GET_BULK_STUDENT_ATTENDANCE_REQUEST });
 
-      const { data } = await axios.get(
+      const { data } = await axiosInstance.get(
         `${API_URL}/api/StudentAttendance/GetBulkAttendance?idAcademicYear=${year}&idFacultyProgramLink=${program}&level=${classId}&section=${section}&idShift=${shift}&idAcademicYearCalendar=${event}`,
-        tokenConfig
+        tokenConfig()
       );
 
       dispatch({
@@ -104,10 +104,10 @@ export const postBulkStudentAttendanceAction =
       //   },
       // };
 
-      await axios.post(
+      await axiosInstance.post(
         `${API_URL}/api/StudentAttendance/PostStudentAttendance`,
         jsonData,
-        tokenConfig
+        tokenConfig()
       );
 
       dispatch({ type: POST_BULK_STUDENT_ATTENDANCE_SUCCESS });
@@ -125,9 +125,9 @@ export const postBulkStudentAttendanceAction =
     try {
       dispatch({ type: GET_GENERATED_STUDENT_ATTENDANCE_REQUEST });
 
-      const { data } = await axios.get(
+      const { data } = await axiosInstance.get(
         `${API_URL}/api/StudentAttendance/GenerateAttendance?idAcademicYear=${year}&idFacultyProgramLink=${program}&level=${classId}&section=${section}&idShift=${shift}&idAcademicYearCalendar=${event}&workingDaysTotal=${workingDays}&startDate=${start}&endDate=${end}`,
-        tokenConfig
+        tokenConfig()
       );
 
       dispatch({

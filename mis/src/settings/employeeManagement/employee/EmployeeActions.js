@@ -1,5 +1,5 @@
-import axios from "axios";
-import { API_URL, tokenConfig } from "../../../constants";
+
+import { API_URL, axiosInstance, tokenConfig } from "../../../constants";
 import {
   EMPLOYEE_CREATE_FAIL,
   EMPLOYEE_CREATE_REQUEST,
@@ -28,9 +28,9 @@ export const getAllEmployeeAction = () => async (dispatch) => {
   try {
     dispatch({ type: GET_ALL_EMPLOYEE_REQUEST });
 
-    const { data } = await axios.get(
+    const { data } = await axiosInstance.get(
       `${API_URL}/api/HREmployee/GetHREmployee`,
-      tokenConfig
+      tokenConfig()
     );
 
     dispatch({ type: GET_ALL_EMPLOYEE_SUCCESS, payload: data });
@@ -46,9 +46,9 @@ export const getAllEmployeeCreateAction = () => async (dispatch) => {
   try {
     dispatch({ type: GET_ALL_EMPLOYEE_CREATE_REQUEST });
 
-    const { data } = await axios.get(
+    const { data } = await axiosInstance.get(
       `${API_URL}/api/HREmployee/GetToCreateHREmployee?company=0&idBranch=0&idDepartment=0&idFilterUser=0&searchKey=0`,
-      tokenConfig
+      tokenConfig()
     );
 
     dispatch({ type: GET_ALL_EMPLOYEE_CREATE_SUCCESS, payload: data });
@@ -72,10 +72,10 @@ export const employeeCreateAction = (employee) => async (dispatch) => {
     //   },
     // };
 
-    const { data } = await axios.post(
+    const { data } = await axiosInstance.post(
       `${API_URL}/api/HREmployee/PostHREmployee`,
       jsonData,
-      tokenConfig
+      tokenConfig()
     );
 
     dispatch({ type: EMPLOYEE_CREATE_SUCCESS, payload: data });
@@ -91,9 +91,9 @@ export const getSingleEmployeeAction = (id) => async (dispatch) => {
   try {
     dispatch({ type: GET_SINGLE_EMPLOYEE_REQUEST });
 
-    const { data } = await axios.get(
+    const { data } = await axiosInstance.get(
       `${API_URL}/api/HREmployee/GetHREmployeeById/${id}`,
-      tokenConfig
+      tokenConfig()
     );
 
     dispatch({ type: GET_SINGLE_EMPLOYEE_SUCCESS, payload: data });
@@ -117,10 +117,10 @@ export const updateSingleEmployeeAction = (employee) => async (dispatch) => {
     //   },
     // };
 
-    const { data } = await axios.put(
+    const { data } = await axiosInstance.put(
       `${API_URL}/api/HREmployee/PutHRPosition`,
       jsonData,
-      tokenConfig
+      tokenConfig()
     );
 
     dispatch({ type: UPDATE_SINGLE_EMPLOYEE_SUCCESS, payload: data });
@@ -137,9 +137,9 @@ export const getSingleEmployeePasswordresetDataAction =
     try {
       dispatch({ type: GET_RESETPASSWORD_DATA_SINGLE_EMPLOYEE_REQUEST });
 
-      const { data } = await axios.get(
+      const { data } = await axiosInstance.get(
         `${API_URL}/api/GetResetPassword/${company}/${branch}/${department}/0/0/reset?id=${id}`,
-        tokenConfig
+        tokenConfig()
       );
 
       dispatch({
@@ -167,10 +167,10 @@ export const resetSingleEmployeePasswordAction =
       //   },
       // };
 
-      const { data } = await axios.put(
+      const { data } = await axiosInstance.put(
         `${API_URL}/api/HREmployee/PutResetPassword`,
         jsonData,
-        tokenConfig
+        tokenConfig()
       );
 
       dispatch({

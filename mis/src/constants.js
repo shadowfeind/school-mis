@@ -1,3 +1,5 @@
+import jwt_decode from "jwt-decode";
+import moment from "moment";
 // export const API_URL = "http://103.90.86.151:84";
 // export const API_URL = "http://103.90.86.151:100";
 // export const API_URL = "http://192.168.1.85:88";
@@ -22,12 +24,12 @@ let userSession = sessionStorage.getItem("blueberrytoken")
 // let userRefreshToken = "T9P434k9704MVuPnR0ga0C6XXnlZLooPPX8qf68+90Q=";
 
 //for JWT token for dev mode
-export const tokenConfig = {
-  headers: {
-    "Content-Type": "application/json",
-    Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIzZTZmMDM0Ny1hMjJjLTRkNWItOGQ5Yi0zMTk0OGMzYTQ0YjEiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiMTQwMDkiLCJJRFVzZXIiOiIxNDAwOSIsIklEUm9sZSI6IjUiLCJNYXJrQXNBZG1pbiI6IkZhbHNlIiwiSURIUkJyYW5jaCI6IjEiLCJJRERlcGFydG1lbnQiOiIxIiwiY29tcGFueSI6IjIiLCJJc1RlbXBvcmFyeVNlc3Npb25FbmFibGVkIjoiRmFsc2UiLCJJc05ld2x5QWRlZCI6IkZhbHNlIiwiSXNEZXBhcnRtZW50SGVhZCI6IkZhbHNlIiwiUmVtZW1iZXJNZSI6IkZhbHNlIiwiRnVsbE5hbWUiOiJTdXJlc2ggQ2xhc3MgT25lIiwicGlkUmVmRm9yRWRpdCI6ImNsYXNzb25lIiwiZXhwIjoxNjUzMTEyNjM2LCJpc3MiOiJodHRwOi8vbXlzaXRlLmNvbSIsImF1ZCI6Imh0dHA6Ly9teXNpdGUuY29tIn0.e6pwILOAjagX3wTGwMX_IqKL2xmqFUtfNnAZkZevZv0`,
-  },
-};
+// export const tokenConfig = {
+//   headers: {
+//     "Content-Type": "application/json",
+//     Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIzZTZmMDM0Ny1hMjJjLTRkNWItOGQ5Yi0zMTk0OGMzYTQ0YjEiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiMTQwMDkiLCJJRFVzZXIiOiIxNDAwOSIsIklEUm9sZSI6IjUiLCJNYXJrQXNBZG1pbiI6IkZhbHNlIiwiSURIUkJyYW5jaCI6IjEiLCJJRERlcGFydG1lbnQiOiIxIiwiY29tcGFueSI6IjIiLCJJc1RlbXBvcmFyeVNlc3Npb25FbmFibGVkIjoiRmFsc2UiLCJJc05ld2x5QWRlZCI6IkZhbHNlIiwiSXNEZXBhcnRtZW50SGVhZCI6IkZhbHNlIiwiUmVtZW1iZXJNZSI6IkZhbHNlIiwiRnVsbE5hbWUiOiJTdXJlc2ggQ2xhc3MgT25lIiwicGlkUmVmRm9yRWRpdCI6ImNsYXNzb25lIiwiZXhwIjoxNjUzMTEyNjM2LCJpc3MiOiJodHRwOi8vbXlzaXRlLmNvbSIsImF1ZCI6Imh0dHA6Ly9teXNpdGUuY29tIn0.e6pwILOAjagX3wTGwMX_IqKL2xmqFUtfNnAZkZevZv0`,
+//   },
+// };
 
 let userRefreshToken = sessionStorage.getItem("blueberryrefreshtoken")
   ? sessionStorage.getItem("blueberryrefreshtoken")
@@ -48,6 +50,33 @@ export const tokenHeader = {
 //     Authorization: `Bearer ${USER_SESSION}`,
 //   },
 // };
+export const tokenConfig = () => {
+  const user = JSON.parse(localStorage.getItem("blueberryToken"));
+
+  if (user && user.AccessToken) {
+    // const userSessionCheck = jwt_decode(user.AccessToken);
+    // const isExpired = userSessionCheck.exp - moment().unix() < 1;
+    // console.log(userSessionCheck.exp);
+    // console.log(moment.unix(userSessionCheck.exp));
+    // console.log(moment().unix());
+    // console.log(isExpired);
+    // if (isExpired) {
+    //   localStorage.removeItem("blueberryToken");
+    //   document.location.href = "/#/login/5";
+    //   return;
+    // }
+
+    const tokenReturn = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${user.AccessToken}`,
+      },
+    };
+    return tokenReturn;
+  } else {
+    return {};
+  }
+};
 
 export const axiosInstance = axios.create({
   baseURL: API_URL,
@@ -58,18 +87,19 @@ export const axiosInstance = axios.create({
 });
 
 axiosInstance.interceptors.request.use(async (req) => {
-  const user = jwt_decode(userSession);
+  const userSession = JSON.parse(localStorage.getItem("blueberryToken"));
+  const user = jwt_decode(userSession?.AccessToken);
   const isExpired = user.exp - moment().unix() < 1;
   console.log(user.exp);
   console.log(moment.unix(user.exp));
   console.log(moment().unix());
-  console.log(isExpired);
+  console.log("isExpired", isExpired);
 
   if (!isExpired) return req;
 
   const dataForRefreshToken = {
-    AccessToken: userSession,
-    RefreshToken: userRefreshToken,
+    AccessToken: userSession.AccessToken,
+    RefreshToken: userSession.RefreshToken,
   };
 
   const JSONdata = JSON.stringify(dataForRefreshToken);
@@ -79,14 +109,13 @@ axiosInstance.interceptors.request.use(async (req) => {
 
   try {
     const { data } = await axios.post(
-      "https://vidyacube.com/api/RefreshTokenGenerator/RefreshToken",
+      `${API_URL}/api/RefreshTokenGenerator/RefreshToken`,
       JSONdata,
       config
     );
     console.log(data);
 
-    sessionStorage.setItem("blueberrytoken", data.AccessToken);
-    userSession = data.AccessToken;
+    localStorage.setItem("blueberryToken", JSON.stringify(data));
     req.headers.Authorization = `Bearer ${data.AccessToken}`;
   } catch (error) {
     console.log(

@@ -1,5 +1,5 @@
-import axios from "axios";
-import { API_URL, tokenConfig } from "../../../constants";
+
+import { API_URL, axiosInstance, tokenConfig } from "../../../constants";
 import {
   ACADEMIC_YEAR_CREATE_FAIL,
   ACADEMIC_YEAR_CREATE_REQUEST,
@@ -25,9 +25,9 @@ export const getAllAcademicYearAction = () => async (dispatch) => {
   try {
     dispatch({ type: GET_ALL_ACADEMIC_YEAR_REQUEST });
 
-    const { data } = await axios.get(
+    const { data } = await axiosInstance.get(
       `${API_URL}/api/AcademicYear/GetAcademicYear`,
-      tokenConfig
+      tokenConfig()
     );
 
     dispatch({ type: GET_ALL_ACADEMIC_YEAR_SUCCESS, payload: data });
@@ -56,10 +56,10 @@ export const AcademicYearCreateAction =
       //   },
       // };
 
-      const { data } = await axios.post(
+      const { data } = await axiosInstance.post(
         `${API_URL}/api/AcademicYear/PostYear`,
         jsonData,
-        tokenConfig
+        tokenConfig()
       );
 
       dispatch({ type: ACADEMIC_YEAR_CREATE_SUCCESS, payload: data });
@@ -75,9 +75,9 @@ export const getAcademicYearOptionAction = () => async (dispatch) => {
   try {
     dispatch({ type: GET_ACADEMIC_YEAR_OPTION_REQUEST });
 
-    const { data } = await axios.get(
+    const { data } = await axiosInstance.get(
       `${API_URL}/api/AcademicYear/GetToCreateAcademicYear`,
-      tokenConfig
+      tokenConfig()
     );
 
     dispatch({ type: GET_ACADEMIC_YEAR_OPTION_SUCCESS, payload: data });
@@ -93,9 +93,9 @@ export const getAcademicYearCheckAction = (yearName) => async (dispatch) => {
   try {
     dispatch({ type: GET_ACADEMIC_YEAR_CHECK_REQUEST });
 
-    const { data } = await axios.get(
+    const { data } = await axiosInstance.get(
       `${API_URL}/api/AcademicYear/CheckAcademicYear?academicYearname=${yearName}`,
-      tokenConfig
+      tokenConfig()
     );
 
     dispatch({ type: GET_ACADEMIC_YEAR_CHECK_SUCCESS, payload: data });
@@ -113,9 +113,9 @@ export const getSingleAcademicYearAction = (id) => async (dispatch) => {
   try {
     dispatch({ type: GET_SINGLE_ACADEMIC_YEAR_REQUEST });
 
-    const { data } = await axios.get(
+    const { data } = await axiosInstance.get(
       `${API_URL}/api/AcademicYear/GetAcademicYearById/${id}`,
-      tokenConfig
+      tokenConfig()
     );
 
     dispatch({ type: GET_SINGLE_ACADEMIC_YEAR_SUCCESS, payload: data });
@@ -141,10 +141,10 @@ export const updateSingleAcademicYearAction =
       //   },
       // };
 
-      const { data } = await axios.put(
+      const { data } = await axiosInstance.put(
         `${API_URL}/api/AcademicYear/PutAcademicYear`,
         jsonData,
-        tokenConfig
+        tokenConfig()
       );
 
       dispatch({ type: UPDATE_SINGLE_ACADEMIC_YEAR_SUCCESS, payload: data });

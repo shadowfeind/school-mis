@@ -1,5 +1,5 @@
-import axios from "axios";
-import { API_URL, tokenConfig } from "../../../constants";
+
+import { API_URL, axiosInstance, tokenConfig} from "../../../constants";
 import {
   DELETE_EMPLOYEE_CATEGORY_ROLE_FAIL,
   DELETE_EMPLOYEE_CATEGORY_ROLE_REQUEST,
@@ -22,9 +22,9 @@ export const getAllEmployeeCategoryRoleAction = () => async (dispatch) => {
   try {
     dispatch({ type: GET_ALL_EMPLOYEE_CATEGORY_ROLE_REQUEST });
 
-    const { data } = await axios.get(
+    const { data } = await axiosInstance.get(
       `${API_URL}/api/HREmployeeCategoryRole/GetHREmployeeCategoryRoleViewModelLst`,
-      tokenConfig
+      tokenConfig()
     );
 
     dispatch({ type: GET_ALL_EMPLOYEE_CATEGORY_ROLE_SUCCESS, payload: data });
@@ -49,10 +49,10 @@ export const employeeCategoryRoleCreateAction =
       //   },
       // };
 
-      const { data } = await axios.post(
+      const { data } = await axiosInstance.post(
         `${API_URL}/api/HREmployeeCategoryRole/PostHREmployeeCategoryRole`,
         jsonData,
-        tokenConfig
+        tokenConfig()
       );
 
       dispatch({ type: EMPLOYEE_CATEGORY_ROLE_CREATE_SUCCESS, payload: data });
@@ -68,9 +68,9 @@ export const getSingleEmployeeCategoryRoleAction = (id) => async (dispatch) => {
   try {
     dispatch({ type: GET_SINGLE_EMPLOYEE_CATEGORY_ROLE_REQUEST });
 
-    const { data } = await axios.get(
+    const { data } = await axiosInstance.get(
       `${API_URL}/api/HREmployeeCategoryRole/GetHREmployeeCategoryRoleById/${id}`,
-      tokenConfig
+      tokenConfig()
     );
 
     dispatch({
@@ -98,10 +98,10 @@ export const updateSingleEmployeeCategoryRoleAction =
       //   },
       // };
 
-      const { data } = await axios.put(
+      const { data } = await axiosInstance.put(
         `${API_URL}/api/HREmployeeCategoryRole/PutHREmployeeCategoryRole`,
         jsonData,
-        tokenConfig
+        tokenConfig()
       );
 
       dispatch({
@@ -126,10 +126,10 @@ export const updateSingleEmployeeCategoryRoleAction =
       
       const jsonData = JSON.stringify({ dbModel: categoryDeleteRole });
       
-      await axios.post(
+      await axiosInstance.post(
         `${API_URL}/api/HREmployeeCategoryRole/DeleteHREmployeeCategoryRole`,
         jsonData,
-        tokenConfig
+        tokenConfig()
       );
         
       dispatch({

@@ -1,5 +1,5 @@
-import axios from "axios";
-import { API_URL, tokenConfig } from "../../../constants";
+
+import { API_URL, axiosInstance, tokenConfig } from "../../../constants";
 import {
   DELETE_ROLE_FAIL,
   DELETE_ROLE_REQUEST,
@@ -23,9 +23,9 @@ export const getAllRolesAction = () => async (dispatch) => {
   try {
     dispatch({ type: GET_ALL_ROLE_REQUEST });
 
-    const { data } = await axios.get(
+    const { data } = await axiosInstance.get(
       `${API_URL}/api/HRRole/GetHRRole`,
-      tokenConfig
+      tokenConfig()
     );
 
     dispatch({ type: GET_ALL_ROLE_SUCCESS, payload: data });
@@ -49,10 +49,10 @@ export const roleCreateAction = (role) => async (dispatch) => {
     //   },
     // };
 
-    const { data } = await axios.post(
+    const { data } = await axiosInstance.post(
       `${API_URL}/api/HRRole/PostHRPosition`,
       jsonData,
-      tokenConfig
+      tokenConfig()
     );
 
     dispatch({ type: ROLE_CREATE_SUCCESS, payload: data });
@@ -68,9 +68,9 @@ export const getSingleRoleAction = (id) => async (dispatch) => {
   try {
     dispatch({ type: GET_SINGLE_ROLE_REQUEST });
 
-    const { data } = await axios.get(
+    const { data } = await axiosInstance.get(
       `${API_URL}/api/HRRole/GetHRRoleById/${id}`,
-      tokenConfig
+      tokenConfig()
     );
 
     dispatch({ type: GET_SINGLE_ROLE_SUCCESS, payload: data });
@@ -94,10 +94,10 @@ export const updateSingleRoleAction = (role) => async (dispatch) => {
     //   },
     // };
 
-    const { data } = await axios.put(
+    const { data } = await axiosInstance.put(
       `${API_URL}/api/HRRole/PutHRPosition`,
       jsonData,
-      tokenConfig
+      tokenConfig()
     );
 
     dispatch({ type: UPDATE_SINGLE_ROLE_SUCCESS, payload: data });
@@ -116,10 +116,10 @@ export const deleteRoleAction = (role) => async (dispatch) => {
 
     const jsonData = JSON.stringify({ hrRoleModel: role });
 
-    await axios.post(
+    await axiosInstance.post(
       `${API_URL}/api/HRRole/DeleteHRPosition`,
       jsonData,
-      tokenConfig
+      tokenConfig()
     );  
 
     dispatch({ type: DELETE_ROLE_SUCCESS });

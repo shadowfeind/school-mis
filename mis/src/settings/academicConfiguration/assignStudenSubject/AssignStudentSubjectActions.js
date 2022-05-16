@@ -1,13 +1,13 @@
-import axios from "axios";
-import { API_URL, tokenConfig } from "../../../constants";
+
+import { API_URL, axiosInstance, tokenConfig } from "../../../constants";
 
 export const getALLAssignStudentSubject = () => async (dispatch) => {
     try {
       dispatch({ type: GET_ALL_ASSIGN_STUDENT_SUBJECT_REQUEST });
   
-      const { data } = await axios.get(
+      const { data } = await axiosInstance.get(
         `${API_URL}/api/AcaFacultySubjectLink/GetAcademicFacultySubjectLink`,
-        tokenConfig
+        tokenConfig()
       );
   
       dispatch({ type: GET_ALL_ASSIGN_STUDENT_SUBJECT_SUCCESS, payload: data });

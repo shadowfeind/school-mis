@@ -1,5 +1,5 @@
 import axios from "axios";
-import { API_URL, tokenConfig, tokenHeader } from "../../constants";
+import { API_URL, axiosInstance, tokenConfig, tokenHeader } from "../../constants";
 import {
   GET_ALL_SMS_CLASS_NOTIFICATION_FAIL,
   GET_ALL_SMS_CLASS_NOTIFICATION_REQUEST,
@@ -19,9 +19,9 @@ export const getAllSmsClassNotificationAction = () => async (dispatch) => {
   try {
     dispatch({ type: GET_ALL_SMS_CLASS_NOTIFICATION_REQUEST });
 
-    const { data } = await axios.get(
+    const { data } = await axiosInstance.get(
       `${API_URL}/api/SMSClassNotification/GetAllClassNotification`,
-      tokenConfig
+      tokenConfig()
     );
 
     dispatch({ type: GET_ALL_SMS_CLASS_NOTIFICATION_SUCCESS, payload: data });
@@ -38,9 +38,9 @@ export const getListSmsClassNotificationAction =
     try {
       dispatch({ type: GET_LIST_SMS_CLASS_NOTIFICATION_REQUEST });
 
-      const { data } = await axios.get(
+      const { data } = await axiosInstance.get(
         `${API_URL}/api/SMSClassNotification/GetListClassNotification?idAcademicYear=${year}&idFacultyProgramLink=${program}&idClass=${classId}&idShift=${shift}&classSection=${section}&createdDate=${date}`,
-        tokenConfig
+        tokenConfig()
       );
 
       dispatch({
@@ -60,9 +60,9 @@ export const getBulkSmsClassNotificationAction =
     try {
       dispatch({ type: GET_BULK_SMS_CLASS_NOTIFICATION_REQUEST });
 
-      const { data } = await axios.get(
+      const { data } = await axiosInstance.get(
         `${API_URL}/api/SMSClassNotification/GetBulkClassNotification?idAcademicYear=${year}&idFacultyProgramLink=${program}&idClass=${classId}&idShift=${shift}&classSection=${section}`,
-        tokenConfig
+        tokenConfig()
       );
 
       dispatch({
@@ -110,10 +110,10 @@ export const postSmsClassNotificationAction =
       });
 
       console.log(jsonData);
-      await axios.post(
+      await axiosInstance.post(
         `${API_URL}/api/SMSClassNotification/PostClassNotification`,
         jsonData,
-        tokenConfig
+        tokenConfig()
       );
 
       dispatch({

@@ -377,6 +377,8 @@ const StudentRegistrationForm = ({
 
   const symbolsArr = ["e", "E", "+", "-", ".", "ArrowUp", "ArrowDown"];
 
+  
+
   return (
     <Form onSubmit={handleSubmit}>
       <Grid container style={{ fontSize: "12px" }}>

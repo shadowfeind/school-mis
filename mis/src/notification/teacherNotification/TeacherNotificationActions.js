@@ -1,5 +1,5 @@
 import axios from "axios";
-import { API_URL, tokenConfig, tokenHeader } from "../../constants";
+import { API_URL, axiosInstance, tokenConfig, tokenHeader } from "../../constants";
 import {
   GET_ALL_TEACHER_NOTIFICATION_FAIL,
   GET_ALL_TEACHER_NOTIFICATION_REQUEST,
@@ -19,9 +19,9 @@ export const getAllTeacherNotificationAction = () => async (dispatch) => {
   try {
     dispatch({ type: GET_ALL_TEACHER_NOTIFICATION_REQUEST });
 
-    const { data } = await axios.get(
+    const { data } = await axiosInstance.get(
       `${API_URL}/api/TeacherNotification/GetAllTeacherNotification`,
-      tokenConfig
+      tokenConfig()
     );
 
     dispatch({
@@ -40,9 +40,9 @@ export const getListTeacherNotificationAction = (date) => async (dispatch) => {
   try {
     dispatch({ type: GET_LIST_TEACHER_NOTIFICATION_REQUEST });
 
-    const { data } = await axios.get(
+    const { data } = await axiosInstance.get(
       `${API_URL}/api/TeacherNotification/GetListTeacherNotification?createdDate=${date}`,
-      tokenConfig
+      tokenConfig()
     );
 
     dispatch({
@@ -62,9 +62,9 @@ export const getSingleCreateTeacherNotificationAction =
     try {
       dispatch({ type: GET_SINGLE_TO_CREATE_TEACHER_NOTIFICATION_REQUEST });
 
-      const { data } = await axios.get(
+      const { data } = await axiosInstance.get(
         `${API_URL}/api/TeacherNotification/GetSingleToCreateTeacherNotification`,
-        tokenConfig
+        tokenConfig()
       );
 
       dispatch({
@@ -105,10 +105,10 @@ export const postTeacherNotificationAction =
 
       console.log(jsonData);
 
-      const { data } = await axios.post(
+      const { data } = await axiosInstance.post(
         `${API_URL}/api/TeacherNotification/PostTeacherNotification`,
         jsonData,
-        tokenConfig
+        tokenConfig()
       );
 
       dispatch({ type: POST_TEACHER_NOTIFICATION_SUCCESS, payload: data });

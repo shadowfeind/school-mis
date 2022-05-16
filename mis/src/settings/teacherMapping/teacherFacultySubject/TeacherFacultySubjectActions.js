@@ -1,5 +1,5 @@
-import axios from "axios";
-import { API_URL, tokenConfig } from "../../../constants";
+
+import { API_URL, axiosInstance, tokenConfig } from "../../../constants";
 import {
   CREATE_SINGLE_TEACHER_FAC_SUB_FAIL,
   CREATE_SINGLE_TEACHER_FAC_SUB_REQUEST,
@@ -25,9 +25,9 @@ export const getAllTeacherFacSubInitialDataAction = () => async (dispatch) => {
   try {
     dispatch({ type: GET_ALL_TEACHER_FAC_SUB_INITIAL_DATA_REQUEST });
 
-    const { data } = await axios.get(
+    const { data } = await axiosInstance.get(
       `${API_URL}/api/HRTeacherFacultySubjectMappingHeader/GetAllHRTeacherFacultySubjectMappingHeader`,
-      tokenConfig
+      tokenConfig()
     );
 
     dispatch({
@@ -47,9 +47,9 @@ export const getAllTeacherFacSubListDataAction =
     try {
       dispatch({ type: GET_ALL_TEACHER_FAC_SUB_LIST_DATA_REQUEST });
 
-      const { data } = await axios.get(
+      const { data } = await axiosInstance.get(
         `${API_URL}/api/HRTeacherFacultySubjectMappingHeader/GetListHRTeacherFacultySubjectMappingHeader?idAcademicYear=${year}&idFacultyProgramLink=${program}&level=${classId}&section=${section}&idShift=${shift}&searchKey=1`,
-        tokenConfig
+        tokenConfig()
       );
 
       dispatch({
@@ -71,9 +71,9 @@ export const getSingleTeacherFacSubDataAction =
     try {
       dispatch({ type: GET_SINGLE_TEACHER_FAC_SUB_DATA_REQUEST });
 
-      const { data } = await axios.get(
+      const { data } = await axiosInstance.get(
         `${API_URL}/api/HRTeacherFacultySubjectMappingHeader/GetSingleToEditTeacherFacultySubjectMappingHeader/${id}?idAcademicYear=${year}&idFacultyProgramLink=${program}&level=${classId}&section=${section}&idShift=${shift}&idTeacher=${teacherId}&searchKey=1`,
-        tokenConfig
+        tokenConfig()
       );
 
       dispatch({
@@ -102,10 +102,10 @@ export const singleTeacherFacSubEditAction = (teacher) => async (dispatch) => {
     //   },
     // };
 
-    await axios.put(
+    await axiosInstance.put(
       `${API_URL}/api/HRTeacherFacultySubjectMappingHeader/Put`,
       jsonData,
-      tokenConfig
+      tokenConfig()
     );
 
     dispatch({
@@ -124,9 +124,9 @@ export const createTeacherFacSubInitDataAction =
     try {
       dispatch({ type: CREATE_TEACHER_FAC_SUB_INITIAL_DATA_REQUEST });
 
-      const { data } = await axios.get(
+      const { data } = await axiosInstance.get(
         `${API_URL}/api/HRTeacherFacultySubjectMappingHeader/GetSingleToCreateTeacherFacultySubjectMappingHeader?idAcademicYear=${year}&idFacultyProgramLink=${program}&level=${classId}&section=${section}&idShift=${shift}&searchKey=1`,
-        tokenConfig
+        tokenConfig()
       );
 
       dispatch({
@@ -152,10 +152,10 @@ export const createSingleTeacherFacSubAction =
         },
       });
 
-      await axios.post(
+      await axiosInstance.post(
         `${API_URL}/api/HRTeacherFacultySubjectMappingHeader/Post`,
         jsonData,
-        tokenConfig
+        tokenConfig()
       );
 
       dispatch({

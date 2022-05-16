@@ -1,5 +1,5 @@
-import axios from "axios";
-import { API_URL, tokenConfig } from "../../../constants";
+
+import { API_URL, axiosInstance, tokenConfig } from "../../../constants";
 import {
   ASSIGN_FACULTY_SUBJECT_EDIT_FAIL,
   ASSIGN_FACULTY_SUBJECT_EDIT_POST_FAIL,
@@ -31,9 +31,9 @@ export const getALLAssignFacultySubject = () => async (dispatch) => {
   try {
     dispatch({ type: GET_ALL_ASSIGN_FACULTY_SUBJECT_REQUEST });
 
-    const { data } = await axios.get(
+    const { data } = await axiosInstance.get(
       `${API_URL}/api/AcaFacultySubjectLink/GetAcademicFacultySubjectLink`,
-      tokenConfig
+      tokenConfig()
     );
 
     dispatch({ type: GET_ALL_ASSIGN_FACULTY_SUBJECT_SUCCESS, payload: data });
@@ -50,9 +50,9 @@ export const getListAssignFacultySubject =
     try {
       dispatch({ type: GET_LIST_ASSIGN_FACULTY_SUBJECT_REQUEST });
 
-      const { data } = await axios.get(
+      const { data } = await axiosInstance.get(
         `${API_URL}/api/AcaFacultySubjectLink/GetListAcademicFacultySubjectLink?idAcademicYear=${year}&idFacultyProgramLink=${program}&idClass=${classId}`,
-        tokenConfig
+        tokenConfig()
       );
 
       dispatch({
@@ -72,9 +72,9 @@ export const getSingleAssignFacultySubjectAction =
     try {
       dispatch({ type: GET_SINGLE_ASSIGN_FACULTY_SUBJECT_REQUEST });
 
-      const { data } = await axios.get(
+      const { data } = await axiosInstance.get(
         `${API_URL}/api/AcaFacultySubjectLink/GetSingleEditAcademicFacultySubjectLinkByParams/${id}?idAcademicYear=${year}&idFacultyProgramLink=${program}&level=${classId}`,
-        tokenConfig
+        tokenConfig()
       );
 
       dispatch({
@@ -94,9 +94,9 @@ export const getAssignFacultySubjectOptionAction =
     try {
       dispatch({ type: ASSIGN_FACULTY_SUBJECT_GET_REQUEST });
 
-      const { data } = await axios.get(
+      const { data } = await axiosInstance.get(
         `${API_URL}/api/AcaFacultySubjectLink/GetAcademicFacultySubjectLinkToCreate?idAcademicYear=${year}&idFacultyProgramLink=${program}&idClass=${classId}`,
-        tokenConfig
+        tokenConfig()
       );
       dispatch({ type: ASSIGN_FACULTY_SUBJECT_GET_SUCCESS, payload: data });
     } catch (error) {
@@ -125,10 +125,10 @@ export const AcademicFacultyCreateAction =
       //   },
       // };
 
-      const { data } = await axios.post(
+      const { data } = await axiosInstance.post(
         `${API_URL}/api/AcaFacultySubjectLink/PostAcademicFacultySubjectLinkA`,
         jsonData,
-        tokenConfig
+        tokenConfig()
       );
 
       dispatch({ type: ASSIGN_FACULTY_SUBJECT_POST_SUCCESS, payload: data });
@@ -145,9 +145,9 @@ export const getAssignFacultySubjectEditAction =
     try {
       dispatch({ type: ASSIGN_FACULTY_SUBJECT_EDIT_REQUEST });
 
-      const { data } = await axios.get(
+      const { data } = await axiosInstance.get(
         `${API_URL}/api/AcaFacultySubjectLink/GetSingleEditAcademicFacultySubjectLinkByParams/${id}?idAcademicYear=${year}&idFacultyProgramLink=${program}&level=${classId}`,
-        tokenConfig
+        tokenConfig()
       );
 
       dispatch({ type: ASSIGN_FACULTY_SUBJECT_EDIT_SUCCESS, payload: data });
@@ -171,10 +171,10 @@ export const academicFacultySubjectPostEditAction =
         dbModel,
       });
 
-      const { data } = await axios.put(
+      const { data } = await axiosInstance.put(
         `${API_URL}/api/AcaFacultySubjectLink/Put`,
         jsonData,
-        tokenConfig
+        tokenConfig()
       );
 
       dispatch({
@@ -194,9 +194,9 @@ export const getAssignFacultySubjectGenerateAction =
     try {
       dispatch({ type: ASSIGN_FACULTY_SUBJECT_GENERATE_REQUEST });
 
-      const { data } = await axios.get(
+      const { data } = await axiosInstance.get(
         `${API_URL}/api/AcaFacultySubjectLink/GetGenerateBulkSubject?idAcademicYear=${year}&idFacultyProgramLink=${program}&idClass=${classId}`,
-        tokenConfig
+        tokenConfig()
       );
 
       dispatch({

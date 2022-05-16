@@ -1,5 +1,5 @@
-import axios from "axios";
-import { API_URL, tokenConfig } from "../../../constants";
+
+import { API_URL, axiosInstance, tokenConfig } from "../../../constants";
 import {
   GET_ALL_SUPER_ADMIN_SMS_ACCESS_CONTROL_FAIL,
   GET_ALL_SUPER_ADMIN_SMS_ACCESS_CONTROL_REQUEST,
@@ -26,10 +26,10 @@ export const getAllSuperAdminSmsAccessControlAction =
     try {
       dispatch({ type: GET_ALL_SUPER_ADMIN_SMS_ACCESS_CONTROL_REQUEST });
 
-      const { data } = await axios.get(
+      const { data } = await axiosInstance.get(
         `${API_URL}/api/SuperAdminSMSAccessControlS/GetAllSuperAdminSMSAccessControl
                 `,
-        tokenConfig
+        tokenConfig()
       );
 
       dispatch({
@@ -49,10 +49,10 @@ export const getListSuperAdminSmsAccessControlAction =
     try {
       dispatch({ type: GET_LIST_SUPER_ADMIN_SMS_ACCESS_CONTROL_REQUEST });
 
-      const { data } = await axios.get(
+      const { data } = await axiosInstance.get(
         `${API_URL}/api/SuperAdminSMSAccessControlS/GetListSuperAdminSMSAccessControl?company=${company}&searchKey=1
                 `,
-        tokenConfig
+        tokenConfig()
       );
 
       dispatch({
@@ -74,10 +74,10 @@ export const getSingleCreateSuperAdminSmsAccessControlAction =
         type: GET_SINGLE_CREATE_SUPER_ADMIN_SMS_ACCESS_CONTROL_REQUEST,
       });
 
-      const { data } = await axios.get(
+      const { data } = await axiosInstance.get(
         `${API_URL}/api/SuperAdminSMSAccessControlS/GetSingleToCreateSuperADinSMSAccessControl?company=${company}&searchKey=1
                 `,
-        tokenConfig
+        tokenConfig()
       );
 
       dispatch({
@@ -101,10 +101,10 @@ export const getSingleEditSuperAdminSmsAccessControlAction =
         type: GET_SINGLE_EDIT_SUPER_ADMIN_SMS_ACCESS_CONTROL_REQUEST,
       });
 
-      const { data } = await axios.get(
+      const { data } = await axiosInstance.get(
         `${API_URL}/api/SuperAdminSMSAccessControlS/GetSingleToEditSuperAdminSMSAccessControl/${id}?company=${company}&searchKey=1
                 `,
-        tokenConfig
+        tokenConfig()
       );
 
       dispatch({
@@ -132,10 +132,10 @@ export const postSuperAdminSmsAccessControlAction =
       //   },
       // };
 
-      const { data } = await axios.post(
+      const { data } = await axiosInstance.post(
         `${API_URL}/api/SuperAdminSMSAccessControlS/PostSuperAdminSMSAccessControl`,
         jsonData,
-        tokenConfig
+        tokenConfig()
       );
 
       dispatch({
@@ -165,10 +165,10 @@ export const putSuperAdminSmsAccessControlAction =
       //   },
       // };
 
-      const { data } = await axios.put(
+      const { data } = await axiosInstance.put(
         `${API_URL}/api/SuperAdminSMSAccessControlS/PutSuperAdminSMSAccessControl`,
         jsonData,
-        tokenConfig
+        tokenConfig()
       );
 
       dispatch({

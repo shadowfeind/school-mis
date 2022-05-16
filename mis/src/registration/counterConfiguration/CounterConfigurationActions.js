@@ -1,5 +1,5 @@
-import axios from "axios";
-import { API_URL, tokenConfig } from "../../constants";
+
+import { API_URL, axiosInstance, tokenConfig } from "../../constants";
 import {
   COUNTER_CONFIG_CREATE_FAIL,
   COUNTER_CONFIG_CREATE_REQUEST,
@@ -25,9 +25,9 @@ export const getCounterConfigInitialDataAction = () => async (dispatch) => {
   try {
     dispatch({ type: GET_COUNTER_CONFIG_INITIAL_DATA_REQUEST });
 
-    const { data } = await axios.get(
+    const { data } = await axiosInstance.get(
       `${API_URL}/api/AdmCounter/GetAllCounterConfiguration`,
-      tokenConfig
+      tokenConfig()
     );
 
     dispatch({ type: GET_COUNTER_CONFIG_INITIAL_DATA_SUCCESS, payload: data });
@@ -44,9 +44,9 @@ export const getCounterConfigInitialDataForCreateAction =
     try {
       dispatch({ type: GET_COUNTER_CONFIG_INITIAL_DATA_FOR_CREATE_REQUEST });
 
-      const { data } = await axios.get(
+      const { data } = await axiosInstance.get(
         `${API_URL}/api/AdmCounter/SingleGetToCreateCounterConfiguration?idAcademicYear=${year}&idFacultyProgramLink=${program}`,
-        tokenConfig
+        tokenConfig()
       );
 
       dispatch({
@@ -76,10 +76,10 @@ export const counterConfigCreateAction =
       //   },
       // };
 console.log(jsonData)
-      const { data } = await axios.post(
+      const { data } = await axiosInstance.post(
         `${API_URL}/api/AdmCounter/Post`,
         jsonData,
-        tokenConfig
+        tokenConfig()
       );
 
       dispatch({
@@ -101,9 +101,9 @@ export const getCounterConfigListAction =
     try {
       dispatch({ type: GET_COUNTER_CONFIG_LIST_REQUEST });
 
-      const { data } = await axios.get(
+      const { data } = await axiosInstance.get(
         `${API_URL}/api/AdmCounter/GetListCounterConfiguration?idAcademicYear=${year}&idFacultyProgramLink=${program}`,
-        tokenConfig
+        tokenConfig()
       );
 
       dispatch({
@@ -123,9 +123,9 @@ export const getCounterConfigInitialDataForEditAction =
     try {
       dispatch({ type: GET_COUNTER_CONFIG_INITIAL_DATA_FOR_EDIT_REQUEST });
 
-      const { data } = await axios.get(
+      const { data } = await axiosInstance.get(
         `${API_URL}/api/AdmCounter/SingleGetToEditCounterConfiguration/${id}?idAcademicYear=${year}&idFacultyProgramLink=${program}`,
-        tokenConfig
+        tokenConfig()
       );
 
       dispatch({
@@ -154,10 +154,10 @@ export const counterConfigEditAction = (counterConfig) => async (dispatch) => {
     //   },
     // };
 
-    const { data } = await axios.put(
+    const { data } = await axiosInstance.put(
       `${API_URL}/api/AdmCounter/Put`,
       jsonData,
-      tokenConfig
+      tokenConfig()
     );
 
     dispatch({

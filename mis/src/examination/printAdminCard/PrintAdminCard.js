@@ -514,7 +514,7 @@ const PrintAdminCard = () => {
                 <TblHead />
                 <TableBody>
                   {tableDataAfterPagingAndSorting().map((item) => (
-                    <PrintAdminCardTableCollapse item={item} key={item.$id} />
+                    <PrintAdminCardTableCollapse item={item} key={item.$id} section={searchStudentsForAdmitCard?.searchFilterModel.ddlSection}/>
                   ))}
                 </TableBody>
               </TableContainer>

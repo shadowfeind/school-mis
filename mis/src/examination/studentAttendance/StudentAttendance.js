@@ -320,12 +320,19 @@ const StudentAttendance = () => {
     return Object.values(temp).every((x) => x === "");
   };
 
-  // const handleProgramValue = (value) => {
-  //   setProgramValue(value);
-  //   if ((acaYear, classId, shift)) {
-  //     dispatch(getEventAction(value, acaYear, classId, shift));
-  //   }
-  // };
+  const handleShiftChange = (value) => {
+    setShift(value);
+   setDdlEvent([]);
+   setEvent("");
+      dispatch(getEventAction( acaYear, programValue, classId, value));
+  };
+
+  const handleSectionChange = (value) => {
+    setSection(value);
+   setDdlEvent([]);
+   setEvent("");
+      dispatch(getEventAction( acaYear, programValue, classId,shift, value));
+  };
 
   const handleYearChange = (value) => {
     setAcaYear(value);
@@ -443,7 +450,7 @@ const StudentAttendance = () => {
                 name="Shift"
                 label="Shift"
                 value={shift}
-                onChange={(e) => setShift(e.target.value)}
+                onChange={(e) => handleShiftChange(e.target.value)}
                 options={ddlShift ? ddlShift : test}
                 errors={errors.shift1 ? errors.shift1 : errorsGenerate.shift1 && errorsGenerate.shift1}
               />
@@ -453,7 +460,7 @@ const StudentAttendance = () => {
                 name="Section"
                 label="Section"
                 value={section}
-                onChange={(e) => setSection(e.target.value)}
+                onChange={(e) => handleSectionChange(e.target.value)}
                 options={ddlSection ? ddlSection : test}
                 
                 errors={errors.section ? errors.section : errorsGenerate.section && errorsGenerate.section}

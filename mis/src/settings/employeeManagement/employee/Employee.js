@@ -269,6 +269,7 @@ const Employee = () => {
                     updateCollegeHandler={updateCollegeHandler}
                     deleteCollegeHandler={deleteCollegeHandler}
                     setOpenResetPopup={setOpenResetPopup}
+                    category={employee?.ddlEmployeeCategoryRole}
                   />
                 ))}
               </TableBody>

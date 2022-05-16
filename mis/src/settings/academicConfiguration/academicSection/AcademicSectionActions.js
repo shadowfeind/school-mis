@@ -1,5 +1,5 @@
-import axios from "axios";
-import { API_URL, tokenConfig } from "../../../constants";
+
+import { API_URL, axiosInstance, tokenConfig } from "../../../constants";
 import {
   ACADEMIC_SECTION_CREATE_FAIL,
   ACADEMIC_SECTION_CREATE_REQUEST,
@@ -19,9 +19,9 @@ export const getAllAcademicSectionAction = () => async (dispatch) => {
   try {
     dispatch({ type: GET_ALL_ACADEMIC_SECTION_REQUEST });
 
-    const { data } = await axios.get(
+    const { data } = await axiosInstance.get(
       `${API_URL}/api/AcademicRoom/GetAcademicRoom`,
-      tokenConfig
+      tokenConfig()
     );
 
     dispatch({ type: GET_ALL_ACADEMIC_SECTION_SUCCESS, payload: data });
@@ -46,10 +46,10 @@ export const AcademicSectionCreateAction =
       //   },
       // };
 
-      const { data } = await axios.post(
+      const { data } = await axiosInstance.post(
         `${API_URL}/api/AcademicRoom/PostAcademicRoom`,
         jsonData,
-        tokenConfig
+        tokenConfig()
       );
 
       dispatch({ type: ACADEMIC_SECTION_CREATE_SUCCESS, payload: data });
@@ -65,9 +65,9 @@ export const getSingleAcademicSectionAction = (id) => async (dispatch) => {
   try {
     dispatch({ type: GET_SINGLE_ACADEMIC_SECTION_REQUEST });
 
-    const { data } = await axios.get(
+    const { data } = await axiosInstance.get(
       `${API_URL}/api/AcademicRoom/GetAcademicRoomById/${id}`,
-      tokenConfig
+      tokenConfig()
     );
 
     dispatch({ type: GET_SINGLE_ACADEMIC_SECTION_SUCCESS, payload: data });
@@ -92,10 +92,10 @@ export const updateSingleAcademicSectionAction =
       //   },
       // };
 
-      const { data } = await axios.put(
+      const { data } = await axiosInstance.put(
         `${API_URL}/api/AcademicRoom/PutAcademicRoom`,
         jsonData,
-        tokenConfig
+        tokenConfig()
       );
 
       dispatch({ type: UPDATE_SINGLE_ACADEMIC_SECTION_SUCCESS, payload: data });

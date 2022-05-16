@@ -1,5 +1,5 @@
-import axios from "axios";
-import { API_URL, tokenConfig } from "../../constants";
+
+import { API_URL, axiosInstance, tokenConfig } from "../../constants";
 import {
   GET_ALL_EXAM_APPROVAL_SEARCHDATA_FAIL,
   GET_ALL_EXAM_APPROVAL_SEARCHDATA_REQUEST,
@@ -25,10 +25,10 @@ export const getInitialExamApprovalDataAction = () => async (dispatch) => {
   try {
     dispatch({ type: GET_INITIAL_EXAM_APPORVAL_DATA_REQUEST });
 
-    const { data } = await axios.get(
+    const { data } = await axiosInstance.get(
       `${API_URL}/api/AcademicStudentExamData/GetAllAcademicStudentExamData
       `,
-      tokenConfig
+      tokenConfig()
     );
 
     dispatch({
@@ -48,9 +48,9 @@ export const getExamApprovalScheduleHeaderAction =
     try {
       dispatch({ type: GET_EXAM_APPROVAL_SCHEULE_HEADER_REQUEST });
 
-      const { data } = await axios.get(
+      const { data } = await axiosInstance.get(
         `${API_URL}/api/ApproveAcademicStudentExamData/GetActiveExamScheduleListForExamMarkEntry?idAcademicYear=${year}&idFacultyProgramLink=${program}&level=${classId}&section=${section}&idAcademicYearCalendar=${event}&roleID=2`,
-        tokenConfig
+        tokenConfig()
       );
 
       dispatch({
@@ -71,9 +71,9 @@ export const getExamApprovalSearchDataAction =
     try {
       dispatch({ type: GET_ALL_EXAM_APPROVAL_SEARCHDATA_REQUEST });
 
-      const { data } = await axios.get(
+      const { data } = await axiosInstance.get(
         `${API_URL}/api/ApproveAcademicStudentExamData/GetListExamMarkApproval?idAcademicYear=${year}&idFacultyProgramLink=${program}&level=${classId}&section=${section}&idShift=${shift}&idAcademicYearCalendar=${event}&idAcademicExamSchedule=${schedule}&searchKey=1`,
-        tokenConfig
+        tokenConfig()
       );
 
       dispatch({
@@ -94,9 +94,9 @@ export const getBulkExamApprovalSearchDataAction =
     try {
       dispatch({ type: GET_BULK_EXAM_APPROVAL_REQUEST });
 
-      const { data } = await axios.get(
+      const { data } = await axiosInstance.get(
         `${API_URL}/api/ApproveAcademicStudentExamData/GetBulkMarkApproval?idAcademicYear=${year}&idFacultyProgramLink=${program}&level=${classId}&section=${section}&idShift=${shift}&idAcademicYearCalendar=${event}&idAcademicExamSchedule=${schedule}&searchKey=1`,
-        tokenConfig
+        tokenConfig()
       );
 
       dispatch({
@@ -117,9 +117,9 @@ export const getBulkExamApprovalSearchDataAction =
     try {
       dispatch({ type: GET_BULK_EXAM_APPROVAL_BLANK_PAGE_REQUEST });
 
-      const { data } = await axios.get(
+      const { data } = await axiosInstance.get(
         `${API_URL}/api/ApproveAcademicStudentExamData/GetPrintBulkForBlankMarkEntry?idAcademicYear=${year}&idFacultyProgramLink=${program}&level=${classId}&section=${section}&idShift=${shift}&idAcademicYearCalendar=${event}&idAcademicExamSchedule=${schedule}&searchKey=1`,
-        tokenConfig
+        tokenConfig()
       );
 
       dispatch({
@@ -152,10 +152,10 @@ export const postBulkExamMarkApprovalAction =
       //   },
       // };
 
-      await axios.post(
+      await axiosInstance.post(
         `${API_URL}/api/ApproveAcademicStudentExamData/PostApproveAcademicStudentExamData`,
         jsonData,
-        tokenConfig
+        tokenConfig()
       );
 
       dispatch({ type: POST_BULK_EXAM_APPROVAL_SUCCESS });

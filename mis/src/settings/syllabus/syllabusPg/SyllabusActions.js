@@ -1,5 +1,5 @@
-import axios from "axios";
-import { API_URL, tokenConfig } from "../../../constants";
+
+import { API_URL, axiosInstance, tokenConfig } from "../../../constants";
 import {
   GET_ALL_SYLLABUS_FAIL,
   GET_ALL_SYLLABUS_REQUEST,
@@ -22,9 +22,9 @@ export const getAllSyllabusAction = () => async (dispatch) => {
   try {
     dispatch({ type: GET_ALL_SYLLABUS_REQUEST });
 
-    const { data } = await axios.get(
+    const { data } = await axiosInstance.get(
       `${API_URL}/api/Syllabuse/GetAllSyllabus`,
-      tokenConfig
+      tokenConfig()
     );
 
     dispatch({
@@ -43,9 +43,9 @@ export const getListSyllabusAction = (id) => async (dispatch) => {
   try {
     dispatch({ type: GET_LIST_SYLLABUS_REQUEST});
 
-    const { data } = await axios.get(
+    const { data } = await axiosInstance.get(
       `${API_URL}/api/Syllabuse/GetListSyllabus/${id}?searchKey=1`,
-      tokenConfig
+      tokenConfig()
     );
 
     dispatch({
@@ -64,9 +64,9 @@ export const getSingleEditAction = (id, company) => async (dispatch) => {
   try {
     dispatch({ type: GET_SINGLE_TO_EDIT_SYLLABUS_REQUEST });
 
-    const { data } = await axios.get(
+    const { data } = await axiosInstance.get(
       `${API_URL}/api/Syllabuse/GetSingleEditSyllabus/${id}?company=${company}&searchKey=1`,
-      tokenConfig
+      tokenConfig()
     );
 
     dispatch({
@@ -89,10 +89,10 @@ export const putSyllabusAction =
       let formData = new FormData();
       formData.append("ImageUploaded", image);
 
-      const { data } = await axios.post(
+      const { data } = await axiosInstance.post(
         `${API_URL}/api/Syllabuse/FileUpload`,
         formData,
-        tokenConfig
+        tokenConfig()
       );
 
       if (data) {
@@ -102,10 +102,10 @@ export const putSyllabusAction =
         });
         console.log(jsonData);
 
-        await axios.put(
+        await axiosInstance.put(
           `${API_URL}/api/Syllabuse/PutSyllabus`,
           jsonData,
-          tokenConfig
+          tokenConfig()
         );
       }
 

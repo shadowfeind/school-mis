@@ -51,7 +51,7 @@ export const tokenHeader = {
 //   },
 // };
 export const tokenConfig = () => {
-  const user = JSON.parse(localStorage.getItem("blueberryToken"));
+  const user = JSON.parse(sessionStorage.getItem("blueberryToken"));
 
   if (user && user.AccessToken) {
     // const userSessionCheck = jwt_decode(user.AccessToken);
@@ -87,7 +87,7 @@ export const axiosInstance = axios.create({
 });
 
 axiosInstance.interceptors.request.use(async (req) => {
-  const userSession = JSON.parse(localStorage.getItem("blueberryToken"));
+  const userSession = JSON.parse(sessionStorage.getItem("blueberryToken"));
   const user = jwt_decode(userSession?.AccessToken);
   const isExpired = user.exp - moment().unix() < 1;
   console.log(user.exp);
@@ -115,7 +115,7 @@ axiosInstance.interceptors.request.use(async (req) => {
     );
     console.log(data);
 
-    localStorage.setItem("blueberryToken", JSON.stringify(data));
+    sessionStorage.setItem("blueberryToken", JSON.stringify(data));
     req.headers.Authorization = `Bearer ${data.AccessToken}`;
   } catch (error) {
     console.log(

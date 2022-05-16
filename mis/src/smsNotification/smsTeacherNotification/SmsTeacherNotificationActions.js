@@ -1,5 +1,5 @@
-import axios from "axios";
-import { API_URL, tokenConfig, tokenHeader } from "../../constants";
+
+import { API_URL, axiosInstance, tokenConfig, tokenHeader } from "../../constants";
 import {
   GET_ALL_SMS_TEACHER_NOTIFICATION_FAIL,
   GET_ALL_SMS_TEACHER_NOTIFICATION_REQUEST,
@@ -19,9 +19,9 @@ export const getAllSmsTeacherNotificationAction = () => async (dispatch) => {
   try {
     dispatch({ type: GET_ALL_SMS_TEACHER_NOTIFICATION_REQUEST });
 
-    const { data } = await axios.get(
+    const { data } = await axiosInstance.get(
       `${API_URL}/api/SMSTeacherNotification/GetAllTeacherNotification`,
-      tokenConfig
+      tokenConfig()
     );
 
     dispatch({
@@ -41,9 +41,9 @@ export const getListSmsTeacherNotificationAction =
     try {
       dispatch({ type: GET_LIST_SMS_TEACHER_NOTIFICATION_REQUEST });
 
-      const { data } = await axios.get(
+      const { data } = await axiosInstance.get(
         `${API_URL}/api/SMSTeacherNotification/GetListTeacherNotification?createdDate=${date}`,
-        tokenConfig
+        tokenConfig()
       );
 
       dispatch({
@@ -63,9 +63,9 @@ export const getSingleCreateSmsTeacherNotificationAction =
     try {
       dispatch({ type: GET_SINGLE_TO_CREATE_SMS_TEACHER_NOTIFICATION_REQUEST });
 
-      const { data } = await axios.get(
+      const { data } = await axiosInstance.get(
         `${API_URL}/api/SMSTeacherNotification/GetSingleToCreateTeacherNotification`,
-        tokenConfig
+        tokenConfig()
       );
 
       dispatch({
@@ -106,10 +106,10 @@ export const postSmsTeacherNotificationAction =
 
       console.log(jsonData);
 
-      const { data } = await axios.post(
+      const { data } = await axiosInstance.post(
         `${API_URL}/api/SMSTeacherNotification/PostTeacherNotification`,
         jsonData,
-        tokenConfig
+        tokenConfig()
       );
 
       dispatch({ type: POST_SMS_TEACHER_NOTIFICATION_SUCCESS, payload: data });

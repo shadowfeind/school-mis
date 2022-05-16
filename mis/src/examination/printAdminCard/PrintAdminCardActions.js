@@ -1,5 +1,5 @@
-import axios from "axios";
-import { API_URL, tokenConfig } from "../../constants";
+
+import { API_URL, axiosInstance, tokenConfig } from "../../constants";
 import {
   GET_ACTIVE_STUDENTS_FOR_ADMIT_CARD_FAIL,
   GET_ACTIVE_STUDENTS_FOR_ADMIT_CARD_REQUEST,
@@ -20,10 +20,10 @@ export const getInitialStudentRegistrationDataAction =
     try {
       dispatch({ type: GET_INITIAL_ADMIT_CARD_DATA_REQUEST });
 
-      const { data } = await axios.get(
+      const { data } = await axiosInstance.get(
         `${API_URL}/api/ExamAdmitCard/GetAllExamAdmitCard
         `,
-        tokenConfig
+        tokenConfig()
       );
 
       dispatch({
@@ -43,10 +43,10 @@ export const getActiveStudentsForAdmitCardDataAction =
     try {
       dispatch({ type: GET_ACTIVE_STUDENTS_FOR_ADMIT_CARD_REQUEST });
 
-      const { data } = await axios.get(
+      const { data } = await axiosInstance.get(
         `${API_URL}/api/ExamAdmitCard/GetActiveStudentsOnly?idAcademicYear=${year}&idFacultyProgramLink=${program}&level=${classId}&idShift=${shift}
         `,
-        tokenConfig
+        tokenConfig()
       );
 
       dispatch({
@@ -66,9 +66,9 @@ export const searchStudentsForAdmitCardDataAction =
     try {
       dispatch({ type: SEARCH_STUDENTS_FOR_ADMIT_CARD_REQUEST });
 
-      const { data } = await axios.get(
+      const { data } = await axiosInstance.get(
         `${API_URL}/api/ExamAdmitCard/GetListExamAdmitCard?idAcademicYear=${year}&idFacultyProgramLink=${program}&level=${classId}&section=${section}&idShift=${shift}&idAcademicYearCalendar=${event}&idStudent=${id}&searchKey=1`,
-        tokenConfig
+        tokenConfig()
       );
 
       dispatch({
@@ -89,9 +89,9 @@ export const printStudentsAdmitCardDataAction =
     try {
       dispatch({ type: PRINT_STUDENTS_ADMIT_CARD_REQUEST });
 
-      const { data } = await axios.get(
+      const { data } = await axiosInstance.get(
         `${API_URL}/api/ExamAdmitCard/GetBulkToPrintExamAdmitCard?idAcademicYear=${year}&idFacultyProgramLink=${program}&level=${classId}&section=${section}&idShift=${shift}&idAcademicYearCalendar=${event}&idStudent=${id}&examDate=2022/02/02`,
-        tokenConfig
+        tokenConfig()
       );
 
       dispatch({

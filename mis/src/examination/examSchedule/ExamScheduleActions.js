@@ -1,5 +1,5 @@
-import axios from "axios";
-import { API_URL, tokenConfig } from "../../constants";
+
+import { API_URL, axiosInstance, tokenConfig } from "../../constants";
 import {
   DELETE_EXAM_SCHEDULE_FAIL,
   DELETE_EXAM_SCHEDULE_REQUEST,
@@ -37,10 +37,10 @@ export const getAllExamScheduleInitialDataAction = () => async (dispatch) => {
   try {
     dispatch({ type: GET_ALL_EXAM_SCHEDULE_INITIAL_DATA_REQUEST });
 
-    const { data } = await axios.get(
+    const { data } = await axiosInstance.get(
       `${API_URL}/api/AcademicExamSchedule/GetAll
         `,
-      tokenConfig
+      tokenConfig()
     );
 
     dispatch({
@@ -60,9 +60,9 @@ export const getEventForExamScheduleAction =
     try {
       dispatch({ type: GET_EVENT_FOR_EXAM_SCHEDULE_REQUEST });
 
-      const { data } = await axios.get(
+      const { data } = await axiosInstance.get(
         `${API_URL}/api/AcademicExamSchedule/GetActiveAcademicYearCalendar?idAcademicYear=${year}&idFacultyProgramLink=${program}&level=${classId}`,
-        tokenConfig
+        tokenConfig()
       );
 
       dispatch({
@@ -82,9 +82,9 @@ export const getExamScheduleListAction =
     try {
       dispatch({ type: GET_EXAM_SCHEDULE_LIST_REQUEST });
 
-      const { data } = await axios.get(
+      const { data } = await axiosInstance.get(
         `${API_URL}/api/AcademicExamSchedule/GetListAcademicExamSchedule?idAcademicYear=${year}&idFacultyProgramLink=${program}&level=${classId}&idAcademicYearCalendar=${event}&searchKey=1`,
-        tokenConfig
+        tokenConfig()
       );
 
       dispatch({
@@ -104,9 +104,9 @@ export const getSingleExamScheduleCreateAction =
     try {
       dispatch({ type: GET_SINGLE_EXAM_SCHEDULE_CREATE_REQUEST });
 
-      const { data } = await axios.get(
+      const { data } = await axiosInstance.get(
         `${API_URL}/api/AcademicExamSchedule/SingleGetToCreateAcademicExamSchedule?idAcademicYear=${year}&idFacultyProgramLink=${program}&level=${classId}&idAcademicYearCalendar=${event}&searchKey=1`,
-        tokenConfig
+        tokenConfig()
       );
 
       dispatch({
@@ -128,10 +128,10 @@ export const postSingleExamScheduleCreateAction =
 
       const jsonData = JSON.stringify({ dbModel: schedule, searchFilterModel });
 
-      const { data } = await axios.post(
+      const { data } = await axiosInstance.post(
         `${API_URL}/api/AcademicExamSchedule/Post`,
         jsonData,
-        tokenConfig
+        tokenConfig()
       );
 
       dispatch({
@@ -152,9 +152,9 @@ export const getSingleExamScheduleEditAction =
     try {
       dispatch({ type: GET_SINGLE_EXAM_SCHEDULE_EDIT_REQUEST });
 
-      const { data } = await axios.get(
+      const { data } = await axiosInstance.get(
         `${API_URL}/api/AcademicExamSchedule/SingleGetToEditAcademicExamSchedule/${id}?idAcademicYear=${year}&idFacultyProgramLink=${program}&level=${classId}&idAcademicYearCalendar=${event}&searchKey=1`,
-        tokenConfig
+        tokenConfig()
       );
 
       dispatch({
@@ -176,10 +176,10 @@ export const singleExamScheduleEditAction =
 
       const jsonData = JSON.stringify({ dbModel: schedule, searchFilterModel });
 
-      const { data } = await axios.put(
+      const { data } = await axiosInstance.put(
         `${API_URL}/api/AcademicExamSchedule/Put`,
         jsonData,
-        tokenConfig
+        tokenConfig()
       );
 
       dispatch({
@@ -201,10 +201,10 @@ export const deleteExamScheduleAction =
 
       const jsonData = JSON.stringify({ dbModel: schedule, searchFilterModel });
 
-      await axios.post(
+      await axiosInstance.post(
         `${API_URL}/api/AcademicExamSchedule/Delete`,
         jsonData,
-        tokenConfig
+        tokenConfig()
       );
 
       dispatch({
@@ -223,9 +223,9 @@ export const getGenerateExamScheduleCreateAction =
     try {
       dispatch({ type: GET_GENERATE_EXAM_SCHEDULE_REQUEST });
 
-      const { data } = await axios.get(
+      const { data } = await axiosInstance.get(
         `${API_URL}/api/AcademicExamSchedule/GetToGenerate?idAcademicYear=${year}&idFacultyProgramLink=${program}&level=${classId}&idAcademicYearCalendar=${event}`,
-        tokenConfig
+        tokenConfig()
       );
 
       dispatch({
@@ -255,10 +255,10 @@ export const postGenerateExamScheduleCreateAction =
         },
       });
 
-      await axios.post(
+      await axiosInstance.post(
         `${API_URL}/api/AcademicExamSchedule/PostGenerate`,
         jsonData,
-        tokenConfig
+        tokenConfig()
       );
 
       dispatch({

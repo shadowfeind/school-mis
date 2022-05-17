@@ -494,7 +494,17 @@ import {
   getSingleSmsAnnouncementReducer,
   updateSingleSmsAnnouncementReducer,
 } from "./smsNotification/smsAllNotification/SmsAllNotificationReducers";
-import { getAllMobileUserReducer, getMobileUserListsReducer, getSingleMobileUserReducer, putMobileUserReducer } from "./settings/accessControl/mobileUsers/MobileUsersReducers";
+import {
+  getAllMobileUserReducer,
+  getMobileUserListsReducer,
+  getSingleMobileUserReducer,
+  putMobileUserReducer,
+} from "./settings/accessControl/mobileUsers/MobileUsersReducers";
+import {
+  getNotificationEmployeeListSearchReducer,
+  getNotificationFcmTokenReducer,
+  postNotificationFcmTokenReducer,
+} from "./notification/individualNotification/IndividualNotificationReducers";
 
 //examination reducers link end
 export const reducers = combineReducers({
@@ -638,7 +648,7 @@ export const reducers = combineReducers({
   getExamApprovalSearchData: getExamApprovalSearchDataReducer,
   getBulkExamApprovalBlankData: getBulkExamApprovalBlankDataReducer,
   postBulkExamApproval: postBulkExamApprovalReducer,
-  getAllSchoolValue : getAllSchoolValueReducer,
+  getAllSchoolValue: getAllSchoolValueReducer,
   getBulkExamApprovalSearchData: getBulkExamApprovalSearchDataReducer,
   getInitialLevelTestData: getInitialLevelTestDataReducer,
   getBulkLevelTestData: getBulkLevelTestDataReducer,
@@ -676,8 +686,8 @@ export const reducers = combineReducers({
   getSingleExamScheduleEdit: getSingleExamScheduleEditReducer,
   singleExamScheduleEdit: singleExamScheduleEditReducer,
   deleteExamSchedule: deleteExamScheduleReducer,
-  getToGenerateExamScheduleCreate : getToGenerateExamScheduleCreateReducer,
-  postGenerateExamScheduleCreate : postGenerateExamScheduleCreateReducer,
+  getToGenerateExamScheduleCreate: getToGenerateExamScheduleCreateReducer,
+  postGenerateExamScheduleCreate: postGenerateExamScheduleCreateReducer,
   //examination reducers end
   //registration reducers starts
   getCounterConfigInitialData: getCounterConfigInitialDataReducer,
@@ -903,8 +913,13 @@ export const reducers = combineReducers({
   postSmsTeacherNotification: postSmsTeacherNotificationReducer,
 
   //Mobile Users Reducers:
-  getAllMobileUser : getAllMobileUserReducer,
-  getMobileUserLists : getMobileUserListsReducer,
-  getSingleMobileUser : getSingleMobileUserReducer,
-  putMobileUser : putMobileUserReducer,
+  getAllMobileUser: getAllMobileUserReducer,
+  getMobileUserLists: getMobileUserListsReducer,
+  getSingleMobileUser: getSingleMobileUserReducer,
+  putMobileUser: putMobileUserReducer,
+
+  //Individual Notification Reducers:
+  getNotificationEmployeeListSearch: getNotificationEmployeeListSearchReducer,
+  getNotificationFcmToken: getNotificationFcmTokenReducer,
+  postNotificationFcmToken : postNotificationFcmTokenReducer,
 });

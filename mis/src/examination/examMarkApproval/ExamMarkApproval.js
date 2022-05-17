@@ -18,6 +18,7 @@ import Notification from "../../components/Notification";
 import ConfirmDialog from "../../components/ConfirmDialog";
 import SelectControl from "../../components/controls/SelectControl";
 import {
+  getAllSchoolValueAction,
   getBulkExamApprovalBlankDataAction,
   getBulkExamApprovalSearchDataAction,
   getExamApprovalScheduleHeaderAction,
@@ -37,6 +38,7 @@ import ExamMarkApprovalTableCollapse from "./ExamMarkApprovalTableCollapse";
 import ExamMarkApprovalBulk from "./ExamMarkApprovalBulk";
 import {
   GET_ALL_EXAM_APPROVAL_SEARCHDATA_RESET,
+  GET_ALL_SCHOOL_VALUE_RESET,
   GET_EXAM_APPROVAL_SCHEULE_HEADER_RESET,
   POST_BULK_EXAM_APPROVAL_RESET,
 } from "./ExamMarkApprovalConstants";
@@ -169,6 +171,19 @@ const ExamMarkApproval = () => {
     error: postBulkExamApprovalError,
   } = useSelector((state) => state.postBulkExamApproval);
 
+  const { schoolValue, error: schoolValueError } = useSelector(
+    (state) => state.getAllSchoolValue
+  );
+
+  if (schoolValueError) {
+    setNotify({
+      isOpen: true,
+      message: schoolValueError,
+      type: "error",
+    });
+    dispatch({ type: GET_ALL_SCHOOL_VALUE_RESET });
+    setOpenPopup(false);
+  }
   // if (getEventSuccess) {
   //   setDdlEvent(allEvents);
   //   dispatch({ type: GET_EVENT_RESET });
@@ -355,6 +370,11 @@ const ExamMarkApproval = () => {
   }, [scheduleHeader]);
 
   useEffect(() => {
+    dispatch(getAllSchoolValueAction());
+  }, []);
+
+
+  useEffect(() => {
     if (searchData) {
       setTableData(searchData.dbModelLsts);
     }
@@ -420,6 +440,7 @@ const ExamMarkApproval = () => {
           schedule
         )
       );
+
       setOpenBulkPopup(true);
     }
   };
@@ -596,6 +617,8 @@ const ExamMarkApproval = () => {
         title="Bulk Blank Edit"
       >
         <ExamMarkApprovalBlankForm
+        address = {schoolValue && schoolValue.FullAddress}
+          schoolValue={schoolValue && schoolValue.SchoolName}
           blankData={bulkBlankData && bulkBlankData}
           setOpenPopup={setOpenBulkPopup}
         />

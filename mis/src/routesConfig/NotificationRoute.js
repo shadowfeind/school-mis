@@ -21,4 +21,11 @@ import RecordVoiceOverIcon from '@material-ui/icons/RecordVoiceOver';
         icon: RecordVoiceOverIcon,
         exact: false,
       },
+
+      {
+        name: "Individual Notification",
+        route: "/individual-notification",
+        icon: RecordVoiceOverIcon,
+        exact: false,
+      },
   ]

@@ -27,7 +27,9 @@ const ExamResultWithMarksDesign = ({
 
   return (
     <div className="resultContainer">
-      <img src={`${API_URL}${headerBanners}`} width="740px" />
+      <div className="imageContainer">
+        <img src={`${API_URL}${headerBanners}`} width="740px" />
+      </div>
       <div className="subjectTable">
         <h1>PROGRESS REPORT</h1>
         <Grid container>
@@ -289,6 +291,8 @@ const ExamResultWithMarksDesign = ({
                       {studentAttendance.length > 0 &&
                         studentAttendance[0].WorkingDay}
                     </td>
+                  </tr>
+                  <tr style={{ backgroundColor: "#fff" }}>
                     <td>
                       Present Days:{" "}
                       {studentAttendance.length > 0 &&
@@ -310,7 +314,7 @@ const ExamResultWithMarksDesign = ({
                     <td colSpan={2}>Result:</td>
                     <td>Remarks:</td>
                   </tr>
-                  <tr>
+                  <tr style={{ backgroundColor: "#fff" }}>
                     <td>
                       Grade:{" "}
                       {gpaToGrade(

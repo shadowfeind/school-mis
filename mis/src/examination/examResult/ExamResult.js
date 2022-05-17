@@ -257,7 +257,6 @@ const ExamResult = () => {
     }
   };
 
-
   const handleYearChange = (value) => {
     setShowDatatable(false);
     setAcaYear(value);
@@ -284,7 +283,6 @@ const ExamResult = () => {
     );
   };
 
-
   const handleShiftChange = (value) => {
     setShift(value);
     setShowDatatable(false);
@@ -293,14 +291,18 @@ const ExamResult = () => {
     setDdlStudent([]);
     setStudent("");
     // if ((acaYear,programValue, classId, value)) {
-      dispatch(
-        getEventForExamMarkAction( acaYear,programValue, classId, value)
-      );
+    dispatch(getEventForExamMarkAction(acaYear, programValue, classId, value));
     // }
     // if((acaYear,programValue, classId, shift,section,event,value)){
-      dispatch(
-        getStudentOptionsForExamMarkAction(acaYear,programValue, classId, value,section)
-      );
+    dispatch(
+      getStudentOptionsForExamMarkAction(
+        acaYear,
+        programValue,
+        classId,
+        value,
+        section
+      )
+    );
     // }
   };
 
@@ -312,14 +314,21 @@ const ExamResult = () => {
     setDdlStudent([]);
     setStudent("");
     // if ((acaYear,programValue, classId,shift, value)) {
-      dispatch(
-        getEventForExamMarkAction( acaYear,programValue, classId,shift, value)
-      );
+    dispatch(
+      getEventForExamMarkAction(acaYear, programValue, classId, shift, value)
+    );
     // }
     // if((acaYear,programValue, classId, shift,section,event,value)){
-      dispatch(
-        getStudentOptionsForExamMarkAction(acaYear,programValue, classId, shift,value,event)
-      );
+    dispatch(
+      getStudentOptionsForExamMarkAction(
+        acaYear,
+        programValue,
+        classId,
+        shift,
+        value,
+        event
+      )
+    );
     // }
   };
 
@@ -706,6 +715,7 @@ const ExamResult = () => {
         title=""
       >
         <ExamResultCount
+          headerBanners={headerBanners && headerBanners}
           result={printExamResultCount && printExamResultCount}
         />
       </Popup>

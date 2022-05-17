@@ -29,7 +29,9 @@ const FinalExamResultDesign = ({
 
   return (
     <div className="resultContainer">
-      <img src={`${API_URL}${headerBanners}`} width="740px" />
+      <div className="imageContainer">
+        <img src={`${API_URL}${headerBanners}`} width="740px" />
+      </div>
       <div className="subjectTable">
         <h1>PROGRESS REPORT</h1>
         <Grid container>

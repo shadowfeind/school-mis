@@ -4,8 +4,9 @@ import "./examResult.css";
 import { gradeCalc } from "./Helpers";
 import { useReactToPrint } from "react-to-print";
 import { Button } from "@material-ui/core";
+import { API_URL } from "../../constants";
 
-const ExamResultCount = ({ result }) => {
+const ExamResultCount = ({ result, headerBanners }) => {
   const componentRef = useRef();
   const printPdf = useReactToPrint({
     content: () => componentRef.current,
@@ -31,7 +32,9 @@ const ExamResultCount = ({ result }) => {
 
   return (
     <div className="resultContainer" id="result-count" ref={componentRef}>
-      <img src="https://i.ibb.co/sQM6QZ3/Creation-Header.png" width="740px" />
+      <div className="resultHeader">
+        <img src={`${API_URL}${headerBanners}`} width="740px" />
+      </div>
       <div className="subjectTable">
         <h1>PROGRESS REPORT</h1>
         <Grid container>

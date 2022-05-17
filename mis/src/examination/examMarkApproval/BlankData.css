@@ -48,3 +48,9 @@ table {
 .main-content td:first-child {
   text-align: center;
 }
+
+@media print {
+  .print-button-hide {
+    display: none !important;
+  }
+}

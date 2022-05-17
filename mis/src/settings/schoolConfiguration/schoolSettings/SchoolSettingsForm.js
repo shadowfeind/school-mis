@@ -104,9 +104,8 @@ const SchoolSettingsForm = ({ college, setOpenPopup }) => {
       ? "This feild is required"
       : !fieldValues.EmailID.trim()
       ? "This feild is required"
-      : fieldValues.EmailID.length > 200
-      ? "EmailID cannot be greater than 200 characters"
-      : "";
+      : (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(fieldValues.EmailID)) ? "" : "Email is not valid";
+
     temp.Vision =
       fieldValues.Vision && fieldValues.Vision.length > 500
         ? "Vision cannot be greater than 500 characters"

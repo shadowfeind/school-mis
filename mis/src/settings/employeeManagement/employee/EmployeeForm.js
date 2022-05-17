@@ -70,6 +70,7 @@ const EmployeeForm = ({ employee, setOpenPopup }) => {
       temp.IDHREmployeeCategoryRole = !fieldValues.IDHREmployeeCategoryRole ? "This feild is required" :"";
       temp.IDHRDepartment = !fieldValues.IDHRDepartment ? "This feild is required" :"";
       // temp.JoinedPosition = !fieldValues.JoinedPosition ? "This feild is required" :"";
+      temp.EmailID = (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(fieldValues.EmailID)) ? "" : "Email is not valid";
       temp.Married = !fieldValues.Married ? "This feild is required" :"";
       temp.IDHRRole = !fieldValues.IDHRRole ? "This feild is required" :"";
       temp.WebLoginAccess = !fieldValues.WebLoginAccess ? "This feild is required" :"";

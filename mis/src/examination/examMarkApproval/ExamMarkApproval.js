@@ -306,9 +306,9 @@ const ExamMarkApproval = () => {
         value
       )
     );
-    if (schedule) {
-      setSchedule("");
-    }
+    // if (schedule) {
+    //   setSchedule("");
+    // }
     setDdlSchedule([]);
   };
 
@@ -355,7 +355,7 @@ const ExamMarkApproval = () => {
   useEffect(()=>{
     if(scheduleHeader){
       setDdlSchedule(scheduleHeader)
-      setSchedule(scheduleHeader[0]?.Key)
+      // setSchedule(scheduleHeader[0]?.Key)
     }
   },[scheduleHeader])
 

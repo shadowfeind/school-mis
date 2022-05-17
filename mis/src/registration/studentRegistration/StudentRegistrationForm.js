@@ -232,7 +232,14 @@ const StudentRegistrationForm = ({
       ? "This feild is required"
       : !fieldValues.EmailAddress.trim()
       ? "This feild is required"
-      : "";
+      :  (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(fieldValues.EmailAddress)) ? "" : "Email is not valid";
+
+      temp.FatherEmail = (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(fieldValues.FatherEmail)) ? "" : "Email is not valid";
+
+      temp.LocalGuardianEmail = (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(fieldValues.LocalGuardianEmail)) ? "" : "Email is not valid";
+
+      
+    
     temp.FatherName = !fieldValues.FatherName
       ? "This feild is required"
       : !fieldValues.FatherName.trim()
@@ -659,6 +666,7 @@ const StudentRegistrationForm = ({
             value={values.FatherEmail}
             type="email"
             onChange={handleInputChange}
+            errors={errors.FatherEmail}
           />
         </Grid>
         <Grid item xs={6}>
@@ -698,6 +706,7 @@ const StudentRegistrationForm = ({
  }}
  onChange={handleInputChange}
  type="email"
+ errors={errors.LocalGuardianEmail}
  />
  </Grid>
  </Grid>

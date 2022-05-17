@@ -55,10 +55,9 @@ const EcaLookUpForm = ({ ecaLookUp, ecaCreate, setOpenPopup }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (validate()) {
-      if(values.IDECA===0){
-      dispatch(postEcaLookUpAction(values));
-      }
-      else{
+      if (values.IDECA === 0) {
+        dispatch(postEcaLookUpAction(values));
+      } else {
         dispatch(putEcaLookUpAction(values));
       }
     }
@@ -68,12 +67,12 @@ const EcaLookUpForm = ({ ecaLookUp, ecaCreate, setOpenPopup }) => {
     if (ecaLookUp) {
       setValues({ ...ecaLookUp.dbModel });
     }
-    if(ecaCreate){
-      setValues({...ecaCreate.dbModel})
+    if (ecaCreate) {
+      setValues({ ...ecaCreate.dbModel });
     }
-  }, [ecaLookUp]);
+  }, [ecaLookUp, ecaCreate]);
 
-  const test = [{Key: "", Values: ""}]
+  const test = [{ Key: "", Values: "" }];
 
   return (
     <Form onSubmit={handleSubmit}>
@@ -83,9 +82,9 @@ const EcaLookUpForm = ({ ecaLookUp, ecaCreate, setOpenPopup }) => {
             name="ECAName"
             label="ECA Name*"
             value={values.ECAName}
-            onFocus={e => {
-      e.target.select();
-    }}
+            onFocus={(e) => {
+              e.target.select();
+            }}
             onChange={handleInputChange}
             errors={errors.ECAName}
           />
@@ -93,9 +92,9 @@ const EcaLookUpForm = ({ ecaLookUp, ecaCreate, setOpenPopup }) => {
             name="ECADescription"
             label="ECA Description"
             value={values.ECADescription}
-            onFocus={e => {
-      e.target.select();
-    }}
+            onFocus={(e) => {
+              e.target.select();
+            }}
             onChange={handleInputChange}
             errors={errors.ECADescription}
           />
@@ -104,7 +103,13 @@ const EcaLookUpForm = ({ ecaLookUp, ecaCreate, setOpenPopup }) => {
             label="IsActive"
             value={values.IsActive}
             onChange={handleInputChange}
-            options={ecaCreate ? ecaCreate.ddlIsActive : ecaLookUp ? ecaLookUp.ddlIsActive : test }
+            options={
+              ecaCreate
+                ? ecaCreate.ddlIsActive
+                : ecaLookUp
+                ? ecaLookUp.ddlIsActive
+                : test
+            }
           />
         </Grid>
       </Grid>

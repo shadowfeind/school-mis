@@ -150,7 +150,9 @@ const AssignECA = () => {
     if (allAssignEca) {
       setAcademicYear(allAssignEca?.searchFilterModel.ddlAcademicYear);
       // setDdlProgram(allAssignEca.searchFilterModel.ddlFacultyProgramLink);
-      setProgramValue(allAssignEca?.searchFilterModel.ddlFacultyProgramLink[0].Key);
+      setProgramValue(
+        allAssignEca?.searchFilterModel.ddlFacultyProgramLink[0].Key
+      );
       setDdlClass(allAssignEca?.searchFilterModel.ddlClass);
       setClassId(allAssignEca?.searchFilterModel.ddlClass[0].Key);
     }
@@ -250,7 +252,11 @@ const AssignECA = () => {
 
             <TableBody>
               {tableDataAfterPagingAndSorting().map((item) => (
-                <AssignEcaTableCollapse item={item} key={item.$id} level={listAssignEca?.ddlLevel}/>
+                <AssignEcaTableCollapse
+                  item={item}
+                  key={item.$id}
+                  level={listAssignEca?.ddlLevel}
+                />
               ))}
             </TableBody>
           </TableContainer>
@@ -270,6 +276,7 @@ const AssignECA = () => {
             singleCreateAssignEca.idYearFacultyProgramLink
           }
           level={singleCreateAssignEca && singleCreateAssignEca.level}
+          count={singleCreateAssignEca && singleCreateAssignEca.ECAAssignCount}
           setOpenPopup={setOpenPopup}
         />
       </Popup>

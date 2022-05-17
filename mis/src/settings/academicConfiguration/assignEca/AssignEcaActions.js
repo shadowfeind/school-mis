@@ -1,4 +1,3 @@
-
 import { API_URL, axiosInstance, tokenConfig } from "../../../constants";
 import {
   GET_ALL_ASSIGN_ECA_FAIL,
@@ -33,15 +32,16 @@ export const getALLAssignEcaAction = () => async (dispatch) => {
   }
 };
 
-export const getListAssignEcaAction = (year,program,classId) => async (dispatch) => {
+export const getListAssignEcaAction =
+  (year, program, classId) => async (dispatch) => {
     try {
       dispatch({ type: GET_LIST_ASSIGN_ECA_REQUEST });
-  
+
       const { data } = await axiosInstance.get(
         `${API_URL}/api/AssignECA/GetListAssignECA?idAcademicYear=${year}&idFacultyProgramLink=${program}&idClass=${classId}`,
         tokenConfig()
       );
-  
+
       dispatch({ type: GET_LIST_ASSIGN_ECA_SUCCESS, payload: data });
     } catch (error) {
       dispatch({
@@ -50,32 +50,35 @@ export const getListAssignEcaAction = (year,program,classId) => async (dispatch)
       });
     }
   };
-  
-  export const getSingleCreateAssignEcaAction = (year,program,classId) => async (dispatch) => {
+
+export const getSingleCreateAssignEcaAction =
+  (year, program, classId) => async (dispatch) => {
     try {
       dispatch({ type: GET_SINGLE_CREATE_ASSIGN_ECA_REQUEST });
-  
+
       const { data } = await axiosInstance.get(
         `${API_URL}/api/AssignECA/GetSingleToCreateAssignECA?idAcademicYear=${year}&idFacultyProgramLink=${program}&idClass=${classId}`,
         tokenConfig()
       );
-  
+
       dispatch({ type: GET_SINGLE_CREATE_ASSIGN_ECA_SUCCESS, payload: data });
     } catch (error) {
       dispatch({
         type: GET_SINGLE_CREATE_ASSIGN_ECA_FAIL,
-        payload: error.message ? error.message : error.Message,
+        payload: error?.response?.data?.Message
+          ? error?.response?.data?.Message
+          : error?.message,
       });
     }
   };
 
-  export const postAssignEcaAction =
-  (eca,idYearFacultyProgramLink,level) => async (dispatch) => {
+export const postAssignEcaAction =
+  (eca, idYearFacultyProgramLink, level) => async (dispatch) => {
     try {
       dispatch({ type: POST_ASSIGN_ECA_REQUEST });
 
       const jsonData = JSON.stringify({
-        ddlECA:eca,
+        ddlECA: eca,
         idYearFacultyProgramLink,
         level,
       });

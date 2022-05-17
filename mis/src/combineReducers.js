@@ -149,6 +149,7 @@ import {
   updateSingleExamDivisionReducer,
 } from "./examination/examDivision/ExamDivisionReducers";
 import {
+  getAllSchoolValueReducer,
   getBulkExamApprovalBlankDataReducer,
   getBulkExamApprovalSearchDataReducer,
   getExamApprovalScheduleHeaderReducer,
@@ -637,6 +638,7 @@ export const reducers = combineReducers({
   getExamApprovalSearchData: getExamApprovalSearchDataReducer,
   getBulkExamApprovalBlankData: getBulkExamApprovalBlankDataReducer,
   postBulkExamApproval: postBulkExamApprovalReducer,
+  getAllSchoolValue : getAllSchoolValueReducer,
   getBulkExamApprovalSearchData: getBulkExamApprovalSearchDataReducer,
   getInitialLevelTestData: getInitialLevelTestDataReducer,
   getBulkLevelTestData: getBulkLevelTestDataReducer,

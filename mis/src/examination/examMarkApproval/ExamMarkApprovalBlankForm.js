@@ -27,7 +27,7 @@ const useStyles = makeStyles({
   },
 });
 
-const ExamMarkApprovalBlankForm = ({ blankData, setOpenPopup }) => {
+const ExamMarkApprovalBlankForm = ({ blankData,schoolValue,address, setOpenPopup }) => {
   const componentRef = useRef();
   const printPdf = useReactToPrint({
     content: () => componentRef.current,
@@ -53,9 +53,9 @@ const ExamMarkApprovalBlankForm = ({ blankData, setOpenPopup }) => {
                     <td />
                     <td>
                       <div className="header-center">
-                        <b>Amar English Secondary School</b>
+                        <b>{schoolValue}</b>
                         <br />
-                        <b>Tokha,Kathmandu Nepal</b>
+                        <b>{address}</b>
                         <br />
                         <b>-20__</b>
                         <br />

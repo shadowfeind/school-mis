@@ -226,28 +226,31 @@ const ExamMarkApproval = () => {
     dispatch(getEventAction(acaYear, programValue, value, shift));
   };
 
-  const handleShift = (value) =>{
+  const handleShift = (value) => {
     setShift(value);
     setDdlSchedule([]);
     setSchedule("");
     setEvent("");
     setDdlEvent([]);
-      dispatch(getEventAction(acaYear, programValue, classId, shift,section, value));
-    if((acaYear, programValue,classId,section)){
-      dispatch(getExamApprovalScheduleHeaderAction(
-        acaYear,
+    dispatch(
+      getEventAction(acaYear, programValue, classId, shift, section, value)
+    );
+    if ((acaYear, programValue, classId, section)) {
+      dispatch(
+        getExamApprovalScheduleHeaderAction(
+          acaYear,
           programValue,
           classId,
           shift,
           section,
           event,
           value
-          
-      ))
+        )
+      );
     }
-  }
+  };
 
-  const handleSection = (value)=>{
+  const handleSection = (value) => {
     setSection(value);
     setDdlSchedule([]);
     setSchedule("");
@@ -256,16 +259,18 @@ const ExamMarkApproval = () => {
     if (section) {
       dispatch(getEventAction(acaYear, programValue, classId, shift, value));
     }
-    if((acaYear, programValue,classId,shift)){
-      dispatch(getExamApprovalScheduleHeaderAction(
-        acaYear,
+    if ((acaYear, programValue, classId, shift)) {
+      dispatch(
+        getExamApprovalScheduleHeaderAction(
+          acaYear,
           programValue,
           classId,
           shift,
           value
-      ))
+        )
+      );
     }
-  }
+  };
   const handleYearChange = (value) => {
     setAcaYear(value);
     if (classId) {
@@ -279,21 +284,9 @@ const ExamMarkApproval = () => {
     setDdlSchedule([]);
   };
 
-  const handleSchedule = (value) =>{
+  const handleSchedule = (value) => {
     setSchedule(value);
-    if(allEvents){
-      dispatch(
-        getExamApprovalScheduleHeaderAction(
-          acaYear,
-          programValue,
-          classId,
-          section,
-          event,
-          value
-        )
-      );
-        }
-  }
+  };
 
   const eventHandler = (value) => {
     setEvent(value);
@@ -306,9 +299,9 @@ const ExamMarkApproval = () => {
         value
       )
     );
-    // if (schedule) {
-    //   setSchedule("");
-    // }
+    if (schedule) {
+      setSchedule("");
+    }
     setDdlSchedule([]);
   };
 
@@ -324,7 +317,9 @@ const ExamMarkApproval = () => {
         examApprovalInitialDatas?.searchFilterModel.ddlAcademicYear
       );
       setDdlShift(examApprovalInitialDatas?.searchFilterModel.ddlAcademicShift);
-      setShift(examApprovalInitialDatas?.searchFilterModel.ddlAcademicShift[0].Key);
+      setShift(
+        examApprovalInitialDatas?.searchFilterModel.ddlAcademicShift[0].Key
+      );
       setDdlSection(examApprovalInitialDatas?.searchFilterModel.ddlSection);
       setSection(examApprovalInitialDatas?.searchFilterModel.ddlSection[0].Key);
     }
@@ -336,28 +331,28 @@ const ExamMarkApproval = () => {
     dispatch(getInitialExamApprovalDataAction());
   }, []);
 
-  useEffect(()=>{
-    if(allEvents){
+  useEffect(() => {
+    if (allEvents) {
       setDdlEvent(allEvents);
-      setEvent(allEvents[0]?.Key)
+      setEvent(allEvents[0]?.Key);
       dispatch(
-      getExamApprovalScheduleHeaderAction(
-        acaYear,
-        programValue,
-        classId,
-        section,
-        allEvents[0]?.Key
-      )
-    );
+        getExamApprovalScheduleHeaderAction(
+          acaYear,
+          programValue,
+          classId,
+          section,
+          allEvents[0]?.Key
+        )
+      );
     }
-  },[allEvents])
+  }, [allEvents]);
 
-  useEffect(()=>{
-    if(scheduleHeader){
-      setDdlSchedule(scheduleHeader)
-      // setSchedule(scheduleHeader[0]?.Key)
+  useEffect(() => {
+    if (scheduleHeader) {
+      setDdlSchedule(scheduleHeader);
+      setSchedule(scheduleHeader[0]?.Key);
     }
-  },[scheduleHeader])
+  }, [scheduleHeader]);
 
   useEffect(() => {
     if (searchData) {

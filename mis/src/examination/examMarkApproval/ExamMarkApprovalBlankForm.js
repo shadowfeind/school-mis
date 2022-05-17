@@ -46,9 +46,8 @@ const useStyles = makeStyles({
 
 const ExamMarkApprovalBlankForm = ({blankData,setOpenPopup,}) => {
   const classes = useStyles();
-
   const classId = blankData?.ddlLevel?.filter( s => s.Key === blankData.searchFilterModel.level)
-  const sections = blankData?.ddlSection?.filter( s => s.Key === blankData.searchFilterModel.section)
+  const sections = blankData?.ddlSection?.filter( s => s.Key == blankData.searchFilterModel.section)
 
   return (
     <>
@@ -104,7 +103,7 @@ const ExamMarkApprovalBlankForm = ({blankData,setOpenPopup,}) => {
                 <th width="6%">S.No.</th>
                 <th width="10%">Roll No.</th>
                 <th width="30%">Name Of Students</th>
-                <th width="12%">blankData
+                <th width="12%">
                   Marks
                   <br />
                   Obtained(TH)

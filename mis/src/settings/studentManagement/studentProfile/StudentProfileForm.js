@@ -148,7 +148,7 @@ const StudentProfileForm = ({ studentData, setOpenPopup }) => {
       : "";
       temp.EmailID = !fieldValues.EmailID
       ? "This feild is required"
-      : "";
+      :(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(fieldValues.EmailID)) ? "" : "Email is not valid";
       temp.BloodGroup = !fieldValues.BloodGroup
       ? "This feild is required"
       : "";

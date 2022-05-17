@@ -301,7 +301,7 @@ const StudentMonthlyPresentSheet = () => {
   const handleYearChange = (value) => {
     setAcaYear(value);
     setSubject("");
-    setClassId("");
+    setDdlSubject([]);
     if ((programValue, classId)) {
       dispatch(getSubjectOptionsForSelectAction(value, programValue, classId));
     }
@@ -312,6 +312,8 @@ const StudentMonthlyPresentSheet = () => {
     if ((acaYear, classId)) {
       dispatch(getSubjectOptionsForSelectAction(acaYear, value, classId));
     }
+    setSubject("");
+    setDdlSubject([]);
   };
 
   const handleClassIdChange = (value) => {
@@ -319,6 +321,8 @@ const StudentMonthlyPresentSheet = () => {
     if ((acaYear, programValue)) {
       dispatch(getSubjectOptionsForSelectAction(acaYear, programValue, value));
     }
+    setSubject("");
+    setDdlSubject([]);
   };
 
   const nepMonthHandler = (value) => {

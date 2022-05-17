@@ -86,6 +86,9 @@ const SmsClassNotificationForm = ({
         fieldValues.MessageDescription?.length > 160
       ? "Must be less than 160 characters"
       : "";
+
+      temp.selectedStudents =
+      selectedStudents?.length  === 0 ? "Please Select Atleast One Option" : "";
     setErrors({ ...temp });
     return Object.values(temp).every((x) => x === "");
   };
@@ -143,6 +146,9 @@ const SmsClassNotificationForm = ({
       <TableContainer component={Paper}>
         <Table className={classes.table} aria-label="customized table">
           <TableHead>
+          {errors.selectedStudents && (
+              <span style={{ color: "red"}} >{errors.selectedStudents}</span>
+            )}
             <TableRow>
               <StyledTableCell>Roll No. </StyledTableCell>
               <StyledTableCell>Student Name </StyledTableCell>

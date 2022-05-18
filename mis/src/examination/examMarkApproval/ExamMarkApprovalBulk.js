@@ -235,7 +235,9 @@ const ExamMarkApprovalBulk = ({
                   </StyledTableCell>
 
                   <StyledTableCell align="right">
-                    {subject.FullMarkPractical}
+                    {subject.FullMarkPractical === 0
+                      ? ""
+                      : subject.FullMarkPractical}
                   </StyledTableCell>
                 </StyledTableRow>
               ))}

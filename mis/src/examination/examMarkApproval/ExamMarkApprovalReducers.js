@@ -3,6 +3,10 @@ import {
   GET_ALL_EXAM_APPROVAL_SEARCHDATA_REQUEST,
   GET_ALL_EXAM_APPROVAL_SEARCHDATA_RESET,
   GET_ALL_EXAM_APPROVAL_SEARCHDATA_SUCCESS,
+  GET_ALL_SCHOOL_VALUE_FAIL,
+  GET_ALL_SCHOOL_VALUE_REQUEST,
+  GET_ALL_SCHOOL_VALUE_RESET,
+  GET_ALL_SCHOOL_VALUE_SUCCESS,
   GET_BULK_EXAM_APPROVAL_BLANK_PAGE_FAIL,
   GET_BULK_EXAM_APPROVAL_BLANK_PAGE_REQUEST,
   GET_BULK_EXAM_APPROVAL_BLANK_PAGE_RESET,
@@ -107,6 +111,21 @@ export const postBulkExamApprovalReducer = (state = {}, action) => {
       return { loading: false, error: action.payload };
     case POST_BULK_EXAM_APPROVAL_RESET:
       return {};
+    default:
+      return state;
+  }
+};
+
+export const getAllSchoolValueReducer = (state = {}, action) => {
+  switch (action.type) {
+    case GET_ALL_SCHOOL_VALUE_REQUEST:
+      return { loading: true };
+    case GET_ALL_SCHOOL_VALUE_SUCCESS:
+      return { loading: false, schoolValue: action.payload };
+    case GET_ALL_SCHOOL_VALUE_FAIL:
+      return { loading: false, error: action.payload };
+      case GET_ALL_SCHOOL_VALUE_RESET:
+        return {};
     default:
       return state;
   }

@@ -86,6 +86,9 @@ const Syllabus = lazy(() => import("./settings/syllabus/SyllabusMain"));
 const ClassNotification = lazy(() =>
   import("./notification/classNotification/ClassNotification")
 );
+const IndividualNotification = lazy(() =>
+  import("./notification/individualNotification/IndividualNotification")
+);
 const TeacherNotification = lazy(() =>
   import("./notification/teacherNotification/TeacherNotification")
 );
@@ -198,6 +201,10 @@ const App = () => {
               <Route
                 path={"/class-notification"}
                 component={ClassNotification}
+              />
+              <Route
+                path={"/individual-notification"}
+                component={IndividualNotification}
               />
               <Route
                 path={"/teacher-notification"}

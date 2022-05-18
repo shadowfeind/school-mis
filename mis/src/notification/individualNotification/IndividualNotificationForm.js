@@ -1,37 +1,23 @@
-import React, { useEffect } from "react";
+import React, { useEffect,useState } from "react";
 import { Button, Grid } from "@material-ui/core";
 import InputControl from "../../components/controls/InputControl";
 import { useForm, Form } from "../../customHooks/useForm";
 import { useDispatch } from "react-redux";
 import CheckBoxControl from "../../components/controls/CheckBoxControl";
-import {
-  announcementCreateAction,
-  updateSingleAnnouncementAction,
-} from "./AnnouncementAction";
+import { postFcmAction } from "./IndividualNotificationActions";
 
-const initialFormValues = {
-  Id: 0,
-  NewsHeading: "",
-  NewsDescription: "",
-  PostedBy: "",
-  EffectiveFrom: "2022-01-27T04:45:28.146Z",
-  IDHRCompany: 0,
-  NoticeImage: "",
-  IDHREmployee: 0,
-  IsActive: true,
-  SchoolShortName: "",
-  Created_On: "2022-01-27T04:45:28.146Z",
-  Updated_On: "2022-01-27T04:45:28.146Z",
-};
 
-const AnnouncementForm = ({
-  list,
-  announcement,
-  setOpenPopup,
+
+
+const IndividualNotificationForm = ({
   fcmTokenList,
   schoolName,
 }) => {
   const dispatch = useDispatch();
+  const [NewsHeading , setNewsHeading] = useState("");
+  const [NewsDescription , setNewsDescription] = useState("");
+ const [values,setValues] = useState(false);
+ const [errors, setErrors] = useState({})
   const validate = (fieldValues = values) => {
     let temp = { ...errors };
 
@@ -47,21 +33,30 @@ const AnnouncementForm = ({
       ? "Must be less than 160 characters"
       : "";
 
-    temp.IsActive = !fieldValues.IsActive ? "This feild is required" : "";
 
     setErrors({ ...temp });
     return Object.values(temp).every((x) => x === "");
   };
 
-  const { values, setValues, handleInputChange, errors, setErrors } =
-    useForm(initialFormValues);
+
+    const handleInputChange =()=>{
+        if(NewsHeading){
+            setNewsHeading(NewsHeading)
+        }
+    }
+
+    const handleInputsChange =()=>{
+        if(NewsDescription){
+            setNewsDescription(NewsDescription)
+        }
+    }
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
     if (validate()) {
       if (values.IDHREmployee === 0) {
-        dispatch(announcementCreateAction(values, fcmTokenList, schoolName));
+        dispatch(postFcmAction(values, fcmTokenList, schoolName));
       }
     }
   };
@@ -108,7 +103,7 @@ const AnnouncementForm = ({
               e.key !== "Backspace" &&
               e.preventDefault()
             }
-            onChange={handleInputChange}
+            onChange={handleInputsChange}
             errors={errors.NewsDescription}
           />
           <p style={{ paddingLeft: "10px" }}>
@@ -120,13 +115,6 @@ const AnnouncementForm = ({
             chars left{" "}
           </p>
         </Grid>
-        <CheckBoxControl
-          name="IsActive"
-          label="IsActive"
-          value={values.IsActive}
-          onChange={handleInputChange}
-          errors={errors.IsActive}
-        />
       </Grid>
       <div
         style={{
@@ -158,4 +146,4 @@ const AnnouncementForm = ({
   );
 };
 
-export default AnnouncementForm;
+export default IndividualNotificationForm;

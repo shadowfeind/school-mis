@@ -4,6 +4,9 @@ import {
   GET_ALL_EXAM_APPROVAL_SEARCHDATA_FAIL,
   GET_ALL_EXAM_APPROVAL_SEARCHDATA_REQUEST,
   GET_ALL_EXAM_APPROVAL_SEARCHDATA_SUCCESS,
+  GET_ALL_SCHOOL_VALUE_FAIL,
+  GET_ALL_SCHOOL_VALUE_REQUEST,
+  GET_ALL_SCHOOL_VALUE_SUCCESS,
   GET_BULK_EXAM_APPROVAL_BLANK_PAGE_FAIL,
   GET_BULK_EXAM_APPROVAL_BLANK_PAGE_REQUEST,
   GET_BULK_EXAM_APPROVAL_BLANK_PAGE_SUCCESS,
@@ -162,6 +165,28 @@ export const postBulkExamMarkApprovalAction =
     } catch (error) {
       dispatch({
         type: POST_BULK_EXAM_APPROVAL_FAIL,
+        payload: error.message ? error.message : error.Message,
+      });
+    }
+  };
+
+  export const getAllSchoolValueAction = () => async (dispatch) => {
+    try {
+      dispatch({ type: GET_ALL_SCHOOL_VALUE_REQUEST });
+  
+      const { data } = await axiosInstance.get(
+        `${API_URL}/api/Home/GetSchoolValue
+        `,
+        tokenConfig()
+      );
+  
+      dispatch({
+        type: GET_ALL_SCHOOL_VALUE_SUCCESS,
+        payload: data,
+      });
+    } catch (error) {
+      dispatch({
+        type: GET_ALL_SCHOOL_VALUE_FAIL,
         payload: error.message ? error.message : error.Message,
       });
     }

@@ -3,7 +3,7 @@ import FinalExamResultDesign from "./FinalExamResultDesign";
 import { useReactToPrint } from "react-to-print";
 import { Button } from "@material-ui/core";
 
-const FinalExamResult = ({ result, headerBanners }) => {
+const FinalExamResult = ({ result, headerBanners, setOpenPopupFinal }) => {
   const componentRef = useRef();
   const printPdf = useReactToPrint({
     content: () => componentRef.current,
@@ -99,6 +99,16 @@ const FinalExamResult = ({ result, headerBanners }) => {
           borderTop: "1px solid #f3f3f3",
         }}
       >
+        <Button
+          onClick={() => setOpenPopupFinal(false)}
+          className="print-button-hide"
+          variant="contained"
+          color="primary"
+          style={{ marginRight: "16px" }}
+        >
+          CANCEL
+        </Button>
+
         <Button
           onClick={printPdf}
           className="print-button-hide"

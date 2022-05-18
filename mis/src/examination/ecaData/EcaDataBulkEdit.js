@@ -147,14 +147,17 @@ const EcaDataBulkEdit = ({
       let tempArray = [];
 
       bulkData?.forEach((d) => {
-        console.log("eca", eca);
+        // console.log("eca", eca);
         let currentUser = eca?.filter((x) => x.IDHREmployee === d.IDHREmployee);
-        console.log("currentUser", currentUser);
+        // console.log("currentUser", currentUser);
+        // debugger;
         let test = academicSubject?.map((s) => {
+          // debugger;
           let userEca = currentUser?.find(
             (x) => x.IDAssignECA === s.IDAssignECA
           );
-          console.log("userEca", userEca);
+          // console.log("userEca", userEca);
+          // debugger;
           tempArray.push({
             ...s,
             IDHREmployee: d.IDHREmployee,
@@ -163,7 +166,7 @@ const EcaDataBulkEdit = ({
         });
       });
       setEcaData([...tempArray]);
-      console.log(tempArray);
+      console.log("tempArray", tempArray);
     }
   }, [bulkData, eca]);
 

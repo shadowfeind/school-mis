@@ -687,6 +687,7 @@ const ExamResult = () => {
         <ExamResultModel
           headerBanners={headerBanners && headerBanners}
           examReport={printExamResult && printExamResult}
+          setOpenPopup={setOpenPopup}
         />
       </Popup>
       <Popup
@@ -697,6 +698,7 @@ const ExamResult = () => {
         <ExamResultWithMarksModel
           headerBanners={headerBanners && headerBanners}
           examReport={printExamResult && printExamResult}
+          setOpenPopupResultMark={setOpenPopupResultMark}
         />
       </Popup>
       <Popup
@@ -707,6 +709,7 @@ const ExamResult = () => {
         <FinalExamResult
           headerBanners={headerBanners && headerBanners}
           result={printFinalResult}
+          setOpenPopupFinal={setOpenPopupFinal}
         />
       </Popup>
       <Popup
@@ -717,6 +720,7 @@ const ExamResult = () => {
         <ExamResultCount
           headerBanners={headerBanners && headerBanners}
           result={printExamResultCount && printExamResultCount}
+          setOpenPopupCount={setOpenPopupCount}
         />
       </Popup>
       <Notification notify={notify} setNotify={setNotify} />

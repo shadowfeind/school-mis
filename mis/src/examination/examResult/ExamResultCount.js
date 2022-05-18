@@ -6,7 +6,7 @@ import { useReactToPrint } from "react-to-print";
 import { Button } from "@material-ui/core";
 import { API_URL } from "../../constants";
 
-const ExamResultCount = ({ result, headerBanners }) => {
+const ExamResultCount = ({ result, headerBanners, setOpenPopupCount }) => {
   const componentRef = useRef();
   const printPdf = useReactToPrint({
     content: () => componentRef.current,
@@ -181,6 +181,15 @@ const ExamResultCount = ({ result, headerBanners }) => {
           borderTop: "1px solid #f3f3f3",
         }}
       >
+        <Button
+          onClick={() => setOpenPopupCount(false)}
+          variant="contained"
+          className="print-button-hide"
+          color="primary"
+          style={{ marginRight: "16px" }}
+        >
+          CANCEL
+        </Button>
         <Button
           onClick={printPdf}
           variant="contained"

@@ -3,69 +3,80 @@ import ExamResultDesign from "./ExamResultDesign";
 import { useReactToPrint } from "react-to-print";
 import { Button } from "@material-ui/core";
 
-const ExamResultModel = ({ examReport, headerBanners }) => {
+const ExamResultModel = ({ examReport, headerBanners, setOpenPopup }) => {
   const componentRef = useRef();
   const printPdf = useReactToPrint({
     content: () => componentRef.current,
   });
-  const examTerm =
-    examReport &&
-    examReport.ddlAcademicYearCalendar.filter(
-      (x) => x.Key === examReport.idAcademicYearCalendar
-    );
+  const examTerm = examReport.ddlAcademicYearCalendar?.filter(
+    (x) => x.Key === examReport.idAcademicYearCalendar
+  );
 
   return (
     <div id="result-with-grades" ref={componentRef}>
-      {examReport &&
-        examReport.dbStudentModelLst.map((student) => {
-          let subjects = examReport.dbModelLst?.filter(
-            (s) => s.IDHREmployee === student.IDHREmployee
-          );
-          let levelTest = examReport.LevelTestLst?.filter(
-            (s) => s.IDHREmployee === student.IDHREmployee
-          );
-          let studentAttendance = examReport.StudentAttendanceDay?.filter(
-            (s) => s.IDHREmployee === student.IDHREmployee
-          );
+      {examReport.dbStudentModelLst?.map((student) => {
+        let subjects = examReport.dbModelLst?.filter(
+          (s) => s.IDHREmployee === student.IDHREmployee
+        );
+        let levelTest = examReport.LevelTestLst?.filter(
+          (s) => s.IDHREmployee === student.IDHREmployee
+        );
+        let studentAttendance = examReport.StudentAttendanceDay?.filter(
+          (s) => s.IDHREmployee === student.IDHREmployee
+        );
 
-          let ecaData = examReport.ecaData?.filter(
-            (s) => s.IDHREmployee === student.IDHREmployee
-          );
-          let ecaDataWithName = [];
-          ecaData?.map((x) => {
-            examReport.ddlAcademicFacultyECASubModel?.forEach((s) => {
-              if (s.IDAssignECA === x.IDAssignECA) {
-                ecaDataWithName.push({ ...s, ECAValue: x.ECAValue });
-              }
-            });
+        let ecaDataFinal = [];
+        // let ecaDataConcatContainer = [];
+        examReport.ddlAcademicFacultyECASubModel?.forEach((x) => {
+          let test = examReport.ecaData?.filter((s) => {
+            if (
+              s.IDAssignECA == x.IDAssignECA &&
+              s.IDHREmployee == student.IDHREmployee
+            ) {
+              ecaDataFinal.push({ ...s, ECAName: x.ECAName });
+            }
+            // console.log("test", test);
           });
-          let studentClass = examReport.ddlLevel.filter(
-            (x) => x.Key === examReport.level
-          );
-          // let studentYear = examReport.ddlAcademicYear.filter(
-          //   (x) => x.Key === examReport.idAcademicYear
-          // );
-          let studentSection = examReport.ddlSection.filter(
-            (x) => x.Key === examReport.classSection
-          );
-          return (
-            <ExamResultDesign
-              key={student.$id}
-              student={student}
-              subjects={subjects}
-              levelTest={levelTest}
-              studentAttendance={studentAttendance}
-              dbModelLst={examReport.dbModelLst}
-              forDate={examReport.footerModel}
-              examTerm={examTerm[0]}
-              studentClass={studentClass[0]}
-              studentYear={examReport.npYear}
-              studentSection={studentSection[0]}
-              headerBanners={headerBanners}
-              ecaDataWithName={ecaDataWithName}
-            />
-          );
-        })}
+        });
+
+        // console.log("ecaData", ecaDataFinal);
+
+        // let ecaDataWithName = [];
+        // ecaData?.map((x) => {
+        //   examReport.ddlAcademicFacultyECASubModel?.forEach((s) => {
+        //     if (s.IDAssignECA === x.IDAssignECA) {
+        //       ecaDataWithName.push({ ...s, ECAValue: x.ECAValue });
+        //     }
+        //   });
+        // });
+        let studentClass = examReport.ddlLevel.filter(
+          (x) => x.Key === examReport.level
+        );
+        // let studentYear = examReport.ddlAcademicYear.filter(
+        //   (x) => x.Key === examReport.idAcademicYear
+        // );
+        let studentSection = examReport.ddlSection.filter(
+          (x) => x.Key === examReport.classSection
+        );
+        return (
+          <ExamResultDesign
+            key={student.$id}
+            student={student}
+            subjects={subjects}
+            levelTest={levelTest}
+            studentAttendance={studentAttendance}
+            dbModelLst={examReport.dbModelLst}
+            forDate={examReport.footerModel}
+            examTerm={examTerm[0]}
+            studentClass={studentClass[0]}
+            studentYear={examReport.npYear}
+            studentSection={studentSection[0]}
+            headerBanners={headerBanners}
+            // ecaDataWithName={ecaDataWithName}
+            ecaDataWithName={ecaDataFinal}
+          />
+        );
+      })}
       <div
         style={{
           display: "flex",
@@ -75,6 +86,15 @@ const ExamResultModel = ({ examReport, headerBanners }) => {
           borderTop: "1px solid #f3f3f3",
         }}
       >
+        <Button
+          onClick={() => setOpenPopup(false)}
+          variant="contained"
+          className="print-button-hide"
+          color="primary"
+          style={{ marginRight: "16px" }}
+        >
+          CANCEL
+        </Button>
         <Button
           onClick={printPdf}
           variant="contained"

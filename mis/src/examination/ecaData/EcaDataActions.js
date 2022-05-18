@@ -1,4 +1,3 @@
-
 import { API_URL, axiosInstance, tokenConfig } from "../../constants";
 import {
   GET_ALL_ECA_DATA_FAIL,
@@ -84,26 +83,32 @@ export const postBulkEditEcaAction =
     try {
       dispatch({ type: POST_BULK_ECA_DATA_REQUEST });
 
-      // console.log("ecaData", ecaData);
+      console.log("ecaData", ecaData);
 
       let newEcaData = [...ecaData];
       newEcaData?.forEach((x) => delete x.$id);
+
+      // debugger;
+      let finalEca = [...newEcaData];
+      // debugger;
       // console.log("newEcaData", newEcaData);
 
       const jsonData = JSON.stringify({
         dbModelLst: students,
         searchFilterModel: search,
-        ddlAcademicFacultyECASubModel: newEcaData,
+        ddlAcademicFacultyECASubModel: finalEca,
       });
 
-      // console.log("this is the one", jsonData);
-
+      const newJson = jsonData;
+      debugger;
+      console.log("this is the one", newJson);
+      debugger;
       await axiosInstance.post(
         `${API_URL}/api/ECAData/PostECAData`,
-        jsonData,
+        newJson,
         tokenConfig()
       );
-
+      debugger;
       dispatch({ type: POST_BULK_ECA_DATA_SUCCESS });
     } catch (error) {
       dispatch({

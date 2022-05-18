@@ -3,7 +3,11 @@ import ExamResultWithMarksDesign from "./ExamResultWithMarksDesign";
 import { useReactToPrint } from "react-to-print";
 import { Button } from "@material-ui/core";
 
-const ExamResultWithMarksModel = ({ examReport, headerBanners }) => {
+const ExamResultWithMarksModel = ({
+  examReport,
+  headerBanners,
+  setOpenPopupResultMark,
+}) => {
   const componentRef = useRef();
   const printPdf = useReactToPrint({
     content: () => componentRef.current,
@@ -28,15 +32,17 @@ const ExamResultWithMarksModel = ({ examReport, headerBanners }) => {
             (s) => s.IDHREmployee === student.IDHREmployee
           );
 
-          let ecaData = examReport.ecaData?.filter(
-            (s) => s.IDHREmployee === student.IDHREmployee
-          );
-          let ecaDataWithName = [];
-          ecaData?.map((x) => {
-            examReport.ddlAcademicFacultyECASubModel?.forEach((s) => {
-              if (s.IDAssignECA === x.IDAssignECA) {
-                ecaDataWithName.push({ ...s, ECAValue: x.ECAValue });
+          let ecaDataFinal = [];
+          // let ecaDataConcatContainer = [];
+          examReport.ddlAcademicFacultyECASubModel?.forEach((x) => {
+            let test = examReport.ecaData?.filter((s) => {
+              if (
+                s.IDAssignECA == x.IDAssignECA &&
+                s.IDHREmployee == student.IDHREmployee
+              ) {
+                ecaDataFinal.push({ ...s, ECAName: x.ECAName });
               }
+              // console.log("test", test);
             });
           });
 
@@ -63,7 +69,7 @@ const ExamResultWithMarksModel = ({ examReport, headerBanners }) => {
               studentYear={examReport.npYear}
               studentSection={studentSection[0]}
               headerBanners={headerBanners}
-              ecaDataWithName={ecaDataWithName}
+              ecaDataWithName={ecaDataFinal}
             />
           );
         })}
@@ -76,6 +82,15 @@ const ExamResultWithMarksModel = ({ examReport, headerBanners }) => {
           borderTop: "1px solid #f3f3f3",
         }}
       >
+        <Button
+          onClick={() => setOpenPopupResultMark(false)}
+          className="print-button-hide"
+          variant="contained"
+          color="primary"
+          style={{ marginRight: "16px" }}
+        >
+          CANCEL
+        </Button>
         <Button
           onClick={printPdf}
           className="print-button-hide"

@@ -601,6 +601,7 @@ const ExamMarkApproval = () => {
         ) : (
           <>
             <ExamMarkApprovalBulk
+          subjectName={bulkData && bulkData?.dbModelLsts}
               statusData={
                 bulkData && bulkData.searchFilterModel.ddlStudentExamStatus
               }

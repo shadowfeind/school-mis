@@ -53,7 +53,11 @@ const HrValueForm = ({ hrValueCreate, setOpenPopup, hrValueEdit }) => {
     temp.RegNo = !fieldValues.RegNo ? "This Field is Required" : "";
     temp.Url = !fieldValues.Url ? "This Field is Required" : "";
     temp.SchoolType = !fieldValues.SchoolType ? "This Field is Required" : "";
-    temp.Email = (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(fieldValues.Email)) ? "" : "Email is not valid";
+    temp.Email = !fieldValues.Email
+      ? "This Field is Required"
+      : /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(fieldValues.Email)
+      ? ""
+      : "Email is not valid";
     // temp.headerBanner =!fieldValues.headerBanner ? "This Field is Required" : "";
     // temp.schoolLogo =!fieldValues.schoolLogo ? "This Field is Required" : "";
     // temp.principleSignature =!fieldValues.principleSignature ? "This Field is Required" : "";

@@ -216,6 +216,7 @@ const LevelTestBulkEdit = ({ bulkData, search,setOpenPopup }) => {
                 </StyledTableRow>
               ))}
           </TableBody>
+          </Table>
           <div
             style={{
               display: "flex",
@@ -243,7 +244,7 @@ const LevelTestBulkEdit = ({ bulkData, search,setOpenPopup }) => {
               SUBMIT
             </Button>
           </div>
-        </Table>
+        
       </TableContainer>
     </>
   );

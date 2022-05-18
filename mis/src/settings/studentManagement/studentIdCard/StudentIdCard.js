@@ -123,10 +123,10 @@ const StudentIdCard = () => {
     dispatch({ type: GET_INITIAL_STUDENT_ID_CARD_DATA_RESET });
   }
 
-  if (activeStudentsForAdmitCardSuccess) {
-    setDdlStudent(activeStudentsForAdmitCard);
-    dispatch({ type: GET_ACTIVE_STUDENTS_FOR_ADMIT_CARD_RESET });
-  }
+  // if (activeStudentsForAdmitCardSuccess) {
+  //   setDdlStudent(activeStudentsForAdmitCard);
+  //   dispatch({ type: GET_ACTIVE_STUDENTS_FOR_ADMIT_CARD_RESET });
+  // }
 
   if (printBulkStudentsForIdCardError) {
     setNotify({
@@ -167,6 +167,7 @@ const StudentIdCard = () => {
     temp.classId = !classId ? "This feild is required" : "";
     temp.shift1 = !shift ? "This feild is required" : "";
     temp.section = !section ? "This feild is required" : "";
+    temp.student = !student ? "This feild is required" : "";
     temp.date =
       date.toString() === "Invalid Date"
         ? "Invalid Date"
@@ -178,22 +179,27 @@ const StudentIdCard = () => {
     return Object.values(temp).every((x) => x === "");
   };
 
-  const handleProgramValue = (value) => {
-    setProgramValue(value);
-    if ((acaYear, classId, shift)) {
+  const handleSection = (value) => {
+    setSection(value);
+    setDdlStudent([]);
+    setStudent("");
+    if ((acaYear,programValue, classId, shift)) {
       dispatch(
-        getActiveStudentsForAdmitCardDataAction(value, acaYear, classId, shift)
+        getActiveStudentsForAdmitCardDataAction( acaYear,programValue, classId,value, shift)
       );
     }
   };
   const handleYearChange = (value) => {
     setAcaYear(value);
+    setDdlStudent([]);
+    setStudent("");
     if ((programValue, classId, shift)) {
       dispatch(
         getActiveStudentsForAdmitCardDataAction(
           value,
           programValue,
           classId,
+          section,
           shift
         )
       );
@@ -202,12 +208,15 @@ const StudentIdCard = () => {
 
   const handleClassIdChange = (value) => {
     setClassId(value);
+    setDdlStudent([]);
+    setStudent("");
     if ((programValue, acaYear, shift)) {
       dispatch(
         getActiveStudentsForAdmitCardDataAction(
           acaYear,
           programValue,
           value,
+          section,
           shift
         )
       );
@@ -216,12 +225,15 @@ const StudentIdCard = () => {
 
   const handleShift = (value) => {
     setShift(value);
+    setDdlStudent([]);
+    setStudent("");
     if ((programValue, acaYear, classId)) {
       dispatch(
         getActiveStudentsForAdmitCardDataAction(
           acaYear,
           programValue,
           classId,
+          section,
           value
         )
       );
@@ -263,6 +275,13 @@ const StudentIdCard = () => {
       setOpenPopup(true);
     }
   };
+
+  useEffect(() => {
+    if (activeStudentsForAdmitCardSuccess) {
+      setDdlStudent(activeStudentsForAdmitCard);
+      setStudent(activeStudentsForAdmitCard[0]?.Key);
+    }
+  }, [activeStudentsForAdmitCard]);
 
   return (
     <>
@@ -315,7 +334,7 @@ const StudentIdCard = () => {
                 name="Section"
                 label="Section"
                 value={section}
-                onChange={(e) => setSection(e.target.value)}
+                onChange={(e) => handleSection(e.target.value)}
                 options={ddlSection}
                 errors={errors.section}
               />

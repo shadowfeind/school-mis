@@ -541,7 +541,7 @@ const ExamMarkApproval = () => {
                 style={{ margin: "10px 0 0 10px" }}
                 onClick={handleBulkBlankData}
               >
-                BULK BLANK
+               PRINT BLANK
               </Button>
 
               <Button
@@ -618,6 +618,8 @@ const ExamMarkApproval = () => {
         title="Bulk Blank Edit"
       >
         <ExamMarkApprovalBlankForm
+        year={ acaYear && acaYear}
+        yearDdl={ examApprovalInitialDatas && examApprovalInitialDatas?.searchFilterModel?.ddlAcademicYear}
         address = {schoolValue && schoolValue.FullAddress}
           schoolValue={schoolValue && schoolValue.SchoolName}
           blankData={bulkBlankData && bulkBlankData}

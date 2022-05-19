@@ -17,8 +17,9 @@ import { withStyles, makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import SelectControl from "../../components/controls/SelectControl";
 import InputControl from "../../components/controls/InputControl";
-import { useDispatch } from "react-redux";
-import { postGenerateExamScheduleCreateAction } from "./ExamScheduleActions";
+import { useDispatch, useSelector } from "react-redux";
+import { getEventForExamScheduleAction, postGenerateExamScheduleCreateAction } from "./ExamScheduleActions";
+import { GET_EVENT_FOR_EXAM_SCHEDULE_RESET } from "./ExamScheduleConstants";
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -46,18 +47,63 @@ const useStyles = makeStyles({
 const ExamScheduleGenerateForm = ({
   generate,
   setGeneratePopUp,
+  programValue,
   eventName,
   acaYear,
+  events,
   classValue,
 }) => {
   const [year, setYear] = useState("");
+  const [ddlYear,setDdlYear]=useState([]);
   const [classId, setClassId] = useState("");
+  const [ddlClassId, setDdlClassId] = useState([]);
   const [event, setEvent] = useState("");
+  const [eventDdl, setEventDdl] = useState([]);
   const classes = useStyles();
   const [formCheck, setFormCheck] = useState([]);
   const [errors, setErrors] = useState([]);
 
   const dispatch = useDispatch();
+
+  const { eventExamSchedule, error: eventExamScheduleError } = useSelector(
+    (state) => state.getEventForExamSchedule
+  );
+
+  if(eventExamScheduleError){
+    setEventDdl([]);
+    dispatch({type:GET_EVENT_FOR_EXAM_SCHEDULE_RESET })
+  }
+
+  const handleAcaYear = (value)=>{
+    setYear(value);
+    setEventDdl([]);
+    setEvent("")
+    if(value,classId){
+      dispatch(getEventForExamScheduleAction(value, programValue, classId));
+    }
+  }
+
+
+  const handleClassId = (value)=>{
+    setClassId(value);
+    setEventDdl([]);
+    setEvent("")
+    if(acaYear,value){
+      dispatch(getEventForExamScheduleAction(acaYear, programValue,value ));
+    }
+  }
+
+  const eventHandler = (value) => {
+    setEvent(value);
+  };
+
+  useEffect(() => {
+    if (eventExamSchedule) {
+      setEventDdl(eventExamSchedule);
+      setEvent(eventExamSchedule[0]?.Key);
+    }
+    setEventDdl([]);
+  }, [eventExamSchedule]);
 
   useEffect(() => {
     if (acaYear) {
@@ -66,6 +112,9 @@ const ExamScheduleGenerateForm = ({
     if (classValue) {
       setClassId(classValue);
     }
+  //  if(events){
+  //    setEvent(events);
+  //  }
     if (generate) {
       setFormCheck([...generate.dbModelLst]);
     }
@@ -133,7 +182,7 @@ const ExamScheduleGenerateForm = ({
                 name="academicYear"
                 label="Academic Year"
                 value={year}
-                onChange={(e) => setYear(e.target.value)}
+                onChange={(e) => handleAcaYear(e.target.value)}
                 options={generate?.searchFilterModel?.ddlAcademicYear}
                 errors={errors.year}
               />
@@ -143,7 +192,7 @@ const ExamScheduleGenerateForm = ({
                 name="academicYearNext"
                 label="classes"
                 value={classId}
-                onChange={(e) => setClassId(e.target.value)}
+                onChange={(e) => handleClassId(e.target.value)}
                 options={generate?.searchFilterModel?.ddlClass}
                 errors={errors.classId}
               />
@@ -153,7 +202,7 @@ const ExamScheduleGenerateForm = ({
                 name="academicYearNext"
                 label="Event Name"
                 value={event}
-                onChange={(e) => setEvent(e.target.value)}
+                onChange={(e) => eventHandler(e.target.value)}
                 options={eventName && eventName}
                 errors={errors.event}
               />

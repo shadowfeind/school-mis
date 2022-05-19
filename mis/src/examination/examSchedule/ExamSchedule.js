@@ -548,7 +548,9 @@ const ExamSchedule = () => {
           generate={
             getToGenerateExamScheduleCreate && getToGenerateExamScheduleCreate
           }
+          programValue={programValue}
           eventName={ddlEvent && ddlEvent}
+          events={event}
           acaYear={acaYear}
           classValue={classId}
           setGeneratePopUp={setGeneratePopUp}

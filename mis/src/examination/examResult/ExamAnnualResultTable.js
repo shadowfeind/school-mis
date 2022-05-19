@@ -1,7 +1,7 @@
 import React, { Fragment, useRef } from "react";
 import { memo } from "react";
 import "./ExamAnnualResultTable.css";
-import { gradeCalc, pointCalc } from "./Helpers";
+import { gpaToGrade, gradeCalc, pointCalc } from "./Helpers";
 import { useReactToPrint } from "react-to-print";
 import { Button, Grid } from "@material-ui/core";
 import ReactHTMLTableToExcel from "react-html-table-to-excel";
@@ -59,7 +59,7 @@ const ExamAnnualResultTable = memo(({ ledgerData }) => {
               ledgerData?.ddlAcademicFacultySubjectLinkSubModel
                 ?.sort((a, b) => a.IDAcademicSubject - b.IDAcademicSubject)
                 .map((s) => (
-                  <th colSpan="4" key={s.$id}>
+                  <th colSpan="4" key={s.$id} style={{ textAlign: "center" }}>
                     {s.SubjectName}
                   </th>
                 ))}
@@ -129,13 +129,16 @@ const ExamAnnualResultTable = memo(({ ledgerData }) => {
                           .sort(
                             (a, b) => a.IDAcademicSubject - b.IDAcademicSubject
                           );
-                        totalMarksAcc.push({
-                          marks: firstTerm
-                            ? (firstTerm[0]?.ObtainedMark +
-                                firstTerm[0]?.ObtainedMarkPractical) *
-                              0.15
-                            : "",
-                        });
+                        {
+                          firstTerm?.length > 0 &&
+                            totalMarksAcc.push({
+                              marks: firstTerm
+                                ? (firstTerm[0]?.ObtainedMark +
+                                    firstTerm[0]?.ObtainedMarkPractical) *
+                                  0.15
+                                : "",
+                            });
+                        }
                         let secondTerm = ledgerData?.dbModelLst
                           ?.filter(
                             (x) =>
@@ -146,13 +149,17 @@ const ExamAnnualResultTable = memo(({ ledgerData }) => {
                           .sort(
                             (a, b) => a.IDAcademicSubject - b.IDAcademicSubject
                           );
-                        totalMarksAcc.push({
-                          marks: secondTerm
-                            ? (secondTerm[0]?.ObtainedMark +
-                                secondTerm[0]?.ObtainedMarkPractical) *
-                              0.2
-                            : "",
-                        });
+
+                        {
+                          secondTerm?.length > 0 &&
+                            totalMarksAcc.push({
+                              marks: secondTerm
+                                ? (secondTerm[0]?.ObtainedMark +
+                                    secondTerm[0]?.ObtainedMarkPractical) *
+                                  0.2
+                                : "",
+                            });
+                        }
                         let thirdTerm = ledgerData.dbModelLst
                           ?.filter(
                             (x) =>
@@ -163,13 +170,16 @@ const ExamAnnualResultTable = memo(({ ledgerData }) => {
                           .sort(
                             (a, b) => a.IDAcademicSubject - b.IDAcademicSubject
                           );
-                        totalMarksAcc.push({
-                          marks: thirdTerm
-                            ? (thirdTerm[0]?.ObtainedMark +
-                                thirdTerm[0]?.ObtainedMarkPractical) *
-                              0.15
-                            : "",
-                        });
+                        {
+                          thirdTerm?.length > 0 &&
+                            totalMarksAcc.push({
+                              marks: thirdTerm
+                                ? (thirdTerm[0]?.ObtainedMark +
+                                    thirdTerm[0]?.ObtainedMarkPractical) *
+                                  0.15
+                                : "",
+                            });
+                        }
                         let finalTerm = ledgerData.dbModelLst
                           ?.filter(
                             (x) =>
@@ -180,26 +190,28 @@ const ExamAnnualResultTable = memo(({ ledgerData }) => {
                           .sort(
                             (a, b) => a.IDAcademicSubject - b.IDAcademicSubject
                           );
-                        totalMarksAcc.push({
-                          marks: finalTerm
-                            ? (finalTerm[0]?.ObtainedMark +
-                                finalTerm[0]?.ObtainedMarkPractical) *
-                              0.5
-                            : "",
-                        });
+                        {
+                          finalTerm?.length > 0 &&
+                            totalMarksAcc.push({
+                              marks: finalTerm
+                                ? (finalTerm[0]?.ObtainedMark +
+                                    finalTerm[0]?.ObtainedMarkPractical) *
+                                  0.5
+                                : "",
+                            });
+                        }
 
                         return (
                           <Fragment>
                             <td>
-                              (
-                              {firstTerm
+                              {firstTerm?.length > 0
                                 ? (
                                     (firstTerm[0]?.ObtainedMark +
                                       firstTerm[0]?.ObtainedMarkPractical) *
                                     0.15
                                   )?.toFixed(2)
                                 : ""}
-                              )
+                              (
                               {firstTerm &&
                                 gradeCalc(
                                   ((firstTerm[0]?.ObtainedMark +
@@ -208,17 +220,17 @@ const ExamAnnualResultTable = memo(({ ledgerData }) => {
                                       firstTerm[0]?.FullMarkPractical)) *
                                     100
                                 )}
+                              )
                             </td>
                             <td>
-                              (
-                              {secondTerm
+                              {secondTerm?.length > 0
                                 ? (
                                     (secondTerm[0]?.ObtainedMark +
                                       secondTerm[0]?.ObtainedMarkPractical) *
                                     0.2
                                   )?.toFixed(2)
                                 : ""}
-                              )
+                              (
                               {secondTerm &&
                                 gradeCalc(
                                   ((secondTerm[0]?.ObtainedMark +
@@ -227,17 +239,17 @@ const ExamAnnualResultTable = memo(({ ledgerData }) => {
                                       secondTerm[0]?.FullMarkPractical)) *
                                     100
                                 )}
+                              )
                             </td>
                             <td>
-                              (
-                              {thirdTerm
+                              {thirdTerm?.length > 0
                                 ? (
                                     (thirdTerm[0]?.ObtainedMark +
                                       thirdTerm[0]?.ObtainedMarkPractical) *
                                     0.15
                                   )?.toFixed(2)
                                 : ""}
-                              )
+                              (
                               {thirdTerm &&
                                 gradeCalc(
                                   ((thirdTerm[0]?.ObtainedMark +
@@ -246,17 +258,17 @@ const ExamAnnualResultTable = memo(({ ledgerData }) => {
                                       thirdTerm[0]?.FullMarkPractical)) *
                                     100
                                 )}
+                              )
                             </td>
                             <td>
-                              (
-                              {finalTerm
+                              {finalTerm?.length > 0
                                 ? (
                                     (finalTerm[0]?.ObtainedMark +
                                       finalTerm[0]?.ObtainedMarkPractical) *
                                     0.5
                                   ).toFixed(2)
                                 : ""}
-                              )
+                              (
                               {finalTerm &&
                                 gradeCalc(
                                   ((finalTerm[0]?.ObtainedMark +
@@ -265,29 +277,38 @@ const ExamAnnualResultTable = memo(({ ledgerData }) => {
                                       finalTerm[0]?.FullMarkPractical)) *
                                     100
                                 )}
+                              )
                             </td>
                           </Fragment>
                         );
                       })}
                     <td>
-                      {totalMarksAcc.reduce((acc, cur) => {
-                        return acc + cur.marks;
-                      }, 0)}
+                      {totalMarksAcc
+                        .reduce((acc, cur) => {
+                          return acc + cur.marks;
+                        }, 0)
+                        .toFixed(2)}
                     </td>
                     <td>
                       {gradeCalc(
                         totalMarksAcc.reduce((acc, cur) => {
                           return acc + cur.marks;
                         }, 0) /
-                          (totalMarksAcc.length / 4)
+                          ledgerData?.ddlAcademicFacultySubjectLinkSubModel
+                            ?.length
                       )}
+                      /////
+                      {totalMarksAcc.reduce((acc, cur) => {
+                        return acc + cur.marks;
+                      }, 0)}
                     </td>
                     <td>
                       {pointCalc(
                         totalMarksAcc.reduce((acc, cur) => {
                           return acc + cur.marks;
                         }, 0) /
-                          (totalMarksAcc.length / 4)
+                          ledgerData?.ddlAcademicFacultySubjectLinkSubModel
+                            ?.length
                       )}
                     </td>
                     <td>
@@ -314,6 +335,7 @@ const ExamAnnualResultTable = memo(({ ledgerData }) => {
           variant="contained"
           className="print-button-hide"
           color="primary"
+          style={{ marginRight: "10px" }}
         >
           PRINT
         </Button>

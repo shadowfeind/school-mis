@@ -71,8 +71,8 @@ const ExamResult = () => {
   const [section, setSection] = useState("");
   const [event, setEvent] = useState("");
   const [student, setStudent] = useState(0);
-  const [date, setDate] = useState("2022-01-28");
-  const [dateValue, setDateValue] = useState("2022-01-28");
+  const [date, setDate] = useState();
+  const [dateValue, setDateValue] = useState();
   const [npYear, setNpYear] = useState("");
   const [errors, setErrors] = useState({});
   const dispatch = useDispatch();
@@ -226,6 +226,12 @@ const ExamResult = () => {
       setSection(examResultInitialDatas?.searchFilterModel.ddlSection[0].Key);
       setDdlNpYear(examResultInitialDatas?.searchFilterModel.ddlnpYear);
       setNpYear(examResultInitialDatas?.searchFilterModel.npYear);
+      setDate(
+        examResultInitialDatas?.searchFilterModel?.StartDate?.slice(0, 10)
+      );
+      setDateValue(
+        examResultInitialDatas?.searchFilterModel?.StartDate?.slice(0, 10)
+      );
     }
   }, [examResultInitialDatas, dispatch]);
 

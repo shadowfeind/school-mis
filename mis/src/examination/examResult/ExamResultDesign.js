@@ -71,13 +71,15 @@ const ExamResultDesign = ({
           <table style={{ margin: "15px 0" }}>
             <thead>
               <tr>
-                <th>SB</th>
+                <th>SN</th>
                 <th>Subjects</th>
-                <th>Credit Hours</th>
-                <th colSpan="2">Obtained Grades</th>
-                <th>Final Grade</th>
-                <th>Grade Point</th>
-                <th>Highest Grade</th>
+                <th style={{ textAlign: "center" }}>Credit Hours</th>
+                <th colSpan="2" style={{ textAlign: "center" }}>
+                  Obtained Grades
+                </th>
+                <th style={{ textAlign: "center" }}>Final Grade</th>
+                <th style={{ textAlign: "center" }}>Grade Point</th>
+                <th style={{ textAlign: "center" }}>Highest Grade</th>
               </tr>
               <tr>
                 <th></th>
@@ -108,9 +110,9 @@ const ExamResultDesign = ({
 
                 let filteredSubjects = dbModelLst.filter(
                   (x) =>
-                    (x.SubjectCode === s.SubjectCode) &
-                    (x.Status === "Approved")
+                    x.SubjectCode === s.SubjectCode && x.Status === "Approved"
                 );
+
                 let highestThMarks = filteredSubjects.sort(
                   (a, b) => b.ObtainedMark - a.ObtainedMark
                 );
@@ -119,10 +121,10 @@ const ExamResultDesign = ({
                 );
 
                 let totalHighestMarks;
-                if ((highestThMarks.length > 0) & (highestPrMarks.length > 0)) {
+                if (highestThMarks.length > 0 || highestPrMarks.length > 0) {
                   totalHighestMarks =
-                    highestThMarks[0].ObtainedMark +
-                    highestPrMarks[0].ObtainedMarkPractical;
+                    highestThMarks[0]?.ObtainedMark +
+                    highestPrMarks[0]?.ObtainedMarkPractical;
                 } else {
                   totalHighestMarks = 0;
                 }
@@ -137,7 +139,7 @@ const ExamResultDesign = ({
                 return (
                   <tr key={s.$id}>
                     <td>{count}</td>
-                    <td>{s.SubjectName}</td>
+                    <td>{s.SubjectName?.slice(0, 20)}</td>
                     <td style={{ textAlign: "center" }}> 4.0</td>
                     <td style={{ textAlign: "center" }}>
                       {" "}
@@ -145,7 +147,7 @@ const ExamResultDesign = ({
                     </td>
                     <td style={{ textAlign: "center" }}>
                       {" "}
-                      {gradeCalc(resultPR)}
+                      {s.FullMarkPractical !== null ? gradeCalc(resultPR) : ""}
                     </td>
                     <td style={{ textAlign: "center" }}>
                       {" "}
@@ -156,7 +158,7 @@ const ExamResultDesign = ({
                       {pointCalc(gradePointTotal)}
                     </td>
                     <td style={{ textAlign: "center" }}>
-                      {gradeCalc(totalHighestMarks)}{" "}
+                      {gradeCalc(totalHighestMarks)}
                     </td>
                   </tr>
                 );
@@ -286,8 +288,10 @@ const ExamResultDesign = ({
                     </td>
                     <td>
                       Absent Days:{" "}
-                      {studentAttendance.length > 0 &&
-                        studentAttendance[0].AbsentDay}
+                      {(studentAttendance.length > 0 &&
+                        studentAttendance[0].WorkingDay) -
+                        (studentAttendance.length > 0 &&
+                          studentAttendance[0].PresentDay)}
                     </td>
                   </tr>
                 </thead>

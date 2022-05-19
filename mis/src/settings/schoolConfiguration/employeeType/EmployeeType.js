@@ -75,25 +75,26 @@ const EmployeeType = () => {
 
   const dispatch = useDispatch();
 
-  const { employeeType, error,loading } = useSelector((state) => state.employeeType);
+  const { employeeType, error, loading } = useSelector(
+    (state) => state.employeeType
+  );
 
   const { success: createEmployeeTypeSuccess, error: createEmployeeTypeError } =
     useSelector((state) => state.createEmployeeType);
 
-  const { singleEmployeeType, loading:loadingEdit,error: singleEmployeeTypeError } = useSelector(
-    (state) => state.getSingleEmployeeType
-  );
+  const {
+    singleEmployeeType,
+    loading: loadingEdit,
+    error: singleEmployeeTypeError,
+  } = useSelector((state) => state.getSingleEmployeeType);
 
   const {
     success: updateSingleEmployeeTypeSuccess,
     updateSingleEmployeeTypeError,
   } = useSelector((state) => state.updateSingleEmployeeType);
 
-  const {
-    success: deleteEmployeeSuccess,
-    error: deleteEmployeeError,
-  } = useSelector((state) => state.deleteEmployeeType);
-
+  const { success: deleteEmployeeSuccess, error: deleteEmployeeError } =
+    useSelector((state) => state.deleteEmployeeType);
 
   if (error) {
     setNotify({
@@ -185,9 +186,10 @@ const EmployeeType = () => {
   };
 
   useEffect(() => {
-    if (!employeeType) {
-      dispatch(getAllEmployeeTypeAction());
-    }
+    dispatch(getAllEmployeeTypeAction());
+  }, []);
+
+  useEffect(() => {
     if (employeeType) {
       setTableData(employeeType.hrEmployeeTypeModelLst);
     }
@@ -248,24 +250,24 @@ const EmployeeType = () => {
           <LoadingComp />
         ) : (
           <>
-        <TableContainer className={classes.table}>
-          <TblHead />
+            <TableContainer className={classes.table}>
+              <TblHead />
 
-          <TableBody>
-            {tableDataAfterPagingAndSorting().map((item) => (
-              <EmployeeTypeTableCollapse
-                item={item}
-                key={item.$id}
-                updateCollegeHandler={updateCollegeHandler}
-                deleteCollegeHandler={deleteCollegeHandler}
-                setOpenPopup={setOpenPopup}
-                setOpenDeletePopup={setOpenDeletePopup}
-              />
-            ))}
-          </TableBody>
-        </TableContainer>
-        <TblPagination />
-        </>
+              <TableBody>
+                {tableDataAfterPagingAndSorting().map((item) => (
+                  <EmployeeTypeTableCollapse
+                    item={item}
+                    key={item.$id}
+                    updateCollegeHandler={updateCollegeHandler}
+                    deleteCollegeHandler={deleteCollegeHandler}
+                    setOpenPopup={setOpenPopup}
+                    setOpenDeletePopup={setOpenDeletePopup}
+                  />
+                ))}
+              </TableBody>
+            </TableContainer>
+            <TblPagination />
+          </>
         )}
       </CustomContainer>
       <Popup
@@ -273,27 +275,30 @@ const EmployeeType = () => {
         setOpenPopup={setOpenPopup}
         title="Employee Type Form"
       >
-      {loadingEdit ? (
+        {loadingEdit ? (
           <LoadingComp />
         ) : (
           <>
-        <EmployeeTypeForm
-          employeeType={
-            singleEmployeeType && singleEmployeeType.hrEmployeeTypeModel
-          }
-          setOpenPopup={setOpenPopup}
-        />
-        </>
+            <EmployeeTypeForm
+              employeeType={
+                singleEmployeeType && singleEmployeeType.hrEmployeeTypeModel
+              }
+              setOpenPopup={setOpenPopup}
+            />
+          </>
         )}
       </Popup>
       <Popup
-      openPopup={openDeletePopup}
-      setOpenPopup={setOpenDeletePopup}
-      title= "Employee Delete Form">
-      <EmployeeTypeDeleteForm
-      employeeTypeDelete={singleEmployeeType && singleEmployeeType.hrEmployeeTypeModel}
-      setOpenDeletePopup={setOpenDeletePopup}
-      />
+        openPopup={openDeletePopup}
+        setOpenPopup={setOpenDeletePopup}
+        title="Employee Delete Form"
+      >
+        <EmployeeTypeDeleteForm
+          employeeTypeDelete={
+            singleEmployeeType && singleEmployeeType.hrEmployeeTypeModel
+          }
+          setOpenDeletePopup={setOpenDeletePopup}
+        />
       </Popup>
       <Notification notify={notify} setNotify={setNotify} />
       <ConfirmDialog

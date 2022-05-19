@@ -126,10 +126,8 @@ const Holiday = () => {
   };
 
   useEffect(() => {
-    if (!holiday) {
-      dispatch(getAllHolidayAction());
-    }
-  }, [dispatch, holiday]);
+    dispatch(getAllHolidayAction());
+  }, []);
 
   const addHandler = () => {
     dispatch({ type: GET_SINGLE_HOLIDAY_RESET });

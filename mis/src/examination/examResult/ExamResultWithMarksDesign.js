@@ -65,14 +65,18 @@ const ExamResultWithMarksDesign = ({
           <table style={{ margin: "15px 0" }}>
             <thead>
               <tr>
-                <th>SB</th>
-                <th>Subjects</th>
-                <th>Credit Hours</th>
-                <th colSpan="2">Obtained Marks</th>
-                <th colSpan="2">Obtained Grades</th>
-                <th>Final Grade</th>
-                <th>Grade Point</th>
-                <th>Highest Grade</th>
+                <th>SN</th>
+                <th style={{ width: "30%" }}>Subjects</th>
+                <th style={{ textAlign: "center" }}>Credit Hours</th>
+                <th colSpan="2" style={{ textAlign: "center" }}>
+                  Obtained Marks
+                </th>
+                <th colSpan="2" style={{ textAlign: "center" }}>
+                  Obtained Grades
+                </th>
+                <th style={{ textAlign: "center" }}>Final Grade</th>
+                <th style={{ textAlign: "center" }}>Grade Point</th>
+                <th style={{ textAlign: "center" }}>Highest Grade</th>
               </tr>
               <tr>
                 <th></th>
@@ -152,7 +156,7 @@ const ExamResultWithMarksDesign = ({
                     </td>
                     <td style={{ textAlign: "center" }}>
                       {" "}
-                      {gradeCalc(resultPR)}
+                      {s.FullMarkPractical !== null ? gradeCalc(resultPR) : ""}
                     </td>
                     <td style={{ textAlign: "center" }}>
                       {" "}
@@ -163,7 +167,7 @@ const ExamResultWithMarksDesign = ({
                       {pointCalc(gradePointTotal)}
                     </td>
                     <td style={{ textAlign: "center" }}>
-                      {gradeCalc(totalHighestMarks)}{" "}
+                      {gradeCalc(totalHighestMarks)}
                     </td>
                   </tr>
                 );
@@ -300,8 +304,10 @@ const ExamResultWithMarksDesign = ({
                     </td>
                     <td>
                       Absent Days:{" "}
-                      {studentAttendance.length > 0 &&
-                        studentAttendance[0].AbsentDay}
+                      {(studentAttendance.length > 0 &&
+                        studentAttendance[0].WorkingDay) -
+                        (studentAttendance.length > 0 &&
+                          studentAttendance[0].PresentDay)}
                     </td>
                   </tr>
                 </thead>

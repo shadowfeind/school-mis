@@ -76,7 +76,7 @@ const EmployeeType = () => {
 
   const dispatch = useDispatch();
 
-  const { employeeCategoryRole, error,loading } = useSelector(
+  const { employeeCategoryRole, error, loading } = useSelector(
     (state) => state.employeeCategoryRole
   );
 
@@ -85,8 +85,11 @@ const EmployeeType = () => {
     error: createEmployeeCategoryRoleError,
   } = useSelector((state) => state.createEmployeeCategoryRole);
 
-  const { singleEmployeeCategoryRole, loading:loadingEdit,error: singleEmployeeCategoryRoleError } =
-    useSelector((state) => state.getSingleEmployeeCategoryRole);
+  const {
+    singleEmployeeCategoryRole,
+    loading: loadingEdit,
+    error: singleEmployeeCategoryRoleError,
+  } = useSelector((state) => state.getSingleEmployeeCategoryRole);
 
   const {
     success: updateSingleEmployeeCategoryRoleSuccess,
@@ -178,14 +181,15 @@ const EmployeeType = () => {
   };
 
   const deleteCollegeHandler = (id) => {
-   dispatch(getSingleEmployeeCategoryRoleAction(id));
-   setOpenDeletePopup(true);
+    dispatch(getSingleEmployeeCategoryRoleAction(id));
+    setOpenDeletePopup(true);
   };
 
   useEffect(() => {
-    if (!employeeCategoryRole) {
-      dispatch(getAllEmployeeCategoryRoleAction());
-    }
+    dispatch(getAllEmployeeCategoryRoleAction());
+  }, []);
+
+  useEffect(() => {
     if (employeeCategoryRole) {
       setTableData(employeeCategoryRole.dbModelLst);
     }
@@ -246,23 +250,23 @@ const EmployeeType = () => {
           <LoadingComp />
         ) : (
           <>
-        <TableContainer className={classes.table}>
-          <TblHead />
-          <TableBody>
-            {tableDataAfterPagingAndSorting().map((item) => (
-              <EmployeeCategoryRoleTableCollapse
-                item={item}
-                key={item.$id}
-                updateCollegeHandler={updateCollegeHandler}
-                deleteCollegeHandler={deleteCollegeHandler}
-                setOpenPopup={setOpenPopup}
-                setOpenDeletePopup={setOpenDeletePopup}
-              />
-            ))}
-          </TableBody>
-        </TableContainer>
-        <TblPagination />
-        </>
+            <TableContainer className={classes.table}>
+              <TblHead />
+              <TableBody>
+                {tableDataAfterPagingAndSorting().map((item) => (
+                  <EmployeeCategoryRoleTableCollapse
+                    item={item}
+                    key={item.$id}
+                    updateCollegeHandler={updateCollegeHandler}
+                    deleteCollegeHandler={deleteCollegeHandler}
+                    setOpenPopup={setOpenPopup}
+                    setOpenDeletePopup={setOpenDeletePopup}
+                  />
+                ))}
+              </TableBody>
+            </TableContainer>
+            <TblPagination />
+          </>
         )}
       </CustomContainer>
       <Popup
@@ -270,27 +274,29 @@ const EmployeeType = () => {
         setOpenPopup={setOpenPopup}
         title="Employee Category Role Form"
       >
-       {loadingEdit ? (
+        {loadingEdit ? (
           <LoadingComp />
         ) : (
           <>
-        <EmployeeCategoryRoleForm
-          employeeCategoryRole={
-            singleEmployeeCategoryRole && singleEmployeeCategoryRole.dbModel
-          }
-          setOpenPopup={setOpenPopup}
-        />
-        </>
+            <EmployeeCategoryRoleForm
+              employeeCategoryRole={
+                singleEmployeeCategoryRole && singleEmployeeCategoryRole.dbModel
+              }
+              setOpenPopup={setOpenPopup}
+            />
+          </>
         )}
       </Popup>
       <Popup
-      openPopup={openDeletePopup}
-      setOpenPopup={setOpenDeletePopup}
-      title="Employee Category Role Delete Form"
+        openPopup={openDeletePopup}
+        setOpenPopup={setOpenDeletePopup}
+        title="Employee Category Role Delete Form"
       >
         <EmployeeCategoryRoleDeleteForm
-        employeeCategoryDeleteRole={singleEmployeeCategoryRole && singleEmployeeCategoryRole.dbModel}
-        setOpenDeletePopup={setOpenDeletePopup}
+          employeeCategoryDeleteRole={
+            singleEmployeeCategoryRole && singleEmployeeCategoryRole.dbModel
+          }
+          setOpenDeletePopup={setOpenDeletePopup}
         />
       </Popup>
       <Notification notify={notify} setNotify={setNotify} />

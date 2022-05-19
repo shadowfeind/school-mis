@@ -15,7 +15,7 @@ const ExamResultTableCollapse = memo(
     searchFilterModel,
     currentClass,
     currentSection,
-    SchoolShortName,
+    schoolName,
   }) => {
     const [ledgerData, setLedgeData] = useState([]);
     const componentRef = useRef();
@@ -64,11 +64,10 @@ const ExamResultTableCollapse = memo(
       <div className="ledgerResult" ref={componentRef}>
         <Grid container style={{ marginBottom: "12px" }}>
           <Grid item xs={4}>
-            School Name: {SchoolShortName && SchoolShortName}
+            School Name: {schoolName && schoolName}
           </Grid>
           <Grid item xs={4}>
-            Year:{" "}
-            {searchFilterModel && searchFilterModel.StartDate?.slice(0, 10)}
+            Year: {searchFilterModel && searchFilterModel.npYear}
           </Grid>
           <Grid item xs={4}>
             Class: {currentClassToDisplay && currentClassToDisplay[0]?.Value}
@@ -81,7 +80,8 @@ const ExamResultTableCollapse = memo(
             Term: {termExamName && termExamName[0]?.Value}
           </Grid>
           <Grid item xs={4}>
-            Date: {searchFilterModel && searchFilterModel.npYear}
+            Date:{" "}
+            {searchFilterModel && searchFilterModel.StartDate?.slice(0, 10)}
           </Grid>
         </Grid>
         <table border="1" id="table-xls-button">
@@ -95,7 +95,7 @@ const ExamResultTableCollapse = memo(
               </th>
               {ledgerHeader &&
                 ledgerHeader.map((s) => (
-                  <th colSpan="2" key={s.$id}>
+                  <th colSpan="2" key={s.$id} style={{ textAlign: "center" }}>
                     {s.SubjectName}
                   </th>
                 ))}
@@ -172,6 +172,7 @@ const ExamResultTableCollapse = memo(
             variant="contained"
             className="print-button-hide"
             color="primary"
+            style={{ marginRight: "10px" }}
           >
             PRINT
           </Button>

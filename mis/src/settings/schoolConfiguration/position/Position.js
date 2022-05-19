@@ -77,14 +77,16 @@ const Position = () => {
 
   const dispatch = useDispatch();
 
-  const { position, error ,loading} = useSelector((state) => state.position);
+  const { position, error, loading } = useSelector((state) => state.position);
 
   const { success: createPositionSuccess, error: createPositionError } =
     useSelector((state) => state.createPosition);
 
-  const { position: singlePosition, error: singlePositionError,loading:loadingEdit } = useSelector(
-    (state) => state.getSinglePosition
-  );
+  const {
+    position: singlePosition,
+    error: singlePositionError,
+    loading: loadingEdit,
+  } = useSelector((state) => state.getSinglePosition);
 
   const {
     success: updateSinglePositionSuccess,
@@ -184,14 +186,14 @@ const Position = () => {
   };
 
   useEffect(() => {
-    if (!position) {
-      dispatch(getAllPositionAction());
-    }
     if (position) {
       setTableData(position.hrPositionModelLst);
     }
   }, [dispatch, position]);
 
+  useEffect(() => {
+    dispatch(getAllPositionAction());
+  }, []);
   const {
     TableContainer,
     TblHead,
@@ -247,24 +249,24 @@ const Position = () => {
           <LoadingComp />
         ) : (
           <>
-        <TableContainer className={classes.table}>
-          <TblHead />
+            <TableContainer className={classes.table}>
+              <TblHead />
 
-          <TableBody>
-            {tableDataAfterPagingAndSorting().map((item) => (
-              <PositionTableCollapse
-                item={item}
-                key={item.$id}
-                updateCollegeHandler={updateCollegeHandler}
-                deleteCollegeHandler={deleteCollegeHandler}
-                setOpenPopup={setOpenPopup}
-                setOpenDeletePopup={setOpenDeletePopup}
-              />
-            ))}
-          </TableBody>
-        </TableContainer>
-        <TblPagination />
-        </>
+              <TableBody>
+                {tableDataAfterPagingAndSorting().map((item) => (
+                  <PositionTableCollapse
+                    item={item}
+                    key={item.$id}
+                    updateCollegeHandler={updateCollegeHandler}
+                    deleteCollegeHandler={deleteCollegeHandler}
+                    setOpenPopup={setOpenPopup}
+                    setOpenDeletePopup={setOpenDeletePopup}
+                  />
+                ))}
+              </TableBody>
+            </TableContainer>
+            <TblPagination />
+          </>
         )}
       </CustomContainer>
       <Popup
@@ -272,15 +274,15 @@ const Position = () => {
         setOpenPopup={setOpenPopup}
         title="Position Form"
       >
-      {loadingEdit ? (
+        {loadingEdit ? (
           <LoadingComp />
         ) : (
           <>
-        <PositionForm
-          position={singlePosition && singlePosition.dbModel}
-          setOpenPopup={setOpenPopup}
-        />
-        </>
+            <PositionForm
+              position={singlePosition && singlePosition.dbModel}
+              setOpenPopup={setOpenPopup}
+            />
+          </>
         )}
       </Popup>
       <Popup

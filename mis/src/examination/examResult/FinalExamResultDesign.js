@@ -66,14 +66,14 @@ const FinalExamResultDesign = ({
             <thead>
               <tr>
                 <th>SN</th>
-                <th>Subjects</th>
-                <th>Credit Hours</th>
-                <th>1st Term (15%)</th>
-                <th>2nd Term (20%)</th>
-                <th>3rd Term (15%)</th>
-                <th>Final Term (50%)</th>
-                <th>Grade</th>
-                <th>Grade Point</th>
+                <th style={{ width: "25%" }}>Subjects</th>
+                <th style={{ textAlign: "center" }}>Credit Hours</th>
+                <th style={{ textAlign: "center" }}>1st Term (15%)</th>
+                <th style={{ textAlign: "center" }}>2nd Term (20%)</th>
+                <th style={{ textAlign: "center" }}>3rd Term (15%)</th>
+                <th style={{ textAlign: "center" }}>Final Term (50%)</th>
+                <th style={{ textAlign: "center" }}>Grade</th>
+                <th style={{ textAlign: "center" }}>Grade Point</th>
               </tr>
             </thead>
             <tbody>
@@ -253,7 +253,8 @@ const FinalExamResultDesign = ({
                   <tr>
                     <td>
                       Absent Days:{" "}
-                      {attendance.length > 0 && attendance[0].AbsentDay}
+                      {(attendance.length > 0 && attendance[0].WorkingDay) -
+                        (attendance.length > 0 && attendance[0].PresentDay)}
                     </td>
                   </tr>
                 </tbody>

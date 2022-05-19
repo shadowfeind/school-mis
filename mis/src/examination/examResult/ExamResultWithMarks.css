@@ -49,7 +49,7 @@
 .uppderTableResult thead tr {
   background-color: #f3f3f3;
   color: #707478;
-  text-align: left;
+  /* text-align: left; */
   font-weight: bold;
 }
 .uppderTableResult th,

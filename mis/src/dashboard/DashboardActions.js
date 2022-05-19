@@ -1,4 +1,4 @@
-// import axios from "axios";
+import axios from "axios";
 import { API_URL, axiosInstance, tokenConfig, tokenHeader } from "../constants";
 import {
   DELETE_LEAVE_REQUESTS_FAIL,

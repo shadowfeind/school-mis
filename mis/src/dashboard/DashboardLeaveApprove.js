@@ -162,7 +162,7 @@ const DashboardLeaveApprove = () => {
     dispatch(getListLeaveRequestAction());
     setNotify({
       isOpen: true,
-      message: "Leave AApproval Edited Succesfully",
+      message: "Leave Approval Edited Succesfully",
       type: "success",
     });
     setApprovalPopUp(false);

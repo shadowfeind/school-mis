@@ -182,6 +182,7 @@ const AssignFacultySubjectFormCreate = ({
                 </StyledTableRow>
               ))}
           </TableBody>
+          </Table>
           <div
             style={{
               display: "flex",
@@ -209,7 +210,7 @@ const AssignFacultySubjectFormCreate = ({
               SUBMIT
             </Button>
           </div>
-        </Table>
+        
       </TableContainer>
     </>
   );

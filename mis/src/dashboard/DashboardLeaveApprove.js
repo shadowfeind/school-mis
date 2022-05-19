@@ -253,7 +253,7 @@ const DashboardLeaveApprove = () => {
           // leaveRequestCreate={
           //   singleCreateLeaveRequest && singleCreateLeaveRequest
           // }
-          setOpenPopUp={setApprovalPopUp}
+          setApprovalPopUp={setApprovalPopUp}
         />
       </Popup>
       <Notification notify={notify} setNotify={setNotify} />

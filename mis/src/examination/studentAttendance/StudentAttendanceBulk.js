@@ -177,6 +177,7 @@ const StudentAttendanceBulk = ({
                 </StyledTableRow>
               ))}
           </TableBody>
+          </Table>
           <div
             style={{
               display: "flex",
@@ -204,7 +205,7 @@ const StudentAttendanceBulk = ({
               SUBMIT
             </Button>
           </div>
-        </Table>
+       
       </TableContainer>
     </>
   );

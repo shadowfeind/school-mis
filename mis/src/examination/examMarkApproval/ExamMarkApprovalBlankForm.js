@@ -27,7 +27,14 @@ const useStyles = makeStyles({
   },
 });
 
-const ExamMarkApprovalBlankForm = ({ blankData,schoolValue,address, setOpenPopup }) => {
+const ExamMarkApprovalBlankForm = ({
+  blankData,
+  schoolValue,
+  year,
+  yearDdl,
+  address,
+  setOpenPopup,
+}) => {
   const componentRef = useRef();
   const printPdf = useReactToPrint({
     content: () => componentRef.current,
@@ -40,6 +47,8 @@ const ExamMarkApprovalBlankForm = ({ blankData,schoolValue,address, setOpenPopup
   const sections = blankData?.ddlSection?.filter(
     (s) => s.Key == blankData.searchFilterModel.section
   );
+
+  const yearShow = yearDdl?.filter((s) => s.Key === year);
 
   return (
     <>
@@ -57,9 +66,9 @@ const ExamMarkApprovalBlankForm = ({ blankData,schoolValue,address, setOpenPopup
                         <br />
                         <b>{address}</b>
                         <br />
-                        <b>-20__</b>
+                        <b>-{yearShow?.length > 0 && yearShow[0].Value}</b>
                         <br />
-                        <b>Term Exam:</b>{" "}
+                        <b>Term Exam:</b>
                         {blankData?.dbModelLsts.length > 0 &&
                           blankData.dbModelLsts[0].EventName}
                       </div>
@@ -118,7 +127,7 @@ const ExamMarkApprovalBlankForm = ({ blankData,schoolValue,address, setOpenPopup
                   return (
                     <tr key={s.$id}>
                       <td>{count}</td>
-                      <td>{s.RollNo}</td>
+                      <td align="center">{s.RollNo}</td>
                       <td>{s.FullName}</td>
                       <td />
                       <td />
@@ -128,18 +137,20 @@ const ExamMarkApprovalBlankForm = ({ blankData,schoolValue,address, setOpenPopup
                 })}
             </tbody>
           </Table>
+          <br />
           <Table>
             <tbody>
               <tr>
                 <td>
-                  Remarks:- Please, submit the marks sheet within the 7days of
-                  Examination
+                  &nbsp;<b>Remarks</b>:- Please, submit the marks sheet within the 7 days of Examination
                 </td>
-                <td>Total No.of present(s): ___________</td>
-                <td>Total No. of absent(s): ___________</td>
               </tr>
+
+              <br />
               <tr>
-                <td>Teacher's Signature: ________________________</td>
+                <td width="14%">Total Present(s): _______</td>
+                <td width="12%">Total Absent(s): _______</td>
+                <td width="23%">Teacher's Signature: _______________________</td>
               </tr>
             </tbody>
           </Table>

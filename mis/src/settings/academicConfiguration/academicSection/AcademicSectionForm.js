@@ -72,7 +72,7 @@ const AcademicSectinoForm = ({ academicSection, setOpenPopup }) => {
         <Grid item xs={6}>
           <InputControl
             name="RoomName"
-            label="Room Name*"
+            label="Academic Section*"
             onFocus={e => {
       e.target.select();
     }}
@@ -83,7 +83,7 @@ const AcademicSectinoForm = ({ academicSection, setOpenPopup }) => {
 
           <InputControl
             name="RoomLocation"
-            label="Room Location*"
+            label="Section Location*"
             onFocus={e => {
       e.target.select();
     }}
@@ -103,7 +103,7 @@ const AcademicSectinoForm = ({ academicSection, setOpenPopup }) => {
         <Grid item xs={6}>
           <InputControl
             name="RoomCapacity"
-            label="RoomCapacity*"
+            label="Section Capacity*"
             value={values.RoomCapacity}
             onFocus={e => {
       e.target.select();

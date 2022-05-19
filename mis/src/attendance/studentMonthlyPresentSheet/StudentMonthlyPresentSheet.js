@@ -241,6 +241,7 @@ const StudentMonthlyPresentSheet = () => {
   useEffect(() => {
     if (subjectOptions) {
       setDdlSubject(subjectOptions);
+      setSubject(subjectOptions[0]?.Key);
     }
   }, [subjectOptions]);
 

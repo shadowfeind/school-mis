@@ -254,7 +254,7 @@ export const postLeaveRequestAction =
         };
         const fbody = JSON.stringify(fcmBody);
 
-        await axiosInstance.post(
+        await axios.post(
           "https://fcm.googleapis.com/fcm/send",
           fbody,
           tokenHeader
@@ -320,7 +320,7 @@ export const putApproveRequestAction =
         };
         const fbody = JSON.stringify(fcmBody);
 
-        await axiosInstance.post(
+        await axios.post(
           "https://fcm.googleapis.com/fcm/send",
           fbody,
           tokenHeader
@@ -331,7 +331,7 @@ export const putApproveRequestAction =
         let formData = new FormData();
         formData.append("ImageUploaded", image);
 
-        const { data } = await axios.post(
+        const { data } = await axiosInstance.post(
           `/api/LeaveRequest/FileUpload`,
           formData,
           tokenConfig()
@@ -340,7 +340,7 @@ export const putApproveRequestAction =
           const newData = { ...leaveRequest, DocumentName: data };
           const jsonData = JSON.stringify({ dbModel: newData });
 
-          await axios.put(
+          await axiosInstance.put(
             `/api/LeaveRequest/PutLeaveRequest`,
             jsonData,
             tokenConfig()
@@ -350,7 +350,7 @@ export const putApproveRequestAction =
         const newData = { ...leaveRequest };
         const jsonData = JSON.stringify({ dbModel: newData });
 
-        await axios.put(
+        await axiosInstance.put(
           `/api/LeaveRequest/PutLeaveRequest`,
           jsonData,
           tokenConfig()
@@ -374,7 +374,7 @@ export const putLeaveRequestAction =
         let formData = new FormData();
         formData.append("ImageUploaded", image);
 
-        const { data } = await axios.post(
+        const { data } = await axiosInstance.post(
           `/api/LeaveRequest/FileUpload`,
           formData,
           tokenConfig()
@@ -383,7 +383,7 @@ export const putLeaveRequestAction =
           const newData = { ...leaveRequest, DocumentName: data };
           const jsonData = JSON.stringify({ dbModel: newData });
 
-          await axios.put(
+          await axiosInstance.put(
             `/api/LeaveRequest/PutLeaveRequest`,
             jsonData,
             tokenConfig()
@@ -393,7 +393,7 @@ export const putLeaveRequestAction =
         const newData = { ...leaveRequest };
         const jsonData = JSON.stringify({ dbModel: newData });
 
-        await axios.put(
+        await axiosInstance.put(
           `/api/LeaveRequest/PutLeaveRequest`,
           jsonData,
           tokenConfig()
@@ -412,7 +412,7 @@ export const getSingleDeleteLeaveRequestAction = (id) => async (dispatch) => {
   try {
     dispatch({ type: GET_SINGLE_TO_DELETE_LEAVE_REQUESTS_REQUEST });
 
-    const { data } = await axios.get(
+    const { data } = await axiosInstance.get(
       `/api/LeaveRequest/GetSingleToDeleteLeaveRequest/${id}
         `,
       tokenConfig()
@@ -442,7 +442,7 @@ export const deleteLeaveRequestAction = (leaveRequest) => async (dispatch) => {
     //   },
     // };
 
-    const { data } = await axios.post(
+    const { data } = await axiosInstance.post(
       `/api/LeaveRequest/DeleteLeaveRequest`,
       jsonData,
       tokenConfig()
@@ -461,7 +461,7 @@ export const getSingleEditSentLeaveRequestAction = (id) => async (dispatch) => {
   try {
     dispatch({ type: GET_SINGLE_TO_EDIT_SENT_LEAVE_REQUESTS_REQUEST });
 
-    const { data } = await axios.get(
+    const { data } = await axiosInstance.get(
       `/api/LeaveRequest/GetSingleToEditSentLeaveRequest/${id}
         `,
       tokenConfig()

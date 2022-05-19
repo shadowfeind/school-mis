@@ -157,10 +157,10 @@ const PrintAdminCard = () => {
   //   dispatch({ type: GET_EVENT_RESET });
   // }
 
-  if (activeStudentsForAdmitCardSuccess) {
-    setDdlStudent(activeStudentsForAdmitCard);
-    dispatch({ type: GET_ACTIVE_STUDENTS_FOR_ADMIT_CARD_RESET });
-  }
+  // if (activeStudentsForAdmitCardSuccess) {
+  //   setDdlStudent(activeStudentsForAdmitCard);
+  //   dispatch({ type: GET_ACTIVE_STUDENTS_FOR_ADMIT_CARD_RESET });
+  // }
 
   const { headerBanners, error: headerBannersError } = useSelector(
     (state) => state.getHeaderBanner
@@ -238,6 +238,7 @@ const PrintAdminCard = () => {
     temp.section = !section ? "This feild is required" : "";
     temp.shift1 = !shift ? "This feild is required" : "";
     temp.event = !event ? "This feild is required" : "";
+    temp.student = !student ? "This feild is required" : "";
 
     setErrors({ ...temp });
     return Object.values(temp).every((x) => x === "");
@@ -252,12 +253,13 @@ const PrintAdminCard = () => {
     if (shift) {
       dispatch(getEventAction(acaYear, programValue, classId, shift, value));
     }
-    if ((acaYear, programValue, classId)) {
+    if ((acaYear, programValue, classId,section)) {
       dispatch(
         getActiveStudentsForAdmitCardDataAction(
           acaYear,
           programValue,
           classId,
+          section,
           value
         )
       );
@@ -276,14 +278,17 @@ const PrintAdminCard = () => {
         acaYear,
         programValue,
         classId,
-        shift,
-        value
+        value,
+        shift
+        
       )
     );
   };
 
   const handleYearChange = (value) => {
     setAcaYear(value);
+    setDdlStudent([]);
+    setStudent("");
     if (classId) {
       dispatch(getEventAction(value, programValue, classId));
     }
@@ -294,6 +299,7 @@ const PrintAdminCard = () => {
           value,
           programValue,
           classId,
+          section,
           shift
         )
       );
@@ -307,6 +313,8 @@ const PrintAdminCard = () => {
   const handleClassIdChange = (value) => {
     setClassId(value);
     setDdlEvent([]);
+    setDdlStudent([]);
+    setStudent("");
     if (acaYear) {
       dispatch(getEventAction(acaYear, programValue, value));
     }
@@ -317,6 +325,7 @@ const PrintAdminCard = () => {
           acaYear,
           programValue,
           value,
+          section,
           shift
         )
       );
@@ -339,7 +348,9 @@ const PrintAdminCard = () => {
           student
         )
       );
+      
     }
+    
   };
 
   const handleDate = (date) => {
@@ -374,6 +385,13 @@ const PrintAdminCard = () => {
       setEvent(allEvents[0]?.Key);
     }
   }, [allEvents]);
+
+  useEffect(() => {
+    if (activeStudentsForAdmitCardSuccess) {
+      setDdlStudent(activeStudentsForAdmitCard);
+      setStudent(activeStudentsForAdmitCard[0]?.Key);
+    }
+  }, [activeStudentsForAdmitCard]);
 
   const componentRef = useRef();
   const printPdf = useReactToPrint({

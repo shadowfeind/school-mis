@@ -59,7 +59,6 @@ const married = [
 const EmployeeForm = ({ employee, setOpenPopup }) => {
   const dispatch = useDispatch();
 
-  
   const validate = (fieldValues = values) => {
     let temp = { ...errors };
     temp.LoginIDHREmployee = !fieldValues.LoginIDHREmployee
@@ -67,20 +66,35 @@ const EmployeeForm = ({ employee, setOpenPopup }) => {
       : !fieldValues.LoginIDHREmployee.trim()
       ? "This feild is required"
       : "";
-      temp.IDHREmployeeCategoryRole = !fieldValues.IDHREmployeeCategoryRole ? "This feild is required" :"";
-      temp.IDHRDepartment = !fieldValues.IDHRDepartment ? "This feild is required" :"";
-      // temp.JoinedPosition = !fieldValues.JoinedPosition ? "This feild is required" :"";
-      temp.EmailID = (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(fieldValues.EmailID)) ? "" : "Email is not valid";
-      temp.Married = !fieldValues.Married ? "This feild is required" :"";
-      temp.IDHRRole = !fieldValues.IDHRRole ? "This feild is required" :"";
-      temp.WebLoginAccess = !fieldValues.WebLoginAccess ? "This feild is required" :"";
-      temp.Sex = !fieldValues.Sex ? "This feild is required" :"";
-      temp.IDHRBranch = !fieldValues.IDHRBranch ? "This feild is required" :"";
-      temp.IDHREmployeeType = !fieldValues.IDHREmployeeType ? "This feild is required" :"";
-      temp.Title = !fieldValues.Title ? "This feild is required" :"";
-      temp.Position = !fieldValues.Position ? "This feild is required" :"";
-      temp.DOB = !fieldValues.DOB ? "This feild is required" :"";
-      temp.DOJ = !fieldValues.DOJ ? "This feild is required" :"";
+    temp.IDHREmployeeCategoryRole = !fieldValues.IDHREmployeeCategoryRole
+      ? "This feild is required"
+      : "";
+    temp.IDHRDepartment = !fieldValues.IDHRDepartment
+      ? "This feild is required"
+      : "";
+    // temp.JoinedPosition = !fieldValues.JoinedPosition ? "This feild is required" :"";
+    temp.EmailID =
+      !fieldValues.EmailID 
+        ? "This field is required"
+        : /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(
+            fieldValues.EmailID
+          )
+        ? ""
+        : "Email is not valid";
+    temp.Married = !fieldValues.Married ? "This feild is required" : "";
+    temp.IDHRRole = !fieldValues.IDHRRole ? "This feild is required" : "";
+    temp.WebLoginAccess = !fieldValues.WebLoginAccess
+      ? "This feild is required"
+      : "";
+    temp.Sex = !fieldValues.Sex ? "This feild is required" : "";
+    temp.IDHRBranch = !fieldValues.IDHRBranch ? "This feild is required" : "";
+    temp.IDHREmployeeType = !fieldValues.IDHREmployeeType
+      ? "This feild is required"
+      : "";
+    temp.Title = !fieldValues.Title ? "This feild is required" : "";
+    temp.Position = !fieldValues.Position ? "This feild is required" : "";
+    temp.DOB = !fieldValues.DOB ? "This feild is required" : "";
+    temp.DOJ = !fieldValues.DOJ ? "This feild is required" : "";
     temp.FirstName = !fieldValues.FirstName
       ? "This feild is required"
       : !fieldValues.FirstName.trim()
@@ -91,11 +105,11 @@ const EmployeeForm = ({ employee, setOpenPopup }) => {
       : !fieldValues.LastName.trim()
       ? "This feild is required"
       : "";
-      temp.MobileNumber = !fieldValues.MobileNumber
+    temp.MobileNumber = !fieldValues.MobileNumber
       ? "This feild is required"
       : fieldValues.MobileNumber.length < 7
       ? "Mobile No. cannot be less than 7."
-      :fieldValues.MobileNumber.length > 10
+      : fieldValues.MobileNumber.length > 10
       ? "Mobile No. cannot be more than 10."
       : "";
 
@@ -135,7 +149,7 @@ const EmployeeForm = ({ employee, setOpenPopup }) => {
     }
   }, [employee]);
 
-  const symbolsArr = ["e", "E", "+", "-", ".","ArrowUp","ArrowDown"];
+  const symbolsArr = ["e", "E", "+", "-", ".", "ArrowUp", "ArrowDown"];
 
   return (
     <Form onSubmit={handleSubmit}>
@@ -153,9 +167,9 @@ const EmployeeForm = ({ employee, setOpenPopup }) => {
             name="LoginIDHREmployee"
             label="Login ID*"
             value={values.LoginIDHREmployee}
-            onFocus={e => {
-      e.target.select();
-    }}
+            onFocus={(e) => {
+              e.target.select();
+            }}
             onChange={handleInputChange}
             errors={errors.LoginIDHREmployee}
           />
@@ -163,9 +177,9 @@ const EmployeeForm = ({ employee, setOpenPopup }) => {
             name="FirstName"
             label="First Name*"
             value={values.FirstName}
-            onFocus={e => {
-      e.target.select();
-    }}
+            onFocus={(e) => {
+              e.target.select();
+            }}
             onChange={handleInputChange}
             errors={errors.FirstName}
           />
@@ -173,19 +187,19 @@ const EmployeeForm = ({ employee, setOpenPopup }) => {
             name="LastName"
             label="Last Name*"
             value={values.LastName}
-            onFocus={e => {
-      e.target.select();
-    }}
+            onFocus={(e) => {
+              e.target.select();
+            }}
             onChange={handleInputChange}
             errors={errors.FirstName}
           />
           <InputControl
             name="EmailID"
-            label="Email Address"
+            label="Email Address*"
             value={values.EmailID}
-            onFocus={e => {
-      e.target.select();
-    }}
+            onFocus={(e) => {
+              e.target.select();
+            }}
             onChange={handleInputChange}
             errors={errors.EmailID}
           />
@@ -201,9 +215,9 @@ const EmployeeForm = ({ employee, setOpenPopup }) => {
             name="DOJ"
             label="Date Of Joining"
             value={values.DOJ}
-            onFocus={e => {
-      e.target.select();
-    }}
+            onFocus={(e) => {
+              e.target.select();
+            }}
             onChange={handleInputChange}
             errors={errors.DOJ}
           />
@@ -244,9 +258,9 @@ const EmployeeForm = ({ employee, setOpenPopup }) => {
           <InputControl
             name="ShortName"
             label="Short Name"
-            onFocus={e => {
-      e.target.select();
-    }}
+            onFocus={(e) => {
+              e.target.select();
+            }}
             value={values.ShortName}
             onChange={handleInputChange}
           />
@@ -262,9 +276,9 @@ const EmployeeForm = ({ employee, setOpenPopup }) => {
           <InputControl
             name="MiddleName"
             label="Middle Name"
-            onFocus={e => {
-      e.target.select();
-    }}
+            onFocus={(e) => {
+              e.target.select();
+            }}
             value={values.MiddleName}
             onChange={handleInputChange}
           />
@@ -272,9 +286,9 @@ const EmployeeForm = ({ employee, setOpenPopup }) => {
             name="DOB"
             label="Date Of Birth"
             value={values.DOB}
-            onFocus={e => {
-      e.target.select();
-    }}
+            onFocus={(e) => {
+              e.target.select();
+            }}
             onChange={handleInputChange}
             errors={errors.DOB}
           />
@@ -282,12 +296,12 @@ const EmployeeForm = ({ employee, setOpenPopup }) => {
             name="MobileNumber"
             label="Mobile Number*"
             value={values.MobileNumber}
-            onWheelCapture={e => {
-  e.target.blur()
-}}
-            onFocus={e => {
-      e.target.select();
-    }}
+            onWheelCapture={(e) => {
+              e.target.blur();
+            }}
+            onFocus={(e) => {
+              e.target.select();
+            }}
             onChange={handleInputChange}
             onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}
             type="number"
@@ -313,12 +327,12 @@ const EmployeeForm = ({ employee, setOpenPopup }) => {
             name="BankAC"
             label="Bank Account"
             value={values.BankAC}
-            onFocus={e => {
-      e.target.select();
-    }}
-    onWheelCapture={e => {
-  e.target.blur()
-}}
+            onFocus={(e) => {
+              e.target.select();
+            }}
+            onWheelCapture={(e) => {
+              e.target.blur();
+            }}
             onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}
             type="number"
             onChange={handleInputChange}

@@ -190,9 +190,10 @@ const TotalStudentAttendance = () => {
   useEffect(() => {
     if (subjectOptions) {
       setDdlSubject(subjectOptions);
+      setSubject(subjectOptions[0]?.Key);
     }
   }, [subjectOptions]);
-
+  
   useEffect(() => {
     if (listTotalStudentAttendanceData) {
       setTableData(

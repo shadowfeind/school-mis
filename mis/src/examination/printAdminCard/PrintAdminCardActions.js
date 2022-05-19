@@ -39,12 +39,12 @@ export const getInitialStudentRegistrationDataAction =
   };
 
 export const getActiveStudentsForAdmitCardDataAction =
-  (year, program, classId, shift) => async (dispatch) => {
+  (year, program, classId,section, shift) => async (dispatch) => {
     try {
       dispatch({ type: GET_ACTIVE_STUDENTS_FOR_ADMIT_CARD_REQUEST });
 
       const { data } = await axiosInstance.get(
-        `${API_URL}/api/ExamAdmitCard/GetActiveStudentsOnly?idAcademicYear=${year}&idFacultyProgramLink=${program}&level=${classId}&idShift=${shift}
+        `${API_URL}/api/ExamAdmitCard/GetActiveStudentsOnly?idAcademicYear=${year}&idFacultyProgramLink=${program}&level=${classId}&section=${section}&idShift=${shift}
         `,
         tokenConfig()
       );

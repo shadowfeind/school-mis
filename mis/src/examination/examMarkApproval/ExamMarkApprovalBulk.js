@@ -42,6 +42,7 @@ const useStyles = makeStyles({
 
 const ExamMarkApprovalBulk = ({
   bulkData,
+  subjectName,
   statusData,
   search,
   setOpenPopup,
@@ -105,6 +106,9 @@ const ExamMarkApprovalBulk = ({
 
   return (
     <>
+      <h3 style={{textAlign :"center"}}>
+        <span>{subjectName?.length > 0 && subjectName[0]?.SubjectName}</span>
+      </h3>
       <TableContainer component={Paper}>
         <Table className={classes.table} aria-label="customized table">
           <TableHead>

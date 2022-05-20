@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
 import { Grid } from "@material-ui/core";
-import "./examResult.css";
+import "./examCount.css";
 import { gradeCalc } from "./Helpers";
 import { useReactToPrint } from "react-to-print";
 import { Button } from "@material-ui/core";
@@ -31,7 +31,7 @@ const ExamResultCount = ({ result, headerBanners, setOpenPopupCount }) => {
     );
 
   return (
-    <div className="resultContainer" id="result-count" ref={componentRef}>
+    <div className="resultContainerCount" id="result-count" ref={componentRef}>
       <div className="resultHeader">
         <img src={`${API_URL}${headerBanners}`} width="740px" />
       </div>
@@ -95,15 +95,21 @@ const ExamResultCount = ({ result, headerBanners, setOpenPopupCount }) => {
                   let countD = 0;
                   let countE = 0;
                   let countN = 0;
+                  // decimal? result = mark * 100 / fullMarkPracticalUT;
+                  //   totatFullMarkPractical = totatFullMarkPractical + subject.FullMarkPractical;
 
+                  //Check = SchoolERP.Areas.Examination.Repository.AcademicStudentExamResultRepo.
+                  //GetGrade((subject.ObtainedMark + subject.ObtainedMarkPractical), (totalFullMark + (totatFullMarkPractical == null ? 0 : totatFullMarkPractical)));
                   if (currentSubjectDatas.length > 0) {
                     currentSubjectDatas.forEach((m) => {
+                      let totalMarks = m?.FullMark + m?.FullMarkPractical;
                       let totalObtainedMarks =
-                        m.ObtainedMark + m.ObtainedMarkPractical;
+                        m?.ObtainedMark + m?.ObtainedMarkPractical;
 
+                      let forCalc = (totalObtainedMarks * 100) / totalMarks;
                       let Check;
 
-                      Check = gradeCalc(totalObtainedMarks);
+                      Check = gradeCalc(forCalc);
 
                       if (Check === "A+") {
                         countAP = countAP + 1;
@@ -131,10 +137,8 @@ const ExamResultCount = ({ result, headerBanners, setOpenPopupCount }) => {
 
                   return (
                     <tr key={s.$id}>
-                      <td style={{ textAlign: "center" }}>
-                        {count === 0 ? "" : count}
-                      </td>
-                      <td style={{ textAlign: "center" }}>{s.Key}</td>
+                      <td>{count === 0 ? "" : count}</td>
+                      <td>{s.Key?.slice(0, 20)}</td>
                       <td style={{ textAlign: "center" }}>
                         {countAP === 0 ? "" : countAP}{" "}
                       </td>

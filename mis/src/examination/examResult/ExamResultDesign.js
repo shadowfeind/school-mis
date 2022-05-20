@@ -122,13 +122,19 @@ const ExamResultDesign = ({
 
                 let totalHighestMarks;
                 if (highestThMarks.length > 0 || highestPrMarks.length > 0) {
+                  let totalMarks = s?.FullMark + s?.FullMarkPractical;
+
+                  let totalHighestMarksContainer =
+                    highestThMarks[0].ObtainedMark +
+                    highestPrMarks[0].ObtainedMarkPractical;
+
                   totalHighestMarks =
-                    highestThMarks[0]?.ObtainedMark +
-                    highestPrMarks[0]?.ObtainedMarkPractical;
+                    (totalHighestMarksContainer * 100) / totalMarks;
                 } else {
                   totalHighestMarks = 0;
                 }
 
+                // console.log(totalHighestMarks);
                 //to calculate GPA tracking grade poing
                 let subTracker = {
                   name: s.SubjectCode,
@@ -205,9 +211,9 @@ const ExamResultDesign = ({
                 </thead>
                 <tbody>
                   <Grid container>
-                    {ecaDataWithName?.map((x) => {
-                      return (
-                        <Grid item xs={6}>
+                    <Grid item xs={6}>
+                      {ecaDataWithName?.slice(0, 4)?.map((x) => {
+                        return (
                           <div
                             style={{
                               width: "100%",
@@ -215,13 +221,31 @@ const ExamResultDesign = ({
                               borderLeft: "1px solid #000",
                               borderRight: "1px solid #000",
                               padding: "7px 15px",
+                              fontSize: "11px",
                             }}
                           >
                             {x?.ECAName}: {x?.ECAValue}
                           </div>
-                        </Grid>
-                      );
-                    })}
+                        );
+                      })}
+                    </Grid>
+                    <Grid item xs={6}>
+                      {ecaDataWithName?.slice(4, 8)?.map((x) => {
+                        return (
+                          <div
+                            style={{
+                              width: "100%",
+                              borderBottom: "1px solid #000",
+                              borderRight: "1px solid #000",
+                              padding: "7px 15px",
+                              fontSize: "11px",
+                            }}
+                          >
+                            {x?.ECAName}: {x?.ECAValue}
+                          </div>
+                        );
+                      })}
+                    </Grid>
                   </Grid>
                 </tbody>
               </table>

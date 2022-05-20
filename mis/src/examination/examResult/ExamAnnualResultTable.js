@@ -95,6 +95,7 @@ const ExamAnnualResultTable = memo(({ ledgerData }) => {
               ?.sort((a, b) => a.RollNo - b.RollNo)
               .map((s) => {
                 let totalMarksAcc = [];
+                let totalGpa = [];
                 let crrentStudentId = ledgerData?.dbModelResultLst?.filter(
                   (x) => x.Key === s.IDHREmployee
                 );
@@ -119,6 +120,7 @@ const ExamAnnualResultTable = memo(({ ledgerData }) => {
                       )
                       .sort((a, b) => a.IDAcademicSubject - b.IDAcademicSubject)
                       .map((f) => {
+                        //getting first term marks to show
                         let firstTerm = ledgerData.dbModelLst
                           .filter(
                             (x) =>
@@ -129,6 +131,7 @@ const ExamAnnualResultTable = memo(({ ledgerData }) => {
                           .sort(
                             (a, b) => a.IDAcademicSubject - b.IDAcademicSubject
                           );
+                        //collecting first term marks to show total
                         {
                           firstTerm?.length > 0 &&
                             totalMarksAcc.push({
@@ -139,6 +142,22 @@ const ExamAnnualResultTable = memo(({ ledgerData }) => {
                                 : "",
                             });
                         }
+                        //collecting first term marks for gpa
+                        {
+                          firstTerm?.length > 0 &&
+                            totalGpa.push({
+                              gpa: parseFloat(
+                                pointCalc(
+                                  firstTerm
+                                    ? (firstTerm[0]?.ObtainedMark +
+                                        firstTerm[0]?.ObtainedMarkPractical) *
+                                        0.15
+                                    : ""
+                                )
+                              ),
+                            });
+                        }
+                        //getting secondTerm  marks to show
                         let secondTerm = ledgerData?.dbModelLst
                           ?.filter(
                             (x) =>
@@ -149,7 +168,7 @@ const ExamAnnualResultTable = memo(({ ledgerData }) => {
                           .sort(
                             (a, b) => a.IDAcademicSubject - b.IDAcademicSubject
                           );
-
+                        //collecting secondTerm  marks to show total
                         {
                           secondTerm?.length > 0 &&
                             totalMarksAcc.push({
@@ -160,6 +179,22 @@ const ExamAnnualResultTable = memo(({ ledgerData }) => {
                                 : "",
                             });
                         }
+                        //collecting secondTerm marks for gpa
+                        {
+                          secondTerm?.length > 0 &&
+                            totalGpa.push({
+                              gpa: parseFloat(
+                                pointCalc(
+                                  secondTerm
+                                    ? (secondTerm[0]?.ObtainedMark +
+                                        secondTerm[0]?.ObtainedMarkPractical) *
+                                        0.15
+                                    : ""
+                                )
+                              ),
+                            });
+                        }
+                        //getting thirdTerm  marks to show
                         let thirdTerm = ledgerData.dbModelLst
                           ?.filter(
                             (x) =>
@@ -170,6 +205,7 @@ const ExamAnnualResultTable = memo(({ ledgerData }) => {
                           .sort(
                             (a, b) => a.IDAcademicSubject - b.IDAcademicSubject
                           );
+                        //collecting thirdTerm  marks to show total
                         {
                           thirdTerm?.length > 0 &&
                             totalMarksAcc.push({
@@ -180,6 +216,22 @@ const ExamAnnualResultTable = memo(({ ledgerData }) => {
                                 : "",
                             });
                         }
+                        //collecting thirdTerm marks for gpa
+                        {
+                          thirdTerm?.length > 0 &&
+                            totalGpa.push({
+                              gpa: parseFloat(
+                                pointCalc(
+                                  thirdTerm
+                                    ? (thirdTerm[0]?.ObtainedMark +
+                                        thirdTerm[0]?.ObtainedMarkPractical) *
+                                        0.15
+                                    : ""
+                                )
+                              ),
+                            });
+                        }
+                        //getting finalTerm  marks to show
                         let finalTerm = ledgerData.dbModelLst
                           ?.filter(
                             (x) =>
@@ -190,6 +242,7 @@ const ExamAnnualResultTable = memo(({ ledgerData }) => {
                           .sort(
                             (a, b) => a.IDAcademicSubject - b.IDAcademicSubject
                           );
+                        //collecting finalTerm  marks to show total
                         {
                           finalTerm?.length > 0 &&
                             totalMarksAcc.push({
@@ -200,7 +253,24 @@ const ExamAnnualResultTable = memo(({ ledgerData }) => {
                                 : "",
                             });
                         }
+                        //collecting finalTerm marks for gpa
+                        {
+                          finalTerm?.length > 0 &&
+                            totalGpa.push({
+                              gpa: parseFloat(
+                                pointCalc(
+                                  finalTerm
+                                    ? (finalTerm[0]?.ObtainedMark +
+                                        finalTerm[0]?.ObtainedMarkPractical) *
+                                        0.15
+                                    : ""
+                                )
+                              ),
+                            });
+                        }
 
+                        // console.log("totalGpa", totalGpa);
+                        // console.log("totalMarksAcc", totalMarksAcc);
                         return (
                           <Fragment>
                             <td>
@@ -290,26 +360,22 @@ const ExamAnnualResultTable = memo(({ ledgerData }) => {
                         .toFixed(2)}
                     </td>
                     <td>
-                      {gradeCalc(
-                        totalMarksAcc.reduce((acc, cur) => {
-                          return acc + cur.marks;
+                      {gpaToGrade(
+                        totalGpa.reduce((acc, cur) => {
+                          return acc + cur.gpa;
                         }, 0) /
                           ledgerData?.ddlAcademicFacultySubjectLinkSubModel
                             ?.length
                       )}
-                      /////
-                      {totalMarksAcc.reduce((acc, cur) => {
-                        return acc + cur.marks;
-                      }, 0)}
                     </td>
                     <td>
-                      {pointCalc(
-                        totalMarksAcc.reduce((acc, cur) => {
-                          return acc + cur.marks;
+                      {(
+                        totalGpa.reduce((acc, cur) => {
+                          return acc + cur.gpa;
                         }, 0) /
-                          ledgerData?.ddlAcademicFacultySubjectLinkSubModel
-                            ?.length
-                      )}
+                        ledgerData?.ddlAcademicFacultySubjectLinkSubModel
+                          ?.length
+                      ).toFixed(2)}
                     </td>
                     <td>
                       {currentStudentRank.length > 0

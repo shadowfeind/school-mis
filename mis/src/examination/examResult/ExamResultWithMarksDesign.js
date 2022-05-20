@@ -107,23 +107,28 @@ const ExamResultWithMarksDesign = ({
                     (s.FullMark + s.FullMarkPractical)) *
                   100;
 
-                let filteredSubjects = dbModelLst.filter(
+                let filteredSubjects = dbModelLst?.filter(
                   (x) =>
                     (x.SubjectCode === s.SubjectCode) &
                     (x.Status === "Approved")
                 );
-                let highestThMarks = filteredSubjects.sort(
+                let highestThMarks = filteredSubjects?.sort(
                   (a, b) => b.ObtainedMark - a.ObtainedMark
                 );
-                let highestPrMarks = filteredSubjects.sort(
+                let highestPrMarks = filteredSubjects?.sort(
                   (a, b) => b.ObtainedMarkPractical - a.ObtainedMarkPractical
                 );
 
                 let totalHighestMarks;
                 if ((highestThMarks.length > 0) & (highestPrMarks.length > 0)) {
-                  totalHighestMarks =
+                  let totalMarks = s?.FullMark + s?.FullMarkPractical;
+
+                  let totalHighestMarksContainer =
                     highestThMarks[0].ObtainedMark +
                     highestPrMarks[0].ObtainedMarkPractical;
+
+                  totalHighestMarks =
+                    (totalHighestMarksContainer * 100) / totalMarks;
                 } else {
                   totalHighestMarks = 0;
                 }
@@ -138,7 +143,7 @@ const ExamResultWithMarksDesign = ({
                 return (
                   <tr key={s.$id}>
                     <td>{count}</td>
-                    <td>{s.SubjectName}</td>
+                    <td>{s.SubjectName?.slice(0, 20)}</td>
                     <td style={{ textAlign: "center" }}> 4.0</td>
                     <td style={{ textAlign: "center" }}>
                       {" "}
@@ -216,9 +221,9 @@ const ExamResultWithMarksDesign = ({
                 </thead>
                 <tbody>
                   <Grid container>
-                    {ecaDataWithName?.map((x) => {
-                      return (
-                        <Grid item xs={6}>
+                    <Grid item xs={6}>
+                      {ecaDataWithName?.slice(0, 4)?.map((x) => {
+                        return (
                           <div
                             style={{
                               width: "100%",
@@ -226,13 +231,31 @@ const ExamResultWithMarksDesign = ({
                               borderLeft: "1px solid #000",
                               borderRight: "1px solid #000",
                               padding: "7px 15px",
+                              fontSize: "11px",
                             }}
                           >
                             {x?.ECAName}: {x?.ECAValue}
                           </div>
-                        </Grid>
-                      );
-                    })}
+                        );
+                      })}
+                    </Grid>
+                    <Grid item xs={6}>
+                      {ecaDataWithName?.slice(4, 8)?.map((x) => {
+                        return (
+                          <div
+                            style={{
+                              width: "100%",
+                              borderBottom: "1px solid #000",
+                              borderRight: "1px solid #000",
+                              padding: "7px 15px",
+                              fontSize: "11px",
+                            }}
+                          >
+                            {x?.ECAName}: {x?.ECAValue}
+                          </div>
+                        );
+                      })}
+                    </Grid>
                   </Grid>
                 </tbody>
               </table>

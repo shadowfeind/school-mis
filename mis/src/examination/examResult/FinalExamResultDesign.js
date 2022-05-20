@@ -81,6 +81,7 @@ const FinalExamResultDesign = ({
                 subjectList.map((s, i) => {
                   let count = i + 1;
                   let totalMarksAcc = [];
+                  let totalGpa = [];
                   let firstTermMarks = firstTerm.filter(
                     (x) => x.IDAcademicSubject === s.IDAcademicSubject
                   );
@@ -91,6 +92,20 @@ const FinalExamResultDesign = ({
                         0.15
                       : "",
                   });
+                  {
+                    firstTermMarks?.length > 0 &&
+                      totalGpa.push({
+                        gpa: parseFloat(
+                          pointCalc(
+                            firstTermMarks
+                              ? (firstTermMarks[0]?.ObtainedMark +
+                                  firstTermMarks[0]?.ObtainedMarkPractical) *
+                                  0.15
+                              : ""
+                          )
+                        ),
+                      });
+                  }
                   let secondTermMarks = secondTerm.filter(
                     (x) => x.IDAcademicSubject === s.IDAcademicSubject
                   );
@@ -101,6 +116,20 @@ const FinalExamResultDesign = ({
                         0.15
                       : "",
                   });
+                  {
+                    secondTerm?.length > 0 &&
+                      totalGpa.push({
+                        gpa: parseFloat(
+                          pointCalc(
+                            secondTerm
+                              ? (secondTerm[0]?.ObtainedMark +
+                                  secondTerm[0]?.ObtainedMarkPractical) *
+                                  0.15
+                              : ""
+                          )
+                        ),
+                      });
+                  }
                   let thirdTermMarks = thirdTerm.filter(
                     (x) => x.IDAcademicSubject === s.IDAcademicSubject
                   );
@@ -111,6 +140,20 @@ const FinalExamResultDesign = ({
                         0.15
                       : "",
                   });
+                  {
+                    thirdTermMarks?.length > 0 &&
+                      totalGpa.push({
+                        gpa: parseFloat(
+                          pointCalc(
+                            thirdTermMarks
+                              ? (thirdTermMarks[0]?.ObtainedMark +
+                                  thirdTermMarks[0]?.ObtainedMarkPractical) *
+                                  0.15
+                              : ""
+                          )
+                        ),
+                      });
+                  }
                   let finalTermMarks = finalTerm.filter(
                     (x) => x.IDAcademicSubject === s.IDAcademicSubject
                   );
@@ -121,15 +164,24 @@ const FinalExamResultDesign = ({
                         0.15
                       : "",
                   });
+                  {
+                    finalTermMarks?.length > 0 &&
+                      totalGpa.push({
+                        gpa: parseFloat(
+                          pointCalc(
+                            finalTermMarks
+                              ? (finalTermMarks[0]?.ObtainedMark +
+                                  finalTermMarks[0]?.ObtainedMarkPractical) *
+                                  0.15
+                              : ""
+                          )
+                        ),
+                      });
+                  }
                   avgGpa.push(
-                    Number(
-                      pointCalc(
-                        totalMarksAcc.reduce((acc, cur) => {
-                          return acc + cur.marks;
-                        }, 0) /
-                          (totalMarksAcc.length / 4)
-                      )
-                    )
+                    totalGpa.reduce((acc, cur) => {
+                      return acc + cur.gpa;
+                    }, 0)
                   );
                   return (
                     <tr key={s.$id}>
@@ -137,7 +189,7 @@ const FinalExamResultDesign = ({
                       <td>{s.SubjectName}</td>
                       <td style={{ textAlign: "center" }}>4.0</td>
                       <td style={{ textAlign: "center" }}>
-                        {firstTermMarks &&
+                        {firstTermMarks?.length > 0 &&
                           gradeCalc(
                             ((firstTermMarks[0]?.ObtainedMark +
                               firstTermMarks[0]?.ObtainedMarkPractical) /
@@ -148,7 +200,7 @@ const FinalExamResultDesign = ({
                       </td>
                       <td style={{ textAlign: "center" }}>
                         {" "}
-                        {secondTermMarks &&
+                        {secondTermMarks?.length > 0 &&
                           gradeCalc(
                             ((secondTermMarks[0]?.ObtainedMark +
                               secondTermMarks[0]?.ObtainedMarkPractical) /
@@ -159,7 +211,7 @@ const FinalExamResultDesign = ({
                       </td>
                       <td style={{ textAlign: "center" }}>
                         {" "}
-                        {thirdTermMarks &&
+                        {thirdTermMarks?.length > 0 &&
                           gradeCalc(
                             ((thirdTermMarks[0]?.ObtainedMark +
                               thirdTermMarks[0]?.ObtainedMarkPractical) /
@@ -169,7 +221,7 @@ const FinalExamResultDesign = ({
                           )}{" "}
                       </td>
                       <td style={{ textAlign: "center" }}>
-                        {finalTermMarks &&
+                        {finalTermMarks?.length > 0 &&
                           gradeCalc(
                             ((finalTermMarks[0]?.ObtainedMark +
                               finalTermMarks[0]?.ObtainedMarkPractical) /
@@ -179,21 +231,19 @@ const FinalExamResultDesign = ({
                           )}
                       </td>
                       <td style={{ textAlign: "center" }}>
-                        {" "}
-                        {gradeCalc(
-                          totalMarksAcc.reduce((acc, cur) => {
-                            return acc + cur.marks;
-                          }, 0) /
-                            (totalMarksAcc.length / 4)
-                        )}{" "}
+                        {gpaToGrade(
+                          totalGpa.reduce((acc, cur) => {
+                            return acc + cur.gpa;
+                          }, 0) / subjectList?.length
+                        )}
                       </td>
                       <td style={{ textAlign: "center" }}>
-                        {" "}
-                        {pointCalc(
-                          totalMarksAcc.reduce((acc, cur) => {
-                            return acc + cur.marks;
+                        {/* this part needs to be recalcutaed not so sure */}
+                        {totalGpa
+                          .reduce((acc, cur) => {
+                            return acc + cur.gpa;
                           }, 0)
-                        )}{" "}
+                          .toFixed(2)}
                       </td>
                     </tr>
                   );
@@ -215,7 +265,9 @@ const FinalExamResultDesign = ({
                 ))}
 
               <tr>
-                <td colSpan={8}>GRADE POINT AVERAGE (GPA)</td>
+                <td colSpan={8} style={{ textAlign: "center" }}>
+                  GRADE POINT AVERAGE (GPA)
+                </td>
                 <td style={{ textAlign: "center" }}>
                   {avgGpa &&
                     (
@@ -313,7 +365,7 @@ const FinalExamResultDesign = ({
                 <thead>
                   <tr>
                     <td>Result:</td>
-                    <td>
+                    <td style={{ backgroundColor: "#fff" }}>
                       Grade:{" "}
                       {gpaToGrade(
                         (
@@ -323,7 +375,7 @@ const FinalExamResultDesign = ({
                         ).toFixed(2)
                       )}
                     </td>
-                    <td>
+                    <td style={{ backgroundColor: "#fff" }}>
                       GPA:{" "}
                       {avgGpa &&
                         (
@@ -332,7 +384,7 @@ const FinalExamResultDesign = ({
                           }, 0) / avgGpa.length
                         ).toFixed(2)}
                     </td>
-                    <td>
+                    <td style={{ backgroundColor: "#fff" }}>
                       Rank:{" "}
                       {currentStudentRank.length > 0
                         ? currentStudentRank[0].Value
@@ -346,8 +398,8 @@ const FinalExamResultDesign = ({
               <table>
                 <thead>
                   <tr>
-                    <td>
-                      Remarks:{" "}
+                    <td>Remarks: </td>
+                    <td style={{ backgroundColor: "#fff" }}>
                       {gpaToRemarks(
                         avgGpa.reduce((acc, cur) => {
                           return acc + cur;

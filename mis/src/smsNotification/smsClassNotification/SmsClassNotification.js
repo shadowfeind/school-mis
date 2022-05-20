@@ -173,12 +173,16 @@ const SmsClassNotification = () => {
     if (smsClassNotification) {
       setAcademicYear(smsClassNotification?.searchFilterModel.ddlAcademicYear);
       setShift(smsClassNotification?.searchFilterModel.ddlAcademicShift);
-      setShiftValue(smsClassNotification?.searchFilterModel.ddlAcademicShift[0].Key);
+      setShiftValue(
+        smsClassNotification?.searchFilterModel.ddlAcademicShift[0].Key
+      );
       setProgramValue(
         smsClassNotification?.searchFilterModel.ddlFacultyProgramLink[0].Key
       );
       setSection(smsClassNotification?.searchFilterModel.ddlSection);
-      setSectionValue(smsClassNotification?.searchFilterModel.ddlSection[0].Key);
+      setSectionValue(
+        smsClassNotification?.searchFilterModel.ddlSection[0].Key
+      );
       setClassOpt(smsClassNotification?.searchFilterModel.ddlClass);
       setClassOptValue(smsClassNotification?.searchFilterModel.ddlClass[0].Key);
       setDate(smsClassNotification?.searchFilterModel.currentDate.slice(0, 10));

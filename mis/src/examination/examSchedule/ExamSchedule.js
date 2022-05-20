@@ -316,7 +316,7 @@ const ExamSchedule = () => {
   useEffect(() => {
     if (eventExamSchedule) {
       setDdlEvent(eventExamSchedule);
-      setEvent(eventExamSchedule[0]?.Key)
+      setEvent(eventExamSchedule[0]?.Key);
     }
   }, [eventExamSchedule]);
 

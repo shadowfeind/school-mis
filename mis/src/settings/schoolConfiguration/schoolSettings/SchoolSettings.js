@@ -48,7 +48,7 @@ const tableHeader = [
   { id: "PhoneNo", label: "Phone Number" },
   { id: "EmailID", label: "Email ID" },
   { id: "WebSite", label: "WebSite" },
-  { id: "actions", label: "Actions", disableSorting: true },
+  { id: "actions", label: "All", disableSorting: true },
 ];
 
 const SchoolSettings = () => {
@@ -78,14 +78,13 @@ const SchoolSettings = () => {
     (state) => state.schoolSettings
   );
 
-  const { singleSchoolSetting ,loading:loadingEdit} = useSelector(
+  const { singleSchoolSetting, loading: loadingEdit } = useSelector(
     (state) => state.getSingleSchoolSettings
   );
 
   const {
     success: createSchoolSettingSuccess,
     error: createSchoolSettingError,
-    
   } = useSelector((state) => state.createSchoolSettings);
 
   const {
@@ -163,9 +162,9 @@ const SchoolSettings = () => {
     }
   }, [dispatch, schoolSettings]);
 
-  useEffect(()=>{
+  useEffect(() => {
     dispatch(getAllSchoolSettingsAction());
-  },[])
+  }, []);
 
   const {
     TableContainer,
@@ -244,15 +243,15 @@ const SchoolSettings = () => {
         setOpenPopup={setOpenPopup}
         title="School Settings Form"
       >
-      {loadingEdit ? (
+        {loadingEdit ? (
           <LoadingComp />
         ) : (
           <>
-        <SchoolSettingsForm
-          college={singleSchoolSetting && singleSchoolSetting.dbModel}
-          setOpenPopup={setOpenPopup}
-        />
-        </>
+            <SchoolSettingsForm
+              college={singleSchoolSetting && singleSchoolSetting.dbModel}
+              setOpenPopup={setOpenPopup}
+            />
+          </>
         )}
       </Popup>
       <Notification notify={notify} setNotify={setNotify} />

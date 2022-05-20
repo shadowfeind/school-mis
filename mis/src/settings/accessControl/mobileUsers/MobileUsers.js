@@ -24,7 +24,10 @@ import {
 } from "./MobileUsersConstants";
 import MobileUsersTableCollapse from "./MobileUsersTableCollapse";
 import MobileUsersForm from "./MobileUsersForm";
-import { getAllMobileUserAction, getSingleEditMobileUserAction } from "./MobileUsersActions";
+import {
+  getAllMobileUserAction,
+  getSingleEditMobileUserAction,
+} from "./MobileUsersActions";
 
 const useStyles = makeStyles((theme) => ({
   searchInput: {

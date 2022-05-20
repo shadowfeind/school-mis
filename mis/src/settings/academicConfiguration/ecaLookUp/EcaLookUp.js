@@ -17,11 +17,22 @@ import { useDispatch, useSelector } from "react-redux";
 import Notification from "../../../components/Notification";
 import ConfirmDialog from "../../../components/ConfirmDialog";
 import SelectControl from "../../../components/controls/SelectControl";
-import { GET_ALL_ECA_LOOK_UP_RESET, GET_LIST_ECA_LOOK_UP_RESET, GET_SINGLE_CREATE_ECA_LOOK_UP_RESET, GET_SINGLE_EDIT_ECA_LOOK_UP_RESET, POST_ECA_LOOK_UP_RESET, PUT_ECA_LOOK_UP_RESET } from "./EcaLookUpConstants";
-import { getAllEcaLookUpAction, getListEcaLookUpAction, getSingleCreateEcaLookUpAction, getSingleEditEcaLookUpAction } from "./EcaLookUpActions";
+import {
+  GET_ALL_ECA_LOOK_UP_RESET,
+  GET_LIST_ECA_LOOK_UP_RESET,
+  GET_SINGLE_CREATE_ECA_LOOK_UP_RESET,
+  GET_SINGLE_EDIT_ECA_LOOK_UP_RESET,
+  POST_ECA_LOOK_UP_RESET,
+  PUT_ECA_LOOK_UP_RESET,
+} from "./EcaLookUpConstants";
+import {
+  getAllEcaLookUpAction,
+  getListEcaLookUpAction,
+  getSingleCreateEcaLookUpAction,
+  getSingleEditEcaLookUpAction,
+} from "./EcaLookUpActions";
 import EcaLookUpTableCollapse from "./EcaLookUpTableCollapse";
 import EcaLookUpForm from "./EcaLookUpForm";
-
 
 const useStyles = makeStyles((theme) => ({
   searchInput: {
@@ -89,32 +100,29 @@ const EcaLookUp = () => {
     });
   };
 
+  const { allEcaLookUp, error } = useSelector((state) => state.getAllEcaLookUp);
 
-  const { allEcaLookUp, error } = useSelector(
-    (state) => state.getAllEcaLookUp
-  );
-
-  const {error: listEcaLookUpError } = useSelector(
+  const { error: listEcaLookUpError } = useSelector(
     (state) => state.getListEcaLookUp
   );
 
-  const { singleCreateEcaLookUp,success:singleCreateEcaLookUpSuccess, error: singleCreateEcaLookUpError } = useSelector(
-    (state) => state.getSingleCreateEcaLookUp
-  );
-
-  const { singleEditEcaLookUp,success:singleEditEcaLookUpSuccess, error: singleEditEcaLookUpError } = useSelector(
-    (state) => state.getSingleEditEcaLookUp
-  );
+  const {
+    singleCreateEcaLookUp,
+    success: singleCreateEcaLookUpSuccess,
+    error: singleCreateEcaLookUpError,
+  } = useSelector((state) => state.getSingleCreateEcaLookUp);
 
   const {
-    success: postEcaLookUpSuccess,
-    error: postEcaLookUpError,
-  } = useSelector((state) => state.postEcaLookUp);
+    singleEditEcaLookUp,
+    success: singleEditEcaLookUpSuccess,
+    error: singleEditEcaLookUpError,
+  } = useSelector((state) => state.getSingleEditEcaLookUp);
 
-  const {
-    success: putEcaLookUpSuccess,
-    error: putEcaLookUpError,
-  } = useSelector((state) => state.putEcaLookUp);
+  const { success: postEcaLookUpSuccess, error: postEcaLookUpError } =
+    useSelector((state) => state.postEcaLookUp);
+
+  const { success: putEcaLookUpSuccess, error: putEcaLookUpError } =
+    useSelector((state) => state.putEcaLookUp);
 
   if (error) {
     setNotify({
@@ -201,35 +209,36 @@ const EcaLookUp = () => {
       dispatch(getAllEcaLookUpAction());
     }
     if (allEcaLookUp) {
-        setTableData(allEcaLookUp.dbModelLst);
-      }
-}, [dispatch, allEcaLookUp]);
+      setTableData(allEcaLookUp.dbModelLst);
+    }
+  }, [dispatch, allEcaLookUp]);
 
-const createHandler = () => {
+  const createHandler = () => {
     dispatch(getSingleCreateEcaLookUpAction());
-    dispatch({type: GET_SINGLE_EDIT_ECA_LOOK_UP_RESET})
+    dispatch({ type: GET_SINGLE_EDIT_ECA_LOOK_UP_RESET });
     setOpenPopup(true);
   };
 
-const updateEcaHandler = (id) => {
+  const updateEcaHandler = (id) => {
     dispatch(getSingleEditEcaLookUpAction(id));
-    dispatch({type: GET_SINGLE_CREATE_ECA_LOOK_UP_RESET})
+    dispatch({ type: GET_SINGLE_CREATE_ECA_LOOK_UP_RESET });
     setOpenPopup(true);
   };
 
   useEffect(() => {
-    if(singleCreateEcaLookUpSuccess){
+    if (singleCreateEcaLookUpSuccess) {
       setOpenPopup(true);
     }
-  },[singleCreateEcaLookUpSuccess])
+  }, [singleCreateEcaLookUpSuccess]);
 
   useEffect(() => {
-    if(singleEditEcaLookUpSuccess){
+    if (singleEditEcaLookUpSuccess) {
       setOpenPopup(true);
     }
-  },[singleEditEcaLookUpSuccess])
+  }, [singleEditEcaLookUpSuccess]);
 
-  return <>
+  return (
+    <>
       <CustomContainer>
         <Toolbar>
           <InputControl
@@ -256,29 +265,26 @@ const updateEcaHandler = (id) => {
         </Toolbar>
         <TableContainer className={classes.table}>
           <TblHead />
-        <TableBody>
+          <TableBody>
             {tableDataAfterPagingAndSorting().map((item) => (
               <EcaLookUpTableCollapse
                 item={item}
                 key={item.$id}
                 updateEcaHandler={updateEcaHandler}
                 setOpenPopup={setOpenPopup}
-                
               />
             ))}
           </TableBody>
         </TableContainer>
         <TblPagination />
-        </CustomContainer>
-        <Popup
+      </CustomContainer>
+      <Popup
         openPopup={openPopup}
         setOpenPopup={setOpenPopup}
         title="ECA LookUp Form"
       >
         <EcaLookUpForm
-          ecaLookUp={
-            singleEditEcaLookUp && singleEditEcaLookUp
-          }
+          ecaLookUp={singleEditEcaLookUp && singleEditEcaLookUp}
           ecaCreate={singleCreateEcaLookUp && singleCreateEcaLookUp}
           setOpenPopup={setOpenPopup}
         />
@@ -288,7 +294,8 @@ const updateEcaHandler = (id) => {
         confirmDialog={confirmDialog}
         setConfirmDialog={setConfirmDialog}
       />
-  </>;
+    </>
+  );
 };
 
 export default EcaLookUp;

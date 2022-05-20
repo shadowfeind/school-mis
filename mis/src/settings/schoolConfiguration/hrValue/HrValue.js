@@ -55,7 +55,7 @@ const tableHeader = [
   { id: "TelNo", label: "Phone Number" },
   { id: "Email", label: "Email" },
   { id: "IDHRCompany", label: "Company" },
-  { id: "actions", label: "Actions", disableSorting: true },
+  { id: "actions", label: "All", disableSorting: true },
 ];
 
 const HrValue = () => {
@@ -107,9 +107,11 @@ const HrValue = () => {
 
   const { allHrValue, error } = useSelector((state) => state.getAllHrValue);
 
-  const { listHrValue, error: listHrValueError,loading } = useSelector(
-    (state) => state.getListHrValue
-  );
+  const {
+    listHrValue,
+    error: listHrValueError,
+    loading,
+  } = useSelector((state) => state.getListHrValue);
 
   const {
     singleCreateHrValue,
@@ -119,7 +121,7 @@ const HrValue = () => {
 
   const {
     singleEditHrValue,
-    loading:loadingEdit,
+    loading: loadingEdit,
     success: singleEditHrValueSuccess,
     error: singleEditHrValueError,
   } = useSelector((state) => state.getSingleToEditHrValue);
@@ -213,11 +215,9 @@ const HrValue = () => {
     dispatch({ type: "GET_LINK", payload: "/settings" });
     if (allHrValue) {
       setCompanyDdl(allHrValue?.searchFilterModel.ddlCompany);
-      setCompany(allHrValue?.searchFilterModel.ddlCompany[0].Key)
+      setCompany(allHrValue?.searchFilterModel.ddlCompany[0].Key);
     }
   }, [dispatch, allHrValue]);
-
-  
 
   const validate = () => {
     let temp = {};
@@ -232,10 +232,10 @@ const HrValue = () => {
     }
   }, [listHrValue]);
 
-  useEffect(()=>{
-    dispatch({ type : GET_LIST_HR_VALUE_RESET})
+  useEffect(() => {
+    dispatch({ type: GET_LIST_HR_VALUE_RESET });
     dispatch(getALLHrValueAction());
-  },[])
+  }, []);
 
   const createHandler = () => {
     if (validate()) {
@@ -247,7 +247,7 @@ const HrValue = () => {
 
   const updateHrValueHandler = (id, company) => {
     dispatch(getSingleEditHrValueAction(id, company));
-    dispatch({type: GET_SINGLE_TO_CREATE_HR_VALUE_RESET});
+    dispatch({ type: GET_SINGLE_TO_CREATE_HR_VALUE_RESET });
     setOpenPopup(true);
   };
 
@@ -314,22 +314,22 @@ const HrValue = () => {
           <LoadingComp />
         ) : (
           <>
-          {listHrValue && (
-        <TableContainer className={classes.table}>
-          <TblHead />
-          <TableBody>
-            {tableDataAfterPagingAndSorting().map((item) => (
-              <HrValueTableCollapse
-                item={item}
-                key={item.$id}
-                updateHrValueHandler={updateHrValueHandler}
-              />
-            ))}
-          </TableBody>
-        </TableContainer>
-          )}
-        {listHrValue && <TblPagination />}
-        </>
+            {listHrValue && (
+              <TableContainer className={classes.table}>
+                <TblHead />
+                <TableBody>
+                  {tableDataAfterPagingAndSorting().map((item) => (
+                    <HrValueTableCollapse
+                      item={item}
+                      key={item.$id}
+                      updateHrValueHandler={updateHrValueHandler}
+                    />
+                  ))}
+                </TableBody>
+              </TableContainer>
+            )}
+            {listHrValue && <TblPagination />}
+          </>
         )}
       </CustomContainer>
       <Popup
@@ -337,16 +337,16 @@ const HrValue = () => {
         setOpenPopup={setOpenPopup}
         title="Hr Value Form"
       >
-            {loadingEdit ? (
+        {loadingEdit ? (
           <LoadingComp />
         ) : (
           <>
-        <HrValueForm
-          hrValueCreate={singleCreateHrValue && singleCreateHrValue}
-          hrValueEdit={singleEditHrValue && singleEditHrValue}
-          setOpenPopup={setOpenPopup}
-        />
-        </>
+            <HrValueForm
+              hrValueCreate={singleCreateHrValue && singleCreateHrValue}
+              hrValueEdit={singleEditHrValue && singleEditHrValue}
+              setOpenPopup={setOpenPopup}
+            />
+          </>
         )}
       </Popup>
       <Notification notify={notify} setNotify={setNotify} />

@@ -73,15 +73,18 @@ const AcademicSection = () => {
 
   const dispatch = useDispatch();
 
-  const { academicSection, error,loading } = useSelector(
+  const { academicSection, error, loading } = useSelector(
     (state) => state.academicSection
   );
 
   const { success: createAcademicSection, error: createAcademicSectionError } =
     useSelector((state) => state.createAcademicSection);
 
-  const { singleAcademicSection,loading:loadingEdit, error: singleAcademicSectionError } =
-    useSelector((state) => state.getSingleAcademicSection);
+  const {
+    singleAcademicSection,
+    loading: loadingEdit,
+    error: singleAcademicSectionError,
+  } = useSelector((state) => state.getSingleAcademicSection);
 
   const {
     success: updateAcademicSectionSuccess,
@@ -221,22 +224,22 @@ const AcademicSection = () => {
           <LoadingComp />
         ) : (
           <>
-        <TableContainer className={classes.table}>
-          <TblHead />
+            <TableContainer className={classes.table}>
+              <TblHead />
 
-          <TableBody>
-            {tableDataAfterPagingAndSorting().map((item) => (
-              <AcademicSectionTableCollapse
-                item={item}
-                key={item.$id}
-                updateCollegeHandler={updateCollegeHandler}
-                deleteCollegeHandler={deleteCollegeHandler}
-              />
-            ))}
-          </TableBody>
-        </TableContainer>
-        <TblPagination />
-        </>
+              <TableBody>
+                {tableDataAfterPagingAndSorting().map((item) => (
+                  <AcademicSectionTableCollapse
+                    item={item}
+                    key={item.$id}
+                    updateCollegeHandler={updateCollegeHandler}
+                    deleteCollegeHandler={deleteCollegeHandler}
+                  />
+                ))}
+              </TableBody>
+            </TableContainer>
+            <TblPagination />
+          </>
         )}
       </CustomContainer>
       <Popup
@@ -244,17 +247,17 @@ const AcademicSection = () => {
         setOpenPopup={setOpenPopup}
         title="Academic Section Form"
       >
-       {loadingEdit ? (
+        {loadingEdit ? (
           <LoadingComp />
         ) : (
           <>
-        <AcademicSectinoForm
-          academicSection={
-            singleAcademicSection && singleAcademicSection.dbModel
-          }
-          setOpenPopup={setOpenPopup}
-        />
-        </>
+            <AcademicSectinoForm
+              academicSection={
+                singleAcademicSection && singleAcademicSection.dbModel
+              }
+              setOpenPopup={setOpenPopup}
+            />
+          </>
         )}
       </Popup>
       <Notification notify={notify} setNotify={setNotify} />

@@ -107,10 +107,13 @@ const AdmissionConfiguration = () => {
     error: getAdmissionConfigInitialDataError,
   } = useSelector((state) => state.getAdmissionConfigInitialData);
 
-  const { getAdmissionConfigListData,loading, error: getAdmissionConfigListDataError } =
-    useSelector((state) => state.getAdmissionConfigListData);
+  const {
+    getAdmissionConfigListData,
+    loading,
+    error: getAdmissionConfigListDataError,
+  } = useSelector((state) => state.getAdmissionConfigListData);
 
-  const { singleAdmissionConfig,loading:loadingEdit } = useSelector(
+  const { singleAdmissionConfig, loading: loadingEdit } = useSelector(
     (state) => state.getSingleAdmissionConfig
   );
 
@@ -213,15 +216,16 @@ const AdmissionConfiguration = () => {
         getAdmissionConfigInitialData?.searchFilterModel.ddlAcademicYear[0].Key
       );
       setProgramValue(
-        getAdmissionConfigInitialData?.searchFilterModel.ddlFacultyProgramLink[0].Key
+        getAdmissionConfigInitialData?.searchFilterModel
+          .ddlFacultyProgramLink[0].Key
       );
     }
   }, [getAdmissionConfigInitialData, dispatch]);
 
-  useEffect(()=>{
-    dispatch({type: GET_ADMISSION_CONFIG_LIST_DATA_RESET})
+  useEffect(() => {
+    dispatch({ type: GET_ADMISSION_CONFIG_LIST_DATA_RESET });
     dispatch(getAdmissionConfigInitialDataAction());
-  },[])
+  }, []);
 
   useEffect(() => {
     if (getAdmissionConfigListData) {
@@ -229,20 +233,20 @@ const AdmissionConfiguration = () => {
     }
   }, [getAdmissionConfigListData]);
 
-  const validate=()=>{
-    let temp={};
+  const validate = () => {
+    let temp = {};
     temp.acaYear = !acaYear ? "This feild is required" : "";
     temp.programValue = !programValue ? "This feild is required" : "";
-    
+
     setErrors({ ...temp });
     return Object.values(temp).every((x) => x === "");
-  }
+  };
 
   const listSearchHandler = () => {
-    if(validate()){
-    dispatch(getAdmissionConfigListDataAction(acaYear, programValue));
+    if (validate()) {
+      dispatch(getAdmissionConfigListDataAction(acaYear, programValue));
+    }
   };
-};
 
   const updateAdmissionConfig = (id, year, program) => {
     dispatch({ type: GET_CREATE_SINGLE_ADMISSION_CONFIG_RESET });
@@ -251,17 +255,17 @@ const AdmissionConfiguration = () => {
   };
 
   const handleCreateClick = () => {
-    if(validate()){
-    dispatch(getCreateSingleAdmissionConfigAction(acaYear, programValue));
-    setOpenPopup(true);
-    dispatch({ type: GET_SINGLE_ADMISSION_CONFIG_RESET });
+    if (validate()) {
+      dispatch(getCreateSingleAdmissionConfigAction(acaYear, programValue));
+      setOpenPopup(true);
+      dispatch({ type: GET_SINGLE_ADMISSION_CONFIG_RESET });
+    }
   };
-};
 
-const onChangeHandler = (year) =>{
-setAcaYear(year);
-dispatch(getAdmissionConfigListDataAction(year, programValue));
-}
+  const onChangeHandler = (year) => {
+    setAcaYear(year);
+    dispatch(getAdmissionConfigListDataAction(year, programValue));
+  };
 
   return (
     <>
@@ -290,25 +294,23 @@ dispatch(getAdmissionConfigListDataAction(year, programValue));
             </Grid> */}
 
             <Grid item xs={3}>
-            {getAdmissionConfigListData?.dbModelLst?.length===0 && 
-              <Button
-                variant="contained"
-                color="primary"
-                type="submit"
-                style={{ margin: "10px 0 0 10px" }}
-                onClick={handleCreateClick}
-              
-              >
-                CREATE
-              </Button>
-            }
+              {getAdmissionConfigListData?.dbModelLst?.length === 0 && (
+                <Button
+                  variant="contained"
+                  color="primary"
+                  type="submit"
+                  style={{ margin: "10px 0 0 10px" }}
+                  onClick={handleCreateClick}
+                >
+                  CREATE
+                </Button>
+              )}
               <Button
                 variant="contained"
                 color="primary"
                 type="submit"
                 style={{ margin: "10px 0 0 10px" }}
                 onClick={listSearchHandler}
-           
               >
                 SEARCH
               </Button>
@@ -334,32 +336,33 @@ dispatch(getAdmissionConfigListDataAction(year, programValue));
           <LoadingComp />
         ) : (
           <>
-        {getAdmissionConfigListData && (
-          <TableContainer className={classes.table}>
-            <TblHead />
+            {getAdmissionConfigListData && (
+              <TableContainer className={classes.table}>
+                <TblHead />
 
-            <TableBody>
-              {tableDataAfterPagingAndSorting().map((item) => (
-                <AdmissionConfigurationTableCollapse
-                  item={item}
-                  key={item.$id}
-                  updateAdmissionConfig={updateAdmissionConfig}
-                  year={
-                    getAdmissionConfigListData &&
-                    getAdmissionConfigListData.searchFilterModel.idAcademicYear
-                  }
-                  program={
-                    getAdmissionConfigListData &&
-                    getAdmissionConfigListData.searchFilterModel
-                      .idFacultyProgramLink
-                  }
-                />
-              ))}
-            </TableBody>
-          </TableContainer>
-        )}
-        {getAdmissionConfigListData && <TblPagination />}
-        </>
+                <TableBody>
+                  {tableDataAfterPagingAndSorting().map((item) => (
+                    <AdmissionConfigurationTableCollapse
+                      item={item}
+                      key={item.$id}
+                      updateAdmissionConfig={updateAdmissionConfig}
+                      year={
+                        getAdmissionConfigListData &&
+                        getAdmissionConfigListData.searchFilterModel
+                          .idAcademicYear
+                      }
+                      program={
+                        getAdmissionConfigListData &&
+                        getAdmissionConfigListData.searchFilterModel
+                          .idFacultyProgramLink
+                      }
+                    />
+                  ))}
+                </TableBody>
+              </TableContainer>
+            )}
+            {getAdmissionConfigListData && <TblPagination />}
+          </>
         )}
       </CustomContainer>
       <Popup
@@ -367,18 +370,21 @@ dispatch(getAdmissionConfigListDataAction(year, programValue));
         setOpenPopup={setOpenPopup}
         title="Counter Configuration Form"
       >
-       {loadingEdit ? (
+        {loadingEdit ? (
           <LoadingComp />
         ) : (
           <>
-        <AdmissionConfigurationForm
-          updateAcademicConfig={singleAdmissionConfig && singleAdmissionConfig}
-          createAcademicConfig={
-            createSingleAdmissionConfigData && createSingleAdmissionConfigData
-          }
-          setOpenPopup={setOpenPopup}
-        />
-        </>
+            <AdmissionConfigurationForm
+              updateAcademicConfig={
+                singleAdmissionConfig && singleAdmissionConfig
+              }
+              createAcademicConfig={
+                createSingleAdmissionConfigData &&
+                createSingleAdmissionConfigData
+              }
+              setOpenPopup={setOpenPopup}
+            />
+          </>
         )}
       </Popup>
 

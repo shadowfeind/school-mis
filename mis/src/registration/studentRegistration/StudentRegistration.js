@@ -123,7 +123,7 @@ const StudentRegistration = () => {
     (state) => state.getSingleStudentRegistrationData
   );
 
-  const { data:checkAcademicYearForStudentData } = useSelector(
+  const { data: checkAcademicYearForStudentData } = useSelector(
     (state) => state.checkAcademicYearForStudent
   );
 
@@ -135,9 +135,8 @@ const StudentRegistration = () => {
     (state) => state.createSingleStudentRegistration
   );
 
-  const { getCreateSingleStudentData,error:getCreateSingleStudentDataError } = useSelector(
-    (state) => state.getCreateSingleStudentRegistrationData
-  );
+  const { getCreateSingleStudentData, error: getCreateSingleStudentDataError } =
+    useSelector((state) => state.getCreateSingleStudentRegistrationData);
 
   if (getCreateSingleStudentDataError) {
     setNotify({
@@ -178,10 +177,13 @@ const StudentRegistration = () => {
         studentRegistrationInitialData?.searchFilterModel.ddlAcademicYear
       );
       setProgramValue(
-        studentRegistrationInitialData?.searchFilterModel.ddlFacultyProgramLink[0].Key
+        studentRegistrationInitialData?.searchFilterModel
+          .ddlFacultyProgramLink[0].Key
       );
       setDdlClass(studentRegistrationInitialData?.searchFilterModel.ddlClass);
-      setClassId(studentRegistrationInitialData?.searchFilterModel.ddlClass[0].Key)
+      setClassId(
+        studentRegistrationInitialData?.searchFilterModel.ddlClass[0].Key
+      );
     }
   }, [dispatch, studentRegistrationInitialData]);
 
@@ -222,13 +224,13 @@ const StudentRegistration = () => {
     }
   };
 
-  const onChangeHandler = (year) =>{
+  const onChangeHandler = (year) => {
     setAcaYear(year);
     dispatch(checkAcademicYearForStudentAction(year, programValue));
-    }
-    // if(checkAcademicYearForStudentData){
-    //   console.log(checkAcademicYearForStudentData.data);
-    // }
+  };
+  // if(checkAcademicYearForStudentData){
+  //   console.log(checkAcademicYearForStudentData.data);
+  // }
 
   return (
     <>
@@ -276,17 +278,18 @@ const StudentRegistration = () => {
               >
                 SEARCH
               </Button>
-              {checkAcademicYearForStudentData && checkAcademicYearForStudentData==="Date exists !!!" &&
-              <Button
-                variant="contained"
-                color="primary"
-                type="submit"
-                style={{ margin: "10px 0 0 10px" }}
-                onClick={handleCreate}
-              >
-                CREATE
-              </Button>
-              }
+              {checkAcademicYearForStudentData &&
+                checkAcademicYearForStudentData === "Date exists !!!" && (
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    type="submit"
+                    style={{ margin: "10px 0 0 10px" }}
+                    onClick={handleCreate}
+                  >
+                    CREATE
+                  </Button>
+                )}
             </Grid>
           </Grid>
         </Toolbar>

@@ -100,8 +100,11 @@ const TeacherFacultySubject = () => {
     error: teacherFacListDataError,
   } = useSelector((state) => state.getAllTeacherFacSubListData);
 
-  const { singleTeacherFacData,loading:loadingEdit, error: singleTeacherFacDataError } =
-    useSelector((state) => state.getSingleTeacherFacSubData);
+  const {
+    singleTeacherFacData,
+    loading: loadingEdit,
+    error: singleTeacherFacDataError,
+  } = useSelector((state) => state.getSingleTeacherFacSubData);
 
   const {
     success: singleTeacherFacSubEditSuccess,
@@ -239,8 +242,12 @@ const TeacherFacultySubject = () => {
     if (teacherFacInitData) {
       setAcademicYear(teacherFacInitData?.searchFilterModel.ddlAcademicYear);
       setShift(teacherFacInitData?.searchFilterModel.ddlAcademicShift);
-      setShiftValue(teacherFacInitData?.searchFilterModel.ddlAcademicShift[0].Key);
-      setProgramValue(teacherFacInitData?.searchFilterModel.ddlFacultyProgramLink[0].Key);
+      setShiftValue(
+        teacherFacInitData?.searchFilterModel.ddlAcademicShift[0].Key
+      );
+      setProgramValue(
+        teacherFacInitData?.searchFilterModel.ddlFacultyProgramLink[0].Key
+      );
       setSection(teacherFacInitData?.searchFilterModel.ddlSection);
       setSectionValue(teacherFacInitData?.searchFilterModel.ddlSection[0].Key);
       setClassOpt(teacherFacInitData?.searchFilterModel.ddlClass);
@@ -248,10 +255,10 @@ const TeacherFacultySubject = () => {
     }
   }, [teacherFacInitData]);
 
-  useEffect(()=>{
-    dispatch({type: GET_ALL_TEACHER_FAC_SUB_LIST_DATA_RESET})
+  useEffect(() => {
+    dispatch({ type: GET_ALL_TEACHER_FAC_SUB_LIST_DATA_RESET });
     dispatch(getAllTeacherFacSubInitialDataAction());
-  },[])
+  }, []);
 
   useEffect(() => {
     if (teacherFacListData) {
@@ -274,7 +281,7 @@ const TeacherFacultySubject = () => {
   const test = [{ Key: "", Value: "" }];
 
   const updateTeacherHandler = (id, teacherId) => {
-    dispatch({type: CREATE_TEACHER_FAC_SUB_INITIAL_DATA_RESET})
+    dispatch({ type: CREATE_TEACHER_FAC_SUB_INITIAL_DATA_RESET });
     dispatch(
       getSingleTeacherFacSubDataAction(
         id,
@@ -416,22 +423,22 @@ const TeacherFacultySubject = () => {
           <LoadingComp />
         ) : (
           <>
-        {teacherFacListData && (
-          <TableContainer className={classes.table}>
-            <TblHead />
-            <TableBody>
-              {tableDataAfterPagingAndSorting().map((item) => (
-                <TeacherFacultySubjectTableCollapse
-                  item={item}
-                  key={item.$id}
-                  updateTeacherHandler={updateTeacherHandler}
-                />
-              ))}
-            </TableBody>
-          </TableContainer>
-        )}
-        {teacherFacListData && <TblPagination />}
-        </>
+            {teacherFacListData && (
+              <TableContainer className={classes.table}>
+                <TblHead />
+                <TableBody>
+                  {tableDataAfterPagingAndSorting().map((item) => (
+                    <TeacherFacultySubjectTableCollapse
+                      item={item}
+                      key={item.$id}
+                      updateTeacherHandler={updateTeacherHandler}
+                    />
+                  ))}
+                </TableBody>
+              </TableContainer>
+            )}
+            {teacherFacListData && <TblPagination />}
+          </>
         )}
       </CustomContainer>
       <Popup
@@ -439,20 +446,20 @@ const TeacherFacultySubject = () => {
         setOpenPopup={setOpenPopup}
         title="Teacher Faculty Subject Form"
       >
-      {loadingEdit ? (
+        {loadingEdit ? (
           <LoadingComp />
         ) : (
           <>
-        <TeacherFacultySubjectForm
-          editData={singleTeacherFacData && singleTeacherFacData}
-          createData={createInitTeacherFacData && createInitTeacherFacData}
-          setOpenPopup={setOpenPopup}
-          searchFilterModel={
-            createInitTeacherFacData &&
-            createInitTeacherFacData.searchFilterModel
-          }
-        />
-        </>
+            <TeacherFacultySubjectForm
+              editData={singleTeacherFacData && singleTeacherFacData}
+              createData={createInitTeacherFacData && createInitTeacherFacData}
+              setOpenPopup={setOpenPopup}
+              searchFilterModel={
+                createInitTeacherFacData &&
+                createInitTeacherFacData.searchFilterModel
+              }
+            />
+          </>
         )}
       </Popup>
       <Notification notify={notify} setNotify={setNotify} />

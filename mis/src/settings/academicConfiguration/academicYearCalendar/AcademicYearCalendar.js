@@ -92,7 +92,7 @@ const AcademicYearCalendar = () => {
     (state) => state.academicYearCalendar
   );
 
-  const { academicYearCalendarProgram,loading } = useSelector(
+  const { academicYearCalendarProgram, loading } = useSelector(
     (state) => state.getAcademicYearCalendarProgram
   );
 
@@ -103,7 +103,7 @@ const AcademicYearCalendar = () => {
     (state) => state.academicYearCalendarSearch
   );
 
-  const { singleAcademicYearCalendar ,loading:loadingEdit} = useSelector(
+  const { singleAcademicYearCalendar, loading: loadingEdit } = useSelector(
     (state) => state.getSingleAcademicYearCalendar
   );
 
@@ -183,7 +183,9 @@ const AcademicYearCalendar = () => {
 
   useEffect(() => {
     if (academicYearCalendar) {
-      setProgramValue( academicYearCalendar?.searchFilterModel.ddlFacultyProgramLink[0].Key)
+      setProgramValue(
+        academicYearCalendar?.searchFilterModel.ddlFacultyProgramLink[0].Key
+      );
       setDdlClass(academicYearCalendar?.searchFilterModel.ddlClass);
       setClassId(academicYearCalendar?.searchFilterModel.ddlClass[0].Key);
       setAcademicYearDdl(
@@ -192,10 +194,10 @@ const AcademicYearCalendar = () => {
     }
   }, [dispatch, academicYearCalendar]);
 
-  useEffect(()=>{
-    dispatch({type: ACADEMIC_YEAR_CALENDAR_SEARCH_RESET})
+  useEffect(() => {
+    dispatch({ type: ACADEMIC_YEAR_CALENDAR_SEARCH_RESET });
     dispatch(getAllAcademicYearCalendarAction());
-  },[])
+  }, []);
 
   useEffect(() => {
     if (academicSearch) {
@@ -249,7 +251,7 @@ const AcademicYearCalendar = () => {
       dispatch(
         createAcademicYearCalendarAction(acaYear, programValue, classId)
       );
-      dispatch({type:GET_SINGLE_ACADEMIC_YEAR_CALENDAR_RESET })
+      dispatch({ type: GET_SINGLE_ACADEMIC_YEAR_CALENDAR_RESET });
       setOpenPopup(true);
     }
   };
@@ -338,25 +340,25 @@ const AcademicYearCalendar = () => {
           <LoadingComp />
         ) : (
           <>
-        {academicSearch && (
-          <TableContainer className={classes.table}>
-            <TblHead />
+            {academicSearch && (
+              <TableContainer className={classes.table}>
+                <TblHead />
 
-            <TableBody>
-              {tableDataAfterPagingAndSorting().map((item) => (
-                <AcademicYearCalendarTableCollapse
-                  item={item}
-                  key={item.$id}
-                  updateAcademicYear={updateAcademicYear}
-                  deleteCollegeHandler={deleteCollegeHandler}
-                />
-              ))}
-            </TableBody>
-          </TableContainer>
-        )}
+                <TableBody>
+                  {tableDataAfterPagingAndSorting().map((item) => (
+                    <AcademicYearCalendarTableCollapse
+                      item={item}
+                      key={item.$id}
+                      updateAcademicYear={updateAcademicYear}
+                      deleteCollegeHandler={deleteCollegeHandler}
+                    />
+                  ))}
+                </TableBody>
+              </TableContainer>
+            )}
 
-        {academicSearch && <TblPagination />}
-        </>
+            {academicSearch && <TblPagination />}
+          </>
         )}
       </CustomContainer>
       <Popup
@@ -364,18 +366,18 @@ const AcademicYearCalendar = () => {
         setOpenPopup={setOpenPopup}
         title="Create Academic Year Calendar"
       >
-      {loadingEdit ? (
+        {loadingEdit ? (
           <LoadingComp />
         ) : (
           <>
-        <AcademicYearCalendarForm
-          singleAcademicYearCalendar={
-            singleAcademicYearCalendar && singleAcademicYearCalendar
-          }
-          setOpenPopup={setOpenPopup}
-          classId={classId}
-        />
-        </>
+            <AcademicYearCalendarForm
+              singleAcademicYearCalendar={
+                singleAcademicYearCalendar && singleAcademicYearCalendar
+              }
+              setOpenPopup={setOpenPopup}
+              classId={classId}
+            />
+          </>
         )}
       </Popup>
       <Notification notify={notify} setNotify={setNotify} />

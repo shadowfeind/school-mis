@@ -120,13 +120,12 @@ const CounterConfiguration = () => {
     error: counterConfigCreateError,
   } = useSelector((state) => state.counterConfigCreate);
 
-  const { counterConfigList,loading } = useSelector(
+  const { counterConfigList, loading } = useSelector(
     (state) => state.getCounterConfigList
   );
 
-  const { getAcademicConfigInitialDataForEdit,loading:loadingEdit } = useSelector(
-    (state) => state.getCounterConfigInitialDataForEdit
-  );
+  const { getAcademicConfigInitialDataForEdit, loading: loadingEdit } =
+    useSelector((state) => state.getCounterConfigInitialDataForEdit);
 
   const { success: counterConfigEditSuccess, error: counterConfigEditFail } =
     useSelector((state) => state.counterConfigEdit);
@@ -147,7 +146,7 @@ const CounterConfiguration = () => {
       type: "success",
     });
     dispatch({ type: COUNTER_CONFIG_CREATE_RESET });
-    dispatch(getCounterConfigListAction(acaYear,programValue))
+    dispatch(getCounterConfigListAction(acaYear, programValue));
     setOpenPopup(false);
   }
   if (counterConfigCreateError) {
@@ -165,7 +164,7 @@ const CounterConfiguration = () => {
       type: "success",
     });
     dispatch({ type: COUNTER_CONFIG_EDIT_RESET });
-    dispatch(getCounterConfigListAction(acaYear,programValue))
+    dispatch(getCounterConfigListAction(acaYear, programValue));
     setOpenPopup(false);
   }
 
@@ -189,15 +188,16 @@ const CounterConfiguration = () => {
         getAcademicConfigInitialData?.searchFilterModel.ddlAcademicYear[0].Key
       );
       setProgramValue(
-        getAcademicConfigInitialData?.searchFilterModel.ddlFacultyProgramLink[0].Key
+        getAcademicConfigInitialData?.searchFilterModel.ddlFacultyProgramLink[0]
+          .Key
       );
     }
   }, [dispatch, getAcademicConfigInitialData]);
 
-  useEffect(()=>{
-    dispatch({type:GET_COUNTER_CONFIG_LIST_RESET})
+  useEffect(() => {
+    dispatch({ type: GET_COUNTER_CONFIG_LIST_RESET });
     dispatch(getCounterConfigInitialDataAction());
-  },[])
+  }, []);
 
   useEffect(() => {
     if (counterConfigList) {
@@ -205,28 +205,30 @@ const CounterConfiguration = () => {
     }
   }, [counterConfigList]);
 
-  const validate=()=>{
-    let temp ={};
+  const validate = () => {
+    let temp = {};
     temp.acaYear = !acaYear ? "This feild is required" : "";
     temp.programValue = !programValue ? "This feild is required" : "";
-    
+
     setErrors({ ...temp });
     return Object.values(temp).every((x) => x === "");
-  }
+  };
 
   const handleCreateClick = () => {
-    if(validate()){
-    dispatch(getCounterConfigInitialDataForCreateAction(acaYear, programValue));
-    dispatch({ type: GET_COUNTER_CONFIG_INITIAL_DATA_FOR_EDIT_RESET });
-    setOpenPopup(true);
+    if (validate()) {
+      dispatch(
+        getCounterConfigInitialDataForCreateAction(acaYear, programValue)
+      );
+      dispatch({ type: GET_COUNTER_CONFIG_INITIAL_DATA_FOR_EDIT_RESET });
+      setOpenPopup(true);
     }
   };
 
   const listSearchHandler = () => {
-    if(validate()){
-    dispatch(getCounterConfigListAction(acaYear, programValue));
+    if (validate()) {
+      dispatch(getCounterConfigListAction(acaYear, programValue));
+    }
   };
-};
 
   const updateCounterConfig = (id, year, program) => {
     dispatch(getCounterConfigInitialDataForEditAction(id, year, program));
@@ -266,7 +268,6 @@ const CounterConfiguration = () => {
                 type="submit"
                 style={{ margin: "10px 0 0 10px" }}
                 onClick={handleCreateClick}
-              
               >
                 CREATE
               </Button>
@@ -276,7 +277,6 @@ const CounterConfiguration = () => {
                 type="submit"
                 style={{ margin: "10px 0 0 10px" }}
                 onClick={listSearchHandler}
-               
               >
                 SEARCH
               </Button>
@@ -302,32 +302,32 @@ const CounterConfiguration = () => {
           <LoadingComp />
         ) : (
           <>
-        {counterConfigList && (
-          <TableContainer className={classes.table}>
-            <TblHead />
+            {counterConfigList && (
+              <TableContainer className={classes.table}>
+                <TblHead />
 
-            <TableBody>
-              {tableDataAfterPagingAndSorting().map((item) => (
-                <CounterConfigurationTableCollapse
-                  item={item}
-                  key={item.$id}
-                  updateCounterConfig={updateCounterConfig}
-                  year={
-                    counterConfigList &&
-                    counterConfigList.searchFilterModel.idAcademicYear
-                  }
-                  program={
-                    counterConfigList &&
-                    counterConfigList.searchFilterModel.idFacultyProgramLink
-                  }
-                  //   deleteCollegeHandler={deleteCollegeHandler}
-                />
-              ))}
-            </TableBody>
-          </TableContainer>
-        )}
-        {counterConfigList && <TblPagination />}
-        </>
+                <TableBody>
+                  {tableDataAfterPagingAndSorting().map((item) => (
+                    <CounterConfigurationTableCollapse
+                      item={item}
+                      key={item.$id}
+                      updateCounterConfig={updateCounterConfig}
+                      year={
+                        counterConfigList &&
+                        counterConfigList.searchFilterModel.idAcademicYear
+                      }
+                      program={
+                        counterConfigList &&
+                        counterConfigList.searchFilterModel.idFacultyProgramLink
+                      }
+                      //   deleteCollegeHandler={deleteCollegeHandler}
+                    />
+                  ))}
+                </TableBody>
+              </TableContainer>
+            )}
+            {counterConfigList && <TblPagination />}
+          </>
         )}
       </CustomContainer>
       <Popup
@@ -335,26 +335,29 @@ const CounterConfiguration = () => {
         setOpenPopup={setOpenPopup}
         title="Counter Configuration Form"
       >
-       {loadingEdit ? (
+        {loadingEdit ? (
           <LoadingComp />
         ) : (
           <>
-        <CounterConfigurationForm
-          counterFor={
-            getAcademicConfigInitialDataForCreate &&
-            getAcademicConfigInitialDataForCreate.ddlCounterFor
-          }
-          counterStatus={
-            getAcademicConfigInitialDataForCreate &&
-            getAcademicConfigInitialDataForCreate.ddlCounterStatus
-          }
-          dbModel={getAcademicConfigInitialDataForCreate && getAcademicConfigInitialDataForCreate.dbModel}
-          setOpenPopup={setOpenPopup}
-          getAcademicConfigInitialDataForEdit={
-            getAcademicConfigInitialDataForEdit
-          }
-        />
-        </>
+            <CounterConfigurationForm
+              counterFor={
+                getAcademicConfigInitialDataForCreate &&
+                getAcademicConfigInitialDataForCreate.ddlCounterFor
+              }
+              counterStatus={
+                getAcademicConfigInitialDataForCreate &&
+                getAcademicConfigInitialDataForCreate.ddlCounterStatus
+              }
+              dbModel={
+                getAcademicConfigInitialDataForCreate &&
+                getAcademicConfigInitialDataForCreate.dbModel
+              }
+              setOpenPopup={setOpenPopup}
+              getAcademicConfigInitialDataForEdit={
+                getAcademicConfigInitialDataForEdit
+              }
+            />
+          </>
         )}
       </Popup>
 

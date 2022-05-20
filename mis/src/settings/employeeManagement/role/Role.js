@@ -17,7 +17,11 @@ import { useDispatch, useSelector } from "react-redux";
 import Notification from "../../../components/Notification";
 import ConfirmDialog from "../../../components/ConfirmDialog";
 
-import { deleteRoleAction, getAllRolesAction, getSingleRoleAction } from "./RoleActions";
+import {
+  deleteRoleAction,
+  getAllRolesAction,
+  getSingleRoleAction,
+} from "./RoleActions";
 import RoleTableCollapse from "./RoleTableCollapse";
 import RoleForm from "./RoleForm";
 import {
@@ -47,7 +51,7 @@ const tableHeader = [
   // { id: "Updated_On", label: "Updated_On" },
   { id: "IsSystemDefined", label: "System Defined" },
   { id: "MarkAsAdmin", label: "Mark As Admin" },
-  { id: "actions", label: "Actions", disableSorting: true },
+  { id: "actions", label: "All", disableSorting: true },
 ];
 
 const Role = () => {
@@ -74,21 +78,24 @@ const Role = () => {
 
   const dispatch = useDispatch();
 
-  const { role, error,loading } = useSelector((state) => state.role);
+  const { role, error, loading } = useSelector((state) => state.role);
 
   const { success: createRoleSuccess, error: createRoleError } = useSelector(
     (state) => state.createRole
   );
 
-  const { singleRole, error: singleRoleError ,loading:loadingEdit} = useSelector(
-    (state) => state.getSingleRole
-  );
+  const {
+    singleRole,
+    error: singleRoleError,
+    loading: loadingEdit,
+  } = useSelector((state) => state.getSingleRole);
 
   const { success: updateSingleRoleSuccess, error: updateSingleRoleError } =
     useSelector((state) => state.updateSingleRole);
 
-  const { success: deleteRoleSuccess, error: deleteRoleError } =
-    useSelector((state) => state.deleteRole);
+  const { success: deleteRoleSuccess, error: deleteRoleError } = useSelector(
+    (state) => state.deleteRole
+  );
 
   if (error) {
     setNotify({
@@ -129,10 +136,9 @@ const Role = () => {
       message: deleteRoleError,
       type: "error",
     });
-    setOpenDeletePopup(false)
+    setOpenDeletePopup(false);
     dispatch({ type: DELETE_ROLE_RESET });
   }
-
 
   if (createRoleSuccess) {
     dispatch(getAllRolesAction());
@@ -173,8 +179,8 @@ const Role = () => {
   };
 
   const deleteCollegeHandler = (id) => {
-   dispatch(getSingleRoleAction(id));
-   setOpenDeletePopup(true);
+    dispatch(getSingleRoleAction(id));
+    setOpenDeletePopup(true);
   };
 
   useEffect(() => {
@@ -241,24 +247,24 @@ const Role = () => {
           <LoadingComp />
         ) : (
           <>
-        <TableContainer className={classes.table}>
-          <TblHead />
+            <TableContainer className={classes.table}>
+              <TblHead />
 
-          <TableBody>
-            {tableDataAfterPagingAndSorting().map((item) => (
-              <RoleTableCollapse
-                item={item}
-                key={item.$id}
-                updateCollegeHandler={updateCollegeHandler}
-                deleteCollegeHandler={deleteCollegeHandler}
-                setOpenPopup={setOpenPopup}
-                setOpenDeletePopup={setOpenDeletePopup}
-              />
-            ))}
-          </TableBody>
-        </TableContainer>
-        <TblPagination />
-        </>
+              <TableBody>
+                {tableDataAfterPagingAndSorting().map((item) => (
+                  <RoleTableCollapse
+                    item={item}
+                    key={item.$id}
+                    updateCollegeHandler={updateCollegeHandler}
+                    deleteCollegeHandler={deleteCollegeHandler}
+                    setOpenPopup={setOpenPopup}
+                    setOpenDeletePopup={setOpenDeletePopup}
+                  />
+                ))}
+              </TableBody>
+            </TableContainer>
+            <TblPagination />
+          </>
         )}
       </CustomContainer>
       <Popup
@@ -266,25 +272,25 @@ const Role = () => {
         setOpenPopup={setOpenPopup}
         title="Employee Role Form"
       >
-      {loadingEdit ? (
+        {loadingEdit ? (
           <LoadingComp />
         ) : (
           <>
-        <RoleForm
-          role={singleRole && singleRole.hrRoleModel}
-          setOpenPopup={setOpenPopup}
-        />
-        </>
+            <RoleForm
+              role={singleRole && singleRole.hrRoleModel}
+              setOpenPopup={setOpenPopup}
+            />
+          </>
         )}
       </Popup>
       <Popup
-      openPopup={openDeletePopup}
-      setOpenPopup={setOpenDeletePopup}
-      title="Employee Role Delete Form"
+        openPopup={openDeletePopup}
+        setOpenPopup={setOpenDeletePopup}
+        title="Employee Role Delete Form"
       >
         <RoleDeleteForm
-        deleteRole={singleRole && singleRole.hrRoleModel}
-        setOpenDeletePopup={setOpenDeletePopup}
+          deleteRole={singleRole && singleRole.hrRoleModel}
+          setOpenDeletePopup={setOpenDeletePopup}
         />
       </Popup>
       <Notification notify={notify} setNotify={setNotify} />

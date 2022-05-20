@@ -73,14 +73,18 @@ const AcademicYear = () => {
 
   const dispatch = useDispatch();
 
-  const { academicYear, error,loading } = useSelector((state) => state.academicYear);
+  const { academicYear, error, loading } = useSelector(
+    (state) => state.academicYear
+  );
 
   const { success: createAcademicYearSuccess, error: createAcademicYearError } =
     useSelector((state) => state.createAcademicYear);
 
-  const { singleAcademicYear,loading:loadingEdit, error: singleAcademicYearError } = useSelector(
-    (state) => state.getSingleAcademicYear
-  );
+  const {
+    singleAcademicYear,
+    loading: loadingEdit,
+    error: singleAcademicYearError,
+  } = useSelector((state) => state.getSingleAcademicYear);
 
   const { success: updateSingleAcademicYearSuccess } = useSelector(
     (state) => state.updateSingleAcademicYear
@@ -214,22 +218,22 @@ const AcademicYear = () => {
           <LoadingComp />
         ) : (
           <>
-        <TableContainer className={classes.table}>
-          <TblHead />
+            <TableContainer className={classes.table}>
+              <TblHead />
 
-          <TableBody>
-            {tableDataAfterPagingAndSorting().map((item) => (
-              <AcademicYearTableCollapse
-                item={item}
-                key={item.$id}
-                updateCollegeHandler={updateCollegeHandler}
-                deleteCollegeHandler={deleteCollegeHandler}
-              />
-            ))}
-          </TableBody>
-        </TableContainer>
-        <TblPagination />
-        </>
+              <TableBody>
+                {tableDataAfterPagingAndSorting().map((item) => (
+                  <AcademicYearTableCollapse
+                    item={item}
+                    key={item.$id}
+                    updateCollegeHandler={updateCollegeHandler}
+                    deleteCollegeHandler={deleteCollegeHandler}
+                  />
+                ))}
+              </TableBody>
+            </TableContainer>
+            <TblPagination />
+          </>
         )}
       </CustomContainer>
       <Popup
@@ -237,16 +241,16 @@ const AcademicYear = () => {
         setOpenPopup={setOpenPopup}
         title="Academic Year Form"
       >
-       {loadingEdit ? (
+        {loadingEdit ? (
           <LoadingComp />
         ) : (
           <>
-        <AcademicYearForm
-          academicYear={singleAcademicYear && singleAcademicYear.dbModel}
-          selected={singleAcademicYear && singleAcademicYear.selected}
-          setOpenPopup={setOpenPopup}
-        />
-        </>
+            <AcademicYearForm
+              academicYear={singleAcademicYear && singleAcademicYear.dbModel}
+              selected={singleAcademicYear && singleAcademicYear.selected}
+              setOpenPopup={setOpenPopup}
+            />
+          </>
         )}
       </Popup>
       <Notification notify={notify} setNotify={setNotify} />

@@ -373,7 +373,6 @@ const ExamMarkApproval = () => {
     dispatch(getAllSchoolValueAction());
   }, []);
 
-
   useEffect(() => {
     if (searchData) {
       setTableData(searchData.dbModelLsts);
@@ -523,7 +522,7 @@ const ExamMarkApproval = () => {
               />
             </Grid>
 
-            <Grid item xs={3}>
+            <Grid item xs={6}>
               <Button
                 variant="contained"
                 color="primary"
@@ -541,7 +540,7 @@ const ExamMarkApproval = () => {
                 style={{ margin: "10px 0 0 10px" }}
                 onClick={handleBulkBlankData}
               >
-               PRINT BLANK
+                PRINT BLANK
               </Button>
 
               <Button
@@ -601,7 +600,7 @@ const ExamMarkApproval = () => {
         ) : (
           <>
             <ExamMarkApprovalBulk
-          subjectName={bulkData && bulkData?.dbModelLsts}
+              subjectName={bulkData && bulkData?.dbModelLsts}
               statusData={
                 bulkData && bulkData.searchFilterModel.ddlStudentExamStatus
               }
@@ -615,12 +614,15 @@ const ExamMarkApproval = () => {
       <Popup
         openPopup={openBulkPopup}
         setOpenPopup={setOpenBulkPopup}
-        title="Bulk Blank Edit"
+        title="Bulk Print"
       >
         <ExamMarkApprovalBlankForm
-        year={ acaYear && acaYear}
-        yearDdl={ examApprovalInitialDatas && examApprovalInitialDatas?.searchFilterModel?.ddlAcademicYear}
-        address = {schoolValue && schoolValue.FullAddress}
+          year={acaYear && acaYear}
+          yearDdl={
+            examApprovalInitialDatas &&
+            examApprovalInitialDatas?.searchFilterModel?.ddlAcademicYear
+          }
+          address={schoolValue && schoolValue.FullAddress}
           schoolValue={schoolValue && schoolValue.SchoolName}
           blankData={bulkBlankData && bulkBlankData}
           setOpenPopup={setOpenBulkPopup}

@@ -76,13 +76,13 @@ const AcademicSubject = () => {
 
   const dispatch = useDispatch();
 
-  const { error, academicSubject ,loading} = useSelector(
+  const { error, academicSubject, loading } = useSelector(
     (state) => state.academicSubject
   );
 
   const {
     academicSubject: singleAcademicSubject,
-    loading:loadingEdit,
+    loading: loadingEdit,
     error: getSingleAcademicSubjectError,
   } = useSelector((state) => state.getSingleAcademicSubject);
 
@@ -155,13 +155,14 @@ const AcademicSubject = () => {
   }
 
   useEffect(() => {
-    if (!academicSubject) {
-      dispatch(getAllAcademicSubjectAction());
-    }
     if (academicSubject) {
       setTableData(academicSubject.dbModelLst);
     }
   }, [dispatch, academicSubject]);
+
+  useEffect(() => {
+    dispatch(getAllAcademicSubjectAction());
+  }, []);
 
   const {
     TableContainer,
@@ -225,22 +226,22 @@ const AcademicSubject = () => {
           <LoadingComp />
         ) : (
           <>
-        <TableContainer className={classes.table}>
-          <TblHead />
+            <TableContainer className={classes.table}>
+              <TblHead />
 
-          <TableBody>
-            {tableDataAfterPagingAndSorting().map((item) => (
-              <AcademicSubjectTableCollepse
-                item={item}
-                key={item.$id}
-                updateCollegeHandler={updateCollegeHandler}
-                deleteCollegeHandler={deleteCollegeHandler}
-              />
-            ))}
-          </TableBody>
-        </TableContainer>
-        <TblPagination />
-        </>
+              <TableBody>
+                {tableDataAfterPagingAndSorting().map((item) => (
+                  <AcademicSubjectTableCollepse
+                    item={item}
+                    key={item.$id}
+                    updateCollegeHandler={updateCollegeHandler}
+                    deleteCollegeHandler={deleteCollegeHandler}
+                  />
+                ))}
+              </TableBody>
+            </TableContainer>
+            <TblPagination />
+          </>
         )}
       </CustomContainer>
 
@@ -249,16 +250,16 @@ const AcademicSubject = () => {
         setOpenPopup={setOpenPopup}
         title="Academic Subject"
       >
-       {loadingEdit ? (
+        {loadingEdit ? (
           <LoadingComp />
         ) : (
           <>
-        <AcademicSubjectForm
-          academicSubject={
-            singleAcademicSubject && singleAcademicSubject.dbModel
-          }
-        />
-        </>
+            <AcademicSubjectForm
+              academicSubject={
+                singleAcademicSubject && singleAcademicSubject.dbModel
+              }
+            />
+          </>
         )}
       </Popup>
       <Notification notify={notify} setNotify={setNotify} />

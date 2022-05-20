@@ -15,8 +15,8 @@ import Paper from "@material-ui/core/Paper";
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
-    backgroundColor: theme.palette.common.grey,
-    color: theme.palette.common.black,
+    backgroundColor: "#253053",
+    color: "#fff",
   },
   body: {
     fontSize: 14,
@@ -46,7 +46,6 @@ const AssignFacultySubjectFormCreate = ({
 }) => {
   const [subjects, setSubjects] = useState([]);
   const classes = useStyles();
-
 
   const handleBulkChange = (checked) => {
     if (checked) {
@@ -102,7 +101,7 @@ const AssignFacultySubjectFormCreate = ({
     }
   }, [subjectOptions, assignFacSubGenerate]);
 
-  const symbolsArr = ["e", "E", "+", "-", ".","ArrowUp","ArrowDown"];
+  const symbolsArr = ["e", "E", "+", "-", ".", "ArrowUp", "ArrowDown"];
 
   return (
     <>
@@ -116,8 +115,8 @@ const AssignFacultySubjectFormCreate = ({
               <StyledTableCell align="right">Optional</StyledTableCell>
               <StyledTableCell align="right">Practical</StyledTableCell>
               <StyledTableCell align="right">Theoritical</StyledTableCell>
-              <StyledTableCell align="right">Credit Hour</StyledTableCell>
-             <StyledTableCell align="right">
+              <StyledTableCell align="center">Credit Hour</StyledTableCell>
+              <StyledTableCell align="right">
                 Action{" "}
                 <Checkbox
                   onChange={(e) => handleBulkChange(e.target.checked)}
@@ -153,13 +152,15 @@ const AssignFacultySubjectFormCreate = ({
                     <TextField
                       id={`subject_${subject.IDAcademicSubject}`}
                       defaultValue={subject.CreditHour}
-                      onWheelCapture={e => {
-  e.target.blur()
-}}
+                      onWheelCapture={(e) => {
+                        e.target.blur();
+                      }}
                       type="number"
                       label="Credit Hours"
                       variant="outlined"
-                      onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}
+                      onKeyDown={(e) =>
+                        symbolsArr.includes(e.key) && e.preventDefault()
+                      }
                       onChange={(e) => inputHandler(subject, e.target.value)}
                       inputProps={{ tabIndex: "1" }}
                     />
@@ -169,7 +170,8 @@ const AssignFacultySubjectFormCreate = ({
                     <Checkbox
                       checked={
                         formCheck.filter(
-                          (x) => x.IDAcademicSubject === subject.IDAcademicSubject
+                          (x) =>
+                            x.IDAcademicSubject === subject.IDAcademicSubject
                         ).length > 0
                           ? true
                           : false
@@ -182,36 +184,35 @@ const AssignFacultySubjectFormCreate = ({
                 </StyledTableRow>
               ))}
           </TableBody>
-          </Table>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "end",
-              paddingTop: "10px",
-              marginTop: "10px",
-              borderTop: "1px solid #f3f3f3",
-            }}
-          >
-            <Button
-              variant="contained"
-              color="secondary"
-              onClick={() => setOpenPopup(false)}
-              style={{ margin: "10px 0 0 10px" }}
-            >
-              CANCEL
-            </Button>
-            <Button
-              variant="contained"
-              color="primary"
-              type="submit"
-              style={{ margin: "10px 0 0 10px" }}
-              onClick={formCheckSubmitHandler}
-            >
-              SUBMIT
-            </Button>
-          </div>
-        
+        </Table>
       </TableContainer>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "end",
+          paddingTop: "10px",
+          marginTop: "10px",
+          borderTop: "1px solid #f3f3f3",
+        }}
+      >
+        <Button
+          variant="contained"
+          color="secondary"
+          onClick={() => setOpenPopup(false)}
+          style={{ margin: "10px 0 0 10px" }}
+        >
+          CANCEL
+        </Button>
+        <Button
+          variant="contained"
+          color="primary"
+          type="submit"
+          style={{ margin: "10px 0 0 10px" }}
+          onClick={formCheckSubmitHandler}
+        >
+          SUBMIT
+        </Button>
+      </div>
     </>
   );
 };

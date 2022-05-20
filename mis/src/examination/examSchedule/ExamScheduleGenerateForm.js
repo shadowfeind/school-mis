@@ -8,9 +8,6 @@ import {
   TableCell,
   Checkbox,
   Button,
-  FormControl,
-  InputLabel,
-  Select,
   Grid,
 } from "@material-ui/core";
 import { withStyles, makeStyles } from "@material-ui/core/styles";
@@ -18,7 +15,10 @@ import Paper from "@material-ui/core/Paper";
 import SelectControl from "../../components/controls/SelectControl";
 import InputControl from "../../components/controls/InputControl";
 import { useDispatch, useSelector } from "react-redux";
-import { getEventForExamScheduleAction, postGenerateExamScheduleCreateAction } from "./ExamScheduleActions";
+import {
+  getEventForExamScheduleAction,
+  postGenerateExamScheduleCreateAction,
+} from "./ExamScheduleActions";
 import { GET_EVENT_FOR_EXAM_SCHEDULE_RESET } from "./ExamScheduleConstants";
 
 const StyledTableCell = withStyles((theme) => ({
@@ -54,7 +54,7 @@ const ExamScheduleGenerateForm = ({
   classValue,
 }) => {
   const [year, setYear] = useState("");
-  const [ddlYear,setDdlYear]=useState([]);
+  const [ddlYear, setDdlYear] = useState([]);
   const [classId, setClassId] = useState("");
   const [ddlClassId, setDdlClassId] = useState([]);
   const [event, setEvent] = useState("");
@@ -69,29 +69,28 @@ const ExamScheduleGenerateForm = ({
     (state) => state.getEventForExamSchedule
   );
 
-  if(eventExamScheduleError){
-    setEventDdl([]);
-    dispatch({type:GET_EVENT_FOR_EXAM_SCHEDULE_RESET })
-  }
+  // if (eventExamScheduleError) {
+  //   setEventDdl([]);
+  //   dispatch({ type: GET_EVENT_FOR_EXAM_SCHEDULE_RESET });
+  // }
 
-  const handleAcaYear = (value)=>{
+  const handleAcaYear = (value) => {
     setYear(value);
     setEventDdl([]);
-    setEvent("")
-    if(value,classId){
+    setEvent("");
+    if ((value, classId)) {
       dispatch(getEventForExamScheduleAction(value, programValue, classId));
     }
-  }
+  };
 
-
-  const handleClassId = (value)=>{
+  const handleClassId = (value) => {
     setClassId(value);
     setEventDdl([]);
-    setEvent("")
-    if(acaYear,value){
-      dispatch(getEventForExamScheduleAction(acaYear, programValue,value ));
+    setEvent("");
+    if ((acaYear, value)) {
+      dispatch(getEventForExamScheduleAction(acaYear, programValue, value));
     }
-  }
+  };
 
   const eventHandler = (value) => {
     setEvent(value);
@@ -102,8 +101,10 @@ const ExamScheduleGenerateForm = ({
       setEventDdl(eventExamSchedule);
       setEvent(eventExamSchedule[0]?.Key);
     }
-    setEventDdl([]);
-  }, [eventExamSchedule]);
+    if (eventExamScheduleError) {
+      setEventDdl([]);
+    }
+  }, [eventExamSchedule, eventExamScheduleError]);
 
   useEffect(() => {
     if (acaYear) {
@@ -112,13 +113,15 @@ const ExamScheduleGenerateForm = ({
     if (classValue) {
       setClassId(classValue);
     }
-  //  if(events){
-  //    setEvent(events);
-  //  }
     if (generate) {
       setFormCheck([...generate.dbModelLst]);
     }
-  }, [acaYear, classValue, generate]);
+    if (acaYear && classValue && programValue) {
+      dispatch(
+        getEventForExamScheduleAction(acaYear, programValue, classValue)
+      );
+    }
+  }, [acaYear, classValue, generate, programValue, dispatch]);
 
   const validate = () => {
     let temp = {};
@@ -203,7 +206,7 @@ const ExamScheduleGenerateForm = ({
                 label="Event Name"
                 value={event}
                 onChange={(e) => eventHandler(e.target.value)}
-                options={eventName && eventName}
+                options={eventDdl && eventDdl}
                 errors={errors.event}
               />
             </Grid>

@@ -7,6 +7,10 @@ import {
   CREATE_TEACHER_FAC_SUB_INITIAL_DATA_REQUEST,
   CREATE_TEACHER_FAC_SUB_INITIAL_DATA_RESET,
   CREATE_TEACHER_FAC_SUB_INITIAL_DATA_SUCCESS,
+  DELETE_TEACHER_FAC_SUB_FAIL,
+  DELETE_TEACHER_FAC_SUB_REQUEST,
+  DELETE_TEACHER_FAC_SUB_RESET,
+  DELETE_TEACHER_FAC_SUB_SUCCESS,
   GET_ALL_TEACHER_FAC_SUB_INITIAL_DATA_FAIL,
   GET_ALL_TEACHER_FAC_SUB_INITIAL_DATA_REQUEST,
   GET_ALL_TEACHER_FAC_SUB_INITIAL_DATA_RESET,
@@ -114,6 +118,21 @@ export const createSingleTeacherFacSubReducer = (state = {}, action) => {
     case CREATE_SINGLE_TEACHER_FAC_SUB_FAIL:
       return { loading: false, error: action.payload };
     case CREATE_SINGLE_TEACHER_FAC_SUB_RESET:
+      return {};
+    default:
+      return state;
+  }
+};
+
+export const deleteTeacherFacSubReducer = (state = {}, action) => {
+  switch (action.type) {
+    case DELETE_TEACHER_FAC_SUB_REQUEST:
+      return { loading: true };
+    case DELETE_TEACHER_FAC_SUB_SUCCESS:
+      return { loading: false, success: true };
+    case DELETE_TEACHER_FAC_SUB_FAIL:
+      return { loading: false, error: action.payload };
+    case DELETE_TEACHER_FAC_SUB_RESET:
       return {};
     default:
       return state;

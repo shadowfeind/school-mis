@@ -20,6 +20,7 @@ import SelectControl from "../../../components/controls/SelectControl";
 import {
   GET_ALL_SEARCH_TEACHER_FAC_SUB_INITIAL_DATA_RESET,
   GET_ALL_SEARCH_TEACHER_FAC_SUB_LIST_DATA_RESET,
+  GET_SINGLE_EDIT_SEARCH_TEACHER_FAC_SUB_LIST_DATA_RESET,
 } from "./SearchTeacherFacultySubjectConstants";
 import {
   getAllSearchTeacherFacSubInitialDataAction,
@@ -50,6 +51,7 @@ const tableHeader = [
   { id: "IDAcademicShift", label: "Academic Shift" },
   { id: "Created_On", label: "Created On" },
   { id: "IsActive", label: "IsActive" },
+  { id: "actions", label: "Actions", disableSorting: true },
 ];
 
 const SearchTeacherFacultySubject = () => {
@@ -86,6 +88,13 @@ const SearchTeacherFacultySubject = () => {
   const { searchTeacherFacInitData, error } = useSelector(
     (state) => state.getAllSearchTeacherFacSubInitialData
   );
+
+  const {
+    singleEditSearchTeacherFacListData,
+    loading: loadingEdit,
+    error: singleEditSearchTeacherFacListDataError,
+  } = useSelector((state) => state.getSingleEditSearchTeacherFacSubListData);
+
   const {
     searchTeacherFacListData,
     loading,
@@ -99,6 +108,15 @@ const SearchTeacherFacultySubject = () => {
       type: "error",
     });
     dispatch({ type: GET_ALL_SEARCH_TEACHER_FAC_SUB_INITIAL_DATA_RESET });
+  }
+
+  if (singleEditSearchTeacherFacListDataError) {
+    setNotify({
+      isOpen: true,
+      message: singleEditSearchTeacherFacListDataError,
+      type: "error",
+    });
+    dispatch({ type: GET_SINGLE_EDIT_SEARCH_TEACHER_FAC_SUB_LIST_DATA_RESET });
   }
 
   if (searchTeacherFacListDataError) {
@@ -155,6 +173,12 @@ const SearchTeacherFacultySubject = () => {
       );
     }
   };
+
+  const updateCollegeHandler = (id) => {
+    dispatch(getSingleEmployeeAction(id));
+    setOpenPopup(true);
+  };
+
   return (
     <>
       <CustomContainer>
@@ -195,11 +219,21 @@ const SearchTeacherFacultySubject = () => {
                     <SearchTeacherFacultySubjectTableCollapse
                       item={item}
                       key={item.$id}
-                      year= {searchTeacherFacListData?.searchFilterModel.ddlAcademicYear}
+                      year={
+                        searchTeacherFacListData?.searchFilterModel
+                          .ddlAcademicYear
+                      }
                       subject={searchTeacherFacListData?.ddlFacultySubject}
-                      classId={searchTeacherFacListData?.searchFilterModel.ddlClass}
-                      section={searchTeacherFacListData?.searchFilterModel.ddlSection}
-                      shift={searchTeacherFacListData?.searchFilterModel.ddlAcademicShift}
+                      classId={
+                        searchTeacherFacListData?.searchFilterModel.ddlClass
+                      }
+                      section={
+                        searchTeacherFacListData?.searchFilterModel.ddlSection
+                      }
+                      shift={
+                        searchTeacherFacListData?.searchFilterModel
+                          .ddlAcademicShift
+                      }
                       //   updateTeacherHandler={updateTeacherHandler}
                     />
                   ))}

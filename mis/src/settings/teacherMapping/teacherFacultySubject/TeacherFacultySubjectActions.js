@@ -1,4 +1,3 @@
-
 import { API_URL, axiosInstance, tokenConfig } from "../../../constants";
 import {
   CREATE_SINGLE_TEACHER_FAC_SUB_FAIL,
@@ -7,6 +6,9 @@ import {
   CREATE_TEACHER_FAC_SUB_INITIAL_DATA_FAIL,
   CREATE_TEACHER_FAC_SUB_INITIAL_DATA_REQUEST,
   CREATE_TEACHER_FAC_SUB_INITIAL_DATA_SUCCESS,
+  DELETE_TEACHER_FAC_SUB_FAIL,
+  DELETE_TEACHER_FAC_SUB_REQUEST,
+  DELETE_TEACHER_FAC_SUB_SUCCESS,
   GET_ALL_TEACHER_FAC_SUB_INITIAL_DATA_FAIL,
   GET_ALL_TEACHER_FAC_SUB_INITIAL_DATA_REQUEST,
   GET_ALL_TEACHER_FAC_SUB_INITIAL_DATA_SUCCESS,
@@ -26,7 +28,7 @@ export const getAllTeacherFacSubInitialDataAction = () => async (dispatch) => {
     dispatch({ type: GET_ALL_TEACHER_FAC_SUB_INITIAL_DATA_REQUEST });
 
     const { data } = await axiosInstance.get(
-      `${API_URL}/api/HRTeacherFacultySubjectMappingHeader/GetAllHRTeacherFacultySubjectMappingHeader`,
+      `/api/HRTeacherFacultySubjectMappingHeader/GetAllHRTeacherFacultySubjectMappingHeader`,
       tokenConfig()
     );
 
@@ -37,7 +39,9 @@ export const getAllTeacherFacSubInitialDataAction = () => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: GET_ALL_TEACHER_FAC_SUB_INITIAL_DATA_FAIL,
-      payload: error.message ? error.message : error.Message,
+      payload: error?.response?.data?.Message
+        ? error?.response?.data?.Message
+        : error?.message,
     });
   }
 };
@@ -48,7 +52,7 @@ export const getAllTeacherFacSubListDataAction =
       dispatch({ type: GET_ALL_TEACHER_FAC_SUB_LIST_DATA_REQUEST });
 
       const { data } = await axiosInstance.get(
-        `${API_URL}/api/HRTeacherFacultySubjectMappingHeader/GetListHRTeacherFacultySubjectMappingHeader?idAcademicYear=${year}&idFacultyProgramLink=${program}&level=${classId}&section=${section}&idShift=${shift}&searchKey=1`,
+        `/api/HRTeacherFacultySubjectMappingHeader/GetListHRTeacherFacultySubjectMappingHeader?idAcademicYear=${year}&idFacultyProgramLink=${program}&level=${classId}&section=${section}&idShift=${shift}&searchKey=1`,
         tokenConfig()
       );
 
@@ -60,7 +64,9 @@ export const getAllTeacherFacSubListDataAction =
     } catch (error) {
       dispatch({
         type: GET_ALL_TEACHER_FAC_SUB_LIST_DATA_FAIL,
-        payload: error.message ? error.message : error.Message,
+        payload: error?.response?.data?.Message
+          ? error?.response?.data?.Message
+          : error?.message,
       });
     }
   };
@@ -72,7 +78,7 @@ export const getSingleTeacherFacSubDataAction =
       dispatch({ type: GET_SINGLE_TEACHER_FAC_SUB_DATA_REQUEST });
 
       const { data } = await axiosInstance.get(
-        `${API_URL}/api/HRTeacherFacultySubjectMappingHeader/GetSingleToEditTeacherFacultySubjectMappingHeader/${id}?idAcademicYear=${year}&idFacultyProgramLink=${program}&level=${classId}&section=${section}&idShift=${shift}&idTeacher=${teacherId}&searchKey=1`,
+        `/api/HRTeacherFacultySubjectMappingHeader/GetSingleToEditTeacherFacultySubjectMappingHeader/${id}?idAcademicYear=${year}&idFacultyProgramLink=${program}&level=${classId}&section=${section}&idShift=${shift}&idTeacher=${teacherId}&searchKey=1`,
         tokenConfig()
       );
 
@@ -83,7 +89,9 @@ export const getSingleTeacherFacSubDataAction =
     } catch (error) {
       dispatch({
         type: GET_SINGLE_TEACHER_FAC_SUB_DATA_FAIL,
-        payload: error.message ? error.message : error.Message,
+        payload: error?.response?.data?.Message
+          ? error?.response?.data?.Message
+          : error?.message,
       });
     }
   };
@@ -103,7 +111,7 @@ export const singleTeacherFacSubEditAction = (teacher) => async (dispatch) => {
     // };
 
     await axiosInstance.put(
-      `${API_URL}/api/HRTeacherFacultySubjectMappingHeader/Put`,
+      `/api/HRTeacherFacultySubjectMappingHeader/PutTeacherSubject`,
       jsonData,
       tokenConfig()
     );
@@ -114,7 +122,9 @@ export const singleTeacherFacSubEditAction = (teacher) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: SINGLE_TEACHER_FAC_SUB_EDIT_FAIL,
-      payload: error.message ? error.message : error.Message,
+      payload: error?.response?.data?.Message
+        ? error?.response?.data?.Message
+        : error?.message,
     });
   }
 };
@@ -125,7 +135,7 @@ export const createTeacherFacSubInitDataAction =
       dispatch({ type: CREATE_TEACHER_FAC_SUB_INITIAL_DATA_REQUEST });
 
       const { data } = await axiosInstance.get(
-        `${API_URL}/api/HRTeacherFacultySubjectMappingHeader/GetSingleToCreateTeacherFacultySubjectMappingHeader?idAcademicYear=${year}&idFacultyProgramLink=${program}&level=${classId}&section=${section}&idShift=${shift}&searchKey=1`,
+        `/api/HRTeacherFacultySubjectMappingHeader/GetSingleToCreateTeacherFacultySubjectMappingHeader?idAcademicYear=${year}&idFacultyProgramLink=${program}&level=${classId}&section=${section}&idShift=${shift}&searchKey=1`,
         tokenConfig()
       );
 
@@ -136,13 +146,15 @@ export const createTeacherFacSubInitDataAction =
     } catch (error) {
       dispatch({
         type: CREATE_TEACHER_FAC_SUB_INITIAL_DATA_FAIL,
-        payload: error.message ? error.message : error.Message,
+        payload: error?.response?.data?.Message
+          ? error?.response?.data?.Message
+          : error?.message,
       });
     }
   };
 
 export const createSingleTeacherFacSubAction =
-  (teacher) => async (dispatch) => {
+  (teacher, searchFilterModel) => async (dispatch) => {
     try {
       dispatch({ type: CREATE_SINGLE_TEACHER_FAC_SUB_REQUEST });
 
@@ -150,10 +162,11 @@ export const createSingleTeacherFacSubAction =
         dbModel: {
           ...teacher,
         },
+        searchFilterModel,
       });
 
       await axiosInstance.post(
-        `${API_URL}/api/HRTeacherFacultySubjectMappingHeader/Post`,
+        `/api/HRTeacherFacultySubjectMappingHeader/Post`,
         jsonData,
         tokenConfig()
       );
@@ -164,7 +177,36 @@ export const createSingleTeacherFacSubAction =
     } catch (error) {
       dispatch({
         type: CREATE_SINGLE_TEACHER_FAC_SUB_FAIL,
-        payload: error.message ? error.message : error.Message,
+        payload: error?.response?.data?.Message
+          ? error?.response?.data?.Message
+          : error?.message,
       });
     }
   };
+
+export const deleteTeacherFacSubAction = (teacher) => async (dispatch) => {
+  try {
+    dispatch({ type: DELETE_TEACHER_FAC_SUB_REQUEST });
+
+    const jsonData = JSON.stringify({
+      dbModel: teacher,
+    });
+
+    await axiosInstance.post(
+      `/api/HRTeacherFacultySubjectMappingHeader/DeleteTeacherSubject`,
+      jsonData,
+      tokenConfig()
+    );
+
+    dispatch({
+      type: DELETE_TEACHER_FAC_SUB_SUCCESS,
+    });
+  } catch (error) {
+    dispatch({
+      type: DELETE_TEACHER_FAC_SUB_FAIL,
+      payload: error?.response?.data?.Message
+        ? error?.response?.data?.Message
+        : error?.message,
+    });
+  }
+};

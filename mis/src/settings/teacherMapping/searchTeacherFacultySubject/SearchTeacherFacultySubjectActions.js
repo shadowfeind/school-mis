@@ -1,4 +1,3 @@
-
 import { API_URL, axiosInstance, tokenConfig } from "../../../constants";
 import {
   GET_ALL_SEARCH_TEACHER_FAC_SUB_INITIAL_DATA_FAIL,
@@ -7,6 +6,9 @@ import {
   GET_ALL_SEARCH_TEACHER_FAC_SUB_LIST_DATA_FAIL,
   GET_ALL_SEARCH_TEACHER_FAC_SUB_LIST_DATA_REQUEST,
   GET_ALL_SEARCH_TEACHER_FAC_SUB_LIST_DATA_SUCCESS,
+  PUT_SEARCH_TEACHER_FAC_SUB_DATA_FAIL,
+  PUT_SEARCH_TEACHER_FAC_SUB_DATA_REQUEST,
+  PUT_SEARCH_TEACHER_FAC_SUB_DATA_SUCCESS,
 } from "./SearchTeacherFacultySubjectConstants";
 
 export const getAllSearchTeacherFacSubInitialDataAction =
@@ -51,3 +53,36 @@ export const getAllSearchTeacherFacSubListDataAction =
       });
     }
   };
+
+export const postSearchTeacherFacSubAction = (teacher) => async (dispatch) => {
+  try {
+    dispatch({ type: PUT_SEARCH_TEACHER_FAC_SUB_DATA_REQUEST });
+
+    const jsonData = JSON.stringify({
+      dbModel: teacher,
+    });
+
+    // const config = {
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    // };
+
+    await axiosInstance.post(
+      `/api/SearchTeacherFacultySubject/PostSearchTeacherSubject`,
+      jsonData,
+      tokenConfig()
+    );
+
+    dispatch({
+      type: PUT_SEARCH_TEACHER_FAC_SUB_DATA_SUCCESS,
+    });
+  } catch (error) {
+    dispatch({
+      type: PUT_SEARCH_TEACHER_FAC_SUB_DATA_FAIL,
+      payload: error?.response?.data?.Message
+        ? error?.response?.data?.Message
+        : error?.message,
+    });
+  }
+};

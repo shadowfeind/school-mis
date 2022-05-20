@@ -246,6 +246,7 @@ import {
 import {
   createSingleTeacherFacSubReducer,
   createTeacherFacSubInitDataReducer,
+  deleteTeacherFacSubReducer,
   getAllTeacherFacSubInitialDataReducer,
   getAllTeacherFacSubListDataReducer,
   getSingleTeacherFacSubDataReducer,
@@ -349,6 +350,8 @@ import {
 import {
   getAllSearchTeacherFacSubInitialDataReducer,
   getAllSearchTeacherFacSubListDataReducer,
+  getSingleEditSearchTeacherFacSubListDataReducer,
+  putSearchTeacherFacSubtDataReducer,
 } from "./settings/teacherMapping/searchTeacherFacultySubject/SearchTeacherFacultySubjectReducers";
 import {
   getAllStudentMonthlyPresentSheetReducer,
@@ -616,6 +619,9 @@ export const reducers = combineReducers({
   putReassociateStudents: putReassociateStudentsReducer,
   getAllSearchTeacherFacSubInitialData:
     getAllSearchTeacherFacSubInitialDataReducer,
+  getSingleEditSearchTeacherFacSubListData:
+    getSingleEditSearchTeacherFacSubListDataReducer,
+  putSearchTeacherFacSubtData: putSearchTeacherFacSubtDataReducer,
   getAllSearchTeacherFacSubListData: getAllSearchTeacherFacSubListDataReducer,
   getAllTeacherFacSubInitialData: getAllTeacherFacSubInitialDataReducer,
   getAllTeacherFacSubListData: getAllTeacherFacSubListDataReducer,
@@ -623,13 +629,14 @@ export const reducers = combineReducers({
   singleTeacherFacSubEdit: singleTeacherFacSubEditReducer,
   createTeacherFacSubInitData: createTeacherFacSubInitDataReducer,
   createSingleTeacherFacSub: createSingleTeacherFacSubReducer,
+  deleteTeacherFacSub: deleteTeacherFacSubReducer,
   getAllClassSubject: getAllClassSubjectReducer,
   getClassSubjectList: getClassSubjectListReducer,
   getSingleClassSubject: getSingleClassSubjectReducer,
   updateSingleClassSubject: updateSingleClassSubjectReducer,
   getToCreateClassSubject: getToCreateClassSubjectReducer,
   postToCreateClassSubject: postToCreateClassSubjectReducer,
-  deleteClassSubject: deleteClassSubjectReducer,
+  deleteClassSubject: deleteTeacherFacSubReducer,
   getInitialRoleForPermission: getInitialRoleForPermissionReducer,
   getlistPermissionByRole: getlistPermissionByRoleReducer,
   //examination reducers start
@@ -921,5 +928,5 @@ export const reducers = combineReducers({
   //Individual Notification Reducers:
   getNotificationEmployeeListSearch: getNotificationEmployeeListSearchReducer,
   getNotificationFcmToken: getNotificationFcmTokenReducer,
-  postNotificationFcmToken : postNotificationFcmTokenReducer,
+  postNotificationFcmToken: postNotificationFcmTokenReducer,
 });

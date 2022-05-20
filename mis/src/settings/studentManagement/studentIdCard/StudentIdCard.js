@@ -86,34 +86,35 @@ const StudentIdCard = () => {
     success: activeStudentsForAdmitCardSuccess,
   } = useSelector((state) => state.getActiveStudentsForAdmitCardData);
 
-  const { activeStudentsForIdCard ,loading} = useSelector(
+  const { activeStudentsForIdCard, loading } = useSelector(
     (state) => state.getActiveStudentsForStudentIdCardData
   );
 
-  const { printBulkStudentsForIdCard,loading:loadingBulk, printBulkStudentsForIdCardError } =
-    useSelector((state) => state.getPrintBulkStudentsForStudentIdCardData);
+  const {
+    printBulkStudentsForIdCard,
+    loading: loadingBulk,
+    printBulkStudentsForIdCardError,
+  } = useSelector((state) => state.getPrintBulkStudentsForStudentIdCardData);
 
+  const { headerBanners, error: headerBannersError } = useSelector(
+    (state) => state.getHeaderBanner
+  );
 
-    const { headerBanners, error: headerBannersError } = useSelector(
-      (state) => state.getHeaderBanner
-    );
-  
-    useEffect(() => {
-      if (!headerBanners) {
-        dispatch(getHeaderBannerAction());
-      }
-    }, [headerBanners, dispatch]);
-  
-    if (headerBannersError) {
-      dispatch({ type: GET_HEADER_BANNER_RESET });
-      setNotify({
-        isOpen: true,
-        message: headerBannersError,
-        type: "error",
-      });
+  useEffect(() => {
+    if (!headerBanners) {
+      dispatch(getHeaderBannerAction());
     }
+  }, [headerBanners, dispatch]);
 
-    
+  if (headerBannersError) {
+    dispatch({ type: GET_HEADER_BANNER_RESET });
+    setNotify({
+      isOpen: true,
+      message: headerBannersError,
+      type: "error",
+    });
+  }
+
   if (error) {
     setNotify({
       isOpen: true,
@@ -148,17 +149,21 @@ const StudentIdCard = () => {
         studentIdCardInitialData?.searchFilterModel.ddlAcademicYear
       );
       setDdlShift(studentIdCardInitialData?.searchFilterModel.ddlAcademicShift);
-      setShift(studentIdCardInitialData?.searchFilterModel.ddlAcademicShift[0].Key);
+      setShift(
+        studentIdCardInitialData?.searchFilterModel.ddlAcademicShift[0].Key
+      );
       setDdlSection(studentIdCardInitialData?.searchFilterModel.ddlSection);
       setSection(studentIdCardInitialData?.searchFilterModel.ddlSection[0].Key);
-      setDate(studentIdCardInitialData.searchFilterModel.ValidityDate?.slice(0,10));
+      setDate(
+        studentIdCardInitialData.searchFilterModel.ValidityDate?.slice(0, 10)
+      );
     }
   }, [studentIdCardInitialData, dispatch]);
 
-  useEffect(()=>{
-    dispatch({type:GET_ACTIVE_STUDENTS_FOR_STUDENT_ID_CARD_RESET})
+  useEffect(() => {
+    dispatch({ type: GET_ACTIVE_STUDENTS_FOR_STUDENT_ID_CARD_RESET });
     dispatch(getInitialStudentIdCardDataAction());
-  },[])
+  }, []);
 
   const validate = () => {
     let temp = {};
@@ -167,7 +172,7 @@ const StudentIdCard = () => {
     temp.classId = !classId ? "This feild is required" : "";
     temp.shift1 = !shift ? "This feild is required" : "";
     temp.section = !section ? "This feild is required" : "";
-    temp.student = !student ? "This feild is required" : "";
+    // temp.student = !student ? "This feild is required" : "";
     temp.date =
       date.toString() === "Invalid Date"
         ? "Invalid Date"
@@ -183,9 +188,15 @@ const StudentIdCard = () => {
     setSection(value);
     setDdlStudent([]);
     setStudent("");
-    if ((acaYear,programValue, classId, shift)) {
+    if ((acaYear, programValue, classId, shift)) {
       dispatch(
-        getActiveStudentsForAdmitCardDataAction( acaYear,programValue, classId,value, shift)
+        getActiveStudentsForAdmitCardDataAction(
+          acaYear,
+          programValue,
+          classId,
+          value,
+          shift
+        )
       );
     }
   };
@@ -254,7 +265,7 @@ const StudentIdCard = () => {
           shift,
           student,
           section,
-          date?.slice(0,10)
+          date?.slice(0, 10)
         )
       );
     }
@@ -269,7 +280,7 @@ const StudentIdCard = () => {
           shift,
           student,
           section,
-          date?.slice(0,10)
+          date?.slice(0, 10)
         )
       );
       setOpenPopup(true);
@@ -329,7 +340,6 @@ const StudentIdCard = () => {
               />
             </Grid>
             <Grid item xs={3}>
-              
               <SelectControl
                 name="Section"
                 label="Section"
@@ -348,7 +358,7 @@ const StudentIdCard = () => {
                 value={student}
                 onChange={(e) => setStudent(e.target.value)}
                 options={ddlStudent ? ddlStudent : test}
-                errors={errors.student}
+                // errors={errors.student}
               />
             </Grid>
             <Grid item xs={3}>
@@ -363,7 +373,7 @@ const StudentIdCard = () => {
             </Grid>
 
             <Grid item xs={3}>
-            <div style={{ height: "10px" }}></div>
+              <div style={{ height: "10px" }}></div>
               <Button
                 variant="contained"
                 color="primary"
@@ -390,49 +400,43 @@ const StudentIdCard = () => {
           <LoadingComp />
         ) : (
           <>
-        {activeStudentsForIdCard && (
-          <Grid container style={{ fontSize: "12px" }}>
-            {activeStudentsForIdCard.dbModelLst.map((student) => (
-              <StudentCardDesign
-                key={student.$id}
-                student={student}
-                classname={activeStudentsForIdCard?.ddlClass}
-                section={activeStudentsForIdCard?.ddlSection}
-                examDate={date}
-                headerBanners={headerBanners && headerBanners}
-              />
-            ))}
-          </Grid>
-        )}
-        </>
+            {activeStudentsForIdCard && (
+              <Grid container style={{ fontSize: "12px" }}>
+                {activeStudentsForIdCard.dbModelLst.map((student) => (
+                  <StudentCardDesign
+                    key={student.$id}
+                    student={student}
+                    classname={activeStudentsForIdCard?.ddlClass}
+                    section={activeStudentsForIdCard?.ddlSection}
+                    examDate={date}
+                    headerBanners={headerBanners && headerBanners}
+                  />
+                ))}
+              </Grid>
+            )}
+          </>
         )}
       </CustomContainer>
       <Popup openPopup={openPopup} setOpenPopup={setOpenPopup}>
-      {loadingBulk ? (
+        {loadingBulk ? (
           <LoadingComp />
         ) : (
           <>
-          {printBulkStudentsForIdCard && (
-          <Grid container style={{ fontSize: "12px" }}>
-          {printBulkStudentsForIdCard.dbModelLst.map((student) => (
-        <StudentIdCardPrint
-         key={student.$id}
-         headerBanners={headerBanners && headerBanners}
-          studentId={
-            student
-          }
-          classnames={
-            printBulkStudentsForIdCard?.ddlClass
-          }
-          section={printBulkStudentsForIdCard?.ddlSection}
-          examDates={
-            date
-          }
-        />
-          ))}
-          </Grid>
-          )}
-        </>
+            {printBulkStudentsForIdCard && (
+              <Grid container style={{ fontSize: "12px" }}>
+                {printBulkStudentsForIdCard.dbModelLst.map((student) => (
+                  <StudentIdCardPrint
+                    key={student.$id}
+                    headerBanners={headerBanners && headerBanners}
+                    studentId={student}
+                    classnames={printBulkStudentsForIdCard?.ddlClass}
+                    section={printBulkStudentsForIdCard?.ddlSection}
+                    examDates={date}
+                  />
+                ))}
+              </Grid>
+            )}
+          </>
         )}
       </Popup>
 

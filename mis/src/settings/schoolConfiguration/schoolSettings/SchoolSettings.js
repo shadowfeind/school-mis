@@ -48,7 +48,7 @@ const tableHeader = [
   { id: "PhoneNo", label: "Phone Number" },
   { id: "EmailID", label: "Email ID" },
   { id: "WebSite", label: "WebSite" },
-  { id: "actions", label: "Actions", disableSorting: true },
+  { id: "actions", label: "All", disableSorting: true },
 ];
 
 const SchoolSettings = () => {

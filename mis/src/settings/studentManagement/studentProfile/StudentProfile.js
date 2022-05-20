@@ -110,9 +110,11 @@ const StudentProfile = () => {
     (state) => state.studentProfile
   );
 
-  const { listStudentProfile,loading, error: listStudentProfileError } = useSelector(
-    (state) => state.getListStudentProfile
-  );
+  const {
+    listStudentProfile,
+    loading,
+    error: listStudentProfileError,
+  } = useSelector((state) => state.getListStudentProfile);
 
   const {
     singleStudentProfileDetails,
@@ -129,8 +131,11 @@ const StudentProfile = () => {
     error: resetSingleStudentProfilePasswordError,
   } = useSelector((state) => state.resetSingleStudentProfilePassword);
 
-  const { editSingleStudentData, loading:loadingEdit,error: editSingleStudentDataError } =
-    useSelector((state) => state.getSingleStudentProfileEditData);
+  const {
+    editSingleStudentData,
+    loading: loadingEdit,
+    error: editSingleStudentDataError,
+  } = useSelector((state) => state.getSingleStudentProfileEditData);
 
   const {
     success: updateSingleStudentProfileSuccess,
@@ -141,9 +146,8 @@ const StudentProfile = () => {
     (state) => state.getUploadPhoto
   );
 
-  const { success: postUploadPhotoSuccess, error: postUploadPhotoError } = useSelector(
-    (state) => state.postUploadPhoto
-  );
+  const { success: postUploadPhotoSuccess, error: postUploadPhotoError } =
+    useSelector((state) => state.postUploadPhoto);
 
   if (error) {
     setNotify({
@@ -194,13 +198,17 @@ const StudentProfile = () => {
       type: "success",
     });
     dispatch({ type: POST_UPLOAD_PHOTO_RESET });
-    dispatch(getListStudentProfileAction( academicYearValue,
+    dispatch(
+      getListStudentProfileAction(
+        academicYearValue,
         programValue,
         shiftValue,
         classOptValue,
         sectionValue,
-        statusValue));
-      setOpenImagePopup(false);
+        statusValue
+      )
+    );
+    setOpenImagePopup(false);
   }
   if (postUploadPhotoError) {
     setNotify({
@@ -266,7 +274,6 @@ const StudentProfile = () => {
     setOpenPopup(false);
   }
 
-
   const deleteCollegeHandler = (id) => {};
 
   useEffect(() => {
@@ -274,7 +281,9 @@ const StudentProfile = () => {
       setAcademicYear(studentProfile?.searchFilterModel.ddlAcademicYear);
       setShift(studentProfile?.searchFilterModel.ddlAcademicShift);
       setShiftValue(studentProfile?.searchFilterModel.ddlAcademicShift[0].Key);
-      setProgramValue(studentProfile?.searchFilterModel.ddlFacultyProgramLink[0].Key);
+      setProgramValue(
+        studentProfile?.searchFilterModel.ddlFacultyProgramLink[0].Key
+      );
       setSection(studentProfile?.searchFilterModel.ddlSection);
       setSectionValue(studentProfile?.searchFilterModel.ddlSection[0].Key);
       setClassOpt(studentProfile?.searchFilterModel.ddlClass);
@@ -284,15 +293,15 @@ const StudentProfile = () => {
     }
   }, [dispatch, studentProfile]);
 
-  useEffect(()=>{
-    dispatch({type:GET_LIST_STUDENT_PROFILE_RESET})
+  useEffect(() => {
+    dispatch({ type: GET_LIST_STUDENT_PROFILE_RESET });
     dispatch(getAllStudentProfileAction());
-  },[])
-// useEffect(()=>{
-//   if(uploadPhoto){
-//     dispatch(getUploadPhotoAction())
-//   }
-// },[dispatch,uploadPhoto]);
+  }, []);
+  // useEffect(()=>{
+  //   if(uploadPhoto){
+  //     dispatch(getUploadPhotoAction())
+  //   }
+  // },[dispatch,uploadPhoto]);
   useEffect(() => {
     if (listStudentProfile) {
       setTableData([...listStudentProfile.dbModelList]);
@@ -366,12 +375,15 @@ const StudentProfile = () => {
 
   const addHandler = (id) => {
     dispatch(
-      getUploadPhotoAction(id, listStudentProfile.searchFilterModel.idAcademicYear,
+      getUploadPhotoAction(
+        id,
+        listStudentProfile.searchFilterModel.idAcademicYear,
         listStudentProfile.searchFilterModel.idFacultyProgramLink,
         listStudentProfile.searchFilterModel.idClass,
         listStudentProfile.searchFilterModel.classSection,
         listStudentProfile.searchFilterModel.idShift,
-        listStudentProfile.searchFilterModel.LevelStatus)
+        listStudentProfile.searchFilterModel.LevelStatus
+      )
     );
     setOpenImagePopup(true);
   };
@@ -444,7 +456,7 @@ const StudentProfile = () => {
               />
             </Grid>
             <Grid item xs={3}>
-            <div style={{ height: "10px" }}></div>
+              <div style={{ height: "10px" }}></div>
               <Button
                 variant="contained"
                 color="primary"
@@ -471,50 +483,60 @@ const StudentProfile = () => {
             }}
             onChange={handleSearch}
           />
-          </Toolbar>
+        </Toolbar>
         {loading ? (
           <LoadingComp />
         ) : (
           <>
-          {listStudentProfile && (
-        <TableContainer className={classes.table}>
-          <TblHead /> 
-            <TableBody>
-              {tableDataAfterPagingAndSorting().map((item, index) => (
-                <StudentProfileTableCollapse
-                  item={item}
-                  key={item.$id}
-                  selectedIndex={selectedIndex}
-                  index={index}
-                  setSelectedIndex={setSelectedIndex}
-                  ImagePathLst={listStudentProfile?.ImagePathLst}
-                  detailImagePath={singleStudentProfileDetails?.searchFilterModelStudent.ImageFullPath}
-                  year={listStudentProfile?.searchFilterModel.idAcademicYear}
-                  program={
-                    listStudentProfile?.searchFilterModel.idFacultyProgramLink
-                  }
-                  section={listStudentProfile?.searchFilterModel.classSection}
-                  classId={listStudentProfile?.searchFilterModel.idClass}
-                  shift={listStudentProfile?.searchFilterModel.idShift}
-                  ddlShift={listStudentProfile?.searchFilterModel.ddlAcademicShift}
-                  status={listStudentProfile?.searchFilterModel.LevelStatus}
-                  // studentDetails={singleStudentProfileDetails}
-                  studentDetails={
-                    singleStudentProfileDetails &&
-                    singleStudentProfileDetails.hrEmployeeModel
-                  }
-                  setOpenResetPopup={setOpenResetPopup}
-                  updateFormHandler={updateFormHandler}
-                  setOpenImagePopup={setOpenImagePopup}
-                  addHandler={addHandler}
-                  // deleteCollegeHandler={deleteCollegeHandler}
-                />
-              ))}
-            </TableBody>
-        </TableContainer>
-         )}
-        {listStudentProfile && <TblPagination />}
-        </>
+            {listStudentProfile && (
+              <TableContainer className={classes.table}>
+                <TblHead />
+                <TableBody>
+                  {tableDataAfterPagingAndSorting().map((item, index) => (
+                    <StudentProfileTableCollapse
+                      item={item}
+                      key={item.$id}
+                      selectedIndex={selectedIndex}
+                      index={index}
+                      setSelectedIndex={setSelectedIndex}
+                      ImagePathLst={listStudentProfile?.ImagePathLst}
+                      detailImagePath={
+                        singleStudentProfileDetails?.searchFilterModelStudent
+                          .ImageFullPath
+                      }
+                      year={
+                        listStudentProfile?.searchFilterModel.idAcademicYear
+                      }
+                      program={
+                        listStudentProfile?.searchFilterModel
+                          .idFacultyProgramLink
+                      }
+                      section={
+                        listStudentProfile?.searchFilterModel.classSection
+                      }
+                      classId={listStudentProfile?.searchFilterModel.idClass}
+                      shift={listStudentProfile?.searchFilterModel.idShift}
+                      ddlShift={
+                        listStudentProfile?.searchFilterModel.ddlAcademicShift
+                      }
+                      status={listStudentProfile?.searchFilterModel.LevelStatus}
+                      // studentDetails={singleStudentProfileDetails}
+                      studentDetails={
+                        singleStudentProfileDetails &&
+                        singleStudentProfileDetails.hrEmployeeModel
+                      }
+                      setOpenResetPopup={setOpenResetPopup}
+                      updateFormHandler={updateFormHandler}
+                      setOpenImagePopup={setOpenImagePopup}
+                      addHandler={addHandler}
+                      // deleteCollegeHandler={deleteCollegeHandler}
+                    />
+                  ))}
+                </TableBody>
+              </TableContainer>
+            )}
+            {listStudentProfile && <TblPagination />}
+          </>
         )}
       </CustomContainer>
       <Popup
@@ -522,15 +544,15 @@ const StudentProfile = () => {
         setOpenPopup={setOpenPopup}
         title="Student Profile"
       >
-      {loadingEdit ? (
+        {loadingEdit ? (
           <LoadingComp />
         ) : (
           <>
-        <StudentProfileForm
-          studentData={editSingleStudentData && editSingleStudentData}
-          setOpenPopup={setOpenPopup}
-        />
-        </>
+            <StudentProfileForm
+              studentData={editSingleStudentData && editSingleStudentData}
+              setOpenPopup={setOpenPopup}
+            />
+          </>
         )}
       </Popup>
       <Popup

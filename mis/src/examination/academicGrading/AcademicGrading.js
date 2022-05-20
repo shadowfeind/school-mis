@@ -79,9 +79,10 @@ const AcademicGrading = () => {
     (state) => state.academicGrading
   );
 
-  const { academicGradingCreate: singleAcademicGradingCreate, error: singleAcademicGradingCreateError } = useSelector(
-      (state) => state.getSingleAcademicGrading
-  );
+  const {
+    academicGradingCreate: singleAcademicGradingCreate,
+    error: singleAcademicGradingCreateError,
+  } = useSelector((state) => state.getSingleAcademicGrading);
 
   const {
     academicGradingEdit: singleAcademicGrading,
@@ -171,13 +172,13 @@ const AcademicGrading = () => {
     dispatch({ type: GET_SINGLE_ACADEMIC_GRADING_EDIT_RESET });
     setOpenPopup(true);
   };
-  
-  const updateCollegeHandler = (id,program) => {
-    dispatch(getSingleAcademicGradingforEditAction(id,program));
+
+  const updateCollegeHandler = (id, program) => {
+    dispatch(getSingleAcademicGradingforEditAction(id, program));
     setOpenPopup(true);
   };
 
-  const deleteCollegeHandler = (id,program) => {};
+  const deleteCollegeHandler = (id, program) => {};
 
   useEffect(() => {
     dispatch({ type: "GET_LINK", payload: "examination" });
@@ -210,7 +211,6 @@ const AcademicGrading = () => {
     });
   };
 
-  
   return (
     <>
       <CustomContainer>

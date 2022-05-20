@@ -238,7 +238,7 @@ const PrintAdminCard = () => {
     temp.section = !section ? "This feild is required" : "";
     temp.shift1 = !shift ? "This feild is required" : "";
     temp.event = !event ? "This feild is required" : "";
-    temp.student = !student ? "This feild is required" : "";
+    // temp.student = !student ? "This feild is required" : "";
 
     setErrors({ ...temp });
     return Object.values(temp).every((x) => x === "");
@@ -469,7 +469,7 @@ const PrintAdminCard = () => {
                 value={student}
                 onChange={(e) => setStudent(e.target.value)}
                 options={ddlStudent ? ddlStudent : test}
-                errors={errors.student}
+                // errors={errors.student}
               />
             </Grid>
             <Grid item xs={3}>

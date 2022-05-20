@@ -259,27 +259,34 @@ const StudentAttendance = () => {
     dispatch({ type: "GET_LINK", payload: "examination" });
     if (studentAttendanceInitData) {
       setProgramValue(
-        studentAttendanceInitData?.searchFilterModel.ddlFacultyProgramLink[0].Key
+        studentAttendanceInitData?.searchFilterModel.ddlFacultyProgramLink[0]
+          .Key
       );
       setDdlClass(studentAttendanceInitData?.searchFilterModel.ddlClass);
       setClassId(studentAttendanceInitData?.searchFilterModel.ddlClass[0].Key);
       setAcademicYearDdl(
         studentAttendanceInitData?.searchFilterModel.ddlAcademicYear
       );
-      setDdlShift(studentAttendanceInitData?.searchFilterModel.ddlAcademicShift);
-      setShift(studentAttendanceInitData?.searchFilterModel.ddlAcademicShift[0].Key);
+      setDdlShift(
+        studentAttendanceInitData?.searchFilterModel.ddlAcademicShift
+      );
+      setShift(
+        studentAttendanceInitData?.searchFilterModel.ddlAcademicShift[0].Key
+      );
       setDdlSection(studentAttendanceInitData?.searchFilterModel.ddlSection);
-      setSection(studentAttendanceInitData?.searchFilterModel.ddlSection[0].Key);
+      setSection(
+        studentAttendanceInitData?.searchFilterModel.ddlSection[0].Key
+      );
       setStartDate(studentAttendanceInitData?.searchFilterModel.StartDate);
       setEndDate(studentAttendanceInitData?.searchFilterModel.EndDate);
     }
   }, [studentAttendanceInitData, dispatch]);
 
-  useEffect(()=>{
-    dispatch({type:GET_ALL_STUDEN_ATTENDANCE_RESET})
-    dispatch({type:GET_GENERATED_STUDENT_ATTENDANCE_RESET})
+  useEffect(() => {
+    dispatch({ type: GET_ALL_STUDEN_ATTENDANCE_RESET });
+    dispatch({ type: GET_GENERATED_STUDENT_ATTENDANCE_RESET });
     dispatch(getAllStudentAttendanceInitialDataAction());
-  },[])
+  }, []);
 
   useEffect(() => {
     if (allStudentAttendance) {
@@ -301,7 +308,7 @@ const StudentAttendance = () => {
     temp.shift1 = !shift ? "This feild is required" : "";
     temp.section = !section ? "This feild is required" : "";
     temp.event = !event ? "This feild is required" : "";
-  
+
     setErrors({ ...temp });
     return Object.values(temp).every((x) => x === "");
   };
@@ -322,16 +329,16 @@ const StudentAttendance = () => {
 
   const handleShiftChange = (value) => {
     setShift(value);
-   setDdlEvent([]);
-   setEvent("");
-      dispatch(getEventAction( acaYear, programValue, classId, value));
+    setDdlEvent([]);
+    setEvent("");
+    dispatch(getEventAction(acaYear, programValue, classId, value));
   };
 
   const handleSectionChange = (value) => {
     setSection(value);
-   setDdlEvent([]);
-   setEvent("");
-      dispatch(getEventAction( acaYear, programValue, classId,shift, value));
+    setDdlEvent([]);
+    setEvent("");
+    dispatch(getEventAction(acaYear, programValue, classId, shift, value));
   };
 
   const handleYearChange = (value) => {
@@ -351,7 +358,7 @@ const StudentAttendance = () => {
 
   const handleStudentSearch = () => {
     if (validate()) {
-      setErrorsGenerate({})
+      setErrorsGenerate({});
       dispatch(
         getAllStudentAttendanceAction(
           acaYear,
@@ -385,7 +392,7 @@ const StudentAttendance = () => {
 
   const handleBulkEdit = () => {
     if (validate()) {
-      setErrorsGenerate({})
+      setErrorsGenerate({});
       dispatch(
         getBulkStudentAttendanceAction(
           acaYear,
@@ -400,15 +407,14 @@ const StudentAttendance = () => {
     }
   };
 
-  useEffect(()=>{
-    if(allEvents){
+  useEffect(() => {
+    if (allEvents) {
       setDdlEvent(allEvents);
-      setEvent(allEvents[0]?.Key)
+      setEvent(allEvents[0]?.Key);
     }
-  },[allEvents])
+  }, [allEvents]);
 
-
-  const symbolsArr = ["e", "E", "+", "-", ".","ArrowUp","ArrowDown"];
+  const symbolsArr = ["e", "E", "+", "-", ".", "ArrowUp", "ArrowDown"];
 
   return (
     <>
@@ -422,7 +428,11 @@ const StudentAttendance = () => {
                 value={acaYear}
                 onChange={(e) => handleYearChange(e.target.value)}
                 options={academicYearDdl ? academicYearDdl : test}
-                errors={errors.acaYear ? errors.acaYear : errorsGenerate.acaYear && errorsGenerate.acaYear}
+                errors={
+                  errors.acaYear
+                    ? errors.acaYear
+                    : errorsGenerate.acaYear && errorsGenerate.acaYear
+                }
               />
             </Grid>
             {/* <Grid item xs={3}>
@@ -442,7 +452,11 @@ const StudentAttendance = () => {
                 value={classId}
                 onChange={(e) => handleClassIdChange(e.target.value)}
                 options={ddlClass ? ddlClass : test}
-                errors={errors.classId ? errors.classId : errorsGenerate.classId && errorsGenerate.classId}
+                errors={
+                  errors.classId
+                    ? errors.classId
+                    : errorsGenerate.classId && errorsGenerate.classId
+                }
               />
             </Grid>
             <Grid item xs={3}>
@@ -452,7 +466,11 @@ const StudentAttendance = () => {
                 value={shift}
                 onChange={(e) => handleShiftChange(e.target.value)}
                 options={ddlShift ? ddlShift : test}
-                errors={errors.shift1 ? errors.shift1 : errorsGenerate.shift1 && errorsGenerate.shift1}
+                errors={
+                  errors.shift1
+                    ? errors.shift1
+                    : errorsGenerate.shift1 && errorsGenerate.shift1
+                }
               />
             </Grid>
             <Grid item xs={3}>
@@ -462,8 +480,11 @@ const StudentAttendance = () => {
                 value={section}
                 onChange={(e) => handleSectionChange(e.target.value)}
                 options={ddlSection ? ddlSection : test}
-                
-                errors={errors.section ? errors.section : errorsGenerate.section && errorsGenerate.section}
+                errors={
+                  errors.section
+                    ? errors.section
+                    : errorsGenerate.section && errorsGenerate.section
+                }
               />
             </Grid>
             <Grid item xs={3}>
@@ -474,7 +495,11 @@ const StudentAttendance = () => {
                 value={event}
                 onChange={(e) => setEvent(e.target.value)}
                 options={ddlEvent ? ddlEvent : test}
-                errors={errors.event ? errors.event : errorsGenerate.event && errorsGenerate.event}
+                errors={
+                  errors.event
+                    ? errors.event
+                    : errorsGenerate.event && errorsGenerate.event
+                }
               />
             </Grid>
             <Grid item xs={3}>
@@ -483,12 +508,14 @@ const StudentAttendance = () => {
                 name="Working Days"
                 label="Working Days"
                 onFocus={(e) => {
-              e.target.select();
-            }}
-            onWheelCapture={(e) => {
-              e.target.blur();
-            }}
-            onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}
+                  e.target.select();
+                }}
+                onWheelCapture={(e) => {
+                  e.target.blur();
+                }}
+                onKeyDown={(e) =>
+                  symbolsArr.includes(e.key) && e.preventDefault()
+                }
                 value={workingDaysTotal}
                 onChange={(e) => setWorkingDaysTotal(e.target.value)}
                 type="number"

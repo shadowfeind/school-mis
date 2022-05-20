@@ -12,7 +12,11 @@ const useStyles = makeStyles({
   },
 });
 
-const TeacherFacultySubjectTableCollapse = ({ item, updateTeacherHandler }) => {
+const TeacherFacultySubjectTableCollapse = ({
+  item,
+  updateTeacherHandler,
+  deleteCollegeHandler,
+}) => {
   const classes = useStyles();
   return (
     <TableRow>
@@ -41,7 +45,12 @@ const TeacherFacultySubjectTableCollapse = ({ item, updateTeacherHandler }) => {
           variant="contained"
           color="secondary"
           className={classes.button}
-          //   onClick={() => deleteCollegeHandler(item.IDAcademicSubject)}
+          onClick={() =>
+            deleteCollegeHandler(
+              item.IDHRTeacherFacultySubjectMappingHeader,
+              item.IDTeacher
+            )
+          }
         >
           <DeleteIcon style={{ fontSize: 12 }} />
         </Button>

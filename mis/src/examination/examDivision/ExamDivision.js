@@ -131,14 +131,14 @@ const ExamDivision = () => {
     dispatch({ type: UPDATE_SINGLE_EXAM_DIVISION_RESET });
   }
 
-  if(singleExamDivisionError){
+  if (singleExamDivisionError) {
     setNotify({
-      isOpen:true,
-      message:singleExamDivisionError,
+      isOpen: true,
+      message: singleExamDivisionError,
       type: "error",
-    })
+    });
     setOpenPopup(false);
-    dispatch({type: GET_SINGLE_EXAM_DIVISION_EDIT_RESET})
+    dispatch({ type: GET_SINGLE_EXAM_DIVISION_EDIT_RESET });
   }
 
   if (updateSingleExamDivisionError) {
@@ -151,14 +151,8 @@ const ExamDivision = () => {
     dispatch({ type: UPDATE_SINGLE_EXAM_DIVISION_RESET });
   }
 
-  const updateCollegeHandler = (
-    id,program
-  ) => {
-    dispatch(
-      getSingleExamDivisionEditAction(
-        id,program
-      )
-    );
+  const updateCollegeHandler = (id, program) => {
+    dispatch(getSingleExamDivisionEditAction(id, program));
     setOpenPopup(true);
   };
   const deleteCollegeHandler = () => {};

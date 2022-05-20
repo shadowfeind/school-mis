@@ -51,7 +51,7 @@ const tableHeader = [
   // { id: "Updated_On", label: "Updated_On" },
   { id: "IsSystemDefined", label: "System Defined" },
   { id: "MarkAsAdmin", label: "Mark As Admin" },
-  { id: "actions", label: "Actions", disableSorting: true },
+  { id: "actions", label: "All", disableSorting: true },
 ];
 
 const Role = () => {

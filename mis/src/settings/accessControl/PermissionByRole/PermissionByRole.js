@@ -127,7 +127,7 @@ const PermissionByRole = () => {
 
   useEffect(() => {
     if (listPermissionByRole) {
-        setTableData([...listPermissionByRole]);
+      setTableData([...listPermissionByRole]);
     }
   }, [listPermissionByRole]);
 
@@ -194,23 +194,23 @@ const PermissionByRole = () => {
           />
         </Toolbar>
         {listPermissionByRole && (
-      <TableContainer className={classes.table}>
-        <TblHead />
+          <TableContainer className={classes.table}>
+            <TblHead />
 
-        <TableBody>
-          {tableDataAfterPagingAndSorting().map((item) => (
-            <AcademicYearCalendarTableCollapse
-              item={item}
-              key={item.$id}
-              updateAcademicYear={updateAcademicYear}
-              deleteCollegeHandler={deleteCollegeHandler}
-            />
-          ))}
-        </TableBody>
-      </TableContainer>
-    )}
+            <TableBody>
+              {tableDataAfterPagingAndSorting().map((item) => (
+                <AcademicYearCalendarTableCollapse
+                  item={item}
+                  key={item.$id}
+                  updateAcademicYear={updateAcademicYear}
+                  deleteCollegeHandler={deleteCollegeHandler}
+                />
+              ))}
+            </TableBody>
+          </TableContainer>
+        )}
 
-    {listPermissionByRole && <TblPagination />}
+        {listPermissionByRole && <TblPagination />}
       </CustomContainer>
       <Popup
         openPopup={openPopup}

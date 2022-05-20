@@ -50,7 +50,7 @@ const tableHeader = [
   { id: "Created_On", label: "Created On" },
   { id: "Updated_On", label: "Updated On" },
   { id: "IsActive", label: "IsActive" },
-  { id: "actions", label: "Actions", disableSorting: true },
+  { id: "actions", label: "All", disableSorting: true },
 ];
 
 const Position = () => {

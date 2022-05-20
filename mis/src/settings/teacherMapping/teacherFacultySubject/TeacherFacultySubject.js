@@ -20,6 +20,7 @@ import SelectControl from "../../../components/controls/SelectControl";
 import {
   CREATE_SINGLE_TEACHER_FAC_SUB_RESET,
   CREATE_TEACHER_FAC_SUB_INITIAL_DATA_RESET,
+  DELETE_TEACHER_FAC_SUB_RESET,
   GET_ALL_TEACHER_FAC_SUB_INITIAL_DATA_RESET,
   GET_ALL_TEACHER_FAC_SUB_LIST_DATA_RESET,
   GET_SINGLE_TEACHER_FAC_SUB_DATA_RESET,
@@ -33,6 +34,7 @@ import {
 } from "./TeacherFacultySubjectActions";
 import TeacherFacultySubjectTableCollapse from "./TeacherFacultySubjectTableCollapse";
 import TeacherFacultySubjectForm from "./TeacherFacultySubjectForm";
+import TeacherFacultySubjectDeleteForm from "./TeacherFacultySubjectDeleteForm";
 
 const useStyles = makeStyles((theme) => ({
   searchInput: {
@@ -65,6 +67,7 @@ const TeacherFacultySubject = () => {
     },
   });
   const [openPopup, setOpenPopup] = useState(false);
+  const [openDeletePopup, setOpenDeletePopup] = useState(false);
   const [notify, setNotify] = useState({
     isOpen: false,
     message: "",
@@ -110,6 +113,12 @@ const TeacherFacultySubject = () => {
     success: singleTeacherFacSubEditSuccess,
     error: singleTeacherFacSubEditError,
   } = useSelector((state) => state.singleTeacherFacSubEdit);
+
+  const {
+    success: deleteClassSubjectSuccess,
+    error: deleteClassSubjectError,
+    loading: loadingDelete,
+  } = useSelector((state) => state.deleteClassSubject);
 
   const {
     success: createSingleTeacherFacSubSuccess,
@@ -217,6 +226,34 @@ const TeacherFacultySubject = () => {
     dispatch({ type: CREATE_SINGLE_TEACHER_FAC_SUB_RESET });
   }
 
+  if (deleteClassSubjectError) {
+    setNotify({
+      isOpen: true,
+      message: deleteClassSubjectError,
+      type: "error",
+    });
+    dispatch({ type: DELETE_TEACHER_FAC_SUB_RESET });
+  }
+
+  if (deleteClassSubjectSuccess) {
+    setNotify({
+      isOpen: true,
+      message: "Successfully Deleted",
+      type: "success",
+    });
+
+    dispatch(
+      getAllTeacherFacSubListDataAction(
+        academicYearValue,
+        programValue,
+        classOptValue,
+        sectionValue,
+        shiftValue
+      )
+    );
+    dispatch({ type: DELETE_TEACHER_FAC_SUB_RESET });
+  }
+
   const {
     TableContainer,
     TblHead,
@@ -308,6 +345,21 @@ const TeacherFacultySubject = () => {
         )
       );
     }
+  };
+
+  const deleteCollegeHandler = (id, teacherId) => {
+    dispatch(
+      getSingleTeacherFacSubDataAction(
+        id,
+        academicYearValue,
+        programValue,
+        classOptValue,
+        sectionValue,
+        shiftValue,
+        teacherId
+      )
+    );
+    setOpenDeletePopup(true);
   };
 
   const handleCreate = () => {
@@ -432,6 +484,8 @@ const TeacherFacultySubject = () => {
                       item={item}
                       key={item.$id}
                       updateTeacherHandler={updateTeacherHandler}
+                      deleteCollegeHandler={deleteCollegeHandler}
+
                     />
                   ))}
                 </TableBody>
@@ -458,6 +512,24 @@ const TeacherFacultySubject = () => {
                 createInitTeacherFacData &&
                 createInitTeacherFacData.searchFilterModel
               }
+            />
+          </>
+        )}
+      </Popup>
+
+      <Popup
+        openPopup={openDeletePopup}
+        setOpenPopup={setOpenDeletePopup}
+        title="Teacher Faculty Subject Delete Form"
+      >
+        {loadingDelete ? (
+          <LoadingComp />
+        ) : (
+          <>
+            <TeacherFacultySubjectDeleteForm
+              deleteForm={singleTeacherFacData && singleTeacherFacData}
+              setOpenDeletePopup={setOpenDeletePopup}
+
             />
           </>
         )}

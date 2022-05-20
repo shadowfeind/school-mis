@@ -119,25 +119,26 @@ const ReassociateStudent = () => {
     });
   };
 
-  const { reassociateStudentLists,loading } = useSelector(
+  const { reassociateStudentLists, loading } = useSelector(
     (state) => state.getReassociateStudentsLists
   );
 
-  const { reassociateStudentLevel,loading:loadingLevelUp ,error:reassociateStudentLevelError} = useSelector(
-    (state) => state.getReassociateStudentsLevelup
-  );
   const {
-    singleEditReassociateStudent,loading:loadingEdit,
+    reassociateStudentLevel,
+    loading: loadingLevelUp,
+    error: reassociateStudentLevelError,
+  } = useSelector((state) => state.getReassociateStudentsLevelup);
+  const {
+    singleEditReassociateStudent,
+    loading: loadingEdit,
     error: singleEditReassociateStudentError,
   } = useSelector((state) => state.getSingleEditReassociateStudents);
 
-  const { success: reassociatePostSuccess, error:reassociatePostError} = useSelector(
-    (state) => state.getReassociateStudentsLevelupPost
-  );
+  const { success: reassociatePostSuccess, error: reassociatePostError } =
+    useSelector((state) => state.getReassociateStudentsLevelupPost);
 
-  const { success: putReassociateSuccess , error:putReassociateError} = useSelector(
-    (state) => state.putReassociateStudents
-  );
+  const { success: putReassociateSuccess, error: putReassociateError } =
+    useSelector((state) => state.putReassociateStudents);
 
   if (singleEditReassociateStudentError) {
     setNotify({
@@ -178,7 +179,6 @@ const ReassociateStudent = () => {
     setOpenPopup(false);
   }
 
-
   if (putReassociateSuccess) {
     setNotify({
       isOpen: true,
@@ -200,7 +200,7 @@ const ReassociateStudent = () => {
 
   if (reassociatePostSuccess) {
     setFormCheck([]);
-    
+
     setNotify({
       isOpen: true,
       message: "Edited Succesfully",
@@ -223,23 +223,29 @@ const ReassociateStudent = () => {
   };
   useEffect(() => {
     if (allReassociateStudents) {
-      setAcademicYear(allReassociateStudents?.searchFilterModel.ddlAcademicYear);
+      setAcademicYear(
+        allReassociateStudents?.searchFilterModel.ddlAcademicYear
+      );
       setShift(allReassociateStudents?.searchFilterModel.ddlAcademicShift);
-      setShiftValue(allReassociateStudents?.searchFilterModel.ddlAcademicShift[0].Key)
+      setShiftValue(
+        allReassociateStudents?.searchFilterModel.ddlAcademicShift[0].Key
+      );
       setProgramValue(
         allReassociateStudents?.searchFilterModel.ddlFacultyProgramLink[0].Key
       );
       setSection(allReassociateStudents?.ddlSection);
       setSectionValue(allReassociateStudents?.ddlSection[0].Key);
       setClassOpt(allReassociateStudents?.searchFilterModel.ddlClass);
-      setClassOptValue(allReassociateStudents?.searchFilterModel.ddlClass[0].Key);
+      setClassOptValue(
+        allReassociateStudents?.searchFilterModel.ddlClass[0].Key
+      );
     }
   }, [allReassociateStudents]);
 
-  useEffect(()=>{
-    dispatch({type:GET_REASSOCIATE_STUDENTS_LISTS_RESET})
+  useEffect(() => {
+    dispatch({ type: GET_REASSOCIATE_STUDENTS_LISTS_RESET });
     dispatch(getAllReassociateStudentsAction());
-  },[])
+  }, []);
 
   useEffect(() => {
     if (reassociateStudentLists) {
@@ -409,24 +415,24 @@ const ReassociateStudent = () => {
           <LoadingComp />
         ) : (
           <>
-        {reassociateStudentLists && (
-          <TableContainer className={classes.table}>
-            <TblHead />
+            {reassociateStudentLists && (
+              <TableContainer className={classes.table}>
+                <TblHead />
 
-            <TableBody>
-              {tableDataAfterPagingAndSorting().map((item) => (
-                <ReassociateStudentTableCollapse
-                  item={item}
-                  key={item.$id}
-                  updateFormHandler={updateFormHandler}
-                  // deleteCollegeHandler={deleteCollegeHandler}
-                />
-              ))}
-            </TableBody>
-          </TableContainer>
-        )}
-        {reassociateStudentLists && <TblPagination />}
-        </>
+                <TableBody>
+                  {tableDataAfterPagingAndSorting().map((item) => (
+                    <ReassociateStudentTableCollapse
+                      item={item}
+                      key={item.$id}
+                      updateFormHandler={updateFormHandler}
+                      // deleteCollegeHandler={deleteCollegeHandler}
+                    />
+                  ))}
+                </TableBody>
+              </TableContainer>
+            )}
+            {reassociateStudentLists && <TblPagination />}
+          </>
         )}
       </CustomContainer>
       <Popup
@@ -434,44 +440,53 @@ const ReassociateStudent = () => {
         setOpenPopup={setOpenPopup}
         title="Level Up Students"
       >
-    {loadingLevelUp ? (
+        {loadingLevelUp ? (
           <LoadingComp />
         ) : (
           <>
-        <ReassociateStudentLevelUp
-          dbModelLst={
-            reassociateStudentLevel && reassociateStudentLevel.dbModelLst
-          }
-          ddlSection={
-            reassociateStudentLevel && reassociateStudentLevel.ddlSection
-          }
-          ddlLevelStatus={
-            reassociateStudentLevel && reassociateStudentLevel.ddlLevelStatus
-          }
-          ddlAcademicYear={
-            reassociateStudentLevel && reassociateStudentLevel.ddlAcademicYear
-          }
-          ddlClass={reassociateStudentLevel && reassociateStudentLevel.ddlClass}
-          nextClass={
-            reassociateStudentLevel &&
-            reassociateStudentLevel.searchFilterModel?.nextClass
-          }
-          idAcademicYear={
-            reassociateStudentLevel && reassociateStudentLevel.ddlAcademicYear
-          }
-          idAcademicYearValue={
-            reassociateStudentLevel && reassociateStudentLevel.searchFilterModel?.idAcademicYear
-          }
-          idNextAcademicYearValue={
-            reassociateStudentLevel && reassociateStudentLevel.searchFilterModel?.idNextAcademicYear
-          }
-          noNextYearError={reassociateStudentLevel && reassociateStudentLevel?.Message}
-          setOpenPopup={setOpenPopup}
-          setFormCheck={setFormCheck}
-          formCheck={formCheck}
-          formCheckSubmitHandler={formCheckSubmitHandler}
-        />
-        </>
+            <ReassociateStudentLevelUp
+              dbModelLst={
+                reassociateStudentLevel && reassociateStudentLevel.dbModelLst
+              }
+              ddlSection={
+                reassociateStudentLevel && reassociateStudentLevel.ddlSection
+              }
+              ddlLevelStatus={
+                reassociateStudentLevel &&
+                reassociateStudentLevel.ddlLevelStatus
+              }
+              ddlAcademicYear={
+                reassociateStudentLevel &&
+                reassociateStudentLevel.ddlAcademicYear
+              }
+              ddlClass={
+                reassociateStudentLevel && reassociateStudentLevel.ddlClass
+              }
+              nextClass={
+                reassociateStudentLevel &&
+                reassociateStudentLevel.searchFilterModel?.nextClass
+              }
+              idAcademicYear={
+                reassociateStudentLevel &&
+                reassociateStudentLevel.ddlAcademicYear
+              }
+              idAcademicYearValue={
+                reassociateStudentLevel &&
+                reassociateStudentLevel.searchFilterModel?.idAcademicYear
+              }
+              idNextAcademicYearValue={
+                reassociateStudentLevel &&
+                reassociateStudentLevel.searchFilterModel?.idNextAcademicYear
+              }
+              noNextYearError={
+                reassociateStudentLevel && reassociateStudentLevel?.Message
+              }
+              setOpenPopup={setOpenPopup}
+              setFormCheck={setFormCheck}
+              formCheck={formCheck}
+              formCheckSubmitHandler={formCheckSubmitHandler}
+            />
+          </>
         )}
       </Popup>
       <Popup
@@ -479,17 +494,17 @@ const ReassociateStudent = () => {
         setOpenPopup={setOpenPopupEdit}
         title="Edit Reassociate Students"
       >
-       {loadingEdit ? (
+        {loadingEdit ? (
           <LoadingComp />
         ) : (
           <>
-        <ReassociateStudentSearchEditForm
-          reassociateForm={
-            singleEditReassociateStudent && singleEditReassociateStudent
-          }
-          setOpenPopupEdit={setOpenPopupEdit}
-        />
-        </>
+            <ReassociateStudentSearchEditForm
+              reassociateForm={
+                singleEditReassociateStudent && singleEditReassociateStudent
+              }
+              setOpenPopupEdit={setOpenPopupEdit}
+            />
+          </>
         )}
       </Popup>
       <Notification notify={notify} setNotify={setNotify} />

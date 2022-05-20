@@ -4,10 +4,7 @@ import InputControl from "../../../components/controls/InputControl";
 import { useForm, Form } from "../../../customHooks/useForm";
 import { useDispatch, useSelector } from "react-redux";
 import SelectControl from "../../../components/controls/SelectControl";
-import {
-  createSingleTeacherFacSubAction,
-  singleTeacherFacSubEditAction,
-} from "./TeacherFacultySubjectActions";
+import { deleteTeacherFacSubAction } from "./TeacherFacultySubjectActions";
 
 const initialFormValues = {
   IDHRTeacherFacultySubjectMappingHeader: 0,
@@ -23,11 +20,9 @@ const initialFormValues = {
   Updated_On: "2022-01-06T13:05:53.393",
 };
 
-const TeacherFacultySubjectForm = ({
-  editData,
-  createData,
-  setOpenPopup,
-  searchFilterModel,
+const TeacherFacultySubjectDeleteForm = ({
+  deleteForm,
+  setOpenDeletePopup,
 }) => {
   const dispatch = useDispatch();
   const validate = (fieldValues = values) => {
@@ -53,49 +48,37 @@ const TeacherFacultySubjectForm = ({
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (validate()) {
-      if (values.IDHRTeacherFacultySubjectMappingHeader === 0) {
-        dispatch(createSingleTeacherFacSubAction(values, searchFilterModel));
-      } else {
-        dispatch(singleTeacherFacSubEditAction(values));
-      }
-      setOpenPopup(false);
-    }
+    dispatch(deleteTeacherFacSubAction(values));
+
+    setOpenDeletePopup(false);
   };
 
   const fillerArray = [{ Key: "", Value: "" }];
   useEffect(() => {
-    if (editData) {
-      setValues({ ...editData.dbModel });
-      console.log(editData);
+    if (deleteForm) {
+      setValues({ ...deleteForm.dbModel });
+      console.log(deleteForm);
     }
-    if (createData) {
-      setValues({ ...createData.dbModel });
-    }
-  }, [editData, createData]);
+  }, [deleteForm]);
 
   return (
     <Form onSubmit={handleSubmit}>
       <Grid container style={{ fontSize: "12px" }}>
         <Grid item xs={6}>
           <SelectControl
+            disabled
             name="IDTeacher"
             label="Teacher"
             value={values.IDTeacher}
-            onChange={handleInputChange}
+            onChange={null}
             onFocus={(e) => {
               e.target.select();
             }}
-            options={
-              editData
-                ? editData.ddlTeacher
-                : createData
-                ? createData.ddlTeacher
-                : fillerArray
-            }
+            options={deleteForm ? deleteForm.ddlTeacher : fillerArray}
             errors={errors.IDTeacher}
           />
           <InputControl
+            disabled
             name="Summary"
             label="Summary"
             value={values.Summary}
@@ -109,37 +92,27 @@ const TeacherFacultySubjectForm = ({
         </Grid>
         <Grid item xs={6}>
           <SelectControl
+            disabled
             name="IDAcademicFacultySubjectLink"
             label="Faculty Subject"
             value={values.IDAcademicFacultySubjectLink}
-            onChange={handleInputChange}
+            onChange={null}
             onFocus={(e) => {
               e.target.select();
             }}
-            options={
-              editData
-                ? editData.ddlFacultySubject
-                : createData
-                ? createData.ddlFacultySubject
-                : fillerArray
-            }
+            options={deleteForm ? deleteForm.ddlFacultySubject : fillerArray}
             errors={errors.IDAcademicFacultySubjectLink}
           />
           <SelectControl
+            disabled
             name="IsActive"
             label="IsActive"
             value={values.IsActive}
-            onChange={handleInputChange}
+            onChange={null}
             onFocus={(e) => {
               e.target.select();
             }}
-            options={
-              editData
-                ? editData.ddlIsActive
-                : createData
-                ? createData.ddlIsActive
-                : fillerArray
-            }
+            options={deleteForm ? deleteForm.ddlIsActive : fillerArray}
           />
         </Grid>
       </Grid>
@@ -155,7 +128,7 @@ const TeacherFacultySubjectForm = ({
         <Button
           variant="contained"
           color="secondary"
-          onClick={() => setOpenPopup(false)}
+          onClick={() => setOpenDeletePopup(false)}
           style={{ margin: "10px 0 0 10px" }}
         >
           CANCEL
@@ -166,11 +139,11 @@ const TeacherFacultySubjectForm = ({
           type="submit"
           style={{ margin: "10px 0 0 10px" }}
         >
-          SUBMIT
+          DELETE
         </Button>
       </div>
     </Form>
   );
 };
 
-export default TeacherFacultySubjectForm;
+export default TeacherFacultySubjectDeleteForm;

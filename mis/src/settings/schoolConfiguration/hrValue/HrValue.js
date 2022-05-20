@@ -55,7 +55,7 @@ const tableHeader = [
   { id: "TelNo", label: "Phone Number" },
   { id: "Email", label: "Email" },
   { id: "IDHRCompany", label: "Company" },
-  { id: "actions", label: "Actions", disableSorting: true },
+  { id: "actions", label: "All", disableSorting: true },
 ];
 
 const HrValue = () => {

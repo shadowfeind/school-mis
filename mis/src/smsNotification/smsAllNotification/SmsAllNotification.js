@@ -23,8 +23,20 @@ import {
 import DateFnsUtils from "@date-io/date-fns";
 import SmsNotificationTableCollapse from "./SmsAllNotificationTableCollapse";
 import SmsAllNotificationForm from "./SmsAllNotificationForm";
-import { GET_ALL_SMS_ANNOUNCEMENT_RESET, GET_LIST_SMS_ANNOUNCEMENT_RESET, GET_SINGLE_SMS_ANNOUNCEMENT_RESET, SMS_ANNOUNCEMENT_CREATE_RESET, SMS_ANNOUNCEMENT_FCM_RESET, UPDATE_SINGLE_SMS_ANNOUNCEMENT_RESET } from "./SmsAllNotificationConstants";
-import { getAllSmsAnnouncementAction, getFCMForSmsAnnouncementAction, getListSmsAnnouncementAction, getSingleSmsAnnouncementAction } from "./SmsAllNotificationActions";
+import {
+  GET_ALL_SMS_ANNOUNCEMENT_RESET,
+  GET_LIST_SMS_ANNOUNCEMENT_RESET,
+  GET_SINGLE_SMS_ANNOUNCEMENT_RESET,
+  SMS_ANNOUNCEMENT_CREATE_RESET,
+  SMS_ANNOUNCEMENT_FCM_RESET,
+  UPDATE_SINGLE_SMS_ANNOUNCEMENT_RESET,
+} from "./SmsAllNotificationConstants";
+import {
+  getAllSmsAnnouncementAction,
+  getFCMForSmsAnnouncementAction,
+  getListSmsAnnouncementAction,
+  getSingleSmsAnnouncementAction,
+} from "./SmsAllNotificationActions";
 
 const useStyles = makeStyles((theme) => ({
   searchInput: {
@@ -76,12 +88,13 @@ const SmsAllNotification = () => {
     loading: smsAnnouncementListLoading,
   } = useSelector((state) => state.getListSmsAnnouncement);
 
-  const { success: createSmsAnnouncementSuccess, error: createSmsAnnouncementError } =
-    useSelector((state) => state.createSmsAnnouncement);
+  const {
+    success: createSmsAnnouncementSuccess,
+    error: createSmsAnnouncementError,
+  } = useSelector((state) => state.createSmsAnnouncement);
 
-  const { singleSmsAnnouncement, error: singleSmsAnnouncementError } = useSelector(
-    (state) => state.getSingleSmsAnnouncement
-  );
+  const { singleSmsAnnouncement, error: singleSmsAnnouncementError } =
+    useSelector((state) => state.getSingleSmsAnnouncement);
 
   const { smsAnnouncementFCM, error: smsAnnouncementFCMError } = useSelector(
     (state) => state.getFCMForSmsAnnouncement
@@ -308,7 +321,9 @@ const SmsAllNotification = () => {
         <SmsAllNotificationForm
           smsAnnouncement={smsAnnouncementFCM && smsAnnouncementFCM.dbModel}
           schoolName={smsAnnouncementFCM && smsAnnouncementFCM.SchoolShortName}
-          fcmTokenList={smsAnnouncementFCM && smsAnnouncementFCM.fcmTokenValueLst}
+          fcmTokenList={
+            smsAnnouncementFCM && smsAnnouncementFCM.fcmTokenValueLst
+          }
           setOpenPopup={setOpenPopup}
         />
       </Popup>

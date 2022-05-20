@@ -70,7 +70,11 @@ const TeacherFacultySubjectForm = ({
       console.log(editData);
     }
     if (createData) {
-      setValues({ ...createData.dbModel });
+      setValues({
+        ...createData.dbModel,
+        IDTeacher: createData?.ddlTeacher[0]?.Key,
+        IDAcademicFacultySubjectLink: createData?.ddlFacultySubject[0]?.Key,
+      });
     }
   }, [editData, createData]);
 

@@ -72,16 +72,20 @@ const AcademicClass = () => {
 
   const dispatch = useDispatch();
 
-  const { academicClass, error ,loading} = useSelector((state) => state.academicClass);
+  const { academicClass, error, loading } = useSelector(
+    (state) => state.academicClass
+  );
 
   const {
     success: academicClassCreateSuccess,
     error: academicClassCreateError,
   } = useSelector((state) => state.createAcademicClass);
 
-  const { singleAcademicClass, error: singleAcademicClassError,loading:loadingEdit } = useSelector(
-    (state) => state.getSingleAcademicClass
-  );
+  const {
+    singleAcademicClass,
+    error: singleAcademicClassError,
+    loading: loadingEdit,
+  } = useSelector((state) => state.getSingleAcademicClass);
 
   const {
     success: updateSingleAcademicClassSuccess,
@@ -157,9 +161,10 @@ const AcademicClass = () => {
   };
 
   useEffect(() => {
-    if (!academicClass) {
-      dispatch(getAllAcademicClassAction());
-    }
+    dispatch(getAllAcademicClassAction());
+  }, []);
+
+  useEffect(() => {
     if (academicClass) {
       setTableData(academicClass.dbModelLst);
     }
@@ -197,7 +202,7 @@ const AcademicClass = () => {
         <Toolbar>
           <InputControl
             className={classes.searchInput}
-            label="Search Academic Class"
+            label="Search Academic Class By ClassName"
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
@@ -221,22 +226,22 @@ const AcademicClass = () => {
           <LoadingComp />
         ) : (
           <>
-        <TableContainer className={classes.table}>
-          <TblHead />
+            <TableContainer className={classes.table}>
+              <TblHead />
 
-          <TableBody>
-            {tableDataAfterPagingAndSorting().map((item) => (
-              <AcademicClassTableCollapse
-                item={item}
-                key={item.$id}
-                updateCollegeHandler={updateCollegeHandler}
-                deleteCollegeHandler={deleteCollegeHandler}
-              />
-            ))}
-          </TableBody>
-        </TableContainer>
-        <TblPagination />
-        </>
+              <TableBody>
+                {tableDataAfterPagingAndSorting().map((item) => (
+                  <AcademicClassTableCollapse
+                    item={item}
+                    key={item.$id}
+                    updateCollegeHandler={updateCollegeHandler}
+                    deleteCollegeHandler={deleteCollegeHandler}
+                  />
+                ))}
+              </TableBody>
+            </TableContainer>
+            <TblPagination />
+          </>
         )}
       </CustomContainer>
       <Popup
@@ -244,15 +249,15 @@ const AcademicClass = () => {
         setOpenPopup={setOpenPopup}
         title="Academic Class Form"
       >
-      {loadingEdit ? (
+        {loadingEdit ? (
           <LoadingComp />
         ) : (
           <>
-        <AcademicClassForm
-          academicClass={singleAcademicClass && singleAcademicClass.dbModel}
-          setOpenPopup={setOpenPopup}
-        />
-        </>
+            <AcademicClassForm
+              academicClass={singleAcademicClass && singleAcademicClass.dbModel}
+              setOpenPopup={setOpenPopup}
+            />
+          </>
         )}
       </Popup>
       <Notification notify={notify} setNotify={setNotify} />

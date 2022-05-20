@@ -253,7 +253,7 @@ const PrintAdminCard = () => {
     if (shift) {
       dispatch(getEventAction(acaYear, programValue, classId, shift, value));
     }
-    if ((acaYear, programValue, classId,section)) {
+    if ((acaYear, programValue, classId, section)) {
       dispatch(
         getActiveStudentsForAdmitCardDataAction(
           acaYear,
@@ -280,7 +280,6 @@ const PrintAdminCard = () => {
         classId,
         value,
         shift
-        
       )
     );
   };
@@ -348,9 +347,7 @@ const PrintAdminCard = () => {
           student
         )
       );
-      
     }
-    
   };
 
   const handleDate = (date) => {
@@ -512,7 +509,7 @@ const PrintAdminCard = () => {
         <Toolbar>
           <InputControl
             className={classes.searchInput}
-            label="Search Student Admit Card"
+            label="Search Student Admit Card By FullName"
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
@@ -532,7 +529,13 @@ const PrintAdminCard = () => {
                 <TblHead />
                 <TableBody>
                   {tableDataAfterPagingAndSorting().map((item) => (
-                    <PrintAdminCardTableCollapse item={item} key={item.$id} section={searchStudentsForAdmitCard?.searchFilterModel.ddlSection}/>
+                    <PrintAdminCardTableCollapse
+                      item={item}
+                      key={item.$id}
+                      section={
+                        searchStudentsForAdmitCard?.searchFilterModel.ddlSection
+                      }
+                    />
                   ))}
                 </TableBody>
               </TableContainer>

@@ -316,7 +316,7 @@ const ExamSchedule = () => {
   useEffect(() => {
     if (eventExamSchedule) {
       setDdlEvent(eventExamSchedule);
-      setEvent(eventExamSchedule[0]?.Key)
+      setEvent(eventExamSchedule[0]?.Key);
     }
   }, [eventExamSchedule]);
 
@@ -483,7 +483,7 @@ const ExamSchedule = () => {
         <Toolbar>
           <InputControl
             className={classes.searchInput}
-            label="Search Full/Pass Marks"
+            label="Search Full/Pass Marks By EventName"
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">

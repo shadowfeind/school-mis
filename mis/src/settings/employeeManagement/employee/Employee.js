@@ -231,7 +231,7 @@ const Employee = () => {
         <Toolbar>
           <InputControl
             className={classes.searchInput}
-            label="Search Employee"
+            label="Search Employee By Name"
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">

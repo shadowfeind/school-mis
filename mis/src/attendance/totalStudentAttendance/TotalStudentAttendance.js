@@ -109,7 +109,7 @@ const TotalStudentAttendance = () => {
           return item;
         } else {
           return item.filter((x) =>
-            x.PositionHead.toLowerCase().includes(e.target.value)
+            x.FullName.toLowerCase().includes(e.target.value)
           );
         }
       },
@@ -126,7 +126,8 @@ const TotalStudentAttendance = () => {
   );
 
   const {
-    listTotalStudentAttendanceData,loading,
+    listTotalStudentAttendanceData,
+    loading,
     error: listTotalStudentAttendanceDataError,
   } = useSelector((state) => state.getListTotalStudentAttendance);
 
@@ -158,10 +159,13 @@ const TotalStudentAttendance = () => {
   useEffect(() => {
     if (allTotalStudentAttendanceData) {
       setProgramValue(
-        allTotalStudentAttendanceData?.searchFilterModel.ddlFacultyProgramLink[0].Key
+        allTotalStudentAttendanceData?.searchFilterModel
+          .ddlFacultyProgramLink[0].Key
       );
       setDdlClass(allTotalStudentAttendanceData?.searchFilterModel.ddlClass);
-      setClassId(allTotalStudentAttendanceData?.searchFilterModel.ddlClass[0].Key);
+      setClassId(
+        allTotalStudentAttendanceData?.searchFilterModel.ddlClass[0].Key
+      );
       setAcademicYearDdl(
         allTotalStudentAttendanceData?.searchFilterModel.ddlAcademicYear
       );
@@ -171,21 +175,31 @@ const TotalStudentAttendance = () => {
       setShift(
         allTotalStudentAttendanceData?.searchFilterModel.ddlAcademicShift[0].Key
       );
-      setDdlSection(allTotalStudentAttendanceData?.searchFilterModel.ddlSection);
-      setSection(allTotalStudentAttendanceData?.searchFilterModel.ddlSection[0].Key);
+      setDdlSection(
+        allTotalStudentAttendanceData?.searchFilterModel.ddlSection
+      );
+      setSection(
+        allTotalStudentAttendanceData?.searchFilterModel.ddlSection[0].Key
+      );
       setStartDate(
-        allTotalStudentAttendanceData?.searchFilterModel.currentDate.slice(0, 10)
+        allTotalStudentAttendanceData?.searchFilterModel.currentDate.slice(
+          0,
+          10
+        )
       );
       setEndDate(
-        allTotalStudentAttendanceData?.searchFilterModel.currentDate.slice(0, 10)
+        allTotalStudentAttendanceData?.searchFilterModel.currentDate.slice(
+          0,
+          10
+        )
       );
     }
   }, [allTotalStudentAttendanceData, dispatch]);
 
-  useEffect(()=>{
-    dispatch({type:GET_LIST_TOTAL_STUDENT_ATTENDANCE_RESET})
+  useEffect(() => {
+    dispatch({ type: GET_LIST_TOTAL_STUDENT_ATTENDANCE_RESET });
     dispatch(getAllTotalStudentAttendanceAction());
-  },[])
+  }, []);
 
   useEffect(() => {
     if (subjectOptions) {
@@ -193,7 +207,7 @@ const TotalStudentAttendance = () => {
       setSubject(subjectOptions[0]?.Key);
     }
   }, [subjectOptions]);
-  
+
   useEffect(() => {
     if (listTotalStudentAttendanceData) {
       setTableData(
@@ -235,7 +249,7 @@ const TotalStudentAttendance = () => {
   const handleYearChange = (value) => {
     setAcaYear(value);
     setSubject("");
-   
+
     if ((programValue, classId)) {
       dispatch(getSubjectOptionsForSelectAction(value, programValue, classId));
     }
@@ -301,7 +315,6 @@ const TotalStudentAttendance = () => {
               />
             </Grid>
             <Grid item xs={3}>
-              
               <SelectControl
                 name="Section"
                 label="Section"
@@ -322,7 +335,6 @@ const TotalStudentAttendance = () => {
                 errors={errors.subject}
               />
             </Grid>
-
             <Grid item xs={3}>
               <div style={{ height: "10px" }}></div>
               <MuiPickersUtilsProvider utils={DateFnsUtils}>
@@ -360,7 +372,7 @@ const TotalStudentAttendance = () => {
               </MuiPickersUtilsProvider>
             </Grid>{" "}
             <Grid item xs={3}>
-            <div style={{ height: "10px" }}></div>
+              <div style={{ height: "10px" }}></div>
               <Button
                 variant="contained"
                 color="primary"
@@ -375,10 +387,10 @@ const TotalStudentAttendance = () => {
           </Grid>
         </Toolbar>
         <Toolbar>
-        <div style={{ height: "15px" }}></div>
+          <div style={{ height: "15px" }}></div>
           <InputControl
             className={classes.searchInput}
-            label="Search Student"
+            label="Search Student By FullName"
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
@@ -393,26 +405,26 @@ const TotalStudentAttendance = () => {
           <LoadingComp />
         ) : (
           <>
-        {listTotalStudentAttendanceData && (
-          <TableContainer className={classes.table}>
-            <TblHead />
+            {listTotalStudentAttendanceData && (
+              <TableContainer className={classes.table}>
+                <TblHead />
 
-            <TableBody>
-              {tableDataAfterPagingAndSorting().map((item) => (
-                <TotalStudentAttendanceTableCollapse
-                  item={item}
-                  key={item.$id}
-                  attendance={
-                    listTotalStudentAttendanceData &&
-                    listTotalStudentAttendanceData.dbModelTotalStudentAttendanceCountLst
-                  }
-                />
-              ))}
-            </TableBody>
-          </TableContainer>
-        )}
-        {listTotalStudentAttendanceData && <TblPagination />}
-        </>
+                <TableBody>
+                  {tableDataAfterPagingAndSorting().map((item) => (
+                    <TotalStudentAttendanceTableCollapse
+                      item={item}
+                      key={item.$id}
+                      attendance={
+                        listTotalStudentAttendanceData &&
+                        listTotalStudentAttendanceData.dbModelTotalStudentAttendanceCountLst
+                      }
+                    />
+                  ))}
+                </TableBody>
+              </TableContainer>
+            )}
+            {listTotalStudentAttendanceData && <TblPagination />}
+          </>
         )}
       </CustomContainer>
       <Notification notify={notify} setNotify={setNotify} />

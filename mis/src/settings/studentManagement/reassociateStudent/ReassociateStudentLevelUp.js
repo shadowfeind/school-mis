@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Table,
   TableBody,
@@ -17,11 +17,12 @@ import { withStyles, makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import SelectControl from "../../../components/controls/SelectControl";
 import InputControl from "../../../components/controls/InputControl";
+import { validate } from "schema-utils";
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
-    backgroundColor: "#fff",
-    color: "#000",
+    backgroundColor: "#253053",
+    color: "#fff",
   },
   body: {
     fontSize: 14,
@@ -56,6 +57,7 @@ const ReassociateStudentLevelUp = ({
   formCheck,
   formCheckSubmitHandler,
 }) => {
+  const [errors, setErrors] = useState({});
   const classes = useStyles();
 
   const handleBulkChange = (checked) => {
@@ -90,7 +92,7 @@ const ReassociateStudentLevelUp = ({
         Section: newSection,
         LevelStatus: newStatus,
       };
- 
+
       return [...prev, newReassoc];
     });
   };
@@ -102,7 +104,7 @@ const ReassociateStudentLevelUp = ({
       );
       if (exists) {
         const newReassoc = { ...subject, Section: value };
-        
+
         let newArr = [...prev];
         prev.map((data, index) => {
           newArr[index].Section = value;
@@ -111,9 +113,7 @@ const ReassociateStudentLevelUp = ({
       }
       return [...prev];
     });
-
   };
-
 
   const statusHandler = (value, subject) => {
     setFormCheck((prev) => {
@@ -122,7 +122,7 @@ const ReassociateStudentLevelUp = ({
       );
       if (exists) {
         const newReassoc = { ...subject, LevelStatus: value };
-     
+
         let newArr = [...prev];
         prev.map((data, index) => {
           newArr[index].LevelStatus = value;
@@ -133,145 +133,186 @@ const ReassociateStudentLevelUp = ({
     });
     console.log(value);
   };
+
+  const validate = () => {
+    let temp = {};
+    temp.submit = formCheck?.length <= 0 ? "Select Atleast one options" : "";
+
+    setErrors({ ...temp });
+    return Object.values(temp).every((x) => x === "");
+  };
+
+  const formCheckSubmitHandlerHolder = () => {
+    if (validate()) {
+      formCheckSubmitHandler();
+    }
+  };
   return (
     <>
-    <div>
-        {noNextYearError && <h3 style={{color:"red", textAlign:"center"}}>{noNextYearError}</h3>}
+      <div>
+        {noNextYearError && (
+          <h3 style={{ color: "red", textAlign: "center" }}>
+            {noNextYearError}
+          </h3>
+        )}
       </div>
-     {!noNextYearError && <>
-      <Grid container>
-        {idAcademicYearValue && (
-          <Grid item xs={4}>
-            <SelectControl
-              name="academicYear"
-              label="Academic Year"
-              value={idAcademicYearValue}
-              onChange={null}
-              options={ddlAcademicYear}
-            />
-          </Grid>
-        )}
-        {idNextAcademicYearValue && (
-          <Grid item xs={4}>
-            <SelectControl
-              name="academicYearNext"
-              label="Next Academic Year"
-              value={idNextAcademicYearValue}
-              onChange={null}
-              options={ddlAcademicYear}
-            />
-          </Grid>
-        )}
-        <Grid item xs={4}>
-          <InputControl
-            disabled
-            variant="filled"
-            value={showNextClass && showNextClass[0].Value}
-          />
-        </Grid>
-      </Grid>      
-      <div style={{ height: "10px" }}></div>
-      <TableContainer component={Paper}>
-        <Table className={classes.table} aria-label="customized table">
-          <TableHead>
-            <TableRow>
-              <StyledTableCell>StudentName </StyledTableCell>
-              <StyledTableCell align="center" style={{ width: 180 }}>
-                Batch
-              </StyledTableCell>
-              <StyledTableCell align="center">Program/Faculty</StyledTableCell>
-              <StyledTableCell align="center">Class</StyledTableCell>
-              <StyledTableCell align="center" style={{ width: 150 }}>
-                Section
-              </StyledTableCell>
-              <StyledTableCell align="center" style={{ width: 150 }}>
-                Status
-              </StyledTableCell>
-              <StyledTableCell align="right">
-                Action{" "}
-                <Checkbox
-                  onChange={(e) => handleBulkChange(e.target.checked)}
-                  name="checkedB"
-                  color="primary"
+      {!noNextYearError && (
+        <>
+          <Grid container>
+            {idAcademicYearValue && (
+              <Grid item xs={4}>
+                <SelectControl
+                  name="academicYear"
+                  label="Academic Year"
+                  value={idAcademicYearValue}
+                  onChange={null}
+                  options={ddlAcademicYear}
                 />
-              </StyledTableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {dbModelLst &&
-              dbModelLst.map((subject) => (
-                <StyledTableRow key={subject.IDStudentFacultyLevel}>
-                  <StyledTableCell component="th" scope="row">
-                    {subject.StudentName}
+              </Grid>
+            )}
+            {idNextAcademicYearValue && (
+              <Grid item xs={4}>
+                <SelectControl
+                  name="academicYearNext"
+                  label="Next Academic Year"
+                  value={idNextAcademicYearValue}
+                  onChange={null}
+                  options={ddlAcademicYear}
+                />
+              </Grid>
+            )}
+            <Grid item xs={4}>
+              <InputControl
+                disabled
+                variant="filled"
+                value={showNextClass && showNextClass[0].Value}
+              />
+            </Grid>
+          </Grid>
+          <div style={{ height: "10px" }}></div>
+          <TableContainer component={Paper}>
+            <Table className={classes.table} aria-label="customized table">
+              <TableHead>
+                <TableRow>
+                  <StyledTableCell>StudentName </StyledTableCell>
+                  <StyledTableCell align="center" style={{ width: 180 }}>
+                    Batch
+                  </StyledTableCell>
+                  <StyledTableCell align="center">
+                    Program/Faculty
+                  </StyledTableCell>
+                  <StyledTableCell align="center">Class</StyledTableCell>
+                  <StyledTableCell align="center" style={{ width: 150 }}>
+                    Section
+                  </StyledTableCell>
+                  <StyledTableCell align="center" style={{ width: 150 }}>
+                    Status
                   </StyledTableCell>
                   <StyledTableCell align="right">
-                    {subject.AcademicYear}
-                  </StyledTableCell>
-                  <StyledTableCell align="right">
-                    {subject.FacultyPath ? "True" : "False"}
-                  </StyledTableCell>
-                  <StyledTableCell align="right">
-                    {subject.IDLevel ? "True" : "False"}
-                  </StyledTableCell>
-
-                  <StyledTableCell align="right">
-                    <FormControl
-                      variant="filled"
-                      className={classes.formControl}
-                    >
-                      <InputLabel htmlFor="filled-age-native-simple">
-                        Section
-                      </InputLabel>
-                      <Select
-                        native
-                        defaultValue={subject.Section}
-                        id={`section_${subject.IDStudentFacultyLevel}`}
-                        onChange={(e) =>
-                          sectionHandler(e.target.value, subject)
-                        }
-                      >
-                        {ddlSection.map((section) => (
-                          <option value={section.Key}>{section.Value}</option>
-                        ))}
-                      </Select>
-                    </FormControl>
-                  </StyledTableCell>
-                  <StyledTableCell align="right">
-                    <FormControl
-                      variant="filled"
-                      className={classes.formControl}
-                    >
-                      <InputLabel htmlFor="Status">Status</InputLabel>
-                      <Select
-                        native
-                        defaultValue={subject.LevelStatus}
-                        id={`status_${subject.IDStudentFacultyLevel}`}
-                        onChange={(e) => statusHandler(e.target.value, subject)}
-                      >
-                        {ddlLevelStatus.map((levelStatus) => (
-                          <option value={levelStatus.Key}>{levelStatus.Value}</option>
-                        ))}
-                      </Select>
-                    </FormControl>
-                  </StyledTableCell>
-                  <StyledTableCell align="right">
-                    {" "}
+                    All{" "}
                     <Checkbox
-                      checked={
-                        formCheck.filter(
-                          (x) => x.IDHREmployee === subject.IDHREmployee
-                        ).length > 0
-                          ? true
-                          : false
-                      }
-                      onChange={() => handleChange(subject)}
+                      onChange={(e) => handleBulkChange(e.target.checked)}
                       name="checkedB"
                       color="primary"
                     />
                   </StyledTableCell>
-                </StyledTableRow>
-              ))}
-          </TableBody>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {dbModelLst &&
+                  dbModelLst.map((subject) => (
+                    <StyledTableRow key={subject.IDStudentFacultyLevel}>
+                      <StyledTableCell component="th" scope="row">
+                        {subject.StudentName}
+                      </StyledTableCell>
+                      <StyledTableCell align="right">
+                        {subject.AcademicYear}
+                      </StyledTableCell>
+                      <StyledTableCell align="right">
+                        {subject.FacultyPath ? "True" : "False"}
+                      </StyledTableCell>
+                      <StyledTableCell align="right">
+                        {subject.IDLevel ? "True" : "False"}
+                      </StyledTableCell>
+
+                      <StyledTableCell align="right">
+                        <FormControl
+                          variant="filled"
+                          className={classes.formControl}
+                        >
+                          <InputLabel htmlFor="filled-age-native-simple">
+                            Section
+                          </InputLabel>
+                          <Select
+                            native
+                            defaultValue={subject.Section}
+                            id={`section_${subject.IDStudentFacultyLevel}`}
+                            onChange={(e) =>
+                              sectionHandler(e.target.value, subject)
+                            }
+                          >
+                            {ddlSection.map((section) => (
+                              <option value={section.Key}>
+                                {section.Value}
+                              </option>
+                            ))}
+                          </Select>
+                        </FormControl>
+                      </StyledTableCell>
+                      <StyledTableCell align="right">
+                        <FormControl
+                          variant="filled"
+                          className={classes.formControl}
+                        >
+                          <InputLabel htmlFor="Status">Status</InputLabel>
+                          <Select
+                            native
+                            defaultValue={subject.LevelStatus}
+                            id={`status_${subject.IDStudentFacultyLevel}`}
+                            onChange={(e) =>
+                              statusHandler(e.target.value, subject)
+                            }
+                          >
+                            {ddlLevelStatus.map((levelStatus) => (
+                              <option value={levelStatus.Key}>
+                                {levelStatus.Value}
+                              </option>
+                            ))}
+                          </Select>
+                        </FormControl>
+                      </StyledTableCell>
+                      <StyledTableCell align="right">
+                        {" "}
+                        <Checkbox
+                          checked={
+                            formCheck.filter(
+                              (x) => x.IDHREmployee === subject.IDHREmployee
+                            ).length > 0
+                              ? true
+                              : false
+                          }
+                          onChange={() => handleChange(subject)}
+                          name="checkedB"
+                          color="primary"
+                        />
+                      </StyledTableCell>
+                    </StyledTableRow>
+                  ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+          {errors.submit && (
+            <div
+              style={{
+                textAlign: "center",
+                color: "red",
+                fontSize: "12px",
+                paddingTop: "8px",
+              }}
+            >
+              {errors.submit}
+            </div>
+          )}
           <div
             style={{
               display: "flex",
@@ -294,14 +335,13 @@ const ReassociateStudentLevelUp = ({
               color="primary"
               type="submit"
               style={{ margin: "10px 0 0 10px" }}
-              onClick={formCheckSubmitHandler}
+              onClick={formCheckSubmitHandlerHolder}
             >
               SUBMIT
             </Button>
           </div>
-        </Table>
-      </TableContainer>
-     </>}
+        </>
+      )}
     </>
   );
 };

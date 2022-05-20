@@ -72,14 +72,18 @@ const SchoolBoard = () => {
 
   const dispatch = useDispatch();
 
-  const { schoolBoard, error,loading } = useSelector((state) => state.schoolBoard);
+  const { schoolBoard, error, loading } = useSelector(
+    (state) => state.schoolBoard
+  );
 
   const { success: createSchoolBoardSuccess, error: createSchoolBoardError } =
     useSelector((state) => state.createSchoolBoard);
 
-  const { singleSchoolBoard,loading:loadingEdit, error: singleSchoolBoardError } = useSelector(
-    (state) => state.getSingleSchoolBoard
-  );
+  const {
+    singleSchoolBoard,
+    loading: loadingEdit,
+    error: singleSchoolBoardError,
+  } = useSelector((state) => state.getSingleSchoolBoard);
 
   const {
     success: updateSchoolBoardSuccess,
@@ -194,7 +198,7 @@ const SchoolBoard = () => {
         <Toolbar>
           <InputControl
             className={classes.searchInput}
-            label="Search SchoolBoard"
+            label="Search SchoolBoard By University Name"
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
@@ -218,22 +222,22 @@ const SchoolBoard = () => {
           <LoadingComp />
         ) : (
           <>
-        <TableContainer className={classes.table}>
-          <TblHead />
+            <TableContainer className={classes.table}>
+              <TblHead />
 
-          <TableBody>
-            {tableDataAfterPagingAndSorting().map((item) => (
-              <SchoolBoardTableCollapse
-                item={item}
-                key={item.$id}
-                updateCollegeHandler={updateCollegeHandler}
-                deleteCollegeHandler={deleteCollegeHandler}
-              />
-            ))}
-          </TableBody>
-        </TableContainer>
-        <TblPagination />
-        </>
+              <TableBody>
+                {tableDataAfterPagingAndSorting().map((item) => (
+                  <SchoolBoardTableCollapse
+                    item={item}
+                    key={item.$id}
+                    updateCollegeHandler={updateCollegeHandler}
+                    deleteCollegeHandler={deleteCollegeHandler}
+                  />
+                ))}
+              </TableBody>
+            </TableContainer>
+            <TblPagination />
+          </>
         )}
       </CustomContainer>
       <Popup
@@ -241,15 +245,15 @@ const SchoolBoard = () => {
         setOpenPopup={setOpenPopup}
         title="School Board Form"
       >
-      {loadingEdit ? (
+        {loadingEdit ? (
           <LoadingComp />
         ) : (
           <>
-        <SchoolBoardForm
-          schoolBoard={singleSchoolBoard && singleSchoolBoard.dbModel}
-          setOpenPopup={setOpenPopup}
-        />
-        </>
+            <SchoolBoardForm
+              schoolBoard={singleSchoolBoard && singleSchoolBoard.dbModel}
+              setOpenPopup={setOpenPopup}
+            />
+          </>
         )}
       </Popup>
       <Notification notify={notify} setNotify={setNotify} />

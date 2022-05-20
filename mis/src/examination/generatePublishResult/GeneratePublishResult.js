@@ -122,18 +122,17 @@ const GeneratePublishResult = () => {
     (state) => state.getEvent
   );
 
-  const { allGenerate ,loading} = useSelector((state) => state.getAllGenerate);
+  const { allGenerate, loading } = useSelector((state) => state.getAllGenerate);
 
-  const { allGeneratePublishResult ,success:allGeneratePublishResultSuccess} = useSelector(
-    (state) => state.getAllGeneratePublishResult
-  );
+  const { allGeneratePublishResult, success: allGeneratePublishResultSuccess } =
+    useSelector((state) => state.getAllGeneratePublishResult);
 
   // if (getEventSuccess) {
   //   setDdlEvent(allEvents);
   //   dispatch({ type: GET_EVENT_RESET });
   // }
 
-  if (allGeneratePublishResult) {    
+  if (allGeneratePublishResult) {
     setNotify({
       isOpen: true,
       message: "Generated Succesfully",
@@ -152,7 +151,7 @@ const GeneratePublishResult = () => {
     dispatch({ type: GET_ALL_GENERATE_PUBLISH_RESULT_RESET });
     setOpenPopup(false);
   }
-  
+
   if (allGeneratePublishError) {
     setNotify({
       isOpen: true,
@@ -165,10 +164,10 @@ const GeneratePublishResult = () => {
   const handleYearChange = (value) => {
     setAcaYear(value);
     if (classId) {
-      dispatch(getEventAction(value, programValue, classId,shift));
+      dispatch(getEventAction(value, programValue, classId, shift));
     }
-    if(event){
-      setEvent("")
+    if (event) {
+      setEvent("");
     }
     setDdlEvent([]);
   };
@@ -177,27 +176,29 @@ const GeneratePublishResult = () => {
     setSection(value);
     setDdlEvent([]);
     setEvent("");
-      dispatch(getEventAction( acaYear,programValue, classId, shift,value));
+    dispatch(getEventAction(acaYear, programValue, classId, shift, value));
   };
 
-  const handleShiftChange =(value)=>{
+  const handleShiftChange = (value) => {
     setShift(value);
     setDdlEvent([]);
-    setEvent("")
-    dispatch(getEventAction(acaYear, programValue, classId,value));
-  }
+    setEvent("");
+    dispatch(getEventAction(acaYear, programValue, classId, value));
+  };
 
   const handleClassIdChange = (value) => {
     setClassId(value);
     setDdlEvent([]);
-    setEvent("")
-    dispatch(getEventAction(acaYear, programValue, value,shift));
+    setEvent("");
+    dispatch(getEventAction(acaYear, programValue, value, shift));
   };
 
   useEffect(() => {
     dispatch({ type: "GET_LINK", payload: "examination" });
     if (allGeneratePublish) {
-      setProgramValue(allGeneratePublish?.searchFilterModel.ddlFacultyProgramLink[0].Key);
+      setProgramValue(
+        allGeneratePublish?.searchFilterModel.ddlFacultyProgramLink[0].Key
+      );
       setDdlClass(allGeneratePublish?.searchFilterModel.ddlClass);
       setClassId(allGeneratePublish?.searchFilterModel.ddlClass[0].Key);
       setAcademicYearDdl(allGeneratePublish?.searchFilterModel.ddlAcademicYear);
@@ -208,12 +209,12 @@ const GeneratePublishResult = () => {
     }
   }, [allGeneratePublish, dispatch]);
 
-  useEffect(()=>{
+  useEffect(() => {
     setDdlEvent([]);
-    dispatch({type:GET_ALL_GENERATE_RESET})
-    dispatch({type:GET_ALL_GENERATE_PUBLISH_RESULT_RESET})
+    dispatch({ type: GET_ALL_GENERATE_RESET });
+    dispatch({ type: GET_ALL_GENERATE_PUBLISH_RESULT_RESET });
     dispatch(getAllGeneratePublishAction());
-  },[])
+  }, []);
 
   useEffect(() => {
     if (allGenerate) {
@@ -270,12 +271,12 @@ const GeneratePublishResult = () => {
     }
   };
 
-  useEffect(()=>{
-    if(allEvents){
+  useEffect(() => {
+    if (allEvents) {
       setDdlEvent(allEvents);
-      setEvent(allEvents[0]?.Key)
+      setEvent(allEvents[0]?.Key);
     }
-  },[allEvents])
+  }, [allEvents]);
 
   return (
     <>
@@ -370,7 +371,7 @@ const GeneratePublishResult = () => {
         <Toolbar>
           <InputControl
             className={classes.searchInput}
-            label="Search Generated Result"
+            label="Search Generated Result By FullName"
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
@@ -385,23 +386,23 @@ const GeneratePublishResult = () => {
           <LoadingComp />
         ) : (
           <>
-        {allGenerate && (
-          <TableContainer className={classes.table}>
-            <TblHead />
+            {allGenerate && (
+              <TableContainer className={classes.table}>
+                <TblHead />
 
-            <TableBody>
-              {tableDataAfterPagingAndSorting().map((item) => (
-                <GeneratePublishResultTableCollapse
-                  item={item}
-                  key={item.$id}
-                />
-              ))}
-            </TableBody>
-          </TableContainer>
-        )}
+                <TableBody>
+                  {tableDataAfterPagingAndSorting().map((item) => (
+                    <GeneratePublishResultTableCollapse
+                      item={item}
+                      key={item.$id}
+                    />
+                  ))}
+                </TableBody>
+              </TableContainer>
+            )}
 
-        {allGenerate && <TblPagination />}
-        </>
+            {allGenerate && <TblPagination />}
+          </>
         )}
       </CustomContainer>
 

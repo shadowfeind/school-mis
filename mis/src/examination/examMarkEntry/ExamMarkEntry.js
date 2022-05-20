@@ -129,9 +129,13 @@ const ExamMarkEntry = () => {
     (state) => state.getEventSchedule
   );
 
-  const { searchData,loading } = useSelector((state) => state.getExamEntrySearchData);
+  const { searchData, loading } = useSelector(
+    (state) => state.getExamEntrySearchData
+  );
 
-  const { bulkData ,loading:loadingBulk} = useSelector((state) => state.getExamEntryBulk);
+  const { bulkData, loading: loadingBulk } = useSelector(
+    (state) => state.getExamEntryBulk
+  );
 
   if (getEventSuccess) {
     setDdlEvent(allEvents);
@@ -146,7 +150,8 @@ const ExamMarkEntry = () => {
     dispatch({ type: "GET_LINK", payload: "examination" });
     if (allAcademicStudentExamData) {
       setProgramValue(
-        allAcademicStudentExamData.searchFilterModel.ddlFacultyProgramLink[0].Key
+        allAcademicStudentExamData.searchFilterModel.ddlFacultyProgramLink[0]
+          .Key
       );
       setDdlClass(allAcademicStudentExamData.searchFilterModel.ddlClass);
       setAcademicYearDdl(
@@ -159,10 +164,10 @@ const ExamMarkEntry = () => {
     }
   }, [allAcademicStudentExamData, dispatch]);
 
-  useEffect(()=>{
-    dispatch({type:GET_ALL_EXAM_ENTRY_SEARCHDATA_RESET})
+  useEffect(() => {
+    dispatch({ type: GET_ALL_EXAM_ENTRY_SEARCHDATA_RESET });
     dispatch(getAllAcademicStudentExamdataAction());
-  },[])
+  }, []);
 
   useEffect(() => {
     if (searchData) {
@@ -315,7 +320,7 @@ const ExamMarkEntry = () => {
         <Toolbar>
           <InputControl
             className={classes.searchInput}
-            label="Search Full/Pass Marks"
+            label="Search Full/Pass Marks By FullName"
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
@@ -330,20 +335,20 @@ const ExamMarkEntry = () => {
           <LoadingComp />
         ) : (
           <>
-        {searchData && (
-          <TableContainer className={classes.table}>
-            <TblHead />
+            {searchData && (
+              <TableContainer className={classes.table}>
+                <TblHead />
 
-            <TableBody>
-              {tableDataAfterPagingAndSorting().map((item) => (
-                <ExamMarkEntryTableCollapse item={item} key={item.$id} />
-              ))}
-            </TableBody>
-          </TableContainer>
-        )}
+                <TableBody>
+                  {tableDataAfterPagingAndSorting().map((item) => (
+                    <ExamMarkEntryTableCollapse item={item} key={item.$id} />
+                  ))}
+                </TableBody>
+              </TableContainer>
+            )}
 
-        {searchData && <TblPagination />}
-        </>
+            {searchData && <TblPagination />}
+          </>
         )}
       </CustomContainer>
       <Popup
@@ -351,17 +356,17 @@ const ExamMarkEntry = () => {
         setOpenPopup={setOpenPopup}
         title="Bulk Edit"
       >
-      {loadingBulk ? (
+        {loadingBulk ? (
           <LoadingComp />
         ) : (
           <>
-        <ExamMarkEntryBulk
-          statusData={
-            bulkData && bulkData.searchFilterModel.ddlStudentExamStatus
-          }
-          bulkData={bulkData && bulkData.dbModelLsts}
-        />
-        </>
+            <ExamMarkEntryBulk
+              statusData={
+                bulkData && bulkData.searchFilterModel.ddlStudentExamStatus
+              }
+              bulkData={bulkData && bulkData.dbModelLsts}
+            />
+          </>
         )}
       </Popup>
       <Notification notify={notify} setNotify={setNotify} />

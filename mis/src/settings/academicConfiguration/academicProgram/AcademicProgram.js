@@ -74,7 +74,7 @@ const AcademicProgram = () => {
 
   const dispatch = useDispatch();
 
-  const { academicProgram, error,loading } = useSelector(
+  const { academicProgram, error, loading } = useSelector(
     (state) => state.academicProgram
   );
 
@@ -83,8 +83,11 @@ const AcademicProgram = () => {
     error: createAcademicProgramError,
   } = useSelector((state) => state.createAcademicProgram);
 
-  const { singleAcademicProgram,loading:loadingEdit, error: singleAcademicProgramError } =
-    useSelector((state) => state.getSingleAcademicProgram);
+  const {
+    singleAcademicProgram,
+    loading: loadingEdit,
+    error: singleAcademicProgramError,
+  } = useSelector((state) => state.getSingleAcademicProgram);
 
   const {
     success: updateSingleAcademicProgramSuccess,
@@ -159,15 +162,13 @@ const AcademicProgram = () => {
   };
 
   useEffect(() => {
-    if (!academicProgram) {
-      dispatch(getAllAcademicProgramAction());
-    }
     if (academicProgram) {
       setTableData(academicProgram.dbModelLst);
     }
   }, [dispatch, academicProgram]);
 
   useEffect(() => {
+    dispatch(getAllAcademicProgramAction());
     dispatch(getAcademicProgramOptionAction());
   }, []);
 
@@ -202,7 +203,7 @@ const AcademicProgram = () => {
         <Toolbar>
           <InputControl
             className={classes.searchInput}
-            label="Search Academic Program"
+            label="Search Academic Program By Academic Program Name"
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
@@ -226,41 +227,41 @@ const AcademicProgram = () => {
           <LoadingComp />
         ) : (
           <>
-        <TableContainer className={classes.table}>
-          <TblHead />
-        
-          <TableBody>
-            {tableDataAfterPagingAndSorting().map((item) => (
-              <AcademicProgramTableCollapse
-                item={item}
-                key={item.$id}
-                updateCollegeHandler={updateCollegeHandler}
-                deleteCollegeHandler={deleteCollegeHandler}
-              />
-            ))}
-          </TableBody>
-     
-        </TableContainer>
-        <TblPagination />
-        </>
+            <TableContainer className={classes.table}>
+              <TblHead />
+
+              <TableBody>
+                {tableDataAfterPagingAndSorting().map((item) => (
+                  <AcademicProgramTableCollapse
+                    item={item}
+                    key={item.$id}
+                    updateCollegeHandler={updateCollegeHandler}
+                    deleteCollegeHandler={deleteCollegeHandler}
+                  />
+                ))}
+              </TableBody>
+            </TableContainer>
+            <TblPagination />
+          </>
         )}
       </CustomContainer>
       <Popup
         openPopup={openPopup}
         setOpenPopup={setOpenPopup}
         title="Academic Program Form"
-      >{loadingEdit ? (
+      >
+        {loadingEdit ? (
           <LoadingComp />
         ) : (
           <>
-        <AcademicProgramForm
-          academicProgram={
-            singleAcademicProgram && singleAcademicProgram.dbModel
-          }
-          selected={singleAcademicProgram && singleAcademicProgram.selected}
-          setOpenPopup={setOpenPopup}
-        />
-        </>
+            <AcademicProgramForm
+              academicProgram={
+                singleAcademicProgram && singleAcademicProgram.dbModel
+              }
+              selected={singleAcademicProgram && singleAcademicProgram.selected}
+              setOpenPopup={setOpenPopup}
+            />
+          </>
         )}
       </Popup>
       <Notification notify={notify} setNotify={setNotify} />

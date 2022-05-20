@@ -245,6 +245,7 @@ const OldQuestions = () => {
   useEffect(() => {
     if (subjectOldQuestions) {
       setDdlFacultySubject([...subjectOldQuestions]);
+      setFacultySubject(subjectOldQuestions[0]?.Key);
     }
   }, [subjectOldQuestions]);
 
@@ -333,7 +334,7 @@ const OldQuestions = () => {
         <Toolbar>
           <InputControl
             className={classes.searchInput}
-            label="Search Old Questions"
+            label="Search Old Questions By Name"
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">

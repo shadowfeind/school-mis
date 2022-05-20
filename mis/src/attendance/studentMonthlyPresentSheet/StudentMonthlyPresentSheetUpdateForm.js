@@ -19,8 +19,8 @@ import { postStudentPresentListAction } from "./StudentMonthlyPresentSheetAction
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
-    backgroundColor: theme.palette.common.grey,
-    color: theme.palette.common.black,
+    backgroundColor: "#253053",
+    color: "#fff",
   },
   body: {
     fontSize: 14,
@@ -100,8 +100,12 @@ const StudentMonthlyPresentSheetUpdateForm = ({ students, setOpenPopup }) => {
               <StyledTableCell>Email</StyledTableCell>
 
               <StyledTableCell>
-                <label>Select All</label>
-                <Checkbox checked={checked} onChange={handleAllSelectChange} />
+                <label>All</label>
+                <Checkbox
+                  checked={checked}
+                  color="primary"
+                  onChange={handleAllSelectChange}
+                />
               </StyledTableCell>
             </TableRow>
           </TableHead>
@@ -126,6 +130,7 @@ const StudentMonthlyPresentSheetUpdateForm = ({ students, setOpenPopup }) => {
                     <StyledTableCell component="th" scope="row">
                       <Checkbox
                         checked={s?.IsPresent || false}
+                        color="primary"
                         name="IsPresent"
                         onChange={(e) =>
                           handleChange(e.target.checked, s.IDHREmployee)
@@ -135,35 +140,35 @@ const StudentMonthlyPresentSheetUpdateForm = ({ students, setOpenPopup }) => {
                   </StyledTableRow>
                 ))}
           </TableBody>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "end",
-              paddingTop: "10px",
-              marginTop: "10px",
-              borderTop: "1px solid #f3f3f3",
-            }}
-          >
-            <Button
-              variant="contained"
-              color="secondary"
-              onClick={() => setOpenPopup(false)}
-              style={{ margin: "10px 0 0 10px" }}
-            >
-              CANCEL
-            </Button>
-            <Button
-              variant="contained"
-              color="primary"
-              type="submit"
-              style={{ margin: "10px 0 0 10px" }}
-              onClick={formCheckSubmitHandler}
-            >
-              SUBMIT
-            </Button>
-          </div>
         </Table>
       </TableContainer>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "end",
+          paddingTop: "10px",
+          marginTop: "10px",
+          borderTop: "1px solid #f3f3f3",
+        }}
+      >
+        <Button
+          variant="contained"
+          color="secondary"
+          onClick={() => setOpenPopup(false)}
+          style={{ margin: "10px 0 0 10px" }}
+        >
+          CANCEL
+        </Button>
+        <Button
+          variant="contained"
+          color="primary"
+          type="submit"
+          style={{ margin: "10px 0 0 10px" }}
+          onClick={formCheckSubmitHandler}
+        >
+          SUBMIT
+        </Button>
+      </div>
     </>
   );
 };

@@ -225,7 +225,7 @@ const Position = () => {
         <Toolbar>
           <InputControl
             className={classes.searchInput}
-            label="Search Position"
+            label="Search Position By Position Head"
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">

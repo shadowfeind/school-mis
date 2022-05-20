@@ -226,7 +226,7 @@ const EmployeeType = () => {
         <Toolbar>
           <InputControl
             className={classes.searchInput}
-            label="Search Employee Category Role"
+            label="Search Employee Category Role By Heading"
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">

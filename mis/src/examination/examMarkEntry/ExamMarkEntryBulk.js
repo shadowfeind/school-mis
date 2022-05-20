@@ -78,7 +78,7 @@ const ExamMarkEntryBulk = ({ bulkData, statusData }) => {
     });
   };
 
-  const symbolsArr = ["e", "E", "+", "-", ".","ArrowUp","ArrowDown"];
+  const symbolsArr = ["e", "E", "+", "-", ".", "ArrowUp", "ArrowDown"];
 
   return (
     <>
@@ -120,10 +120,12 @@ const ExamMarkEntryBulk = ({ bulkData, statusData }) => {
                       id={`theory_${subject.IDHREmployee}`}
                       defaultValue={subject.ObtainedMark}
                       type="number"
-                      onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}
-                      onWheelCapture={e => {
-  e.target.blur()
-}}
+                      onKeyDown={(e) =>
+                        symbolsArr.includes(e.key) && e.preventDefault()
+                      }
+                      onWheelCapture={(e) => {
+                        e.target.blur();
+                      }}
                       label="Obtained Mark"
                       variant="outlined"
                       inputProps={{ tabIndex: "1" }}
@@ -135,13 +137,15 @@ const ExamMarkEntryBulk = ({ bulkData, statusData }) => {
                       id={`practical_${subject.IDHREmployee}`}
                       defaultValue={subject.ObtainedMarkPractical}
                       type="number"
-                      onWheelCapture={e => {
-  e.target.blur()
-}}
-                      onFocus={e => {
-      e.target.select();
-    }}
-                      onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}
+                      onWheelCapture={(e) => {
+                        e.target.blur();
+                      }}
+                      onFocus={(e) => {
+                        e.target.select();
+                      }}
+                      onKeyDown={(e) =>
+                        symbolsArr.includes(e.key) && e.preventDefault()
+                      }
                       label="Obtained Practical Mark"
                       variant="outlined"
                       inputProps={{ tabIndex: "2" }}
@@ -152,14 +156,16 @@ const ExamMarkEntryBulk = ({ bulkData, statusData }) => {
                     <TextField
                       id={`preterm_${subject.IDHREmployee}`}
                       defaultValue={subject.ObtainedMarkPreTerm}
-                      onWheelCapture={e => {
-  e.target.blur()
-}}
+                      onWheelCapture={(e) => {
+                        e.target.blur();
+                      }}
                       type="number"
-                      onFocus={e => {
-      e.target.select();
-    }}
-                      onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}
+                      onFocus={(e) => {
+                        e.target.select();
+                      }}
+                      onKeyDown={(e) =>
+                        symbolsArr.includes(e.key) && e.preventDefault()
+                      }
                       label="Obtained PreTerm Mark"
                       variant="outlined"
                       inputProps={{ tabIndex: "3" }}
@@ -178,9 +184,9 @@ const ExamMarkEntryBulk = ({ bulkData, statusData }) => {
                         native
                         defaultValue={subject.Section}
                         id={`status_${subject.IDHREmployee}`}
-                        onFocus={e => {
-      e.target.select();
-    }}
+                        onFocus={(e) => {
+                          e.target.select();
+                        }}
                         // onChange={(e) =>
                         //   sectionHandler(e.target.value, subject)
                         // }
@@ -203,35 +209,35 @@ const ExamMarkEntryBulk = ({ bulkData, statusData }) => {
                 </StyledTableRow>
               ))}
           </TableBody>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "end",
-              paddingTop: "10px",
-              marginTop: "10px",
-              borderTop: "1px solid #f3f3f3",
-            }}
-          >
-            <Button
-              variant="contained"
-              color="secondary"
-              // onClick={() => setOpenPopup(false)}
-              style={{ margin: "10px 0 0 10px" }}
-            >
-              CANCEL
-            </Button>
-            <Button
-              variant="contained"
-              color="primary"
-              type="submit"
-              style={{ margin: "10px 0 0 10px" }}
-              //   onClick={formCheckSubmitHandler}
-            >
-              SUBMIT
-            </Button>
-          </div>
         </Table>
       </TableContainer>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "end",
+          paddingTop: "10px",
+          marginTop: "10px",
+          borderTop: "1px solid #f3f3f3",
+        }}
+      >
+        <Button
+          variant="contained"
+          color="secondary"
+          // onClick={() => setOpenPopup(false)}
+          style={{ margin: "10px 0 0 10px" }}
+        >
+          CANCEL
+        </Button>
+        <Button
+          variant="contained"
+          color="primary"
+          type="submit"
+          style={{ margin: "10px 0 0 10px" }}
+          //   onClick={formCheckSubmitHandler}
+        >
+          SUBMIT
+        </Button>
+      </div>
     </>
   );
 };

@@ -184,9 +184,9 @@ const Role = () => {
   };
 
   useEffect(() => {
-    if (!role) {
-      dispatch(getAllRolesAction());
-    }
+    dispatch(getAllRolesAction());
+  }, []);
+  useEffect(() => {
     if (role) {
       setTableData(role.hrRoleModelLst);
     }
@@ -223,7 +223,7 @@ const Role = () => {
         <Toolbar>
           <InputControl
             className={classes.searchInput}
-            label="Search Role"
+            label="Search Role By Role Name"
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">

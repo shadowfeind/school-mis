@@ -151,17 +151,15 @@ const AcademicYear = () => {
   };
 
   useEffect(() => {
-    if (!academicYear) {
-      dispatch(getAllAcademicYearAction());
-    }
     if (academicYear) {
       setTableData(academicYear.dbModelLst);
     }
   }, [dispatch, academicYear]);
 
   useEffect(() => {
+    dispatch(getAllAcademicYearAction());
     dispatch(getAcademicYearOptionAction());
-  }, [dispatch]);
+  }, []);
 
   const {
     TableContainer,
@@ -194,7 +192,7 @@ const AcademicYear = () => {
         <Toolbar>
           <InputControl
             className={classes.searchInput}
-            label="Search Academic Year"
+            label="Search Academic Year By Academic Year Name"
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">

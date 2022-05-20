@@ -162,15 +162,13 @@ const AcademicProgram = () => {
   };
 
   useEffect(() => {
-    if (!academicProgram) {
-      dispatch(getAllAcademicProgramAction());
-    }
     if (academicProgram) {
       setTableData(academicProgram.dbModelLst);
     }
   }, [dispatch, academicProgram]);
 
   useEffect(() => {
+    dispatch(getAllAcademicProgramAction());
     dispatch(getAcademicProgramOptionAction());
   }, []);
 
@@ -205,7 +203,7 @@ const AcademicProgram = () => {
         <Toolbar>
           <InputControl
             className={classes.searchInput}
-            label="Search Academic Program"
+            label="Search Academic Program By Academic Program Name"
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">

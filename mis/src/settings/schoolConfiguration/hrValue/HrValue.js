@@ -299,7 +299,7 @@ const HrValue = () => {
         <Toolbar>
           <InputControl
             className={classes.searchInput}
-            label="Search School Value"
+            label="Search School Value By Name"
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">

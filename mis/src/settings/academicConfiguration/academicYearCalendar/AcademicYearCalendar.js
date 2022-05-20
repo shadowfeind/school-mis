@@ -325,7 +325,7 @@ const AcademicYearCalendar = () => {
         <Toolbar>
           <InputControl
             className={classes.searchInput}
-            label="Search Academic Year Calender"
+            label="Search Academic Year Calender By EventName"
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">

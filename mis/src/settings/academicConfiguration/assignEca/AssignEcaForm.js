@@ -21,8 +21,8 @@ import { postAssignEcaAction } from "./AssignEcaActions";
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
-    backgroundColor: theme.palette.common.grey,
-    color: theme.palette.common.black,
+    backgroundColor: "#253053",
+    color: "#fff",
   },
   body: {
     fontSize: 14,
@@ -112,10 +112,10 @@ const AssignEcaForm = ({
               <StyledTableCell>Updated_On</StyledTableCell>
               <StyledTableCell>
                 {" "}
-                <label>IsActive</label>
+                <label>All</label>
                 <Checkbox
-                  style={{ backgroundColor: "#fff" }}
                   checked={checked}
+                  color="primary"
                   onChange={(e) => handleAllChecked(e.target.checked)}
                 />
               </StyledTableCell>
@@ -143,6 +143,7 @@ const AssignEcaForm = ({
                           ? true
                           : false
                       }
+                      color="primary"
                       onChange={(e) => handleChecked(e.target.checked, subject)}
                     />
                   </StyledTableCell>

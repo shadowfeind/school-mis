@@ -23,8 +23,8 @@ import { GET_EVENT_FOR_EXAM_SCHEDULE_RESET } from "./ExamScheduleConstants";
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
-    backgroundColor: "#fff",
-    color: "#000",
+    backgroundColor: "#253053",
+    color: "#fff",
   },
   body: {
     fontSize: 14,
@@ -243,7 +243,7 @@ const ExamScheduleGenerateForm = ({
                     Subject Order
                   </StyledTableCell>
                   <StyledTableCell align="right">
-                    Action{" "}
+                    All{" "}
                     <Checkbox
                       onChange={(e) => handleBulkChange(e.target.checked)}
                       name="checkedB"

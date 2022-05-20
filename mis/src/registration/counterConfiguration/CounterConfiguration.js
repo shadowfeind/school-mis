@@ -99,7 +99,7 @@ const CounterConfiguration = () => {
           return item;
         } else {
           return item.filter((x) =>
-            x.Prefix.toLowerCase().includes(e.target.value)
+            x.CounterFor.toLowerCase().includes(e.target.value)
           );
         }
       },
@@ -287,7 +287,7 @@ const CounterConfiguration = () => {
         <Toolbar>
           <InputControl
             className={classes.searchInput}
-            label="Search Counter Configuration"
+            label="Search Counter Configuration By Counter For"
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">

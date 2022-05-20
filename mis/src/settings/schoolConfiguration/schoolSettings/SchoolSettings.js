@@ -197,7 +197,7 @@ const SchoolSettings = () => {
         <Toolbar>
           <InputControl
             className={classes.searchInput}
-            label="Search School"
+            label="Search School By Company Name"
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">

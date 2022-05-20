@@ -321,7 +321,7 @@ const AdmissionConfiguration = () => {
         <Toolbar>
           <InputControl
             className={classes.searchInput}
-            label="Search Admission Configuration"
+            label="Search Admission Configuration By AdmissionStartDate"
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">

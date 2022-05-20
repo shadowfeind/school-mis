@@ -295,7 +295,7 @@ const SmsAccessControl = () => {
         <Toolbar>
           <InputControl
             className={classes.searchInput}
-            label="Search Sms Access Control"
+            label="Search Sms Access Control By SMS Header"
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">

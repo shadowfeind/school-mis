@@ -160,9 +160,10 @@ const AcademicSection = () => {
   };
 
   useEffect(() => {
-    if (!academicSection) {
-      dispatch(getAllAcademicSectionAction());
-    }
+    dispatch(getAllAcademicSectionAction());
+  }, []);
+
+  useEffect(() => {
     if (academicSection) {
       setTableData(academicSection.dbModelLst);
     }
@@ -200,7 +201,7 @@ const AcademicSection = () => {
         <Toolbar>
           <InputControl
             className={classes.searchInput}
-            label="Search Academic Section"
+            label="Search Academic Section By Academic Section"
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">

@@ -134,9 +134,6 @@ const MobileUsers = () => {
 
   useEffect(() => {
     dispatch(getAllMobileUserAction());
-  }, []);
-
-  useEffect(() => {
     dispatch({ type: "GET_LINK", payload: "/settings" });
   }, []);
 
@@ -178,7 +175,7 @@ const MobileUsers = () => {
         <Toolbar>
           <InputControl
             className={classes.searchInput}
-            label="Search Mobile Users"
+            label="Search Mobile Users By Name"
             InputProps={{
               startAdornment: (
                 <InputAdornment allMobileUser="start">

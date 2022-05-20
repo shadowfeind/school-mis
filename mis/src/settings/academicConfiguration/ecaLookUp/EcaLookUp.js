@@ -243,7 +243,7 @@ const EcaLookUp = () => {
         <Toolbar>
           <InputControl
             className={classes.searchInput}
-            label="Search ECA LookUp"
+            label="Search ECA LookUp By ECA Name"
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">

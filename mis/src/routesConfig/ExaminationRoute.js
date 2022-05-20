@@ -55,12 +55,12 @@ export const ExaminationRoute = [
     icon: HowToRegIcon,
     exact: false,
   },
-  {
-    name: "ECA",
-    route: "/level-test",
-    icon: SportsKabaddiIcon,
-    exact: false,
-  },
+  // {
+  //   name: "ECA",
+  //   route: "/level-test",
+  //   icon: SportsKabaddiIcon,
+  //   exact: false,
+  // },
   {
     name: "ECA Data",
     route: "/eca-data",

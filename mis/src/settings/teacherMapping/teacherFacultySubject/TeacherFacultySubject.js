@@ -460,7 +460,7 @@ const TeacherFacultySubject = () => {
         <Toolbar>
           <InputControl
             className={classes.searchInput}
-            label="Search Teacher Class Subject"
+            label="Search Teacher Class Subject By Teacher Name"
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
@@ -485,6 +485,7 @@ const TeacherFacultySubject = () => {
                       key={item.$id}
                       updateTeacherHandler={updateTeacherHandler}
                       deleteCollegeHandler={deleteCollegeHandler}
+
                     />
                   ))}
                 </TableBody>
@@ -528,6 +529,7 @@ const TeacherFacultySubject = () => {
             <TeacherFacultySubjectDeleteForm
               deleteForm={singleTeacherFacData && singleTeacherFacData}
               setOpenDeletePopup={setOpenDeletePopup}
+
             />
           </>
         )}

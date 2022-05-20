@@ -152,15 +152,13 @@ const AcademicFaculty = () => {
   };
 
   useEffect(() => {
-    if (!academicFaculty) {
-      dispatch(getAllAcademicFacultyAction());
-    }
     if (academicFaculty) {
       setTableData(academicFaculty.dbModelLst);
     }
   }, [dispatch, academicFaculty]);
 
   useEffect(() => {
+    dispatch(getAllAcademicFacultyAction());
     dispatch(getAcademicFacultyOptionAction());
   }, []);
 
@@ -195,7 +193,7 @@ const AcademicFaculty = () => {
         <Toolbar>
           <InputControl
             className={classes.searchInput}
-            label="Search Academic Faculty"
+            label="Search Academic Faculty By Academic Header"
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">

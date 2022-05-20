@@ -117,11 +117,11 @@ const AssignFacultySubjectFormCreate = ({
               <StyledTableCell align="right">Theoritical</StyledTableCell>
               <StyledTableCell align="center">Credit Hour</StyledTableCell>
               <StyledTableCell align="right">
-                Action{" "}
+                All{" "}
                 <Checkbox
                   onChange={(e) => handleBulkChange(e.target.checked)}
                   name="checkedB"
-                  color="secondary"
+                  color="primary"
                 />
               </StyledTableCell>
             </TableRow>
@@ -178,7 +178,7 @@ const AssignFacultySubjectFormCreate = ({
                       }
                       onChange={() => handleChange(subject)}
                       name="checkedB"
-                      color="secondary"
+                      color="primary"
                     />
                   </StyledTableCell>
                 </StyledTableRow>

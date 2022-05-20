@@ -49,13 +49,14 @@ const ExamMarkApprovalBlankForm = ({
   );
 
   const yearShow = yearDdl?.filter((s) => s.Key === year);
+  console.log("yearShow", yearShow);
 
   return (
     <>
-      <div className="main-container" ref={componentRef}>
-        <div className="header">
-          <header className="main-header">
-            <div className="container">
+      <div className="bulk-print-container" ref={componentRef}>
+        <div className="bulk-print-header">
+          <header className="bulk-print-main-header">
+            <div className="bulk-container">
               <Table>
                 <tbody>
                   <tr>
@@ -66,7 +67,7 @@ const ExamMarkApprovalBlankForm = ({
                         <br />
                         <b>{address}</b>
                         <br />
-                        <b>-{yearShow?.length > 0 && yearShow[0].Value}</b>
+                        <b>-{yearShow[0]?.Value}</b>
                         <br />
                         <b>Term Exam:</b>
                         {blankData?.dbModelLsts.length > 0 &&
@@ -83,7 +84,7 @@ const ExamMarkApprovalBlankForm = ({
           </header>
         </div>
         <br />
-        <div className="info">
+        <div className="bulk-info">
           <Table className="info-table">
             <tbody>
               <tr>
@@ -142,7 +143,8 @@ const ExamMarkApprovalBlankForm = ({
             <tbody>
               <tr>
                 <td>
-                  &nbsp;<b>Remarks</b>:- Please, submit the marks sheet within the 7 days of Examination
+                  &nbsp;<b>Remarks</b>:- Please, submit the marks sheet within
+                  the 7 days of Examination
                 </td>
               </tr>
 
@@ -150,7 +152,9 @@ const ExamMarkApprovalBlankForm = ({
               <tr>
                 <td width="14%">Total Present(s): _______</td>
                 <td width="12%">Total Absent(s): _______</td>
-                <td width="23%">Teacher's Signature: _______________________</td>
+                <td width="23%">
+                  Teacher's Signature: _______________________
+                </td>
               </tr>
             </tbody>
           </Table>

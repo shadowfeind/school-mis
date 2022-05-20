@@ -161,9 +161,10 @@ const AcademicClass = () => {
   };
 
   useEffect(() => {
-    if (!academicClass) {
-      dispatch(getAllAcademicClassAction());
-    }
+    dispatch(getAllAcademicClassAction());
+  }, []);
+
+  useEffect(() => {
     if (academicClass) {
       setTableData(academicClass.dbModelLst);
     }
@@ -201,7 +202,7 @@ const AcademicClass = () => {
         <Toolbar>
           <InputControl
             className={classes.searchInput}
-            label="Search Academic Class"
+            label="Search Academic Class By ClassName"
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">

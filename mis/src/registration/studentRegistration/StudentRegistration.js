@@ -297,7 +297,7 @@ const StudentRegistration = () => {
         <Toolbar>
           <InputControl
             className={classes.searchInput}
-            label="Search Student Registration"
+            label="Search Student Registration By FullName"
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">

@@ -63,9 +63,7 @@ const StudentAttendanceBulk = ({
         return [...newArray];
       });
     } else {
-      alert(
-        "Present Day must be less than or equal to working days"
-      );
+      alert("Present Day must be less than or equal to working days");
     }
   };
 
@@ -93,12 +91,12 @@ const StudentAttendanceBulk = ({
     return Object.values(temp).every((x) => x === "");
   };
 
-  const symbolsArr = ["e", "E", "+", "-", ".","ArrowUp","ArrowDown"];
+  const symbolsArr = ["e", "E", "+", "-", ".", "ArrowUp", "ArrowDown"];
 
   return (
     <>
       <div style={{ width: "300px", margin: "15px auto" }}>
-      Working Total Days:
+        Working Total Days:
         <TextField
           type="number"
           onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}
@@ -137,7 +135,9 @@ const StudentAttendanceBulk = ({
                       label="Present Day"
                       variant="outlined"
                       name="PresentDay"
-                      onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}
+                      onKeyDown={(e) =>
+                        symbolsArr.includes(e.key) && e.preventDefault()
+                      }
                       inputProps={{ tabIndex: "1" }}
                       onChange={(e) =>
                         onChangeHandler(
@@ -158,10 +158,12 @@ const StudentAttendanceBulk = ({
                       label="Absent Day"
                       variant="outlined"
                       name="AbsentDay"
-                      onWheelCapture={e => {
-  e.target.blur()
-}}
-                      onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}
+                      onWheelCapture={(e) => {
+                        e.target.blur();
+                      }}
+                      onKeyDown={(e) =>
+                        symbolsArr.includes(e.key) && e.preventDefault()
+                      }
                       inputProps={{ tabIndex: "2" }}
                       onChange={(e) =>
                         e.target.value >= 0 &&
@@ -177,36 +179,35 @@ const StudentAttendanceBulk = ({
                 </StyledTableRow>
               ))}
           </TableBody>
-          </Table>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "end",
-              paddingTop: "10px",
-              marginTop: "10px",
-              borderTop: "1px solid #f3f3f3",
-            }}
-          >
-            <Button
-              variant="contained"
-              color="secondary"
-              onClick={() => setOpenPopup(false)}
-              style={{ margin: "10px 0 0 10px" }}
-            >
-              CANCEL
-            </Button>
-            <Button
-              variant="contained"
-              color="primary"
-              type="submit"
-              style={{ margin: "10px 0 0 10px" }}
-              onClick={formCheckSubmitHandler}
-            >
-              SUBMIT
-            </Button>
-          </div>
-       
+        </Table>
       </TableContainer>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "end",
+          paddingTop: "10px",
+          marginTop: "10px",
+          borderTop: "1px solid #f3f3f3",
+        }}
+      >
+        <Button
+          variant="contained"
+          color="secondary"
+          onClick={() => setOpenPopup(false)}
+          style={{ margin: "10px 0 0 10px" }}
+        >
+          CANCEL
+        </Button>
+        <Button
+          variant="contained"
+          color="primary"
+          type="submit"
+          style={{ margin: "10px 0 0 10px" }}
+          onClick={formCheckSubmitHandler}
+        >
+          SUBMIT
+        </Button>
+      </div>
     </>
   );
 };

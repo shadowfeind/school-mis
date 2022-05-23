@@ -232,6 +232,14 @@ const AssignFacultySubject = () => {
     return Object.values(temp).every((x) => x === "");
   };
 
+  // const validateTable = () => {
+  //   let temp = {};
+  //   temp.submit = formCheck?.length <= 0 ? "Select Atleast one options" : "";
+
+  //   setErrors({ ...temp });
+  //   return Object.values(temp).every((x) => x === "");
+  // };
+
   const handleAcademicYearChange = (e) => {
     handleSelectChange(e.target.value);
     setAcaYear(e.target.value);
@@ -252,6 +260,7 @@ const AssignFacultySubject = () => {
   };
 
   const formCheckSubmitHandler = () => {
+    // if (validateTable()) {
     if (assignFacSubGenerate) {
       dispatch(
         AcademicFacultyCreateAction(
@@ -269,6 +278,7 @@ const AssignFacultySubject = () => {
       )
     );
     setOpenPopup(false);
+    // }
   };
 
   if (facultySubjectSuccess) {
@@ -458,6 +468,7 @@ const AssignFacultySubject = () => {
               }
               level={singleFacultySubject && singleFacultySubject.level}
               setOpenPopupForm={setOpenPopupForm}
+              errors={errors}
             />
           </>
         )}

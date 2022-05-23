@@ -428,6 +428,7 @@ const ReassociateStudent = () => {
                       // deleteCollegeHandler={deleteCollegeHandler}
                     />
                   ))}
+                  :<h2></h2>
                 </TableBody>
               </TableContainer>
             )}
@@ -446,21 +447,21 @@ const ReassociateStudent = () => {
           <>
             <ReassociateStudentLevelUp
               dbModelLst={
-                reassociateStudentLevel && reassociateStudentLevel.dbModelLst
+                reassociateStudentLevel && reassociateStudentLevel?.dbModelLst
               }
               ddlSection={
-                reassociateStudentLevel && reassociateStudentLevel.ddlSection
+                reassociateStudentLevel && reassociateStudentLevel?.ddlSection
               }
               ddlLevelStatus={
                 reassociateStudentLevel &&
-                reassociateStudentLevel.ddlLevelStatus
+                reassociateStudentLevel?.ddlLevelStatus
               }
               ddlAcademicYear={
                 reassociateStudentLevel &&
-                reassociateStudentLevel.ddlAcademicYear
+                reassociateStudentLevel?.ddlAcademicYear
               }
               ddlClass={
-                reassociateStudentLevel && reassociateStudentLevel.ddlClass
+                reassociateStudentLevel && reassociateStudentLevel?.ddlClass
               }
               nextClass={
                 reassociateStudentLevel &&
@@ -468,15 +469,15 @@ const ReassociateStudent = () => {
               }
               idAcademicYear={
                 reassociateStudentLevel &&
-                reassociateStudentLevel.ddlAcademicYear
+                reassociateStudentLevel?.ddlAcademicYear
               }
               idAcademicYearValue={
                 reassociateStudentLevel &&
-                reassociateStudentLevel.searchFilterModel?.idAcademicYear
+                reassociateStudentLevel?.searchFilterModel?.idAcademicYear
               }
               idNextAcademicYearValue={
                 reassociateStudentLevel &&
-                reassociateStudentLevel.searchFilterModel?.idNextAcademicYear
+                reassociateStudentLevel?.searchFilterModel?.idNextAcademicYear
               }
               noNextYearError={
                 reassociateStudentLevel && reassociateStudentLevel?.Message

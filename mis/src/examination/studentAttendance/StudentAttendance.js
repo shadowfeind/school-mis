@@ -343,6 +343,7 @@ const StudentAttendance = () => {
 
   const handleYearChange = (value) => {
     setAcaYear(value);
+    setDdlEvent([]);
     setEvent("");
     if (classId) {
       dispatch(getEventAction(value, programValue, classId));

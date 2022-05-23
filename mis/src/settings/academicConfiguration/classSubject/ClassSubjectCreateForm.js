@@ -155,35 +155,35 @@ const ClassSubjectCreateForm = ({
                 </StyledTableRow>
               ))}
           </TableBody>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "end",
-              paddingTop: "10px",
-              marginTop: "10px",
-              borderTop: "1px solid #f3f3f3",
-            }}
-          >
-            <Button
-              variant="contained"
-              color="secondary"
-              // onClick={() => setOpenPopup(false)}
-              style={{ margin: "10px 0 0 10px" }}
-            >
-              CANCEL
-            </Button>
-            <Button
-              variant="contained"
-              color="primary"
-              type="submit"
-              style={{ margin: "10px 0 0 10px" }}
-              onClick={formCheckSubmitHandler}
-            >
-              SUBMIT
-            </Button>
-          </div>
         </Table>
       </TableContainer>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "end",
+          paddingTop: "10px",
+          marginTop: "10px",
+          borderTop: "1px solid #f3f3f3",
+        }}
+      >
+        <Button
+          variant="contained"
+          color="secondary"
+          // onClick={() => setOpenPopup(false)}
+          style={{ margin: "10px 0 0 10px" }}
+        >
+          CANCEL
+        </Button>
+        <Button
+          variant="contained"
+          color="primary"
+          type="submit"
+          style={{ margin: "10px 0 0 10px" }}
+          onClick={formCheckSubmitHandler}
+        >
+          SUBMIT
+        </Button>
+      </div>
     </>
   );
 };

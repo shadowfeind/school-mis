@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Table,
   TableBody,
@@ -147,6 +147,7 @@ const ReassociateStudentLevelUp = ({
       formCheckSubmitHandler();
     }
   };
+
   return (
     <>
       <div>
@@ -190,6 +191,7 @@ const ReassociateStudentLevelUp = ({
             </Grid>
           </Grid>
           <div style={{ height: "10px" }}></div>
+
           <TableContainer component={Paper}>
             <Table className={classes.table} aria-label="customized table">
               <TableHead>
@@ -301,6 +303,11 @@ const ReassociateStudentLevelUp = ({
               </TableBody>
             </Table>
           </TableContainer>
+          {dbModelLst?.length <= 0 && (
+            <div>
+              <h3 style={{ color: "red", textAlign: "center" }}>No Data</h3>
+            </div>
+          )}
           {errors.submit && (
             <div
               style={{

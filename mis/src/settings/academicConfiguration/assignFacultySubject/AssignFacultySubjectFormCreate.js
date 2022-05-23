@@ -186,6 +186,23 @@ const AssignFacultySubjectFormCreate = ({
           </TableBody>
         </Table>
       </TableContainer>
+      {subjectOptions?.length <= 0 && (
+        <div>
+          <h3 style={{ color: "red", textAlign: "center" }}>No Data</h3>
+        </div>
+      )}
+      {/* {errors && (
+        <div
+          style={{
+            textAlign: "center",
+            color: "red",
+            fontSize: "12px",
+            paddingTop: "8px",
+          }}
+        >
+          {errors?.submit}
+        </div>
+      )} */}
       <div
         style={{
           display: "flex",

@@ -114,7 +114,7 @@ const ExamMarkApprovalBulk = ({
           <TableHead>
             <TableRow>
               <StyledTableCell>Roll No.</StyledTableCell>
-              <StyledTableCell align="left">FullName</StyledTableCell>
+              <StyledTableCell align="left">Student Name</StyledTableCell>
               <StyledTableCell align="center">
                 Mark Obtained(TH)
               </StyledTableCell>

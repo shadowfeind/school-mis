@@ -69,7 +69,7 @@ const tableHeader = [
   { id: "FullMarkPractical", label: "Full Marks(PR)" },
   { id: "ObtainedMark", label: "ObtainedMark(TH)" },
   { id: "ObtainedMarkPractical", label: "ObtainedMark(PR)" },
-  { id: "Divsion", label: "Division" },
+  // { id: "Divsion", label: "Division" },
   { id: "Updated_On", label: "Updated On" },
   { id: "Status", label: "Status" },
 ];
@@ -593,7 +593,7 @@ const ExamMarkApproval = () => {
       <Popup
         openPopup={openPopup}
         setOpenPopup={setOpenPopup}
-        title="Bulk Edit"
+        title="Bulk Exam Marks Entry/Update"
       >
         {loadingBulk ? (
           <LoadingComp />

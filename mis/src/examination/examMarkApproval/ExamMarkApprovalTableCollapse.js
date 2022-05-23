@@ -14,7 +14,7 @@ const ExamMarkApprovalTableCollapse = ({ item }) => {
         <TableCell>
           {item.ObtainedMarkPractical === 0 ? "" : item.ObtainedMarkPractical}
         </TableCell>
-        <TableCell>{item.SecuredDivision}</TableCell>
+        {/* <TableCell>{item.SecuredDivision}</TableCell> */}
         <TableCell>{item.Updated_On?.slice(0, 10)}</TableCell>
         <TableCell>{item.Status}</TableCell>
       </TableRow>

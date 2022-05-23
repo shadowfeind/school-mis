@@ -87,7 +87,7 @@ const ExamMarkEntryBulk = ({ bulkData, statusData }) => {
           <TableHead>
             <TableRow>
               <StyledTableCell>Roll No.</StyledTableCell>
-              <StyledTableCell align="right">FullName</StyledTableCell>
+              <StyledTableCell align="right">Student Name</StyledTableCell>
               <StyledTableCell align="right">Subject Name</StyledTableCell>
               <StyledTableCell align="right">Mark Obtained(TH)</StyledTableCell>
               <StyledTableCell align="right">Mark Obtained(PT)</StyledTableCell>

@@ -39,7 +39,7 @@ const StudentAttendanceTableCollapse = ({ item, attendance }) => {
         <TableCell>{item.EmailID}</TableCell>
         <TableCell>{item.WorkingDay}</TableCell>
         <TableCell>{item.PresentDay}</TableCell>
-        <TableCell>{item.AbsentDay}</TableCell>
+        <TableCell>{item.WorkingDay - item.PresentDay}</TableCell>
         <TableCell>
           {/* <Button
             variant="contained"

@@ -1,15 +1,15 @@
-import React,{useState,useSelector} from "react";
+import React, { useState, useSelector } from "react";
 import {
-    Button,
-    TableRow,
-    TableCell,
-    makeStyles,
-    Box,
-    Typography,
-    Grid,
-    List,
-    ListItem,
-  } from "@material-ui/core";
+  Button,
+  TableRow,
+  TableCell,
+  makeStyles,
+  Box,
+  Typography,
+  Grid,
+  List,
+  ListItem,
+} from "@material-ui/core";
 import EditIcon from "@material-ui/icons/Edit";
 import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUp";
@@ -29,24 +29,24 @@ const EcaLookUpTableCollapse = ({ item, updateEcaHandler }) => {
   const [open, setOpen] = useState(false);
 
   return (
-      <>
-    <TableRow>
-      <TableCell>{item.ECAName}</TableCell>
-      <TableCell>{item.ECADescription}</TableCell>
-      <TableCell>{item.IDHRCompany}</TableCell>
-      <TableCell>{item.Created_On?.slice(0,10)}</TableCell>
-      <TableCell>{item.Updated_On?.slice(0,10)}</TableCell>
-      <TableCell>{item.IsActive ? "IsActive" : "NotActive"}</TableCell>
-      <TableCell>
-      <Button
-          variant="contained"
-          color="primary"
-          className={classes.button}
-          onClick={() => updateEcaHandler(item.IDECA)}
-        >
-          <EditIcon style={{ fontSize: 12 }} />
-        </Button>
-        <Button
+    <>
+      <TableRow>
+        <TableCell>{item.ECAName}</TableCell>
+        <TableCell>{item.ECADescription}</TableCell>
+        {/* <TableCell>{item.IDHRCompany}</TableCell> */}
+        <TableCell>{item.Created_On?.slice(0, 10)}</TableCell>
+        <TableCell>{item.Updated_On?.slice(0, 10)}</TableCell>
+        <TableCell>{item.IsActive ? "IsActive" : "NotActive"}</TableCell>
+        <TableCell>
+          <Button
+            variant="contained"
+            color="primary"
+            className={classes.button}
+            onClick={() => updateEcaHandler(item.IDECA)}
+          >
+            <EditIcon style={{ fontSize: 12 }} />
+          </Button>
+          <Button
             variant="contained"
             onClick={() => {
               setOpen(!open);
@@ -60,9 +60,9 @@ const EcaLookUpTableCollapse = ({ item, updateEcaHandler }) => {
               <KeyboardArrowDownIcon style={{ fontSize: 12 }} />
             )}
           </Button>
-      </TableCell>
-    </TableRow>
-    <TableRow>
+        </TableCell>
+      </TableRow>
+      <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={12}>
           <Collapse in={open} timeout="auto" unmountOnExit>
             <Box margin={1}>
@@ -86,13 +86,12 @@ const EcaLookUpTableCollapse = ({ item, updateEcaHandler }) => {
                     </ListItem>
                   </List>
                 </Grid>
-                </Grid>
+              </Grid>
             </Box>
           </Collapse>
         </TableCell>
       </TableRow>
     </>
-    
   );
 };
 

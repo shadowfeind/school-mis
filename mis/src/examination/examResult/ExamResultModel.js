@@ -3,7 +3,12 @@ import ExamResultDesign from "./ExamResultDesign";
 import { useReactToPrint } from "react-to-print";
 import { Button } from "@material-ui/core";
 
-const ExamResultModel = ({ examReport, headerBanners, setOpenPopup }) => {
+const ExamResultModel = ({
+  examReport,
+  headerBanners,
+  setOpenPopup,
+  principleSignature,
+}) => {
   const componentRef = useRef();
   const printPdf = useReactToPrint({
     content: () => componentRef.current,
@@ -74,6 +79,7 @@ const ExamResultModel = ({ examReport, headerBanners, setOpenPopup }) => {
             headerBanners={headerBanners}
             // ecaDataWithName={ecaDataWithName}
             ecaDataWithName={ecaDataFinal}
+            principleSignature={principleSignature}
           />
         );
       })}

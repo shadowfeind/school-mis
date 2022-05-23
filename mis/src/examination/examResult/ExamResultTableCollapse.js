@@ -63,23 +63,24 @@ const ExamResultTableCollapse = memo(
     return showDataTable ? (
       <div className="ledgerResult" ref={componentRef}>
         <Grid container style={{ marginBottom: "12px" }}>
-          <Grid item xs={4}>
+          <Grid item xs={6} className="ledger-header-print">
             School Name: {schoolName && schoolName}
           </Grid>
-          <Grid item xs={4}>
+          <Grid item xs={3} className="ledger-header-print">
             Year: {searchFilterModel && searchFilterModel.npYear}
           </Grid>
-          <Grid item xs={4}>
+          <Grid item xs={3} className="ledger-header-print">
             Class: {currentClassToDisplay && currentClassToDisplay[0]?.Value}
           </Grid>
-          <Grid item xs={4}>
+          <Grid item xs={6} className="ledger-header-print">
+            Term: {termExamName && termExamName[0]?.Value}
+          </Grid>
+          <Grid item xs={3} className="ledger-header-print">
             Section:{" "}
             {currentSectionToDisplay && currentSectionToDisplay[0]?.Value}
           </Grid>
-          <Grid item xs={4}>
-            Term: {termExamName && termExamName[0]?.Value}
-          </Grid>
-          <Grid item xs={4}>
+
+          <Grid item xs={3} className="ledger-header-print">
             Date:{" "}
             {searchFilterModel && searchFilterModel.StartDate?.slice(0, 10)}
           </Grid>

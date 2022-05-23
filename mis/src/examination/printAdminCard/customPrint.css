@@ -32,9 +32,10 @@
 
 @media print {
   /* styling goes here */
- #card-print {
+ #card-print, .card-print-hide-cancel {
    display: none !important;
  }
+ 
 
   @-moz-document url-prefix() {
     /* #test-print-blueberry {

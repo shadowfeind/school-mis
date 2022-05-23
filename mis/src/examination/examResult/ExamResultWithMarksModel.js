@@ -7,6 +7,7 @@ const ExamResultWithMarksModel = ({
   examReport,
   headerBanners,
   setOpenPopupResultMark,
+  principleSignature,
 }) => {
   const componentRef = useRef();
   const printPdf = useReactToPrint({
@@ -70,6 +71,7 @@ const ExamResultWithMarksModel = ({
               studentSection={studentSection[0]}
               headerBanners={headerBanners}
               ecaDataWithName={ecaDataFinal}
+              principleSignature={principleSignature}
             />
           );
         })}

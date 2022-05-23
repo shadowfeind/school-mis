@@ -67,11 +67,11 @@ const AssignEcaForm = ({
     return Object.values(temp).every((x) => x === "");
   };
 
-  useEffect(() => {
-    if (assignEca) {
-      setAssign(assignEca);
-    }
-  }, [assignEca]);
+  // useEffect(() => {
+  //   if (assignEca) {
+  //     setAssign(assignEca);
+  //   }
+  // }, [assignEca]);
 
   const handleAllChecked = (checked) => {
     setChecked(checked);

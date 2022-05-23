@@ -16,8 +16,8 @@ const initialFormValues = {
   IDAcademicYearCalendar: 0,
   IDAcademicFacultySubjectLink: 0,
   ExamType: "T",
-  ExamScheduleFromDate: "",
-  ExamScheduleToDate: "",
+  ExamScheduleFromDate: null,
+  ExamScheduleToDate: null,
   ExamScheduleFromTime: "",
   ExamScheduleToTime: "",
   FullMark: "",
@@ -95,7 +95,10 @@ const ExamScheduleForm = ({
 
   useEffect(() => {
     if (examScheduleCreate) {
-      setValues({ ...examScheduleCreate.dbModel });
+      setValues({
+        ...examScheduleCreate.dbModel,
+        IDAcademicFacultySubjectLink: examScheduleCreate?.ddlSubject[0]?.Key,
+      });
     }
     if (examScheduleEdit) {
       setValues({ ...examScheduleEdit.dbModel });

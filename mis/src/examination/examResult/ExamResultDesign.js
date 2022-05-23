@@ -21,6 +21,7 @@ const ExamResultDesign = ({
   studentSection,
   headerBanners,
   ecaDataWithName,
+  principleSignature,
 }) => {
   let trackSubject = [];
   let tdToRender = [];
@@ -360,7 +361,10 @@ const ExamResultDesign = ({
           <div className="signatureContainer">
             <Grid container>
               <Grid item xs={3}>
-                <h4>{forDate.PublishDate.slice(0, 10)}</h4>
+                <div style={{ marginTop: "-12px", marginBottom: "-10px" }}>
+                  <h4>{forDate.PublishDate.slice(0, 10)}</h4>
+                </div>
+                <h4 style={{ margin: "0" }}>................</h4>
                 <h6>Result Date</h6>
               </Grid>
               <Grid item xs={3}>
@@ -372,7 +376,15 @@ const ExamResultDesign = ({
                 <h6>School Stamp</h6>
               </Grid>
               <Grid item xs={3}>
-                <h4>................</h4>
+                <div style={{ marginTop: "-34px", marginBottom: "-22px" }}>
+                  {principleSignature && (
+                    <img
+                      src={`${API_URL}${principleSignature}`}
+                      height="54px"
+                    />
+                  )}
+                </div>
+                <h4 style={{ margin: "0" }}>................</h4>
                 <h6>Principal</h6>
               </Grid>
             </Grid>

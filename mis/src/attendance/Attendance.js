@@ -76,7 +76,7 @@ const Attendance = () => {
         >
           <Tab
             style={{ fontSize: "11px", color: "#fff" }}
-            label="Student Monthly Present Sheet"
+            label="Student Attendance"
             {...a11yProps(0)}
           />
           <Tab

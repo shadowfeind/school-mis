@@ -21,12 +21,15 @@ import {
   GET_ALL_SEARCH_TEACHER_FAC_SUB_INITIAL_DATA_RESET,
   GET_ALL_SEARCH_TEACHER_FAC_SUB_LIST_DATA_RESET,
   GET_SINGLE_EDIT_SEARCH_TEACHER_FAC_SUB_LIST_DATA_RESET,
+  PUT_SEARCH_TEACHER_FAC_SUB_DATA_RESET,
 } from "./SearchTeacherFacultySubjectConstants";
 import {
   getAllSearchTeacherFacSubInitialDataAction,
   getAllSearchTeacherFacSubListDataAction,
+  getSingleEditSearchTeacherFacSubListDataAction,
 } from "./SearchTeacherFacultySubjectActions";
 import SearchTeacherFacultySubjectTableCollapse from "./SearchTeacherFacultySubjectTableCollapse";
+import SearchTeacherFacultySubjectForm from "./SearchTeacherFacultySubjectForm";
 
 const useStyles = makeStyles((theme) => ({
   searchInput: {
@@ -101,6 +104,11 @@ const SearchTeacherFacultySubject = () => {
     error: searchTeacherFacListDataError,
   } = useSelector((state) => state.getAllSearchTeacherFacSubListData);
 
+  const {
+    success: putSearchTeacherFacSubtDataSuccess,
+    error: putSearchTeacherFacSubtDataError,
+  } = useSelector((state) => state.putSearchTeacherFacSubtData);
+
   if (error) {
     setNotify({
       isOpen: true,
@@ -108,6 +116,28 @@ const SearchTeacherFacultySubject = () => {
       type: "error",
     });
     dispatch({ type: GET_ALL_SEARCH_TEACHER_FAC_SUB_INITIAL_DATA_RESET });
+  }
+
+  if (putSearchTeacherFacSubtDataError) {
+    setNotify({
+      isOpen: true,
+      message: error,
+      type: "error",
+    });
+    dispatch({ type: PUT_SEARCH_TEACHER_FAC_SUB_DATA_RESET });
+  }
+
+  if (putSearchTeacherFacSubtDataSuccess) {
+    setNotify({
+      isOpen: true,
+      message: "Successfully updated",
+      type: "success",
+    });
+    dispatch({ type: PUT_SEARCH_TEACHER_FAC_SUB_DATA_RESET });
+    setOpenPopup(false);
+    dispatch(
+      getAllSearchTeacherFacSubListDataAction(creationAccountSectionValue)
+    );
   }
 
   if (singleEditSearchTeacherFacListDataError) {
@@ -174,8 +204,24 @@ const SearchTeacherFacultySubject = () => {
     }
   };
 
-  const updateCollegeHandler = (id) => {
-    dispatch(getSingleEmployeeAction(id));
+  const updateCollegeHandler = (
+    id,
+    year,
+    classId,
+    section,
+    shift,
+    idTeacher
+  ) => {
+    dispatch(
+      getSingleEditSearchTeacherFacSubListDataAction(
+        id,
+        year,
+        classId,
+        section,
+        shift,
+        idTeacher
+      )
+    );
     setOpenPopup(true);
   };
 
@@ -234,7 +280,7 @@ const SearchTeacherFacultySubject = () => {
                         searchTeacherFacListData?.searchFilterModel
                           .ddlAcademicShift
                       }
-                      //   updateTeacherHandler={updateTeacherHandler}
+                      updateCollegeHandler={updateCollegeHandler}
                     />
                   ))}
                 </TableBody>
@@ -244,6 +290,29 @@ const SearchTeacherFacultySubject = () => {
           </>
         )}
       </CustomContainer>
+      <Popup
+        openPopup={openPopup}
+        setOpenPopup={setOpenPopup}
+        title="Edit Single Teacher Class Subject"
+      >
+        {loadingEdit ? (
+          <LoadingComp />
+        ) : (
+          <>
+            <SearchTeacherFacultySubjectForm
+              datas={
+                singleEditSearchTeacherFacListData &&
+                singleEditSearchTeacherFacListData
+              }
+              searchFilterModel={
+                singleEditSearchTeacherFacListData &&
+                singleEditSearchTeacherFacListData.searchFilterModel
+              }
+              setOpenPopup={setOpenPopup}
+            />
+          </>
+        )}
+      </Popup>
       <Notification notify={notify} setNotify={setNotify} />
     </>
   );

@@ -9,9 +9,9 @@ const StyledTableCell = withStyles((theme) => ({
     backgroundColor: theme.palette.common.white,
     color: theme.palette.common.black,
   },
-  body: {
-    fontSize: 14,
-  },
+  // body: {
+  //   fontSize: 12,
+  // },
 }))(TableCell);
 
 const StyledTableRow = withStyles((theme) => ({
@@ -49,7 +49,7 @@ const ExamMarkApprovalBlankForm = ({
   );
 
   const yearShow = yearDdl?.filter((s) => s.Key === year);
-  console.log("yearShow", yearShow);
+  // console.log("yearShow", yearShow);
 
   return (
     <>
@@ -85,25 +85,27 @@ const ExamMarkApprovalBlankForm = ({
         </div>
         <br />
         <div className="bulk-info">
-          <Table className="info-table">
-            <tbody>
-              <tr>
-                <th>Subject:</th>
-                <td>
-                  {blankData?.dbModelLsts.length > 0 &&
-                    blankData.dbModelLsts[0].SubjectName}
-                </td>
-                <th>Subject Teacher:</th>
-                <td />
-              </tr>
-              <tr>
-                <th>Class:</th>
-                <td>{classId?.length > 0 && classId[0].Value}</td>
-                <th>Section:</th>
-                <td>{sections?.length > 0 && sections[0].Value}</td>
-              </tr>
-            </tbody>
-          </Table>
+          <div style={{ marginBottom: "16px" }}>
+            <Table className="info-table">
+              <tbody>
+                <tr>
+                  <th>Subject:</th>
+                  <td>
+                    {blankData?.dbModelLsts.length > 0 &&
+                      blankData.dbModelLsts[0].SubjectName}
+                  </td>
+                  <th>Subject Teacher:</th>
+                  <td />
+                </tr>
+                <tr>
+                  <th>Class:</th>
+                  <td>{classId?.length > 0 && classId[0].Value}</td>
+                  <th>Section:</th>
+                  <td>{sections?.length > 0 && sections[0].Value}</td>
+                </tr>
+              </tbody>
+            </Table>
+          </div>
           <Table className="main-content">
             <tbody>
               <tr>
@@ -139,16 +141,12 @@ const ExamMarkApprovalBlankForm = ({
             </tbody>
           </Table>
           <br />
+          <h4>
+            <b>Remarks</b>:- Please, submit the marks sheet within the 7 days of
+            Examination
+          </h4>
           <Table>
             <tbody>
-              <tr>
-                <td>
-                  &nbsp;<b>Remarks</b>:- Please, submit the marks sheet within
-                  the 7 days of Examination
-                </td>
-              </tr>
-
-              <br />
               <tr>
                 <td width="14%">Total Present(s): _______</td>
                 <td width="12%">Total Absent(s): _______</td>

@@ -71,7 +71,7 @@ const StudentRegistrationTableCollapse = ({
         <TableCell>{item.RollNo}</TableCell>
         <TableCell>{item.RegistrationKey}</TableCell>
         <TableCell>
-          {item.FirstName} {item.LastName}
+          {item?.FirstName} {item?.MiddleName} {item?.LastName}
         </TableCell>
         <TableCell>{item.MobileNo}</TableCell>
         <TableCell>{item.EmailAddress}</TableCell>
@@ -127,7 +127,7 @@ const StudentRegistrationTableCollapse = ({
                     </Typography>
                     <List>
                       <ListItem>
-                        <strong>FullName</strong>: {singleStudent.FirstName} 
+                        <strong>FullName</strong>: {singleStudent.FirstName}
                         {singleStudent.LastName}
                       </ListItem>
                       <ListItem>

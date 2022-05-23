@@ -6,6 +6,9 @@ import {
   GET_ALL_SEARCH_TEACHER_FAC_SUB_LIST_DATA_FAIL,
   GET_ALL_SEARCH_TEACHER_FAC_SUB_LIST_DATA_REQUEST,
   GET_ALL_SEARCH_TEACHER_FAC_SUB_LIST_DATA_SUCCESS,
+  GET_SINGLE_EDIT_SEARCH_TEACHER_FAC_SUB_LIST_DATA_FAIL,
+  GET_SINGLE_EDIT_SEARCH_TEACHER_FAC_SUB_LIST_DATA_REQUEST,
+  GET_SINGLE_EDIT_SEARCH_TEACHER_FAC_SUB_LIST_DATA_SUCCESS,
   PUT_SEARCH_TEACHER_FAC_SUB_DATA_FAIL,
   PUT_SEARCH_TEACHER_FAC_SUB_DATA_REQUEST,
   PUT_SEARCH_TEACHER_FAC_SUB_DATA_SUCCESS,
@@ -17,7 +20,7 @@ export const getAllSearchTeacherFacSubInitialDataAction =
       dispatch({ type: GET_ALL_SEARCH_TEACHER_FAC_SUB_INITIAL_DATA_REQUEST });
 
       const { data } = await axiosInstance.get(
-        `${API_URL}/api/SearchTeacherFacultySubject/GetAllSearchTeacherFacultySubject?searchKey=1`,
+        `/api/SearchTeacherFacultySubject/GetAllSearchTeacherFacultySubject?searchKey=1`,
         tokenConfig()
       );
       dispatch({
@@ -38,7 +41,7 @@ export const getAllSearchTeacherFacSubListDataAction =
       dispatch({ type: GET_ALL_SEARCH_TEACHER_FAC_SUB_LIST_DATA_REQUEST });
 
       const { data } = await axiosInstance.get(
-        `${API_URL}/api/SearchTeacherFacultySubject/GetListSearchTeacherFacultySubject?idTeacher=${id}`,
+        `/api/SearchTeacherFacultySubject/GetListSearchTeacherFacultySubject?idTeacher=${id}`,
         tokenConfig()
       );
 
@@ -54,7 +57,31 @@ export const getAllSearchTeacherFacSubListDataAction =
     }
   };
 
-export const postSearchTeacherFacSubAction = (teacher) => async (dispatch) => {
+export const getSingleEditSearchTeacherFacSubListDataAction =
+  (id, year, classId, section, shift, idTeacher) => async (dispatch) => {
+    try {
+      dispatch({
+        type: GET_SINGLE_EDIT_SEARCH_TEACHER_FAC_SUB_LIST_DATA_REQUEST,
+      });
+
+      const { data } = await axiosInstance.get(
+        `/api/SearchTeacherFacultySubject/GetSingleToEditTeacherSubject/${id}?idYearFacultyLink=${year}&level=${classId}&section=${section}&idShift=${shift}&idTeacher=${idTeacher}`,
+        tokenConfig()
+      );
+
+      dispatch({
+        type: GET_SINGLE_EDIT_SEARCH_TEACHER_FAC_SUB_LIST_DATA_SUCCESS,
+        payload: data,
+      });
+    } catch (error) {
+      dispatch({
+        type: GET_SINGLE_EDIT_SEARCH_TEACHER_FAC_SUB_LIST_DATA_FAIL,
+        payload: error.message ? error.message : error.Message,
+      });
+    }
+  };
+
+export const putSearchTeacherFacSubAction = (teacher) => async (dispatch) => {
   try {
     dispatch({ type: PUT_SEARCH_TEACHER_FAC_SUB_DATA_REQUEST });
 
@@ -68,8 +95,8 @@ export const postSearchTeacherFacSubAction = (teacher) => async (dispatch) => {
     //   },
     // };
 
-    await axiosInstance.post(
-      `/api/SearchTeacherFacultySubject/PostSearchTeacherSubject`,
+    await axiosInstance.put(
+      `/api/SearchTeacherFacultySubject/PutSearchTeacherSubject`,
       jsonData,
       tokenConfig()
     );

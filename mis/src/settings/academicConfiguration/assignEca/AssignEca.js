@@ -39,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const tableHeader = [
-  { id: "IDHRCompany", label: "Company" },
+  // { id: "IDHRCompany", label: "Company" },
   { id: "ECAName", label: "ECA Name" },
   { id: "ECADescription", label: "ECA Description" },
   { id: "Created_On", label: "Created_On" },

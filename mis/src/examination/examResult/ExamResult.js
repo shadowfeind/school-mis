@@ -33,7 +33,10 @@ import FinalExamResult from "./FinalExamResult";
 import ExamResultWithMarksModel from "./ExamResultWithMarksModel";
 import ExamResultCount from "./ExamResultCount";
 import LoadingComp from "../../components/LoadingComp";
-import { getHeaderBannerAction } from "../../dashboard/DashboardActions";
+import {
+  getHeaderBannerAction,
+  getPrincipleSignatureAction,
+} from "../../dashboard/DashboardActions";
 import { GET_HEADER_BANNER_RESET } from "../../dashboard/DashboardConstants";
 
 // NOTE
@@ -140,12 +143,21 @@ const ExamResult = () => {
   const { headerBanners, error: headerBannersError } = useSelector(
     (state) => state.getHeaderBanner
   );
+  const { principleSignature, error: getPrincipleSignatureError } = useSelector(
+    (state) => state.getPrincipleSignature
+  );
 
   useEffect(() => {
     if (!headerBanners) {
       dispatch(getHeaderBannerAction());
     }
   }, [headerBanners, dispatch]);
+
+  useEffect(() => {
+    if (!principleSignature) {
+      dispatch(getPrincipleSignatureAction());
+    }
+  }, [principleSignature, dispatch]);
 
   if (headerBannersError) {
     dispatch({ type: GET_HEADER_BANNER_RESET });
@@ -204,6 +216,7 @@ const ExamResult = () => {
 
   if (studentOptionsForExamMarkSuccess) {
     setDdlStudent(studentOptionsForExamMark);
+    setStudent(studentOptionsForExamMark[0]?.Key);
     dispatch({ type: GET_INITIAL_EXAM_RESULT_STUDENT_OPTIONS_RESET });
   }
 
@@ -347,6 +360,10 @@ const ExamResult = () => {
     if (allEventsForExamMark) {
       setDdlEvent(allEventsForExamMark);
       setEvent(allEventsForExamMark[0]?.Key);
+    }
+    if (allEventsForExamMark?.length === 0) {
+      setDdlStudent([]);
+      setStudent("");
     }
   }, [allEventsForExamMark]);
 
@@ -693,6 +710,7 @@ const ExamResult = () => {
         <ExamResultModel
           headerBanners={headerBanners && headerBanners}
           examReport={printExamResult && printExamResult}
+          principleSignature={principleSignature && principleSignature}
           setOpenPopup={setOpenPopup}
         />
       </Popup>
@@ -705,6 +723,7 @@ const ExamResult = () => {
           headerBanners={headerBanners && headerBanners}
           examReport={printExamResult && printExamResult}
           setOpenPopupResultMark={setOpenPopupResultMark}
+          principleSignature={principleSignature && principleSignature}
         />
       </Popup>
       <Popup
@@ -716,6 +735,7 @@ const ExamResult = () => {
           headerBanners={headerBanners && headerBanners}
           result={printFinalResult}
           setOpenPopupFinal={setOpenPopupFinal}
+          principleSignature={principleSignature && principleSignature}
         />
       </Popup>
       <Popup

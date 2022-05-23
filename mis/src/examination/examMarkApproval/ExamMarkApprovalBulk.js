@@ -106,7 +106,7 @@ const ExamMarkApprovalBulk = ({
 
   return (
     <>
-      <h3 style={{textAlign :"center"}}>
+      <h3 style={{ textAlign: "center" }}>
         <span>{subjectName?.length > 0 && subjectName[0]?.SubjectName}</span>
       </h3>
       <TableContainer component={Paper}>
@@ -114,17 +114,19 @@ const ExamMarkApprovalBulk = ({
           <TableHead>
             <TableRow>
               <StyledTableCell>Roll No.</StyledTableCell>
-              <StyledTableCell align="right">FullName</StyledTableCell>
-              <StyledTableCell align="right">Mark Obtained(TH)</StyledTableCell>
+              <StyledTableCell align="left">FullName</StyledTableCell>
+              <StyledTableCell align="center">
+                Mark Obtained(TH)
+              </StyledTableCell>
               {bulk && bulk?.length > 0 && bulk[0].FullMarkPractical !== 0 && (
-                <StyledTableCell align="right">
+                <StyledTableCell align="center">
                   Mark Obtained(PT)
                 </StyledTableCell>
               )}
-              <StyledTableCell align="right">Status</StyledTableCell>
-              <StyledTableCell align="right">Full Mark</StyledTableCell>
+              <StyledTableCell align="center">Status</StyledTableCell>
+              <StyledTableCell align="center">Full Mark</StyledTableCell>
 
-              <StyledTableCell align="right">Full Mark(PT)</StyledTableCell>
+              <StyledTableCell align="center">Full Mark(PT)</StyledTableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -134,11 +136,11 @@ const ExamMarkApprovalBulk = ({
                   <StyledTableCell component="th" scope="row">
                     {subject.RollNo}
                   </StyledTableCell>
-                  <StyledTableCell align="right">
+                  <StyledTableCell align="left">
                     {subject.FullName}
                   </StyledTableCell>
 
-                  <StyledTableCell align="right">
+                  <StyledTableCell align="center">
                     <TextField
                       id={`theory_${subject.IDHREmployee}`}
                       name="ObtainedMark"
@@ -155,7 +157,10 @@ const ExamMarkApprovalBulk = ({
                         symbolsArr.includes(e.key) && e.preventDefault()
                       }
                       variant="outlined"
-                      inputProps={{ tabIndex: "1" }}
+                      inputProps={{
+                        tabIndex: "1",
+                        style: { textAlign: "center" },
+                      }}
                       onChange={(e) =>
                         onChangeHandler(
                           subject,
@@ -167,7 +172,7 @@ const ExamMarkApprovalBulk = ({
                     />
                   </StyledTableCell>
                   {subject.FullMarkPractical !== 0 && (
-                    <StyledTableCell align="right">
+                    <StyledTableCell align="center">
                       <TextField
                         id={`practical_${subject.IDHREmployee}`}
                         value={subject.ObtainedMarkPractical}
@@ -196,7 +201,7 @@ const ExamMarkApprovalBulk = ({
                       />
                     </StyledTableCell>
                   )}
-                  <StyledTableCell align="right">
+                  <StyledTableCell align="center">
                     <FormControl
                       variant="filled"
                       className={classes.formControl}
@@ -230,11 +235,11 @@ const ExamMarkApprovalBulk = ({
                       </Select>
                     </FormControl>
                   </StyledTableCell>
-                  <StyledTableCell align="right">
+                  <StyledTableCell align="center">
                     {subject.FullMark}
                   </StyledTableCell>
 
-                  <StyledTableCell align="right">
+                  <StyledTableCell align="center">
                     {subject.FullMarkPractical === 0
                       ? ""
                       : subject.FullMarkPractical}
@@ -243,34 +248,34 @@ const ExamMarkApprovalBulk = ({
               ))}
           </TableBody>
         </Table>
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "end",
-            paddingTop: "10px",
-            marginTop: "10px",
-            borderTop: "1px solid #f3f3f3",
-          }}
-        >
-          <Button
-            variant="contained"
-            color="secondary"
-            onClick={() => setOpenPopup(false)}
-            style={{ margin: "10px 0 0 10px" }}
-          >
-            CANCEL
-          </Button>
-          <Button
-            variant="contained"
-            color="primary"
-            type="submit"
-            style={{ margin: "10px 0 0 10px" }}
-            onClick={formCheckSubmitHandler}
-          >
-            SUBMIT
-          </Button>
-        </div>
       </TableContainer>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "end",
+          paddingTop: "10px",
+          marginTop: "10px",
+          borderTop: "1px solid #f3f3f3",
+        }}
+      >
+        <Button
+          variant="contained"
+          color="secondary"
+          onClick={() => setOpenPopup(false)}
+          style={{ margin: "10px 0 0 10px" }}
+        >
+          CANCEL
+        </Button>
+        <Button
+          variant="contained"
+          color="primary"
+          type="submit"
+          style={{ margin: "10px 0 0 10px" }}
+          onClick={formCheckSubmitHandler}
+        >
+          SUBMIT
+        </Button>
+      </div>
     </>
   );
 };

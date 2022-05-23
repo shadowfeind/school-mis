@@ -157,7 +157,7 @@ const AnnouncementTest = () => {
     dispatch(getAllAnnouncementAction());
     setNotify({
       isOpen: true,
-      message: "Announcement Sended Succesfully",
+      message: "Announcement Sent Succesfully",
       type: "success",
     });
     setOpenPopup(false);

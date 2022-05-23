@@ -573,6 +573,7 @@ const PrintAdminCard = () => {
               yearDdl={
                 printStudentsAdmitCard && printStudentsAdmitCard.ddlAcademicYear
               }
+              setOpenPopup={setOpenPopup}
             />
           </>
         )}

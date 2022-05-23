@@ -3,7 +3,12 @@ import FinalExamResultDesign from "./FinalExamResultDesign";
 import { useReactToPrint } from "react-to-print";
 import { Button } from "@material-ui/core";
 
-const FinalExamResult = ({ result, headerBanners, setOpenPopupFinal }) => {
+const FinalExamResult = ({
+  result,
+  headerBanners,
+  setOpenPopupFinal,
+  principleSignature,
+}) => {
   const componentRef = useRef();
   const printPdf = useReactToPrint({
     content: () => componentRef.current,
@@ -87,6 +92,7 @@ const FinalExamResult = ({ result, headerBanners, setOpenPopupFinal }) => {
               resultDate={result.footerModel.PublishDate}
               headerBanners={headerBanners}
               ecaDataWithName={ecaDataWithName}
+              principleSignature={principleSignature}
             />
           );
         })}

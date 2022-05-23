@@ -17,6 +17,7 @@ const ExamResultWithMarksDesign = ({
   studentSection,
   headerBanners,
   ecaDataWithName,
+  principleSignature,
 }) => {
   let trackSubject = [];
   let tdToRender = [];
@@ -67,7 +68,9 @@ const ExamResultWithMarksDesign = ({
               <tr>
                 <th>SN</th>
                 <th style={{ width: "30%" }}>Subjects</th>
-                <th style={{ textAlign: "center" }}>Credit Hours</th>
+                <th colSpan="2" style={{ textAlign: "center" }}>
+                  Full Marks
+                </th>
                 <th colSpan="2" style={{ textAlign: "center" }}>
                   Obtained Marks
                 </th>
@@ -81,7 +84,8 @@ const ExamResultWithMarksDesign = ({
               <tr>
                 <th></th>
                 <th></th>
-                <th></th>
+                <th style={{ textAlign: "center" }}>TH</th>
+                <th style={{ textAlign: "center" }}>PR</th>
                 <th style={{ textAlign: "center" }}>TH</th>
                 <th style={{ textAlign: "center" }}>PR</th>
                 <th style={{ textAlign: "center" }}>TH</th>
@@ -144,7 +148,11 @@ const ExamResultWithMarksDesign = ({
                   <tr key={s.$id}>
                     <td>{count}</td>
                     <td>{s.SubjectName?.slice(0, 20)}</td>
-                    <td style={{ textAlign: "center" }}> 4.0</td>
+                    <td style={{ textAlign: "center" }}> {s.FullMark}</td>
+                    <td style={{ textAlign: "center" }}>
+                      {" "}
+                      {s.FullMarkPractical}
+                    </td>
                     <td style={{ textAlign: "center" }}>
                       {" "}
                       {s.ObtainedMark === 0 ? "" : s.ObtainedMark}
@@ -191,11 +199,12 @@ const ExamResultWithMarksDesign = ({
                     <td height={30}> </td>
                     <td height={30}> </td>
                     <td height={30}> </td>
+                    <td height={30}> </td>
                   </tr>
                 ))}
 
               <tr>
-                <td colSpan={8} style={{ textAlign: "center" }}>
+                <td colSpan={9} style={{ textAlign: "center" }}>
                   GRADE POINT AVERAGE (GPA)
                 </td>
                 <td style={{ textAlign: "center" }}>
@@ -375,7 +384,10 @@ const ExamResultWithMarksDesign = ({
           <div className="signatureContainer">
             <Grid container>
               <Grid item xs={3}>
-                <h4>{forDate.PublishDate.slice(0, 10)}</h4>
+                <div style={{ marginTop: "-12px", marginBottom: "-10px" }}>
+                  <h4>{forDate.PublishDate.slice(0, 10)}</h4>
+                </div>
+                <h4 style={{ margin: "0" }}>................</h4>
                 <h6>Result Date</h6>
               </Grid>
               <Grid item xs={3}>
@@ -387,7 +399,15 @@ const ExamResultWithMarksDesign = ({
                 <h6>School Stamp</h6>
               </Grid>
               <Grid item xs={3}>
-                <h4>................</h4>
+                <div style={{ marginTop: "-34px", marginBottom: "-22px" }}>
+                  {principleSignature && (
+                    <img
+                      src={`${API_URL}${principleSignature}`}
+                      height="54px"
+                    />
+                  )}
+                </div>
+                <h4 style={{ margin: "0" }}>................</h4>
                 <h6>Principal</h6>
               </Grid>
             </Grid>

@@ -81,7 +81,7 @@ const ClassSubjectCreateForm = ({
     });
   };
 
-  const symbolsArr = ["e", "E", "+", "-", ".","ArrowUp","ArrowDown"];
+  const symbolsArr = ["e", "E", "+", "-", ".", "ArrowUp", "ArrowDown"];
 
   return (
     <>
@@ -90,13 +90,13 @@ const ClassSubjectCreateForm = ({
           <TableHead>
             <TableRow>
               <StyledTableCell>Subject Name </StyledTableCell>
-              <StyledTableCell align="right">Subject Code</StyledTableCell>
-              <StyledTableCell align="right">Compulsory</StyledTableCell>
-              <StyledTableCell align="right">Optional</StyledTableCell>
-              <StyledTableCell align="right">Practical</StyledTableCell>
-              <StyledTableCell align="right">Theoritical</StyledTableCell>
-              <StyledTableCell align="right">Credit Hour</StyledTableCell>
-              <StyledTableCell align="right">Action</StyledTableCell>
+              <StyledTableCell align="center">Subject Code</StyledTableCell>
+              <StyledTableCell align="center">Compulsory</StyledTableCell>
+              <StyledTableCell align="center">Optional</StyledTableCell>
+              <StyledTableCell align="center">Practical</StyledTableCell>
+              <StyledTableCell align="center">Theoritical</StyledTableCell>
+              <StyledTableCell align="center">Credit Hour</StyledTableCell>
+              <StyledTableCell align="center">Action</StyledTableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -106,37 +106,44 @@ const ClassSubjectCreateForm = ({
                   <StyledTableCell component="th" scope="row">
                     {subject.SubjectName}
                   </StyledTableCell>
-                  <StyledTableCell align="right">
+                  <StyledTableCell align="center">
                     {subject.SubjectCode}
                   </StyledTableCell>
-                  <StyledTableCell align="right">
+                  <StyledTableCell align="center">
                     {subject.IsCompulsory ? "True" : "False"}
                   </StyledTableCell>
-                  <StyledTableCell align="right">
+                  <StyledTableCell align="center">
                     {subject.IsOptional ? "True" : "False"}
                   </StyledTableCell>
-                  <StyledTableCell align="right">
+                  <StyledTableCell align="center">
                     {subject.IsPractical ? "True" : "False"}
                   </StyledTableCell>
-                  <StyledTableCell align="right">
+                  <StyledTableCell align="center">
                     {subject.IsTheoritical ? "True" : "False"}
                   </StyledTableCell>
-                  <StyledTableCell align="right">
+                  <StyledTableCell align="center">
                     <TextField
                       id={`subject_${subject.IDAcademicSubject}`}
                       defaultValue={subject.CreditHour}
                       type="number"
-                      onWheelCapture={e => {
-  e.target.blur()
-}}
-                      label="Credit Hours"
-                      onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}
+                      onWheelCapture={(e) => {
+                        e.target.blur();
+                      }}
+                      // label="Credit Hours"
+                      onKeyDown={(e) =>
+                        symbolsArr.includes(e.key) && e.preventDefault()
+                      }
+                      InputProps={{
+                        inputProps: {
+                          style: { textAlign: "center" },
+                        },
+                      }}
                       variant="outlined"
                       onChange={(e) => inputHandler(subject, e.target.value)}
                       inputProps={{ tabIndex: "1" }}
                     />
                   </StyledTableCell>
-                  <StyledTableCell align="right">
+                  <StyledTableCell align="center">
                     {" "}
                     <Checkbox
                       // checked={state.checkedB}

@@ -86,7 +86,7 @@ const StudentManagement = () => {
 
           <Tab
             style={{ fontSize: "11px", color: "#fff" }}
-            label="ReAssociate Student"
+            label="ReLocate Student"
             {...a11yProps(2)}
           />
         </Tabs>

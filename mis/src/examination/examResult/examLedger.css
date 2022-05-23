@@ -19,6 +19,13 @@
 }
 
 @media print {
+  .ledgerResult {
+    padding:16px !important;
+  }
+  .ledger-header-print {
+    font-size: 12px !important;
+    font-weight: bolder !important;
+  }
 .print-button-hide {
   display: none !important;
 }

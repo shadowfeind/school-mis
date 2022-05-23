@@ -448,7 +448,7 @@ const ExamSchedule = () => {
               />
             </Grid>
 
-            <Grid item xs={3}>
+            <Grid item xs={4}>
               <Button
                 variant="contained"
                 color="primary"

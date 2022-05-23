@@ -158,7 +158,7 @@ const SmsAllNotification = () => {
     dispatch(getAllSmsAnnouncementAction());
     setNotify({
       isOpen: true,
-      message: "Announcement Sended Succesfully",
+      message: "Announcement Sent Succesfully",
       type: "success",
     });
     setOpenPopup(false);

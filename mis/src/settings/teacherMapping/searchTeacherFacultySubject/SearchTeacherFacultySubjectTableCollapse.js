@@ -1,7 +1,6 @@
 import React from "react";
 import { Button, TableRow, TableCell, makeStyles } from "@material-ui/core";
 import EditIcon from "@material-ui/icons/Edit";
-import DeleteIcon from "@material-ui/icons/Delete";
 
 const useStyles = makeStyles({
   button: {
@@ -19,6 +18,7 @@ const SearchTeacherFacultySubjectTableCollapse = ({
   classId,
   section,
   shift,
+  updateCollegeHandler,
 }) => {
   const yearNameToShow = year?.filter((s) => s.Key === item.idAcademicYear);
   const subjectNameToShow = subject?.filter(
@@ -54,7 +54,16 @@ const SearchTeacherFacultySubjectTableCollapse = ({
           variant="contained"
           color="primary"
           className={classes.button}
-          onClick={() => updateCollegeHandler(item.IDTeacher)}
+          onClick={() =>
+            updateCollegeHandler(
+              item.IDHRTeacherFacultySubjectMappingHeader,
+              item.IDYearFacultyLink,
+              item.Level,
+              item.Section,
+              item.IDAcademicShift,
+              item.IDTeacher
+            )
+          }
         >
           <EditIcon style={{ fontSize: 12 }} />
         </Button>

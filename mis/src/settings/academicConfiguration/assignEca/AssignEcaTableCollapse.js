@@ -24,13 +24,13 @@ const useStyles = makeStyles({
   },
 });
 
-const AssignEcaTableCollapse = ({ item,level }) => {
+const AssignEcaTableCollapse = ({ item, level }) => {
   const classes = useStyles();
-const levelNameToShow = level?.filter( s => s.Key === item.AcademicLevel)
+  const levelNameToShow = level?.filter((s) => s.Key === item.AcademicLevel);
   return (
     <>
       <TableRow>
-        <TableCell>{levelNameToShow?.length > 0 && levelNameToShow[0].Value}</TableCell>
+        {/* <TableCell>{levelNameToShow?.length > 0 && levelNameToShow[0].Value}</TableCell> */}
         <TableCell>{item.ECAName}</TableCell>
         <TableCell>{item.ECADescription}</TableCell>
         <TableCell>{item.Created_On?.slice(0, 10)}</TableCell>

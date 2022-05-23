@@ -112,9 +112,9 @@ const StudentAttendanceBulk = ({
           <TableHead>
             <TableRow>
               <StyledTableCell>Roll No.</StyledTableCell>
-              <StyledTableCell align="right">FullName</StyledTableCell>
-              <StyledTableCell align="right">Present Day</StyledTableCell>
-              <StyledTableCell align="right">Absent Day</StyledTableCell>
+              <StyledTableCell align="left">FullName</StyledTableCell>
+              <StyledTableCell align="center">Present Day</StyledTableCell>
+              <StyledTableCell align="center">Absent Day</StyledTableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -124,10 +124,10 @@ const StudentAttendanceBulk = ({
                   <StyledTableCell component="th" scope="row">
                     {subject.RollNo}
                   </StyledTableCell>
-                  <StyledTableCell align="right">
+                  <StyledTableCell align="left">
                     {subject.FullName}
                   </StyledTableCell>
-                  <StyledTableCell align="right">
+                  <StyledTableCell align="center">
                     <TextField
                       id={`theory_${subject.IDHREmployee}`}
                       value={subject.PresentDay}
@@ -138,7 +138,10 @@ const StudentAttendanceBulk = ({
                       onKeyDown={(e) =>
                         symbolsArr.includes(e.key) && e.preventDefault()
                       }
-                      inputProps={{ tabIndex: "1" }}
+                      inputProps={{
+                        tabIndex: "1",
+                        style: { textAlign: "center" },
+                      }}
                       onChange={(e) =>
                         onChangeHandler(
                           subject,
@@ -149,7 +152,7 @@ const StudentAttendanceBulk = ({
                       }
                     />
                   </StyledTableCell>
-                  <StyledTableCell align="right">
+                  <StyledTableCell align="center">
                     <TextField
                       disabled
                       id={`practical_${subject.IDHREmployee}`}
@@ -164,7 +167,10 @@ const StudentAttendanceBulk = ({
                       onKeyDown={(e) =>
                         symbolsArr.includes(e.key) && e.preventDefault()
                       }
-                      inputProps={{ tabIndex: "2" }}
+                      inputProps={{
+                        tabIndex: "2",
+                        style: { textAlign: "center" },
+                      }}
                       onChange={(e) =>
                         e.target.value >= 0 &&
                         onChangeHandler(

@@ -224,12 +224,12 @@ const ExamScheduleGenerateForm = ({
                   <StyledTableCell align="center" style={{ width: 150 }}>
                     DisplayName
                   </StyledTableCell>
-                  <StyledTableCell align="center" style={{ width: 150 }}>
+                  {/* <StyledTableCell align="center" style={{ width: 150 }}>
                     FromDate
                   </StyledTableCell>
                   <StyledTableCell align="center" style={{ width: 150 }}>
                     ToDate
-                  </StyledTableCell>
+                  </StyledTableCell> */}
                   <StyledTableCell align="center" style={{ width: 150 }}>
                     FullMark
                   </StyledTableCell>
@@ -242,7 +242,7 @@ const ExamScheduleGenerateForm = ({
                   <StyledTableCell align="center" style={{ width: 150 }}>
                     Subject Order
                   </StyledTableCell>
-                  <StyledTableCell align="right">
+                  <StyledTableCell align="center">
                     All{" "}
                     <Checkbox
                       onChange={(e) => handleBulkChange(e.target.checked)}
@@ -272,25 +272,25 @@ const ExamScheduleGenerateForm = ({
                         <StyledTableCell align="center">
                           {subject.DisplayName}
                         </StyledTableCell>
-                        <StyledTableCell align="right">
+                        {/* <StyledTableCell align="right">
                           {subject.ExamScheduleFromDate?.slice(0, 10)}
                         </StyledTableCell>
                         <StyledTableCell align="right">
                           {subject.ExamScheduleToDate?.slice(0, 10)}
-                        </StyledTableCell>
-                        <StyledTableCell align="right">
+                        </StyledTableCell> */}
+                        <StyledTableCell align="center">
                           {subject.FullMark}
                         </StyledTableCell>
-                        <StyledTableCell align="right">
+                        <StyledTableCell align="center">
                           {subject.FullMarkPractical}
                         </StyledTableCell>
-                        <StyledTableCell align="right">
+                        <StyledTableCell align="center">
                           {subject.PassMark}
                         </StyledTableCell>
-                        <StyledTableCell align="right">
+                        <StyledTableCell align="center">
                           {subject.SubjectOrder}
                         </StyledTableCell>
-                        <StyledTableCell align="right">
+                        <StyledTableCell align="center">
                           {" "}
                           <Checkbox
                             checked={

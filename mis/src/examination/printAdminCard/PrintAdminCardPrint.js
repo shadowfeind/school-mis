@@ -13,6 +13,7 @@ const PrintAdminCardPrint = ({
   componentRef,
   year,
   yearDdl,
+  setOpenPopup,
 }) => {
   return (
     <div id="test-print-blueberry" ref={componentRef}>
@@ -43,6 +44,15 @@ const PrintAdminCardPrint = ({
           borderTop: "1px solid #f3f3f3",
         }}
       >
+        <Button
+          onClick={() => setOpenPopup(false)}
+          variant="contained"
+          color="primary"
+          className="card-print-hide-cancel"
+          style={{ marginRight: "12px" }}
+        >
+          CANCEL
+        </Button>
         <Button
           onClick={print}
           variant="contained"

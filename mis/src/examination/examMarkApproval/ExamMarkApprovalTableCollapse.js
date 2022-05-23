@@ -10,9 +10,7 @@ const ExamMarkApprovalTableCollapse = ({ item }) => {
         <TableCell>{item.SubjectName}</TableCell>
         <TableCell>{item.FullMark}</TableCell>
         <TableCell>{item.FullMarkPractical}</TableCell>
-        <TableCell>
-          {item.ObtainedMark === 0 ? "" : item.ObtainedMark}
-        </TableCell>
+        <TableCell>{item.ObtainedMark}</TableCell>
         <TableCell>
           {item.ObtainedMarkPractical === 0 ? "" : item.ObtainedMarkPractical}
         </TableCell>

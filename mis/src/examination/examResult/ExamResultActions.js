@@ -1,4 +1,3 @@
-
 import { API_URL, axiosInstance, tokenConfig } from "../../constants";
 import {
   GET_EVENT_FOR_EXAM_MARK_FAIL,
@@ -72,12 +71,12 @@ export const getEventForExamMarkAction =
   };
 
 export const getStudentOptionsForExamMarkAction =
-  (year, program, classId, shift) => async (dispatch) => {
+  (year, program, classId, section, shift) => async (dispatch) => {
     try {
       dispatch({ type: GET_INITIAL_EXAM_RESULT_STUDENT_OPTIONS_REQUEST });
 
       const { data } = await axiosInstance.get(
-        `${API_URL}/api/ExamResult/GetStudent?idAcademicYear=${year}&idFacultyProgramLink=${program}&level=${classId}&idShift=${shift}`,
+        `/api/ExamResult/GetStudent?idAcademicYear=${year}&idFacultyProgramLink=${program}&level=${classId}&section=${section}&idShift=${shift}`,
         tokenConfig()
       );
 

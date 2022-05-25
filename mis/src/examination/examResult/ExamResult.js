@@ -284,7 +284,13 @@ const ExamResult = () => {
     if (classId) {
       dispatch(getEventForExamMarkAction(value, programValue, classId));
       dispatch(
-        getStudentOptionsForExamMarkAction(value, programValue, classId, shift)
+        getStudentOptionsForExamMarkAction(
+          value,
+          programValue,
+          classId,
+          section,
+          shift
+        )
       );
     }
   };
@@ -298,7 +304,13 @@ const ExamResult = () => {
     setEvent("");
     dispatch(getEventForExamMarkAction(acaYear, programValue, value));
     dispatch(
-      getStudentOptionsForExamMarkAction(acaYear, programValue, value, shift)
+      getStudentOptionsForExamMarkAction(
+        acaYear,
+        programValue,
+        value,
+        section,
+        shift
+      )
     );
   };
 
@@ -318,8 +330,8 @@ const ExamResult = () => {
         acaYear,
         programValue,
         classId,
-        value,
-        section
+        section,
+        value
       )
     );
     // }
@@ -332,20 +344,19 @@ const ExamResult = () => {
     setEvent("");
     setDdlStudent([]);
     setStudent("");
-    // if ((acaYear,programValue, classId,shift, value)) {
+    // if ((acaYear, programValue, classId, shift, value)) {
     dispatch(
       getEventForExamMarkAction(acaYear, programValue, classId, shift, value)
     );
     // }
-    // if((acaYear,programValue, classId, shift,section,event,value)){
+    // if ((acaYear, programValue, classId, shift, value)) {
     dispatch(
       getStudentOptionsForExamMarkAction(
         acaYear,
         programValue,
         classId,
-        shift,
         value,
-        event
+        shift
       )
     );
     // }

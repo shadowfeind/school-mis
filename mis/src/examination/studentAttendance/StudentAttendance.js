@@ -290,7 +290,7 @@ const StudentAttendance = () => {
 
   useEffect(() => {
     if (allStudentAttendance) {
-      setTableData(allStudentAttendance.dbModelPresentAbsentLst);
+      setTableData(allStudentAttendance.dbModelLst);
     }
   }, [allStudentAttendance]);
 

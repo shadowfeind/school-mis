@@ -209,9 +209,11 @@ const Header = () => {
                       SMS Notification
                     </NavLink>
                   </li>
-                  {/* <li>
-                    <a>Assignment</a>
-                  </li> */}
+                  <li>
+                    <NavLink to={"/help"} activeStyle={isActive}>
+                      Help ?
+                    </NavLink>
+                  </li>
                 </ul>
               </Grid>
               <Grid item sm></Grid>

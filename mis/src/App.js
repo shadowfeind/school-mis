@@ -8,9 +8,9 @@ import {
   makeStyles,
   ThemeProvider,
 } from "@material-ui/core";
-
 import { HashRouter as Router, Route, Switch } from "react-router-dom";
 
+const Help = lazy(() => import("./help/Help"));
 const EcaData = lazy(() => import("./examination/ecaData/EcaData"));
 const AutoSearch = lazy(() => import("./userProfile/autoSearch/AutoSearch"));
 const PageNotFound = lazy(() => import("./pageNotFound/PageNotFound"));
@@ -224,6 +224,7 @@ const App = () => {
                 path={"/sms-notification"}
                 component={SmsAllNotification}
               />
+              <Route path={"/help"} component={Help} />
               <Route exact path={"/"} component={Dashboard} />
               <Route path="*" component={PageNotFound} />
             </Switch>

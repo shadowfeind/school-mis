@@ -1,4 +1,3 @@
-
 import { API_URL, axiosInstance, tokenConfig } from "../../constants";
 import {
   GET_ACTIVE_STUDENTS_FOR_ADMIT_CARD_FAIL,
@@ -33,13 +32,15 @@ export const getInitialStudentRegistrationDataAction =
     } catch (error) {
       dispatch({
         type: GET_INITIAL_ADMIT_CARD_DATA_FAIL,
-        payload: error.message ? error.message : error.Message,
+        payload: error?.response?.data?.Message
+          ? error?.response?.data?.Message
+          : error?.message,
       });
     }
   };
 
 export const getActiveStudentsForAdmitCardDataAction =
-  (year, program, classId,section, shift) => async (dispatch) => {
+  (year, program, classId, section, shift) => async (dispatch) => {
     try {
       dispatch({ type: GET_ACTIVE_STUDENTS_FOR_ADMIT_CARD_REQUEST });
 
@@ -56,7 +57,9 @@ export const getActiveStudentsForAdmitCardDataAction =
     } catch (error) {
       dispatch({
         type: GET_ACTIVE_STUDENTS_FOR_ADMIT_CARD_FAIL,
-        payload: error.message ? error.message : error.Message,
+        payload: error?.response?.data?.Message
+          ? error?.response?.data?.Message
+          : error?.message,
       });
     }
   };
@@ -101,7 +104,9 @@ export const printStudentsAdmitCardDataAction =
     } catch (error) {
       dispatch({
         type: PRINT_STUDENTS_ADMIT_CARD_FAIL,
-        payload: error.message ? error.message : error.Message,
+        payload: error?.response?.data?.Message
+          ? error?.response?.data?.Message
+          : error?.message,
       });
     }
   };

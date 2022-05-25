@@ -1,4 +1,3 @@
-
 import { API_URL, axiosInstance, tokenConfig } from "../../constants";
 import {
   DELETE_EXAM_SCHEDULE_FAIL,
@@ -50,7 +49,9 @@ export const getAllExamScheduleInitialDataAction = () => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: GET_ALL_EXAM_SCHEDULE_INITIAL_DATA_FAIL,
-      payload: error.message ? error.message : error.Message,
+      payload: error?.response?.data?.Message
+        ? error?.response?.data?.Message
+        : error?.message,
     });
   }
 };
@@ -72,7 +73,9 @@ export const getEventForExamScheduleAction =
     } catch (error) {
       dispatch({
         type: GET_EVENT_FOR_EXAM_SCHEDULE_FAIL,
-        payload: error.message ? error.message : error.Message,
+        payload: error?.response?.data?.Message
+          ? error?.response?.data?.Message
+          : error?.message,
       });
     }
   };
@@ -94,7 +97,9 @@ export const getExamScheduleListAction =
     } catch (error) {
       dispatch({
         type: GET_EXAM_SCHEDULE_LIST_FAIL,
-        payload: error.message ? error.message : error.Message,
+        payload: error?.response?.data?.Message
+          ? error?.response?.data?.Message
+          : error?.message,
       });
     }
   };
@@ -116,7 +121,9 @@ export const getSingleExamScheduleCreateAction =
     } catch (error) {
       dispatch({
         type: GET_SINGLE_EXAM_SCHEDULE_CREATE_FAIL,
-        payload: error.message ? error.message : error.Message,
+        payload: error?.response?.data?.Message
+          ? error?.response?.data?.Message
+          : error?.message,
       });
     }
   };
@@ -141,7 +148,9 @@ export const postSingleExamScheduleCreateAction =
     } catch (error) {
       dispatch({
         type: POST_SINGLE_EXAM_SCHEDULE_CREATE_FAIL,
-        // payload: error.Message ? error.Message : error.message,
+        // payload: error?.response?.data?.Message
+        // ? error?.response?.data?.Message
+        // : error?.message,
         payload: "Subject already exists",
       });
     }
@@ -164,7 +173,9 @@ export const getSingleExamScheduleEditAction =
     } catch (error) {
       dispatch({
         type: GET_SINGLE_EXAM_SCHEDULE_EDIT_FAIL,
-        payload: error.message ? error.message : error.Message,
+        payload: error?.response?.data?.Message
+          ? error?.response?.data?.Message
+          : error?.message,
       });
     }
   };
@@ -189,7 +200,9 @@ export const singleExamScheduleEditAction =
     } catch (error) {
       dispatch({
         type: SINGLE_EXAM_SCHEDULE_EDIT_FAIL,
-        payload: error.message ? error.message : error.Message,
+        payload: error?.response?.data?.Message
+          ? error?.response?.data?.Message
+          : error?.message,
       });
     }
   };
@@ -213,7 +226,9 @@ export const deleteExamScheduleAction =
     } catch (error) {
       dispatch({
         type: DELETE_EXAM_SCHEDULE_FAIL,
-        payload: error.Message ? error.Message : error.message,
+        payload: error?.response?.data?.Message
+          ? error?.response?.data?.Message
+          : error?.message,
       });
     }
   };
@@ -235,7 +250,9 @@ export const getGenerateExamScheduleCreateAction =
     } catch (error) {
       dispatch({
         type: GET_GENERATE_EXAM_SCHEDULE_FAIL,
-        payload: error.message ? error.message : error.Message,
+        payload: error?.response?.data?.Message
+          ? error?.response?.data?.Message
+          : error?.message,
       });
     }
   };
@@ -268,7 +285,9 @@ export const postGenerateExamScheduleCreateAction =
     } catch (error) {
       dispatch({
         type: POST_GENERATE_EXAM_SCHEDULE_FAIL,
-        payload: error.Message ? error.Message : error.message,
+        payload: error?.response?.data?.Message
+          ? error?.response?.data?.Message
+          : error?.message,
       });
     }
   };

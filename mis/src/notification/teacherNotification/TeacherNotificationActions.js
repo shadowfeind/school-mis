@@ -1,5 +1,10 @@
 import axios from "axios";
-import { API_URL, axiosInstance, tokenConfig, tokenHeader } from "../../constants";
+import {
+  API_URL,
+  axiosInstance,
+  tokenConfig,
+  tokenHeader,
+} from "../../constants";
 import {
   GET_ALL_TEACHER_NOTIFICATION_FAIL,
   GET_ALL_TEACHER_NOTIFICATION_REQUEST,
@@ -31,7 +36,9 @@ export const getAllTeacherNotificationAction = () => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: GET_ALL_TEACHER_NOTIFICATION_FAIL,
-      payload: error.message ? error.message : error.Message,
+      payload: error?.response?.data?.Message
+        ? error?.response?.data?.Message
+        : error?.message,
     });
   }
 };
@@ -52,7 +59,9 @@ export const getListTeacherNotificationAction = (date) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: GET_LIST_TEACHER_NOTIFICATION_FAIL,
-      payload: error.message ? error.message : error.Message,
+      payload: error?.response?.data?.Message
+        ? error?.response?.data?.Message
+        : error?.message,
     });
   }
 };
@@ -74,7 +83,9 @@ export const getSingleCreateTeacherNotificationAction =
     } catch (error) {
       dispatch({
         type: GET_SINGLE_TO_CREATE_TEACHER_NOTIFICATION_FAIL,
-        payload: error.message ? error.message : error.Message,
+        payload: error?.response?.data?.Message
+          ? error?.response?.data?.Message
+          : error?.message,
       });
     }
   };
@@ -115,7 +126,9 @@ export const postTeacherNotificationAction =
     } catch (error) {
       dispatch({
         type: POST_TEACHER_NOTIFICATION_FAIL,
-        payload: error.message ? error.message : error.Message,
+        payload: error?.response?.data?.Message
+          ? error?.response?.data?.Message
+          : error?.message,
       });
     }
   };

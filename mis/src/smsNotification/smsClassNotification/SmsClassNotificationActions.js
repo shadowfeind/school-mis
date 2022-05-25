@@ -1,5 +1,10 @@
 import axios from "axios";
-import { API_URL, axiosInstance, tokenConfig, tokenHeader } from "../../constants";
+import {
+  API_URL,
+  axiosInstance,
+  tokenConfig,
+  tokenHeader,
+} from "../../constants";
 import {
   GET_ALL_SMS_CLASS_NOTIFICATION_FAIL,
   GET_ALL_SMS_CLASS_NOTIFICATION_REQUEST,
@@ -28,7 +33,9 @@ export const getAllSmsClassNotificationAction = () => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: GET_ALL_SMS_CLASS_NOTIFICATION_FAIL,
-      payload: error.message ? error.message : error.Message,
+      payload: error?.response?.data?.Message
+        ? error?.response?.data?.Message
+        : error?.message,
     });
   }
 };
@@ -50,7 +57,9 @@ export const getListSmsClassNotificationAction =
     } catch (error) {
       dispatch({
         type: GET_LIST_SMS_CLASS_NOTIFICATION_FAIL,
-        payload: error.message ? error.message : error.Message,
+        payload: error?.response?.data?.Message
+          ? error?.response?.data?.Message
+          : error?.message,
       });
     }
   };
@@ -72,7 +81,9 @@ export const getBulkSmsClassNotificationAction =
     } catch (error) {
       dispatch({
         type: GET_BULK_SMS_CLASS_NOTIFICATION_FAIL,
-        payload: error.message ? error.message : error.Message,
+        payload: error?.response?.data?.Message
+          ? error?.response?.data?.Message
+          : error?.message,
       });
     }
   };
@@ -123,7 +134,9 @@ export const postSmsClassNotificationAction =
     } catch (error) {
       dispatch({
         type: POST_SMS_CLASS_NOTIFICATION_FAIL,
-        payload: error.message ? error.message : error.Message,
+        payload: error?.response?.data?.Message
+          ? error?.response?.data?.Message
+          : error?.message,
       });
     }
   };

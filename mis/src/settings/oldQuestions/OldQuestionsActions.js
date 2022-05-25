@@ -1,4 +1,3 @@
-
 import { API_URL, axiosInstance, tokenConfig } from "../../constants";
 import {
   DOWNLOAD_OLD_QUESTIONS_FAIL,
@@ -43,7 +42,9 @@ export const getAllOldQuestionsAction = () => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: GET_ALL_OLD_QUESTIONS_FAIL,
-      payload: error.message ? error.message : error.Message,
+      payload: error?.response?.data?.Message
+        ? error?.response?.data?.Message
+        : error?.message,
     });
   }
 };
@@ -65,7 +66,9 @@ export const getListOldQuestionsAction =
     } catch (error) {
       dispatch({
         type: GET_LIST_OF_OLD_QUESTIONS_FAIL,
-        payload: error.message ? error.message : error.Message,
+        payload: error?.response?.data?.Message
+          ? error?.response?.data?.Message
+          : error?.message,
       });
     }
   };
@@ -87,7 +90,9 @@ export const getSubjectOldQuestionsAction = (classId) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: GET_SUBJECT_OF_OLD_QUESTIONS_FAIL,
-      payload: error.message ? error.message : error.Message,
+      payload: error?.response?.data?.Message
+        ? error?.response?.data?.Message
+        : error?.message,
     });
   }
 };
@@ -110,7 +115,9 @@ export const getSingleCreateOldQuestionsAction =
     } catch (error) {
       dispatch({
         type: GET_SINGLE_TO_CREATE_OLD_QUESTIONS_FAIL,
-        payload: error.message ? error.message : error.Message,
+        payload: error?.response?.data?.Message
+          ? error?.response?.data?.Message
+          : error?.message,
       });
     }
   };
@@ -131,7 +138,9 @@ export const getSingleEditOldQuestionsAction = (id) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: GET_SINGLE_TO_EDIT_OLD_QUESTIONS_FAIL,
-      payload: error.message ? error.message : error.Message,
+      payload: error?.response?.data?.Message
+        ? error?.response?.data?.Message
+        : error?.message,
     });
   }
 };
@@ -156,7 +165,6 @@ export const postOldQuestionsAction =
         const newData = { ...oldQuestions, DocumentFile: data };
         const jsonData = JSON.stringify({
           dbModel: newData,
-          
         });
 
         await axiosInstance.post(
@@ -168,18 +176,20 @@ export const postOldQuestionsAction =
       }
       dispatch({
         type: POST_OLD_QUESTIONS_SUCCESS,
-        payload: data
+        payload: data,
       });
     } catch (error) {
       dispatch({
         type: POST_OLD_QUESTIONS_FAIL,
-        payload: error.message ? error.message : error.Message,
+        payload: error?.response?.data?.Message
+          ? error?.response?.data?.Message
+          : error?.message,
       });
     }
   };
 
-  export const putOldQuestionsAction =
-  (singleEditOldQuestions,image) => async (dispatch) => {
+export const putOldQuestionsAction =
+  (singleEditOldQuestions, image) => async (dispatch) => {
     try {
       dispatch({ type: PUT_OLD_QUESTIONS_REQUEST });
 
@@ -198,7 +208,6 @@ export const postOldQuestionsAction =
         const newData = { ...singleEditOldQuestions, DocumentFile: data };
         const jsonData = JSON.stringify({
           dbModel: newData,
-          
         });
 
         await axiosInstance.put(
@@ -212,26 +221,28 @@ export const postOldQuestionsAction =
     } catch (error) {
       dispatch({
         type: PUT_OLD_QUESTIONS_FAIL,
-        payload: error.message ? error.message : error.Message,
+        payload: error?.response?.data?.Message
+          ? error?.response?.data?.Message
+          : error?.message,
       });
     }
   };
 
-  export const downloadOldQuestionsAction = (id) => async (dispatch) => {
-    try {
-      dispatch({ type: DOWNLOAD_OLD_QUESTIONS_REQUEST });
-      const test = `${API_URL}/api/OldQuestion/DownloadOldQuestion/${id}`;
-  
-      window.open(test, "_blank");
-      dispatch({
-        type: DOWNLOAD_OLD_QUESTIONS_SUCCESS,
-        
-      });
-    } catch (error) {
-      dispatch({
-        type: DOWNLOAD_OLD_QUESTIONS_FAIL,
-        payload: error.message ? error.message : error.Message,
-      });
-    }
-  };
-  
+export const downloadOldQuestionsAction = (id) => async (dispatch) => {
+  try {
+    dispatch({ type: DOWNLOAD_OLD_QUESTIONS_REQUEST });
+    const test = `${API_URL}/api/OldQuestion/DownloadOldQuestion/${id}`;
+
+    window.open(test, "_blank");
+    dispatch({
+      type: DOWNLOAD_OLD_QUESTIONS_SUCCESS,
+    });
+  } catch (error) {
+    dispatch({
+      type: DOWNLOAD_OLD_QUESTIONS_FAIL,
+      payload: error?.response?.data?.Message
+        ? error?.response?.data?.Message
+        : error?.message,
+    });
+  }
+};

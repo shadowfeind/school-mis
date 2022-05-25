@@ -27,7 +27,9 @@ export const getALLAssignEcaAction = () => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: GET_ALL_ASSIGN_ECA_FAIL,
-      payload: error.message ? error.message : error.Message,
+      payload: error?.response?.data?.Message
+        ? error?.response?.data?.Message
+        : error?.message,
     });
   }
 };
@@ -46,7 +48,9 @@ export const getListAssignEcaAction =
     } catch (error) {
       dispatch({
         type: GET_LIST_ASSIGN_ECA_FAIL,
-        payload: error.message ? error.message : error.Message,
+        payload: error?.response?.data?.Message
+          ? error?.response?.data?.Message
+          : error?.message,
       });
     }
   };
@@ -93,7 +97,9 @@ export const postAssignEcaAction =
     } catch (error) {
       dispatch({
         type: POST_ASSIGN_ECA_FAIL,
-        payload: error.message ? error.message : error.Message,
+        payload: error?.response?.data?.Message
+          ? error?.response?.data?.Message
+          : error?.message,
       });
     }
   };

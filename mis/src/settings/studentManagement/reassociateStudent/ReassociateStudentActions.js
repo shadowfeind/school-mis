@@ -1,5 +1,4 @@
-
-import { API_URL, axiosInstance, tokenConfig} from "../../../constants";
+import { API_URL, axiosInstance, tokenConfig } from "../../../constants";
 import {
   GET_ALL_REASSOCIATE_STUDENTS_FAIL,
   GET_ALL_REASSOCIATE_STUDENTS_REQUEST,
@@ -34,7 +33,9 @@ export const getAllReassociateStudentsAction = () => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: GET_ALL_REASSOCIATE_STUDENTS_FAIL,
-      payload: error.message ? error.message : error.Message,
+      payload: error?.response?.data?.Message
+        ? error?.response?.data?.Message
+        : error?.message,
     });
   }
 };
@@ -53,7 +54,9 @@ export const getReassociateStudentsListsAction =
     } catch (error) {
       dispatch({
         type: GET_REASSOCIATE_STUDENTS_LISTS_FAIL,
-        payload: error.message ? error.message : error.Message,
+        payload: error?.response?.data?.Message
+          ? error?.response?.data?.Message
+          : error?.message,
       });
     }
   };
@@ -75,13 +78,15 @@ export const getReassociateStudentsLevelupAction =
     } catch (error) {
       dispatch({
         type: GET_REASSOCIATE_STUDENTS_LEVEL_UP_FAIL,
-        payload: error.message ? error.message : error.Message,
+        payload: error?.response?.data?.Message
+          ? error?.response?.data?.Message
+          : error?.message,
       });
     }
   };
 
 export const getReassociateStudentsLevelupPostAction =
-  (checkboxState, searchFilterModel, academicYear,academicYearNext) =>
+  (checkboxState, searchFilterModel, academicYear, academicYearNext) =>
   async (dispatch) => {
     try {
       dispatch({ type: GET_REASSOCIATE_STUDENTS_LEVEL_UP_POST_REQUEST });
@@ -93,7 +98,7 @@ export const getReassociateStudentsLevelupPostAction =
         academicYearNext,
       });
 
-      console.log(jsonData)
+      console.log(jsonData);
 
       const { data } = await axiosInstance.post(
         `${API_URL}/api/ReassociateStudent/PostBulkLevelUp`,
@@ -108,32 +113,38 @@ export const getReassociateStudentsLevelupPostAction =
     } catch (error) {
       dispatch({
         type: GET_REASSOCIATE_STUDENTS_LEVEL_UP_POST_FAIL,
-        payload: error.message ? error.message : error.Message,
+        payload: error?.response?.data?.Message
+          ? error?.response?.data?.Message
+          : error?.message,
       });
     }
   };
 
-
-  export const getSingleEditReassociateStudentsAction = (id,year,program,classId,shift,section) => async (dispatch) => {
+export const getSingleEditReassociateStudentsAction =
+  (id, year, program, classId, shift, section) => async (dispatch) => {
     try {
       dispatch({ type: GET_SINGLE_TO_EDIT_REASSOCIATE_STUDENTS_REQUEST });
-  
+
       const { data } = await axiosInstance.get(
         `${API_URL}/api/ReassociateStudent/GetSingleToEditReassociateStudent/${id}?idAcademicYear=${year}&idFacultyProgramLink=${program}&idClass=${classId}&idShift=${shift}&classSection=${section}`,
         tokenConfig()
       );
-  
-      dispatch({ type: GET_SINGLE_TO_EDIT_REASSOCIATE_STUDENTS_SUCCESS, payload: data });
+
+      dispatch({
+        type: GET_SINGLE_TO_EDIT_REASSOCIATE_STUDENTS_SUCCESS,
+        payload: data,
+      });
     } catch (error) {
       dispatch({
         type: GET_SINGLE_TO_EDIT_REASSOCIATE_STUDENTS_FAIL,
-        payload: error.message ? error.message : error.Message,
+        payload: error?.response?.data?.Message
+          ? error?.response?.data?.Message
+          : error?.message,
       });
     }
   };
 
-
-  export const putReassociateStudentsAction =
+export const putReassociateStudentsAction =
   (checkboxState, searchFilterModel, year, academicYear) =>
   async (dispatch) => {
     try {
@@ -158,7 +169,9 @@ export const getReassociateStudentsLevelupPostAction =
     } catch (error) {
       dispatch({
         type: PUT_REASSOCIATE_STUDENTS_FAIL,
-        payload: error.message ? error.message : error.Message,
+        payload: error?.response?.data?.Message
+          ? error?.response?.data?.Message
+          : error?.message,
       });
     }
   };

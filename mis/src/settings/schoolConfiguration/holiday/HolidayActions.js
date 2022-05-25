@@ -1,4 +1,3 @@
-
 import { API_URL, axiosInstance, tokenConfig } from "../../../constants";
 import {
   GET_ALL_HOLIDAY_FAIL,
@@ -28,7 +27,9 @@ export const getAllHolidayAction = () => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: GET_ALL_HOLIDAY_FAIL,
-      payload: error.message ? error.message : error.Message,
+      payload: error?.response?.data?.Message
+        ? error?.response?.data?.Message
+        : error?.message,
     });
   }
 };
@@ -49,7 +50,9 @@ export const holidayCreateAction = (holiday) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: HOLIDAY_CREATE_FAIL,
-      payload: error.message ? error.message : error.Message,
+      payload: error?.response?.data?.Message
+        ? error?.response?.data?.Message
+        : error?.message,
     });
   }
 };
@@ -67,7 +70,9 @@ export const getSingleHolidayAction = (id) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: GET_SINGLE_HOLIDAY_FAIL,
-      payload: error.message ? error.message : error.Message,
+      payload: error?.response?.data?.Message
+        ? error?.response?.data?.Message
+        : error?.message,
     });
   }
 };
@@ -94,7 +99,9 @@ export const updateSingleHoliadyAction = (holiday) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: UPDATE_SINGLE_HOLIDAY_FAIL,
-      payload: error.message ? error.message : error.Message,
+      payload: error?.response?.data?.Message
+        ? error?.response?.data?.Message
+        : error?.message,
     });
   }
 };

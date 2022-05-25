@@ -1,5 +1,10 @@
 import axios from "axios";
-import { API_URL, axiosInstance, tokenConfig, tokenHeader } from "../../constants";
+import {
+  API_URL,
+  axiosInstance,
+  tokenConfig,
+  tokenHeader,
+} from "../../constants";
 import {
   GET_ALL_SMS_ANNOUNCEMENT_FAIL,
   GET_ALL_SMS_ANNOUNCEMENT_REQUEST,
@@ -35,7 +40,9 @@ export const getAllSmsAnnouncementAction = () => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: GET_ALL_SMS_ANNOUNCEMENT_FAIL,
-      payload: error.message ? error.message : error.Message,
+      payload: error?.response?.data?.Message
+        ? error?.response?.data?.Message
+        : error?.message,
     });
   }
 };
@@ -53,7 +60,9 @@ export const getListSmsAnnouncementAction = (date) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: GET_LIST_SMS_ANNOUNCEMENT_FAIL,
-      payload: error.message ? error.message : error.Message,
+      payload: error?.response?.data?.Message
+        ? error?.response?.data?.Message
+        : error?.message,
     });
   }
 };
@@ -71,7 +80,9 @@ export const getFCMForSmsAnnouncementAction = () => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: SMS_ANNOUNCEMENT_FCM_FAIL,
-      payload: error.message ? error.message : error.Message,
+      payload: error?.response?.data?.Message
+        ? error?.response?.data?.Message
+        : error?.message,
     });
   }
 };
@@ -110,7 +121,9 @@ export const announcementSmsCreateAction =
     } catch (error) {
       dispatch({
         type: SMS_ANNOUNCEMENT_CREATE_FAIL,
-        payload: error.message ? error.message : error.Message,
+        payload: error?.response?.data?.Message
+          ? error?.response?.data?.Message
+          : error?.message,
       });
     }
   };
@@ -131,7 +144,9 @@ export const getSingleSmsAnnouncementAction = (id) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: GET_SINGLE_SMS_ANNOUNCEMENT_FAIL,
-      payload: error.message ? error.message : error.Message,
+      payload: error?.response?.data?.Message
+        ? error?.response?.data?.Message
+        : error?.message,
     });
   }
 };
@@ -156,7 +171,9 @@ export const updateSingleSmsAnnouncementAction =
     } catch (error) {
       dispatch({
         type: UPDATE_SINGLE_SMS_ANNOUNCEMENT_FAIL,
-        payload: error.message ? error.message : error.Message,
+        payload: error?.response?.data?.Message
+          ? error?.response?.data?.Message
+          : error?.message,
       });
     }
   };

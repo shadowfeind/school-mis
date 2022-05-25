@@ -16,6 +16,7 @@ import { withStyles, makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import { useDispatch } from "react-redux";
 import { postBulkEditEcaAction } from "./EcaDataActions";
+import { validate } from "webpack/node_modules/schema-utils";
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -49,6 +50,7 @@ const EcaDataBulkEdit = ({
 }) => {
   const [bulk, setBulk] = useState([]);
   const [selectSubject, setSelectSubject] = useState([]);
+  const [errors, setErrors] = useState({});
   const [ecaData, setEcaData] = useState([]);
   const classes = useStyles();
   const dispatch = useDispatch();
@@ -109,6 +111,15 @@ const EcaDataBulkEdit = ({
     // });
   };
 
+  const validate = () => {
+    let temp = {};
+    temp.submit =
+      bulk?.length <= 0 ? "Cannot Submit the Data when Data is Empty" : "";
+
+    setErrors({ ...temp });
+    return Object.values(temp).every((x) => x === "");
+  };
+
   // const onChangeHandler = (subject, value, name, index) => {
   //   setEcaData((prev) => {
   //     const newReassoc = {
@@ -128,7 +139,9 @@ const EcaDataBulkEdit = ({
   // };
 
   const formCheckSubmitHandler = () => {
-    dispatch(postBulkEditEcaAction(bulk, search, ecaData));
+    if (validate()) {
+      dispatch(postBulkEditEcaAction(bulk, search, ecaData));
+    }
   };
   useEffect(() => {
     if (bulkData) {
@@ -218,6 +231,23 @@ const EcaDataBulkEdit = ({
           </TableBody>
         </Table>
       </TableContainer>
+      {bulk?.length <= 0 && (
+        <div>
+          <h3 style={{ color: "red", textAlign: "center" }}>No Data</h3>
+        </div>
+      )}
+      {errors.submit && (
+        <div
+          style={{
+            textAlign: "center",
+            color: "red",
+            fontSize: "12px",
+            paddingTop: "8px",
+          }}
+        >
+          {errors.submit}
+        </div>
+      )}
       <div
         style={{
           display: "flex",

@@ -59,7 +59,9 @@ export const getHeaderContentAction = () => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: GET_HEADER_CONTENT_FAIL,
-      payload: error.message ? error.message : error.Message,
+      payload: error?.response?.data?.Message
+        ? error?.response?.data?.Message
+        : error?.message,
     });
   }
 };
@@ -78,7 +80,9 @@ export const getHeaderBannerAction = () => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: GET_HEADER_BANNER_FAIL,
-      payload: error.message ? error.message : error.Message,
+      payload: error?.response?.data?.Message
+        ? error?.response?.data?.Message
+        : error?.message,
     });
   }
 };
@@ -123,7 +127,9 @@ export const getDashboardTopContentAction = () => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: GET_DASHBOARD_TOP_CONTENT_FAIL,
-      payload: error.message ? error.message : error.Message,
+      payload: error?.response?.data?.Message
+        ? error?.response?.data?.Message
+        : error?.message,
     });
   }
 };
@@ -145,7 +151,9 @@ export const getPrincipleSignatureAction = () => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: GET_PRINCIPLE_SIGNATURE_FAIL,
-      payload: error.message ? error.message : error.Message,
+      payload: error?.response?.data?.Message
+        ? error?.response?.data?.Message
+        : error?.message,
     });
   }
 };
@@ -164,7 +172,9 @@ export const getAllLeaveRequestAction = () => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: GET_ALL_LEAVE_REQUESTS_FAIL,
-      payload: error.message ? error.message : error.Message,
+      payload: error?.response?.data?.Message
+        ? error?.response?.data?.Message
+        : error?.message,
     });
   }
 };
@@ -183,7 +193,9 @@ export const getListLeaveRequestAction = () => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: GET_LIST_LEAVE_REQUESTS_FAIL,
-      payload: error.message ? error.message : error.Message,
+      payload: error?.response?.data?.Message
+        ? error?.response?.data?.Message
+        : error?.message,
     });
   }
 };
@@ -205,7 +217,9 @@ export const getSingleCreateLeaveRequestAction = () => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: GET_SINGLE_TO_CREATE_LEAVE_REQUESTS_FAIL,
-      payload: error.message ? error.message : error.Message,
+      payload: error?.response?.data?.Message
+        ? error?.response?.data?.Message
+        : error?.message,
     });
   }
 };
@@ -227,7 +241,9 @@ export const getSingleEditLeaveRequestAction = (id) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: GET_SINGLE_TO_EDIT_LEAVE_REQUESTS_FAIL,
-      payload: error.message ? error.message : error.Message,
+      payload: error?.response?.data?.Message
+        ? error?.response?.data?.Message
+        : error?.message,
     });
   }
 };
@@ -295,7 +311,9 @@ export const postLeaveRequestAction =
     } catch (error) {
       dispatch({
         type: POST_LEAVE_REQUESTS_FAIL,
-        payload: error.message ? error.message : error.Message,
+        payload: error?.response?.data?.Message
+          ? error?.response?.data?.Message
+          : error?.message,
       });
     }
   };
@@ -360,7 +378,9 @@ export const putApproveRequestAction =
     } catch (error) {
       dispatch({
         type: PUT_LEAVE_REQUESTS_FAIL,
-        payload: error.message ? error.message : error.Message,
+        payload: error?.response?.data?.Message
+          ? error?.response?.data?.Message
+          : error?.message,
       });
     }
   };
@@ -403,7 +423,9 @@ export const putLeaveRequestAction =
     } catch (error) {
       dispatch({
         type: PUT_LEAVE_REQUESTS_FAIL,
-        payload: error.message ? error.message : error.Message,
+        payload: error?.response?.data?.Message
+          ? error?.response?.data?.Message
+          : error?.message,
       });
     }
   };
@@ -425,7 +447,9 @@ export const getSingleDeleteLeaveRequestAction = (id) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: GET_SINGLE_TO_DELETE_LEAVE_REQUESTS_FAIL,
-      payload: error.message ? error.message : error.Message,
+      payload: error?.response?.data?.Message
+        ? error?.response?.data?.Message
+        : error?.message,
     });
   }
 };
@@ -452,7 +476,9 @@ export const deleteLeaveRequestAction = (leaveRequest) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: DELETE_LEAVE_REQUESTS_FAIL,
-      payload: error.message ? error.message : error.Message,
+      payload: error?.response?.data?.Message
+        ? error?.response?.data?.Message
+        : error?.message,
     });
   }
 };
@@ -474,7 +500,9 @@ export const getSingleEditSentLeaveRequestAction = (id) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: GET_SINGLE_TO_EDIT_SENT_LEAVE_REQUESTS_FAIL,
-      payload: error.message ? error.message : error.Message,
+      payload: error?.response?.data?.Message
+        ? error?.response?.data?.Message
+        : error?.message,
     });
   }
 };
@@ -491,7 +519,9 @@ export const downloadLeaveRequestAction = (id) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: DOWNLOAD_DOC_LEAVE_REQUESTS_FAIL,
-      payload: error.message ? error.message : error.Message,
+      payload: error?.response?.data?.Message
+        ? error?.response?.data?.Message
+        : error?.message,
     });
   }
 };

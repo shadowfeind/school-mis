@@ -1,4 +1,3 @@
-
 import { API_URL, axiosInstance, tokenConfig } from "../../constants";
 import {
   GET_ALL_EXAM_APPROVAL_SEARCHDATA_FAIL,
@@ -41,7 +40,9 @@ export const getInitialExamApprovalDataAction = () => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: GET_INITIAL_EXAM_APPORVAL_DATA_FAIL,
-      payload: error.message ? error.message : error.Message,
+      payload: error?.response?.data?.Message
+        ? error?.response?.data?.Message
+        : error?.message,
     });
   }
 };
@@ -63,7 +64,9 @@ export const getExamApprovalScheduleHeaderAction =
     } catch (error) {
       dispatch({
         type: GET_EXAM_APPROVAL_SCHEULE_HEADER_FAIL,
-        payload: error.message ? error.message : error.Message,
+        payload: error?.response?.data?.Message
+          ? error?.response?.data?.Message
+          : error?.message,
       });
     }
   };
@@ -86,7 +89,9 @@ export const getExamApprovalSearchDataAction =
     } catch (error) {
       dispatch({
         type: GET_ALL_EXAM_APPROVAL_SEARCHDATA_FAIL,
-        payload: error.message ? error.message : error.Message,
+        payload: error?.response?.data?.Message
+          ? error?.response?.data?.Message
+          : error?.message,
       });
     }
   };
@@ -109,12 +114,14 @@ export const getBulkExamApprovalSearchDataAction =
     } catch (error) {
       dispatch({
         type: GET_BULK_EXAM_APPROVAL_FAIL,
-        payload: error.message ? error.message : error.Message,
+        payload: error?.response?.data?.Message
+          ? error?.response?.data?.Message
+          : error?.message,
       });
     }
   };
 
-  export const getBulkExamApprovalBlankDataAction =
+export const getBulkExamApprovalBlankDataAction =
   (year, program, classId, section, shift, event, schedule) =>
   async (dispatch) => {
     try {
@@ -132,7 +139,9 @@ export const getBulkExamApprovalSearchDataAction =
     } catch (error) {
       dispatch({
         type: GET_BULK_EXAM_APPROVAL_BLANK_PAGE_FAIL,
-        payload: error.message ? error.message : error.Message,
+        payload: error?.response?.data?.Message
+          ? error?.response?.data?.Message
+          : error?.message,
       });
     }
   };
@@ -165,29 +174,33 @@ export const postBulkExamMarkApprovalAction =
     } catch (error) {
       dispatch({
         type: POST_BULK_EXAM_APPROVAL_FAIL,
-        payload: error.message ? error.message : error.Message,
+        payload: error?.response?.data?.Message
+          ? error?.response?.data?.Message
+          : error?.message,
       });
     }
   };
 
-  export const getAllSchoolValueAction = () => async (dispatch) => {
-    try {
-      dispatch({ type: GET_ALL_SCHOOL_VALUE_REQUEST });
-  
-      const { data } = await axiosInstance.get(
-        `${API_URL}/api/Home/GetSchoolValue
+export const getAllSchoolValueAction = () => async (dispatch) => {
+  try {
+    dispatch({ type: GET_ALL_SCHOOL_VALUE_REQUEST });
+
+    const { data } = await axiosInstance.get(
+      `${API_URL}/api/Home/GetSchoolValue
         `,
-        tokenConfig()
-      );
-  
-      dispatch({
-        type: GET_ALL_SCHOOL_VALUE_SUCCESS,
-        payload: data,
-      });
-    } catch (error) {
-      dispatch({
-        type: GET_ALL_SCHOOL_VALUE_FAIL,
-        payload: error.message ? error.message : error.Message,
-      });
-    }
-  };
+      tokenConfig()
+    );
+
+    dispatch({
+      type: GET_ALL_SCHOOL_VALUE_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: GET_ALL_SCHOOL_VALUE_FAIL,
+      payload: error?.response?.data?.Message
+        ? error?.response?.data?.Message
+        : error?.message,
+    });
+  }
+};

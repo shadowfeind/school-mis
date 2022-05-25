@@ -1,4 +1,3 @@
-
 import { API_URL, axiosInstance, tokenConfig } from "../../constants";
 import {
   CHECK_ACADEMIC_YEAR_FOR_STUDENT_FAIL,
@@ -51,7 +50,9 @@ export const getInitialStudentRegistrationDataAction =
     } catch (error) {
       dispatch({
         type: GET_INITIAL_STUDENT_REGISTRATION_DATA_FAIL,
-        payload: error.message ? error.message : error.Message,
+        payload: error?.response?.data?.Message
+          ? error?.response?.data?.Message
+          : error?.message,
       });
     }
   };
@@ -73,7 +74,9 @@ export const getStudentRegistrationDataAction =
     } catch (error) {
       dispatch({
         type: GET_STUDENT_REGISTRATION_DATA_FAIL,
-        payload: error.message ? error.message : error.Message,
+        payload: error?.response?.data?.Message
+          ? error?.response?.data?.Message
+          : error?.message,
       });
     }
   };
@@ -95,7 +98,9 @@ export const getSingleStudentRegistrationDataAction =
     } catch (error) {
       dispatch({
         type: GET_SINGLE_STUDENT_REGISTRATION_DATA_FAIL,
-        payload: error.message ? error.message : error.Message,
+        payload: error?.response?.data?.Message
+          ? error?.response?.data?.Message
+          : error?.message,
       });
     }
   };
@@ -117,7 +122,9 @@ export const singleStudentRegistrationCreateAction = () => async (dispatch) => {
     dispatch({
       type: SINGLE_STUDENT_REGISTRATION_CREATE_FAIL,
 
-      payload: error.message ? error.message : error.Message,
+      payload: error?.response?.data?.Message
+        ? error?.response?.data?.Message
+        : error?.message,
     });
   }
 };
@@ -171,7 +178,9 @@ export const singleStudentRegistrationEditAction =
     } catch (error) {
       dispatch({
         type: SINGLE_STUDENT_REGISTRATION_EDIT_FAIL,
-        payload: error.message ? error.message : error.Message,
+        payload: error?.response?.data?.Message
+          ? error?.response?.data?.Message
+          : error?.message,
       });
     }
   };
@@ -194,7 +203,9 @@ export const getCreateSingleStudentRegistrationDataAction =
       dispatch({
         type: GET_CREATE_SINGLE_STUDENT_REGISTRATION_DATA_FAIL,
 
-        payload: error.message ? error.message : error.Message,
+        payload: error?.response?.data?.Message
+          ? error?.response?.data?.Message
+          : error?.message,
       });
     }
   };
@@ -207,15 +218,13 @@ export const createSingleStudentRegistrationAction =
       let formData = new FormData();
       formData.append("ImageUploaded", image);
 
-     
       if (image) {
-
         const { data } = await axiosInstance.put(
           `${API_URL}/api/StudentRegistrationImage/Put`,
           formData,
           tokenConfig()
         );
-  
+
         const newData = { ...studentReg, photoName: data };
         const jsonData = JSON.stringify({
           dbModel: newData,
@@ -229,7 +238,7 @@ export const createSingleStudentRegistrationAction =
           tokenConfig()
         );
       } else {
-        const newData = { ...studentReg};
+        const newData = { ...studentReg };
         const jsonData = JSON.stringify({
           dbModel: newData,
           idAcademicYear: studentReg.idAcademicYear,
@@ -252,7 +261,9 @@ export const createSingleStudentRegistrationAction =
 
       dispatch({
         type: CREATE_SINGLE_STUDENT_REGISTRATION_FAIL,
-        payload: error.message ? error.message : error.Message,
+        payload: error?.response?.data?.Message
+          ? error?.response?.data?.Message
+          : error?.message,
       });
     }
   };
@@ -299,14 +310,13 @@ export const checkRollNoForStudentAction =
       dispatch({
         type: CHECK_ROLLNO_FOR_STUDENT_FAIL,
         payload: error?.response?.data?.Message
-        ? error?.response?.data?.Message
-        : error?.message,
+          ? error?.response?.data?.Message
+          : error?.message,
       });
     }
   };
 
-
-  export const checkAcademicYearForStudentAction =
+export const checkAcademicYearForStudentAction =
   (year, program) => async (dispatch) => {
     console.log(year, program);
     try {
@@ -325,9 +335,8 @@ export const checkRollNoForStudentAction =
       dispatch({
         type: CHECK_ACADEMIC_YEAR_FOR_STUDENT_FAIL,
         payload: error?.response?.data?.Message
-        ? error?.response?.data?.Message
-        : error?.message,
+          ? error?.response?.data?.Message
+          : error?.message,
       });
     }
   };
-

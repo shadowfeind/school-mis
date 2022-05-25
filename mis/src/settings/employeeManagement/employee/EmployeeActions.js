@@ -1,4 +1,3 @@
-
 import { API_URL, axiosInstance, tokenConfig } from "../../../constants";
 import {
   EMPLOYEE_CREATE_FAIL,
@@ -37,7 +36,9 @@ export const getAllEmployeeAction = () => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: GET_ALL_EMPLOYEE_FAIL,
-      payload: error.message ? error.message : error.Message,
+      payload: error?.response?.data?.Message
+        ? error?.response?.data?.Message
+        : error?.message,
     });
   }
 };
@@ -55,7 +56,9 @@ export const getAllEmployeeCreateAction = () => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: GET_ALL_EMPLOYEE_CREATE_FAIL,
-      payload: error.message ? error.message : error.Message,
+      payload: error?.response?.data?.Message
+        ? error?.response?.data?.Message
+        : error?.message,
     });
   }
 };
@@ -82,7 +85,9 @@ export const employeeCreateAction = (employee) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: EMPLOYEE_CREATE_FAIL,
-      payload: error.message ? error.message : error.Message,
+      payload: error?.response?.data?.Message
+        ? error?.response?.data?.Message
+        : error?.message,
     });
   }
 };
@@ -100,7 +105,9 @@ export const getSingleEmployeeAction = (id) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: GET_SINGLE_EMPLOYEE_FAIL,
-      payload: error.message ? error.message : error.Message,
+      payload: error?.response?.data?.Message
+        ? error?.response?.data?.Message
+        : error?.message,
     });
   }
 };
@@ -127,7 +134,9 @@ export const updateSingleEmployeeAction = (employee) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: UPDATE_SINGLE_EMPLOYEE_FAIL,
-      payload: error.message ? error.message : error.Message,
+      payload: error?.response?.data?.Message
+        ? error?.response?.data?.Message
+        : error?.message,
     });
   }
 };
@@ -149,7 +158,9 @@ export const getSingleEmployeePasswordresetDataAction =
     } catch (error) {
       dispatch({
         type: GET_RESETPASSWORD_DATA_SINGLE_EMPLOYEE_FAIL,
-        payload: error.message ? error.message : error.Message,
+        payload: error?.response?.data?.Message
+          ? error?.response?.data?.Message
+          : error?.message,
       });
     }
   };
@@ -180,7 +191,9 @@ export const resetSingleEmployeePasswordAction =
     } catch (error) {
       dispatch({
         type: RESETPASSWORD_FOR_SINGLE_EMPLOYEE_FAIL,
-        payload: error.message ? error.message : error.Message,
+        payload: error?.response?.data?.Message
+          ? error?.response?.data?.Message
+          : error?.message,
       });
     }
   };

@@ -43,7 +43,9 @@ export const getInitialExamResultDataAction = () => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: GET_INITIAL_EXAM_RESULT_DATA_FAIL,
-      payload: error.message ? error.message : error.Message,
+      payload: error?.response?.data?.Message
+        ? error?.response?.data?.Message
+        : error?.message,
     });
   }
 };
@@ -65,7 +67,9 @@ export const getEventForExamMarkAction =
     } catch (error) {
       dispatch({
         type: GET_EVENT_FOR_EXAM_MARK_FAIL,
-        payload: error.message ? error.message : error.Message,
+        payload: error?.response?.data?.Message
+          ? error?.response?.data?.Message
+          : error?.message,
       });
     }
   };
@@ -87,7 +91,9 @@ export const getStudentOptionsForExamMarkAction =
     } catch (error) {
       dispatch({
         type: GET_INITIAL_EXAM_RESULT_STUDENT_OPTIONS_FAIL,
-        payload: error.message ? error.message : error.Message,
+        payload: error?.response?.data?.Message
+          ? error?.response?.data?.Message
+          : error?.message,
       });
     }
   };
@@ -110,7 +116,9 @@ export const getExamResultListAction =
     } catch (error) {
       dispatch({
         type: GET_EXAM_RESULT_LIST_FAIL,
-        payload: error.message ? error.message : error.Message,
+        payload: error?.response?.data?.Message
+          ? error?.response?.data?.Message
+          : error?.message,
       });
     }
   };
@@ -133,7 +141,9 @@ export const getExamLedgerHeaderAction =
     } catch (error) {
       dispatch({
         type: GET_EXAM_LEDGER_HEADER_FAIL,
-        payload: error.message ? error.message : error.Message,
+        payload: error?.response?.data?.Message
+          ? error?.response?.data?.Message
+          : error?.message,
       });
     }
   };
@@ -156,7 +166,9 @@ export const printExamResultAction =
     } catch (error) {
       dispatch({
         type: PRINT_EXAM_RESULT_FAIL,
-        payload: error.message ? error.message : error.Message,
+        payload: error?.response?.data?.Message
+          ? error?.response?.data?.Message
+          : error?.message,
       });
     }
   };
@@ -179,7 +191,9 @@ export const printExamResultCountAction =
     } catch (error) {
       dispatch({
         type: PRINT_EXAM_RESULT_COUNT_FAIL,
-        payload: error.message ? error.message : error.Message,
+        payload: error?.response?.data?.Message
+          ? error?.response?.data?.Message
+          : error?.message,
       });
     }
   };
@@ -202,7 +216,9 @@ export const printFinalResultAction =
     } catch (error) {
       dispatch({
         type: PRINT_FINAL_RESULT_FAIL,
-        payload: error.message ? error.message : error.Message,
+        payload: error?.response?.data?.Message
+          ? error?.response?.data?.Message
+          : error?.message,
       });
     }
   };

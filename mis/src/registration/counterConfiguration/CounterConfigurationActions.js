@@ -1,4 +1,3 @@
-
 import { API_URL, axiosInstance, tokenConfig } from "../../constants";
 import {
   COUNTER_CONFIG_CREATE_FAIL,
@@ -34,7 +33,9 @@ export const getCounterConfigInitialDataAction = () => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: GET_COUNTER_CONFIG_INITIAL_DATA_FAIL,
-      payload: error.message ? error.message : error.Message,
+      payload: error?.response?.data?.Message
+        ? error?.response?.data?.Message
+        : error?.message,
     });
   }
 };
@@ -56,7 +57,9 @@ export const getCounterConfigInitialDataForCreateAction =
     } catch (error) {
       dispatch({
         type: GET_COUNTER_CONFIG_INITIAL_DATA_FOR_CREATE_FAIL,
-        payload: error.message ? error.message : error.Message,
+        payload: error?.response?.data?.Message
+          ? error?.response?.data?.Message
+          : error?.message,
       });
     }
   };
@@ -67,7 +70,7 @@ export const counterConfigCreateAction =
       dispatch({ type: COUNTER_CONFIG_CREATE_REQUEST });
 
       const jsonData = JSON.stringify({
-        dbModel: counterConfig
+        dbModel: counterConfig,
       });
 
       // const config = {
@@ -75,7 +78,7 @@ export const counterConfigCreateAction =
       //     "Content-Type": "application/json",
       //   },
       // };
-console.log(jsonData)
+      console.log(jsonData);
       const { data } = await axiosInstance.post(
         `${API_URL}/api/AdmCounter/Post`,
         jsonData,
@@ -90,8 +93,8 @@ console.log(jsonData)
       dispatch({
         type: COUNTER_CONFIG_CREATE_FAIL,
         payload: error.response.data.Message
-        ? error.response.data.Message
-        : error.message,
+          ? error.response.data.Message
+          : error.message,
       });
     }
   };
@@ -113,7 +116,9 @@ export const getCounterConfigListAction =
     } catch (error) {
       dispatch({
         type: GET_COUNTER_CONFIG_LIST_FAIL,
-        payload: error.message ? error.message : error.Message,
+        payload: error?.response?.data?.Message
+          ? error?.response?.data?.Message
+          : error?.message,
       });
     }
   };
@@ -135,7 +140,9 @@ export const getCounterConfigInitialDataForEditAction =
     } catch (error) {
       dispatch({
         type: GET_COUNTER_CONFIG_INITIAL_DATA_FOR_EDIT_FAIL,
-        payload: error.message ? error.message : error.Message,
+        payload: error?.response?.data?.Message
+          ? error?.response?.data?.Message
+          : error?.message,
       });
     }
   };
@@ -167,7 +174,9 @@ export const counterConfigEditAction = (counterConfig) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: COUNTER_CONFIG_EDIT_FAIL,
-      payload: error.message ? error.message : error.Message,
+      payload: error?.response?.data?.Message
+        ? error?.response?.data?.Message
+        : error?.message,
     });
   }
 };

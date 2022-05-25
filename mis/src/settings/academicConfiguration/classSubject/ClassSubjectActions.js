@@ -1,4 +1,3 @@
-
 import { API_URL, axiosInstance, tokenConfig } from "../../../constants";
 import {
   DELETE_CLASS_SUBJECT_FAIL,
@@ -37,7 +36,9 @@ export const getALLClassSubjectAction = () => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: GET_ALL_CLASS_SUBJECT_FAIL,
-      payload: error.message ? error.message : error.Message,
+      payload: error?.response?.data?.Message
+        ? error?.response?.data?.Message
+        : error?.message,
     });
   }
 };
@@ -55,7 +56,9 @@ export const getClassSubjectListAction = (classId) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: GET_CLASS_SUBJECT_LIST_FAIL,
-      payload: error.message ? error.message : error.Message,
+      payload: error?.response?.data?.Message
+        ? error?.response?.data?.Message
+        : error?.message,
     });
   }
 };
@@ -73,7 +76,9 @@ export const getSingleClassSubjectAction = (id) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: GET_SINGLE_CLASS_SUBJECT_FAIL,
-      payload: error.message ? error.message : error.Message,
+      payload: error?.response?.data?.Message
+        ? error?.response?.data?.Message
+        : error?.message,
     });
   }
 };
@@ -91,7 +96,9 @@ export const getToCreateClassSubjectAction = (classId) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: GET_TO_CREATE_CLASS_SUBJECT_FAIL,
-      payload: error.message ? error.message : error.Message,
+      payload: error?.response?.data?.Message
+        ? error?.response?.data?.Message
+        : error?.message,
     });
   }
 };
@@ -117,7 +124,9 @@ export const updateSingleClassSubjectAction = (subject) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: UPDATE_SINGLE_CLASS_SUBJECT_FAIL,
-      payload: error.message ? error.message : error.Message,
+      payload: error?.response?.data?.Message
+        ? error?.response?.data?.Message
+        : error?.message,
     });
   }
 };
@@ -145,30 +154,33 @@ export const createSingleClassSubjectAction =
     } catch (error) {
       dispatch({
         type: POST_TO_CREATE_CLASS_SUBJECT_FAIL,
-        payload: error.message ? error.message : error.Message,
+        payload: error?.response?.data?.Message
+          ? error?.response?.data?.Message
+          : error?.message,
       });
     }
   };
 
-  export const deleteClassSubjectAction = (classSubject) => async (dispatch) => {
-    try {
-      dispatch({ type: DELETE_CLASS_SUBJECT_REQUEST });
-  
-      const jsonData = JSON.stringify({ dbModel: classSubject });
-  console.log(jsonData);
-  
-      await axiosInstance.post(
-        `${API_URL}/api/ClassSubject/DeleteClassSubject`,
-        jsonData,
-        tokenConfig()
-      );
-  
-      dispatch({ type: DELETE_CLASS_SUBJECT_SUCCESS });
-    } catch (error) {
-      dispatch({
-        type: DELETE_CLASS_SUBJECT_FAIL,
-        payload: error.message ? error.message : error.Message,
-      });
-    }
-  };
-  
+export const deleteClassSubjectAction = (classSubject) => async (dispatch) => {
+  try {
+    dispatch({ type: DELETE_CLASS_SUBJECT_REQUEST });
+
+    const jsonData = JSON.stringify({ dbModel: classSubject });
+    console.log(jsonData);
+
+    await axiosInstance.post(
+      `${API_URL}/api/ClassSubject/DeleteClassSubject`,
+      jsonData,
+      tokenConfig()
+    );
+
+    dispatch({ type: DELETE_CLASS_SUBJECT_SUCCESS });
+  } catch (error) {
+    dispatch({
+      type: DELETE_CLASS_SUBJECT_FAIL,
+      payload: error?.response?.data?.Message
+        ? error?.response?.data?.Message
+        : error?.message,
+    });
+  }
+};

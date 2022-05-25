@@ -1,4 +1,3 @@
-
 import { API_URL, axiosInstance, tokenConfig } from "../../../constants";
 import {
   GET_INITIAL_ROLE_FOR_PERMISSION_FAIL,
@@ -25,7 +24,9 @@ export const getInitialRoleForPermissionAction = () => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: GET_INITIAL_ROLE_FOR_PERMISSION_FAIL,
-      payload: error.message ? error.message : error.Message,
+      payload: error?.response?.data?.Message
+        ? error?.response?.data?.Message
+        : error?.message,
     });
   }
 };
@@ -47,7 +48,9 @@ export const getListPermissionByRoleAction =
     } catch (error) {
       dispatch({
         type: GET_LIST_PERMISSION_BY_ROLE_FAIL,
-        payload: error.message ? error.message : error.Message,
+        payload: error?.response?.data?.Message
+          ? error?.response?.data?.Message
+          : error?.message,
       });
     }
   };

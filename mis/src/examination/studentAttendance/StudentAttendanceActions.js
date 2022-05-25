@@ -1,4 +1,3 @@
-
 import { API_URL, axiosInstance, tokenConfig } from "../../constants";
 import {
   GET_ALL_STUDEN_ATTENDANCE_FAIL,
@@ -36,7 +35,9 @@ export const getAllStudentAttendanceInitialDataAction =
     } catch (error) {
       dispatch({
         type: GET_ALL_STUDEN_ATTENDANCE_INITIAL_DATA_FAIL,
-        payload: error.message ? error.message : error.Message,
+        payload: error?.response?.data?.Message
+          ? error?.response?.data?.Message
+          : error?.message,
       });
     }
   };
@@ -58,7 +59,9 @@ export const getAllStudentAttendanceAction =
     } catch (error) {
       dispatch({
         type: GET_ALL_STUDEN_ATTENDANCE_FAIL,
-        payload: error.message ? error.message : error.Message,
+        payload: error?.response?.data?.Message
+          ? error?.response?.data?.Message
+          : error?.message,
       });
     }
   };
@@ -80,7 +83,9 @@ export const getBulkStudentAttendanceAction =
     } catch (error) {
       dispatch({
         type: GET_BULK_STUDENT_ATTENDANCE_FAIL,
-        payload: error.message ? error.message : error.Message,
+        payload: error?.response?.data?.Message
+          ? error?.response?.data?.Message
+          : error?.message,
       });
     }
   };
@@ -114,14 +119,16 @@ export const postBulkStudentAttendanceAction =
     } catch (error) {
       dispatch({
         type: POST_BULK_STUDENT_ATTENDANCE_FAIL,
-        payload: error.message ? error.message : error.Message,
+        payload: error?.response?.data?.Message
+          ? error?.response?.data?.Message
+          : error?.message,
       });
     }
   };
 
-
-  export const getGeneratedStudentAttendanceAction =
-  (year, program, classId, section, shift, event,workingDays,start,end) => async (dispatch) => {
+export const getGeneratedStudentAttendanceAction =
+  (year, program, classId, section, shift, event, workingDays, start, end) =>
+  async (dispatch) => {
     try {
       dispatch({ type: GET_GENERATED_STUDENT_ATTENDANCE_REQUEST });
 
@@ -137,8 +144,9 @@ export const postBulkStudentAttendanceAction =
     } catch (error) {
       dispatch({
         type: GET_GENERATED_STUDENT_ATTENDANCE_FAIL,
-        payload: error.message ? error.message : error.Message,
+        payload: error?.response?.data?.Message
+          ? error?.response?.data?.Message
+          : error?.message,
       });
     }
   };
-

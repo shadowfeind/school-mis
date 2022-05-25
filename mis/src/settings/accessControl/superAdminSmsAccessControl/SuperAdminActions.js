@@ -1,4 +1,3 @@
-
 import { API_URL, axiosInstance, tokenConfig } from "../../../constants";
 import {
   GET_ALL_SUPER_ADMIN_SMS_ACCESS_CONTROL_FAIL,
@@ -39,7 +38,9 @@ export const getAllSuperAdminSmsAccessControlAction =
     } catch (error) {
       dispatch({
         type: GET_ALL_SUPER_ADMIN_SMS_ACCESS_CONTROL_FAIL,
-        payload: error.message ? error.message : error.Message,
+        payload: error?.response?.data?.Message
+          ? error?.response?.data?.Message
+          : error?.message,
       });
     }
   };
@@ -62,7 +63,9 @@ export const getListSuperAdminSmsAccessControlAction =
     } catch (error) {
       dispatch({
         type: GET_LIST_SUPER_ADMIN_SMS_ACCESS_CONTROL_FAIL,
-        payload: error.message ? error.message : error.Message,
+        payload: error?.response?.data?.Message
+          ? error?.response?.data?.Message
+          : error?.message,
       });
     }
   };
@@ -88,8 +91,8 @@ export const getSingleCreateSuperAdminSmsAccessControlAction =
       dispatch({
         type: GET_SINGLE_CREATE_SUPER_ADMIN_SMS_ACCESS_CONTROL_FAIL,
         payload: error.response.data.Message
-        ? error.response.data.Message
-        : error.message,
+          ? error.response.data.Message
+          : error.message,
       });
     }
   };
@@ -114,7 +117,9 @@ export const getSingleEditSuperAdminSmsAccessControlAction =
     } catch (error) {
       dispatch({
         type: GET_SINGLE_EDIT_SUPER_ADMIN_SMS_ACCESS_CONTROL_FAIL,
-        payload: error.message ? error.message : error.Message,
+        payload: error?.response?.data?.Message
+          ? error?.response?.data?.Message
+          : error?.message,
       });
     }
   };
@@ -178,7 +183,9 @@ export const putSuperAdminSmsAccessControlAction =
     } catch (error) {
       dispatch({
         type: PUT_SUPER_ADMIN_SMS_ACCESS_CONTROL_FAIL,
-        payload: error.message ? error.message : error.Message,
+        payload: error?.response?.data?.Message
+          ? error?.response?.data?.Message
+          : error?.message,
       });
     }
   };

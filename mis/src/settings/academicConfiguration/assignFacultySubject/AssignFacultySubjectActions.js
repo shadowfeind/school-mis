@@ -1,4 +1,3 @@
-
 import { API_URL, axiosInstance, tokenConfig } from "../../../constants";
 import {
   ASSIGN_FACULTY_SUBJECT_EDIT_FAIL,
@@ -40,7 +39,9 @@ export const getALLAssignFacultySubject = () => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: GET_ALL_ASSIGN_FACULTY_SUBJECT_FAIL,
-      payload: error.message ? error.message : error.Message,
+      payload: error?.response?.data?.Message
+        ? error?.response?.data?.Message
+        : error?.message,
     });
   }
 };
@@ -62,7 +63,9 @@ export const getListAssignFacultySubject =
     } catch (error) {
       dispatch({
         type: GET_LIST_ASSIGN_FACULTY_SUBJECT_FAIL,
-        payload: error.message ? error.message : error.Message,
+        payload: error?.response?.data?.Message
+          ? error?.response?.data?.Message
+          : error?.message,
       });
     }
   };
@@ -84,7 +87,9 @@ export const getSingleAssignFacultySubjectAction =
     } catch (error) {
       dispatch({
         type: GET_SINGLE_ASSIGN_FACULTY_SUBJECT_FAIL,
-        payload: error.message ? error.message : error.Message,
+        payload: error?.response?.data?.Message
+          ? error?.response?.data?.Message
+          : error?.message,
       });
     }
   };
@@ -102,7 +107,9 @@ export const getAssignFacultySubjectOptionAction =
     } catch (error) {
       dispatch({
         type: ASSIGN_FACULTY_SUBJECT_GET_FAIL,
-        payload: error.message ? error.message : error.Message,
+        payload: error?.response?.data?.Message
+          ? error?.response?.data?.Message
+          : error?.message,
       });
     }
   };
@@ -135,7 +142,9 @@ export const AcademicFacultyCreateAction =
     } catch (error) {
       dispatch({
         type: ASSIGN_FACULTY_SUBJECT_POST_FAIL,
-        payload: error.message ? error.message : error.Message,
+        payload: error?.response?.data?.Message
+          ? error?.response?.data?.Message
+          : error?.message,
       });
     }
   };
@@ -154,7 +163,9 @@ export const getAssignFacultySubjectEditAction =
     } catch (error) {
       dispatch({
         type: ASSIGN_FACULTY_SUBJECT_EDIT_FAIL,
-        payload: error.message ? error.message : error.Message,
+        payload: error?.response?.data?.Message
+          ? error?.response?.data?.Message
+          : error?.message,
       });
     }
   };
@@ -184,7 +195,9 @@ export const academicFacultySubjectPostEditAction =
     } catch (error) {
       dispatch({
         type: ASSIGN_FACULTY_SUBJECT_EDIT_POST_FAIL,
-        payload: error.message ? error.message : error.Message,
+        payload: error?.response?.data?.Message
+          ? error?.response?.data?.Message
+          : error?.message,
       });
     }
   };
@@ -206,7 +219,9 @@ export const getAssignFacultySubjectGenerateAction =
     } catch (error) {
       dispatch({
         type: ASSIGN_FACULTY_SUBJECT_GENERATE_FAIL,
-        payload: error.message ? error.message : error.Message,
+        payload: error?.response?.data?.Message
+          ? error?.response?.data?.Message
+          : error?.message,
       });
     }
   };

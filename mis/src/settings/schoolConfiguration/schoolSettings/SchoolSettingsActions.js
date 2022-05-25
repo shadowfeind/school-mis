@@ -1,5 +1,4 @@
-
-import { API_URL, axiosInstance, tokenConfig} from "../../../constants";
+import { API_URL, axiosInstance, tokenConfig } from "../../../constants";
 import {
   GET_ALL_SCHOOL_SETTINGS_FAIL,
   GET_ALL_SCHOOL_SETTINGS_REQUEST,
@@ -28,7 +27,9 @@ export const getAllSchoolSettingsAction = () => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: GET_ALL_SCHOOL_SETTINGS_FAIL,
-      payload: error.message ? error.message : error.Message,
+      payload: error?.response?.data?.Message
+        ? error?.response?.data?.Message
+        : error?.message,
     });
   }
 };
@@ -49,7 +50,9 @@ export const schoolSettingCreateAction = (position) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: SCHOOL_SETTINGS_CREATE_FAIL,
-      payload: error.message ? error.message : error.Message,
+      payload: error?.response?.data?.Message
+        ? error?.response?.data?.Message
+        : error?.message,
     });
   }
 };
@@ -67,7 +70,9 @@ export const getSingleSchoolSettingAction = (id) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: GET_SINGLE_SCHOOL_SETTINGS_FAIL,
-      payload: error.message ? error.message : error.Message,
+      payload: error?.response?.data?.Message
+        ? error?.response?.data?.Message
+        : error?.message,
     });
   }
 };
@@ -95,7 +100,9 @@ export const updateSingleScholSettingAction =
     } catch (error) {
       dispatch({
         type: UPDATE_SINGLE_SCHOOL_SETTINGS_FAIL,
-        payload: error.message ? error.message : error.Message,
+        payload: error?.response?.data?.Message
+          ? error?.response?.data?.Message
+          : error?.message,
       });
     }
   };

@@ -68,10 +68,11 @@ const RoleForm = ({ role, setOpenPopup }) => {
           <InputControl
             name="RoleName"
             label="Role Name*"
+            disabled
             value={values.RoleName}
-            onFocus={e => {
-      e.target.select();
-    }}
+            onFocus={(e) => {
+              e.target.select();
+            }}
             onChange={handleInputChange}
             errors={errors.RoleName}
           />
@@ -87,10 +88,11 @@ const RoleForm = ({ role, setOpenPopup }) => {
           <InputControl
             name="Description"
             label="Description*"
+            disabled
             value={values.Description}
-            onFocus={e => {
-      e.target.select();
-    }}
+            onFocus={(e) => {
+              e.target.select();
+            }}
             onChange={handleInputChange}
             errors={errors.Description}
           />

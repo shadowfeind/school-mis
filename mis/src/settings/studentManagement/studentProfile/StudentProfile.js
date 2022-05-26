@@ -63,7 +63,7 @@ const tableHeader = [
   { id: "IDAcademicShift", label: "Shift" },
   { id: "MobileNumber", label: "Mobile" },
   { id: "LevelStatus", label: "Status" },
-  { id: "FileName", label: "Image Upload" },
+  { id: "FileName", label: "Image Upload", disableSorting: true },
   { id: "Action", label: "Action", disableSorting: true },
 ];
 

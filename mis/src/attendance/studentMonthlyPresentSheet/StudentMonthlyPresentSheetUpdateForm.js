@@ -43,6 +43,7 @@ const useStyles = makeStyles({
 const StudentMonthlyPresentSheetUpdateForm = ({ students, setOpenPopup }) => {
   const [stuAttendance, setStuAttendance] = useState([]);
   const [checked, setChecked] = useState(false);
+  const [errors, setErrors] = useState(false);
   const classes = useStyles();
   const dispatch = useDispatch();
 
@@ -53,6 +54,15 @@ const StudentMonthlyPresentSheetUpdateForm = ({ students, setOpenPopup }) => {
       ]);
     }
   }, [students]);
+
+  const validate = () => {
+    let temp = {};
+    temp.submit =
+      stuAttendance?.length <= 0 ? "Select Atleast one options" : "";
+
+    setErrors({ ...temp });
+    return Object.values(temp).every((x) => x === "");
+  };
 
   const handleAllSelectChange = (e) => {
     if (e.target.checked) {
@@ -78,14 +88,16 @@ const StudentMonthlyPresentSheetUpdateForm = ({ students, setOpenPopup }) => {
   };
 
   const formCheckSubmitHandler = () => {
-    dispatch(
-      postStudentPresentListAction(
-        stuAttendance,
-        students.searchFilterModel,
-        students.SchoolShortName,
-        students.SubjectName
-      )
-    );
+    if (validate()) {
+      dispatch(
+        postStudentPresentListAction(
+          stuAttendance,
+          students.searchFilterModel,
+          students.SchoolShortName,
+          students.SubjectName
+        )
+      );
+    }
   };
 
   return (
@@ -142,6 +154,23 @@ const StudentMonthlyPresentSheetUpdateForm = ({ students, setOpenPopup }) => {
           </TableBody>
         </Table>
       </TableContainer>
+      {stuAttendance?.length <= 0 && (
+        <div>
+          <h3 style={{ color: "red", textAlign: "center" }}>No Data</h3>
+        </div>
+      )}
+      {errors.submit && (
+        <div
+          style={{
+            textAlign: "center",
+            color: "red",
+            fontSize: "12px",
+            paddingTop: "8px",
+          }}
+        >
+          {errors.submit}
+        </div>
+      )}
       <div
         style={{
           display: "flex",

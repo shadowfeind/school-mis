@@ -142,7 +142,7 @@ const StudentAttendanceBulk = ({
                       }
                       inputProps={{
                         tabIndex: "1",
-                        style: { textAlign: "center" },
+                        style: { textAlign: "left" },
                       }}
                       onChange={(e) =>
                         onChangeHandler(
@@ -171,7 +171,7 @@ const StudentAttendanceBulk = ({
                       }
                       inputProps={{
                         tabIndex: "2",
-                        style: { textAlign: "center" },
+                        style: { textAlign: "left" },
                       }}
                       onChange={(e) =>
                         e.target.value >= 0 &&

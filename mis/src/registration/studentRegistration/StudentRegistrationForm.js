@@ -418,6 +418,7 @@ const StudentRegistrationForm = ({
                 ? getCreateSingleStudentData.ddlAcademicYear
                 : gender
             }
+            disabled={values?.IDAdmissionRegistration === 0 ? false : true}
             errors={errors.idAcademicYear}
           />
 
@@ -433,6 +434,7 @@ const StudentRegistrationForm = ({
                 ? getCreateSingleStudentData.ddlClass
                 : gender
             }
+            disabled={values?.IDAdmissionRegistration === 0 ? false : true}
             errors={errors.IDLevel}
           />
           <InputControl
@@ -468,6 +470,7 @@ const StudentRegistrationForm = ({
             label="Faculty Path*"
             value={values.idFacultyProgramLink}
             onChange={handleInputChange}
+            disabled={values?.IDAdmissionRegistration === 0 ? false : true}
             options={
               singleStudent
                 ? singleStudent.ddlFacultyProgramLink
@@ -481,6 +484,7 @@ const StudentRegistrationForm = ({
             label="Section*"
             value={values.Section}
             onChange={handleInputChange}
+            disabled={values?.IDAdmissionRegistration === 0 ? false : true}
             options={
               singleStudent
                 ? singleStudent.ddlSection

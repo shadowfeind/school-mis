@@ -14,16 +14,17 @@ const SelectControl = ({
   value,
   onChange,
   options,
+  ...other
 }) => {
   return (
     <FormControl
       style={{ minWidth: "80%" }}
       variant="outlined"
+      {...other}
       {...(errors && { error: true })}
     >
       <InputLabel>{label}</InputLabel>
       <Select label={label} name={name} value={value} onChange={onChange}>
-
         {options?.map((item) => (
           <MenuItem value={item.Key} key={item.Key}>
             {item.Value}

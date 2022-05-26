@@ -63,7 +63,7 @@ const test = [{ Key: "", Value: "" }];
 
 const tableHeader = [
   { id: "RollNo", label: "Roll No" },
-  { id: "FullName", label: "Full Name" },
+  { id: "FullName", label: "Student Name" },
   { id: "SubjectName", label: "Subject" },
   { id: "FullMark", label: "Full Marks(TH)" },
   { id: "FullMarkPractical", label: "Full Marks(PR)" },
@@ -559,7 +559,7 @@ const ExamMarkApproval = () => {
         <Toolbar>
           <InputControl
             className={classes.searchInput}
-            label="Search Exam Mark Entry/Update"
+            label="Search Exam Mark Entry/Update By Student Name"
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">

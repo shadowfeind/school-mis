@@ -233,7 +233,7 @@ const Role = () => {
             }}
             onChange={handleSearch}
           />
-          <Button
+          {/* <Button
             variant="contained"
             color="primary"
             startIcon={<AddIcon />}
@@ -241,7 +241,7 @@ const Role = () => {
             onClick={addHandler}
           >
             Add{" "}
-          </Button>
+          </Button> */}
         </Toolbar>
         {loading ? (
           <LoadingComp />

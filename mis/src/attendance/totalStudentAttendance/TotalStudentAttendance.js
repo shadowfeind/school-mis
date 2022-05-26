@@ -344,7 +344,7 @@ const TotalStudentAttendance = () => {
                   inputVariant="outlined"
                   format="dd-MM-yyyy"
                   name="StartDate"
-                  label="Start Year"
+                  label="Start Date"
                   value={startDate}
                   onChange={(e) => {
                     const newDate = new Date(e);
@@ -362,7 +362,7 @@ const TotalStudentAttendance = () => {
                   inputVariant="outlined"
                   format="dd-MM-yyyy"
                   name="EndDate"
-                  label="End Year"
+                  label="End Date"
                   value={endDate}
                   onChange={(e) => {
                     const newDate = new Date(e);

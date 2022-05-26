@@ -32,7 +32,9 @@ const ExamResultWithMarksModel = ({
           let studentAttendance = examReport.StudentAttendanceDay.filter(
             (s) => s.IDHREmployee === student.IDHREmployee
           );
-
+          let rank = examReport.dbModelRankLst?.filter(
+            (s) => s.Key === student.IDHREmployee
+          );
           let ecaDataFinal = [];
           // let ecaDataConcatContainer = [];
           examReport.ddlAcademicFacultyECASubModel?.forEach((x) => {
@@ -72,6 +74,7 @@ const ExamResultWithMarksModel = ({
               headerBanners={headerBanners}
               ecaDataWithName={ecaDataFinal}
               principleSignature={principleSignature}
+              rank={rank}
             />
           );
         })}

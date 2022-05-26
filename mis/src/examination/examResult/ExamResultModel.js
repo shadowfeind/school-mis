@@ -30,6 +30,10 @@ const ExamResultModel = ({
           (s) => s.IDHREmployee === student.IDHREmployee
         );
 
+        let rank = examReport.dbModelRankLst?.filter(
+          (s) => s.Key === student.IDHREmployee
+        );
+
         let ecaDataFinal = [];
         // let ecaDataConcatContainer = [];
         examReport.ddlAcademicFacultyECASubModel?.forEach((x) => {
@@ -80,6 +84,7 @@ const ExamResultModel = ({
             // ecaDataWithName={ecaDataWithName}
             ecaDataWithName={ecaDataFinal}
             principleSignature={principleSignature}
+            rank={rank}
           />
         );
       })}

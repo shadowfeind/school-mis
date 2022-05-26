@@ -22,6 +22,7 @@ const ExamResultDesign = ({
   headerBanners,
   ecaDataWithName,
   principleSignature,
+  rank,
 }) => {
   let trackSubject = [];
   let tdToRender = [];
@@ -302,21 +303,30 @@ const ExamResultDesign = ({
                     <td>
                       Working Days:{" "}
                       {studentAttendance.length > 0 &&
-                        studentAttendance[0].WorkingDay}
+                      studentAttendance[0]?.WorkingDay > 0
+                        ? studentAttendance[0]?.WorkingDay > 0
+                        : ""}
                     </td>
                   </tr>
                   <tr style={{ backgroundColor: "#fff" }}>
                     <td>
                       Present Days:{" "}
                       {studentAttendance.length > 0 &&
-                        studentAttendance[0].PresentDay}
+                      studentAttendance[0]?.PresentDay > 0
+                        ? studentAttendance[0]?.PresentDay
+                        : ""}
                     </td>
                     <td>
                       Absent Days:{" "}
                       {(studentAttendance.length > 0 &&
-                        studentAttendance[0].WorkingDay) -
-                        (studentAttendance.length > 0 &&
-                          studentAttendance[0].PresentDay)}
+                        studentAttendance[0]?.WorkingDay) -
+                        (studentAttendance?.length > 0 &&
+                          studentAttendance[0]?.PresentDay) >
+                      0
+                        ? studentAttendance[0]?.WorkingDay -
+                          (studentAttendance?.length > 0 &&
+                            studentAttendance[0]?.PresentDay)
+                        : ""}
                     </td>
                   </tr>
                 </thead>
@@ -328,14 +338,17 @@ const ExamResultDesign = ({
                   <tr>
                     <td colSpan={2}>Result:</td>
                     <td>Remarks:</td>
+                    <td>Rank:</td>
                   </tr>
                   <tr style={{ backgroundColor: "#fff" }}>
                     <td>
                       Grade:{" "}
                       {gpaToGrade(
-                        trackSubject.reduce((acc, cur) => {
-                          return acc + cur.totalMarks;
-                        }, 0) / trackSubject.length
+                        (
+                          trackSubject.reduce((acc, cur) => {
+                            return acc + cur.totalMarks;
+                          }, 0) / trackSubject.length
+                        ).toFixed(2)
                       )}
                     </td>
                     <td>
@@ -348,11 +361,14 @@ const ExamResultDesign = ({
                     </td>
                     <td>
                       {gpaToRemarks(
-                        trackSubject.reduce((acc, cur) => {
-                          return acc + cur.totalMarks;
-                        }, 0) / trackSubject.length
+                        (
+                          trackSubject.reduce((acc, cur) => {
+                            return acc + cur.totalMarks;
+                          }, 0) / trackSubject.length
+                        ).toFixed(2)
                       )}
                     </td>
+                    <td>{rank?.length > 0 && rank[0].Value}</td>
                   </tr>
                 </thead>
               </table>

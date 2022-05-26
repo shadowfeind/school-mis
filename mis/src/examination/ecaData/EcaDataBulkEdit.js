@@ -16,7 +16,6 @@ import { withStyles, makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import { useDispatch } from "react-redux";
 import { postBulkEditEcaAction } from "./EcaDataActions";
-import { validate } from "webpack/node_modules/schema-utils";
 
 const StyledTableCell = withStyles((theme) => ({
   head: {

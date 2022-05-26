@@ -16,7 +16,6 @@ import { withStyles, makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import { useDispatch } from "react-redux";
 
-
 const StyledTableCell = withStyles((theme) => ({
   head: {
     backgroundColor: "#253053",
@@ -36,15 +35,11 @@ const StyledTableRow = withStyles((theme) => ({
 }))(TableRow);
 const useStyles = makeStyles({
   table: {
-    minWidth: 700,
+    minWidth: 300,
   },
 });
 
-const EcaDataTableCollapse = ({
-  bulkDatas,
-  academicSubjects,
-  ecas,
-}) => {
+const EcaDataTableCollapse = ({ bulkDatas, academicSubjects, ecas }) => {
   const [bulk, setBulk] = useState([]);
   const [selectSubject, setSelectSubject] = useState([]);
   const [ecaData, setEcaData] = useState([]);
@@ -143,7 +138,9 @@ const EcaDataTableCollapse = ({
 
       bulkDatas?.forEach((d) => {
         console.log("eca", ecas);
-        let currentUser = ecas?.filter((x) => x.IDHREmployee === d.IDHREmployee);
+        let currentUser = ecas?.filter(
+          (x) => x.IDHREmployee === d.IDHREmployee
+        );
         console.log("currentUser", currentUser);
         let test = academicSubjects?.map((s) => {
           let userEca = currentUser?.find(
@@ -187,7 +184,7 @@ const EcaDataTableCollapse = ({
                       (s, i) =>
                         s.IDHREmployee === subject.IDHREmployee && (
                           <StyledTableCell align="left" key={i}>
-                         {s.ECAValue}
+                            {s.ECAValue}
                           </StyledTableCell>
                         )
                     )}

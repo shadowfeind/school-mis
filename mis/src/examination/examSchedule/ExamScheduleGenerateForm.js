@@ -182,6 +182,7 @@ const ExamScheduleGenerateForm = ({
           <Grid container>
             <Grid item xs={4}>
               <SelectControl
+                disabled
                 name="academicYear"
                 label="Academic Year"
                 value={year}
@@ -192,6 +193,7 @@ const ExamScheduleGenerateForm = ({
             </Grid>
             <Grid item xs={4}>
               <SelectControl
+                disabled
                 name="academicYearNext"
                 label="classes"
                 value={classId}

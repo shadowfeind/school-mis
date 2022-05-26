@@ -87,7 +87,6 @@ const AcademicYearForm = ({ academicYear, selected, setOpenPopup }) => {
       ? "Must be less than 11 characters"
       : "";
 
-  
     temp.AcademicYear = !fieldValues.AcademicYear
       ? "This feild is required"
       : !fieldValues.AcademicYear.trim()
@@ -105,17 +104,15 @@ const AcademicYearForm = ({ academicYear, selected, setOpenPopup }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    
-      if (values.IDAcademicYear === 0) {
-        if (validate()) {
+
+    if (values.IDAcademicYear === 0) {
+      if (validate()) {
         dispatch(AcademicYearCreateAction(values, checkboxState));
-        
-        }
-      } else {
-        if(validateEdit()){
+      }
+    } else {
+      if (validateEdit()) {
         dispatch(updateSingleAcademicYearAction(values, checkboxState));
-        
-        }
+      }
     }
   };
 
@@ -141,7 +138,11 @@ const AcademicYearForm = ({ academicYear, selected, setOpenPopup }) => {
   }
 
   const handleChangeCheckbox = (e) => {
-    setCheckboxState([...checkboxState, e.target.value]);
+    if (e.target.checked) {
+      setCheckboxState([...checkboxState, e.target.value]);
+    } else {
+      setCheckboxState([]);
+    }
   };
 
   useEffect(() => {

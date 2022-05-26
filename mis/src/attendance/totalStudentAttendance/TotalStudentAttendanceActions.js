@@ -1,5 +1,4 @@
-
-import { API_URL, axiosInstance, tokenConfig} from "../../constants";
+import { API_URL, axiosInstance, tokenConfig } from "../../constants";
 import {
   GET_ALL_TOTAL_STUDENT_ATTENDANCE_FAIL,
   GET_ALL_TOTAL_STUDENT_ATTENDANCE_REQUEST,
@@ -25,7 +24,9 @@ export const getAllTotalStudentAttendanceAction = () => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: GET_ALL_TOTAL_STUDENT_ATTENDANCE_FAIL,
-      payload: error.message ? error.message : error.Message,
+      payload: error?.response?.data?.Message
+        ? error?.response?.data?.Message
+        : error?.message,
     });
   }
 };
@@ -48,7 +49,9 @@ export const getListTotalStudentAttendanceAction =
     } catch (error) {
       dispatch({
         type: GET_LIST_TOTAL_STUDENT_ATTENDANCE_FAIL,
-        payload: error.message ? error.message : error.Message,
+        payload: error?.response?.data?.Message
+          ? error?.response?.data?.Message
+          : error?.message,
       });
     }
   };

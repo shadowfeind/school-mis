@@ -1,5 +1,10 @@
 import axios from "axios";
-import { API_URL, axiosInstance, tokenConfig, tokenHeader } from "../../constants";
+import {
+  API_URL,
+  axiosInstance,
+  tokenConfig,
+  tokenHeader,
+} from "../../constants";
 import {
   GET_ALL_CLASS_NOTIFICATION_FAIL,
   GET_ALL_CLASS_NOTIFICATION_REQUEST,
@@ -28,7 +33,9 @@ export const getAllClassNotificationAction = () => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: GET_ALL_CLASS_NOTIFICATION_FAIL,
-      payload: error.message ? error.message : error.Message,
+      payload: error?.response?.data?.Message
+        ? error?.response?.data?.Message
+        : error?.message,
     });
   }
 };
@@ -47,7 +54,9 @@ export const getListClassNotificationAction =
     } catch (error) {
       dispatch({
         type: GET_LIST_CLASS_NOTIFICATION_FAIL,
-        payload: error.message ? error.message : error.Message,
+        payload: error?.response?.data?.Message
+          ? error?.response?.data?.Message
+          : error?.message,
       });
     }
   };
@@ -66,7 +75,9 @@ export const getBulkClassNotificationAction =
     } catch (error) {
       dispatch({
         type: GET_BULK_CLASS_NOTIFICATION_FAIL,
-        payload: error.message ? error.message : error.Message,
+        payload: error?.response?.data?.Message
+          ? error?.response?.data?.Message
+          : error?.message,
       });
     }
   };
@@ -114,7 +125,9 @@ export const postClassNotificationAction =
     } catch (error) {
       dispatch({
         type: POST_CLASS_NOTIFICATION_FAIL,
-        payload: error.message ? error.message : error.Message,
+        payload: error?.response?.data?.Message
+          ? error?.response?.data?.Message
+          : error?.message,
       });
     }
   };

@@ -1,5 +1,4 @@
-
-import { API_URL, axiosInstance, tokenConfig} from "../../../constants";
+import { API_URL, axiosInstance, tokenConfig } from "../../../constants";
 import {
   DELETE_EMPLOYEE_TYPE_FAIL,
   DELETE_EMPLOYEE_TYPE_REQUEST,
@@ -31,7 +30,9 @@ export const getAllEmployeeTypeAction = () => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: GET_ALL_EMPLOYEE_TYPE_FAIL,
-      payload: error.message ? error.message : error.Message,
+      payload: error?.response?.data?.Message
+        ? error?.response?.data?.Message
+        : error?.message,
     });
   }
 };
@@ -58,7 +59,9 @@ export const employeeTypeCreateAction = (employeeType) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: EMPLOYEE_TYPE_CREATE_FAIL,
-      payload: error.message ? error.message : error.Message,
+      payload: error?.response?.data?.Message
+        ? error?.response?.data?.Message
+        : error?.message,
     });
   }
 };
@@ -76,7 +79,9 @@ export const getSingleEmployeeTypeAction = (id) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: GET_SINGLE_EMPLOYEE_TYPE_FAIL,
-      payload: error.message ? error.message : error.Message,
+      payload: error?.response?.data?.Message
+        ? error?.response?.data?.Message
+        : error?.message,
     });
   }
 };
@@ -104,29 +109,32 @@ export const updateSingleEmployeeTypeAction =
     } catch (error) {
       dispatch({
         type: UPDATE_SINGLE_EMPLOYEE_TYPE_FAIL,
-        payload: error.message ? error.message : error.Message,
+        payload: error?.response?.data?.Message
+          ? error?.response?.data?.Message
+          : error?.message,
       });
     }
   };
 
-  export const deleteEmployeeTypeAction =
-  (employeeType) => async (dispatch) => {
-    try {
-      dispatch({ type: DELETE_EMPLOYEE_TYPE_REQUEST });
+export const deleteEmployeeTypeAction = (employeeType) => async (dispatch) => {
+  try {
+    dispatch({ type: DELETE_EMPLOYEE_TYPE_REQUEST });
 
-      const jsonData = JSON.stringify({ hrEmployeeTypeModel: employeeType });
+    const jsonData = JSON.stringify({ hrEmployeeTypeModel: employeeType });
 
-      await axiosInstance.post(
-        `${API_URL}/api/HREmployeeType/DeleteEmployeeType`,
-        jsonData,
-        tokenConfig()
-      );
+    await axiosInstance.post(
+      `${API_URL}/api/HREmployeeType/DeleteEmployeeType`,
+      jsonData,
+      tokenConfig()
+    );
 
-      dispatch({ type: DELETE_EMPLOYEE_TYPE_SUCCESS });
-    } catch (error) {
-      dispatch({
-        type: DELETE_EMPLOYEE_TYPE_FAIL,
-        payload: error.message ? error.message : error.Message,
-      });
-    }
-  };
+    dispatch({ type: DELETE_EMPLOYEE_TYPE_SUCCESS });
+  } catch (error) {
+    dispatch({
+      type: DELETE_EMPLOYEE_TYPE_FAIL,
+      payload: error?.response?.data?.Message
+        ? error?.response?.data?.Message
+        : error?.message,
+    });
+  }
+};

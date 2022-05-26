@@ -1,4 +1,3 @@
-
 import { API_URL, axiosInstance, tokenConfig } from "../../../constants";
 import {
   GET_ALL_POSITION_FAIL,
@@ -32,7 +31,9 @@ export const getAllPositionAction = () => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: GET_ALL_POSITION_FAIL,
-      payload: error.message ? error.message : error.Message,
+      payload: error?.response?.data?.Message
+        ? error?.response?.data?.Message
+        : error?.message,
     });
   }
 };
@@ -59,7 +60,9 @@ export const positionCreateAction = (position) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: POSITION_CREATE_FAIL,
-      payload: error.message ? error.message : error.Message,
+      payload: error?.response?.data?.Message
+        ? error?.response?.data?.Message
+        : error?.message,
     });
   }
 };
@@ -77,7 +80,9 @@ export const getSinglePositionAction = (id) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: GET_SINGLE_POSITION_FAIL,
-      payload: error.message ? error.message : error.Message,
+      payload: error?.response?.data?.Message
+        ? error?.response?.data?.Message
+        : error?.message,
     });
   }
 };
@@ -104,7 +109,9 @@ export const updateSinglePositionAction = (position) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: UPDATE_SINGLE_POSITION_FAIL,
-      payload: error.message ? error.message : error.Message,
+      payload: error?.response?.data?.Message
+        ? error?.response?.data?.Message
+        : error?.message,
     });
   }
 };
@@ -114,7 +121,6 @@ export const deletePositionAction = (position) => async (dispatch) => {
     dispatch({ type: DELETE_POSITION_REQUEST });
 
     const jsonData = JSON.stringify({ dbModel: position });
-
 
     await axiosInstance.post(
       `${API_URL}/api/HRPosition/DeletePosition`,
@@ -126,7 +132,9 @@ export const deletePositionAction = (position) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: DELETE_POSITION_FAIL,
-      payload: error.message ? error.message : error.Message,
+      payload: error?.response?.data?.Message
+        ? error?.response?.data?.Message
+        : error?.message,
     });
   }
 };

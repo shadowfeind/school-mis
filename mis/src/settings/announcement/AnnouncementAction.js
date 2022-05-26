@@ -1,5 +1,10 @@
 import axios from "axios";
-import { API_URL, axiosInstance, tokenConfig, tokenHeader } from "../../constants";
+import {
+  API_URL,
+  axiosInstance,
+  tokenConfig,
+  tokenHeader,
+} from "../../constants";
 import {
   GET_ALL_ANNOUNCEMENT_REQUEST,
   GET_ALL_ANNOUNCEMENT_SUCCESS,
@@ -35,7 +40,9 @@ export const getAllAnnouncementAction = () => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: GET_ALL_ANNOUNCEMENT_FAIL,
-      payload: error.message ? error.message : error.Message,
+      payload: error?.response?.data?.Message
+        ? error?.response?.data?.Message
+        : error?.message,
     });
   }
 };
@@ -53,7 +60,9 @@ export const getListAnnouncementAction = (date) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: GET_LIST_ANNOUNCEMENT_FAIL,
-      payload: error.message ? error.message : error.Message,
+      payload: error?.response?.data?.Message
+        ? error?.response?.data?.Message
+        : error?.message,
     });
   }
 };
@@ -71,7 +80,9 @@ export const getFCMForAnnouncementAction = () => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: ANNOUNCEMENT_FCM_FAIL,
-      payload: error.message ? error.message : error.Message,
+      payload: error?.response?.data?.Message
+        ? error?.response?.data?.Message
+        : error?.message,
     });
   }
 };
@@ -110,7 +121,9 @@ export const announcementCreateAction =
     } catch (error) {
       dispatch({
         type: ANNOUNCEMENT_CREATE_FAIL,
-        payload: error.message ? error.message : error.Message,
+        payload: error?.response?.data?.Message
+          ? error?.response?.data?.Message
+          : error?.message,
       });
     }
   };
@@ -131,7 +144,9 @@ export const getSingleAnnouncementAction = (id) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: GET_SINGLE_ANNOUNCEMENT_FAIL,
-      payload: error.message ? error.message : error.Message,
+      payload: error?.response?.data?.Message
+        ? error?.response?.data?.Message
+        : error?.message,
     });
   }
 };
@@ -156,7 +171,9 @@ export const updateSingleAnnouncementAction =
     } catch (error) {
       dispatch({
         type: UPDATE_SINGLE_ANNOUNCEMENT_FAIL,
-        payload: error.message ? error.message : error.Message,
+        payload: error?.response?.data?.Message
+          ? error?.response?.data?.Message
+          : error?.message,
       });
     }
   };

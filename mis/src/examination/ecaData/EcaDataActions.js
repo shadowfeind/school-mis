@@ -29,7 +29,9 @@ export const getAllEcaDataAction = () => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: GET_ALL_ECA_DATA_FAIL,
-      payload: error.message ? error.message : error.Message,
+      payload: error?.response?.data?.Message
+        ? error?.response?.data?.Message
+        : error?.message,
     });
   }
 };
@@ -51,7 +53,9 @@ export const getBulkEditEcaDataAction =
     } catch (error) {
       dispatch({
         type: GET_BULK_EDIT_ECA_DATA_FAIL,
-        payload: error.message ? error.message : error.Message,
+        payload: error?.response?.data?.Message
+          ? error?.response?.data?.Message
+          : error?.message,
       });
     }
   };
@@ -73,7 +77,9 @@ export const getListEcaDataAction =
     } catch (error) {
       dispatch({
         type: GET_LIST_ECA_DATA_FAIL,
-        payload: error.message ? error.message : error.Message,
+        payload: error?.response?.data?.Message
+          ? error?.response?.data?.Message
+          : error?.message,
       });
     }
   };
@@ -88,9 +94,8 @@ export const postBulkEditEcaAction =
       let newEcaData = [...ecaData];
       newEcaData?.forEach((x) => delete x.$id);
 
-      // debugger;
       let finalEca = [...newEcaData];
-      // debugger;
+
       // console.log("newEcaData", newEcaData);
 
       const jsonData = JSON.stringify({
@@ -100,20 +105,22 @@ export const postBulkEditEcaAction =
       });
 
       const newJson = jsonData;
-      debugger;
+
       console.log("this is the one", newJson);
-      debugger;
+
       await axiosInstance.post(
         `${API_URL}/api/ECAData/PostECAData`,
         newJson,
         tokenConfig()
       );
-      debugger;
+
       dispatch({ type: POST_BULK_ECA_DATA_SUCCESS });
     } catch (error) {
       dispatch({
         type: POST_BULK_ECA_DATA_FAIL,
-        payload: error.message ? error.message : error.Message,
+        payload: error?.response?.data?.Message
+          ? error?.response?.data?.Message
+          : error?.message,
       });
     }
   };

@@ -1,4 +1,3 @@
-
 import { API_URL, axiosInstance, tokenConfig } from "../../constants";
 import {
   CREATE_SINGLE_ADMISSION_CONFIG_FAIL,
@@ -37,7 +36,9 @@ export const getAdmissionConfigInitialDataAction = () => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: GET_ADMISSION_CONFIG_INITIAL_DATA_FAIL,
-      payload: error.message ? error.message : error.Message,
+      payload: error?.response?.data?.Message
+        ? error?.response?.data?.Message
+        : error?.message,
     });
   }
 };
@@ -59,7 +60,9 @@ export const getAdmissionConfigListDataAction =
     } catch (error) {
       dispatch({
         type: GET_ADMISSION_CONFIG_LIST_DATA_FAIL,
-        payload: error.message ? error.message : error.Message,
+        payload: error?.response?.data?.Message
+          ? error?.response?.data?.Message
+          : error?.message,
       });
     }
   };
@@ -81,7 +84,9 @@ export const getSingleAdmissionConfigAction =
     } catch (error) {
       dispatch({
         type: GET_SINGLE_ADMISSION_CONFIG_FAIL,
-        payload: error.message ? error.message : error.Message,
+        payload: error?.response?.data?.Message
+          ? error?.response?.data?.Message
+          : error?.message,
       });
     }
   };
@@ -111,7 +116,9 @@ export const updateSingleAdmissionConfigAction =
     } catch (error) {
       dispatch({
         type: UPDATE_SINGLE_ADMISSION_CONFIG_FAIL,
-        payload: error.message ? error.message : error.Message,
+        payload: error?.response?.data?.Message
+          ? error?.response?.data?.Message
+          : error?.message,
       });
     }
   };
@@ -133,7 +140,9 @@ export const getCreateSingleAdmissionConfigAction =
     } catch (error) {
       dispatch({
         type: GET_CREATE_SINGLE_ADMISSION_CONFIG_FAIL,
-        payload: error.message ? error.message : error.Message,
+        payload: error?.response?.data?.Message
+          ? error?.response?.data?.Message
+          : error?.message,
       });
     }
   };
@@ -166,7 +175,9 @@ export const createSingleAdmissionConfigAction =
     } catch (error) {
       dispatch({
         type: CREATE_SINGLE_ADMISSION_CONFIG_FAIL,
-        payload: error.message ? error.message : error.Message,
+        payload: error?.response?.data?.Message
+          ? error?.response?.data?.Message
+          : error?.message,
       });
     }
   };

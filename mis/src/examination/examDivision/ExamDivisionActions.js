@@ -1,4 +1,3 @@
-
 import { API_URL, axiosInstance, tokenConfig } from "../../constants";
 
 import {
@@ -35,7 +34,9 @@ export const getAllExamDivisionAction = () => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: GET_ALL_EXAM_DIVISION_FAIL,
-      payload: error.message ? error.message : error.Message,
+      payload: error?.response?.data?.Message
+        ? error?.response?.data?.Message
+        : error?.message,
     });
   }
 };
@@ -53,7 +54,9 @@ export const getSingleExamDivisionAction = (program) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: GET_SINGLE_EXAM_DIVISION_FAIL,
-      payload: error.message ? error.message : error.Message,
+      payload: error?.response?.data?.Message
+        ? error?.response?.data?.Message
+        : error?.message,
     });
   }
 };
@@ -80,13 +83,15 @@ export const createExamDivisionAction = (examDivision) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: CREATE_EXAM_DIVISION_FAIL,
-      payload: error.message ? error.message : error.Message,
+      payload: error?.response?.data?.Message
+        ? error?.response?.data?.Message
+        : error?.message,
     });
   }
 };
 
 export const getSingleExamDivisionEditAction =
-  (id,program) => async (dispatch) => {
+  (id, program) => async (dispatch) => {
     try {
       dispatch({ type: GET_SINGLE_EXAM_DIVISION_EDIT_REQUEST });
 
@@ -99,7 +104,9 @@ export const getSingleExamDivisionEditAction =
     } catch (error) {
       dispatch({
         type: GET_SINGLE_EXAM_DIVISION_EDIT_FAIL,
-        payload: error.message ? error.message : error.Message,
+        payload: error?.response?.data?.Message
+          ? error?.response?.data?.Message
+          : error?.message,
       });
     }
   };
@@ -127,7 +134,9 @@ export const updateSingleExamDivisionAction =
     } catch (error) {
       dispatch({
         type: UPDATE_SINGLE_EXAM_DIVISION_FAIL,
-        payload: error.message ? error.message : error.Message,
+        payload: error?.response?.data?.Message
+          ? error?.response?.data?.Message
+          : error?.message,
       });
     }
   };

@@ -1,4 +1,3 @@
-
 import { API_URL, axiosInstance, tokenConfig } from "../../../constants";
 import {
   GET_ALL_SMS_ACCESS_CONTROL_FAIL,
@@ -38,7 +37,9 @@ export const getAllSmsAccessControlAction = () => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: GET_ALL_SMS_ACCESS_CONTROL_FAIL,
-      payload: error.message ? error.message : error.Message,
+      payload: error?.response?.data?.Message
+        ? error?.response?.data?.Message
+        : error?.message,
     });
   }
 };
@@ -60,55 +61,62 @@ export const getListSmsAccessControlAction = (company) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: GET_LIST_SMS_ACCESS_CONTROL_FAIL,
-      payload: error.message ? error.message : error.Message,
+      payload: error?.response?.data?.Message
+        ? error?.response?.data?.Message
+        : error?.message,
     });
   }
 };
 
-export const getSingleCreateSmsAccessControlAction = (company) => async (dispatch) => {
-  try {
-    dispatch({ type: GET_SINGLE_TO_CREATE_SMS_ACCESS_CONTROL_REQUEST });
+export const getSingleCreateSmsAccessControlAction =
+  (company) => async (dispatch) => {
+    try {
+      dispatch({ type: GET_SINGLE_TO_CREATE_SMS_ACCESS_CONTROL_REQUEST });
 
-    const { data } = await axiosInstance.get(
-      `${API_URL}/api/SMSAccessControl/GetSingleToCreateSMSAccessControl?company=${company}&searchKey=1
+      const { data } = await axiosInstance.get(
+        `${API_URL}/api/SMSAccessControl/GetSingleToCreateSMSAccessControl?company=${company}&searchKey=1
               `,
-      tokenConfig()
-    );
+        tokenConfig()
+      );
 
-    dispatch({
-      type: GET_SINGLE_TO_CREATE_SMS_ACCESS_CONTROL_SUCCESS,
-      payload: data,
-    });
-  } catch (error) {
-    dispatch({
-      type: GET_SINGLE_TO_CREATE_SMS_ACCESS_CONTROL_FAIL,
-      payload: error.message ? error.message : error.Message,
-    });
-  }
-};
+      dispatch({
+        type: GET_SINGLE_TO_CREATE_SMS_ACCESS_CONTROL_SUCCESS,
+        payload: data,
+      });
+    } catch (error) {
+      dispatch({
+        type: GET_SINGLE_TO_CREATE_SMS_ACCESS_CONTROL_FAIL,
+        payload: error?.response?.data?.Message
+          ? error?.response?.data?.Message
+          : error?.message,
+      });
+    }
+  };
 
-export const getSingleEditSmsAccessControlAction = (id,company) => async (dispatch) => {
-  try {
-    dispatch({ type: GET_SINGLE_TO_EDIT_SMS_ACCESS_CONTROL_REQUEST });
+export const getSingleEditSmsAccessControlAction =
+  (id, company) => async (dispatch) => {
+    try {
+      dispatch({ type: GET_SINGLE_TO_EDIT_SMS_ACCESS_CONTROL_REQUEST });
 
-    const { data } = await axiosInstance.get(
-      `${API_URL}/api/SMSAccessControl/GetSingleToEditSMSAccessControl/${id}?company=${company}&searchKey=1
+      const { data } = await axiosInstance.get(
+        `${API_URL}/api/SMSAccessControl/GetSingleToEditSMSAccessControl/${id}?company=${company}&searchKey=1
               `,
-      tokenConfig()
-    );
+        tokenConfig()
+      );
 
-    dispatch({
-      type: GET_SINGLE_TO_EDIT_SMS_ACCESS_CONTROL_SUCCESS,
-      payload: data,
-    });
-  } catch (error) {
-    dispatch({
-      type: GET_SINGLE_TO_EDIT_SMS_ACCESS_CONTROL_FAIL,
-      payload: error.message ? error.message : error.Message,
-    });
-  }
-};
-
+      dispatch({
+        type: GET_SINGLE_TO_EDIT_SMS_ACCESS_CONTROL_SUCCESS,
+        payload: data,
+      });
+    } catch (error) {
+      dispatch({
+        type: GET_SINGLE_TO_EDIT_SMS_ACCESS_CONTROL_FAIL,
+        payload: error?.response?.data?.Message
+          ? error?.response?.data?.Message
+          : error?.message,
+      });
+    }
+  };
 
 export const postSmsAccessControlAction =
   (accessControl) => async (dispatch) => {
@@ -137,13 +145,13 @@ export const postSmsAccessControlAction =
       dispatch({
         type: POST_SMS_ACCESS_CONTROL_FAIL,
         payload: error.response.data.Message
-        ? error.response.data.Message
-        : error.message,
+          ? error.response.data.Message
+          : error.message,
       });
     }
   };
 
-  export const putSmsAccessControlAction =
+export const putSmsAccessControlAction =
   (accessControl) => async (dispatch) => {
     try {
       dispatch({ type: PUT_SMS_ACCESS_CONTROL_REQUEST });
@@ -169,8 +177,9 @@ export const postSmsAccessControlAction =
     } catch (error) {
       dispatch({
         type: PUT_SMS_ACCESS_CONTROL_FAIL,
-        payload: error.message ? error.message : error.Message,
+        payload: error?.response?.data?.Message
+          ? error?.response?.data?.Message
+          : error?.message,
       });
     }
   };
-

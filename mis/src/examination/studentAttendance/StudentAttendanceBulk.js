@@ -85,7 +85,8 @@ const StudentAttendanceBulk = ({
 
   const validate = () => {
     let temp = { ...errors };
-    temp.workingDays = workingDays > 0 ? "" : "This feild is required";
+    temp.workingDays = workingDays?.length > 0 ? "" : "This feild is required";
+    temp.submit = bulk?.length <= 0 ? "Cannot Submit When Data is Empty" : "";
 
     setErrors({ ...temp });
     return Object.values(temp).every((x) => x === "");
@@ -105,6 +106,7 @@ const StudentAttendanceBulk = ({
           name="WorkingDayTotal"
           value={workingDays}
           onChange={(e) => setWorkingDays(e.target.value)}
+          errors={errors.workingDays}
         />
       </div>
       <TableContainer component={Paper}>
@@ -140,7 +142,7 @@ const StudentAttendanceBulk = ({
                       }
                       inputProps={{
                         tabIndex: "1",
-                        style: { textAlign: "center" },
+                        style: { textAlign: "left" },
                       }}
                       onChange={(e) =>
                         onChangeHandler(
@@ -169,7 +171,7 @@ const StudentAttendanceBulk = ({
                       }
                       inputProps={{
                         tabIndex: "2",
-                        style: { textAlign: "center" },
+                        style: { textAlign: "left" },
                       }}
                       onChange={(e) =>
                         e.target.value >= 0 &&
@@ -187,6 +189,23 @@ const StudentAttendanceBulk = ({
           </TableBody>
         </Table>
       </TableContainer>
+      {bulk?.length <= 0 && (
+        <div>
+          <h3 style={{ color: "red", textAlign: "center" }}>No Data</h3>
+        </div>
+      )}
+      {errors.submit && (
+        <div
+          style={{
+            textAlign: "center",
+            color: "red",
+            fontSize: "12px",
+            paddingTop: "8px",
+          }}
+        >
+          {errors.submit}
+        </div>
+      )}
       <div
         style={{
           display: "flex",

@@ -1,4 +1,3 @@
-
 import { API_URL, axiosInstance, tokenConfig } from "../../../constants";
 import {
   GET_ALL_PG_CLASS_SCHEDULE_FAIL,
@@ -31,7 +30,9 @@ export const getAllPgClassScheuleAction = () => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: GET_ALL_PG_CLASS_SCHEDULE_FAIL,
-      payload: error.message ? error.message : error.Message,
+      payload: error?.response?.data?.Message
+        ? error?.response?.data?.Message
+        : error?.message,
     });
   }
 };
@@ -52,7 +53,9 @@ export const getListClassScheuleAction = (id) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: GET_LIST_CLASS_SCHEDULE_FAIL,
-      payload: error.message ? error.message : error.Message,
+      payload: error?.response?.data?.Message
+        ? error?.response?.data?.Message
+        : error?.message,
     });
   }
 };
@@ -73,7 +76,9 @@ export const getEditClassScheuleAction = (id, company) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: GET_EDIT_CLASS_SCHEDULE_FAIL,
-      payload: error.message ? error.message : error.Message,
+      payload: error?.response?.data?.Message
+        ? error?.response?.data?.Message
+        : error?.message,
     });
   }
 };
@@ -114,7 +119,9 @@ export const putClassScheduleAction =
     } catch (error) {
       dispatch({
         type: PUT_CLASS_SCHEDULE_FAIL,
-        payload: error.message ? error.message : error.Message,
+        payload: error?.response?.data?.Message
+          ? error?.response?.data?.Message
+          : error?.message,
       });
     }
   };

@@ -48,8 +48,17 @@ const ExamMarkApprovalBulk = ({
   setOpenPopup,
 }) => {
   const [bulk, setBulk] = useState([]);
+  const [errors, setErrors] = useState({});
   const classes = useStyles();
   const dispatch = useDispatch();
+
+  const validate = () => {
+    let temp = {};
+    temp.submit = bulk?.length <= 0 ? "Cannot Submit When Data is Empty!" : "";
+
+    setErrors({ ...temp });
+    return Object.values(temp).every((x) => x === "");
+  };
 
   const onChangeHandler = (subject, value, name, index) => {
     console.log("subject", subject);
@@ -85,7 +94,9 @@ const ExamMarkApprovalBulk = ({
   };
 
   const formCheckSubmitHandler = () => {
-    dispatch(postBulkExamMarkApprovalAction(bulk, search));
+    if (validate()) {
+      dispatch(postBulkExamMarkApprovalAction(bulk, search));
+    }
   };
 
   useEffect(() => {
@@ -249,6 +260,23 @@ const ExamMarkApprovalBulk = ({
           </TableBody>
         </Table>
       </TableContainer>
+      {bulk?.length <= 0 && (
+        <div>
+          <h3 style={{ color: "red", textAlign: "center" }}>No Data</h3>
+        </div>
+      )}
+      {errors.submit && (
+        <div
+          style={{
+            textAlign: "center",
+            color: "red",
+            fontSize: "12px",
+            paddingTop: "8px",
+          }}
+        >
+          {errors.submit}
+        </div>
+      )}
       <div
         style={{
           display: "flex",

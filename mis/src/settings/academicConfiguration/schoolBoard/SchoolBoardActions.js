@@ -1,4 +1,3 @@
-
 import { API_URL, axiosInstance, tokenConfig } from "../../../constants";
 import {
   GET_ALL_SCHOOL_BOARD_FAIL,
@@ -28,7 +27,9 @@ export const getAllSchoolBoardAction = () => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: GET_ALL_SCHOOL_BOARD_FAIL,
-      payload: error.message ? error.message : error.Message,
+      payload: error?.response?.data?.Message
+        ? error?.response?.data?.Message
+        : error?.message,
     });
   }
 };
@@ -55,7 +56,9 @@ export const SchoolBoardCreateAction = (schoolBoard) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: SCHOOL_BOARD_CREATE_FAIL,
-      payload: error.message ? error.message : error.Message,
+      payload: error?.response?.data?.Message
+        ? error?.response?.data?.Message
+        : error?.message,
     });
   }
 };
@@ -73,7 +76,9 @@ export const getSingleSchoolBoardAction = (id) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: GET_SINGLE_SCHOOL_BOARD_FAIL,
-      payload: error.message ? error.message : error.Message,
+      payload: error?.response?.data?.Message
+        ? error?.response?.data?.Message
+        : error?.message,
     });
   }
 };
@@ -101,7 +106,9 @@ export const updateSingleSchoolBoardAction =
     } catch (error) {
       dispatch({
         type: UPDATE_SINGLE_SCHOOL_BOARD_FAIL,
-        payload: error.message ? error.message : error.Message,
+        payload: error?.response?.data?.Message
+          ? error?.response?.data?.Message
+          : error?.message,
       });
     }
   };

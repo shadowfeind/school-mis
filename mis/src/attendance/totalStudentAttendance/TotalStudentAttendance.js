@@ -211,7 +211,7 @@ const TotalStudentAttendance = () => {
   useEffect(() => {
     if (listTotalStudentAttendanceData) {
       setTableData(
-        listTotalStudentAttendanceData.dbStudentClassAttendanceModelLst
+        listTotalStudentAttendanceData.dbModelTotalStudentAttendanceCountLst
       );
     }
   }, [listTotalStudentAttendanceData]);

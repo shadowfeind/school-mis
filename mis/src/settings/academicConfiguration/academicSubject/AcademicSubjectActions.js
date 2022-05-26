@@ -1,4 +1,3 @@
-
 import { API_URL, axiosInstance, tokenConfig } from "../../../constants";
 import {
   GET_All_ACADEMIC_SUBJECT_REQUEST,
@@ -28,7 +27,9 @@ export const getAllAcademicSubjectAction = () => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: GET_ALL_ACADEMIC_SUBJECT_FAIL,
-      payload: error.message ? error.message : error.Message,
+      payload: error?.response?.data?.Message
+        ? error?.response?.data?.Message
+        : error?.message,
     });
   }
 };
@@ -45,7 +46,9 @@ export const getSingleAcademicSubjectAction = (id) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: GET_SINGLE_ACADEMIC_SUBJECT_FAIL,
-      payload: error.message ? error.message : error.Message,
+      payload: error?.response?.data?.Message
+        ? error?.response?.data?.Message
+        : error?.message,
     });
   }
 };
@@ -72,7 +75,9 @@ export const academicSubjectCreateAction =
     } catch (error) {
       dispatch({
         type: ACADEMIC_SUBJECT_CREATE_FAIL,
-        payload: error.message ? error.message : error.Message,
+        payload: error?.response?.data?.Message
+          ? error?.response?.data?.Message
+          : error?.message,
       });
     }
   };
@@ -99,7 +104,9 @@ export const updateSingleAcademicSubjectAction =
     } catch (error) {
       dispatch({
         type: UPDATE_SINGLE_ACADEMIC_SUBJECT_FAIL,
-        payload: error.message ? error.message : error.Message,
+        payload: error?.response?.data?.Message
+          ? error?.response?.data?.Message
+          : error?.message,
       });
     }
   };

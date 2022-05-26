@@ -1,4 +1,3 @@
-
 import { API_URL, axiosInstance, tokenConfig } from "../../../constants";
 import {
   GET_ALL_MOBILE_USER_FAIL,
@@ -31,7 +30,9 @@ export const getAllMobileUserAction = () => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: GET_ALL_MOBILE_USER_FAIL,
-      payload: error.message ? error.message : error.Message,
+      payload: error?.response?.data?.Message
+        ? error?.response?.data?.Message
+        : error?.message,
     });
   }
 };
@@ -52,7 +53,9 @@ export const getListMobileUserAction = (company) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: GET_LIST_MOBILE_USER_FAIL,
-      payload: error.message ? error.message : error.Message,
+      payload: error?.response?.data?.Message
+        ? error?.response?.data?.Message
+        : error?.message,
     });
   }
 };
@@ -73,7 +76,9 @@ export const getSingleEditMobileUserAction = (id) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: GET_SINGLE_EDIT_MOBILE_USER_FAIL,
-      payload: error.message ? error.message : error.Message,
+      payload: error?.response?.data?.Message
+        ? error?.response?.data?.Message
+        : error?.message,
     });
   }
 };
@@ -103,7 +108,9 @@ export const putMobileUserAction = (mobileUser) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: PUT_MOBILE_USER_FAIL,
-      payload: error.message ? error.message : error.Message,
+      payload: error?.response?.data?.Message
+        ? error?.response?.data?.Message
+        : error?.message,
     });
   }
 };

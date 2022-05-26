@@ -1,4 +1,3 @@
-
 import { API_URL, axiosInstance, tokenConfig } from "../../../constants";
 import {
   ACADEMIC_SECTION_CREATE_FAIL,
@@ -28,7 +27,9 @@ export const getAllAcademicSectionAction = () => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: GET_ALL_ACADEMIC_SECTION_FAIL,
-      payload: error.message ? error.message : error.Message,
+      payload: error?.response?.data?.Message
+        ? error?.response?.data?.Message
+        : error?.message,
     });
   }
 };
@@ -56,7 +57,9 @@ export const AcademicSectionCreateAction =
     } catch (error) {
       dispatch({
         type: ACADEMIC_SECTION_CREATE_FAIL,
-        payload: error.message ? error.message : error.Message,
+        payload: error?.response?.data?.Message
+          ? error?.response?.data?.Message
+          : error?.message,
       });
     }
   };
@@ -74,7 +77,9 @@ export const getSingleAcademicSectionAction = (id) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: GET_SINGLE_ACADEMIC_SECTION_FAIL,
-      payload: error.message ? error.message : error.Message,
+      payload: error?.response?.data?.Message
+        ? error?.response?.data?.Message
+        : error?.message,
     });
   }
 };
@@ -102,7 +107,9 @@ export const updateSingleAcademicSectionAction =
     } catch (error) {
       dispatch({
         type: UPDATE_SINGLE_ACADEMIC_SECTION_FAIL,
-        payload: error.message ? error.message : error.Message,
+        payload: error?.response?.data?.Message
+          ? error?.response?.data?.Message
+          : error?.message,
       });
     }
   };

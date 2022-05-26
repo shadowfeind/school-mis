@@ -1,4 +1,3 @@
-
 import { API_URL, axiosInstance, tokenConfig } from "../../constants";
 import {
   GET_ALL_GENERATE_FAIL,
@@ -29,7 +28,9 @@ export const getAllGeneratePublishAction = () => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: GET_ALL_GENERATE_PUBLISH_FAIL,
-      payload: error.message ? error.message : error.Message,
+      payload: error?.response?.data?.Message
+        ? error?.response?.data?.Message
+        : error?.message,
     });
   }
 };
@@ -51,12 +52,14 @@ export const getAllGenerateAction =
     } catch (error) {
       dispatch({
         type: GET_ALL_GENERATE_FAIL,
-        payload: error.message ? error.message : error.Message,
+        payload: error?.response?.data?.Message
+          ? error?.response?.data?.Message
+          : error?.message,
       });
     }
   };
 
-  export const getGenerateResultAction =
+export const getGenerateResultAction =
   (year, program, level, section, shift, event) => async (dispatch) => {
     try {
       dispatch({ type: GET_ALL_GENERATE_PUBLISH_RESULT_REQUEST });
@@ -73,10 +76,9 @@ export const getAllGenerateAction =
     } catch (error) {
       dispatch({
         type: GET_ALL_GENERATE_PUBLISH_RESULT_FAIL,
-        payload: error.message ? error.message : error.Message,
+        payload: error?.response?.data?.Message
+          ? error?.response?.data?.Message
+          : error?.message,
       });
     }
   };
-
-
-  

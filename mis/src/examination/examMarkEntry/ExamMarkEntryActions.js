@@ -1,4 +1,3 @@
-
 import { API_URL, axiosInstance, tokenConfig } from "../../constants";
 import {
   GET_ALL_ACADEMIC_STUDENT_EXAMDATA_FAIL,
@@ -35,7 +34,9 @@ export const getAllAcademicStudentExamdataAction = () => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: GET_ALL_ACADEMIC_STUDENT_EXAMDATA_FAIL,
-      payload: error.message ? error.message : error.Message,
+      payload: error?.response?.data?.Message
+        ? error?.response?.data?.Message
+        : error?.message,
     });
   }
 };
@@ -56,7 +57,9 @@ export const getEventAction = (year, program, classId) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: GET_EVENT_FAIL,
-      payload: error.message ? error.message : error.Message,
+      payload: error?.response?.data?.Message
+        ? error?.response?.data?.Message
+        : error?.message,
     });
   }
 };
@@ -79,7 +82,9 @@ export const getEventScheduleAction =
     } catch (error) {
       dispatch({
         type: GET_EXAM_SCHEDULE_HEADER_FAIL,
-        payload: error.message ? error.message : error.Message,
+        payload: error?.response?.data?.Message
+          ? error?.response?.data?.Message
+          : error?.message,
       });
     }
   };
@@ -103,7 +108,9 @@ export const getExamEntrySearchDataAction =
     } catch (error) {
       dispatch({
         type: GET_ALL_EXAM_ENTRY_SEARCHDATA_FAIL,
-        payload: error.message ? error.message : error.Message,
+        payload: error?.response?.data?.Message
+          ? error?.response?.data?.Message
+          : error?.message,
       });
     }
   };
@@ -127,7 +134,9 @@ export const getExamEntryBulkAction =
     } catch (error) {
       dispatch({
         type: GET_ALL_EXAM_ENTRY_BULK_FAIL,
-        payload: error.message ? error.message : error.Message,
+        payload: error?.response?.data?.Message
+          ? error?.response?.data?.Message
+          : error?.message,
       });
     }
   };

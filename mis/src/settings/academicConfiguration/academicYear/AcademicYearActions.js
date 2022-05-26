@@ -1,4 +1,3 @@
-
 import { API_URL, axiosInstance, tokenConfig } from "../../../constants";
 import {
   ACADEMIC_YEAR_CREATE_FAIL,
@@ -34,7 +33,9 @@ export const getAllAcademicYearAction = () => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: GET_ALL_ACADEMIC_YEAR_FAIL,
-      payload: error.message ? error.message : error.Message,
+      payload: error?.response?.data?.Message
+        ? error?.response?.data?.Message
+        : error?.message,
     });
   }
 };
@@ -49,7 +50,7 @@ export const AcademicYearCreateAction =
         postedChekboxLst: { CheckBoxListID: checkboxState },
       });
 
-      console.log(jsonData)
+      console.log(jsonData);
       // const config = {
       //   headers: {
       //     "Content-Type": "application/json",
@@ -66,7 +67,9 @@ export const AcademicYearCreateAction =
     } catch (error) {
       dispatch({
         type: ACADEMIC_YEAR_CREATE_FAIL,
-        payload: error.message ? error.message : error.Message,
+        payload: error?.response?.data?.Message
+          ? error?.response?.data?.Message
+          : error?.message,
       });
     }
   };
@@ -84,7 +87,9 @@ export const getAcademicYearOptionAction = () => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: GET_ACADEMIC_YEAR_OPTION_FAIL,
-      payload: error.message ? error.message : error.Message,
+      payload: error?.response?.data?.Message
+        ? error?.response?.data?.Message
+        : error?.message,
     });
   }
 };
@@ -103,8 +108,8 @@ export const getAcademicYearCheckAction = (yearName) => async (dispatch) => {
     dispatch({
       type: GET_ACADEMIC_YEAR_CHECK_FAIL,
       payload: error.response.data.Message
-      ? error.response.data.Message
-      : error.message,
+        ? error.response.data.Message
+        : error.message,
     });
   }
 };
@@ -122,7 +127,9 @@ export const getSingleAcademicYearAction = (id) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: GET_SINGLE_ACADEMIC_YEAR_FAIL,
-      payload: error.message ? error.message : error.Message,
+      payload: error?.response?.data?.Message
+        ? error?.response?.data?.Message
+        : error?.message,
     });
   }
 };
@@ -151,7 +158,9 @@ export const updateSingleAcademicYearAction =
     } catch (error) {
       dispatch({
         type: UPDATE_SINGLE_ACADEMIC_YEAR_FAIL,
-        payload: error.message ? error.message : error.Message,
+        payload: error?.response?.data?.Message
+          ? error?.response?.data?.Message
+          : error?.message,
       });
     }
   };

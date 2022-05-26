@@ -1,4 +1,3 @@
-
 import { API_URL, axiosInstance, tokenConfig } from "../../constants";
 import {
   GET_ALL_PERSONALINFORMATION_FAIL,
@@ -31,7 +30,9 @@ export const getAllPersonalInformationAction = () => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: GET_ALL_PERSONALINFORMATION_FAIL,
-      payload: error.message ? error.message : error.Message,
+      payload: error?.response?.data?.Message
+        ? error?.response?.data?.Message
+        : error?.message,
     });
   }
 };
@@ -49,7 +50,9 @@ export const getSinglePersonalInformationAction = () => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: GET_SINGLE_PERSONALINFORMATION_FAIL,
-      payload: error.message ? error.message : error.Message,
+      payload: error?.response?.data?.Message
+        ? error?.response?.data?.Message
+        : error?.message,
     });
   }
 };
@@ -71,7 +74,9 @@ export const getSinglePersonalInformationSearchAction =
     } catch (error) {
       dispatch({
         type: GET_SINGLE_PERSONALINFORMATION_SEARCH_FAIL,
-        payload: error.message ? error.message : error.Message,
+        payload: error?.response?.data?.Message
+          ? error?.response?.data?.Message
+          : error?.message,
       });
     }
   };
@@ -97,7 +102,9 @@ export const updateSinglePersonalInformationAction =
     } catch (error) {
       dispatch({
         type: UPDATE_SINGLE_PERSONALINFORMATION_FAIL,
-        payload: error.message ? error.message : error.Message,
+        payload: error?.response?.data?.Message
+          ? error?.response?.data?.Message
+          : error?.message,
       });
     }
   };
@@ -116,7 +123,9 @@ export const getEmployeeListAction = (employee) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: GET_EMPLOYEELIST_SEARCH_FAIL,
-      payload: error.message ? error.message : error.Message,
+      payload: error?.response?.data?.Message
+        ? error?.response?.data?.Message
+        : error?.message,
     });
   }
 };

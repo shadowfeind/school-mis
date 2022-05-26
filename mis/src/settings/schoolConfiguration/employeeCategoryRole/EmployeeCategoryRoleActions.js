@@ -1,5 +1,4 @@
-
-import { API_URL, axiosInstance, tokenConfig} from "../../../constants";
+import { API_URL, axiosInstance, tokenConfig } from "../../../constants";
 import {
   DELETE_EMPLOYEE_CATEGORY_ROLE_FAIL,
   DELETE_EMPLOYEE_CATEGORY_ROLE_REQUEST,
@@ -31,7 +30,9 @@ export const getAllEmployeeCategoryRoleAction = () => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: GET_ALL_EMPLOYEE_CATEGORY_ROLE_FAIL,
-      payload: error.message ? error.message : error.Message,
+      payload: error?.response?.data?.Message
+        ? error?.response?.data?.Message
+        : error?.message,
     });
   }
 };
@@ -59,7 +60,9 @@ export const employeeCategoryRoleCreateAction =
     } catch (error) {
       dispatch({
         type: EMPLOYEE_CATEGORY_ROLE_CREATE_FAIL,
-        payload: error.message ? error.message : error.Message,
+        payload: error?.response?.data?.Message
+          ? error?.response?.data?.Message
+          : error?.message,
       });
     }
   };
@@ -80,7 +83,9 @@ export const getSingleEmployeeCategoryRoleAction = (id) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: GET_SINGLE_EMPLOYEE_CATEGORY_ROLE_FAIL,
-      payload: error.message ? error.message : error.Message,
+      payload: error?.response?.data?.Message
+        ? error?.response?.data?.Message
+        : error?.message,
     });
   }
 };
@@ -111,36 +116,35 @@ export const updateSingleEmployeeCategoryRoleAction =
     } catch (error) {
       dispatch({
         type: UPDATE_SINGLE_EMPLOYEE_CATEGORY_ROLE_FAIL,
-        payload: error.message ? error.message : error.Message,
+        payload: error?.response?.data?.Message
+          ? error?.response?.data?.Message
+          : error?.message,
       });
     }
   };
 
- 
-  export const deleteEmployeeCategoryRoleAction =
+export const deleteEmployeeCategoryRoleAction =
   (categoryDeleteRole) => async (dispatch) => {
-    
     try {
-      
       dispatch({ type: DELETE_EMPLOYEE_CATEGORY_ROLE_REQUEST });
-      
+
       const jsonData = JSON.stringify({ dbModel: categoryDeleteRole });
-      
+
       await axiosInstance.post(
         `${API_URL}/api/HREmployeeCategoryRole/DeleteHREmployeeCategoryRole`,
         jsonData,
         tokenConfig()
       );
-        
+
       dispatch({
-        type: DELETE_EMPLOYEE_CATEGORY_ROLE_SUCCESS
+        type: DELETE_EMPLOYEE_CATEGORY_ROLE_SUCCESS,
       });
-      
     } catch (error) {
-      
       dispatch({
         type: DELETE_EMPLOYEE_CATEGORY_ROLE_FAIL,
-        payload: error.message ? error.message : error.Message,
+        payload: error?.response?.data?.Message
+          ? error?.response?.data?.Message
+          : error?.message,
       });
     }
   };

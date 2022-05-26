@@ -1,4 +1,3 @@
-
 import { API_URL, axiosInstance, tokenConfig } from "../../constants";
 import {
   GET_ALL_ACADEMIC_GRADING_REQUEST,
@@ -33,7 +32,9 @@ export const getAllAcademicGradingAction = () => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: GET_ALL_ACADEMIC_GRADING_FAIL,
-      payload: error.message ? error.message : error.Message,
+      payload: error?.response?.data?.Message
+        ? error?.response?.data?.Message
+        : error?.message,
     });
   }
 };
@@ -50,7 +51,9 @@ export const getSingleAcademicGradingAction = (program) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: GET_SINGLE_ACADEMIC_GRADING_FAIL,
-      payload: error.message ? error.message : error.Message,
+      payload: error?.response?.data?.Message
+        ? error?.response?.data?.Message
+        : error?.message,
     });
   }
 };
@@ -76,13 +79,15 @@ export const createAcademicGradingAction =
     } catch (error) {
       dispatch({
         type: CREATE_ACADEMIC_GRADING_FAIL,
-        payload: error.message ? error.message : error.Message,
+        payload: error?.response?.data?.Message
+          ? error?.response?.data?.Message
+          : error?.message,
       });
     }
   };
 
 export const getSingleAcademicGradingforEditAction =
-  (id,program) => async (dispatch) => {
+  (id, program) => async (dispatch) => {
     try {
       dispatch({ type: GET_SINGLE_ACADEMIC_GRADING_EDIT_REQUEST });
 
@@ -97,7 +102,9 @@ export const getSingleAcademicGradingforEditAction =
     } catch (error) {
       dispatch({
         type: GET_SINGLE_ACADEMIC_GRADING_EDIT_FAIL,
-        payload: error.message ? error.message : error.Message,
+        payload: error?.response?.data?.Message
+          ? error?.response?.data?.Message
+          : error?.message,
       });
     }
   };
@@ -127,7 +134,9 @@ export const updateSingleAcademicGradingAction =
     } catch (error) {
       dispatch({
         type: UPDATE_SINGLE_ACADEMIC_GRADING_FAIL,
-        payload: error.message ? error.message : error.Message,
+        payload: error?.response?.data?.Message
+          ? error?.response?.data?.Message
+          : error?.message,
       });
     }
   };

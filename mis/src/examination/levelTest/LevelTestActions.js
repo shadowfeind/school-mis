@@ -1,4 +1,3 @@
-
 import { API_URL, axiosInstance, tokenConfig } from "../../constants";
 import {
   GET_BULK_LEVEL_TEST_DATA_FAIL,
@@ -29,7 +28,9 @@ export const getInitialLevelTestDataAction = () => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: GET_INITIAL_LEVEL_TEST_DATA_FAIL,
-      payload: error.message ? error.message : error.Message,
+      payload: error?.response?.data?.Message
+        ? error?.response?.data?.Message
+        : error?.message,
     });
   }
 };
@@ -51,7 +52,9 @@ export const getBulkLevelTestDataAction =
     } catch (error) {
       dispatch({
         type: GET_BULK_LEVEL_TEST_DATA_FAIL,
-        payload: error.message ? error.message : error.Message,
+        payload: error?.response?.data?.Message
+          ? error?.response?.data?.Message
+          : error?.message,
       });
     }
   };
@@ -84,7 +87,9 @@ export const postBulkLevelTestAction =
     } catch (error) {
       dispatch({
         type: POST_BULK_LEVEL_TEST_DATA_FAIL,
-        payload: error.message ? error.message : error.Message,
+        payload: error?.response?.data?.Message
+          ? error?.response?.data?.Message
+          : error?.message,
       });
     }
   };

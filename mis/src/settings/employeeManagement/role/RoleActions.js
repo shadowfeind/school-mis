@@ -1,4 +1,3 @@
-
 import { API_URL, axiosInstance, tokenConfig } from "../../../constants";
 import {
   DELETE_ROLE_FAIL,
@@ -18,7 +17,6 @@ import {
   UPDATE_SINGLE_ROLE_SUCCESS,
 } from "./RoleConstant";
 
-
 export const getAllRolesAction = () => async (dispatch) => {
   try {
     dispatch({ type: GET_ALL_ROLE_REQUEST });
@@ -32,7 +30,9 @@ export const getAllRolesAction = () => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: GET_ALL_ROLE_FAIL,
-      payload: error.message ? error.message : error.Message,
+      payload: error?.response?.data?.Message
+        ? error?.response?.data?.Message
+        : error?.message,
     });
   }
 };
@@ -59,7 +59,9 @@ export const roleCreateAction = (role) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: ROLE_CREATE_FAIL,
-      payload: error.message ? error.message : error.Message,
+      payload: error?.response?.data?.Message
+        ? error?.response?.data?.Message
+        : error?.message,
     });
   }
 };
@@ -77,7 +79,9 @@ export const getSingleRoleAction = (id) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: GET_SINGLE_ROLE_FAIL,
-      payload: error.message ? error.message : error.Message,
+      payload: error?.response?.data?.Message
+        ? error?.response?.data?.Message
+        : error?.message,
     });
   }
 };
@@ -104,11 +108,12 @@ export const updateSingleRoleAction = (role) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: UPDATE_SINGLE_ROLE_FAIL,
-      payload: error.message ? error.message : error.Message,
+      payload: error?.response?.data?.Message
+        ? error?.response?.data?.Message
+        : error?.message,
     });
   }
 };
-
 
 export const deleteRoleAction = (role) => async (dispatch) => {
   try {
@@ -120,13 +125,15 @@ export const deleteRoleAction = (role) => async (dispatch) => {
       `${API_URL}/api/HRRole/DeleteHRPosition`,
       jsonData,
       tokenConfig()
-    );  
+    );
 
     dispatch({ type: DELETE_ROLE_SUCCESS });
   } catch (error) {
     dispatch({
       type: DELETE_ROLE_FAIL,
-      payload: error.message ? error.message : error.Message,
+      payload: error?.response?.data?.Message
+        ? error?.response?.data?.Message
+        : error?.message,
     });
   }
 };

@@ -1,4 +1,3 @@
-
 import { API_URL, axiosInstance, tokenConfig } from "../../../constants";
 import {
   GET_ALL_HR_VALUE_FAIL,
@@ -34,7 +33,9 @@ export const getALLHrValueAction = () => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: GET_ALL_HR_VALUE_FAIL,
-      payload: error.message ? error.message : error.Message,
+      payload: error?.response?.data?.Message
+        ? error?.response?.data?.Message
+        : error?.message,
     });
   }
 };
@@ -52,7 +53,9 @@ export const getListHrValueAction = (company) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: GET_LIST_HR_VALUE_FAIL,
-      payload: error.message ? error.message : error.Message,
+      payload: error?.response?.data?.Message
+        ? error?.response?.data?.Message
+        : error?.message,
     });
   }
 };
@@ -71,8 +74,8 @@ export const getSingleCreateHrValueAction = (company) => async (dispatch) => {
     dispatch({
       type: GET_SINGLE_TO_CREATE_HR_VALUE_FAIL,
       payload: error.response.data.Message
-      ? error.response.data.Message
-      : error.message,
+        ? error.response.data.Message
+        : error.message,
     });
   }
 };
@@ -90,7 +93,9 @@ export const getSingleEditHrValueAction = (id, company) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: GET_SINGLE_TO_EDIT_HR_VALUE_FAIL,
-      payload: error.message ? error.message : error.Message,
+      payload: error?.response?.data?.Message
+        ? error?.response?.data?.Message
+        : error?.message,
     });
   }
 };
@@ -173,7 +178,9 @@ export const postCreateHrValueAction =
     } catch (error) {
       dispatch({
         type: POST_HR_VALUE_FAIL,
-        payload: error.message ? error.message : error.Message,
+        payload: error?.response?.data?.Message
+          ? error?.response?.data?.Message
+          : error?.message,
       });
     }
   };
@@ -255,7 +262,9 @@ export const putEditHrValueAction =
     } catch (error) {
       dispatch({
         type: PUT_HR_VALUE_FAIL,
-        payload: error.message ? error.message : error.Message,
+        payload: error?.response?.data?.Message
+          ? error?.response?.data?.Message
+          : error?.message,
       });
     }
   };

@@ -1,4 +1,9 @@
-import { API_URL, axiosInstance, tokenConfig,tokenHeader } from "../../constants";
+import {
+  API_URL,
+  axiosInstance,
+  tokenConfig,
+  tokenHeader,
+} from "../../constants";
 import {
   GET_NOTIFICATION_EMPLOYEELIST_SEARCH_FAIL,
   GET_NOTIFICATION_EMPLOYEELIST_SEARCH_REQUEST,
@@ -29,7 +34,9 @@ export const getNotificationEmployeeListAction =
     } catch (error) {
       dispatch({
         type: GET_NOTIFICATION_EMPLOYEELIST_SEARCH_FAIL,
-        payload: error.message ? error.message : error.Message,
+        payload: error?.response?.data?.Message
+          ? error?.response?.data?.Message
+          : error?.message,
       });
     }
   };
@@ -50,7 +57,9 @@ export const getFcmTokenNotificationAction = (employee) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: GET_NOTIFICATION_FCM_TOKEN_FAIL,
-      payload: error.message ? error.message : error.Message,
+      payload: error?.response?.data?.Message
+        ? error?.response?.data?.Message
+        : error?.message,
     });
   }
 };
@@ -81,7 +90,9 @@ export const postFcmAction =
     } catch (error) {
       dispatch({
         type: POST_NOTIFICATION_FCM_TOKEN_FAIL,
-        payload: error.message ? error.message : error.Message,
+        payload: error?.response?.data?.Message
+          ? error?.response?.data?.Message
+          : error?.message,
       });
     }
   };

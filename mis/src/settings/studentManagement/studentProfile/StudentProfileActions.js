@@ -1,4 +1,3 @@
-
 import { API_URL, axiosInstance, tokenConfig } from "../../../constants";
 import {
   GET_ALL_STUDENT_PROFILE_REQUEST,
@@ -44,13 +43,15 @@ export const getAllStudentProfileAction = () => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: GET_ALL_STUDENT_PROFILE_FAIL,
-      payload: error.message ? error.message : error.Message,
+      payload: error?.response?.data?.Message
+        ? error?.response?.data?.Message
+        : error?.message,
     });
   }
 };
 
 export const getListStudentProfileAction =
-  ( year, program ,shift, classId, section ,status) => async (dispatch) => {
+  (year, program, shift, classId, section, status) => async (dispatch) => {
     try {
       dispatch({ type: GET_LIST_STUDENT_PROFILE_REQUEST });
 
@@ -63,13 +64,15 @@ export const getListStudentProfileAction =
     } catch (error) {
       dispatch({
         type: GET_LIST_STUDENT_PROFILE_FAIL,
-        payload: error.message ? error.message : error.Message,
+        payload: error?.response?.data?.Message
+          ? error?.response?.data?.Message
+          : error?.message,
       });
     }
   };
 
 export const getSingleStudentProfileDetailsAction =
-  (id, year, program, classId, section,shift ,status) => async (dispatch) => {
+  (id, year, program, classId, section, shift, status) => async (dispatch) => {
     try {
       dispatch({ type: SINGLE_STUDENT_PROFILE_DETAILS_REQUEST });
 
@@ -82,13 +85,15 @@ export const getSingleStudentProfileDetailsAction =
     } catch (error) {
       dispatch({
         type: SINGLE_STUDENT_PROFILE_DETAILS_FAIL,
-        payload: error.message ? error.message : error.Message,
+        payload: error?.response?.data?.Message
+          ? error?.response?.data?.Message
+          : error?.message,
       });
     }
   };
 
 export const getSingleStudentProfilePasswordresetDataAction =
-  (id, year, program, classId, section,shift ,status) => async (dispatch) => {
+  (id, year, program, classId, section, shift, status) => async (dispatch) => {
     try {
       dispatch({ type: GET_SINGLE_STUDENT_PROFILE_PASSWORDRESET_DATA_REQUEST });
 
@@ -104,13 +109,15 @@ export const getSingleStudentProfilePasswordresetDataAction =
     } catch (error) {
       dispatch({
         type: GET_SINGLE_STUDENT_PROFILE_PASSWORDRESET_DATA_FAIL,
-        payload: error.message ? error.message : error.Message,
+        payload: error?.response?.data?.Message
+          ? error?.response?.data?.Message
+          : error?.message,
       });
     }
   };
 
-  export const getUploadPhotoAction =
-  (id, year, program, classId, section,shift ,status) => async (dispatch) => {
+export const getUploadPhotoAction =
+  (id, year, program, classId, section, shift, status) => async (dispatch) => {
     try {
       dispatch({ type: GET_UPLOAD_PHOTO_REQUEST });
 
@@ -126,7 +133,9 @@ export const getSingleStudentProfilePasswordresetDataAction =
     } catch (error) {
       dispatch({
         type: GET_UPLOAD_PHOTO_FAIL,
-        payload: error.message ? error.message : error.Message,
+        payload: error?.response?.data?.Message
+          ? error?.response?.data?.Message
+          : error?.message,
       });
     }
   };
@@ -162,13 +171,15 @@ export const resetSingleStudentPasswordAction =
     } catch (error) {
       dispatch({
         type: RESET_SINGLE_STUDENT_PROFILE_PASSWORD_FAIL,
-        payload: error.message ? error.message : error.Message,
+        payload: error?.response?.data?.Message
+          ? error?.response?.data?.Message
+          : error?.message,
       });
     }
   };
 
 export const getSingleStudentProfileEditDataAction =
-  (id, year, program, classId, section,shift ,status) => async (dispatch) => {
+  (id, year, program, classId, section, shift, status) => async (dispatch) => {
     try {
       dispatch({ type: GET_SINGLE_STUDENT_PROFILE_EDIT_DATA_REQUEST });
 
@@ -184,7 +195,9 @@ export const getSingleStudentProfileEditDataAction =
     } catch (error) {
       dispatch({
         type: GET_SINGLE_STUDENT_PROFILE_EDIT_DATA_FAIL,
-        payload: error.message ? error.message : error.Message,
+        payload: error?.response?.data?.Message
+          ? error?.response?.data?.Message
+          : error?.message,
       });
     }
   };
@@ -196,7 +209,7 @@ export const updateSingleStudentAction =
 
       const RollNo = studentDetails.RollNo;
       const jsonData = JSON.stringify({
-        hrEmployeeModel: {...studentDetails, Title:"Mr"}, //Title is Static.
+        hrEmployeeModel: { ...studentDetails, Title: "Mr" }, //Title is Static.
         RollNo,
       });
 
@@ -222,48 +235,51 @@ export const updateSingleStudentAction =
     } catch (error) {
       dispatch({
         type: UPDATE_SINGLE_STUDENT_PROFILE_FAIL,
-        payload: error.message ? error.message : error.Message,
+        payload: error?.response?.data?.Message
+          ? error?.response?.data?.Message
+          : error?.message,
       });
     }
   };
 
-
-  export const postUploadPhotoAction = (id,image,dbData) => async (dispatch) => {
+export const postUploadPhotoAction =
+  (id, image, dbData) => async (dispatch) => {
     try {
       dispatch({ type: POST_UPLOAD_PHOTO_REQUEST });
-  if(image){
-      let formData = new FormData();
-      formData.append("ImageUploaded", image);
+      if (image) {
+        let formData = new FormData();
+        formData.append("ImageUploaded", image);
 
-      const { data } = await axiosInstance.post(
-        `${API_URL}/api/StudentProfile/FileUpload/${id}`,
-        formData,
-        tokenConfig()
-      );
-      if (data) {
-     
-        const jsonData = JSON.stringify({
-          dbModel:{IDHREmployee: data.IDHREmployee},
-          imagename: data.imagename,
-          thumbimagename: data.thumbimagename
-        });
-
-        console.log("jsonData",jsonData);
-        await axiosInstance.put(
-          `${API_URL}/api/StudentProfile/PutPhoto`,
-          jsonData,
+        const { data } = await axiosInstance.post(
+          `${API_URL}/api/StudentProfile/FileUpload/${id}`,
+          formData,
           tokenConfig()
         );
+        if (data) {
+          const jsonData = JSON.stringify({
+            dbModel: { IDHREmployee: data.IDHREmployee },
+            imagename: data.imagename,
+            thumbimagename: data.thumbimagename,
+          });
+
+          console.log("jsonData", jsonData);
+          await axiosInstance.put(
+            `${API_URL}/api/StudentProfile/PutPhoto`,
+            jsonData,
+            tokenConfig()
+          );
+        }
       }
-    }
-  
+
       dispatch({
         type: POST_UPLOAD_PHOTO_SUCCESS,
       });
     } catch (error) {
       dispatch({
         type: POST_UPLOAD_PHOTO_FAIL,
-        payload: error.message ? error.message : error.Message,
+        payload: error?.response?.data?.Message
+          ? error?.response?.data?.Message
+          : error?.message,
       });
     }
   };

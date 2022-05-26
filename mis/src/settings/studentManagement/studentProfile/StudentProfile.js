@@ -57,7 +57,7 @@ const tableHeader = [
   { id: "rollNo", label: "Roll No" },
   { id: "thumbimagename", label: "Image" },
   { id: "UniversityRegistrationNumber", label: "Registration No." },
-  { id: "StudentFullName", label: "Full Name" },
+  { id: "StudentFullName", label: "Student Name" },
   { id: "AcademicProgramName", label: "Program" },
   { id: "FacultyName", label: "Faculty" },
   { id: "IDAcademicShift", label: "Shift" },
@@ -473,7 +473,7 @@ const StudentProfile = () => {
         <Toolbar>
           <InputControl
             className={classes.searchInput}
-            label="Search Student Profile"
+            label="Search Student Profile By Student Name"
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">

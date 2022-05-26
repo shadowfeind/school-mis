@@ -170,7 +170,7 @@ const ExamMarkApprovalBulk = ({
                       variant="outlined"
                       inputProps={{
                         tabIndex: "1",
-                        style: { textAlign: "center" },
+                        style: { textAlign: "left" },
                       }}
                       onChange={(e) =>
                         onChangeHandler(

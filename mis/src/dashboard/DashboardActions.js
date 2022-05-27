@@ -92,7 +92,7 @@ export const getDashboardTopContentAction = () => async (dispatch) => {
     dispatch({ type: GET_DASHBOARD_TOP_CONTENT_REQUEST });
 
     const { data: activeTeacher } = await axiosInstance.get(
-      `/api/Home/GetTotalActiveTeacher
+      `/api/Home/GetTotalActiveStaff
       `,
       tokenConfig()
     );

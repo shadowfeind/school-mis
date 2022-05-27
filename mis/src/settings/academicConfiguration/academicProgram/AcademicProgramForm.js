@@ -26,7 +26,7 @@ const initialFormValues = {
 
 const AcademicProgramForm = ({ academicProgram, selected, setOpenPopup }) => {
   const [checkboxState, setCheckboxState] = useState([]);
-  const [errorsEdit,setErrorsEdit] = useState({});
+  const [errorsEdit, setErrorsEdit] = useState({});
   const dispatch = useDispatch();
   const validate = (fieldValues = values) => {
     let temp = { ...errors };
@@ -72,8 +72,7 @@ const AcademicProgramForm = ({ academicProgram, selected, setOpenPopup }) => {
       ? "Must be less than 1000 characters"
       : "";
 
-    
-      setErrorsEdit({ ...temp });
+    setErrorsEdit({ ...temp });
     return Object.values(temp).every((x) => x === "");
   };
 
@@ -83,19 +82,18 @@ const AcademicProgramForm = ({ academicProgram, selected, setOpenPopup }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    
-      if (values.IDAcademicProgram === 0) {
-        if (validate()) {
+    if (values.IDAcademicProgram === 0) {
+      if (validate()) {
         // dispatch(AcademicProgramCreateAction(values, checkboxState));
-        alert("Post")
+        alert("Post");
       }
-      } else {
-        if(validateEdit()){
+    } else {
+      if (validateEdit()) {
         // dispatch(updateSingleAcademicProgramAction(values));
-        alert("Put")
-        }
+        alert("Put");
       }
     }
+  };
 
   const { academicProgramOption } = useSelector(
     (state) => state.getAcademicProgramOption
@@ -103,8 +101,15 @@ const AcademicProgramForm = ({ academicProgram, selected, setOpenPopup }) => {
 
   const { available } = academicProgramOption;
 
-  const handleChangeCheckbox = (e) => {
-    setCheckboxState([...checkboxState, e.target.value]);
+  const handleChangeCheckbox = (e, id) => {
+    if (e.target.checked) {
+      setCheckboxState([...checkboxState, e.target.value]);
+    } else {
+      setCheckboxState((prev) => {
+        const checkData = prev.filter((x) => x.Id !== id);
+        return [...checkData];
+      });
+    }
   };
 
   useEffect(() => {
@@ -158,8 +163,14 @@ const AcademicProgramForm = ({ academicProgram, selected, setOpenPopup }) => {
                       key={item.$id}
                       control={
                         <Checkbox
-                          onChange={handleChangeCheckbox}
-                          value={item.Id}
+                          onChange={(e) => handleChangeCheckbox(e, item.Id)}
+                          checked={
+                            checkboxState.filter((x) => x.Id === item.Id)
+                              .length > 0
+                              ? true
+                              : false
+                          }
+                          // value={item.Id}
                         />
                       }
                       label={item.Name}

@@ -42,7 +42,7 @@ const DashboardHeader = ({ dashboardTopContent }) => {
           <Link to={"/employee-management"}>
             <Grid container alignItems="center" justifyContent="center">
               <Grid item xs={9}>
-                <h4 className={classes.heading}>Total No. Of Teachers</h4>
+                <h4 className={classes.heading}>Total No. Of Staffs</h4>
                 <h1 className={classes.numberHeading}>
                   {dashboardTopContent && dashboardTopContent?.activeTeacher}
                 </h1>

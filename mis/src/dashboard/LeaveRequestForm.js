@@ -86,7 +86,10 @@ const LeaveRequestForm = ({
 
   useEffect(() => {
     if (leaveRequestCreate) {
-      setValues({ ...leaveRequestCreate.dbModel });
+      setValues({
+        ...leaveRequestCreate.dbModel,
+        ReceiverID: leaveRequestCreate?.ddlTeacher[0]?.Key,
+      });
     }
   }, [leaveRequestCreate]);
 
@@ -186,7 +189,7 @@ const LeaveRequestForm = ({
             errors={errors.ToDate}
           />
           <InputControl
-          disabled
+            disabled
             name="Status"
             label="Status"
             value={values.Status}

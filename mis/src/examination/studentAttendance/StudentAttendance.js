@@ -290,7 +290,7 @@ const StudentAttendance = () => {
 
   useEffect(() => {
     if (allStudentAttendance) {
-      setTableData(allStudentAttendance.dbModelLst);
+      setTableData(allStudentAttendance.dbModelPresentAbsentLst);
     }
   }, [allStudentAttendance]);
 
@@ -527,7 +527,7 @@ const StudentAttendance = () => {
               <div style={{ height: "10px" }}></div>
               <DatePickerControl
                 name="ExamHeldDate"
-                label="Exam StartDate"
+                label="Attendance StartDate"
                 value={StartDate}
                 onChange={(e) => setStartDate(e.target.value)}
               />
@@ -536,7 +536,7 @@ const StudentAttendance = () => {
               <div style={{ height: "10px" }}></div>
               <DatePickerControl
                 name="ExamEndDate"
-                label="Exam EndDate"
+                label="Attendance EndDate"
                 value={EndDate}
                 onChange={(e) => setEndDate(e.target.value)}
               />

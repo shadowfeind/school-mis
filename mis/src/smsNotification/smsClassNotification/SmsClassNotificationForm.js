@@ -154,7 +154,7 @@ const SmsClassNotificationForm = ({
               <StyledTableCell>Student Name </StyledTableCell>
               <StyledTableCell>Batch </StyledTableCell>
               <StyledTableCell style={{ textAlign: "right" }}>
-                <label>Select All</label>
+                <label>All</label>
                 <Checkbox
                   checked={checked}
                   onChange={(e) => handleAllChecked(e.target.checked)}

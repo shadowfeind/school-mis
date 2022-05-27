@@ -158,7 +158,10 @@ const StudentAttendanceBulk = ({
                     <TextField
                       disabled
                       id={`practical_${subject.IDHREmployee}`}
-                      value={subject.AbsentDay}
+                      value={
+                        (subject.WorkingDay !== null && subject.WorkingDay) -
+                        (subject.PresentDay !== null && subject.PresentDay)
+                      }
                       type="number"
                       label="Absent Day"
                       variant="outlined"

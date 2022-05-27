@@ -6,10 +6,10 @@ import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import { makeStyles } from "@material-ui/core";
 
-const PersonalInformation = lazy(() =>
-  import("./personalinformation/PersonalInformation")
-);
-// const UploadPhoto = lazy(() => import("./uploadPhoto/UploadPhoto"));
+// const PersonalInformation = lazy(() =>
+//   import("./personalinformation/PersonalInformation")
+// );
+const UploadPhoto = lazy(() => import("./uploadPhoto/UploadPhoto"));
 // const ContactAddress = lazy(() => import("./contactAddress/ContactAddress"));
 // const ContactNumber = lazy(() => import("./contactNumber/ContactNumber"));
 // const Email = lazy(() => import("./email/Email"));
@@ -139,11 +139,11 @@ const UserProfile = () => {
       </AppBar> */}
       <Suspense fallback={<div></div>}>
         {/* <TabPanel value={value} index={0}> */}
-        <PersonalInformation />
+        {/* <PersonalInformation /> */}
         {/* </TabPanel> */}
-        {/* <TabPanel value={value} index={1}>
-          <UploadPhoto />
-        </TabPanel>
+        {/* <TabPanel value={value} index={1}> */}
+        <UploadPhoto />
+        {/* </TabPanel>
         <TabPanel value={value} index={2}>
           <ContactAddress />
         </TabPanel>

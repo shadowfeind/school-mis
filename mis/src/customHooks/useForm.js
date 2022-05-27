@@ -10,7 +10,7 @@ export const useForm = (initialFormValues) => {
     setValues((prev) => ({ ...prev, [name]: value }));
   };
 
-  return { values, setValues, handleInputChange,errors, setErrors };
+  return { values, setValues, handleInputChange, errors, setErrors };
 };
 
 const useStyles = makeStyles({
@@ -26,7 +26,7 @@ export const Form = (props) => {
   const classes = useStyles();
   const { children, ...other } = props;
   return (
-    <form className={classes.root} autoComplete="off" {...other}>
+    <form className={classes.root} {...other}>
       {props.children}
     </form>
   );

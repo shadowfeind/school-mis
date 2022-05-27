@@ -101,11 +101,16 @@ const AcademicProgramForm = ({ academicProgram, selected, setOpenPopup }) => {
 
   const { available } = academicProgramOption;
 
-  const handleChangeCheckbox = (e) => {
+
+  const handleChangeCheckbox = (e, id) => {
     if (e.target.checked) {
       setCheckboxState([...checkboxState, e.target.value]);
     } else {
-      setCheckboxState([]);
+      setCheckboxState((prev) => {
+        const checkData = prev.filter((x) => x.Id !== id);
+        return [...checkData];
+      });
+
     }
   };
 
@@ -160,8 +165,14 @@ const AcademicProgramForm = ({ academicProgram, selected, setOpenPopup }) => {
                       key={item.$id}
                       control={
                         <Checkbox
-                          onChange={handleChangeCheckbox}
-                          value={item.Id}
+                          onChange={(e) => handleChangeCheckbox(e, item.Id)}
+                          checked={
+                            checkboxState.filter((x) => x.Id === item.Id)
+                              .length > 0
+                              ? true
+                              : false
+                          }
+                          // value={item.Id}
                         />
                       }
                       label={item.Name}

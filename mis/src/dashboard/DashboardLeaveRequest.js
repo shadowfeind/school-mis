@@ -318,7 +318,7 @@ const DashboardLeaveRequest = () => {
                 {s.Status}
               </StyledTableCell>
               <StyledTableCell>
-                {s.Status !== "APPROVED" && (
+                {s.Status !== "APPROVED" && s.Status !== "CANCELED" && (
                   <Button
                     variant="contained"
                     color="primary"

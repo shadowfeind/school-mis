@@ -10,6 +10,7 @@ import {
   TableCell,
 } from "@material-ui/core";
 import useCustomTable from "../customHooks/useCustomTable";
+import LockIcon from "@material-ui/icons/Lock";
 import Notification from "../components/Notification";
 import ConfirmDialog from "../components/ConfirmDialog";
 import { useDispatch, useSelector } from "react-redux";
@@ -98,6 +99,17 @@ const DashboardLeaveApprove = () => {
 
   const classes = useStyles();
   const dispatch = useDispatch();
+
+  const dateInPast = (firstDate, secondDate) => {
+    if (
+      new Date(firstDate).setHours(0, 0, 0, 0) <=
+      new Date(secondDate).setHours(0, 0, 0, 0)
+    ) {
+      return true;
+    }
+
+    return false;
+  };
 
   const { listLeaveRequest, listLeaveRequestError } = useSelector(
     (state) => state.getListLeaveRequest
@@ -216,14 +228,24 @@ const DashboardLeaveApprove = () => {
                 {s.Status}
               </StyledTableCell>
               <StyledTableCell align="left">
-                <Button
-                  variant="contained"
-                  color="primary"
-                  className={classes.button}
-                  onClick={() => updateCollegeHandler(s.IDLeaveRequest)}
-                >
-                  <EditIcon style={{ fontSize: 12 }} />
-                </Button>{" "}
+                {dateInPast(s.ToDate?.slice(0, 10), Date.now() + 1) ? (
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    className={classes.button}
+                  >
+                    <LockIcon style={{ fontSize: 12 }} />
+                  </Button>
+                ) : (
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    className={classes.button}
+                    onClick={() => updateCollegeHandler(s.IDLeaveRequest)}
+                  >
+                    <EditIcon style={{ fontSize: 12 }} />
+                  </Button>
+                )}{" "}
                 {s.DocumentName !== null && (
                   <Button
                     variant="contained"

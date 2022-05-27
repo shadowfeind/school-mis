@@ -62,7 +62,7 @@ export const getSingleHolidayAction = (id) => async (dispatch) => {
     dispatch({ type: GET_SINGLE_HOLIDAY_REQUEST });
 
     const { data } = await axiosInstance.get(
-      `${API_URL}/api/Att_HRHoliday/${id}`,
+      `${API_URL}/api/Att_HRHoliday/GetAtt_HRHolidayById/${id}`,
       tokenConfig()
     );
 
@@ -90,7 +90,7 @@ export const updateSingleHoliadyAction = (holiday) => async (dispatch) => {
     // };
 
     const { data } = await axiosInstance.put(
-      `${API_URL}/api/Att_HRHoliday`,
+      `${API_URL}/api/Att_HRHoliday/PutAtt_HRHoliday`,
       jsonData,
       tokenConfig()
     );

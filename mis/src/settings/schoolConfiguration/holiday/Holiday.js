@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button, makeStyles, Toolbar } from "@material-ui/core";
+import { Button, makeStyles, Toolbar, Grid } from "@material-ui/core";
 import {
   Calendar,
   momentLocalizer,
@@ -140,44 +140,48 @@ const Holiday = () => {
   };
   return (
     <>
-      <div
-        style={{
-          margin: "10px",
-          padding: "20px",
-          backgroundColor: "#fff",
-          borderRadius: "10px",
-          boxShadow: "5px 5px 5px #d4d4d4",
-        }}
-      >
-        <Toolbar>
-          <Button
-            variant="contained"
-            color="primary"
-            startIcon={<AddIcon />}
-            className={classes.button}
-            onClick={addHandler}
+      <Grid container>
+        <Grid item xs={6}>
+          <div
+            style={{
+              margin: "10px",
+              padding: "20px",
+              backgroundColor: "#fff",
+              borderRadius: "10px",
+              boxShadow: "5px 5px 5px #d4d4d4",
+            }}
           >
-            Add{" "}
-          </Button>
-        </Toolbar>
-        {loading ? (
-          <LoadingComp />
-        ) : (
-          <>
-            <Calendar
-              localizer={localizer}
-              events={holiday && holiday.att_HRHolidayModelLst}
-              startAccessor="FromDate"
-              endAccessor="ToDate"
-              titleAccessor="HolidayName"
-              views={months}
-              selectable
-              onSelectSlot={handleCalendarSelect}
-              style={{ height: "60vh" }}
-            />
-          </>
-        )}
-      </div>
+            <Toolbar>
+              <Button
+                variant="contained"
+                color="primary"
+                startIcon={<AddIcon />}
+                className={classes.button}
+                onClick={addHandler}
+              >
+                Add{" "}
+              </Button>
+            </Toolbar>
+            {loading ? (
+              <LoadingComp />
+            ) : (
+              <>
+                <Calendar
+                  localizer={localizer}
+                  events={holiday && holiday.att_HRHolidayModelLst}
+                  startAccessor="FromDate"
+                  endAccessor="ToDate"
+                  titleAccessor="HolidayName"
+                  views={months}
+                  selectable
+                  onSelectSlot={handleCalendarSelect}
+                  style={{ height: "60vh" }}
+                />
+              </>
+            )}
+          </div>
+        </Grid>
+      </Grid>
 
       <Popup
         openPopup={openPopup}

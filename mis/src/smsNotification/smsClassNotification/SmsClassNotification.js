@@ -49,7 +49,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const tableHeader = [
-  { id: "FullName", label: "Full Name" },
+  { id: "FullName", label: "Message Send To" },
   { id: "Messages", label: "Messages" },
   { id: "PostedDate", label: "Posted Date" },
   { id: "Action", label: "Action", disableSorting: true },

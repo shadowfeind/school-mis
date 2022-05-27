@@ -54,7 +54,9 @@ const StudentProfileTableCollapse = ({
 }) => {
   const dispatch = useDispatch();
   const classes = useStyles();
-  const shiftNameToShow = ddlShift?.filter(s => s.Key === item.IDAcademicShift)
+  const shiftNameToShow = ddlShift?.filter(
+    (s) => s.Key === item.IDAcademicShift
+  );
   const handleClick = (index, id) => {
     if (selectedIndex === index) {
       setSelectedIndex("");
@@ -74,18 +76,20 @@ const StudentProfileTableCollapse = ({
     }
   };
 
-  const currentImagePath = ImagePathLst?.filter(x => x.Key === item.IDHREmployee)
+  const currentImagePath = ImagePathLst?.filter(
+    (x) => x.Key === item.IDHREmployee
+  );
 
   const handleReset = (id) => {
     dispatch(
       getSingleStudentProfilePasswordresetDataAction(
         id,
-          year,
-          program,
-          classId,
-          section,
-          shift,
-          status
+        year,
+        program,
+        classId,
+        section,
+        shift,
+        status
       )
     );
     setOpenResetPopup(true);
@@ -95,22 +99,33 @@ const StudentProfileTableCollapse = ({
     <>
       <TableRow>
         <TableCell>{item.rollNo}</TableCell>
-        <TableCell><img src={`${API_URL}${currentImagePath[0]?.Value}`}  width="30px" height="30px"/></TableCell>
-        <TableCell>{item.UniversityRegistrationNumber}</TableCell>
+        <TableCell>
+          <img
+            src={`${API_URL}${currentImagePath[0]?.Value}`}
+            width="30px"
+            height="30px"
+          />
+        </TableCell>
+        <TableCell>{item.LoginIDHREmployee}</TableCell>
         <TableCell>{item.StudentFullName}</TableCell>
         <TableCell>{item.AcademicProgramName}</TableCell>
         <TableCell>{item.FacultyPath}</TableCell>
-        <TableCell>{shiftNameToShow?.length > 0 && shiftNameToShow[0].Value}</TableCell>
+        <TableCell>
+          {shiftNameToShow?.length > 0 && shiftNameToShow[0].Value}
+        </TableCell>
         <TableCell>{item.MobileNumber}</TableCell>
         <TableCell>{item.LevelStatus}</TableCell>
-        <TableCell> <Button
+        <TableCell>
+          {" "}
+          <Button
             variant="contained"
             color="primary"
             className={classes.button}
             onClick={() => addHandler(item.IDHREmployee)}
           >
             <AddIcon style={{ fontSize: 12 }} />
-          </Button></TableCell>
+          </Button>
+        </TableCell>
         <TableCell>
           <Button
             variant="contained"
@@ -153,8 +168,9 @@ const StudentProfileTableCollapse = ({
                 <Grid container>
                   <Grid item md={4}>
                     <List key={item.$id * 0.002}>
-                    <ListItem>
-                        <strong>Login ID:</strong>: {studentDetails.LoginIDHREmployee}
+                      <ListItem>
+                        <strong>Login ID:</strong>:{" "}
+                        {studentDetails.LoginIDHREmployee}
                       </ListItem>
                       <ListItem>
                         <strong>Email</strong>: {studentDetails.EmailID}
@@ -207,11 +223,15 @@ const StudentProfileTableCollapse = ({
                     </List>
                   </Grid>
                   <Grid item md={4} style={{}}>
-                  <List>
-                    <ListItem>
-                    <img src={`${API_URL}${detailImagePath}`}  width="150px" height="150px"/>
-                    </ListItem>
-                  </List>
+                    <List>
+                      <ListItem>
+                        <img
+                          src={`${API_URL}${detailImagePath}`}
+                          width="150px"
+                          height="150px"
+                        />
+                      </ListItem>
+                    </List>
                   </Grid>
                 </Grid>
               </Box>

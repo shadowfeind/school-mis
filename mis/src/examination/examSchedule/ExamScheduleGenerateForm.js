@@ -128,7 +128,7 @@ const ExamScheduleGenerateForm = ({
     temp.acaYear = !year ? "This feild is required" : "";
     temp.classId = !classId ? "This feild is required" : "";
     temp.event = !event ? "This feild is required" : "";
-
+    temp.submit = formCheck?.length <= 0 ? "Select Atleast one options" : "";
     setErrors({ ...temp });
     return Object.values(temp).every((x) => x === "");
   };
@@ -315,6 +315,25 @@ const ExamScheduleGenerateForm = ({
               </TableBody>
             </Table>
           </TableContainer>
+          {generate?.dbModelLst?.length <= 0 && (
+            <div>
+              <h3 style={{ color: "red", textAlign: "center" }}>
+                No Data Found
+              </h3>
+            </div>
+          )}
+          {errors.submit && (
+            <div
+              style={{
+                textAlign: "center",
+                color: "red",
+                fontSize: "12px",
+                paddingTop: "8px",
+              }}
+            >
+              {errors.submit}
+            </div>
+          )}
           <div
             style={{
               display: "flex",

@@ -53,9 +53,9 @@ const test = [{ Key: "", Value: "" }];
 const tableHeader = [
   { id: "RollNo", label: "Roll No" },
   { id: "RegistrationKey", label: "Reg Key" },
-  { id: "FirstName", label: "FullName" },
+  { id: "FirstName", label: "Student Name" },
   { id: "MobileNo", label: "Contact No" },
-  { id: "EmailAddress", label: "Email" },
+  { id: "EmailAddress", label: "Email ID" },
   { id: "Status", label: "Status" },
   { id: "actions", label: "Actions", disableSorting: true },
 ];

@@ -35,7 +35,7 @@ const initialFormValues = {
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
-    backgroundColor: theme.palette.common.grey,
+    backgroundColor: "#4f81bd",
     color: theme.palette.common.black,
   },
   body: {
@@ -87,8 +87,8 @@ const SmsClassNotificationForm = ({
       ? "Must be less than 160 characters"
       : "";
 
-      temp.selectedStudents =
-      selectedStudents?.length  === 0 ? "Please Select Atleast One Option" : "";
+    temp.selectedStudents =
+      selectedStudents?.length === 0 ? "Please Select Atleast One Option" : "";
     setErrors({ ...temp });
     return Object.values(temp).every((x) => x === "");
   };
@@ -146,18 +146,19 @@ const SmsClassNotificationForm = ({
       <TableContainer component={Paper}>
         <Table className={classes.table} aria-label="customized table">
           <TableHead>
-          {errors.selectedStudents && (
-              <span style={{ color: "red"}} >{errors.selectedStudents}</span>
+            {errors.selectedStudents && (
+              <span style={{ color: "red" }}>{errors.selectedStudents}</span>
             )}
             <TableRow>
               <StyledTableCell>Roll No. </StyledTableCell>
               <StyledTableCell>Student Name </StyledTableCell>
               <StyledTableCell>Batch </StyledTableCell>
               <StyledTableCell style={{ textAlign: "right" }}>
-                <label>Select All</label>
+                <label>All</label>
                 <Checkbox
                   checked={checked}
                   onChange={(e) => handleAllChecked(e.target.checked)}
+                  color="primary"
                 />
               </StyledTableCell>
             </TableRow>

@@ -16,7 +16,7 @@ import { postBulkStudentAttendanceAction } from "./StudentAttendanceActions";
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
-    backgroundColor: "#253053",
+    backgroundColor: "#4f81bd",
     color: theme.palette.common.white,
   },
   body: {
@@ -115,8 +115,8 @@ const StudentAttendanceBulk = ({
             <TableRow>
               <StyledTableCell>Roll No.</StyledTableCell>
               <StyledTableCell align="left">FullName</StyledTableCell>
-              <StyledTableCell align="center">Present Day</StyledTableCell>
-              <StyledTableCell align="center">Absent Day</StyledTableCell>
+              <StyledTableCell align="center">Present Days</StyledTableCell>
+              <StyledTableCell align="center">Absent Days</StyledTableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -158,7 +158,10 @@ const StudentAttendanceBulk = ({
                     <TextField
                       disabled
                       id={`practical_${subject.IDHREmployee}`}
-                      value={subject.AbsentDay}
+                      value={
+                        (subject.WorkingDay !== null && subject.WorkingDay) -
+                        (subject.PresentDay !== null && subject.PresentDay)
+                      }
                       type="number"
                       label="Absent Day"
                       variant="outlined"

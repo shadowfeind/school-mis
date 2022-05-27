@@ -101,6 +101,7 @@ const AcademicProgramForm = ({ academicProgram, selected, setOpenPopup }) => {
 
   const { available } = academicProgramOption;
 
+
   const handleChangeCheckbox = (e, id) => {
     if (e.target.checked) {
       setCheckboxState([...checkboxState, e.target.value]);
@@ -109,6 +110,7 @@ const AcademicProgramForm = ({ academicProgram, selected, setOpenPopup }) => {
         const checkData = prev.filter((x) => x.Id !== id);
         return [...checkData];
       });
+
     }
   };
 

@@ -23,7 +23,7 @@ import { GET_EVENT_FOR_EXAM_SCHEDULE_RESET } from "./ExamScheduleConstants";
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
-    backgroundColor: "#253053",
+    backgroundColor: "#4f81bd",
     color: "#fff",
   },
   body: {
@@ -235,7 +235,7 @@ const ExamScheduleGenerateForm = ({
                   <StyledTableCell align="center" style={{ width: 150 }}>
                     FullMark
                   </StyledTableCell>
-                  <StyledTableCell align="center" style={{ width: 150 }}>
+                  <StyledTableCell align="center">
                     FullMark(PT/UT)
                   </StyledTableCell>
                   <StyledTableCell align="center" style={{ width: 150 }}>
@@ -244,7 +244,7 @@ const ExamScheduleGenerateForm = ({
                   <StyledTableCell align="center" style={{ width: 150 }}>
                     Subject Order
                   </StyledTableCell>
-                  <StyledTableCell align="center">
+                  <StyledTableCell align="center" style={{ width: 150 }}>
                     All{" "}
                     <Checkbox
                       onChange={(e) => handleBulkChange(e.target.checked)}

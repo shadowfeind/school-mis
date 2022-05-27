@@ -40,9 +40,8 @@ const StudentAttendanceTableCollapse = ({ item, attendance }) => {
         <TableCell>{item.WorkingDay}</TableCell>
         <TableCell>{item.PresentDay}</TableCell>
         <TableCell>
-          {item.WorkingDay !== null &&
-            item.WorkingDay - item.PresentDay !== null &&
-            item.PresentDay}
+          {(item.WorkingDay !== null && item.WorkingDay) -
+            (item.PresentDay !== null && item.PresentDay)}
         </TableCell>
         <TableCell>
           {/* <Button

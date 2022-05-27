@@ -35,7 +35,7 @@ const initialFormValues = {
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
-    backgroundColor: theme.palette.common.grey,
+    backgroundColor: "#4f81bd",
     color: theme.palette.common.black,
   },
   body: {
@@ -62,7 +62,6 @@ const ClassNotificationForm = ({
   students,
   setOpenPopup,
 }) => {
-  
   const [checked, setChecked] = useState(false);
   const [lstStudents, setLstStudents] = useState([]);
   const [selectedStudents, setSelectedStudents] = useState([]);
@@ -88,8 +87,8 @@ const ClassNotificationForm = ({
       ? "Must be less than 160 characters"
       : "";
 
-      temp.selectedStudents =
-      selectedStudents?.length  === 0 ? "Please Select Atleast One Option" : "";
+    temp.selectedStudents =
+      selectedStudents?.length === 0 ? "Please Select Atleast One Option" : "";
 
     setErrors({ ...temp });
     return Object.values(temp).every((x) => x === "");
@@ -141,29 +140,26 @@ const ClassNotificationForm = ({
   return (
     <>
       <h5>**only app users are shown**</h5>
-     
+
       <TableContainer component={Paper}>
-      
         <Table className={classes.table} aria-label="customized table">
           <TableHead>
-          {errors.selectedStudents && (
-              <span style={{ color: "red"}} >{errors.selectedStudents}</span>
+            {errors.selectedStudents && (
+              <span style={{ color: "red" }}>{errors.selectedStudents}</span>
             )}
             <TableRow>
-            
               <StyledTableCell>Roll No. </StyledTableCell>
               <StyledTableCell>Student Name </StyledTableCell>
-             
+
               <StyledTableCell>Batch </StyledTableCell>
               <StyledTableCell style={{ textAlign: "right" }}>
-                <label>Select All</label>
+                <label>All</label>
                 <Checkbox
                   checked={checked}
                   onChange={(e) => handleAllChecked(e.target.checked)}
+                  color="primary"
                 />
-                
               </StyledTableCell>
-              
             </TableRow>
           </TableHead>
           <TableBody>
@@ -186,7 +182,6 @@ const ClassNotificationForm = ({
                       scope="row"
                       style={{ textAlign: "right" }}
                     >
-                    
                       <Checkbox
                         checked={
                           selectedStudents.filter(
@@ -197,7 +192,6 @@ const ClassNotificationForm = ({
                         }
                         onChange={(e) => handleChecked(e.target.checked, s)}
                       />
-                      
                     </StyledTableCell>
                   </StyledTableRow>
                 ))}
@@ -248,7 +242,7 @@ const ClassNotificationForm = ({
             </p>
           </Grid>
         </Grid>
-        
+
         <div
           style={{
             display: "flex",

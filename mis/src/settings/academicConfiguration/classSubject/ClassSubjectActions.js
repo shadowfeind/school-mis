@@ -169,11 +169,10 @@ export const deleteClassSubjectAction = (classSubject) => async (dispatch) => {
     console.log(jsonData);
 
     await axiosInstance.post(
-      `${API_URL}/api/ClassSubject/DeleteClassSubject`,
+      `/api/ClassSubject/DeleteClassSubject`,
       jsonData,
       tokenConfig()
     );
-
     dispatch({ type: DELETE_CLASS_SUBJECT_SUCCESS });
   } catch (error) {
     dispatch({

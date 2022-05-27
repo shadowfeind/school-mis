@@ -19,7 +19,7 @@ import { postStudentPresentListAction } from "./StudentMonthlyPresentSheetAction
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
-    backgroundColor: "#253053",
+    backgroundColor: "#4f81bd",
     color: "#fff",
   },
   body: {
@@ -108,8 +108,8 @@ const StudentMonthlyPresentSheetUpdateForm = ({ students, setOpenPopup }) => {
             <TableRow>
               <StyledTableCell>Roll No. </StyledTableCell>
               <StyledTableCell>Student Name</StyledTableCell>
-              <StyledTableCell>Mobile</StyledTableCell>
-              <StyledTableCell>Email</StyledTableCell>
+              <StyledTableCell>Mobile No.</StyledTableCell>
+              <StyledTableCell>Email ID</StyledTableCell>
 
               <StyledTableCell>
                 <label>All</label>
@@ -156,7 +156,7 @@ const StudentMonthlyPresentSheetUpdateForm = ({ students, setOpenPopup }) => {
       </TableContainer>
       {stuAttendance?.length <= 0 && (
         <div>
-          <h3 style={{ color: "red", textAlign: "center" }}>No Data</h3>
+          <h3 style={{ color: "red", textAlign: "center" }}>No Data Found</h3>
         </div>
       )}
       {errors.submit && (

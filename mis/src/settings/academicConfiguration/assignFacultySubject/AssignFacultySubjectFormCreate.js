@@ -15,7 +15,7 @@ import Paper from "@material-ui/core/Paper";
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
-    backgroundColor: "#253053",
+    backgroundColor: "#4f81bd",
     color: "#fff",
   },
   body: {
@@ -119,6 +119,7 @@ const AssignFacultySubjectFormCreate = ({
               <StyledTableCell align="right">
                 All{" "}
                 <Checkbox
+                  className={classes.checkBox}
                   onChange={(e) => handleBulkChange(e.target.checked)}
                   name="checkedB"
                   color="primary"

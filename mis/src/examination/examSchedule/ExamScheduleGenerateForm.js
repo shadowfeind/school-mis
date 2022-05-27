@@ -244,7 +244,7 @@ const ExamScheduleGenerateForm = ({
                   <StyledTableCell align="center" style={{ width: 150 }}>
                     Subject Order
                   </StyledTableCell>
-                  <StyledTableCell align="center">
+                  <StyledTableCell align="center" style={{ width: 150 }}>
                     All{" "}
                     <Checkbox
                       onChange={(e) => handleBulkChange(e.target.checked)}

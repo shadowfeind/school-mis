@@ -188,11 +188,13 @@ const EcaDataBulkEdit = ({
         <Table className={classes.table} aria-label="customized table">
           <TableHead>
             <TableRow>
-              <StyledTableCell>Roll No.</StyledTableCell>
-              <StyledTableCell>Full Name</StyledTableCell>
+              <StyledTableCell width="10%">Roll No.</StyledTableCell>
+              <StyledTableCell width="15%">Student Name</StyledTableCell>
               {selectSubject &&
                 selectSubject.map((subject, i) => (
-                  <StyledTableCell key={i}>{subject.ECAName}</StyledTableCell>
+                  <StyledTableCell width="15%" key={i}>
+                    {subject.ECAName}
+                  </StyledTableCell>
                 ))}
             </TableRow>
           </TableHead>

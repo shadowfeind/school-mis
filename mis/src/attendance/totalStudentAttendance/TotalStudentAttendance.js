@@ -50,9 +50,9 @@ const useStyles = makeStyles((theme) => ({
 
 const tableHeader = [
   { id: "Total", label: "Total Attendance" },
-  { id: "FullName", label: "FullName" },
-  { id: "RollNo", label: "RollNo" },
-  { id: "MobileNumber", label: "Mobile Number" },
+  { id: "FullName", label: "Student Name" },
+  { id: "RollNo", label: "RollNo." },
+  { id: "MobileNumber", label: "Mobile No." },
   { id: "EmailID", label: "Email ID" },
 ];
 

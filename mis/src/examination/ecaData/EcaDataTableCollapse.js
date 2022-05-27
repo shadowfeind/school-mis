@@ -35,7 +35,7 @@ const StyledTableRow = withStyles((theme) => ({
 }))(TableRow);
 const useStyles = makeStyles({
   table: {
-    minWidth: 300,
+    minWidth: 700,
   },
 });
 
@@ -166,7 +166,7 @@ const EcaDataTableCollapse = ({ bulkDatas, academicSubjects, ecas }) => {
           <TableHead>
             <TableRow>
               <StyledTableCell>Roll No.</StyledTableCell>
-              <StyledTableCell>Full Name</StyledTableCell>
+              <StyledTableCell>Student Name</StyledTableCell>
               {selectSubject &&
                 selectSubject.map((subject, i) => (
                   <StyledTableCell key={i}>{subject.ECAName}</StyledTableCell>

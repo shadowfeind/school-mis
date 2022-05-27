@@ -21,7 +21,7 @@ import { validate } from "schema-utils";
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
-    backgroundColor: "#253053",
+    backgroundColor: "#4f81bd",
     color: "#fff",
   },
   body: {

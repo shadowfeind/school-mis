@@ -91,11 +91,11 @@ const AccessControl = () => {
             label="SMS Access Control"
             {...a11yProps(1)}
           />
-          <Tab
+          {/* <Tab
             style={{ fontSize: "11px", color: "#fff" }}
             label="Permission By Role"
             {...a11yProps(2)}
-          />
+          /> */}
           {/* 
 <Tab
             style={{ fontSize: "11px", color: "#fff" }}

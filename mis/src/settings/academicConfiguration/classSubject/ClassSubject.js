@@ -226,6 +226,7 @@ const ClassSubject = () => {
     });
     dispatch({ type: POST_TO_CREATE_CLASS_SUBJECT_RESET });
   }
+
   if (deleteClassSubjectSuccess) {
     dispatch(getClassSubjectListAction(classId));
     setNotify({

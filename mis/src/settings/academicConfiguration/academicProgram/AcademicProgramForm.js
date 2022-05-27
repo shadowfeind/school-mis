@@ -26,7 +26,7 @@ const initialFormValues = {
 
 const AcademicProgramForm = ({ academicProgram, selected, setOpenPopup }) => {
   const [checkboxState, setCheckboxState] = useState([]);
-  const [errorsEdit,setErrorsEdit] = useState({});
+  const [errorsEdit, setErrorsEdit] = useState({});
   const dispatch = useDispatch();
   const validate = (fieldValues = values) => {
     let temp = { ...errors };
@@ -72,8 +72,7 @@ const AcademicProgramForm = ({ academicProgram, selected, setOpenPopup }) => {
       ? "Must be less than 1000 characters"
       : "";
 
-    
-      setErrorsEdit({ ...temp });
+    setErrorsEdit({ ...temp });
     return Object.values(temp).every((x) => x === "");
   };
 
@@ -83,19 +82,18 @@ const AcademicProgramForm = ({ academicProgram, selected, setOpenPopup }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    
-      if (values.IDAcademicProgram === 0) {
-        if (validate()) {
+    if (values.IDAcademicProgram === 0) {
+      if (validate()) {
         // dispatch(AcademicProgramCreateAction(values, checkboxState));
-        alert("Post")
+        alert("Post");
       }
-      } else {
-        if(validateEdit()){
+    } else {
+      if (validateEdit()) {
         // dispatch(updateSingleAcademicProgramAction(values));
-        alert("Put")
-        }
+        alert("Put");
       }
     }
+  };
 
   const { academicProgramOption } = useSelector(
     (state) => state.getAcademicProgramOption
@@ -104,7 +102,11 @@ const AcademicProgramForm = ({ academicProgram, selected, setOpenPopup }) => {
   const { available } = academicProgramOption;
 
   const handleChangeCheckbox = (e) => {
-    setCheckboxState([...checkboxState, e.target.value]);
+    if (e.target.checked) {
+      setCheckboxState([...checkboxState, e.target.value]);
+    } else {
+      setCheckboxState([]);
+    }
   };
 
   useEffect(() => {

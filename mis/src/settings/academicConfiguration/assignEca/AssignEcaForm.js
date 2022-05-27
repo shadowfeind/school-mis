@@ -21,7 +21,7 @@ import { postAssignEcaAction } from "./AssignEcaActions";
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
-    backgroundColor: "#253053",
+    backgroundColor: "#4f81bd",
     color: "#fff",
   },
   body: {
@@ -62,6 +62,8 @@ const AssignEcaForm = ({
       assign.length > 8 - count
         ? `Eca can only contain 8 entries. ${8 - count} remaining.`
         : "";
+
+    temp.submit = assign?.length <= 0 ? "Select Atleast one options" : "";
 
     setErrors({ ...temp });
     return Object.values(temp).every((x) => x === "");
@@ -152,6 +154,23 @@ const AssignEcaForm = ({
           </TableBody>
         </Table>
       </TableContainer>
+      {assignEca?.length <= 0 && (
+        <div>
+          <h3 style={{ color: "red", textAlign: "center" }}>No Data Found</h3>
+        </div>
+      )}
+      {errors.submit && (
+        <div
+          style={{
+            textAlign: "center",
+            color: "red",
+            fontSize: "12px",
+            paddingTop: "8px",
+          }}
+        >
+          {errors.submit}
+        </div>
+      )}
       <div style={{ textAlign: "center", color: "red", fontSize: "14px" }}>
         {errors && errors.ecaError}
       </div>

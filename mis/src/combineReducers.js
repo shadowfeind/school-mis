@@ -636,7 +636,7 @@ export const reducers = combineReducers({
   updateSingleClassSubject: updateSingleClassSubjectReducer,
   getToCreateClassSubject: getToCreateClassSubjectReducer,
   postToCreateClassSubject: postToCreateClassSubjectReducer,
-  deleteClassSubject: deleteTeacherFacSubReducer,
+  deleteClassSubject: deleteClassSubjectReducer,
   getInitialRoleForPermission: getInitialRoleForPermissionReducer,
   getlistPermissionByRole: getlistPermissionByRoleReducer,
   //examination reducers start

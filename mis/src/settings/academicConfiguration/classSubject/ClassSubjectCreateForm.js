@@ -15,7 +15,7 @@ import Paper from "@material-ui/core/Paper";
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
-    backgroundColor: "#253053",
+    backgroundColor: "#4f81bd",
     color: theme.palette.common.white,
   },
   body: {
@@ -135,7 +135,7 @@ const ClassSubjectCreateForm = ({
                       }
                       InputProps={{
                         inputProps: {
-                          style: { textAlign: "center" },
+                          style: { textAlign: "left" },
                         },
                       }}
                       variant="outlined"

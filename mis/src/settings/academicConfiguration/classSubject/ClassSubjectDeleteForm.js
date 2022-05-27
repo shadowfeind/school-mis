@@ -3,10 +3,7 @@ import { Button, Grid } from "@material-ui/core";
 import InputControl from "../../../components/controls/InputControl";
 import { useForm, Form } from "../../../customHooks/useForm";
 import { useDispatch } from "react-redux";
-import {
-  deleteClassSubjectAction,
-  updatedeleteClassSubjectAction,
-} from "./ClassSubjectActions";
+import { deleteClassSubjectAction } from "./ClassSubjectActions";
 
 const initialFormValues = {
   IDClassSubject: 0,
@@ -20,7 +17,7 @@ const initialFormValues = {
 
 const ClassSubjectDeleteForm = ({ deleteClassSubject, setOpenDeletePopup }) => {
   const dispatch = useDispatch();
- 
+
   const { values, setValues, handleInputChange, errors, setErrors } =
     useForm(initialFormValues);
 

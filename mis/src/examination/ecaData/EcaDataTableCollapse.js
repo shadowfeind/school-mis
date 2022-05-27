@@ -18,7 +18,7 @@ import { useDispatch } from "react-redux";
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
-    backgroundColor: "#253053",
+    backgroundColor: "#4f81bd",
     color: theme.palette.common.white,
   },
   body: {

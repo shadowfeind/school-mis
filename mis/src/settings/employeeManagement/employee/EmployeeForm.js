@@ -35,7 +35,7 @@ const initialFormValues = {
   IDHRDepartment: 1,
   JoinedPosition: "",
   IsNewlyAdded: 1,
-  IsActive: 1,
+  IsActive: true,
   Created_By: 0,
   Created_On: "2021-10-01T04:20:16.288Z",
   Updated_On: "2021-10-01T04:20:16.288Z",
@@ -73,14 +73,13 @@ const EmployeeForm = ({ employee, setOpenPopup }) => {
       ? "This feild is required"
       : "";
     // temp.JoinedPosition = !fieldValues.JoinedPosition ? "This feild is required" :"";
-    temp.EmailID =
-      !fieldValues.EmailID 
-        ? "This field is required"
-        : /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(
-            fieldValues.EmailID
-          )
-        ? ""
-        : "Email is not valid";
+    temp.EmailID = !fieldValues.EmailID
+      ? "This field is required"
+      : /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(
+          fieldValues.EmailID
+        )
+      ? ""
+      : "Email is not valid";
     temp.Married = !fieldValues.Married ? "This feild is required" : "";
     temp.IDHRRole = !fieldValues.IDHRRole ? "This feild is required" : "";
     temp.WebLoginAccess = !fieldValues.WebLoginAccess
@@ -129,6 +128,7 @@ const EmployeeForm = ({ employee, setOpenPopup }) => {
     ddlPosition,
     ddlRole,
     ddlDepartment,
+    ddlIsActive,
   } = employeeCreate;
 
   const handleSubmit = (e) => {
@@ -352,6 +352,14 @@ const EmployeeForm = ({ employee, setOpenPopup }) => {
             onChange={handleInputChange}
             options={ddlPosition}
             errors={errors.Position}
+          />
+
+          <SelectControl
+            name="IsActive"
+            label="IsActive"
+            value={values.IsActive}
+            onChange={handleInputChange}
+            options={ddlIsActive}
           />
         </Grid>
       </Grid>

@@ -78,7 +78,7 @@ const UploadPhoto = () => {
 
   return (
     <CustomContainer>
-      upload Photo
+      <b> Upload Photo </b>
       <br />
       <UploadPhotoForm uploadPhoto={allUploadPhoto && allUploadPhoto} />
       <Notification notify={notify} setNotify={setNotify} />

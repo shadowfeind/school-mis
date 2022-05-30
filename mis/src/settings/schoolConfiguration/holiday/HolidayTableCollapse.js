@@ -32,10 +32,10 @@ const HolidayTableCollapse = ({
   return (
     <>
       <TableRow key={item.$id}>
-        <TableCell>{item.HolidayName}</TableCell>
-        <TableCell>{item.Description}</TableCell>
-        <TableCell>{item.FromDate}</TableCell>
-        <TableCell>{item.ToDate}</TableCell>
+        <TableCell width="18%">{item.HolidayName}</TableCell>
+        <TableCell>{item.Description?.slice(0, 50)}</TableCell>
+        <TableCell width="18%">{item.FromDate?.slice(0, 10)}</TableCell>
+        <TableCell width="18%">{item.ToDate?.slice(0, 10)}</TableCell>
         <TableCell>{item.IsActive ? "Active" : "InActive"}</TableCell>
         <TableCell>
           <Button
@@ -46,14 +46,14 @@ const HolidayTableCollapse = ({
           >
             <EditIcon style={{ fontSize: 12 }} />
           </Button>
-          <Button
+          {/* <Button
             variant="contained"
             color="secondary"
             className={classes.button}
             onClick={() => deleteCollegeHandler(item.IDHRHoliday)}
           >
             <DeleteIcon style={{ fontSize: 12 }} />
-          </Button>
+          </Button> */}
         </TableCell>
       </TableRow>
     </>

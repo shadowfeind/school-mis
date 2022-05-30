@@ -1,18 +1,10 @@
 import React, { useEffect, useState } from "react";
-import {
-  Button,
-  makeStyles,
-  TableBody,
-  Toolbar,
-  Grid,
-  Card,
-} from "@material-ui/core";
+import { Button, makeStyles, Toolbar, Grid } from "@material-ui/core";
 import {
   Calendar,
   momentLocalizer,
   dateFnsLocalizer,
 } from "react-big-calendar";
-import useCustomTable from "../../../customHooks/useCustomTable";
 import moment, { months } from "moment";
 import AddIcon from "@material-ui/icons/Add";
 import LoadingComp from "../../../components/LoadingComp";
@@ -32,7 +24,7 @@ import {
 } from "./HolidayConstants";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import DateToIso from "../../../components/DateToIso";
-import HolidayTableCollapse from "./HolidayTableCollapse";
+
 const useStyles = makeStyles((theme) => ({
   searchInput: {
     width: "75%",
@@ -42,22 +34,7 @@ const useStyles = makeStyles((theme) => ({
     position: "absolute",
     right: "10px",
   },
-  cardStyle: {
-    margin: "10px",
-    padding: "13px",
-    borderRadius: "10px",
-    boxShadow: "5px 5px 5px #d4d4d4",
-  },
 }));
-
-const tableHeader = [
-  { id: "HolidayName", label: "Event Name" },
-  { id: "Description", label: "Event Description" },
-  { id: "Created_On", label: "Created On" },
-  { id: "Updated_On", label: "Updated On" },
-  { id: "IsActive", label: "IsActive" },
-  { id: "actions", label: "Actions", disableSorting: true },
-];
 
 const localizer = momentLocalizer(moment);
 // const localizer = dateFnsLocalizer({
@@ -67,17 +44,10 @@ const localizer = momentLocalizer(moment);
 //   getDay,
 // });
 
-const Holiday = () => {
+const HolidayForDashBboard = () => {
   const [openPopup, setOpenPopup] = useState(false);
   const [startDate, setStartDate] = useState("2022-03-11");
   const [endDate, setEndDate] = useState("2022-03-13");
-
-  const [tableData, setTableData] = useState([]);
-  const [filterFn, setFilterFn] = useState({
-    fn: (item) => {
-      return item;
-    },
-  });
   const [notify, setNotify] = useState({
     isOpen: false,
     message: "",
@@ -89,23 +59,11 @@ const Holiday = () => {
     subTitle: "",
   });
 
-  const {
-    TableContainer,
-    TblHead,
-    TblPagination,
-    tableDataAfterPagingAndSorting,
-  } = useCustomTable(tableData, tableHeader, filterFn);
-
   const classes = useStyles();
 
   const dispatch = useDispatch();
 
-  const {
-    holiday,
-    error,
-    loading,
-    loading: table,
-  } = useSelector((state) => state.holiday);
+  const { holiday, error, loading } = useSelector((state) => state.holiday);
 
   const { success: createHolidaySuccess, error: createHolidayError } =
     useSelector((state) => state.createHoliday);
@@ -154,12 +112,6 @@ const Holiday = () => {
     dispatch({ type: UPDATE_SINGLE_HOLIDAY_RESET });
   }
 
-  useEffect(() => {
-    if (holiday) {
-      setTableData(holiday.att_HRHolidayModelLst);
-    }
-  }, [holiday]);
-
   const updateCollegeHandler = (id) => {
     dispatch(getSingleHolidayAction(id));
     setOpenPopup(true);
@@ -188,75 +140,44 @@ const Holiday = () => {
   };
   return (
     <>
-      <Grid container>
-        <Grid item xs={6}>
-          <div
-            style={{
-              margin: "10px",
-              padding: "20px",
-              backgroundColor: "#fff",
-              borderRadius: "10px",
-              boxShadow: "5px 5px 5px #d4d4d4",
-            }}
+      <div
+        style={{
+          margin: "10px",
+          padding: "20px",
+          backgroundColor: "#fff",
+          borderRadius: "10px",
+          boxShadow: "5px 5px 5px #d4d4d4",
+        }}
+      >
+        <Toolbar>
+          <Button
+            variant="contained"
+            color="primary"
+            startIcon={<AddIcon />}
+            className={classes.button}
+            onClick={addHandler}
           >
-            <Toolbar>
-              <Button
-                variant="contained"
-                color="primary"
-                startIcon={<AddIcon />}
-                className={classes.button}
-                onClick={addHandler}
-              >
-                Add{" "}
-              </Button>
-            </Toolbar>
-            {loading ? (
-              <LoadingComp />
-            ) : (
-              <>
-                <Calendar
-                  localizer={localizer}
-                  events={holiday && holiday.att_HRHolidayModelLst}
-                  startAccessor="FromDate"
-                  endAccessor="ToDate"
-                  titleAccessor="HolidayName"
-                  views={months}
-                  selectable
-                  onSelectSlot={handleCalendarSelect}
-                  style={{ height: "60vh" }}
-                />
-              </>
-            )}
-          </div>
-        </Grid>
-        <Grid item xs={6}>
-          <Card className={classes.cardStyle}>
-            <h5 style={{ textAlign: "center" }}>All Events</h5>
-            {loading ? (
-              <LoadingComp />
-            ) : (
-              <>
-                <TableContainer className={classes.table}>
-                  <TblHead />
-
-                  <TableBody>
-                    {tableDataAfterPagingAndSorting().map((item) => (
-                      <HolidayTableCollapse
-                        item={item}
-                        key={item.$id}
-                        updateCollegeHandler={updateCollegeHandler}
-                        deleteCollegeHandler={deleteCollegeHandler}
-                      />
-                    ))}
-                  </TableBody>
-                </TableContainer>
-                <TblPagination />
-              </>
-            )}
-          </Card>
-        </Grid>
-      </Grid>
-
+            Add{" "}
+          </Button>
+        </Toolbar>
+        {loading ? (
+          <LoadingComp />
+        ) : (
+          <>
+            <Calendar
+              localizer={localizer}
+              events={holiday && holiday.att_HRHolidayModelLst}
+              startAccessor="FromDate"
+              endAccessor="ToDate"
+              titleAccessor="HolidayName"
+              views={months}
+              selectable
+              onSelectSlot={handleCalendarSelect}
+              style={{ height: "60vh" }}
+            />
+          </>
+        )}
+      </div>
       <Popup
         openPopup={openPopup}
         setOpenPopup={setOpenPopup}
@@ -278,4 +199,4 @@ const Holiday = () => {
   );
 };
 
-export default Holiday;
+export default HolidayForDashBboard;

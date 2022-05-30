@@ -163,6 +163,7 @@ const ReassociateStudentLevelUp = ({
             {idAcademicYearValue && (
               <Grid item xs={4}>
                 <SelectControl
+                  disabled
                   name="academicYear"
                   label="Academic Year"
                   value={idAcademicYearValue}
@@ -174,6 +175,7 @@ const ReassociateStudentLevelUp = ({
             {idNextAcademicYearValue && (
               <Grid item xs={4}>
                 <SelectControl
+                  disabled
                   name="academicYearNext"
                   label="Next Academic Year"
                   value={idNextAcademicYearValue}
@@ -305,7 +307,9 @@ const ReassociateStudentLevelUp = ({
           </TableContainer>
           {dbModelLst?.length <= 0 && (
             <div>
-              <h3 style={{ color: "red", textAlign: "center" }}>No Data</h3>
+              <h3 style={{ color: "red", textAlign: "center" }}>
+                No Data Found
+              </h3>
             </div>
           )}
           {errors.submit && (

@@ -67,11 +67,11 @@ const ExamMarkApprovalBlankForm = ({
                         <br />
                         <b>{address}</b>
                         <br />
-                        <b>-{yearShow[0]?.Value}</b>
-                        <br />
                         <b>Term Exam:</b>
+                        &nbsp;
                         {blankData?.dbModelLsts.length > 0 &&
-                          blankData.dbModelLsts[0].EventName}
+                          blankData.dbModelLsts[0].EventName}{" "}
+                        -<b>{yearShow[0]?.Value}</b>
                       </div>
                     </td>
                     <td>

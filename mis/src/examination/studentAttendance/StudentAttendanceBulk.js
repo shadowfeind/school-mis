@@ -159,7 +159,7 @@ const StudentAttendanceBulk = ({
                       disabled
                       id={`practical_${subject.IDHREmployee}`}
                       value={
-                        (subject.WorkingDay !== null && subject.WorkingDay) -
+                        workingDays -
                         (subject.PresentDay !== null && subject.PresentDay)
                       }
                       type="number"

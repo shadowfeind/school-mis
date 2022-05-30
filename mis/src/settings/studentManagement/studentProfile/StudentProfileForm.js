@@ -104,17 +104,15 @@ const married = [
   { Key: "no", Value: "No" },
 ];
 
-const test = [{Key: "", Value: ""}]
+const test = [{ Key: "", Value: "" }];
 
 const levelStatus = [
-  {Key: "open", Value: "Open"},
-  {Key: "cleared", Value: "Cleared"},
-  {Key: "suspended", Value: "Suspended"},
-  {Key: "dropped", Value: "Dropped"},
-  {Key: "passed", Value: "Passed"},
-]
-
-
+  { Key: "open", Value: "Open" },
+  { Key: "cleared", Value: "Cleared" },
+  { Key: "suspended", Value: "Suspended" },
+  { Key: "dropped", Value: "Dropped" },
+  { Key: "passed", Value: "Passed" },
+];
 
 const StudentProfileForm = ({ studentData, setOpenPopup }) => {
   const dispatch = useDispatch();
@@ -130,39 +128,30 @@ const StudentProfileForm = ({ studentData, setOpenPopup }) => {
       : !fieldValues.FirstName.trim()
       ? "This feild is required"
       : "";
-      temp.Sex = !fieldValues.Sex
+    temp.Sex = !fieldValues.Sex ? "This feild is required" : "";
+    temp.DOB = !fieldValues.DOB ? "This feild is required" : "";
+    temp.MobileNumber = !fieldValues.MobileNumber
       ? "This feild is required"
-      : "";
-      temp.DOB = !fieldValues.DOB
-      ? "This feild is required"
-      : "";
-      temp.MobileNumber = !fieldValues.MobileNumber
-      ? "This feild is required"
-      :fieldValues.MobileNumber.length < 7
-      ?"Mobile No. Must be more than 7"
+      : fieldValues.MobileNumber.length < 7
+      ? "Mobile No. Must be more than 7"
       : fieldValues.MobileNumber.length > 10
-      ? "Mobile No. Must be less than 10" 
+      ? "Mobile No. Must be less than 10"
       : "";
-      temp.LastName = !fieldValues.LastName
+    temp.LastName = !fieldValues.LastName ? "This feild is required" : "";
+    temp.EmailID = !fieldValues.EmailID
       ? "This feild is required"
-      : "";
-      temp.EmailID = !fieldValues.EmailID
-      ? "This feild is required"
-      :(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(fieldValues.EmailID)) ? "" : "Email is not valid";
-      temp.BloodGroup = !fieldValues.BloodGroup
-      ? "This feild is required"
-      : "";
-      temp.UniversityRegistrationNumber = !fieldValues.UniversityRegistrationNumber
-      ? "This feild is required"
-      : "";
-      // temp.WebLoginAccess = !fieldValues.WebLoginAccess
-      // ? "This feild is required"
-      // : "";
-      temp.RollNo = !fieldValues.RollNo
-      ? "This feild is required"
-      : "";
-     
-
+      : /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(
+          fieldValues.EmailID
+        )
+      ? ""
+      : "Email is not valid";
+    temp.BloodGroup = !fieldValues.BloodGroup ? "This feild is required" : "";
+    temp.UniversityRegistrationNumber =
+      !fieldValues.UniversityRegistrationNumber ? "This feild is required" : "";
+    // temp.WebLoginAccess = !fieldValues.WebLoginAccess
+    // ? "This feild is required"
+    // : "";
+    temp.RollNo = !fieldValues.RollNo ? "This feild is required" : "";
 
     setErrors({ ...temp });
     return Object.values(temp).every((x) => x === "");
@@ -184,7 +173,7 @@ const StudentProfileForm = ({ studentData, setOpenPopup }) => {
     }
   }, [studentData]);
 
-  const symbolsArr = ["e", "E", "+", "-", ".","ArrowUp","ArrowDown"];
+  const symbolsArr = ["e", "E", "+", "-", ".", "ArrowUp", "ArrowDown"];
 
   return (
     <Form onSubmit={handleSubmit}>
@@ -194,9 +183,9 @@ const StudentProfileForm = ({ studentData, setOpenPopup }) => {
             name="LoginIDHREmployee"
             label="Login ID*"
             value={values.LoginIDHREmployee}
-            onFocus={e => {
-      e.target.select();
-    }}
+            onFocus={(e) => {
+              e.target.select();
+            }}
             onChange={handleInputChange}
             errors={errors.LoginIDHREmployee}
           />
@@ -205,18 +194,18 @@ const StudentProfileForm = ({ studentData, setOpenPopup }) => {
             label="First Name*"
             value={values.FirstName}
             onChange={handleInputChange}
-            onFocus={e => {
-      e.target.select();
-    }}
+            onFocus={(e) => {
+              e.target.select();
+            }}
             errors={errors.FirstName}
           />
           <InputControl
             name="LastName"
             label="Last Name"
             value={values.LastName}
-            onFocus={e => {
-      e.target.select();
-    }}
+            onFocus={(e) => {
+              e.target.select();
+            }}
             onChange={handleInputChange}
             errors={errors.LastName}
           />
@@ -224,9 +213,9 @@ const StudentProfileForm = ({ studentData, setOpenPopup }) => {
             name="EmailID"
             label="Email Address"
             value={values.EmailID}
-            onFocus={e => {
-      e.target.select();
-    }}
+            onFocus={(e) => {
+              e.target.select();
+            }}
             onChange={handleInputChange}
             errors={errors.EmailID}
           />
@@ -234,9 +223,9 @@ const StudentProfileForm = ({ studentData, setOpenPopup }) => {
             name="BloodGroup"
             label="Blood Group"
             value={values.BloodGroup}
-            onFocus={e => {
-      e.target.select();
-    }}
+            onFocus={(e) => {
+              e.target.select();
+            }}
             onChange={handleInputChange}
             errors={errors.BloodGroup}
           />
@@ -244,9 +233,9 @@ const StudentProfileForm = ({ studentData, setOpenPopup }) => {
             name="UniversityRegistrationNumber"
             label="Symbol No"
             value={values.UniversityRegistrationNumber}
-            onFocus={e => {
-      e.target.select();
-    }}
+            onFocus={(e) => {
+              e.target.select();
+            }}
             onChange={handleInputChange}
             errors={errors.UniversityRegistrationNumber}
           />
@@ -255,9 +244,9 @@ const StudentProfileForm = ({ studentData, setOpenPopup }) => {
             label="Gender"
             value={values.Sex}
             onChange={handleInputChange}
-            onFocus={e => {
-      e.target.select();
-    }}
+            onFocus={(e) => {
+              e.target.select();
+            }}
             options={gender}
             errors={errors.Sex}
           />
@@ -266,9 +255,9 @@ const StudentProfileForm = ({ studentData, setOpenPopup }) => {
             name="WebLoginAccess"
             label="Web Login Access"
             value={values.WebLoginAccess}
-            onFocus={e => {
-      e.target.select();
-    }}
+            onFocus={(e) => {
+              e.target.select();
+            }}
             onChange={handleInputChange}
             options={loginAccess}
             errors={errors.WebLoginAccess}
@@ -278,9 +267,9 @@ const StudentProfileForm = ({ studentData, setOpenPopup }) => {
           <InputControl
             name="MiddleName"
             label="Middle Name"
-            onFocus={e => {
-      e.target.select();
-    }}
+            onFocus={(e) => {
+              e.target.select();
+            }}
             value={values.MiddleName}
             onChange={handleInputChange}
           />
@@ -288,9 +277,9 @@ const StudentProfileForm = ({ studentData, setOpenPopup }) => {
             name="DOB"
             label="Date Of Birth"
             value={values.DOB}
-            onFocus={e => {
-      e.target.select();
-    }}
+            onFocus={(e) => {
+              e.target.select();
+            }}
             onChange={handleInputChange}
             errors={errors.DOB}
           />
@@ -298,12 +287,12 @@ const StudentProfileForm = ({ studentData, setOpenPopup }) => {
             name="MobileNumber"
             label="Mobile Number"
             value={values.MobileNumber}
-            onWheelCapture={e => {
-  e.target.blur()
-}}
-            onFocus={e => {
-      e.target.select();
-    }}
+            onWheelCapture={(e) => {
+              e.target.blur();
+            }}
+            onFocus={(e) => {
+              e.target.select();
+            }}
             onChange={handleInputChange}
             onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}
             type="number"
@@ -313,12 +302,12 @@ const StudentProfileForm = ({ studentData, setOpenPopup }) => {
             name="OtherNumber"
             label="Other Number"
             value={values.OtherNumber}
-            onWheelCapture={e => {
-  e.target.blur()
-}}
-            onFocus={e => {
-      e.target.select();
-    }}
+            onWheelCapture={(e) => {
+              e.target.blur();
+            }}
+            onFocus={(e) => {
+              e.target.select();
+            }}
             onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}
             onChange={handleInputChange}
             type="number"
@@ -327,11 +316,19 @@ const StudentProfileForm = ({ studentData, setOpenPopup }) => {
             name="RollNo"
             label="Roll No"
             value={values.RollNo}
-            onFocus={e => {
-      e.target.select();
-    }}
+            onFocus={(e) => {
+              e.target.select();
+            }}
             onChange={handleInputChange}
             errors={errors.RollNo}
+          />
+
+          <SelectControl
+            name="IsActive"
+            label="IsActive"
+            value={values.IsActive}
+            onChange={handleInputChange}
+            options={studentData ? studentData.ddlIsActive : test}
           />
         </Grid>
       </Grid>

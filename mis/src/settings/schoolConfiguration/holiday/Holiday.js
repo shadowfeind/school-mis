@@ -100,7 +100,12 @@ const Holiday = () => {
 
   const dispatch = useDispatch();
 
-  const { holiday, error, loading } = useSelector((state) => state.holiday);
+  const {
+    holiday,
+    error,
+    loading,
+    loading: table,
+  } = useSelector((state) => state.holiday);
 
   const { success: createHolidaySuccess, error: createHolidayError } =
     useSelector((state) => state.createHoliday);
@@ -227,21 +232,27 @@ const Holiday = () => {
         <Grid item xs={6}>
           <Card className={classes.cardStyle}>
             <h5 style={{ textAlign: "center" }}>All Events</h5>
-            <TableContainer className={classes.table}>
-              <TblHead />
+            {loading ? (
+              <LoadingComp />
+            ) : (
+              <>
+                <TableContainer className={classes.table}>
+                  <TblHead />
 
-              <TableBody>
-                {tableDataAfterPagingAndSorting().map((item) => (
-                  <HolidayTableCollapse
-                    item={item}
-                    key={item.$id}
-                    updateCollegeHandler={updateCollegeHandler}
-                    deleteCollegeHandler={deleteCollegeHandler}
-                  />
-                ))}
-              </TableBody>
-            </TableContainer>
-            <TblPagination />
+                  <TableBody>
+                    {tableDataAfterPagingAndSorting().map((item) => (
+                      <HolidayTableCollapse
+                        item={item}
+                        key={item.$id}
+                        updateCollegeHandler={updateCollegeHandler}
+                        deleteCollegeHandler={deleteCollegeHandler}
+                      />
+                    ))}
+                  </TableBody>
+                </TableContainer>
+                <TblPagination />
+              </>
+            )}
           </Card>
         </Grid>
       </Grid>

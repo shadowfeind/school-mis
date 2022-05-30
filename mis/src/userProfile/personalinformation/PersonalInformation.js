@@ -71,7 +71,6 @@ const PersonalInformation = () => {
     });
     dispatch(getAllPersonalInformationAction());
     dispatch({ type: UPDATE_SINGLE_PERSONALINFORMATION_RESET });
-    
   }
   if (updateSinglePersonalInformationError) {
     setNotify({
@@ -80,7 +79,6 @@ const PersonalInformation = () => {
       type: "error",
     });
     dispatch({ type: UPDATE_SINGLE_PERSONALINFORMATION_RESET });
-    
   }
   if (singlePersonalInformationError) {
     setNotify({
@@ -89,7 +87,6 @@ const PersonalInformation = () => {
       type: "error",
     });
     dispatch({ type: GET_SINGLE_PERSONALINFORMATION_RESET });
-    
   }
   const editHandler = () => {
     dispatch(getSinglePersonalInformationAction());

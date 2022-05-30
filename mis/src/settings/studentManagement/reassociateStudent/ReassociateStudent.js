@@ -400,7 +400,7 @@ const ReassociateStudent = () => {
         <Toolbar>
           <InputControl
             className={classes.searchInput}
-            label="Search Reassociate Student"
+            label="Search Relocate Student by Student Name"
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
@@ -439,7 +439,7 @@ const ReassociateStudent = () => {
       <Popup
         openPopup={openPopup}
         setOpenPopup={setOpenPopup}
-        title="Level Up Students"
+        title="Next Class"
       >
         {loadingLevelUp ? (
           <LoadingComp />

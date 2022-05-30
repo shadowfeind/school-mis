@@ -27,6 +27,7 @@ import {
 } from "./DashboardConstants";
 import LeaveRequestForm from "./LeaveRequestForm";
 import LeaveRequestDeleteForm from "./LeaveRequestDeleteForm";
+import HolidayForDashBboard from "../settings/schoolConfiguration/holiday/HolidayForDashboard";
 
 const useStyles = makeStyles((theme) => ({
   dashboardContainer: {
@@ -238,7 +239,7 @@ const Dashboard = () => {
             </Card>
           </Grid>
           <Grid item xs={6}>
-            <Holiday />
+            <HolidayForDashBboard />
           </Grid>
         </Grid>
       </div>

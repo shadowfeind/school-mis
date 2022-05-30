@@ -113,7 +113,7 @@ const ExamMarkApprovalBulk = ({
     }
   }, [bulkData]);
 
-  const symbolsArr = ["e", "E", "+", "-", ".", "ArrowUp", "ArrowDown"];
+  const symbolsArr = ["e", "E", "+", "-", "ArrowUp", "ArrowDown"];
 
   return (
     <>

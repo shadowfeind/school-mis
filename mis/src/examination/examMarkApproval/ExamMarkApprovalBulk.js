@@ -171,6 +171,7 @@ const ExamMarkApprovalBulk = ({
                       inputProps={{
                         tabIndex: "1",
                         style: { textAlign: "left" },
+                        step: "0.1",
                       }}
                       onChange={(e) =>
                         onChangeHandler(
@@ -200,7 +201,11 @@ const ExamMarkApprovalBulk = ({
                         onKeyDown={(e) =>
                           symbolsArr.includes(e.key) && e.preventDefault()
                         }
-                        inputProps={{ tabIndex: "2" }}
+                        inputProps={{
+                          tabIndex: "2",
+                          style: { textAlign: "left" },
+                          step: "0.1",
+                        }}
                         onChange={(e) =>
                           onChangeHandler(
                             subject,

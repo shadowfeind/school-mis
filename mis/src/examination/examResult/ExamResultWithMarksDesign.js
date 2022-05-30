@@ -156,13 +156,15 @@ const ExamResultWithMarksDesign = ({
                     </td>
                     <td style={{ textAlign: "center" }}>
                       {" "}
-                      {s.ObtainedMark === 0 ? "" : s.ObtainedMark}
+                      {s.FullMark !== null &&
+                        (s.ObtainedMark ? s.ObtainedMark.toFixed(2) : "0.00")}
                     </td>
                     <td style={{ textAlign: "center" }}>
                       {" "}
-                      {s.ObtainedMarkPractical === 0
-                        ? ""
-                        : s.ObtainedMarkPractical}
+                      {s.FullMarkPractical !== null &&
+                        (s.ObtainedMarkPractical
+                          ? s.ObtainedMarkPractical.toFixed(2)
+                          : "0.00")}
                     </td>
                     <td style={{ textAlign: "center" }}>
                       {" "}

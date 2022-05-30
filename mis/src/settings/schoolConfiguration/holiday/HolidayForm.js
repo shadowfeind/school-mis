@@ -91,6 +91,9 @@ const HolidayForm = ({ holiday, setOpenPopup, startDate, endDate }) => {
           <InputControl
             name="HolidayName"
             label="Holiday Name*"
+            onFocus={(e) => {
+              e.target.select();
+            }}
             value={values.HolidayName}
             onChange={handleInputChange}
             errors={errors.HolidayName}
@@ -114,6 +117,11 @@ const HolidayForm = ({ holiday, setOpenPopup, startDate, endDate }) => {
           <InputControl
             name="Description"
             label="Description*"
+            multiline
+            rows={3}
+            onFocus={(e) => {
+              e.target.select();
+            }}
             value={values.Description}
             onChange={handleInputChange}
             errors={errors.Description}

@@ -53,7 +53,7 @@ const Help = () => {
       </div>
       <div className={classes.helpBotContainer}>
         <h3>Contact Informations</h3>
-        <p>Adress: Jawagal, Lalitpur</p>
+        <p>Address: Jawagal, Lalitpur</p>
         <p>Phone: 9823246127</p>
         <p>Email: blueberryexperts@gmail.com</p>
       </div>

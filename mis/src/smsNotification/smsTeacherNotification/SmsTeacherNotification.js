@@ -47,7 +47,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const tableHeader = [
-  { id: "ReceiverID", label: "Message Send To" },
+  { id: "ReceiverID", label: "Message Sent To" },
   { id: "MessageHeading", label: "Heading" },
   { id: "MessageDescription", label: "Description" },
   { id: "PostedDate", label: "Posted Date" },

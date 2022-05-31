@@ -87,7 +87,7 @@ const HrValue = () => {
           return item;
         } else {
           return item.filter((x) =>
-            x.SchoolName.toLowerCase().includes(e.target.value)
+            x.SchoolName.toLowerCase().includes(e.target.value?.toLowerCase())
           );
         }
       },

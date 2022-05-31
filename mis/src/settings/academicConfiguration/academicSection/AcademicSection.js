@@ -183,7 +183,7 @@ const AcademicSection = () => {
           return item;
         } else {
           return item.filter((x) =>
-            x.RoomName.toLowerCase().includes(e.target.value)
+            x.RoomName.toLowerCase().includes(e.target.value?.toLowerCase())
           );
         }
       },

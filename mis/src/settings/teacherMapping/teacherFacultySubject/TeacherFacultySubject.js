@@ -268,7 +268,7 @@ const TeacherFacultySubject = () => {
           return item;
         } else {
           return item.filter((x) =>
-            x.TeacherName.toLowerCase().includes(e.target.value)
+            x.TeacherName.toLowerCase().includes(e.target.value?.toLowerCase())
           );
         }
       },
@@ -485,7 +485,6 @@ const TeacherFacultySubject = () => {
                       key={item.$id}
                       updateTeacherHandler={updateTeacherHandler}
                       deleteCollegeHandler={deleteCollegeHandler}
-
                     />
                   ))}
                 </TableBody>
@@ -529,7 +528,6 @@ const TeacherFacultySubject = () => {
             <TeacherFacultySubjectDeleteForm
               deleteForm={singleTeacherFacData && singleTeacherFacData}
               setOpenDeletePopup={setOpenDeletePopup}
-
             />
           </>
         )}

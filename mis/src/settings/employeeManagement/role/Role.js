@@ -206,7 +206,7 @@ const Role = () => {
           return item;
         } else {
           return item.filter((x) =>
-            x.RoleName.toLowerCase().includes(e.target.value)
+            x.RoleName.toLowerCase().includes(e.target.value?.toLowerCase())
           );
         }
       },

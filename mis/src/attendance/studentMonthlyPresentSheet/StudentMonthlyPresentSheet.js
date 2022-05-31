@@ -96,11 +96,15 @@ const StudentMonthlyPresentSheet = () => {
     (state) => state.getEnglishDate
   );
 
-  const { getListStudentPresent,loading, error: getListStudentPresentError } =
-    useSelector((state) => state.getListStudentPresent);
+  const {
+    getListStudentPresent,
+    loading,
+    error: getListStudentPresentError,
+  } = useSelector((state) => state.getListStudentPresent);
 
   const {
-    getListForUpdateStudentPresent,loading:loadingUpdate,
+    getListForUpdateStudentPresent,
+    loading: loadingUpdate,
     error: getListForUpdateStudentPresentError,
   } = useSelector((state) => state.getListForUpdateStudentPresent);
 
@@ -199,8 +203,12 @@ const StudentMonthlyPresentSheet = () => {
         allStudentMonthlyPresentSheetData?.searchFilterModel
           .ddlFacultyProgramLink[0].Key
       );
-      setDdlClass(allStudentMonthlyPresentSheetData?.searchFilterModel.ddlClass);
-      setClassId(allStudentMonthlyPresentSheetData?.searchFilterModel.ddlClass[0].Key);
+      setDdlClass(
+        allStudentMonthlyPresentSheetData?.searchFilterModel.ddlClass
+      );
+      setClassId(
+        allStudentMonthlyPresentSheetData?.searchFilterModel.ddlClass[0].Key
+      );
       setAcademicYearDdl(
         allStudentMonthlyPresentSheetData?.searchFilterModel.ddlAcademicYear
       );
@@ -208,7 +216,8 @@ const StudentMonthlyPresentSheet = () => {
         allStudentMonthlyPresentSheetData?.searchFilterModel.ddlAcademicShift
       );
       setShift(
-        allStudentMonthlyPresentSheetData?.searchFilterModel.ddlAcademicShift[0].Key
+        allStudentMonthlyPresentSheetData?.searchFilterModel.ddlAcademicShift[0]
+          .Key
       );
       setDdlSection(
         allStudentMonthlyPresentSheetData?.searchFilterModel.ddlSection
@@ -233,10 +242,10 @@ const StudentMonthlyPresentSheet = () => {
     }
   }, [allStudentMonthlyPresentSheetData, dispatch]);
 
-  useEffect(()=>{
-    dispatch({type:GET_LIST_STUDENT_PRESENT_RESET})
+  useEffect(() => {
+    dispatch({ type: GET_LIST_STUDENT_PRESENT_RESET });
     dispatch(getAllStudentPresentSheetDataAction());
-  },[])
+  }, []);
 
   useEffect(() => {
     if (subjectOptions) {
@@ -385,7 +394,6 @@ const StudentMonthlyPresentSheet = () => {
               />
             </Grid>
             <Grid item xs={3}>
-              
               <SelectControl
                 name="Section"
                 label="Section"
@@ -438,7 +446,7 @@ const StudentMonthlyPresentSheet = () => {
                   inputVariant="outlined"
                   format="dd-MM-yyyy"
                   name="CurrentYear"
-                  label="Current Year"
+                  label="Current Date"
                   value={date}
                   onChange={(e) => {
                     const newDate = new Date(e);
@@ -473,29 +481,30 @@ const StudentMonthlyPresentSheet = () => {
           <LoadingComp />
         ) : (
           <>
-        {getListStudentPresent && (
-          <StudentMonthlyPresentSheetTableCollapse
-            students={getListStudentPresent && getListStudentPresent}
-          />
-        )}
-        </>
+            {getListStudentPresent && (
+              <StudentMonthlyPresentSheetTableCollapse
+                students={getListStudentPresent && getListStudentPresent}
+              />
+            )}
+          </>
         )}
       </CustomContainer>
       <Popup
         openPopup={openPopup}
         setOpenPopup={setOpenPopup}
         title="Bulk Edit"
-      >{loadingUpdate ? (
+      >
+        {loadingUpdate ? (
           <LoadingComp />
         ) : (
           <>
-        <StudentMonthlyPresentSheetUpdateForm
-          students={
-            getListForUpdateStudentPresent && getListForUpdateStudentPresent
-          }
-          setOpenPopup={setOpenPopup}
-        />
-        </>
+            <StudentMonthlyPresentSheetUpdateForm
+              students={
+                getListForUpdateStudentPresent && getListForUpdateStudentPresent
+              }
+              setOpenPopup={setOpenPopup}
+            />
+          </>
         )}
       </Popup>
       <Notification notify={notify} setNotify={setNotify} />

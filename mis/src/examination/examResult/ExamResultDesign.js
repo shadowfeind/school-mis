@@ -302,10 +302,8 @@ const ExamResultDesign = ({
                     <td>Attendance:</td>
                     <td>
                       Working Days:{" "}
-                      {studentAttendance.length > 0 &&
-                      studentAttendance[0]?.WorkingDay > 0
-                        ? studentAttendance[0]?.WorkingDay > 0
-                        : ""}
+                      {studentAttendance?.length > 0 &&
+                        studentAttendance[0]?.WorkingDay}
                     </td>
                   </tr>
                   <tr style={{ backgroundColor: "#fff" }}>

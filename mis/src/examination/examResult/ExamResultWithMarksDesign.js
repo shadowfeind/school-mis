@@ -327,23 +327,21 @@ const ExamResultWithMarksDesign = ({
                     <td>Attendance:</td>
                     <td>
                       Working Days:{" "}
-                      {studentAttendance.length > 0 &&
-                      studentAttendance[0]?.WorkingDay > 0
-                        ? studentAttendance[0]?.WorkingDay > 0
-                        : ""}
+                      {studentAttendance?.length > 0 &&
+                        studentAttendance[0]?.WorkingDay}
                     </td>
                   </tr>
                   <tr style={{ backgroundColor: "#fff" }}>
                     <td>
                       Present Days:{" "}
-                      {studentAttendance.length > 0 &&
+                      {studentAttendance?.length > 0 &&
                       studentAttendance[0]?.PresentDay > 0
                         ? studentAttendance[0]?.PresentDay
                         : ""}
                     </td>
                     <td>
                       Absent Days:{" "}
-                      {(studentAttendance.length > 0 &&
+                      {(studentAttendance?.length > 0 &&
                         studentAttendance[0]?.WorkingDay) -
                         (studentAttendance?.length > 0 &&
                           studentAttendance[0]?.PresentDay) >

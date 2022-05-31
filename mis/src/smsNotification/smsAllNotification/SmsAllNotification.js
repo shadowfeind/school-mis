@@ -211,7 +211,7 @@ const SmsAllNotification = () => {
           return item;
         } else {
           return item.filter((x) =>
-            x.NewsHeading.toLowerCase().includes(e.target.value)
+            x.NewsHeading.toLowerCase().includes(e.target.value?.toLowerCase())
           );
         }
       },

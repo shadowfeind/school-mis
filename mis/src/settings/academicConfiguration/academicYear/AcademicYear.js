@@ -175,7 +175,9 @@ const AcademicYear = () => {
           return item;
         } else {
           return item.filter((x) =>
-            x.AcademicYearName.toLowerCase().includes(e.target.value)
+            x.AcademicYearName.toLowerCase().includes(
+              e.target.value?.toLowerCase()
+            )
           );
         }
       },

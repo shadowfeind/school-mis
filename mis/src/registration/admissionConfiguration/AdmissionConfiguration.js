@@ -95,7 +95,9 @@ const AdmissionConfiguration = () => {
           return item;
         } else {
           return item.filter((x) =>
-            x.AdmissionStartDate.toLowerCase().includes(e.target.value)
+            x.AdmissionStartDate.toLowerCase().includes(
+              e.target.value?.toLowerCase()
+            )
           );
         }
       },

@@ -104,7 +104,7 @@ const StudentRegistration = () => {
           return item;
         } else {
           return item.filter((x) =>
-            x.FirstName.toLowerCase().includes(e.target.value)
+            x.FirstName.toLowerCase().includes(e.target.value?.toLowerCase())
           );
         }
       },

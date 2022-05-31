@@ -106,10 +106,9 @@ const StudentProfileTableCollapse = ({
             height="30px"
           />
         </TableCell>
-        <TableCell>{item.LoginIDHREmployee}</TableCell>
         <TableCell>{item.StudentFullName}</TableCell>
-        <TableCell>{item.AcademicProgramName}</TableCell>
-        <TableCell>{item.FacultyPath}</TableCell>
+        <TableCell>{item.UniversityRegistrationNumber}</TableCell>
+        <TableCell>{item.LoginIDHREmployee}</TableCell>
         <TableCell>
           {shiftNameToShow?.length > 0 && shiftNameToShow[0].Value}
         </TableCell>

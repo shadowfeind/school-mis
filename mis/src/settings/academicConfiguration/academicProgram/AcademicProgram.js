@@ -186,7 +186,9 @@ const AcademicProgram = () => {
           return item;
         } else {
           return item.filter((x) =>
-            x.AcademicProgramName.toLowerCase().includes(e.target.value)
+            x.AcademicProgramName.toLowerCase().includes(
+              e.target.value?.toLowerCase()
+            )
           );
         }
       },

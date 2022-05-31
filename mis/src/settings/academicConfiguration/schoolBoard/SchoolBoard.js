@@ -181,7 +181,9 @@ const SchoolBoard = () => {
           return item;
         } else {
           return item.filter((x) =>
-            x.UniversityName.toLowerCase().includes(e.target.value)
+            x.UniversityName.toLowerCase().includes(
+              e.target.value?.toLowerCase()
+            )
           );
         }
       },

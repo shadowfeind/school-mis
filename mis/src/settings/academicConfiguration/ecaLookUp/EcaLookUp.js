@@ -93,7 +93,7 @@ const EcaLookUp = () => {
           return item;
         } else {
           return item.filter((x) =>
-            x.ECAName.toLowerCase().includes(e.target.value)
+            x.ECAName.toLowerCase().includes(e.target.value?.toLowerCase())
           );
         }
       },

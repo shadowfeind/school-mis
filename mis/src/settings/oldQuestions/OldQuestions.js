@@ -104,7 +104,9 @@ const OldQuestions = () => {
           return item;
         } else {
           return item.filter((x) =>
-            x.OldQuestionName.toLowerCase().includes(e.target.value)
+            x.OldQuestionName.toLowerCase().includes(
+              e.target.value?.toLowerCase()
+            )
           );
         }
       },

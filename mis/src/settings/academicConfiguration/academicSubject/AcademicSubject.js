@@ -178,7 +178,7 @@ const AcademicSubject = () => {
           return item;
         } else {
           return item.filter((x) =>
-            x.SubjectCode.toLowerCase().includes(e.target.value)
+            x.SubjectCode.toLowerCase().includes(e.target.value.toLowerCase())
           );
         }
       },

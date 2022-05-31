@@ -112,7 +112,7 @@ const LevelTest = () => {
           return item;
         } else {
           return item.filter((x) =>
-            x.EventName.toLowerCase().includes(e.target.value)
+            x.EventName.toLowerCase().includes(e.target.value?.toLowerCase())
           );
         }
       },
@@ -127,9 +127,11 @@ const LevelTest = () => {
     (state) => state.getEvent
   );
 
-  const { bulkDatas,loading, error: getbulkDatasError } = useSelector(
-    (state) => state.getBulkLevelTestData
-  );
+  const {
+    bulkDatas,
+    loading,
+    error: getbulkDatasError,
+  } = useSelector((state) => state.getBulkLevelTestData);
 
   const {
     success: postBulkLevelTestDataSuccess,
@@ -168,11 +170,11 @@ const LevelTest = () => {
     dispatch({ type: POST_BULK_LEVEL_TEST_DATA_RESET });
   }
 
-  useEffect(()=>{
+  useEffect(() => {
     dispatch({ type: "GET_LINK", payload: "examination" });
     dispatch(getInitialLevelTestDataAction());
     setDdlEvent([]);
-  },[])
+  }, []);
 
   useEffect(() => {
     if (levelTestInitialDatas) {
@@ -185,14 +187,16 @@ const LevelTest = () => {
         levelTestInitialDatas?.searchFilterModel.ddlAcademicYear
       );
       setDdlShift(levelTestInitialDatas?.searchFilterModel.ddlAcademicShift);
-      setShift(levelTestInitialDatas?.searchFilterModel.ddlAcademicShift[0].Key);
+      setShift(
+        levelTestInitialDatas?.searchFilterModel.ddlAcademicShift[0].Key
+      );
       setDdlSection(levelTestInitialDatas?.searchFilterModel.ddlSection);
       setSection(levelTestInitialDatas?.searchFilterModel.ddlSection[0].Key);
     }
   }, [levelTestInitialDatas, dispatch]);
 
-  const validate=()=>{
-    let temp ={};
+  const validate = () => {
+    let temp = {};
     temp.acaYear = !acaYear ? "This feild is required" : "";
     temp.programValue = !programValue ? "This feild is required" : "";
     temp.classId = !classId ? "This feild is required" : "";
@@ -202,57 +206,41 @@ const LevelTest = () => {
 
     setErrors({ ...temp });
     return Object.values(temp).every((x) => x === "");
-  }
+  };
 
-  const handleShiftChange =(value)=>{
+  const handleShiftChange = (value) => {
     setShift(value);
     setDdlEvent([]);
     setEvent("");
     // if ((acaYear,programValue, classId, value)) {
-      dispatch(
-        getEventAction(
-          acaYear,
-          programValue,
-          classId,
-          value
-        )
-      );
-    }
+    dispatch(getEventAction(acaYear, programValue, classId, value));
+  };
   // }
 
-  const handleSectionChange =(value)=>{
+  const handleSectionChange = (value) => {
     setSection(value);
     setDdlEvent([]);
     setEvent("");
-    if ((acaYear,programValue, classId, shift,value)) {
-      dispatch(
-        getEventAction(
-          acaYear,
-          programValue,
-          classId,
-          shift,
-          value
-        )
-      );
+    if ((acaYear, programValue, classId, shift, value)) {
+      dispatch(getEventAction(acaYear, programValue, classId, shift, value));
     }
-  }
+  };
 
   const handleYearChange = (value) => {
     setAcaYear(value);
     setDdlEvent([]);
     if (classId) {
-      dispatch(getEventAction(value, programValue, classId,shift));
+      dispatch(getEventAction(value, programValue, classId, shift));
     }
-    if(event){
-      setEvent("")
+    if (event) {
+      setEvent("");
     }
-
   };
 
   const handleClassIdChange = (value) => {
     setClassId(value);
     setDdlEvent([]);
-    dispatch(getEventAction(acaYear, programValue, value,shift));
+    dispatch(getEventAction(acaYear, programValue, value, shift));
   };
 
   const handleBulkEdit = () => {
@@ -271,13 +259,12 @@ const LevelTest = () => {
     }
   };
 
-  useEffect(()=>{
-    if(allEvents){
+  useEffect(() => {
+    if (allEvents) {
       setDdlEvent(allEvents);
-      setEvent(allEvents[0]?.Key)
+      setEvent(allEvents[0]?.Key);
     }
-  },[allEvents])
-
+  }, [allEvents]);
 
   return (
     <>
@@ -347,7 +334,7 @@ const LevelTest = () => {
             </Grid>
 
             <Grid item xs={3}>
-            <div style={{ height: "10px" }}></div>
+              <div style={{ height: "10px" }}></div>
               <Button
                 variant="contained"
                 color="primary"
@@ -403,16 +390,16 @@ const LevelTest = () => {
         setOpenPopup={setOpenPopup}
         title="Bulk Edit"
       >
-      {loading ? (
+        {loading ? (
           <LoadingComp />
         ) : (
           <>
-        <LevelTestBulkEdit
-          search={bulkDatas && bulkDatas.searchFilterModel}
-          bulkData={bulkDatas && bulkDatas.dbModelLst}
-          setOpenPopup={setOpenPopup}
-        />
-        </>
+            <LevelTestBulkEdit
+              search={bulkDatas && bulkDatas.searchFilterModel}
+              bulkData={bulkDatas && bulkDatas.dbModelLst}
+              setOpenPopup={setOpenPopup}
+            />
+          </>
         )}
       </Popup>
       <Notification notify={notify} setNotify={setNotify} />

@@ -140,18 +140,20 @@ const ExamResultTableCollapse = memo(
                           n.IDHREmployee === d.IDHREmployee && (
                             <Fragment key={d.$id}>
                               <td>
-                                {n.ObtainedMarks === 0 ? "" : n.ObtainedMarks}
+                                {n.ObtainedMarks === 0
+                                  ? ""
+                                  : n.ObtainedMarks?.toFixed(2)}
                               </td>
                               <td>
                                 {n.ObtainedMarksPractical === 0
                                   ? ""
-                                  : n.ObtainedMarksPractical}
+                                  : n.ObtainedMarksPractical?.toFixed(2)}
                               </td>
                             </Fragment>
                           )
                         );
                       })}
-                    <td>{d.TotalObtainedMark}</td>
+                    <td>{d.TotalObtainedMark?.toFixed(2)}</td>
                     <td>{showResult.length > 0 && showResult[0].Value}</td>
                     <td>{showRank.length > 0 && showRank[0].Value}</td>
                   </tr>

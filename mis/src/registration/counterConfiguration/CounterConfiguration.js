@@ -99,7 +99,7 @@ const CounterConfiguration = () => {
           return item;
         } else {
           return item.filter((x) =>
-            x.CounterFor.toLowerCase().includes(e.target.value)
+            x.CounterFor.toLowerCase().includes(e.target.value?.toLowerCase())
           );
         }
       },

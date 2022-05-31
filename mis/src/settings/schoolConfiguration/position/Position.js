@@ -208,7 +208,7 @@ const Position = () => {
           return item;
         } else {
           return item.filter((x) =>
-            x.PositionHead.toLowerCase().includes(e.target.value)
+            x.PositionHead.toLowerCase().includes(e.target.value?.toLowerCase())
           );
         }
       },

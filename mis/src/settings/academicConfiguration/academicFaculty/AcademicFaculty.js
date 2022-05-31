@@ -176,7 +176,7 @@ const AcademicFaculty = () => {
           return item;
         } else {
           return item.filter((x) =>
-            x.Header.toLowerCase().includes(e.target.value)
+            x.Header.toLowerCase().includes(e.target.value?.toLowerCase())
           );
         }
       },

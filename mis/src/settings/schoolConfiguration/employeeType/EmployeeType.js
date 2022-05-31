@@ -209,7 +209,9 @@ const EmployeeType = () => {
           return item;
         } else {
           return item.filter((x) =>
-            x.EmployeeTypeName.toLowerCase().includes(e.target.value)
+            x.EmployeeTypeName.toLowerCase().includes(
+              e.target.value?.toLowerCase()
+            )
           );
         }
       },

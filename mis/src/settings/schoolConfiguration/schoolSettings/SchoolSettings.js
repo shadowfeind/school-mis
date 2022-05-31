@@ -180,7 +180,7 @@ const SchoolSettings = () => {
           return item;
         } else {
           return item.filter((x) =>
-            x.CompanyName.toLowerCase().includes(e.target.value)
+            x.CompanyName.toLowerCase().includes(e.target.value?.toLowerCase())
           );
         }
       },

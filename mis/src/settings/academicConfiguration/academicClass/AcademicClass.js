@@ -184,7 +184,7 @@ const AcademicClass = () => {
           return item;
         } else {
           return item.filter((x) =>
-            x.ClassName.toLowerCase().includes(e.target.value)
+            x.ClassName.toLowerCase().includes(e.target.value?.toLowerCase())
           );
         }
       },

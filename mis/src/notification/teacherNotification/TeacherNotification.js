@@ -78,7 +78,9 @@ const TeacherNotification = () => {
           return item;
         } else {
           return item.filter((x) =>
-            x.MessageHeading.toLowerCase().includes(e.target.value)
+            x.MessageHeading.toLowerCase().includes(
+              e.target.value?.toLowerCase()
+            )
           );
         }
       },

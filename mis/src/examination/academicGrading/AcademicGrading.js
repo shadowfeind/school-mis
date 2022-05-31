@@ -204,7 +204,7 @@ const AcademicGrading = () => {
           return item;
         } else {
           return item.filter((x) =>
-            x.LetterGrade.toLowerCase().includes(e.target.value)
+            x.LetterGrade.toLowerCase().includes(e.target.value?.toLowerCase())
           );
         }
       },

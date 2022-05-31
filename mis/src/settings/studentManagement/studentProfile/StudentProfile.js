@@ -333,7 +333,9 @@ const StudentProfile = () => {
           return item;
         } else {
           return item.filter((x) =>
-            x.StudentFullName.toLowerCase().includes(e.target.value)
+            x.StudentFullName.toLowerCase().includes(
+              e.target.value?.toLowerCase()
+            )
           );
         }
       },

@@ -197,7 +197,7 @@ const AssignECA = () => {
                 name="Academic Year"
                 label="Academic Year"
                 value={acaYear}
-                onChange={(e) => setAcaYear(e.target.value)}
+                onChange={(e) => setAcaYear(e.target.value?.toLowerCase())}
                 options={academicYear}
                 errors={errors.acaYear}
               />

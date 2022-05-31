@@ -81,7 +81,7 @@ const SmsAccessControl = () => {
           return item;
         } else {
           return item.filter((x) =>
-            x.SMSHeader.toLowerCase().includes(e.target.value)
+            x.SMSHeader.toLowerCase().includes(e.target.value?.toLowerCase())
           );
         }
       },

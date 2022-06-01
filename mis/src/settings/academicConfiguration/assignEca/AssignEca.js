@@ -144,9 +144,6 @@ const AssignECA = () => {
   }
 
   useEffect(() => {
-    if (!allAssignEca) {
-      dispatch(getALLAssignEcaAction());
-    }
     if (allAssignEca) {
       setAcademicYear(allAssignEca?.searchFilterModel.ddlAcademicYear);
       // setDdlProgram(allAssignEca.searchFilterModel.ddlFacultyProgramLink);
@@ -157,6 +154,11 @@ const AssignECA = () => {
       setClassId(allAssignEca?.searchFilterModel.ddlClass[0].Key);
     }
   }, [dispatch, allAssignEca]);
+
+  useEffect(() => {
+    dispatch({ type: GET_LIST_ASSIGN_ECA_RESET });
+    dispatch(getALLAssignEcaAction());
+  }, []);
 
   useEffect(() => {
     if (listAssignEca) {
@@ -197,7 +199,7 @@ const AssignECA = () => {
                 name="Academic Year"
                 label="Academic Year"
                 value={acaYear}
-                onChange={(e) => setAcaYear(e.target.value?.toLowerCase())}
+                onChange={(e) => setAcaYear(e.target.value)}
                 options={academicYear}
                 errors={errors.acaYear}
               />

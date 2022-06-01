@@ -128,7 +128,7 @@ const StudentAttendance = () => {
           return item;
         } else {
           return item.filter((x) =>
-            x.FullName.toLowerCase().includes(e.target.value)
+            x.FullName.toLowerCase().includes(e.target.value?.toLowerCase())
           );
         }
       },

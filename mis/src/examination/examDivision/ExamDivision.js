@@ -181,7 +181,7 @@ const ExamDivision = () => {
           return item;
         } else {
           return item.filter((x) =>
-            x.Division.toLowerCase().includes(e.target.value)
+            x.Division.toLowerCase().includes(e.target.value?.toLowerCase())
           );
         }
       },

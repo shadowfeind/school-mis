@@ -107,7 +107,7 @@ const GeneratePublishResult = () => {
           return item;
         } else {
           return item.filter((x) =>
-            x.StudentName.toLowerCase().includes(e.target.value)
+            x.StudentName.toLowerCase().includes(e.target.value?.toLowerCase())
           );
         }
       },

@@ -109,7 +109,7 @@ const TotalStudentAttendance = () => {
           return item;
         } else {
           return item.filter((x) =>
-            x.FullName.toLowerCase().includes(e.target.value)
+            x.FullName.toLowerCase().includes(e.target.value?.toLowerCase())
           );
         }
       },
@@ -390,7 +390,7 @@ const TotalStudentAttendance = () => {
           <div style={{ height: "15px" }}></div>
           <InputControl
             className={classes.searchInput}
-            label="Search Student By FullName"
+            label="Search Student By Student Name"
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">

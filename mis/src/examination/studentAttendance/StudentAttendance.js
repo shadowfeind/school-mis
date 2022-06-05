@@ -208,7 +208,7 @@ const StudentAttendance = () => {
   if (postBulkStudentAttendanceSuccess) {
     setNotify({
       isOpen: true,
-      message: "Created Successfully Created",
+      message: "Successfully Created",
       type: "success",
     });
     dispatch({ type: POST_BULK_STUDENT_ATTENDANCE_RESET });

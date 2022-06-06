@@ -8,6 +8,7 @@ const FinalExamResult = ({
   headerBanners,
   setOpenPopupFinal,
   principleSignature,
+  date,
 }) => {
   const componentRef = useRef();
   const printPdf = useReactToPrint({
@@ -93,6 +94,7 @@ const FinalExamResult = ({
               headerBanners={headerBanners}
               ecaDataWithName={ecaDataWithName}
               principleSignature={principleSignature}
+              date={date}
             />
           );
         })}

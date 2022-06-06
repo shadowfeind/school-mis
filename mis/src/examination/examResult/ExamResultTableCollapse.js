@@ -16,6 +16,7 @@ const ExamResultTableCollapse = memo(
     currentClass,
     currentSection,
     schoolName,
+    date,
   }) => {
     const [ledgerData, setLedgeData] = useState([]);
     const componentRef = useRef();
@@ -81,8 +82,7 @@ const ExamResultTableCollapse = memo(
           </Grid>
 
           <Grid item xs={3} className="ledger-header-print">
-            Date:{" "}
-            {searchFilterModel && searchFilterModel.StartDate?.slice(0, 10)}
+            Date: {date?.slice(0, 10)}
           </Grid>
         </Grid>
         <table border="1" id="table-xls-button">

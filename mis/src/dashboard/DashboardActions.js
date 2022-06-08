@@ -511,7 +511,7 @@ export const downloadLeaveRequestAction = (id) => async (dispatch) => {
   try {
     dispatch({ type: DOWNLOAD_DOC_LEAVE_REQUESTS_REQUEST });
 
-    const File = `/api/LeaveRequest/DownloadDoc/${id}`;
+    const File = `${API_URL}/api/LeaveRequest/DownloadDoc/${id}`;
 
     window.open(File, "_blank");
 

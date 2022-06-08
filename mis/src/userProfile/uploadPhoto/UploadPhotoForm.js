@@ -64,6 +64,7 @@ const UploadPhotoForm = ({ uploadPhoto }) => {
           color="primary"
           type="submit"
           disabled={active}
+          onClick={(e) => handleUploadImage(e.target.value)}
           style={{ margin: "10px 0 0 10px" }}
         >
           {active ? "PROCESSING" : "UPLOAD"}

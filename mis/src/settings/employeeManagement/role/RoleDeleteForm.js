@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Button, Grid } from "@material-ui/core";
 import InputControl from "../../../components/controls/InputControl";
 import { useForm, Form } from "../../../customHooks/useForm";
@@ -19,13 +19,15 @@ const initialFormValues = {
 
 const RoleDeleteForm = ({ deleteRole, setOpenDeletePopup }) => {
   const dispatch = useDispatch();
-  
+  const [active, setActive] = useState(false);
+
   const { values, setValues, handleInputChange, errors, setErrors } =
     useForm(initialFormValues);
 
   const handleDelete = (e) => {
     e.preventDefault();
-dispatch(deleteRoleAction(values));
+    setActive(true);
+    dispatch(deleteRoleAction(values));
   };
 
   useEffect(() => {
@@ -38,16 +40,15 @@ dispatch(deleteRoleAction(values));
       <Grid container style={{ fontSize: "12px" }}>
         <Grid item xs={6}>
           <InputControl
-          disabled
+            disabled
             name="RoleName"
             label="Role Name*"
             value={values.RoleName}
             onChange={handleInputChange}
-         
           />
 
           <CheckBoxControl
-          disabled
+            disabled
             name="IsSystemDefined"
             label="Is System Defined"
             value={values.IsSystemDefined}
@@ -56,15 +57,14 @@ dispatch(deleteRoleAction(values));
         </Grid>
         <Grid item xs={6}>
           <InputControl
-          disabled
+            disabled
             name="Description"
             label="Description*"
             value={values.Description}
             onChange={handleInputChange}
-           
           />
           <CheckBoxControl
-          disabled
+            disabled
             name="MarkAsAdmin"
             label="Mark As Admin"
             value={values.MarkAsAdmin}
@@ -92,10 +92,11 @@ dispatch(deleteRoleAction(values));
         <Button
           variant="contained"
           color="primary"
-         onClick={()=>dispatch(deleteRoleAction(deleteRole))}
+          disabled={active}
+          onClick={() => dispatch(deleteRoleAction(deleteRole))}
           style={{ margin: "10px 0 0 10px" }}
         >
-          DELETE
+          {active ? "PROCESSING" : "DELETE"}
         </Button>
       </div>
     </Form>

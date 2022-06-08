@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Button, Grid } from "@material-ui/core";
 import InputControl from "../../../components/controls/InputControl";
 import { useForm, Form } from "../../../customHooks/useForm";
@@ -31,6 +31,7 @@ const AssignFacultySubjectFormEdit = ({
   setOpenPopupForm,
 }) => {
   const dispatch = useDispatch();
+  const [active, setActive] = useState(false);
   const validate = (fieldValues = values) => {
     let temp = { ...errors };
 
@@ -47,6 +48,7 @@ const AssignFacultySubjectFormEdit = ({
     e.preventDefault();
 
     if (validate()) {
+      setActive(true);
       dispatch(
         academicFacultySubjectPostEditAction(
           dbModel,
@@ -179,9 +181,10 @@ const AssignFacultySubjectFormEdit = ({
           variant="contained"
           color="primary"
           type="submit"
+          disabled={active}
           style={{ margin: "10px 0 0 10px" }}
         >
-          SUBMIT
+          {active ? "PROCESSING" : "SUBMIT"}
         </Button>
       </div>
     </Form>

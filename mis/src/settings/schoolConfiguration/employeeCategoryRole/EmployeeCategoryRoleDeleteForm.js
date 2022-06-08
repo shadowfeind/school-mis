@@ -1,11 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Button, Grid } from "@material-ui/core";
 import InputControl from "../../../components/controls/InputControl";
 import { useForm, Form } from "../../../customHooks/useForm";
 import { useDispatch } from "react-redux";
 import CheckBoxControl from "../../../components/controls/CheckBoxControl";
 import { deleteEmployeeCategoryRoleAction } from "./EmployeeCategoryRoleActions";
-
 
 const initialFormValues = {
   IDHREmployeeCategoryRole: 0,
@@ -16,15 +15,19 @@ const initialFormValues = {
   Updated_On: "2015-04-09T14:20:39.947",
 };
 
-const EmployeeCategoryRoleDeleteForm = ({ employeeCategoryDeleteRole, setOpenDeletePopup }) => {
+const EmployeeCategoryRoleDeleteForm = ({
+  employeeCategoryDeleteRole,
+  setOpenDeletePopup,
+}) => {
   const dispatch = useDispatch();
+  const [active, setActive] = useState(false);
   const { values, setValues, handleInputChange, errors, setErrors } =
     useForm(initialFormValues);
 
   const handleDelete = (e) => {
     e.preventDefault();
+    setActive(true);
     dispatch(deleteEmployeeCategoryRoleAction(values));
-
   };
 
   useEffect(() => {
@@ -37,38 +40,38 @@ const EmployeeCategoryRoleDeleteForm = ({ employeeCategoryDeleteRole, setOpenDel
       <Grid container style={{ fontSize: "12px" }}>
         <Grid item xs={6}>
           <InputControl
-          disabled
+            disabled
             name="Heading"
             label="Heading*"
             value={values.Heading}
-            onFocus={e => {
-      e.target.select();
-    }}
+            onFocus={(e) => {
+              e.target.select();
+            }}
             onChange={handleInputChange}
             errors={errors.Heading}
           />
 
           <CheckBoxControl
-          disabled
+            disabled
             name="IsActive"
             label="IsActive"
             value={values.IsActive}
-            onFocus={e => {
-      e.target.select();
-    }}
+            onFocus={(e) => {
+              e.target.select();
+            }}
             onChange={handleInputChange}
             errors={errors.IsActive}
           />
         </Grid>
         <Grid item xs={6}>
           <InputControl
-          disabled
+            disabled
             name="Description"
             label="Description*"
             value={values.Description}
-            onFocus={e => {
-      e.target.select();
-    }}
+            onFocus={(e) => {
+              e.target.select();
+            }}
             onChange={handleInputChange}
             errors={errors.Description}
           />
@@ -94,10 +97,15 @@ const EmployeeCategoryRoleDeleteForm = ({ employeeCategoryDeleteRole, setOpenDel
         <Button
           variant="contained"
           color="primary"
-          onClick={() => dispatch(deleteEmployeeCategoryRoleAction(employeeCategoryDeleteRole))}
+          disabled={active}
+          onClick={() =>
+            dispatch(
+              deleteEmployeeCategoryRoleAction(employeeCategoryDeleteRole)
+            )
+          }
           style={{ margin: "10px 0 0 10px" }}
         >
-          DELETE
+          {active ? "PROCESSING" : "DELETE"}
         </Button>
       </div>
     </Form>

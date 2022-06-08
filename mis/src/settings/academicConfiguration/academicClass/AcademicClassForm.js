@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Button, Grid } from "@material-ui/core";
 import InputControl from "../../../components/controls/InputControl";
 import { useForm, Form } from "../../../customHooks/useForm";
@@ -21,6 +21,7 @@ const initialFormValues = {
 
 const AcademicClassForm = ({ academicClass, setOpenPopup }) => {
   const dispatch = useDispatch();
+  const [activeButton, setActiveButton] = useState(false);
   const validate = (fieldValues = values) => {
     let temp = { ...errors };
     temp.ClassName = !fieldValues.ClassName
@@ -30,11 +31,11 @@ const AcademicClassForm = ({ academicClass, setOpenPopup }) => {
       : fieldValues.ClassName.length > 20
       ? "Must be less than 21 characters"
       : "";
-    temp.ClassLocation = !fieldValues.ClassLocation 
-        ?"This field is required" 
-        : ! fieldValues.ClassLocation.length > 200
-        ? "Must be less than 501 characters"
-        : "";
+    temp.ClassLocation = !fieldValues.ClassLocation
+      ? "This field is required"
+      : !fieldValues.ClassLocation.length > 200
+      ? "Must be less than 501 characters"
+      : "";
 
     setErrors({ ...temp });
     return Object.values(temp).every((x) => x === "");
@@ -46,6 +47,7 @@ const AcademicClassForm = ({ academicClass, setOpenPopup }) => {
     e.preventDefault();
 
     if (validate()) {
+      setActiveButton(true);
       if (values.IDClass === 0) {
         dispatch(academicClassCreateAction(values));
       } else {
@@ -67,9 +69,9 @@ const AcademicClassForm = ({ academicClass, setOpenPopup }) => {
             name="ClassName"
             label="Class Name*"
             value={values.ClassName}
-            onFocus={e => {
-      e.target.select();
-    }}
+            onFocus={(e) => {
+              e.target.select();
+            }}
             onChange={handleInputChange}
             errors={errors.ClassName}
           />
@@ -85,9 +87,9 @@ const AcademicClassForm = ({ academicClass, setOpenPopup }) => {
           <InputControl
             name="ClassLocation"
             label="Class Location"
-            onFocus={e => {
-      e.target.select();
-    }}
+            onFocus={(e) => {
+              e.target.select();
+            }}
             value={values.ClassLocation}
             onChange={handleInputChange}
             errors={errors.ClassLocation}
@@ -115,9 +117,10 @@ const AcademicClassForm = ({ academicClass, setOpenPopup }) => {
           variant="contained"
           color="primary"
           type="submit"
+          disabled={activeButton}
           style={{ margin: "10px 0 0 10px" }}
         >
-          SUBMIT
+          {activeButton ? "PROCESSING" : "SUBMIT"}
         </Button>
       </div>
     </Form>

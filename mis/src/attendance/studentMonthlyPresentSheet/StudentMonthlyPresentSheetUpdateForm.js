@@ -42,6 +42,7 @@ const useStyles = makeStyles({
 
 const StudentMonthlyPresentSheetUpdateForm = ({ students, setOpenPopup }) => {
   const [stuAttendance, setStuAttendance] = useState([]);
+  const [active, setActive] = useState(false);
   const [checked, setChecked] = useState(false);
   const [errors, setErrors] = useState(false);
   const classes = useStyles();
@@ -89,6 +90,7 @@ const StudentMonthlyPresentSheetUpdateForm = ({ students, setOpenPopup }) => {
 
   const formCheckSubmitHandler = () => {
     if (validate()) {
+      setActive(true);
       dispatch(
         postStudentPresentListAction(
           stuAttendance,
@@ -192,10 +194,11 @@ const StudentMonthlyPresentSheetUpdateForm = ({ students, setOpenPopup }) => {
           variant="contained"
           color="primary"
           type="submit"
+          disabled={active}
           style={{ margin: "10px 0 0 10px" }}
           onClick={formCheckSubmitHandler}
         >
-          SUBMIT
+          {active ? "PROCESSING" : "SUBMIT"}
         </Button>
       </div>
     </>

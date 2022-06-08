@@ -36,6 +36,7 @@ const HrValueForm = ({ hrValueCreate, setOpenPopup, hrValueEdit }) => {
   const [imgSrc, setImgSrc] = useState("");
   const [imgSrc1, setImgSrc1] = useState("");
   const [imgSrc2, setImgSrc2] = useState("");
+  const [active, setActive] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -68,6 +69,7 @@ const HrValueForm = ({ hrValueCreate, setOpenPopup, hrValueEdit }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (validate()) {
+      setActive(true);
       if (values.IDHRCompanyValue === 0) {
         dispatch(
           postCreateHrValueAction(
@@ -332,9 +334,10 @@ const HrValueForm = ({ hrValueCreate, setOpenPopup, hrValueEdit }) => {
           variant="contained"
           color="primary"
           type="submit"
+          disabled={active}
           style={{ margin: "10px 0 0 10px" }}
         >
-          SUBMIT
+          {active ? "PROCESSING" : "SUBMIT"}
         </Button>
       </div>
     </Form>

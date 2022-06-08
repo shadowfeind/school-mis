@@ -26,6 +26,7 @@ const initialFormValues = {
 
 const AcademicProgramForm = ({ academicProgram, selected, setOpenPopup }) => {
   const [checkboxState, setCheckboxState] = useState([]);
+  const [active, setActive] = useState(false);
   const [errorsEdit, setErrorsEdit] = useState({});
   const dispatch = useDispatch();
   const validate = (fieldValues = values) => {
@@ -84,6 +85,7 @@ const AcademicProgramForm = ({ academicProgram, selected, setOpenPopup }) => {
 
     if (values.IDAcademicProgram === 0) {
       if (validate()) {
+        setActive(true);
         // dispatch(AcademicProgramCreateAction(values, checkboxState));
         alert("Post");
       }
@@ -101,7 +103,6 @@ const AcademicProgramForm = ({ academicProgram, selected, setOpenPopup }) => {
 
   const { available } = academicProgramOption;
 
-
   const handleChangeCheckbox = (e, id) => {
     if (e.target.checked) {
       setCheckboxState([...checkboxState, e.target.value]);
@@ -110,7 +111,6 @@ const AcademicProgramForm = ({ academicProgram, selected, setOpenPopup }) => {
         const checkData = prev.filter((x) => x.Id !== id);
         return [...checkData];
       });
-
     }
   };
 
@@ -203,9 +203,10 @@ const AcademicProgramForm = ({ academicProgram, selected, setOpenPopup }) => {
           variant="contained"
           color="primary"
           type="submit"
+          disabled={active}
           style={{ margin: "10px 0 0 10px" }}
         >
-          SUBMIT
+          {active ? "PROCESSING" : "SUBMIT"}
         </Button>
       </div>
     </Form>

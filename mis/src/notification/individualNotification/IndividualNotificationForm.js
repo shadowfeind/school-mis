@@ -1,4 +1,4 @@
-import React, { useEffect,useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Grid } from "@material-ui/core";
 import InputControl from "../../components/controls/InputControl";
 import { useForm, Form } from "../../customHooks/useForm";
@@ -6,18 +6,13 @@ import { useDispatch } from "react-redux";
 import CheckBoxControl from "../../components/controls/CheckBoxControl";
 import { postFcmAction } from "./IndividualNotificationActions";
 
-
-
-
-const IndividualNotificationForm = ({
-  fcmTokenList,
-  schoolName,
-}) => {
+const IndividualNotificationForm = ({ fcmTokenList, schoolName }) => {
   const dispatch = useDispatch();
-  const [NewsHeading , setNewsHeading] = useState("");
-  const [NewsDescription , setNewsDescription] = useState("");
- const [values,setValues] = useState(false);
- const [errors, setErrors] = useState({})
+  const [active, setActive] = useState(false);
+  const [NewsHeading, setNewsHeading] = useState("");
+  const [NewsDescription, setNewsDescription] = useState("");
+  const [values, setValues] = useState(false);
+  const [errors, setErrors] = useState({});
   const validate = (fieldValues = values) => {
     let temp = { ...errors };
 
@@ -33,28 +28,27 @@ const IndividualNotificationForm = ({
       ? "Must be less than 160 characters"
       : "";
 
-
     setErrors({ ...temp });
     return Object.values(temp).every((x) => x === "");
   };
 
-
-    const handleInputChange =()=>{
-        if(NewsHeading){
-            setNewsHeading(NewsHeading)
-        }
+  const handleInputChange = () => {
+    if (NewsHeading) {
+      setNewsHeading(NewsHeading);
     }
+  };
 
-    const handleInputsChange =()=>{
-        if(NewsDescription){
-            setNewsDescription(NewsDescription)
-        }
+  const handleInputsChange = () => {
+    if (NewsDescription) {
+      setNewsDescription(NewsDescription);
     }
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
     if (validate()) {
+      setActive(true);
       if (values.IDHREmployee === 0) {
         dispatch(postFcmAction(values, fcmTokenList, schoolName));
       }
@@ -63,7 +57,6 @@ const IndividualNotificationForm = ({
 
   const symbolsArr = ["e", "E", "+", "-", ".", "ArrowUp", "ArrowDown"];
 
-  
   //uncomment in case of edit but we dont need edit
   // useEffect(() => {
   //   if (announcement) {
@@ -137,9 +130,10 @@ const IndividualNotificationForm = ({
           variant="contained"
           color="primary"
           type="submit"
+          disabled={active}
           style={{ margin: "10px 0 0 10px" }}
         >
-          SUBMIT
+          {active ? "PROCESSING" : "SUBMIT"}
         </Button>
       </div>
     </Form>

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Button, Grid } from "@material-ui/core";
 import InputControl from "../../../components/controls/InputControl";
 import { useForm, Form } from "../../../customHooks/useForm";
@@ -24,6 +24,7 @@ const TeacherFacultySubjectDeleteForm = ({
   deleteForm,
   setOpenDeletePopup,
 }) => {
+  const [active, setActive] = useState(false);
   const dispatch = useDispatch();
   const validate = (fieldValues = values) => {
     let temp = { ...errors };
@@ -48,6 +49,7 @@ const TeacherFacultySubjectDeleteForm = ({
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    setActive(true);
     dispatch(deleteTeacherFacSubAction(values));
 
     setOpenDeletePopup(false);
@@ -137,9 +139,10 @@ const TeacherFacultySubjectDeleteForm = ({
           variant="contained"
           color="primary"
           type="submit"
+          disabled={active}
           style={{ margin: "10px 0 0 10px" }}
         >
-          DELETE
+          {active ? "PROCESSING" : "DELETE"}
         </Button>
       </div>
     </Form>

@@ -30,6 +30,7 @@ const SmsTeacherNotificationForm = ({
   fcmTokenList,
   SchoolShortName,
 }) => {
+  const [active, setActive] = useState(false);
   const classes = useStyles();
   const dispatch = useDispatch();
 
@@ -58,6 +59,7 @@ const SmsTeacherNotificationForm = ({
   const handleSubmit = (e) => {
     e.preventDefault();
     if (validate()) {
+      setActive(true);
       dispatch(
         postSmsTeacherNotificationAction(values, fcmTokenList, SchoolShortName)
       );
@@ -135,9 +137,10 @@ const SmsTeacherNotificationForm = ({
             variant="contained"
             color="primary"
             type="submit"
+            disabled={active}
             style={{ margin: "10px 0 0 10px" }}
           >
-            SUBMIT
+            {active ? "PROCESSING" : "SUBMIT"}
           </Button>
         </div>
       </Form>

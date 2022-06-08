@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Button, Grid } from "@material-ui/core";
 import { useForm, Form } from "../../customHooks/useForm";
 import { useDispatch } from "react-redux";
@@ -39,6 +39,7 @@ const initialFormValues = {
 
 const AutoSearchForm = ({ personalInformation, setOpenPopup }) => {
   const dispatch = useDispatch();
+  const [active, setActive] = useState(false);
   const validate = (fieldValues = values) => {
     let temp = { ...errors };
 
@@ -179,6 +180,7 @@ const AutoSearchForm = ({ personalInformation, setOpenPopup }) => {
     e.preventDefault();
 
     if (validate()) {
+      setActive(true);
       dispatch(updateSinglePersonalInformationAction(values));
     }
   };
@@ -390,9 +392,10 @@ const AutoSearchForm = ({ personalInformation, setOpenPopup }) => {
           variant="contained"
           color="primary"
           type="submit"
+          disabled={active}
           style={{ margin: "10px 0 0 10px" }}
         >
-          SUBMIT
+          {active ? "PROCESSING" : "SUBMIT"}
         </Button>
       </div>
     </Form>

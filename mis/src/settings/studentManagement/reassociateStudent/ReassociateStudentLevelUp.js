@@ -59,6 +59,7 @@ const ReassociateStudentLevelUp = ({
 }) => {
   const [errors, setErrors] = useState({});
   const classes = useStyles();
+  const [active, setActive] = useState(false);
 
   const handleBulkChange = (checked) => {
     if (checked) {
@@ -144,6 +145,7 @@ const ReassociateStudentLevelUp = ({
 
   const formCheckSubmitHandlerHolder = () => {
     if (validate()) {
+      setActive(true);
       formCheckSubmitHandler();
     }
   };
@@ -345,10 +347,11 @@ const ReassociateStudentLevelUp = ({
               variant="contained"
               color="primary"
               type="submit"
+              disabled={active}
               style={{ margin: "10px 0 0 10px" }}
               onClick={formCheckSubmitHandlerHolder}
             >
-              SUBMIT
+              {active ? "PROCESSING" : "SUBMIT"}
             </Button>
           </div>
         </>

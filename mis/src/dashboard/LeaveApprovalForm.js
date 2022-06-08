@@ -27,11 +27,9 @@ const initialFormValues = {
   Updated_On: "2022-04-16T08:14:34.805Z",
 };
 
-const LeaveApprovlForm = ({
-  leaveRequestEditApproval,
-  setApprovalPopUp,
-}) => {
+const LeaveApprovlForm = ({ leaveRequestEditApproval, setApprovalPopUp }) => {
   const dispatch = useDispatch();
+  const [active, setActive] = useState(false);
   const [image, setImage] = useState("");
   const [imgSrc, setImgSrc] = useState("");
 
@@ -57,6 +55,7 @@ const LeaveApprovlForm = ({
     e.preventDefault();
 
     if (validate()) {
+      setActive(true);
       dispatch(
         putApproveRequestAction(
           values,
@@ -199,9 +198,10 @@ const LeaveApprovlForm = ({
           variant="contained"
           color="primary"
           type="submit"
+          disabled={active}
           style={{ margin: "10px 0 0 10px" }}
         >
-          SUBMIT
+          {active ? "PROCESSING" : "SUBMIT"}
         </Button>
       </div>
     </Form>

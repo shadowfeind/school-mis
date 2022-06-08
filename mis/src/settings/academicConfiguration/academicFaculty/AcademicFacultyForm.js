@@ -32,6 +32,7 @@ const initialFormValues = {
 
 const AcademicFacultyForm = ({ academicFaculty, selected, setOpenPopup }) => {
   const [checkboxState, setCheckboxState] = useState([]);
+  const [active, setActive] = useState(false);
   const dispatch = useDispatch();
   const validate = (fieldValues = values) => {
     let temp = { ...errors };
@@ -67,6 +68,7 @@ const AcademicFacultyForm = ({ academicFaculty, selected, setOpenPopup }) => {
     e.preventDefault();
 
     if (validate()) {
+      setActive(true);
       if (values.IDFaculty === 0) {
         dispatch(AcademicFacultyCreateAction(values, checkboxState));
       } else {
@@ -87,11 +89,11 @@ const AcademicFacultyForm = ({ academicFaculty, selected, setOpenPopup }) => {
     setCheckboxState([...checkboxState, e.target.value]);
   };
 
-  useEffect(()=>{
-    if(academicFaculty){
-      setValues({...academicFaculty});
+  useEffect(() => {
+    if (academicFaculty) {
+      setValues({ ...academicFaculty });
     }
-  })
+  });
 
   useEffect(() => {
     if (academicFacultyOption) {
@@ -101,7 +103,7 @@ const AcademicFacultyForm = ({ academicFaculty, selected, setOpenPopup }) => {
     console.log("test", academicFacultyOption);
   }, [academicFacultyOption]);
 
-  const symbolsArr = ["e", "E", "+", "-", ".","ArrowUp","ArrowDown"];
+  const symbolsArr = ["e", "E", "+", "-", ".", "ArrowUp", "ArrowDown"];
 
   return (
     <Form onSubmit={handleSubmit}>
@@ -111,9 +113,9 @@ const AcademicFacultyForm = ({ academicFaculty, selected, setOpenPopup }) => {
             name="Header"
             label="Faculty Header*"
             value={values.Header}
-            onFocus={e => {
-      e.target.select();
-    }}
+            onFocus={(e) => {
+              e.target.select();
+            }}
             onChange={handleInputChange}
             errors={errors.Header}
           />
@@ -121,12 +123,12 @@ const AcademicFacultyForm = ({ academicFaculty, selected, setOpenPopup }) => {
             name="TotalSeat"
             label="TotalSeat"
             value={values.TotalSeat}
-            onWheelCapture={e => {
-  e.target.blur()
-}}
-            onFocus={e => {
-      e.target.select();
-    }}
+            onWheelCapture={(e) => {
+              e.target.blur();
+            }}
+            onFocus={(e) => {
+              e.target.select();
+            }}
             onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}
             onChange={handleInputChange}
             errors={errors.TotalSeat}
@@ -214,9 +216,10 @@ const AcademicFacultyForm = ({ academicFaculty, selected, setOpenPopup }) => {
           variant="contained"
           color="primary"
           type="submit"
+          disabled={active}
           style={{ margin: "10px 0 0 10px" }}
         >
-          SUBMIT
+          {active ? "PROCESSING" : "SUBMIT"}
         </Button>
       </div>
     </Form>

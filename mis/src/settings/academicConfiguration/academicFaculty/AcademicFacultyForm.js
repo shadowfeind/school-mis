@@ -4,7 +4,7 @@ import InputControl from "../../../components/controls/InputControl";
 import { useForm, Form } from "../../../customHooks/useForm";
 import { useDispatch, useSelector } from "react-redux";
 import CheckBoxControl from "../../../components/controls/CheckBoxControl";
-
+import { symbolsArrPhone } from "../../../helpers/excludeSymbol";
 import FormLabel from "@material-ui/core/FormLabel";
 import FormControl from "@material-ui/core/FormControl";
 import FormGroup from "@material-ui/core/FormGroup";
@@ -32,6 +32,7 @@ const initialFormValues = {
 
 const AcademicFacultyForm = ({ academicFaculty, selected, setOpenPopup }) => {
   const [checkboxState, setCheckboxState] = useState([]);
+  const [active, setActive] = useState(false);
   const dispatch = useDispatch();
   const validate = (fieldValues = values) => {
     let temp = { ...errors };
@@ -67,6 +68,7 @@ const AcademicFacultyForm = ({ academicFaculty, selected, setOpenPopup }) => {
     e.preventDefault();
 
     if (validate()) {
+      setActive(true);
       if (values.IDFaculty === 0) {
         dispatch(AcademicFacultyCreateAction(values, checkboxState));
       } else {
@@ -87,11 +89,11 @@ const AcademicFacultyForm = ({ academicFaculty, selected, setOpenPopup }) => {
     setCheckboxState([...checkboxState, e.target.value]);
   };
 
-  useEffect(()=>{
-    if(academicFaculty){
-      setValues({...academicFaculty});
+  useEffect(() => {
+    if (academicFaculty) {
+      setValues({ ...academicFaculty });
     }
-  })
+  });
 
   useEffect(() => {
     if (academicFacultyOption) {
@@ -101,8 +103,6 @@ const AcademicFacultyForm = ({ academicFaculty, selected, setOpenPopup }) => {
     console.log("test", academicFacultyOption);
   }, [academicFacultyOption]);
 
-  const symbolsArr = ["e", "E", "+", "-", ".","ArrowUp","ArrowDown"];
-
   return (
     <Form onSubmit={handleSubmit}>
       <Grid container style={{ fontSize: "12px" }}>
@@ -111,9 +111,9 @@ const AcademicFacultyForm = ({ academicFaculty, selected, setOpenPopup }) => {
             name="Header"
             label="Faculty Header*"
             value={values.Header}
-            onFocus={e => {
-      e.target.select();
-    }}
+            onFocus={(e) => {
+              e.target.select();
+            }}
             onChange={handleInputChange}
             errors={errors.Header}
           />
@@ -121,13 +121,15 @@ const AcademicFacultyForm = ({ academicFaculty, selected, setOpenPopup }) => {
             name="TotalSeat"
             label="TotalSeat"
             value={values.TotalSeat}
-            onWheelCapture={e => {
-  e.target.blur()
-}}
-            onFocus={e => {
-      e.target.select();
-    }}
-            onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}
+            onWheelCapture={(e) => {
+              e.target.blur();
+            }}
+            onFocus={(e) => {
+              e.target.select();
+            }}
+            onKeyDown={(e) =>
+              symbolsArrPhone.includes(e.key) && e.preventDefault()
+            }
             onChange={handleInputChange}
             errors={errors.TotalSeat}
             type="number"
@@ -214,9 +216,10 @@ const AcademicFacultyForm = ({ academicFaculty, selected, setOpenPopup }) => {
           variant="contained"
           color="primary"
           type="submit"
+          disabled={active}
           style={{ margin: "10px 0 0 10px" }}
         >
-          SUBMIT
+          {active ? "PROCESSING" : "SUBMIT"}
         </Button>
       </div>
     </Form>

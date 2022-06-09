@@ -20,6 +20,7 @@ const initialFormValues = {
 
 const SuperAdminForm = ({ smsCreate, setOpenPopup, smsEdit }) => {
   // const [smsHeader, setsmsHeader] = useState("");
+  const [active, setActive] = useState(false);
   const dispatch = useDispatch();
 
   const { values, setValues, handleInputChange, errors, setErrors } =
@@ -37,6 +38,7 @@ const SuperAdminForm = ({ smsCreate, setOpenPopup, smsEdit }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (validate()) {
+      setActive(true);
       if (values.IDSuperAdminSMSControl === 0) {
         dispatch(postSuperAdminSmsAccessControlAction(values));
       } else {
@@ -117,9 +119,10 @@ const SuperAdminForm = ({ smsCreate, setOpenPopup, smsEdit }) => {
             variant="contained"
             color="primary"
             type="submit"
+            disabled={active}
             style={{ margin: "10px 0 0 10px" }}
           >
-            SUBMIT
+            {active ? "PROCESSING" : "SUBMIT"}
           </Button>
         </div>
       </Form>

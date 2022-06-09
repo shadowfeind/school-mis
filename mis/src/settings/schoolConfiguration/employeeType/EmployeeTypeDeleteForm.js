@@ -1,11 +1,11 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Button, Grid } from "@material-ui/core";
 import InputControl from "../../../components/controls/InputControl";
 import { useForm, Form } from "../../../customHooks/useForm";
 import { useDispatch } from "react-redux";
 import CheckBoxControl from "../../../components/controls/CheckBoxControl";
 import {
-    deleteEmployeeTypeAction,
+  deleteEmployeeTypeAction,
   employeeTypeCreateAction,
   updateSingleEmployeeTypeAction,
 } from "./EmployeeTypeActions";
@@ -23,12 +23,13 @@ const initialFormValues = {
 
 const EmployeeTypeDeleteForm = ({ employeeTypeDelete, setOpenDeletePopup }) => {
   const dispatch = useDispatch();
+  const [active, setActive] = useState(false);
   const { values, setValues, handleInputChange, errors, setErrors } =
     useForm(initialFormValues);
 
   const handleDelete = (e) => {
     e.preventDefault();
-    dispatch(deleteEmployeeTypeAction())
+    dispatch(deleteEmployeeTypeAction());
   };
 
   useEffect(() => {
@@ -41,44 +42,41 @@ const EmployeeTypeDeleteForm = ({ employeeTypeDelete, setOpenDeletePopup }) => {
       <Grid container style={{ fontSize: "12px" }}>
         <Grid item xs={6}>
           <InputControl
-          disabled
+            disabled
             name="EmployeeTypeName"
             label="Employee Type Name*"
-            onFocus={e => {
-      e.target.select();
-    }}
+            onFocus={(e) => {
+              e.target.select();
+            }}
             value={values.EmployeeTypeName}
             onChange={handleInputChange}
-       
           />
 
           <CheckBoxControl
-          disabled
+            disabled
             name="IsActive"
             label="IsActive"
             value={values.IsActive}
-          
           />
         </Grid>
         <Grid item xs={6}>
           <InputControl
-          disabled
+            disabled
             name="Description"
             label="Description*"
-            onFocus={e => {
-      e.target.select();
-    }}
+            onFocus={(e) => {
+              e.target.select();
+            }}
             value={values.Description}
             onChange={handleInputChange}
-           
           />
           <CheckBoxControl
-          disabled
+            disabled
             name="IsTaxApplicable"
             label="IsTaxApplicable"
-            onFocus={e => {
-      e.target.select();
-    }}
+            onFocus={(e) => {
+              e.target.select();
+            }}
             value={values.IsTaxApplicable}
             onChange={handleInputChange}
           />
@@ -104,12 +102,11 @@ const EmployeeTypeDeleteForm = ({ employeeTypeDelete, setOpenDeletePopup }) => {
         <Button
           variant="contained"
           color="primary"
-          onClick={() =>
-          dispatch(deleteEmployeeTypeAction(employeeTypeDelete))
-          }
+          disabled={active}
+          onClick={() => dispatch(deleteEmployeeTypeAction(employeeTypeDelete))}
           style={{ margin: "10px 0 0 10px" }}
         >
-          DELETE
+          {active ? "PROCESSING" : "DELETE"}
         </Button>
       </div>
     </Form>

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Button, Grid } from "@material-ui/core";
 import InputControl from "../../components/controls/InputControl";
 import { useForm, Form } from "../../customHooks/useForm";
@@ -8,6 +8,7 @@ import {
   counterConfigCreateAction,
   counterConfigEditAction,
 } from "./CounterConfigurationActions";
+import { symbolsArrPhone } from "../../helpers/excludeSymbol";
 
 const initialFormValues = {
   IDCounter: 0,
@@ -30,7 +31,7 @@ const CounterConfigurationForm = ({
   setOpenPopup,
   getAcademicConfigInitialDataForEdit,
 }) => {
-  
+  const [active, setActive] = useState(false);
   const dispatch = useDispatch();
   const validate = (fieldValues = values) => {
     let temp = { ...errors };
@@ -71,7 +72,7 @@ const CounterConfigurationForm = ({
     if (getAcademicConfigInitialDataForEdit) {
       setValues(getAcademicConfigInitialDataForEdit.dbModel);
     }
-    if(dbModel){
+    if (dbModel) {
       setValues(dbModel);
     }
   }, [getAcademicConfigInitialDataForEdit, dbModel]);
@@ -80,6 +81,7 @@ const CounterConfigurationForm = ({
     e.preventDefault();
 
     if (validate()) {
+      setActive(true);
       if (values.IDCounter === 0) {
         dispatch(counterConfigCreateAction(values));
       } else {
@@ -90,7 +92,7 @@ const CounterConfigurationForm = ({
 
   const testValue = [{ Key: "", Value: "" }];
 
-  const symbolsArr = ["e", "E", "+", "-", ".","ArrowUp","ArrowDown"];
+  const symbolsArr = ["e", "E", "+", "-", ".", "ArrowUp", "ArrowDown"];
 
   return (
     <Form onSubmit={handleSubmit}>
@@ -100,15 +102,17 @@ const CounterConfigurationForm = ({
             name="CounterYear"
             label="Counter Year"
             value={values.CounterYear}
-            onWheelCapture={e => {
-  e.target.blur()
-}}
+            onWheelCapture={(e) => {
+              e.target.blur();
+            }}
             type="number"
             variant="outlined"
-            onFocus={e => {
-      e.target.select();
-    }}
-            onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}
+            onFocus={(e) => {
+              e.target.select();
+            }}
+            onKeyDown={(e) =>
+              symbolsArrPhone.includes(e.key) && e.preventDefault()
+            }
             errors={errors.CounterYear}
             onChange={handleInputChange}
           />
@@ -117,9 +121,9 @@ const CounterConfigurationForm = ({
             name="Prefix"
             label="Prefix"
             value={values.Prefix}
-            onFocus={e => {
-      e.target.select();
-    }}
+            onFocus={(e) => {
+              e.target.select();
+            }}
             variant="outlined"
             errors={errors.Prefix}
             onChange={handleInputChange}
@@ -128,14 +132,16 @@ const CounterConfigurationForm = ({
             name="CurrentCount"
             label="Current Count"
             value={values.CurrentCount}
-            onFocus={e => {
-      e.target.select();
-    }}
-    onWheelCapture={e => {
-  e.target.blur()
-}}
+            onFocus={(e) => {
+              e.target.select();
+            }}
+            onWheelCapture={(e) => {
+              e.target.blur();
+            }}
             type="number"
-            onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}
+            onKeyDown={(e) =>
+              symbolsArrPhone.includes(e.key) && e.preventDefault()
+            }
             variant="outlined"
             errors={errors.CurrentCount}
             onChange={handleInputChange}
@@ -159,9 +165,9 @@ const CounterConfigurationForm = ({
             name="Middle"
             label="Middle"
             value={values.Middle}
-            onFocus={e => {
-      e.target.select();
-    }}
+            onFocus={(e) => {
+              e.target.select();
+            }}
             variant="outlined"
             onChange={handleInputChange}
             errors={errors.Middle}
@@ -203,9 +209,10 @@ const CounterConfigurationForm = ({
           variant="contained"
           color="primary"
           type="submit"
+          disabled={active}
           style={{ margin: "10px 0 0 10px" }}
         >
-          SUBMIT
+          {active ? "PROCESSING" : "SUBMIT"}
         </Button>
       </div>
     </Form>

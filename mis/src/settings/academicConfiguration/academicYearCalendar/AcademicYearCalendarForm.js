@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Button, Grid } from "@material-ui/core";
 import InputControl from "../../../components/controls/InputControl";
 import { useForm, Form } from "../../../customHooks/useForm";
@@ -31,6 +31,7 @@ const AcademicYearCalendarForm = ({
   classId,
 }) => {
   const dispatch = useDispatch();
+  const [active, setActive] = useState(false);
   const validate = (fieldValues = values) => {
     let temp = { ...errors };
 
@@ -58,6 +59,7 @@ const AcademicYearCalendarForm = ({
     e.preventDefault();
     console.log(values.IDAcademicYearCalendar);
     if (validate()) {
+      setActive(true);
       if (values.IDAcademicYearCalendar === 0) {
         console.log("working");
         const finalData = {
@@ -109,9 +111,9 @@ const AcademicYearCalendarForm = ({
             name="EventName"
             label="Event Name*"
             value={values.EventName}
-            onFocus={e => {
-      e.target.select();
-    }}
+            onFocus={(e) => {
+              e.target.select();
+            }}
             onChange={handleInputChange}
             variant="outlined"
             errors={errors.EventName}
@@ -140,9 +142,9 @@ const AcademicYearCalendarForm = ({
           <InputControl
             name="EventDescription"
             label="Event Description*"
-            onFocus={e => {
-      e.target.select();
-    }}
+            onFocus={(e) => {
+              e.target.select();
+            }}
             value={values.EventDescription}
             variant="outlined"
             onChange={handleInputChange}
@@ -171,9 +173,10 @@ const AcademicYearCalendarForm = ({
           variant="contained"
           color="primary"
           type="submit"
+          disabled={active}
           style={{ margin: "10px 0 0 10px" }}
         >
-          SUBMIT
+          {active ? "PROCESSING" : "SUBMIT"}
         </Button>
       </div>
     </Form>

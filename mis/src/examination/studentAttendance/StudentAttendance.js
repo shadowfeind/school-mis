@@ -8,6 +8,7 @@ import {
   Grid,
 } from "@material-ui/core";
 import { Search } from "@material-ui/icons";
+import { symbolsArrPhone } from "../../helpers/excludeSymbol";
 import {
   MuiPickersUtilsProvider,
   KeyboardDatePicker,
@@ -208,7 +209,7 @@ const StudentAttendance = () => {
   if (postBulkStudentAttendanceSuccess) {
     setNotify({
       isOpen: true,
-      message: "Created Successfully Created",
+      message: "Successfully Created",
       type: "success",
     });
     dispatch({ type: POST_BULK_STUDENT_ATTENDANCE_RESET });
@@ -515,7 +516,7 @@ const StudentAttendance = () => {
                   e.target.blur();
                 }}
                 onKeyDown={(e) =>
-                  symbolsArr.includes(e.key) && e.preventDefault()
+                  symbolsArrPhone.includes(e.key) && e.preventDefault()
                 }
                 value={workingDaysTotal}
                 onChange={(e) => setWorkingDaysTotal(e.target.value)}

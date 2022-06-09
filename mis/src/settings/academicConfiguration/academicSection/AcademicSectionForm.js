@@ -1,8 +1,9 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Grid } from "@material-ui/core";
 import InputControl from "../../../components/controls/InputControl";
 import { useForm, Form } from "../../../customHooks/useForm";
 import { useDispatch } from "react-redux";
+import { symbolsArrPhone } from "../../../helpers/excludeSymbol";
 import CheckBoxControl from "../../../components/controls/CheckBoxControl";
 import {
   AcademicSectionCreateAction,
@@ -22,6 +23,7 @@ const initialFormValues = {
 
 const AcademicSectinoForm = ({ academicSection, setOpenPopup }) => {
   const dispatch = useDispatch();
+  const [active, setActive] = useState(false);
   const validate = (fieldValues = values) => {
     let temp = { ...errors };
     temp.RoomName = !fieldValues.RoomName
@@ -50,6 +52,7 @@ const AcademicSectinoForm = ({ academicSection, setOpenPopup }) => {
     e.preventDefault();
 
     if (validate()) {
+      setActive(true);
       if (values.IDAcademicRoom === 0) {
         dispatch(AcademicSectionCreateAction(values));
       } else {
@@ -64,8 +67,6 @@ const AcademicSectinoForm = ({ academicSection, setOpenPopup }) => {
     }
   }, [academicSection]);
 
-  const symbolsArr = ["e", "E", "+", "-", ".","ArrowUp","ArrowDown"];
-
   return (
     <Form onSubmit={handleSubmit}>
       <Grid container style={{ fontSize: "12px" }}>
@@ -73,9 +74,9 @@ const AcademicSectinoForm = ({ academicSection, setOpenPopup }) => {
           <InputControl
             name="RoomName"
             label="Academic Section*"
-            onFocus={e => {
-      e.target.select();
-    }}
+            onFocus={(e) => {
+              e.target.select();
+            }}
             value={values.RoomName}
             onChange={handleInputChange}
             errors={errors.RoomName}
@@ -84,9 +85,9 @@ const AcademicSectinoForm = ({ academicSection, setOpenPopup }) => {
           <InputControl
             name="RoomLocation"
             label="Section Location*"
-            onFocus={e => {
-      e.target.select();
-    }}
+            onFocus={(e) => {
+              e.target.select();
+            }}
             value={values.RoomLocation}
             onChange={handleInputChange}
             errors={errors.RoomLocation}
@@ -105,15 +106,17 @@ const AcademicSectinoForm = ({ academicSection, setOpenPopup }) => {
             name="RoomCapacity"
             label="Section Capacity*"
             value={values.RoomCapacity}
-            onFocus={e => {
-      e.target.select();
-    }}
-            onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}
+            onFocus={(e) => {
+              e.target.select();
+            }}
+            onKeyDown={(e) =>
+              symbolsArrPhone.includes(e.key) && e.preventDefault()
+            }
             onChange={handleInputChange}
             errors={errors.RoomCapacity}
-            onWheelCapture={e => {
-  e.target.blur()
-}}
+            onWheelCapture={(e) => {
+              e.target.blur();
+            }}
             type="number"
           />
         </Grid>
@@ -139,9 +142,10 @@ const AcademicSectinoForm = ({ academicSection, setOpenPopup }) => {
           variant="contained"
           color="primary"
           type="submit"
+          disabled={active}
           style={{ margin: "10px 0 0 10px" }}
         >
-          SUBMIT
+          {active ? "PROCESSING" : "SUBMIT"}
         </Button>
       </div>
     </Form>

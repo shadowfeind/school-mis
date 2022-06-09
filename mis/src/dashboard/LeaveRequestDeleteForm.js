@@ -8,7 +8,7 @@ import SelectControl from "../components/controls/SelectControl";
 import DatePickerControl from "../components/controls/DatePickerControl";
 import { API_URL } from "../constants";
 import {
-    deleteLeaveRequestAction,
+  deleteLeaveRequestAction,
   postLeaveRequestAction,
   putLeaveRequestAction,
 } from "./DashboardActions";
@@ -30,18 +30,18 @@ const initialFormValues = {
 
 const LeaveRequestDeleteForm = ({ leaveRequestDelete, setOpenPopUp }) => {
   const dispatch = useDispatch();
+  const [active, setActive] = useState(false);
   const [image, setImage] = useState("");
   const [imgSrc, setImgSrc] = useState("");
-
-  
 
   const { values, setValues, handleInputChange, errors, setErrors } =
     useForm(initialFormValues);
 
-    const handleDelete = (e) => {
-        e.preventDefault();
+  const handleDelete = (e) => {
+    e.preventDefault();
+    setActive(true);
     dispatch(deleteLeaveRequestAction(values));
-      };
+  };
 
   const handleImage = (event) => {
     let imageFile = event.target.files[0];
@@ -55,65 +55,58 @@ const LeaveRequestDeleteForm = ({ leaveRequestDelete, setOpenPopUp }) => {
 
   useEffect(() => {
     if (leaveRequestDelete) {
-      setValues({ ...leaveRequestDelete.dbModel});
+      setValues({ ...leaveRequestDelete.dbModel });
     }
   }, [leaveRequestDelete]);
 
   const gender = [{ Key: "", Value: "" }];
 
   return (
-      <Form onSubmit={handleDelete}>
-        <Grid container style={{ fontSize: "12px" }}>
-          <Grid item xs={6}>
-            <SelectControl
+    <Form onSubmit={handleDelete}>
+      <Grid container style={{ fontSize: "12px" }}>
+        <Grid item xs={6}>
+          <SelectControl
             disabled
-              name="ReceiverID"
-              label="ReceiverID"
-              value={values.ReceiverID}
-              onChange={null}
-              options={
-                leaveRequestDelete
-                  ? leaveRequestDelete.ddlTeacher
-                  : gender
-              }
-             
-            />
+            name="ReceiverID"
+            label="ReceiverID"
+            value={values.ReceiverID}
+            onChange={null}
+            options={
+              leaveRequestDelete ? leaveRequestDelete.ddlTeacher : gender
+            }
+          />
 
-            <InputControl
+          <InputControl
             disabled
-              name="LeaveDecription"
-              label="Leave Decription*"
-              onFocus={(e) => {
-                e.target.select();
-              }}
-              multiline
+            name="LeaveDecription"
+            label="Leave Decription*"
+            onFocus={(e) => {
+              e.target.select();
+            }}
+            multiline
             rows={4}
-              value={values.LeaveDecription}
-              onChange={handleInputChange}
-              
-            />
-             <DatePickerControl
-             disabled
-              name="FromDate"
-              label="FromDate*"
-              value={values.FromDate}
-              onChange={handleInputChange}
-              
-            />
-            <SelectControl
+            value={values.LeaveDecription}
+            onChange={handleInputChange}
+          />
+          <DatePickerControl
             disabled
-              name="IsActive"
-              label="IsActive"
-              value={values.IsActive}
-              onChange={null}
-              options={
-                leaveRequestDelete
-                  ? leaveRequestDelete.ddlIsActive
-                  : gender
-              }
-            />
+            name="FromDate"
+            label="FromDate*"
+            value={values.FromDate}
+            onChange={handleInputChange}
+          />
+          <SelectControl
+            disabled
+            name="IsActive"
+            label="IsActive"
+            value={values.IsActive}
+            onChange={null}
+            options={
+              leaveRequestDelete ? leaveRequestDelete.ddlIsActive : gender
+            }
+          />
 
-            {/* <InputControl
+          {/* <InputControl
               name="ImageUploaded"
               // label="Select Profile Photo"
               // value={values.ClassLocation}
@@ -131,32 +124,26 @@ const LeaveRequestDeleteForm = ({ leaveRequestDelete, setOpenPopUp }) => {
               height={200}
               width={200}
             /> */}
-          </Grid>
-          <Grid item xs={6}>
-           
-            <DatePickerControl
-            disabled
-              name="ToDate"
-              label="ToDate*"
-              value={values.ToDate}
-              onChange={handleInputChange}
-              
-            />
-            <InputControl
-            disabled
-              name="Status"
-              label="Status"
-              value={values.Status}
-              onChange={null}
-              options={
-                leaveRequestDelete
-                  ? leaveRequestDelete.ddlStatus
-                  : gender
-              }
-            />
-          </Grid>
         </Grid>
-        <div
+        <Grid item xs={6}>
+          <DatePickerControl
+            disabled
+            name="ToDate"
+            label="ToDate*"
+            value={values.ToDate}
+            onChange={handleInputChange}
+          />
+          <InputControl
+            disabled
+            name="Status"
+            label="Status"
+            value={values.Status}
+            onChange={null}
+            options={leaveRequestDelete ? leaveRequestDelete.ddlStatus : gender}
+          />
+        </Grid>
+      </Grid>
+      <div
         style={{
           display: "flex",
           justifyContent: "end",
@@ -177,12 +164,13 @@ const LeaveRequestDeleteForm = ({ leaveRequestDelete, setOpenPopUp }) => {
           variant="contained"
           color="primary"
           type="submit"
+          disabled={active}
           style={{ margin: "10px 0 0 10px" }}
         >
-          DELETE
+          {active ? "PROCESSING" : "DELETE"}
         </Button>
       </div>
-      </Form>
+    </Form>
   );
 };
 

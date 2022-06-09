@@ -10,6 +10,7 @@ import {
   Button,
   TextField,
 } from "@material-ui/core";
+import { symbolsArrPhone } from "../../../helpers/excludeSymbol";
 import { withStyles, makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 
@@ -131,7 +132,7 @@ const ClassSubjectCreateForm = ({
                       }}
                       // label="Credit Hours"
                       onKeyDown={(e) =>
-                        symbolsArr.includes(e.key) && e.preventDefault()
+                        symbolsArrPhone.includes(e.key) && e.preventDefault()
                       }
                       InputProps={{
                         inputProps: {

@@ -128,7 +128,7 @@ const ExamScheduleGenerateForm = ({
     temp.acaYear = !year ? "This feild is required" : "";
     temp.classId = !classId ? "This feild is required" : "";
     temp.event = !event ? "This feild is required" : "";
-    temp.submit = formCheck?.length <= 0 ? "Select Atleast one options" : "";
+    temp.submit = formCheck?.length <= 0 ? "Select Atleast One Option" : "";
     setErrors({ ...temp });
     return Object.values(temp).every((x) => x === "");
   };

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Button, Grid } from "@material-ui/core";
 import InputControl from "../../components/controls/InputControl";
 import { useForm, Form } from "../../customHooks/useForm";
@@ -32,6 +32,7 @@ const AnnouncementForm = ({
   schoolName,
 }) => {
   const dispatch = useDispatch();
+  const [active, setActive] = useState(false);
   const validate = (fieldValues = values) => {
     let temp = { ...errors };
 
@@ -60,6 +61,7 @@ const AnnouncementForm = ({
     e.preventDefault();
 
     if (validate()) {
+      setActive(true);
       if (values.IDHREmployee === 0) {
         dispatch(announcementCreateAction(values, fcmTokenList, schoolName));
       }
@@ -68,7 +70,6 @@ const AnnouncementForm = ({
 
   const symbolsArr = ["e", "E", "+", "-", ".", "ArrowUp", "ArrowDown"];
 
-  
   //uncomment in case of edit but we dont need edit
   // useEffect(() => {
   //   if (announcement) {
@@ -149,9 +150,10 @@ const AnnouncementForm = ({
           variant="contained"
           color="primary"
           type="submit"
+          disabled={active}
           style={{ margin: "10px 0 0 10px" }}
         >
-          SUBMIT
+          {active ? "PROCESSING" : "SUBMIT"}
         </Button>
       </div>
     </Form>

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Button, Grid } from "@material-ui/core";
 import InputControl from "../../../components/controls/InputControl";
 import { useForm, Form } from "../../../customHooks/useForm";
@@ -6,6 +6,7 @@ import { useDispatch } from "react-redux";
 import DatePickerControl from "../../../components/controls/DatePickerControl";
 import SelectControl from "../../../components/controls/SelectControl";
 import { updateSingleStudentAction } from "./StudentProfileActions";
+import { symbolsArrPhone } from "../../../helpers/excludeSymbol";
 
 const initialFormValues = {
   IDHREmployee: 0,
@@ -116,6 +117,7 @@ const levelStatus = [
 
 const StudentProfileForm = ({ studentData, setOpenPopup }) => {
   const dispatch = useDispatch();
+  const [active, setActive] = useState(false);
   const validate = (fieldValues = values) => {
     let temp = { ...errors };
     temp.LoginIDHREmployee = !fieldValues.LoginIDHREmployee
@@ -163,6 +165,7 @@ const StudentProfileForm = ({ studentData, setOpenPopup }) => {
     e.preventDefault();
 
     if (validate()) {
+      setActive(true);
       dispatch(updateSingleStudentAction(values));
     }
   };
@@ -294,7 +297,9 @@ const StudentProfileForm = ({ studentData, setOpenPopup }) => {
               e.target.select();
             }}
             onChange={handleInputChange}
-            onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}
+            onKeyDown={(e) =>
+              symbolsArrPhone.includes(e.key) && e.preventDefault()
+            }
             type="number"
             errors={errors.MobileNumber}
           />
@@ -308,14 +313,23 @@ const StudentProfileForm = ({ studentData, setOpenPopup }) => {
             onFocus={(e) => {
               e.target.select();
             }}
-            onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}
+            onKeyDown={(e) =>
+              symbolsArrPhone.includes(e.key) && e.preventDefault()
+            }
             onChange={handleInputChange}
             type="number"
           />
           <InputControl
             name="RollNo"
             label="Roll No"
+            type="number"
             value={values.RollNo}
+            onWheelCapture={(e) => {
+              e.target.blur();
+            }}
+            onKeyDown={(e) =>
+              symbolsArrPhone.includes(e.key) && e.preventDefault()
+            }
             onFocus={(e) => {
               e.target.select();
             }}
@@ -353,9 +367,10 @@ const StudentProfileForm = ({ studentData, setOpenPopup }) => {
           variant="contained"
           color="primary"
           type="submit"
+          disabled={active}
           style={{ margin: "10px 0 0 10px" }}
         >
-          SUBMIT
+          {active ? "PROCESSING" : "SUBMIT"}
         </Button>
       </div>
     </Form>

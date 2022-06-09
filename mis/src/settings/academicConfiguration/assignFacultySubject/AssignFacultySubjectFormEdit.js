@@ -1,9 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Button, Grid } from "@material-ui/core";
 import InputControl from "../../../components/controls/InputControl";
 import { useForm, Form } from "../../../customHooks/useForm";
 import { useDispatch } from "react-redux";
 import { academicFacultySubjectPostEditAction } from "./AssignFacultySubjectActions";
+import { symbolsArrPhone } from "../../../helpers/excludeSymbol";
 
 const initialFormValues = {
   IDAcademicFacultySubjectLink: 0,
@@ -31,6 +32,7 @@ const AssignFacultySubjectFormEdit = ({
   setOpenPopupForm,
 }) => {
   const dispatch = useDispatch();
+  const [active, setActive] = useState(false);
   const validate = (fieldValues = values) => {
     let temp = { ...errors };
 
@@ -47,6 +49,7 @@ const AssignFacultySubjectFormEdit = ({
     e.preventDefault();
 
     if (validate()) {
+      setActive(true);
       dispatch(
         academicFacultySubjectPostEditAction(
           dbModel,
@@ -150,7 +153,9 @@ const AssignFacultySubjectFormEdit = ({
             onWheelCapture={(e) => {
               e.target.blur();
             }}
-            onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}
+            onKeyDown={(e) =>
+              symbolsArrPhone.includes(e.key) && e.preventDefault()
+            }
             value={values.CreditHour}
             type="number"
             variant="outlined"
@@ -179,9 +184,10 @@ const AssignFacultySubjectFormEdit = ({
           variant="contained"
           color="primary"
           type="submit"
+          disabled={active}
           style={{ margin: "10px 0 0 10px" }}
         >
-          SUBMIT
+          {active ? "PROCESSING" : "SUBMIT"}
         </Button>
       </div>
     </Form>

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Button, Grid } from "@material-ui/core";
 import InputControl from "../../../components/controls/InputControl";
 import { useForm, Form } from "../../../customHooks/useForm";
@@ -20,6 +20,7 @@ const initialFormValues = {
 
 const EmployeeCategoryRoleForm = ({ employeeCategoryRole, setOpenPopup }) => {
   const dispatch = useDispatch();
+  const [active, setActive] = useState(false);
   const validate = (fieldValues = values) => {
     let temp = { ...errors };
     temp.Heading = !fieldValues.Heading
@@ -47,6 +48,7 @@ const EmployeeCategoryRoleForm = ({ employeeCategoryRole, setOpenPopup }) => {
     e.preventDefault();
 
     if (validate()) {
+      setActive(true);
       if (values.IDHREmployeeCategoryRole === 0) {
         dispatch(employeeCategoryRoleCreateAction(values));
       } else {
@@ -68,9 +70,9 @@ const EmployeeCategoryRoleForm = ({ employeeCategoryRole, setOpenPopup }) => {
             name="Heading"
             label="Heading*"
             value={values.Heading}
-            onFocus={e => {
-      e.target.select();
-    }}
+            onFocus={(e) => {
+              e.target.select();
+            }}
             onChange={handleInputChange}
             errors={errors.Heading}
           />
@@ -88,9 +90,9 @@ const EmployeeCategoryRoleForm = ({ employeeCategoryRole, setOpenPopup }) => {
             name="Description"
             label="Description*"
             value={values.Description}
-            onFocus={e => {
-      e.target.select();
-    }}
+            onFocus={(e) => {
+              e.target.select();
+            }}
             onChange={handleInputChange}
             errors={errors.Description}
           />
@@ -117,9 +119,10 @@ const EmployeeCategoryRoleForm = ({ employeeCategoryRole, setOpenPopup }) => {
           variant="contained"
           color="primary"
           type="submit"
+          disabled={active}
           style={{ margin: "10px 0 0 10px" }}
         >
-          SUBMIT
+          {active ? "PROCESSING" : "SUBMIT"}
         </Button>
       </div>
     </Form>

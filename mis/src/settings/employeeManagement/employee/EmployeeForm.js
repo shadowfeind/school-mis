@@ -1,10 +1,12 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Button, Grid } from "@material-ui/core";
 import InputControl from "../../../components/controls/InputControl";
 import { useForm, Form } from "../../../customHooks/useForm";
 import { useDispatch, useSelector } from "react-redux";
 import DatePickerControl from "../../../components/controls/DatePickerControl";
 import SelectControl from "../../../components/controls/SelectControl";
+import { symbolsArrPhone } from "../../../helpers/excludeSymbol";
+
 import {
   employeeCreateAction,
   updateSingleEmployeeAction,
@@ -57,6 +59,7 @@ const married = [
 ];
 
 const EmployeeForm = ({ employee, setOpenPopup }) => {
+  const [active, setActive] = useState(false);
   const dispatch = useDispatch();
 
   const validate = (fieldValues = values) => {
@@ -135,6 +138,7 @@ const EmployeeForm = ({ employee, setOpenPopup }) => {
     e.preventDefault();
 
     if (validate()) {
+      setActive(true);
       if (values.IDHREmployee === 0) {
         dispatch(employeeCreateAction(values));
       } else {
@@ -148,8 +152,6 @@ const EmployeeForm = ({ employee, setOpenPopup }) => {
       setValues({ ...employee });
     }
   }, [employee]);
-
-  const symbolsArr = ["e", "E", "+", "-", ".", "ArrowUp", "ArrowDown"];
 
   return (
     <Form onSubmit={handleSubmit}>
@@ -303,7 +305,9 @@ const EmployeeForm = ({ employee, setOpenPopup }) => {
               e.target.select();
             }}
             onChange={handleInputChange}
-            onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}
+            onKeyDown={(e) =>
+              symbolsArrPhone.includes(e.key) && e.preventDefault()
+            }
             type="number"
             errors={errors.MobileNumber}
           />
@@ -333,7 +337,9 @@ const EmployeeForm = ({ employee, setOpenPopup }) => {
             onWheelCapture={(e) => {
               e.target.blur();
             }}
-            onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}
+            onKeyDown={(e) =>
+              symbolsArrPhone.includes(e.key) && e.preventDefault()
+            }
             type="number"
             onChange={handleInputChange}
           />
@@ -384,9 +390,10 @@ const EmployeeForm = ({ employee, setOpenPopup }) => {
           variant="contained"
           color="primary"
           type="submit"
+          disabled={active}
           style={{ margin: "10px 0 0 10px" }}
         >
-          SUBMIT
+          {active ? "PROCESSING" : "SUBMIT"}
         </Button>
       </div>
     </Form>

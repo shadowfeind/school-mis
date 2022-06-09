@@ -7,6 +7,7 @@ import fileValidation from "../../helpers/fileValidation";
 import SelectControl from "../../components/controls/SelectControl";
 import DatePickerControl from "../../components/controls/DatePickerControl";
 import { API_URL } from "../../constants";
+import { symbolsArrPhone } from "../../helpers/excludeSymbol";
 import {
   checkRegistrationForStudentAction,
   checkRollNoForStudentAction,
@@ -180,6 +181,7 @@ const StudentRegistrationForm = ({
   acaYear,
   classId,
 }) => {
+  const [active, setActive] = useState(false);
   const [image, setImage] = useState("");
   const [imgSrc, setImgSrc] = useState("");
   const dispatch = useDispatch();
@@ -313,6 +315,7 @@ const StudentRegistrationForm = ({
     e.preventDefault();
 
     if (validate()) {
+      setActive(true);
       if (values.IDAdmissionRegistration === 0) {
         dispatch(
           createSingleStudentRegistrationAction(
@@ -504,7 +507,9 @@ const StudentRegistrationForm = ({
             onWheelCapture={(e) => {
               e.target.blur();
             }}
-            onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}
+            onKeyDown={(e) =>
+              symbolsArrPhone.includes(e.key) && e.preventDefault()
+            }
             type="number"
             onChange={handleInputChange}
             onBlur={(e) => handleRollNo(e.target.value)}
@@ -597,7 +602,9 @@ const StudentRegistrationForm = ({
             onWheelCapture={(e) => {
               e.target.blur();
             }}
-            onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}
+            onKeyDown={(e) =>
+              symbolsArrPhone.includes(e.key) && e.preventDefault()
+            }
             onChange={handleInputChange}
             type="number"
             errors={errors.MobileNo}
@@ -668,7 +675,9 @@ const StudentRegistrationForm = ({
             onWheelCapture={(e) => {
               e.target.blur();
             }}
-            onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}
+            onKeyDown={(e) =>
+              symbolsArrPhone.includes(e.key) && e.preventDefault()
+            }
             value={values.FatherContactNo}
             onFocus={(e) => {
               e.target.select();
@@ -711,7 +720,9 @@ const StudentRegistrationForm = ({
             onFocus={(e) => {
               e.target.select();
             }}
-            onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}
+            onKeyDown={(e) =>
+              symbolsArrPhone.includes(e.key) && e.preventDefault()
+            }
             onChange={handleInputChange}
             type="number"
             // errors={errors.LocalGuardianContactNo}
@@ -751,9 +762,10 @@ const StudentRegistrationForm = ({
           variant="contained"
           color="primary"
           type="submit"
+          disabled={active}
           style={{ margin: "10px 0 0 10px" }}
         >
-          SUBMIT
+          {active ? "PROCESSING" : "SUBMIT"}
         </Button>
       </div>
     </Form>

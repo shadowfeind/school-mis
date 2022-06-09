@@ -34,6 +34,7 @@ const initialFormValues = {
 const AcademicYearForm = ({ academicYear, selected, setOpenPopup }) => {
   const [checkboxState, setCheckboxState] = useState([]);
   const [errorsEdit, setErrorsEdit] = useState({});
+  const [active, setActive] = useState(false);
   const dispatch = useDispatch();
   const validate = (fieldValues = values) => {
     let temp = { ...errors };
@@ -107,6 +108,7 @@ const AcademicYearForm = ({ academicYear, selected, setOpenPopup }) => {
 
     if (values.IDAcademicYear === 0) {
       if (validate()) {
+        setActive(true);
         dispatch(AcademicYearCreateAction(values, checkboxState));
       }
     } else {
@@ -258,9 +260,10 @@ const AcademicYearForm = ({ academicYear, selected, setOpenPopup }) => {
           variant="contained"
           color="primary"
           type="submit"
+          disabled={active}
           style={{ margin: "10px 0 0 10px" }}
         >
-          SUBMIT
+          {active ? "PROCESSING" : "SUBMIT"}
         </Button>
       </div>
     </Form>

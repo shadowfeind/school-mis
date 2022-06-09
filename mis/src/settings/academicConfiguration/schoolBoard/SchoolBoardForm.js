@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Button, Grid } from "@material-ui/core";
 import InputControl from "../../../components/controls/InputControl";
 import { useForm, Form } from "../../../customHooks/useForm";
@@ -21,6 +21,7 @@ const initialFormValues = {
 
 const SchoolBoardForm = ({ schoolBoard, setOpenPopup }) => {
   const dispatch = useDispatch();
+  const [active, setActive] = useState(false);
   const validate = (fieldValues = values) => {
     let temp = { ...errors };
 
@@ -49,6 +50,7 @@ const SchoolBoardForm = ({ schoolBoard, setOpenPopup }) => {
     e.preventDefault();
 
     if (validate()) {
+      setActive(true);
       if (values.IDUniversity === 0) {
         dispatch(SchoolBoardCreateAction(values));
       } else {
@@ -69,9 +71,9 @@ const SchoolBoardForm = ({ schoolBoard, setOpenPopup }) => {
           <InputControl
             name="UniversityName"
             label="University Name*"
-            onFocus={e => {
-      e.target.select();
-    }}
+            onFocus={(e) => {
+              e.target.select();
+            }}
             value={values.UniversityName}
             onChange={handleInputChange}
             errors={errors.UniversityName}
@@ -89,9 +91,9 @@ const SchoolBoardForm = ({ schoolBoard, setOpenPopup }) => {
           <InputControl
             name="Description"
             label="Description*"
-            onFocus={e => {
-      e.target.select();
-    }}
+            onFocus={(e) => {
+              e.target.select();
+            }}
             value={values.Description}
             onChange={handleInputChange}
             errors={errors.Description}
@@ -119,9 +121,10 @@ const SchoolBoardForm = ({ schoolBoard, setOpenPopup }) => {
           variant="contained"
           color="primary"
           type="submit"
+          disabled={active}
           style={{ margin: "10px 0 0 10px" }}
         >
-          SUBMIT
+          {active ? "PROCESSING" : "SUBMIT"}
         </Button>
       </div>
     </Form>

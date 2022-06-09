@@ -5,6 +5,8 @@ import { useForm, Form } from "../../../customHooks/useForm";
 import { useDispatch, useSelector } from "react-redux";
 import SelectControl from "../../../components/controls/SelectControl";
 import { API_URL } from "../../../constants";
+import { symbolsArrPhone } from "../../../helpers/excludeSymbol";
+
 import {
   postCreateHrValueAction,
   putEditHrValueAction,
@@ -36,6 +38,7 @@ const HrValueForm = ({ hrValueCreate, setOpenPopup, hrValueEdit }) => {
   const [imgSrc, setImgSrc] = useState("");
   const [imgSrc1, setImgSrc1] = useState("");
   const [imgSrc2, setImgSrc2] = useState("");
+  const [active, setActive] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -68,6 +71,7 @@ const HrValueForm = ({ hrValueCreate, setOpenPopup, hrValueEdit }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (validate()) {
+      setActive(true);
       if (values.IDHRCompanyValue === 0) {
         dispatch(
           postCreateHrValueAction(
@@ -139,8 +143,6 @@ const HrValueForm = ({ hrValueCreate, setOpenPopup, hrValueEdit }) => {
     }
   }, [hrValueCreate]);
 
-  const symbolsArr = ["e", "E", "+", "-", ".", "ArrowUp", "ArrowDown"];
-
   const test = [{ Key: "", Value: "" }];
 
   return (
@@ -198,7 +200,9 @@ const HrValueForm = ({ hrValueCreate, setOpenPopup, hrValueEdit }) => {
               e.target.select();
             }}
             onChange={handleInputChange}
-            onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}
+            onKeyDown={(e) =>
+              symbolsArrPhone.includes(e.key) && e.preventDefault()
+            }
             type="number"
             errors={errors.TelNo}
           />
@@ -332,9 +336,10 @@ const HrValueForm = ({ hrValueCreate, setOpenPopup, hrValueEdit }) => {
           variant="contained"
           color="primary"
           type="submit"
+          disabled={active}
           style={{ margin: "10px 0 0 10px" }}
         >
-          SUBMIT
+          {active ? "PROCESSING" : "SUBMIT"}
         </Button>
       </div>
     </Form>

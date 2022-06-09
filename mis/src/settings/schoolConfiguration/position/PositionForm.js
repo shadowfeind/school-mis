@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Button, Grid } from "@material-ui/core";
 import InputControl from "../../../components/controls/InputControl";
 import { useForm, Form } from "../../../customHooks/useForm";
@@ -21,6 +21,7 @@ const initialFormValues = {
 
 const PositionForm = ({ position, setOpenPopup }) => {
   const dispatch = useDispatch();
+  const [active, setActive] = useState(false);
   const validate = (fieldValues = values) => {
     let temp = { ...errors };
 
@@ -49,6 +50,7 @@ const PositionForm = ({ position, setOpenPopup }) => {
     e.preventDefault();
 
     if (validate()) {
+      setActive(true);
       if (values.IDHRPosition === 0) {
         dispatch(positionCreateAction(values));
       } else {
@@ -70,9 +72,9 @@ const PositionForm = ({ position, setOpenPopup }) => {
             name="PositionHead"
             label="Position Head*"
             value={values.PositionHead}
-            onFocus={e => {
-      e.target.select();
-    }}
+            onFocus={(e) => {
+              e.target.select();
+            }}
             onChange={handleInputChange}
             errors={errors.PositionHead}
           />
@@ -81,9 +83,9 @@ const PositionForm = ({ position, setOpenPopup }) => {
             name="IsActive"
             label="IsActive"
             value={values.IsActive}
-            onFocus={e => {
-      e.target.select();
-    }}
+            onFocus={(e) => {
+              e.target.select();
+            }}
             onChange={handleInputChange}
             errors={errors.IsActive}
           />
@@ -94,9 +96,9 @@ const PositionForm = ({ position, setOpenPopup }) => {
             name="PositionDescription"
             label="Position Description*"
             value={values.PositionDescription}
-            onFocus={e => {
-      e.target.select();
-    }}
+            onFocus={(e) => {
+              e.target.select();
+            }}
             onChange={handleInputChange}
             errors={errors.PositionDescription}
           />
@@ -123,9 +125,10 @@ const PositionForm = ({ position, setOpenPopup }) => {
           variant="contained"
           color="primary"
           type="submit"
+          disabled={active}
           style={{ margin: "10px 0 0 10px" }}
         >
-          SUBMIT
+          {active ? "PROCESSSSING" : "SUBMIT"}
         </Button>
       </div>
     </Form>

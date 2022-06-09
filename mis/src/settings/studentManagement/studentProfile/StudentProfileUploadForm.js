@@ -11,6 +11,7 @@ const initialFormValues = {
   IDHRRole: 0,
 };
 const StudentProfileUploadPhotoForm = ({ uploadPhoto }) => {
+  const [active, setActive] = useState(false);
   const [image, setImage] = useState(null);
   const [imgSrc, setImgSrc] = useState(null);
   const [errors, setErrors] = useState({});
@@ -26,14 +27,15 @@ const StudentProfileUploadPhotoForm = ({ uploadPhoto }) => {
     setImage(event.target.files[0]);
   };
   const validate = () => {
-    let temp = {...errors};
+    let temp = { ...errors };
     temp.image = !image ? "Image Required" : "";
 
     setErrors({ ...temp });
-      return Object.values(temp).every((x) => x === "");
+    return Object.values(temp).every((x) => x === "");
   };
   const handleUploadImage = () => {
     if (validate()) {
+      setActive(true);
       if (uploadPhoto) {
         dispatch(postUploadPhotoAction(uploadPhoto.IDHREmployee, image));
       } else {
@@ -53,9 +55,7 @@ const StudentProfileUploadPhotoForm = ({ uploadPhoto }) => {
 
       <img
         src={
-          imgSrc
-            ? imgSrc
-            : uploadPhoto && `${API_URL}${uploadPhoto?.FullPath}`
+          imgSrc ? imgSrc : uploadPhoto && `${API_URL}${uploadPhoto?.FullPath}`
         }
         height={200}
         width={200}
@@ -73,9 +73,10 @@ const StudentProfileUploadPhotoForm = ({ uploadPhoto }) => {
           variant="contained"
           color="primary"
           onClick={handleUploadImage}
+          disabled={active}
           style={{ margin: "10px 0 0 10px" }}
         >
-          UPLOAD
+          {active ? "PROCESSING" : "UPLOAD"}
         </Button>
       </div>
     </>

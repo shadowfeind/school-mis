@@ -20,6 +20,7 @@ const initialFormValues = {
 
 const SmsAccessControlForm = ({ smsCreate, setOpenPopup, smsEdit }) => {
   // const [smsHeader, setsmsHeader] = useState("");
+  const [active, setActive] = useState(false);
   const dispatch = useDispatch();
 
   const { values, setValues, handleInputChange, errors, setErrors } =
@@ -37,6 +38,7 @@ const SmsAccessControlForm = ({ smsCreate, setOpenPopup, smsEdit }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (validate()) {
+      setActive(true);
       if (values.IDSMSControl === 0) {
         dispatch(postSmsAccessControlAction(values));
       } else {
@@ -63,21 +65,21 @@ const SmsAccessControlForm = ({ smsCreate, setOpenPopup, smsEdit }) => {
     <>
       <Form onSubmit={handleSubmit}>
         <Grid container style={{ fontSize: "12px" }}>
-        <Grid item xs={6}>
-          <SelectControl
-            name="SMSHeader"
-            label="SMS Header"
-            value={values.SMSHeader}
-            onChange={handleInputChange}
-            options={
-              smsEdit
-                ? smsEdit.ddlSMSAccessControl
-                : smsCreate
-                ? smsCreate.ddlSMSAccessControl
-                : test
-            }
-            errors={errors.SMSHeader}
-          />
+          <Grid item xs={6}>
+            <SelectControl
+              name="SMSHeader"
+              label="SMS Header"
+              value={values.SMSHeader}
+              onChange={handleInputChange}
+              options={
+                smsEdit
+                  ? smsEdit.ddlSMSAccessControl
+                  : smsCreate
+                  ? smsCreate.ddlSMSAccessControl
+                  : test
+              }
+              errors={errors.SMSHeader}
+            />
           </Grid>
           <Grid item xs={6}>
             <SelectControl
@@ -97,31 +99,32 @@ const SmsAccessControlForm = ({ smsCreate, setOpenPopup, smsEdit }) => {
           </Grid>
         </Grid>
         <div
-        style={{
-          display: "flex",
-          justifyContent: "end",
-          paddingTop: "10px",
-          marginTop: "10px",
-          borderTop: "1px solid #f3f3f3",
-        }}
-      >
-        <Button
-          variant="contained"
-          color="secondary"
-          onClick={() => setOpenPopup(false)}
-          style={{ margin: "10px 0 0 10px" }}
+          style={{
+            display: "flex",
+            justifyContent: "end",
+            paddingTop: "10px",
+            marginTop: "10px",
+            borderTop: "1px solid #f3f3f3",
+          }}
         >
-          CANCEL
-        </Button>
-        <Button
-          variant="contained"
-          color="primary"
-          type="submit"
-          style={{ margin: "10px 0 0 10px" }}
-        >
-          SUBMIT
-        </Button>
-      </div>
+          <Button
+            variant="contained"
+            color="secondary"
+            onClick={() => setOpenPopup(false)}
+            style={{ margin: "10px 0 0 10px" }}
+          >
+            CANCEL
+          </Button>
+          <Button
+            variant="contained"
+            color="primary"
+            type="submit"
+            disabled={active}
+            style={{ margin: "10px 0 0 10px" }}
+          >
+            {active ? "PROCESSING" : "SUBMIT"}
+          </Button>
+        </div>
       </Form>
     </>
   );

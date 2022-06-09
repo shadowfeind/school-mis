@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Button, Grid } from "@material-ui/core";
 import InputControl from "../../components/controls/InputControl";
 import { useForm, Form } from "../../customHooks/useForm";
@@ -27,6 +27,7 @@ const SmsAllNotificationForm = ({
   fcmTokenList,
   schoolName,
 }) => {
+  const [active, setActive] = useState(false);
   const dispatch = useDispatch();
   const validate = (fieldValues = values) => {
     let temp = { ...errors };
@@ -56,6 +57,7 @@ const SmsAllNotificationForm = ({
     e.preventDefault();
 
     if (validate()) {
+      setActive(true);
       if (values.IDHREmployee === 0) {
         dispatch(announcementSmsCreateAction(values, fcmTokenList, schoolName));
       }
@@ -144,9 +146,10 @@ const SmsAllNotificationForm = ({
           variant="contained"
           color="primary"
           type="submit"
+          disabled={active}
           style={{ margin: "10px 0 0 10px" }}
         >
-          SUBMIT
+          {active ? "PROCESSING" : "SUBMIT"}
         </Button>
       </div>
     </Form>

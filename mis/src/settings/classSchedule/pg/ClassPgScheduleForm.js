@@ -21,7 +21,7 @@ const initialFormValues = {
 const ClassPgScheduleForm = ({ schedule, setOpenPopup }) => {
   const [image, setImage] = useState("");
   const [imgSrc, setImgSrc] = useState("");
-
+  const [active, setActive] = useState(false);
   const dispatch = useDispatch();
   const validate = () => {
     let temp = { ...errors };
@@ -45,6 +45,7 @@ const ClassPgScheduleForm = ({ schedule, setOpenPopup }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (validate()) {
+      setActive(true);
       dispatch(
         putClassScheduleAction(values, image, schedule.searchFilterModel)
       );
@@ -98,9 +99,10 @@ const ClassPgScheduleForm = ({ schedule, setOpenPopup }) => {
           variant="contained"
           color="primary"
           type="submit"
+          disabled={active}
           style={{ margin: "10px 0 0 10px" }}
         >
-          SUBMIT
+          {active ? "PROCESSING" : "SUBMIT"}
         </Button>
       </div>
     </Form>

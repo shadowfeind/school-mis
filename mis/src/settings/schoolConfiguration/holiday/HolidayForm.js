@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Button, Grid } from "@material-ui/core";
 import InputControl from "../../../components/controls/InputControl";
 import { useForm, Form } from "../../../customHooks/useForm";
@@ -24,6 +24,7 @@ const initialFormValues = {
 
 const HolidayForm = ({ holiday, setOpenPopup, startDate, endDate }) => {
   const dispatch = useDispatch();
+  const [active, setActive] = useState(false);
   const validate = (fieldValues = values) => {
     let temp = { ...errors };
 
@@ -65,6 +66,7 @@ const HolidayForm = ({ holiday, setOpenPopup, startDate, endDate }) => {
     e.preventDefault();
 
     if (validate()) {
+      setActive(true);
       if (values.IDHRHoliday === 0) {
         dispatch(holidayCreateAction(values));
       } else {
@@ -156,9 +158,10 @@ const HolidayForm = ({ holiday, setOpenPopup, startDate, endDate }) => {
           variant="contained"
           color="primary"
           type="submit"
+          disabled={active}
           style={{ margin: "10px 0 0 10px" }}
         >
-          SUBMIT
+          {active ? "PROCESSING" : "SUBMIT"}
         </Button>
       </div>
     </Form>

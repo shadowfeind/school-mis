@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Button, Grid } from "@material-ui/core";
 import InputControl from "../../../components/controls/InputControl";
 import { useForm, Form } from "../../../customHooks/useForm";
@@ -29,6 +29,7 @@ const initialFormValues = {
 
 const AcademicSubjectForm = ({ academicSubject }) => {
   const dispatch = useDispatch();
+  const [active, setActive] = useState(false);
 
   const validate = (fieldValues = values) => {
     let temp = { ...errors };
@@ -64,6 +65,7 @@ const AcademicSubjectForm = ({ academicSubject }) => {
     e.preventDefault();
 
     if (validate()) {
+      setActive(true);
       if (values.IDAcademicSubject === 0) {
         dispatch(academicSubjectCreateAction(values));
       } else {
@@ -119,9 +121,9 @@ const AcademicSubjectForm = ({ academicSubject }) => {
             name="SubjectName"
             label="Subject Name*"
             value={values.SubjectName}
-            onFocus={e => {
-      e.target.select();
-    }}
+            onFocus={(e) => {
+              e.target.select();
+            }}
             onChange={handleInputChange}
             errors={errors.SubjectName}
           />
@@ -132,9 +134,9 @@ const AcademicSubjectForm = ({ academicSubject }) => {
             name="SubjectCode"
             label="Subject Code*"
             value={values.SubjectCode}
-            onFocus={e => {
-      e.target.select();
-    }}
+            onFocus={(e) => {
+              e.target.select();
+            }}
             onChange={handleInputChange}
             errors={errors.SubjectCode}
           />
@@ -147,9 +149,9 @@ const AcademicSubjectForm = ({ academicSubject }) => {
             name="SubjectDescription"
             label="Subject Description*"
             value={values.SubjectDescription}
-            onFocus={e => {
-      e.target.select();
-    }}
+            onFocus={(e) => {
+              e.target.select();
+            }}
             onChange={handleInputChange}
             errors={errors.SubjectDescription}
           />
@@ -218,9 +220,10 @@ const AcademicSubjectForm = ({ academicSubject }) => {
               variant="contained"
               color="primary"
               type="submit"
+              disabled={active}
               style={{ margin: "10px 0 0 10px" }}
             >
-              SUBMIT
+              {active ? "PROCESSING" : "SUBMIT"}
             </Button>
           </div>
         </Grid>

@@ -62,6 +62,7 @@ const ClassNotificationForm = ({
   students,
   setOpenPopup,
 }) => {
+  const [active, setActive] = useState(false);
   const [checked, setChecked] = useState(false);
   const [lstStudents, setLstStudents] = useState([]);
   const [selectedStudents, setSelectedStudents] = useState([]);
@@ -130,6 +131,7 @@ const ClassNotificationForm = ({
   const handleSubmit = (e) => {
     e.preventDefault();
     if (validate()) {
+      setActive(true);
       dispatch(
         postClassNotificationAction(values, selectedStudents, SchoolShortName)
       );
@@ -264,9 +266,10 @@ const ClassNotificationForm = ({
             variant="contained"
             color="primary"
             type="submit"
+            disabled={active}
             style={{ margin: "10px 0 0 10px" }}
           >
-            SUBMIT
+            {active ? "PROCESSING" : "SUBMIT"}
           </Button>
         </div>
       </Form>

@@ -1,8 +1,9 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Button, Grid } from "@material-ui/core";
 import InputControl from "../../../components/controls/InputControl";
 import { useForm, Form } from "../../../customHooks/useForm";
 import { useDispatch } from "react-redux";
+import { symbolsArrPhone } from "../../../helpers/excludeSymbol";
 import DatePickerControl from "../../../components/controls/DatePickerControl";
 import {
   schoolSettingCreateAction,
@@ -32,9 +33,9 @@ const initialFormValues = {
   Updated_On: "2015-04-09T14:20:39.947",
 };
 
-
 const SchoolSettingsForm = ({ college, setOpenPopup }) => {
   const dispatch = useDispatch();
+  const [active, setActive] = useState(false);
   const validate = (fieldValues = values) => {
     let temp = { ...errors };
     temp.CompanyName = !fieldValues.CompanyName
@@ -104,7 +105,11 @@ const SchoolSettingsForm = ({ college, setOpenPopup }) => {
       ? "This feild is required"
       : !fieldValues.EmailID.trim()
       ? "This feild is required"
-      : (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(fieldValues.EmailID)) ? "" : "Email is not valid";
+      : /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(
+          fieldValues.EmailID
+        )
+      ? ""
+      : "Email is not valid";
 
     temp.Vision =
       fieldValues.Vision && fieldValues.Vision.length > 500
@@ -125,6 +130,7 @@ const SchoolSettingsForm = ({ college, setOpenPopup }) => {
     e.preventDefault();
 
     if (validate()) {
+      setActive(true);
       if (values.IDHRCompany === 0) {
         dispatch(schoolSettingCreateAction(values));
       } else {
@@ -138,7 +144,7 @@ const SchoolSettingsForm = ({ college, setOpenPopup }) => {
       setValues({ ...college });
     }
   }, [college]);
-  const symbolsArr = ["e", "E", "+", "-", ".","ArrowUp","ArrowDown"];
+  const symbolsArr = ["e", "E", "+", "-", ".", "ArrowUp", "ArrowDown"];
   return (
     <Form onSubmit={handleSubmit}>
       <Grid container style={{ fontSize: "12px" }}>
@@ -147,9 +153,9 @@ const SchoolSettingsForm = ({ college, setOpenPopup }) => {
             name="CompanyName"
             label="Company Name*"
             value={values.CompanyName}
-            onFocus={e => {
-      e.target.select();
-    }}
+            onFocus={(e) => {
+              e.target.select();
+            }}
             onChange={handleInputChange}
             errors={errors.CompanyName}
           />
@@ -157,9 +163,9 @@ const SchoolSettingsForm = ({ college, setOpenPopup }) => {
             name="ShortForm"
             label="Short Form*"
             value={values.ShortForm}
-            onFocus={e => {
-      e.target.select();
-    }}
+            onFocus={(e) => {
+              e.target.select();
+            }}
             onChange={handleInputChange}
             errors={errors.ShortForm}
           />
@@ -167,9 +173,9 @@ const SchoolSettingsForm = ({ college, setOpenPopup }) => {
             name="CompanyAddress"
             label="Company Address"
             value={values.CompanyAddress}
-            onFocus={e => {
-      e.target.select();
-    }}
+            onFocus={(e) => {
+              e.target.select();
+            }}
             onChange={handleInputChange}
             errors={errors.CompanyAddress}
           />
@@ -177,9 +183,9 @@ const SchoolSettingsForm = ({ college, setOpenPopup }) => {
             name="RegNo"
             label="Reg No*"
             value={values.RegNo}
-            onFocus={e => {
-      e.target.select();
-    }}
+            onFocus={(e) => {
+              e.target.select();
+            }}
             onChange={handleInputChange}
             errors={errors.RegNo}
           />
@@ -187,9 +193,9 @@ const SchoolSettingsForm = ({ college, setOpenPopup }) => {
             name="DOE"
             label="DOE*"
             value={values.DOE}
-            onFocus={e => {
-      e.target.select();
-    }}
+            onFocus={(e) => {
+              e.target.select();
+            }}
             onChange={handleInputChange}
             errors={errors.DOE}
           />
@@ -197,29 +203,33 @@ const SchoolSettingsForm = ({ college, setOpenPopup }) => {
             name="PhoneNo"
             label="Phone No*"
             value={values.PhoneNo}
-            onWheelCapture={e => {
-  e.target.blur()
-}}
-            onFocus={e => {
-      e.target.select();
-    }}
+            onWheelCapture={(e) => {
+              e.target.blur();
+            }}
+            onFocus={(e) => {
+              e.target.select();
+            }}
             onChange={handleInputChange}
             errors={errors.PhoneNo}
-            onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}
-            type="number" 
+            onKeyDown={(e) =>
+              symbolsArrPhone.includes(e.key) && e.preventDefault()
+            }
+            type="number"
           />
           <InputControl
             name="AlternatePhoneNo"
             label="Alternative Phone No*"
             value={values.AlternatePhoneNo}
-            onWheelCapture={e => {
-  e.target.blur()
-}}
+            onWheelCapture={(e) => {
+              e.target.blur();
+            }}
             onChange={handleInputChange}
-            onFocus={e => {
-      e.target.select();
-    }}
-            onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}
+            onFocus={(e) => {
+              e.target.select();
+            }}
+            onKeyDown={(e) =>
+              symbolsArrPhone.includes(e.key) && e.preventDefault()
+            }
             errors={errors.AlternatePhoneNo}
             type="number"
           />
@@ -227,9 +237,9 @@ const SchoolSettingsForm = ({ college, setOpenPopup }) => {
             name="POBox"
             label="PO Box*"
             value={values.POBox}
-            onFocus={e => {
-      e.target.select();
-    }}
+            onFocus={(e) => {
+              e.target.select();
+            }}
             errors={errors.POBox}
             onChange={handleInputChange}
           />
@@ -239,13 +249,15 @@ const SchoolSettingsForm = ({ college, setOpenPopup }) => {
             name="FaxNo"
             label="Fax No*"
             value={values.FaxNo}
-            onWheelCapture={e => {
-  e.target.blur()
-}}
-            onFocus={e => {
-      e.target.select();
-    }}
-            onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}
+            onWheelCapture={(e) => {
+              e.target.blur();
+            }}
+            onFocus={(e) => {
+              e.target.select();
+            }}
+            onKeyDown={(e) =>
+              symbolsArrPhone.includes(e.key) && e.preventDefault()
+            }
             onChange={handleInputChange}
             errors={errors.FaxNo}
             type="number"
@@ -254,14 +266,16 @@ const SchoolSettingsForm = ({ college, setOpenPopup }) => {
             name="PanNo"
             label="Pan No*"
             value={values.PanNo}
-            onFocus={e => {
-      e.target.select();
-    }}
+            onFocus={(e) => {
+              e.target.select();
+            }}
             errors={errors.PanNo}
-            onWheelCapture={e => {
-  e.target.blur()
-}}
-            onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}
+            onWheelCapture={(e) => {
+              e.target.blur();
+            }}
+            onKeyDown={(e) =>
+              symbolsArrPhone.includes(e.key) && e.preventDefault()
+            }
             onChange={handleInputChange}
             type="number"
           />
@@ -270,10 +284,12 @@ const SchoolSettingsForm = ({ college, setOpenPopup }) => {
             label="Alternative Fax No"
             value={values.AlternateFaxNo}
             onChange={handleInputChange}
-            onFocus={e => {
-      e.target.select();
-    }}
-            onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}
+            onFocus={(e) => {
+              e.target.select();
+            }}
+            onKeyDown={(e) =>
+              symbolsArrPhone.includes(e.key) && e.preventDefault()
+            }
             errors={errors.AlternateFaxNo}
             type="number"
           />
@@ -281,9 +297,9 @@ const SchoolSettingsForm = ({ college, setOpenPopup }) => {
             name="EmailID"
             label="Email ID*"
             value={values.EmailID}
-            onFocus={e => {
-      e.target.select();
-    }}
+            onFocus={(e) => {
+              e.target.select();
+            }}
             onChange={handleInputChange}
             errors={errors.EmailID}
             type="email"
@@ -292,9 +308,9 @@ const SchoolSettingsForm = ({ college, setOpenPopup }) => {
             name="WebSite"
             label="WebSite*"
             value={values.WebSite}
-            onFocus={e => {
-      e.target.select();
-    }}
+            onFocus={(e) => {
+              e.target.select();
+            }}
             onChange={handleInputChange}
             errors={errors.WebSite}
           />
@@ -302,9 +318,9 @@ const SchoolSettingsForm = ({ college, setOpenPopup }) => {
             name="Vision"
             label="Vision"
             value={values.Vision}
-            onFocus={e => {
-      e.target.select();
-    }}
+            onFocus={(e) => {
+              e.target.select();
+            }}
             onChange={handleInputChange}
             errors={errors.Vision}
           />
@@ -312,9 +328,9 @@ const SchoolSettingsForm = ({ college, setOpenPopup }) => {
             name="Mission"
             label="Mission"
             value={values.Mission}
-            onFocus={e => {
-      e.target.select();
-    }}
+            onFocus={(e) => {
+              e.target.select();
+            }}
             onChange={handleInputChange}
             errors={errors.Mission}
           />
@@ -340,9 +356,10 @@ const SchoolSettingsForm = ({ college, setOpenPopup }) => {
           variant="contained"
           color="primary"
           type="submit"
+          disabled={active}
           style={{ margin: "10px 0 0 10px" }}
         >
-          SUBMIT
+          {active ? "PROCESSING" : "SUBMIT"}
         </Button>
       </div>
     </Form>

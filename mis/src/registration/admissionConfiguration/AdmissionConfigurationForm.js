@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Button, Grid } from "@material-ui/core";
 import { useForm, Form } from "../../customHooks/useForm";
 import { useDispatch } from "react-redux";
@@ -68,14 +68,15 @@ const AdmissionConfigurationForm = ({
   setOpenPopup,
 }) => {
   const dispatch = useDispatch();
+  const [active, setActive] = useState(false);
   const validate = (fieldValues = values) => {
     let temp = { ...errors };
     temp.AdmissionStartDate = !fieldValues.AdmissionStartDate
-    ? "This field is Required"
-    : "";
+      ? "This field is Required"
+      : "";
     temp.AdmissionEndDate = !fieldValues.AdmissionEndDate
-    ? "This field is Required"
-    : "";
+      ? "This field is Required"
+      : "";
 
     setErrors({ ...temp });
     return Object.values(temp).every((x) => x === "");
@@ -88,6 +89,7 @@ const AdmissionConfigurationForm = ({
     e.preventDefault();
 
     if (validate()) {
+      setActive(true);
       if (values.IDFacultyConfiguration === 0) {
         dispatch(createSingleAdmissionConfigAction(values));
       } else {
@@ -151,9 +153,10 @@ const AdmissionConfigurationForm = ({
           variant="contained"
           color="primary"
           type="submit"
+          disabled={active}
           style={{ margin: "10px 0 0 10px" }}
         >
-          SUBMIT
+          {active ? "PROCESSING" : "SUBMIT"}
         </Button>
       </div>
     </Form>

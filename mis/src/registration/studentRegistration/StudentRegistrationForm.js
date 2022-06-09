@@ -7,6 +7,7 @@ import fileValidation from "../../helpers/fileValidation";
 import SelectControl from "../../components/controls/SelectControl";
 import DatePickerControl from "../../components/controls/DatePickerControl";
 import { API_URL } from "../../constants";
+import { symbolsArrPhone } from "../../helpers/excludeSymbol";
 import {
   checkRegistrationForStudentAction,
   checkRollNoForStudentAction,
@@ -506,7 +507,9 @@ const StudentRegistrationForm = ({
             onWheelCapture={(e) => {
               e.target.blur();
             }}
-            onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}
+            onKeyDown={(e) =>
+              symbolsArrPhone.includes(e.key) && e.preventDefault()
+            }
             type="number"
             onChange={handleInputChange}
             onBlur={(e) => handleRollNo(e.target.value)}
@@ -599,7 +602,9 @@ const StudentRegistrationForm = ({
             onWheelCapture={(e) => {
               e.target.blur();
             }}
-            onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}
+            onKeyDown={(e) =>
+              symbolsArrPhone.includes(e.key) && e.preventDefault()
+            }
             onChange={handleInputChange}
             type="number"
             errors={errors.MobileNo}
@@ -670,7 +675,9 @@ const StudentRegistrationForm = ({
             onWheelCapture={(e) => {
               e.target.blur();
             }}
-            onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}
+            onKeyDown={(e) =>
+              symbolsArrPhone.includes(e.key) && e.preventDefault()
+            }
             value={values.FatherContactNo}
             onFocus={(e) => {
               e.target.select();
@@ -713,7 +720,9 @@ const StudentRegistrationForm = ({
             onFocus={(e) => {
               e.target.select();
             }}
-            onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}
+            onKeyDown={(e) =>
+              symbolsArrPhone.includes(e.key) && e.preventDefault()
+            }
             onChange={handleInputChange}
             type="number"
             // errors={errors.LocalGuardianContactNo}

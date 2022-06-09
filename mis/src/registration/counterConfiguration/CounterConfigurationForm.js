@@ -8,6 +8,7 @@ import {
   counterConfigCreateAction,
   counterConfigEditAction,
 } from "./CounterConfigurationActions";
+import { symbolsArrPhone } from "../../helpers/excludeSymbol";
 
 const initialFormValues = {
   IDCounter: 0,
@@ -109,7 +110,9 @@ const CounterConfigurationForm = ({
             onFocus={(e) => {
               e.target.select();
             }}
-            onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}
+            onKeyDown={(e) =>
+              symbolsArrPhone.includes(e.key) && e.preventDefault()
+            }
             errors={errors.CounterYear}
             onChange={handleInputChange}
           />
@@ -136,7 +139,9 @@ const CounterConfigurationForm = ({
               e.target.blur();
             }}
             type="number"
-            onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}
+            onKeyDown={(e) =>
+              symbolsArrPhone.includes(e.key) && e.preventDefault()
+            }
             variant="outlined"
             errors={errors.CurrentCount}
             onChange={handleInputChange}

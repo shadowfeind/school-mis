@@ -4,7 +4,7 @@ import InputControl from "../../../components/controls/InputControl";
 import { useForm, Form } from "../../../customHooks/useForm";
 import { useDispatch, useSelector } from "react-redux";
 import CheckBoxControl from "../../../components/controls/CheckBoxControl";
-
+import { symbolsArrPhone } from "../../../helpers/excludeSymbol";
 import FormLabel from "@material-ui/core/FormLabel";
 import FormControl from "@material-ui/core/FormControl";
 import FormGroup from "@material-ui/core/FormGroup";
@@ -103,8 +103,6 @@ const AcademicFacultyForm = ({ academicFaculty, selected, setOpenPopup }) => {
     console.log("test", academicFacultyOption);
   }, [academicFacultyOption]);
 
-  const symbolsArr = ["e", "E", "+", "-", ".", "ArrowUp", "ArrowDown"];
-
   return (
     <Form onSubmit={handleSubmit}>
       <Grid container style={{ fontSize: "12px" }}>
@@ -129,7 +127,9 @@ const AcademicFacultyForm = ({ academicFaculty, selected, setOpenPopup }) => {
             onFocus={(e) => {
               e.target.select();
             }}
-            onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}
+            onKeyDown={(e) =>
+              symbolsArrPhone.includes(e.key) && e.preventDefault()
+            }
             onChange={handleInputChange}
             errors={errors.TotalSeat}
             type="number"

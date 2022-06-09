@@ -6,6 +6,7 @@ import { useDispatch } from "react-redux";
 import DatePickerControl from "../../../components/controls/DatePickerControl";
 import SelectControl from "../../../components/controls/SelectControl";
 import { updateSingleStudentAction } from "./StudentProfileActions";
+import { symbolsArrPhone } from "../../../helpers/excludeSymbol";
 
 const initialFormValues = {
   IDHREmployee: 0,
@@ -296,7 +297,9 @@ const StudentProfileForm = ({ studentData, setOpenPopup }) => {
               e.target.select();
             }}
             onChange={handleInputChange}
-            onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}
+            onKeyDown={(e) =>
+              symbolsArrPhone.includes(e.key) && e.preventDefault()
+            }
             type="number"
             errors={errors.MobileNumber}
           />
@@ -310,14 +313,23 @@ const StudentProfileForm = ({ studentData, setOpenPopup }) => {
             onFocus={(e) => {
               e.target.select();
             }}
-            onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}
+            onKeyDown={(e) =>
+              symbolsArrPhone.includes(e.key) && e.preventDefault()
+            }
             onChange={handleInputChange}
             type="number"
           />
           <InputControl
             name="RollNo"
             label="Roll No"
+            type="number"
             value={values.RollNo}
+            onWheelCapture={(e) => {
+              e.target.blur();
+            }}
+            onKeyDown={(e) =>
+              symbolsArrPhone.includes(e.key) && e.preventDefault()
+            }
             onFocus={(e) => {
               e.target.select();
             }}

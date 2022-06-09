@@ -4,6 +4,7 @@ import InputControl from "../../../components/controls/InputControl";
 import { useForm, Form } from "../../../customHooks/useForm";
 import { useDispatch } from "react-redux";
 import { academicFacultySubjectPostEditAction } from "./AssignFacultySubjectActions";
+import { symbolsArrPhone } from "../../../helpers/excludeSymbol";
 
 const initialFormValues = {
   IDAcademicFacultySubjectLink: 0,
@@ -152,7 +153,9 @@ const AssignFacultySubjectFormEdit = ({
             onWheelCapture={(e) => {
               e.target.blur();
             }}
-            onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}
+            onKeyDown={(e) =>
+              symbolsArrPhone.includes(e.key) && e.preventDefault()
+            }
             value={values.CreditHour}
             type="number"
             variant="outlined"

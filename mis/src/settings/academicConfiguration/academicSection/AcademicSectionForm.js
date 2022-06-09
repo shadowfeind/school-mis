@@ -3,6 +3,7 @@ import { Button, Grid } from "@material-ui/core";
 import InputControl from "../../../components/controls/InputControl";
 import { useForm, Form } from "../../../customHooks/useForm";
 import { useDispatch } from "react-redux";
+import { symbolsArrPhone } from "../../../helpers/excludeSymbol";
 import CheckBoxControl from "../../../components/controls/CheckBoxControl";
 import {
   AcademicSectionCreateAction,
@@ -66,8 +67,6 @@ const AcademicSectinoForm = ({ academicSection, setOpenPopup }) => {
     }
   }, [academicSection]);
 
-  const symbolsArr = ["e", "E", "+", "-", ".", "ArrowUp", "ArrowDown"];
-
   return (
     <Form onSubmit={handleSubmit}>
       <Grid container style={{ fontSize: "12px" }}>
@@ -110,7 +109,9 @@ const AcademicSectinoForm = ({ academicSection, setOpenPopup }) => {
             onFocus={(e) => {
               e.target.select();
             }}
-            onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}
+            onKeyDown={(e) =>
+              symbolsArrPhone.includes(e.key) && e.preventDefault()
+            }
             onChange={handleInputChange}
             errors={errors.RoomCapacity}
             onWheelCapture={(e) => {

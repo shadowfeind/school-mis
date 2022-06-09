@@ -9,6 +9,7 @@ import {
   Button,
   TextField,
 } from "@material-ui/core";
+import { symbolsArrPhone } from "../../helpers/excludeSymbol";
 import { withStyles, makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import { useDispatch } from "react-redux";
@@ -100,7 +101,9 @@ const StudentAttendanceBulk = ({
         Working Total Days:
         <TextField
           type="number"
-          onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}
+          onKeyDown={(e) =>
+            symbolsArrPhone.includes(e.key) && e.preventDefault()
+          }
           // label="WorkingDayTotal"
           variant="outlined"
           name="WorkingDayTotal"

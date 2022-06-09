@@ -5,6 +5,8 @@ import { useForm, Form } from "../../../customHooks/useForm";
 import { useDispatch, useSelector } from "react-redux";
 import SelectControl from "../../../components/controls/SelectControl";
 import { API_URL } from "../../../constants";
+import { symbolsArrPhone } from "../../../helpers/excludeSymbol";
+
 import {
   postCreateHrValueAction,
   putEditHrValueAction,
@@ -141,8 +143,6 @@ const HrValueForm = ({ hrValueCreate, setOpenPopup, hrValueEdit }) => {
     }
   }, [hrValueCreate]);
 
-  const symbolsArr = ["e", "E", "+", "-", ".", "ArrowUp", "ArrowDown"];
-
   const test = [{ Key: "", Value: "" }];
 
   return (
@@ -200,7 +200,9 @@ const HrValueForm = ({ hrValueCreate, setOpenPopup, hrValueEdit }) => {
               e.target.select();
             }}
             onChange={handleInputChange}
-            onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}
+            onKeyDown={(e) =>
+              symbolsArrPhone.includes(e.key) && e.preventDefault()
+            }
             type="number"
             errors={errors.TelNo}
           />

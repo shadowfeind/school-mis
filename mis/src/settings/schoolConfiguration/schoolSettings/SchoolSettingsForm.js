@@ -3,6 +3,7 @@ import { Button, Grid } from "@material-ui/core";
 import InputControl from "../../../components/controls/InputControl";
 import { useForm, Form } from "../../../customHooks/useForm";
 import { useDispatch } from "react-redux";
+import { symbolsArrPhone } from "../../../helpers/excludeSymbol";
 import DatePickerControl from "../../../components/controls/DatePickerControl";
 import {
   schoolSettingCreateAction,
@@ -210,7 +211,9 @@ const SchoolSettingsForm = ({ college, setOpenPopup }) => {
             }}
             onChange={handleInputChange}
             errors={errors.PhoneNo}
-            onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}
+            onKeyDown={(e) =>
+              symbolsArrPhone.includes(e.key) && e.preventDefault()
+            }
             type="number"
           />
           <InputControl
@@ -224,7 +227,9 @@ const SchoolSettingsForm = ({ college, setOpenPopup }) => {
             onFocus={(e) => {
               e.target.select();
             }}
-            onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}
+            onKeyDown={(e) =>
+              symbolsArrPhone.includes(e.key) && e.preventDefault()
+            }
             errors={errors.AlternatePhoneNo}
             type="number"
           />
@@ -250,7 +255,9 @@ const SchoolSettingsForm = ({ college, setOpenPopup }) => {
             onFocus={(e) => {
               e.target.select();
             }}
-            onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}
+            onKeyDown={(e) =>
+              symbolsArrPhone.includes(e.key) && e.preventDefault()
+            }
             onChange={handleInputChange}
             errors={errors.FaxNo}
             type="number"
@@ -266,7 +273,9 @@ const SchoolSettingsForm = ({ college, setOpenPopup }) => {
             onWheelCapture={(e) => {
               e.target.blur();
             }}
-            onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}
+            onKeyDown={(e) =>
+              symbolsArrPhone.includes(e.key) && e.preventDefault()
+            }
             onChange={handleInputChange}
             type="number"
           />
@@ -278,7 +287,9 @@ const SchoolSettingsForm = ({ college, setOpenPopup }) => {
             onFocus={(e) => {
               e.target.select();
             }}
-            onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}
+            onKeyDown={(e) =>
+              symbolsArrPhone.includes(e.key) && e.preventDefault()
+            }
             errors={errors.AlternateFaxNo}
             type="number"
           />

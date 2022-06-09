@@ -3,6 +3,7 @@ import { Button, Grid } from "@material-ui/core";
 import InputControl from "../../../components/controls/InputControl";
 import { useForm, Form } from "../../../customHooks/useForm";
 import { useDispatch } from "react-redux";
+import { symbolsArrPhone } from "../../../helpers/excludeSymbol";
 import { updateSingleClassSubjectAction } from "./ClassSubjectActions";
 
 const initialFormValues = {
@@ -64,6 +65,9 @@ const ClassSubjectEditForm = ({ singleClassSubject, setOpenPopupForm }) => {
             onFocus={(e) => {
               e.target.select();
             }}
+            onKeyDown={(e) =>
+              symbolsArrPhone.includes(e.key) && e.preventDefault()
+            }
             onWheelCapture={(e) => {
               e.target.blur();
             }}

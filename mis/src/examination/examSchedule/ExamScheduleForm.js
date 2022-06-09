@@ -9,6 +9,7 @@ import {
   postSingleExamScheduleCreateAction,
   singleExamScheduleEditAction,
 } from "./ExamScheduleActions";
+import { symbolsArrPhone } from "../../helpers/excludeSymbol";
 
 const initialFormValues = {
   IDAcademicExamSchedule: 0,
@@ -107,8 +108,6 @@ const ExamScheduleForm = ({
 
   const test = [{ Key: "", Value: "" }];
 
-  const invalidChars = ["-", "e", "+", "E", "."];
-
   return (
     <>
       <Form onSubmit={handleSubmit}>
@@ -147,7 +146,7 @@ const ExamScheduleForm = ({
               name="FullMark"
               label="Full Marks*"
               onKeyDown={(e) =>
-                invalidChars.includes(e.key) && e.preventDefault()
+                symbolsArrPhone.includes(e.key) && e.preventDefault()
               }
               value={values.FullMark}
               onWheelCapture={(e) => {
@@ -172,7 +171,7 @@ const ExamScheduleForm = ({
                   e.target.blur();
                 }}
                 onKeyDown={(e) =>
-                  invalidChars.includes(e.key) && e.preventDefault()
+                  symbolsArrPhone.includes(e.key) && e.preventDefault()
                 }
                 onFocus={(e) => {
                   e.target.select();
@@ -241,7 +240,7 @@ const ExamScheduleForm = ({
                 e.target.blur();
               }}
               onKeyDown={(e) =>
-                invalidChars.includes(e.key) && e.preventDefault()
+                symbolsArrPhone.includes(e.key) && e.preventDefault()
               }
               onChange={(e) =>
                 (e.target.value <= 100) & (e.target.value >= 0) &&
@@ -257,7 +256,7 @@ const ExamScheduleForm = ({
                 e.target.blur();
               }}
               onKeyDown={(e) =>
-                invalidChars.includes(e.key) && e.preventDefault()
+                symbolsArrPhone.includes(e.key) && e.preventDefault()
               }
               onFocus={(e) => {
                 e.target.select();
@@ -279,6 +278,10 @@ const ExamScheduleForm = ({
               onFocus={(e) => {
                 e.target.select();
               }}
+              onKeyDown={(e) =>
+                symbolsArrPhone.includes(e.key) && e.preventDefault()
+              }
+              type="number"
               onChange={handleInputChange}
               // errors={errors.GroupNumber}
             />

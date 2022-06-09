@@ -6,7 +6,7 @@ import { useReactToPrint } from "react-to-print";
 import { Button, Grid } from "@material-ui/core";
 import ReactHTMLTableToExcel from "react-html-table-to-excel";
 
-const ExamAnnualResultTable = memo(({ ledgerData }) => {
+const ExamAnnualResultTable = memo(({ ledgerData, date }) => {
   const componentRef = useRef();
   const printPdf = useReactToPrint({
     content: () => componentRef.current,
@@ -43,7 +43,7 @@ const ExamAnnualResultTable = memo(({ ledgerData }) => {
           Term: {currentEventName && currentEventName[0]?.Value}
         </Grid>
         <Grid item xs={4}>
-          Date: {ledgerData && ledgerData.StartDate?.slice(0, 10)}
+          Date: {date?.slice(0, 10)}
         </Grid>
       </Grid>
       <table border="1" id="table-xls-ledger">
@@ -95,7 +95,9 @@ const ExamAnnualResultTable = memo(({ ledgerData }) => {
               ?.sort((a, b) => a.RollNo - b.RollNo)
               .map((s) => {
                 let totalMarksAcc = [];
+                let totalMarksForGpa = [];
                 let totalGpa = [];
+                let avgGpa = [];
                 let crrentStudentId = ledgerData?.dbModelResultLst?.filter(
                   (x) => x.Key === s.IDHREmployee
                 );
@@ -132,14 +134,24 @@ const ExamAnnualResultTable = memo(({ ledgerData }) => {
                             (a, b) => a.IDAcademicSubject - b.IDAcademicSubject
                           );
                         //collecting first term marks to show total
+                        let firstTermConvertedMarks = firstTerm
+                          ? ((firstTerm[0]?.ObtainedMark +
+                              firstTerm[0]?.ObtainedMarkPractical) /
+                              (firstTerm[0]?.FullMark +
+                                firstTerm[0]?.FullMarkPractical)) *
+                            100 *
+                            0.15
+                          : "";
                         {
                           firstTerm?.length > 0 &&
                             totalMarksAcc.push({
-                              marks: firstTerm
-                                ? (firstTerm[0]?.ObtainedMark +
-                                    firstTerm[0]?.ObtainedMarkPractical) *
-                                  0.15
-                                : "",
+                              marks: firstTermConvertedMarks,
+                            });
+                        }
+                        {
+                          firstTerm?.length > 0 &&
+                            totalMarksForGpa.push({
+                              marks: firstTermConvertedMarks,
                             });
                         }
                         //collecting first term marks for gpa
@@ -147,17 +159,12 @@ const ExamAnnualResultTable = memo(({ ledgerData }) => {
                           firstTerm?.length > 0 &&
                             totalGpa.push({
                               gpa: parseFloat(
-                                pointCalc(
-                                  firstTerm
-                                    ? (firstTerm[0]?.ObtainedMark +
-                                        firstTerm[0]?.ObtainedMarkPractical) *
-                                        0.15
-                                    : ""
-                                )
+                                pointCalc(firstTermConvertedMarks)
                               ),
                             });
                         }
                         //getting secondTerm  marks to show
+
                         let secondTerm = ledgerData?.dbModelLst
                           ?.filter(
                             (x) =>
@@ -169,14 +176,24 @@ const ExamAnnualResultTable = memo(({ ledgerData }) => {
                             (a, b) => a.IDAcademicSubject - b.IDAcademicSubject
                           );
                         //collecting secondTerm  marks to show total
+                        let secondTermConvertedMarks = secondTerm
+                          ? ((secondTerm[0]?.ObtainedMark +
+                              secondTerm[0]?.ObtainedMarkPractical) /
+                              (secondTerm[0]?.FullMark +
+                                secondTerm[0]?.FullMarkPractical)) *
+                            100 *
+                            0.2
+                          : "";
                         {
                           secondTerm?.length > 0 &&
                             totalMarksAcc.push({
-                              marks: secondTerm
-                                ? (secondTerm[0]?.ObtainedMark +
-                                    secondTerm[0]?.ObtainedMarkPractical) *
-                                  0.2
-                                : "",
+                              marks: secondTermConvertedMarks,
+                            });
+                        }
+                        {
+                          secondTerm?.length > 0 &&
+                            totalMarksForGpa.push({
+                              marks: secondTermConvertedMarks,
                             });
                         }
                         //collecting secondTerm marks for gpa
@@ -184,13 +201,7 @@ const ExamAnnualResultTable = memo(({ ledgerData }) => {
                           secondTerm?.length > 0 &&
                             totalGpa.push({
                               gpa: parseFloat(
-                                pointCalc(
-                                  secondTerm
-                                    ? (secondTerm[0]?.ObtainedMark +
-                                        secondTerm[0]?.ObtainedMarkPractical) *
-                                        0.15
-                                    : ""
-                                )
+                                pointCalc(secondTermConvertedMarks)
                               ),
                             });
                         }
@@ -206,14 +217,24 @@ const ExamAnnualResultTable = memo(({ ledgerData }) => {
                             (a, b) => a.IDAcademicSubject - b.IDAcademicSubject
                           );
                         //collecting thirdTerm  marks to show total
+                        let thirdTermConvertedMarks = thirdTerm
+                          ? ((thirdTerm[0]?.ObtainedMark +
+                              thirdTerm[0]?.ObtainedMarkPractical) /
+                              (thirdTerm[0]?.FullMark +
+                                thirdTerm[0]?.FullMarkPractical)) *
+                            100 *
+                            0.15
+                          : "";
                         {
                           thirdTerm?.length > 0 &&
                             totalMarksAcc.push({
-                              marks: thirdTerm
-                                ? (thirdTerm[0]?.ObtainedMark +
-                                    thirdTerm[0]?.ObtainedMarkPractical) *
-                                  0.15
-                                : "",
+                              marks: thirdTermConvertedMarks,
+                            });
+                        }
+                        {
+                          thirdTerm?.length > 0 &&
+                            totalMarksForGpa.push({
+                              marks: thirdTermConvertedMarks,
                             });
                         }
                         //collecting thirdTerm marks for gpa
@@ -221,13 +242,7 @@ const ExamAnnualResultTable = memo(({ ledgerData }) => {
                           thirdTerm?.length > 0 &&
                             totalGpa.push({
                               gpa: parseFloat(
-                                pointCalc(
-                                  thirdTerm
-                                    ? (thirdTerm[0]?.ObtainedMark +
-                                        thirdTerm[0]?.ObtainedMarkPractical) *
-                                        0.15
-                                    : ""
-                                )
+                                pointCalc(thirdTermConvertedMarks)
                               ),
                             });
                         }
@@ -243,14 +258,24 @@ const ExamAnnualResultTable = memo(({ ledgerData }) => {
                             (a, b) => a.IDAcademicSubject - b.IDAcademicSubject
                           );
                         //collecting finalTerm  marks to show total
+                        let finalTermConvertedMarks = finalTerm
+                          ? ((finalTerm[0]?.ObtainedMark +
+                              finalTerm[0]?.ObtainedMarkPractical) /
+                              (finalTerm[0]?.FullMark +
+                                finalTerm[0]?.FullMarkPractical)) *
+                            100 *
+                            0.5
+                          : "";
                         {
                           finalTerm?.length > 0 &&
                             totalMarksAcc.push({
-                              marks: finalTerm
-                                ? (finalTerm[0]?.ObtainedMark +
-                                    finalTerm[0]?.ObtainedMarkPractical) *
-                                  0.5
-                                : "",
+                              marks: finalTermConvertedMarks,
+                            });
+                        }
+                        {
+                          finalTerm?.length > 0 &&
+                            totalMarksForGpa.push({
+                              marks: finalTermConvertedMarks,
                             });
                         }
                         //collecting finalTerm marks for gpa
@@ -258,26 +283,38 @@ const ExamAnnualResultTable = memo(({ ledgerData }) => {
                           finalTerm?.length > 0 &&
                             totalGpa.push({
                               gpa: parseFloat(
-                                pointCalc(
-                                  finalTerm
-                                    ? (finalTerm[0]?.ObtainedMark +
-                                        finalTerm[0]?.ObtainedMarkPractical) *
-                                        0.15
-                                    : ""
-                                )
+                                pointCalc(finalTermConvertedMarks)
                               ),
                             });
                         }
 
-                        // console.log("totalGpa", totalGpa);
-                        // console.log("totalMarksAcc", totalMarksAcc);
+                        avgGpa.push(
+                          Number(
+                            pointCalc(
+                              totalMarksForGpa
+                                .reduce((acc, cur) => {
+                                  return acc + cur.marks;
+                                }, 0)
+                                .toFixed(2)
+                            )
+                          )
+                        );
+
+                        totalMarksForGpa = [];
+
+                        console.log("totalGpa", totalGpa);
+                        console.log("avgGpa", avgGpa);
+
                         return (
                           <Fragment>
                             <td>
                               {firstTerm?.length > 0
                                 ? (
-                                    (firstTerm[0]?.ObtainedMark +
-                                      firstTerm[0]?.ObtainedMarkPractical) *
+                                    ((firstTerm[0]?.ObtainedMark +
+                                      firstTerm[0]?.ObtainedMarkPractical) /
+                                      (firstTerm[0]?.FullMark +
+                                        firstTerm[0]?.FullMarkPractical)) *
+                                    100 *
                                     0.15
                                   )?.toFixed(2)
                                 : ""}
@@ -295,8 +332,11 @@ const ExamAnnualResultTable = memo(({ ledgerData }) => {
                             <td>
                               {secondTerm?.length > 0
                                 ? (
-                                    (secondTerm[0]?.ObtainedMark +
-                                      secondTerm[0]?.ObtainedMarkPractical) *
+                                    ((secondTerm[0]?.ObtainedMark +
+                                      secondTerm[0]?.ObtainedMarkPractical) /
+                                      (secondTerm[0]?.FullMark +
+                                        secondTerm[0]?.FullMarkPractical)) *
+                                    100 *
                                     0.2
                                   )?.toFixed(2)
                                 : ""}
@@ -314,8 +354,11 @@ const ExamAnnualResultTable = memo(({ ledgerData }) => {
                             <td>
                               {thirdTerm?.length > 0
                                 ? (
-                                    (thirdTerm[0]?.ObtainedMark +
-                                      thirdTerm[0]?.ObtainedMarkPractical) *
+                                    ((thirdTerm[0]?.ObtainedMark +
+                                      thirdTerm[0]?.ObtainedMarkPractical) /
+                                      (thirdTerm[0]?.FullMark +
+                                        thirdTerm[0]?.FullMarkPractical)) *
+                                    100 *
                                     0.15
                                   )?.toFixed(2)
                                 : ""}
@@ -333,8 +376,11 @@ const ExamAnnualResultTable = memo(({ ledgerData }) => {
                             <td>
                               {finalTerm?.length > 0
                                 ? (
-                                    (finalTerm[0]?.ObtainedMark +
-                                      finalTerm[0]?.ObtainedMarkPractical) *
+                                    ((finalTerm[0]?.ObtainedMark +
+                                      finalTerm[0]?.ObtainedMarkPractical) /
+                                      (finalTerm[0]?.FullMark +
+                                        finalTerm[0]?.FullMarkPractical)) *
+                                    100 *
                                     0.5
                                   ).toFixed(2)
                                 : ""}
@@ -361,21 +407,20 @@ const ExamAnnualResultTable = memo(({ ledgerData }) => {
                     </td>
                     <td>
                       {gpaToGrade(
-                        totalGpa.reduce((acc, cur) => {
-                          return acc + cur.gpa;
-                        }, 0) /
-                          ledgerData?.ddlAcademicFacultySubjectLinkSubModel
-                            ?.length
+                        (
+                          avgGpa.reduce((acc, cur) => {
+                            return acc + cur;
+                          }, 0) / avgGpa.length
+                        ).toFixed(2)
                       )}
                     </td>
                     <td>
-                      {(
-                        totalGpa.reduce((acc, cur) => {
-                          return acc + cur.gpa;
-                        }, 0) /
-                        ledgerData?.ddlAcademicFacultySubjectLinkSubModel
-                          ?.length
-                      ).toFixed(2)}
+                      {avgGpa &&
+                        (
+                          avgGpa.reduce((acc, cur) => {
+                            return acc + cur;
+                          }, 0) / avgGpa.length
+                        ).toFixed(2)}
                     </td>
                     <td>
                       {currentStudentRank.length > 0

@@ -706,6 +706,7 @@ const ExamResult = () => {
               currentClass={ddlClass && ddlClass}
               currentSection={ddlSection && ddlSection}
               schoolName={examResultList && examResultList.SchoolShortName}
+              date={dateValue && dateValue}
             />
           )
         )}
@@ -713,7 +714,10 @@ const ExamResult = () => {
           <LoadingComp />
         ) : (
           showAnnualLedger && (
-            <ExamAnnualResultTable ledgerData={examLedgerHeader} />
+            <ExamAnnualResultTable
+              ledgerData={examLedgerHeader}
+              date={dateValue && dateValue}
+            />
           )
         )}
       </CustomContainer>
@@ -723,6 +727,7 @@ const ExamResult = () => {
           examReport={printExamResult && printExamResult}
           principleSignature={principleSignature && principleSignature}
           setOpenPopup={setOpenPopup}
+          date={dateValue && dateValue}
         />
       </Popup>
       <Popup
@@ -735,6 +740,7 @@ const ExamResult = () => {
           examReport={printExamResult && printExamResult}
           setOpenPopupResultMark={setOpenPopupResultMark}
           principleSignature={principleSignature && principleSignature}
+          date={dateValue && dateValue}
         />
       </Popup>
       <Popup
@@ -747,6 +753,7 @@ const ExamResult = () => {
           result={printFinalResult}
           setOpenPopupFinal={setOpenPopupFinal}
           principleSignature={principleSignature && principleSignature}
+          date={dateValue && dateValue}
         />
       </Popup>
       <Popup

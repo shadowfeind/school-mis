@@ -23,6 +23,7 @@ const ExamResultDesign = ({
   ecaDataWithName,
   principleSignature,
   rank,
+  date,
 }) => {
   let trackSubject = [];
   let tdToRender = [];
@@ -376,7 +377,7 @@ const ExamResultDesign = ({
             <Grid container>
               <Grid item xs={3}>
                 <div style={{ marginTop: "-12px", marginBottom: "-10px" }}>
-                  <h4>{forDate.PublishDate.slice(0, 10)}</h4>
+                  <h4>{date?.slice(0, 10)}</h4>
                 </div>
                 <h4 style={{ margin: "0" }}>................</h4>
                 <h6>Result Date</h6>

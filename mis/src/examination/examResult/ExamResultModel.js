@@ -8,6 +8,7 @@ const ExamResultModel = ({
   headerBanners,
   setOpenPopup,
   principleSignature,
+  date,
 }) => {
   const componentRef = useRef();
   const printPdf = useReactToPrint({
@@ -85,6 +86,7 @@ const ExamResultModel = ({
             ecaDataWithName={ecaDataFinal}
             principleSignature={principleSignature}
             rank={rank}
+            date={date}
           />
         );
       })}

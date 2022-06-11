@@ -20,10 +20,10 @@ const FinalExamResultDesign = ({
   headerBanners,
   ecaDataWithName,
   principleSignature,
+  date,
 }) => {
   let avgGpa = [];
   let tdToRender = [];
-
   for (let i = subjectList.length; i <= 11; i++) {
     tdToRender.push(i);
   }
@@ -86,103 +86,96 @@ const FinalExamResultDesign = ({
                   let firstTermMarks = firstTerm.filter(
                     (x) => x.IDAcademicSubject === s.IDAcademicSubject
                   );
+
+                  let firstTermConvertedMarks = firstTermMarks
+                    ? ((firstTermMarks[0]?.ObtainedMark +
+                        firstTermMarks[0]?.ObtainedMarkPractical) /
+                        (firstTermMarks[0]?.FullMark +
+                          firstTermMarks[0]?.FullMarkPractical)) *
+                      100 *
+                      0.15
+                    : "";
                   totalMarksAcc.push({
-                    marks: firstTermMarks
-                      ? (firstTermMarks[0]?.ObtainedMark +
-                          firstTermMarks[0]?.ObtainedMarkPractical) *
-                        0.15
-                      : "",
+                    marks: firstTermConvertedMarks,
                   });
                   {
                     firstTermMarks?.length > 0 &&
                       totalGpa.push({
-                        gpa: parseFloat(
-                          pointCalc(
-                            firstTermMarks
-                              ? (firstTermMarks[0]?.ObtainedMark +
-                                  firstTermMarks[0]?.ObtainedMarkPractical) *
-                                  0.15
-                              : ""
-                          )
-                        ),
+                        gpa: parseFloat(pointCalc(firstTermConvertedMarks)),
                       });
                   }
                   let secondTermMarks = secondTerm.filter(
                     (x) => x.IDAcademicSubject === s.IDAcademicSubject
                   );
+
+                  let secondTermConvertedMarks = secondTermMarks
+                    ? ((secondTermMarks[0]?.ObtainedMark +
+                        secondTermMarks[0]?.ObtainedMarkPractical) /
+                        (secondTermMarks[0]?.FullMark +
+                          secondTermMarks[0]?.FullMarkPractical)) *
+                      100 *
+                      0.2
+                    : "";
                   totalMarksAcc.push({
-                    marks: secondTermMarks
-                      ? (secondTermMarks[0]?.ObtainedMark +
-                          secondTermMarks[0]?.ObtainedMarkPractical) *
-                        0.15
-                      : "",
+                    marks: secondTermConvertedMarks,
                   });
                   {
                     secondTerm?.length > 0 &&
                       totalGpa.push({
-                        gpa: parseFloat(
-                          pointCalc(
-                            secondTerm
-                              ? (secondTerm[0]?.ObtainedMark +
-                                  secondTerm[0]?.ObtainedMarkPractical) *
-                                  0.15
-                              : ""
-                          )
-                        ),
+                        gpa: parseFloat(pointCalc(secondTermConvertedMarks)),
                       });
                   }
                   let thirdTermMarks = thirdTerm.filter(
                     (x) => x.IDAcademicSubject === s.IDAcademicSubject
                   );
+
+                  let thirdTermConvertedMarks = thirdTermMarks
+                    ? ((thirdTermMarks[0]?.ObtainedMark +
+                        thirdTermMarks[0]?.ObtainedMarkPractical) /
+                        (thirdTermMarks[0]?.FullMark +
+                          thirdTermMarks[0]?.FullMarkPractical)) *
+                      100 *
+                      0.15
+                    : "";
                   totalMarksAcc.push({
-                    marks: thirdTermMarks
-                      ? (thirdTermMarks[0]?.ObtainedMark +
-                          thirdTermMarks[0]?.ObtainedMarkPractical) *
-                        0.15
-                      : "",
+                    marks: thirdTermConvertedMarks,
                   });
                   {
                     thirdTermMarks?.length > 0 &&
                       totalGpa.push({
-                        gpa: parseFloat(
-                          pointCalc(
-                            thirdTermMarks
-                              ? (thirdTermMarks[0]?.ObtainedMark +
-                                  thirdTermMarks[0]?.ObtainedMarkPractical) *
-                                  0.15
-                              : ""
-                          )
-                        ),
+                        gpa: parseFloat(pointCalc(thirdTermConvertedMarks)),
                       });
                   }
                   let finalTermMarks = finalTerm.filter(
                     (x) => x.IDAcademicSubject === s.IDAcademicSubject
                   );
+                  let finalTermConvertedMarks = finalTermMarks
+                    ? ((finalTermMarks[0]?.ObtainedMark +
+                        finalTermMarks[0]?.ObtainedMarkPractical) /
+                        (finalTermMarks[0]?.FullMark +
+                          finalTermMarks[0]?.FullMarkPractical)) *
+                      100 *
+                      0.5
+                    : "";
                   totalMarksAcc.push({
-                    marks: finalTermMarks
-                      ? (finalTermMarks[0]?.ObtainedMark +
-                          finalTermMarks[0]?.ObtainedMarkPractical) *
-                        0.15
-                      : "",
+                    marks: finalTermConvertedMarks,
                   });
                   {
                     finalTermMarks?.length > 0 &&
                       totalGpa.push({
-                        gpa: parseFloat(
-                          pointCalc(
-                            finalTermMarks
-                              ? (finalTermMarks[0]?.ObtainedMark +
-                                  finalTermMarks[0]?.ObtainedMarkPractical) *
-                                  0.15
-                              : ""
-                          )
-                        ),
+                        gpa: parseFloat(pointCalc(finalTermConvertedMarks)),
                       });
                   }
                   avgGpa.push(
-                    totalGpa.reduce((acc, cur) => {
-                      return acc + cur.gpa;
-                    }, 0)
+                    Number(
+                      pointCalc(
+                        totalMarksAcc
+                          .reduce((acc, cur) => {
+                            return acc + cur.marks;
+                          }, 0)
+                          .toFixed(2)
+                      )
+                    )
                   );
                   return (
                     <tr key={s.$id}>
@@ -192,59 +185,71 @@ const FinalExamResultDesign = ({
                       <td style={{ textAlign: "center" }}>
                         {firstTermMarks?.length > 0 &&
                           gradeCalc(
-                            ((firstTermMarks[0]?.ObtainedMark +
-                              firstTermMarks[0]?.ObtainedMarkPractical) /
-                              (firstTermMarks[0]?.FullMark +
-                                firstTermMarks[0]?.FullMarkPractical)) *
+                            (
+                              ((firstTermMarks[0]?.ObtainedMark +
+                                firstTermMarks[0]?.ObtainedMarkPractical) /
+                                (firstTermMarks[0]?.FullMark +
+                                  firstTermMarks[0]?.FullMarkPractical)) *
                               100
-                          )}
+                            ).toFixed(2)
+                          )}{" "}
                       </td>
                       <td style={{ textAlign: "center" }}>
                         {" "}
                         {secondTermMarks?.length > 0 &&
                           gradeCalc(
-                            ((secondTermMarks[0]?.ObtainedMark +
-                              secondTermMarks[0]?.ObtainedMarkPractical) /
-                              (secondTermMarks[0]?.FullMark +
-                                secondTermMarks[0]?.FullMarkPractical)) *
+                            (
+                              ((secondTermMarks[0]?.ObtainedMark +
+                                secondTermMarks[0]?.ObtainedMarkPractical) /
+                                (secondTermMarks[0]?.FullMark +
+                                  secondTermMarks[0]?.FullMarkPractical)) *
                               100
+                            ).toFixed(2)
                           )}
                       </td>
                       <td style={{ textAlign: "center" }}>
                         {" "}
                         {thirdTermMarks?.length > 0 &&
                           gradeCalc(
-                            ((thirdTermMarks[0]?.ObtainedMark +
-                              thirdTermMarks[0]?.ObtainedMarkPractical) /
-                              (thirdTermMarks[0]?.FullMark +
-                                thirdTermMarks[0]?.FullMarkPractical)) *
+                            (
+                              ((thirdTermMarks[0]?.ObtainedMark +
+                                thirdTermMarks[0]?.ObtainedMarkPractical) /
+                                (thirdTermMarks[0]?.FullMark +
+                                  thirdTermMarks[0]?.FullMarkPractical)) *
                               100
+                            ).toFixed(2)
                           )}{" "}
                       </td>
                       <td style={{ textAlign: "center" }}>
                         {finalTermMarks?.length > 0 &&
                           gradeCalc(
-                            ((finalTermMarks[0]?.ObtainedMark +
-                              finalTermMarks[0]?.ObtainedMarkPractical) /
-                              (finalTermMarks[0]?.FullMark +
-                                finalTermMarks[0]?.FullMarkPractical)) *
+                            (
+                              ((finalTermMarks[0]?.ObtainedMark +
+                                finalTermMarks[0]?.ObtainedMarkPractical) /
+                                (finalTermMarks[0]?.FullMark +
+                                  finalTermMarks[0]?.FullMarkPractical)) *
                               100
+                            ).toFixed(2)
                           )}
                       </td>
                       <td style={{ textAlign: "center" }}>
-                        {gpaToGrade(
-                          totalGpa.reduce((acc, cur) => {
-                            return acc + cur.gpa;
-                          }, 0) / subjectList?.length
+                        {gradeCalc(
+                          totalMarksAcc
+                            .reduce((acc, cur) => {
+                              return acc + cur.marks;
+                            }, 0)
+                            .toFixed(2)
                         )}
                       </td>
                       <td style={{ textAlign: "center" }}>
                         {/* this part needs to be recalcutaed not so sure */}
-                        {totalGpa
-                          .reduce((acc, cur) => {
-                            return acc + cur.gpa;
-                          }, 0)
-                          .toFixed(2)}
+                        {pointCalc(
+                          totalMarksAcc
+                            .reduce((acc, cur) => {
+                              return acc + cur.marks;
+                            }, 0)
+                            .toFixed(2)
+                        )}
                       </td>
                     </tr>
                   );
@@ -416,7 +421,7 @@ const FinalExamResultDesign = ({
             <Grid container>
               <Grid item xs={3}>
                 <div style={{ marginTop: "-12px", marginBottom: "-10px" }}>
-                  <h4>{resultDate && resultDate.slice(0, 10)}</h4>
+                  <h4>{date?.slice(0, 10)}</h4>
                 </div>
                 <h4 style={{ margin: "0" }}>................</h4>
                 <h6>Result Date</h6>

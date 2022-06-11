@@ -6,7 +6,6 @@ import store from "./store";
 import App from "./App";
 import { USER_SESSION } from "./constants";
 
-
 // if (USER_SESSION) {
 //   ReactDOM.render(
 //     <Provider store={store}>
@@ -24,7 +23,7 @@ sessionStorage.setItem(
 sessionStorage.setItem(
   "blueberryrefreshtoken",
   "67XcrMCCfR3/fki8i46xfqRlJNZ/BK1Z9l2r6jYE/DM="
-
+);
 
 ReactDOM.render(
   <Provider store={store}>

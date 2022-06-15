@@ -20,6 +20,10 @@ const ExamResultWithMarksModel = ({
       (x) => x.Key === examReport.idAcademicYearCalendar
     );
 
+  // const examYear = examReport.ddlAcademicYear?.filter(
+  //   (x) => x.Key === examReport.idAcademicYear
+  // );
+
   return (
     <div id="result-with-marks" ref={componentRef}>
       {examReport &&

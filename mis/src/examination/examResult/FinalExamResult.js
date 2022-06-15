@@ -14,6 +14,9 @@ const FinalExamResult = ({
   const printPdf = useReactToPrint({
     content: () => componentRef.current,
   });
+  const examYear = result.ddlAcademicYear?.filter(
+    (x) => x.Key === result.idAcademicYear
+  );
   return (
     <div id="result-final-print" ref={componentRef}>
       {result &&

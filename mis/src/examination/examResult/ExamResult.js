@@ -524,6 +524,7 @@ const ExamResult = () => {
   }, [printExamResultCountSuccess]);
   useEffect(() => {
     setOpenPopupCount(false);
+    setOpenPopupFinal(false);
     dispatch({ type: PRINT_EXAM_RESULT_COUNT_RESET });
   }, []);
   return (
@@ -707,6 +708,7 @@ const ExamResult = () => {
               currentSection={ddlSection && ddlSection}
               schoolName={examResultList && examResultList.SchoolShortName}
               date={dateValue && dateValue}
+              year={academicYearDdl && academicYearDdl}
             />
           )
         )}
@@ -717,6 +719,7 @@ const ExamResult = () => {
             <ExamAnnualResultTable
               ledgerData={examLedgerHeader}
               date={dateValue && dateValue}
+              year={academicYearDdl && academicYearDdl}
             />
           )
         )}

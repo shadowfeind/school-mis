@@ -9,6 +9,7 @@ import {
   ThemeProvider,
 } from "@material-ui/core";
 import { HashRouter as Router, Route, Switch } from "react-router-dom";
+import LoadingComp from "./components/LoadingComp";
 
 const Help = lazy(() => import("./help/Help"));
 const EcaData = lazy(() => import("./examination/ecaData/EcaData"));
@@ -133,7 +134,7 @@ const App = () => {
         <SideMenu />
         <div className={classes.appMain}>
           {/* Examination route start */}
-          <Suspense fallback={<div></div>}>
+          <Suspense fallback={<LoadingComp />}>
             <Switch>
               {/* <Route path={"/examination"} component={AcademicGrading} /> */}
               {/* <Route path={"/exam-division"} component={ExamDivision} /> */}

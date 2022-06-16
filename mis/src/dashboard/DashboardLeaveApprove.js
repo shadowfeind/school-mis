@@ -187,13 +187,14 @@ const DashboardLeaveApprove = () => {
   };
 
   useEffect(() => {
-    if (!listLeaveRequest) {
-      dispatch(getListLeaveRequestAction());
-    }
     if (listLeaveRequest) {
       setTableData(listLeaveRequest.dbModelReceiverLst);
     }
   }, [dispatch, listLeaveRequest]);
+
+  useEffect(() => {
+    dispatch(getListLeaveRequestAction());
+  }, []);
 
   const downloadHandler = (id) => {
     dispatch(downloadLeaveRequestAction(id));

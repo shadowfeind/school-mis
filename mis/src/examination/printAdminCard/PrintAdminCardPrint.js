@@ -20,7 +20,7 @@ const PrintAdminCardPrint = ({
     <div id="test-print-blueberry" ref={componentRef}>
       <Grid container>
         {students &&
-          students.map((student) => (
+          students?.map((student) => (
             <Grid item xs={6} key={student.$id}>
               <AdmitCardDesign
                 key={student.$id}

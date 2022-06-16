@@ -31,7 +31,7 @@ const ExamResultDesign = ({
   const dispatch = useDispatch();
 
   for (let i = subjects.length; i <= 11; i++) {
-    tdToRender.push(i);
+    tdToRender?.push(i);
   }
 
   return (
@@ -96,7 +96,7 @@ const ExamResultDesign = ({
               </tr>
             </thead>
             <tbody>
-              {subjects.map((s, i) => {
+              {subjects?.map((s, i) => {
                 let count = i + 1;
                 let resultTH = (s.ObtainedMark * 100) / s.FullMark;
                 let resultPR =
@@ -111,15 +111,15 @@ const ExamResultDesign = ({
                     (s.FullMark + s.FullMarkPractical)) *
                   100;
 
-                let filteredSubjects = dbModelLst.filter(
+                let filteredSubjects = dbModelLst?.filter(
                   (x) =>
                     x.SubjectCode === s.SubjectCode && x.Status === "Approved"
                 );
 
-                let highestThMarks = filteredSubjects.sort(
+                let highestThMarks = filteredSubjects?.sort(
                   (a, b) => b.ObtainedMark - a.ObtainedMark
                 );
-                let highestPrMarks = filteredSubjects.sort(
+                let highestPrMarks = filteredSubjects?.sort(
                   (a, b) => b.ObtainedMarkPractical - a.ObtainedMarkPractical
                 );
 
@@ -128,8 +128,8 @@ const ExamResultDesign = ({
                   let totalMarks = s?.FullMark + s?.FullMarkPractical;
 
                   let totalHighestMarksContainer =
-                    highestThMarks[0].ObtainedMark +
-                    highestPrMarks[0].ObtainedMarkPractical;
+                    highestThMarks[0]?.ObtainedMark +
+                    highestPrMarks[0]?.ObtainedMarkPractical;
 
                   totalHighestMarks =
                     (totalHighestMarksContainer * 100) / totalMarks;
@@ -174,7 +174,7 @@ const ExamResultDesign = ({
               })}
               {/* to render empty td */}
               {tdToRender &&
-                tdToRender.map((x) => (
+                tdToRender?.map((x) => (
                   <tr key={x}>
                     <td height={30}></td>
                     <td height={30}> </td>
@@ -193,10 +193,10 @@ const ExamResultDesign = ({
                 </td>
                 <td style={{ textAlign: "center" }}>
                   {(
-                    trackSubject.reduce((acc, cur) => {
+                    trackSubject?.reduce((acc, cur) => {
                       return acc + cur.totalMarks;
                     }, 0) / trackSubject.length
-                  ).toFixed(2)}
+                  )?.toFixed(2)}
                 </td>
                 <td></td>
               </tr>
@@ -346,30 +346,30 @@ const ExamResultDesign = ({
                       Grade:{" "}
                       {gpaToGrade(
                         (
-                          trackSubject.reduce((acc, cur) => {
+                          trackSubject?.reduce((acc, cur) => {
                             return acc + cur.totalMarks;
                           }, 0) / trackSubject.length
-                        ).toFixed(2)
+                        )?.toFixed(2)
                       )}
                     </td>
                     <td>
                       G.P.A:{" "}
                       {(
-                        trackSubject.reduce((acc, cur) => {
+                        trackSubject?.reduce((acc, cur) => {
                           return acc + cur.totalMarks;
                         }, 0) / trackSubject.length
-                      ).toFixed(2)}
+                      )?.toFixed(2)}
                     </td>
                     <td>
                       {gpaToRemarks(
                         (
-                          trackSubject.reduce((acc, cur) => {
+                          trackSubject?.reduce((acc, cur) => {
                             return acc + cur.totalMarks;
                           }, 0) / trackSubject.length
-                        ).toFixed(2)
+                        )?.toFixed(2)
                       )}
                     </td>
-                    <td>{rank?.length > 0 && rank[0].Value}</td>
+                    <td>{rank?.length > 0 && rank[0]?.Value}</td>
                   </tr>
                 </thead>
               </table>

@@ -268,7 +268,7 @@ const TeacherNotification = () => {
             <TableContainer className={classes.table}>
               <TblHead />
               <TableBody>
-                {tableDataAfterPagingAndSorting().map((item) => (
+                {tableDataAfterPagingAndSorting()?.map((item) => (
                   <TeacherNotificationTableCollapse
                     item={item}
                     key={item.$id}

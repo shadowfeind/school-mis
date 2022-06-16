@@ -124,7 +124,7 @@ const StudentAttendanceBulk = ({
           </TableHead>
           <TableBody>
             {bulk &&
-              bulk.map((subject, index) => (
+              bulk?.map((subject, index) => (
                 <StyledTableRow key={subject.IDHREmployee}>
                   <StyledTableCell component="th" scope="row">
                     {subject.RollNo}

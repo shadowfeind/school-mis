@@ -210,17 +210,19 @@ const PrintAdminCard = () => {
     dispatch({ type: "GET_LINK", payload: "examination" });
     if (admitCardInitialData) {
       setProgramValue(
-        admitCardInitialData?.searchFilterModel.ddlFacultyProgramLink[0].Key
+        admitCardInitialData?.searchFilterModel.ddlFacultyProgramLink[0]?.Key
       );
       setDdlClass(admitCardInitialData?.searchFilterModel.ddlClass);
-      setClassId(admitCardInitialData?.searchFilterModel.ddlClass[0].Key);
+      setClassId(admitCardInitialData?.searchFilterModel.ddlClass[0]?.Key);
       setAcademicYearDdl(
         admitCardInitialData?.searchFilterModel.ddlAcademicYear
       );
       setDdlShift(admitCardInitialData?.searchFilterModel.ddlAcademicShift);
-      setShift(admitCardInitialData?.searchFilterModel.ddlAcademicShift[0].Key);
+      setShift(
+        admitCardInitialData?.searchFilterModel.ddlAcademicShift[0]?.Key
+      );
       setDdlSection(admitCardInitialData?.searchFilterModel.ddlSection);
-      setSection(admitCardInitialData?.searchFilterModel.ddlSection[0].Key);
+      setSection(admitCardInitialData?.searchFilterModel.ddlSection[0]?.Key);
       setDateValue(
         admitCardInitialData?.searchFilterModel?.StartDate?.slice(0, 10)
       );
@@ -494,8 +496,8 @@ const PrintAdminCard = () => {
                   value={dateValue}
                   onChange={(e) => {
                     const newDate = new Date(e);
-                    console.log(newDate.toLocaleDateString().slice(0, 10));
-                    handleDate(newDate.toLocaleDateString().slice(0, 10));
+                    console.log(newDate.toLocaleDateString()?.slice(0, 10));
+                    handleDate(newDate.toLocaleDateString()?.slice(0, 10));
                   }}
                 />
               </MuiPickersUtilsProvider>
@@ -546,7 +548,7 @@ const PrintAdminCard = () => {
               <TableContainer className={classes.table}>
                 <TblHead />
                 <TableBody>
-                  {tableDataAfterPagingAndSorting().map((item) => (
+                  {tableDataAfterPagingAndSorting()?.map((item) => (
                     <PrintAdminCardTableCollapse
                       item={item}
                       key={item.$id}

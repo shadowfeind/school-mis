@@ -60,7 +60,7 @@ const LeaveApprovlForm = ({ leaveRequestEditApproval, setApprovalPopUp }) => {
         putApproveRequestAction(
           values,
           image,
-          leaveRequestEditApproval.SchoolShortName
+          leaveRequestEditApproval?.SchoolShortName
         )
       );
     }
@@ -151,7 +151,7 @@ const LeaveApprovlForm = ({ leaveRequestEditApproval, setApprovalPopUp }) => {
               imgSrc
                 ? imgSrc
                 : leaveRequestEditApproval &&
-                  `${API_URL}${leaveRequestEditApproval.FullPath}`
+                  `${API_URL}${leaveRequestEditApproval?.FullPath}`
             }
             height={200}
             width={200}

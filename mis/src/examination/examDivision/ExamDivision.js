@@ -181,7 +181,7 @@ const ExamDivision = () => {
           return item;
         } else {
           return item.filter((x) =>
-            x.Division.toLowerCase().includes(e.target.value?.toLowerCase())
+            x.Division?.toLowerCase()?.includes(e.target.value?.toLowerCase())
           );
         }
       },
@@ -223,7 +223,7 @@ const ExamDivision = () => {
           <TblHead />
 
           <TableBody>
-            {tableDataAfterPagingAndSorting().map((item) => (
+            {tableDataAfterPagingAndSorting()?.map((item) => (
               <ExamDivisionTableCollapse
                 key={item.$id}
                 item={item}

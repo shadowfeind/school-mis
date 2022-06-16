@@ -215,11 +215,11 @@ const AdmissionConfiguration = () => {
         getAdmissionConfigInitialData?.searchFilterModel.ddlAcademicYear
       );
       setAcaYear(
-        getAdmissionConfigInitialData?.searchFilterModel.ddlAcademicYear[0].Key
+        getAdmissionConfigInitialData?.searchFilterModel.ddlAcademicYear[0]?.Key
       );
       setProgramValue(
         getAdmissionConfigInitialData?.searchFilterModel
-          .ddlFacultyProgramLink[0].Key
+          .ddlFacultyProgramLink[0]?.Key
       );
     }
   }, [getAdmissionConfigInitialData, dispatch]);
@@ -343,7 +343,7 @@ const AdmissionConfiguration = () => {
                 <TblHead />
 
                 <TableBody>
-                  {tableDataAfterPagingAndSorting().map((item) => (
+                  {tableDataAfterPagingAndSorting()?.map((item) => (
                     <AdmissionConfigurationTableCollapse
                       item={item}
                       key={item.$id}

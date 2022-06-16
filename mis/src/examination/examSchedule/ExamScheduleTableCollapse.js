@@ -31,15 +31,17 @@ const ExamScheduleTableCollapse = ({
   const classes = useStyles();
   let currentSubject =
     subjects &&
-    subjects.filter((x) => x.Key === item.IDAcademicFacultySubjectLink);
+    subjects?.filter((x) => x.Key === item.IDAcademicFacultySubjectLink);
 
   return (
     <TableRow>
       <TableCell>{item.EventName}</TableCell>
       <TableCell>{item.ExamType}</TableCell>
-      <TableCell>{currentSubject.length > 0 && currentSubject[0].Value}</TableCell>
-      <TableCell>{item.ExamScheduleFromDate.slice(0, 10)}</TableCell>
-      <TableCell>{item.ExamScheduleToDate.slice(0, 10)}</TableCell>
+      <TableCell>
+        {currentSubject.length > 0 && currentSubject[0]?.Value}
+      </TableCell>
+      <TableCell>{item.ExamScheduleFromDate?.slice(0, 10)}</TableCell>
+      <TableCell>{item.ExamScheduleToDate?.slice(0, 10)}</TableCell>
       <TableCell>{item.FullMark}</TableCell>
       <TableCell>{item.FullMarkPractical}</TableCell>
       <TableCell>{item.PassMark}</TableCell>

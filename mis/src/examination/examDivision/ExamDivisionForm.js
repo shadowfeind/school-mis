@@ -45,12 +45,12 @@ const ExamDivisionForm = ({ examDivision, setOpenPopup }) => {
 
     temp.Comment = !fieldValues.Comment
       ? "This feild is required"
-      : !fieldValues.Comment.trim()
+      : !fieldValues.Comment?.trim()
       ? "This feild is required"
       : "";
 
     setErrors({ ...temp });
-    return Object.values(temp).every((x) => x === "");
+    return Object?.values(temp)?.every((x) => x === "");
   };
 
   const { values, setValues, handleInputChange, errors, setErrors } =
@@ -73,7 +73,7 @@ const ExamDivisionForm = ({ examDivision, setOpenPopup }) => {
     }
   }, [examDivision]);
 
-  const symbolsArr = ["e", "E", "+", "-", ".","ArrowUp","ArrowDown"];
+  const symbolsArr = ["e", "E", "+", "-", ".", "ArrowUp", "ArrowDown"];
 
   return (
     <Form onSubmit={handleSubmit}>
@@ -84,11 +84,11 @@ const ExamDivisionForm = ({ examDivision, setOpenPopup }) => {
             label="Start Range"
             value={values.StartRange}
             onChange={handleInputChange}
-            onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}
+            onKeyDown={(e) => symbolsArr?.includes(e.key) && e.preventDefault()}
             type="number"
-            onWheelCapture={e => {
-  e.target.blur()
-}}
+            onWheelCapture={(e) => {
+              e.target.blur();
+            }}
             errors={errors.StartRange}
           />
 
@@ -113,11 +113,11 @@ const ExamDivisionForm = ({ examDivision, setOpenPopup }) => {
             name="EndRange"
             label="End Range"
             type="number"
-            onWheelCapture={e => {
-  e.target.blur()
-}}
+            onWheelCapture={(e) => {
+              e.target.blur();
+            }}
             value={values.EndRange}
-            onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}
+            onKeyDown={(e) => symbolsArr?.includes(e.key) && e.preventDefault()}
             onChange={handleInputChange}
             errors={errors.EndRange}
           />

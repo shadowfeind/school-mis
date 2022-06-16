@@ -291,10 +291,10 @@ const ExamSchedule = () => {
     dispatch({ type: "GET_LINK", payload: "examination" });
     if (examScheduleInitialData) {
       setProgramValue(
-        examScheduleInitialData?.searchFilterModel.ddlFacultyProgramLink[0].Key
+        examScheduleInitialData?.searchFilterModel.ddlFacultyProgramLink[0]?.Key
       );
       setDdlClass(examScheduleInitialData?.searchFilterModel.ddlClass);
-      setClassId(examScheduleInitialData?.searchFilterModel.ddlClass[0].Key);
+      setClassId(examScheduleInitialData?.searchFilterModel.ddlClass[0]?.Key);
       setAcademicYearDdl(
         examScheduleInitialData?.searchFilterModel.ddlAcademicYear
       );
@@ -499,7 +499,7 @@ const ExamSchedule = () => {
             <TblHead />
 
             <TableBody>
-              {tableDataAfterPagingAndSorting().map((item) => (
+              {tableDataAfterPagingAndSorting()?.map((item) => (
                 <ExamScheduleTableCollapse
                   item={item}
                   key={item.$id}

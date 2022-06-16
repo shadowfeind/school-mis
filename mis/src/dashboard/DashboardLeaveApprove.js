@@ -102,8 +102,8 @@ const DashboardLeaveApprove = () => {
 
   const dateInPast = (firstDate, secondDate) => {
     if (
-      new Date(firstDate).setHours(0, 0, 0, 0) <=
-      new Date(secondDate).setHours(0, 0, 0, 0)
+      new Date(firstDate)?.setHours(0, 0, 0, 0) <=
+      new Date(secondDate)?.setHours(0, 0, 0, 0)
     ) {
       return true;
     }
@@ -129,7 +129,7 @@ const DashboardLeaveApprove = () => {
 
   if (downloadFile) {
     var blob = new Blob([downloadFile]);
-    var url = window.URL.createObjectURL(blob);
+    var url = window.URL?.createObjectURL(blob);
     debugger;
     window.open(url, "_blank");
   }
@@ -205,7 +205,7 @@ const DashboardLeaveApprove = () => {
         <TblHead />
 
         <TableBody>
-          {tableDataAfterPagingAndSorting().map((s) => (
+          {tableDataAfterPagingAndSorting()?.map((s) => (
             <StyledTableRow key={s.id}>
               <StyledTableCell component="th" scope="row">
                 {s.FirsName} {s.MiddleName} {s.LastName}
@@ -229,7 +229,7 @@ const DashboardLeaveApprove = () => {
                 {s.Status}
               </StyledTableCell>
               <StyledTableCell align="left">
-                {dateInPast(s.ToDate?.slice(0, 10), Date.now() + 1) ? (
+                {dateInPast(s.ToDate?.slice(0, 10), Date?.now() + 1) ? (
                   <Button
                     variant="contained"
                     color="primary"

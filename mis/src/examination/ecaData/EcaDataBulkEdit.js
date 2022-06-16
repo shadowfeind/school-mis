@@ -116,7 +116,7 @@ const EcaDataBulkEdit = ({
       bulk?.length <= 0 ? "Cannot Submit the Data when Data is Empty" : "";
 
     setErrors({ ...temp });
-    return Object.values(temp).every((x) => x === "");
+    return Object?.values(temp)?.every((x) => x === "");
   };
 
   // const onChangeHandler = (subject, value, name, index) => {
@@ -191,7 +191,7 @@ const EcaDataBulkEdit = ({
               <StyledTableCell width="10%">Roll No.</StyledTableCell>
               <StyledTableCell width="15%">Student Name</StyledTableCell>
               {selectSubject &&
-                selectSubject.map((subject, i) => (
+                selectSubject?.map((subject, i) => (
                   <StyledTableCell width="15%" key={i}>
                     {subject.ECAName}
                   </StyledTableCell>
@@ -200,12 +200,12 @@ const EcaDataBulkEdit = ({
           </TableHead>
           <TableBody>
             {bulk &&
-              bulk.map((subject, index) => (
+              bulk?.map((subject, index) => (
                 <StyledTableRow key={index}>
                   <StyledTableCell>{subject.RollNo}</StyledTableCell>
                   <StyledTableCell>{subject.FullName}</StyledTableCell>
                   {ecaData &&
-                    ecaData.map(
+                    ecaData?.map(
                       (s, i) =>
                         s.IDHREmployee === subject.IDHREmployee && (
                           <StyledTableCell align="left" key={i}>
@@ -234,7 +234,7 @@ const EcaDataBulkEdit = ({
       </TableContainer>
       {bulk?.length <= 0 && (
         <div>
-          <h3 style={{ color: "red", textAlign: "center" }}>No Data</h3>
+          <h3 style={{ color: "red", textAlign: "center" }}>No Data Found</h3>
         </div>
       )}
       {errors.submit && (

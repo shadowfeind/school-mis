@@ -14,7 +14,10 @@ import {
 } from "@material-ui/core";
 import { withStyles, makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
-import { getBulkExamApprovalBlankDataAction, postBulkExamMarkApprovalAction } from "./ExamMarkApprovalActions";
+import {
+  getBulkExamApprovalBlankDataAction,
+  postBulkExamMarkApprovalAction,
+} from "./ExamMarkApprovalActions";
 import { useDispatch } from "react-redux";
 
 const StyledTableCell = withStyles((theme) => ({
@@ -40,7 +43,7 @@ const useStyles = makeStyles({
   },
 });
 
-const ExamMarkApprovalBulkBlank = ({ bulkBlankData, search}) => {
+const ExamMarkApprovalBulkBlank = ({ bulkBlankData, search }) => {
   const [bulk, setBulk] = useState([]);
   const classes = useStyles();
   const dispatch = useDispatch();
@@ -65,7 +68,7 @@ const ExamMarkApprovalBulkBlank = ({ bulkBlankData, search}) => {
 
   useEffect(() => {
     if (bulkBlankData) {
-      bulkBlankData.forEach((bulk) => {
+      bulkBlankData?.forEach((bulk) => {
         if (bulk.StudentExamStatus === null) {
           bulk.StudentExamStatus = 1;
         }
@@ -88,7 +91,7 @@ const ExamMarkApprovalBulkBlank = ({ bulkBlankData, search}) => {
           </TableHead>
           <TableBody>
             {bulk &&
-              bulk.map((subject, index) => (
+              bulk?.map((subject, index) => (
                 <StyledTableRow key={subject.IDHREmployee}>
                   <StyledTableCell component="th" scope="row">
                     {subject.RollNo}
@@ -154,7 +157,7 @@ const ExamMarkApprovalBulkBlank = ({ bulkBlankData, search}) => {
                   <StyledTableCell align="right">
                     {subject.FullMarkPractical}
                   {/* </StyledTableCell> */}
-                </StyledTableRow> 
+                </StyledTableRow>
               ))}
           </TableBody>
         </Table>

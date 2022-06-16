@@ -25,7 +25,7 @@ const ExamResultWithMarksDesign = ({
   let tdToRender = [];
 
   for (let i = subjects.length; i <= 11; i++) {
-    tdToRender.push(i);
+    tdToRender?.push(i);
   }
 
   return (
@@ -98,7 +98,7 @@ const ExamResultWithMarksDesign = ({
               </tr>
             </thead>
             <tbody>
-              {subjects.map((s, i) => {
+              {subjects?.map((s, i) => {
                 let count = i + 1;
                 let resultTH = (s.ObtainedMark * 100) / s.FullMark;
                 let resultPR =
@@ -191,7 +191,7 @@ const ExamResultWithMarksDesign = ({
               })}
               {/* to render empty td */}
               {tdToRender &&
-                tdToRender.map((x) => (
+                tdToRender?.map((x) => (
                   <tr key={x}>
                     <td height={30}></td>
                     <td height={30}> </td>
@@ -213,10 +213,10 @@ const ExamResultWithMarksDesign = ({
                 </td>
                 <td style={{ textAlign: "center" }}>
                   {(
-                    trackSubject.reduce((acc, cur) => {
+                    trackSubject?.reduce((acc, cur) => {
                       return acc + cur.totalMarks;
                     }, 0) / trackSubject.length
-                  ).toFixed(2)}
+                  )?.toFixed(2)}
                 </td>
                 <td></td>
               </tr>
@@ -371,30 +371,30 @@ const ExamResultWithMarksDesign = ({
                       Grade:{" "}
                       {gpaToGrade(
                         (
-                          trackSubject.reduce((acc, cur) => {
+                          trackSubject?.reduce((acc, cur) => {
                             return acc + cur.totalMarks;
-                          }, 0) / trackSubject.length
-                        ).toFixed(2)
+                          }, 0) / trackSubject?.length
+                        )?.toFixed(2)
                       )}
                     </td>
                     <td>
                       G.P.A:{" "}
                       {(
-                        trackSubject.reduce((acc, cur) => {
+                        trackSubject?.reduce((acc, cur) => {
                           return acc + cur.totalMarks;
                         }, 0) / trackSubject.length
-                      ).toFixed(2)}
+                      )?.toFixed(2)}
                     </td>
                     <td>
                       {gpaToRemarks(
                         (
-                          trackSubject.reduce((acc, cur) => {
+                          trackSubject?.reduce((acc, cur) => {
                             return acc + cur.totalMarks;
                           }, 0) / trackSubject.length
-                        ).toFixed(2)
+                        )?.toFixed(2)
                       )}
                     </td>
-                    <td>{rank?.length > 0 && rank[0].Value}</td>
+                    <td>{rank?.length > 0 && rank[0]?.Value}</td>
                   </tr>
                 </thead>
               </table>

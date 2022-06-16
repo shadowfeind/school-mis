@@ -16,7 +16,7 @@ const ExamResultWithMarksModel = ({
   });
   const examTerm =
     examReport &&
-    examReport.ddlAcademicYearCalendar.filter(
+    examReport.ddlAcademicYearCalendar?.filter(
       (x) => x.Key === examReport.idAcademicYearCalendar
     );
 
@@ -27,14 +27,14 @@ const ExamResultWithMarksModel = ({
   return (
     <div id="result-with-marks" ref={componentRef}>
       {examReport &&
-        examReport.dbStudentModelLst.map((student) => {
-          let subjects = examReport.dbModelLst.filter(
+        examReport.dbStudentModelLst?.map((student) => {
+          let subjects = examReport.dbModelLst?.filter(
             (s) => s.IDHREmployee === student.IDHREmployee
           );
-          let levelTest = examReport.LevelTestLst.filter(
+          let levelTest = examReport.LevelTestLst?.filter(
             (s) => s.IDHREmployee === student.IDHREmployee
           );
-          let studentAttendance = examReport.StudentAttendanceDay.filter(
+          let studentAttendance = examReport.StudentAttendanceDay?.filter(
             (s) => s.IDHREmployee === student.IDHREmployee
           );
           let rank = examReport.dbModelRankLst?.filter(
@@ -48,19 +48,19 @@ const ExamResultWithMarksModel = ({
                 s.IDAssignECA == x.IDAssignECA &&
                 s.IDHREmployee == student.IDHREmployee
               ) {
-                ecaDataFinal.push({ ...s, ECAName: x.ECAName });
+                ecaDataFinal?.push({ ...s, ECAName: x.ECAName });
               }
               // console.log("test", test);
             });
           });
 
-          let studentClass = examReport.ddlLevel.filter(
+          let studentClass = examReport.ddlLevel?.filter(
             (x) => x.Key === examReport.level
           );
-          // let studentYear = examReport.ddlAcademicYear.filter(
+          // let studentYear = examReport.ddlAcademicYear?.filter(
           //   (x) => x.Key === examReport.idAcademicYear
           // );
-          let studentSection = examReport.ddlSection.filter(
+          let studentSection = examReport.ddlSection?.filter(
             (x) => x.Key === examReport.classSection
           );
           return (

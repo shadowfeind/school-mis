@@ -168,19 +168,19 @@ const EcaDataTableCollapse = ({ bulkDatas, academicSubjects, ecas }) => {
               <StyledTableCell>Roll No.</StyledTableCell>
               <StyledTableCell>Student Name</StyledTableCell>
               {selectSubject &&
-                selectSubject.map((subject, i) => (
+                selectSubject?.map((subject, i) => (
                   <StyledTableCell key={i}>{subject.ECAName}</StyledTableCell>
                 ))}
             </TableRow>
           </TableHead>
           <TableBody>
             {bulk &&
-              bulk.map((subject, index) => (
+              bulk?.map((subject, index) => (
                 <StyledTableRow key={index}>
                   <StyledTableCell>{subject.RollNo}</StyledTableCell>
                   <StyledTableCell>{subject.FullName}</StyledTableCell>
                   {ecaData &&
-                    ecaData.map(
+                    ecaData?.map(
                       (s, i) =>
                         s.IDHREmployee === subject.IDHREmployee && (
                           <StyledTableCell align="left" key={i}>

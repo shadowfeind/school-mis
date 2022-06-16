@@ -51,7 +51,7 @@ const StudentMonthlyPresentSheetUpdateForm = ({ students, setOpenPopup }) => {
   useEffect(() => {
     if (students) {
       setStuAttendance([
-        ...students.dbStudentClassAttendanceModelAttendanceLst,
+        ...students?.dbStudentClassAttendanceModelAttendanceLst,
       ]);
     }
   }, [students]);
@@ -62,18 +62,18 @@ const StudentMonthlyPresentSheetUpdateForm = ({ students, setOpenPopup }) => {
       stuAttendance?.length <= 0 ? "Select Atleast one options" : "";
 
     setErrors({ ...temp });
-    return Object.values(temp).every((x) => x === "");
+    return Object?.values(temp)?.every((x) => x === "");
   };
 
   const handleAllSelectChange = (e) => {
     if (e.target.checked) {
-      let tempAttendance = stuAttendance.map((x) => {
+      let tempAttendance = stuAttendance?.map((x) => {
         return { ...x, IsPresent: true };
       });
       setStuAttendance(tempAttendance);
       setChecked(!checked);
     } else {
-      let tempAttendance = stuAttendance.map((x) => {
+      let tempAttendance = stuAttendance?.map((x) => {
         return { ...x, IsPresent: false };
       });
       setStuAttendance(tempAttendance);
@@ -82,7 +82,7 @@ const StudentMonthlyPresentSheetUpdateForm = ({ students, setOpenPopup }) => {
   };
 
   const handleChange = (checked, id) => {
-    let tempAttendance = stuAttendance.map((x) =>
+    let tempAttendance = stuAttendance?.map((x) =>
       x.IDHREmployee === id ? { ...x, IsPresent: checked } : x
     );
     setStuAttendance(tempAttendance);

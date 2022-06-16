@@ -625,7 +625,7 @@ const StudentRegistrationForm = ({
             src={
               imgSrc
                 ? imgSrc
-                : singleStudent && `${API_URL}${singleStudent.FullPath}`
+                : singleStudent && `${API_URL}${singleStudent?.FullPath}`
             }
             height={200}
             width={200}

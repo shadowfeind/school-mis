@@ -185,11 +185,11 @@ const CounterConfiguration = () => {
         getAcademicConfigInitialData?.searchFilterModel.ddlAcademicYear
       );
       setAcaYear(
-        getAcademicConfigInitialData?.searchFilterModel.ddlAcademicYear[0].Key
+        getAcademicConfigInitialData?.searchFilterModel.ddlAcademicYear[0]?.Key
       );
       setProgramValue(
         getAcademicConfigInitialData?.searchFilterModel.ddlFacultyProgramLink[0]
-          .Key
+          ?.Key
       );
     }
   }, [dispatch, getAcademicConfigInitialData]);
@@ -307,7 +307,7 @@ const CounterConfiguration = () => {
                 <TblHead />
 
                 <TableBody>
-                  {tableDataAfterPagingAndSorting().map((item) => (
+                  {tableDataAfterPagingAndSorting()?.map((item) => (
                     <CounterConfigurationTableCollapse
                       item={item}
                       key={item.$id}

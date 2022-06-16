@@ -295,7 +295,7 @@ const DashboardLeaveRequest = () => {
         <TblHead />
 
         <TableBody>
-          {tableDataAfterPagingAndSorting().map((s) => (
+          {tableDataAfterPagingAndSorting()?.map((s) => (
             <StyledTableRow key={s.id}>
               <StyledTableCell component="th" scope="row">
                 {s.FirsName} {s.MiddleName} {s.LastName}

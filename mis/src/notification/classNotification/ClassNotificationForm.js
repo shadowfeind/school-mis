@@ -118,7 +118,7 @@ const ClassNotificationForm = ({
   const handleChecked = (checked, obj) => {
     if (!checked) {
       setSelectedStudents((prev) => {
-        let newCheckList = prev.filter(
+        let newCheckList = prev?.filter(
           (x) => x.IDHREmployee !== obj.IDHREmployee
         );
         return [...newCheckList];
@@ -167,8 +167,8 @@ const ClassNotificationForm = ({
           <TableBody>
             {lstStudents &&
               lstStudents
-                .sort((a, b) => a.RollNo - b.RollNo)
-                .map((s) => (
+                ?.sort((a, b) => a.RollNo - b.RollNo)
+                ?.map((s) => (
                   <StyledTableRow key={s.IDHREmployee}>
                     <StyledTableCell component="th" scope="row">
                       {s.RollNo}
@@ -186,7 +186,7 @@ const ClassNotificationForm = ({
                     >
                       <Checkbox
                         checked={
-                          selectedStudents.filter(
+                          selectedStudents?.filter(
                             (x) => x.IDHREmployee === s.IDHREmployee
                           ).length > 0
                             ? true

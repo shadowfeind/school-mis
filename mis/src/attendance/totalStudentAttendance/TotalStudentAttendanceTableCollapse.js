@@ -12,13 +12,13 @@ const useStyles = makeStyles({
 
 const TotalStudentAttendanceTableCollapse = ({ item, attendance }) => {
   const classes = useStyles();
-  const currentAttendance = attendance.filter(
+  const currentAttendance = attendance?.filter(
     (a) => a.IDHREmployee === item.IDHREmployee
   );
   return (
     <TableRow>
       <TableCell>
-        {currentAttendance.length !== 0 ? currentAttendance[0].Total : ""}
+        {currentAttendance.length !== 0 ? currentAttendance[0]?.Total : ""}
       </TableCell>
       <TableCell>{item.FullName}</TableCell>
       <TableCell>{item.RollNo}</TableCell>

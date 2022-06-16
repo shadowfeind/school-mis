@@ -21,47 +21,47 @@ const FinalExamResult = ({
     <div id="result-final-print" ref={componentRef}>
       {result &&
         result.dbStudentModelLst?.map((student) => {
-          let subjectList = result.dbModelLstForCountSubject.filter(
+          let subjectList = result.dbModelLstForCountSubject?.filter(
             (x) =>
               (x.IDHREmployee === student.IDHREmployee) &
               (x.EventName == "FIRST TERM EXAMINATION")
           );
-          let firstTerm = result.dbModelLst.filter(
+          let firstTerm = result.dbModelLst?.filter(
             (x) =>
               (x.EventName == "FIRST TERM EXAMINATION") &
               (x.IDHREmployee === student.IDHREmployee)
           );
-          let secondTerm = result.dbModelLst.filter(
+          let secondTerm = result.dbModelLst?.filter(
             (x) =>
               (x.EventName == "SECOND TERM EXAMINATION") &
               (x.IDHREmployee === student.IDHREmployee)
           );
-          let thirdTerm = result.dbModelLst.filter(
+          let thirdTerm = result.dbModelLst?.filter(
             (x) =>
               (x.EventName == "THIRD TERM EXAMINATION") &
               (x.IDHREmployee === student.IDHREmployee)
           );
-          let finalTerm = result.dbModelLst.filter(
+          let finalTerm = result.dbModelLst?.filter(
             (x) =>
               (x.EventName == "FINAL TERM EXAMINATION") &
               (x.IDHREmployee === student.IDHREmployee)
           );
-          let attendance = result.StudentAttendanceDay.filter(
+          let attendance = result.StudentAttendanceDay?.filter(
             (x) => x.IDHREmployee === student.IDHREmployee
           );
-          let crrentStudentId = result.dbModelResultLst.filter(
+          let crrentStudentId = result.dbModelResultLst?.filter(
             (x) => x.Key === student.IDHREmployee
           );
           let currentStudentRank = [];
           if (crrentStudentId.length > 0 && crrentStudentId.value !== "Fail") {
-            currentStudentRank = result.dbModelRankLst.filter(
+            currentStudentRank = result.dbModelRankLst?.filter(
               (x) => x.Key === student.IDHREmployee
             );
           }
-          let studentClass = result.ddlLevel.filter(
+          let studentClass = result.ddlLevel?.filter(
             (x) => x.Key === result.level
           );
-          let studentSection = result.ddlSection.filter(
+          let studentSection = result.ddlSection?.filter(
             (x) => x.Key === result.classSection
           );
           let ecaData = result.ecaData?.filter(
@@ -71,11 +71,11 @@ const FinalExamResult = ({
           ecaData?.map((x) => {
             result.ddlAcademicFacultyECASubModel?.forEach((s) => {
               if (s.IDAssignECA === x.IDAssignECA) {
-                ecaDataWithName.push({ ...s, ECAValue: x.ECAValue });
+                ecaDataWithName?.push({ ...s, ECAValue: x.ECAValue });
               }
             });
           });
-          let studentYear = result.ddlAcademicYear.filter(
+          let studentYear = result.ddlAcademicYear?.filter(
             (x) => x.Key === result.idAcademicYear
           );
 

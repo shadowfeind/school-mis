@@ -34,8 +34,8 @@ const ExamDivisionTableCollapse = ({
       <TableCell>{item.EndRange}</TableCell>
       <TableCell>{item.Division}</TableCell>
       <TableCell>{item.Comment}</TableCell>
-      <TableCell>{item.Created_On.slice(0, 10)}</TableCell>
-      <TableCell>{item.Updated_On.slice(0, 10)}</TableCell>
+      <TableCell>{item.Created_On?.slice(0, 10)}</TableCell>
+      <TableCell>{item.Updated_On?.slice(0, 10)}</TableCell>
       <TableCell>
         <Button
           variant="contained"

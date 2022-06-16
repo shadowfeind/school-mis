@@ -61,7 +61,7 @@ const EcaData = () => {
   const [section, setSection] = useState("");
   const [event, setEvent] = useState("");
   const [errors, setErrors] = useState({});
-const [showTableData, setShowTableData] = useState(false);
+  const [showTableData, setShowTableData] = useState(false);
   const dispatch = useDispatch();
   const classes = useStyles();
 
@@ -85,11 +85,8 @@ const [showTableData, setShowTableData] = useState(false);
     subTitle: "",
   });
 
-  const {
-    TableContainer,
-    TblPagination,
-    tableDataAfterPagingAndSorting,
-  } = useCustomTable(tableData, filterFn);
+  const { TableContainer, TblPagination, tableDataAfterPagingAndSorting } =
+    useCustomTable(tableData, filterFn);
 
   const handleSearch = (e) => {
     setFilterFn({
@@ -98,7 +95,7 @@ const [showTableData, setShowTableData] = useState(false);
           return item;
         } else {
           return item.filter((x) =>
-            x.EventName.toLowerCase().includes(e.target.value)
+            x.EventName?.toLowerCase()?.includes(e.target.value?.toLowerCase())
           );
         }
       },
@@ -164,14 +161,16 @@ const [showTableData, setShowTableData] = useState(false);
       type: "success",
     });
     setOpenPopup(false);
-   dispatch(getBulkEditEcaDataAction(
-      acaYear,
-      programValue,
-      classId,
-      section,
-      shift,
-      event
-    ))
+    dispatch(
+      getBulkEditEcaDataAction(
+        acaYear,
+        programValue,
+        classId,
+        section,
+        shift,
+        event
+      )
+    );
     setShowTableData(true);
     dispatch({ type: POST_BULK_ECA_DATA_RESET });
   }
@@ -183,16 +182,16 @@ const [showTableData, setShowTableData] = useState(false);
   }, []);
   useEffect(() => {
     if (allEcaData) {
-      setAcademicYearDdl(allEcaData.searchFilterModel.ddlAcademicYear);
+      setAcademicYearDdl(allEcaData?.searchFilterModel.ddlAcademicYear);
       setProgramValue(
-        allEcaData.searchFilterModel.ddlFacultyProgramLink[0]?.Key
+        allEcaData?.searchFilterModel.ddlFacultyProgramLink[0]?.Key
       );
-      setDdlClass(allEcaData.searchFilterModel.ddlClass);
-      setClassId(allEcaData.searchFilterModel.ddlClass[0]?.Key);
-      setDdlShift(allEcaData.searchFilterModel.ddlAcademicShift);
-      setShift(allEcaData.searchFilterModel.ddlAcademicShift[0]?.Key);
-      setDdlSection(allEcaData.searchFilterModel.ddlSection);
-      setSection(allEcaData.searchFilterModel.ddlSection[0]?.Key);
+      setDdlClass(allEcaData?.searchFilterModel.ddlClass);
+      setClassId(allEcaData?.searchFilterModel.ddlClass[0]?.Key);
+      setDdlShift(allEcaData?.searchFilterModel.ddlAcademicShift);
+      setShift(allEcaData?.searchFilterModel.ddlAcademicShift[0]?.Key);
+      setDdlSection(allEcaData?.searchFilterModel.ddlSection);
+      setSection(allEcaData?.searchFilterModel.ddlSection[0]?.Key);
     }
   }, [allEcaData, dispatch]);
 
@@ -228,8 +227,8 @@ const [showTableData, setShowTableData] = useState(false);
     setSection(value);
     setDdlEvent([]);
     setEvent("");
-    if ((acaYear, programValue, classId,shift, value)) {
-      dispatch(getEventAction(acaYear, programValue, classId,shift, value));
+    if ((acaYear, programValue, classId, shift, value)) {
+      dispatch(getEventAction(acaYear, programValue, classId, shift, value));
     }
   };
 
@@ -283,12 +282,12 @@ const [showTableData, setShowTableData] = useState(false);
     }
   };
 
-  useEffect(()=>{
-    if(allEvents){
+  useEffect(() => {
+    if (allEvents) {
       setDdlEvent(allEvents);
-      setEvent(allEvents[0]?.Key)
+      setEvent(allEvents[0]?.Key);
     }
-  },[allEvents])
+  }, [allEvents]);
 
   return (
     <>
@@ -386,16 +385,17 @@ const [showTableData, setShowTableData] = useState(false);
 
             <TableBody>
               {tableDataAfterPagingAndSorting().map((item) => ( */}
-              {showTableData && (
-                <EcaDataTableCollapse 
-                 bulkDatas={bulkEditData && bulkEditData.dbModelLst}
+        {showTableData && (
+          <EcaDataTableCollapse
+            bulkDatas={bulkEditData && bulkEditData.dbModelLst}
             academicSubjects={
               bulkEditData && bulkEditData.ddlAcademicFacultyECASubModel
             }
             ecas={bulkEditData && bulkEditData.ecaData}
             searchs={bulkEditData && bulkEditData.searchFilterModel}
-             />)}
-              {/* ))}
+          />
+        )}
+        {/* ))}
             </TableBody>
           </TableContainer>
         )}

@@ -110,7 +110,7 @@ const ExamMarkEntry = () => {
           return item;
         } else {
           return item.filter((x) =>
-            x.FullName.toLowerCase().includes(e.target.value?.toLowerCase())
+            x.FullName?.toLowerCase()?.includes(e.target.value?.toLowerCase())
           );
         }
       },
@@ -150,17 +150,17 @@ const ExamMarkEntry = () => {
     dispatch({ type: "GET_LINK", payload: "examination" });
     if (allAcademicStudentExamData) {
       setProgramValue(
-        allAcademicStudentExamData.searchFilterModel.ddlFacultyProgramLink[0]
-          .Key
+        allAcademicStudentExamData?.searchFilterModel.ddlFacultyProgramLink[0]
+          ?.Key
       );
-      setDdlClass(allAcademicStudentExamData.searchFilterModel.ddlClass);
+      setDdlClass(allAcademicStudentExamData?.searchFilterModel.ddlClass);
       setAcademicYearDdl(
-        allAcademicStudentExamData.searchFilterModel.ddlAcademicYear
+        allAcademicStudentExamData?.searchFilterModel.ddlAcademicYear
       );
       setDdlShift(
-        allAcademicStudentExamData.searchFilterModel.ddlAcademicShift
+        allAcademicStudentExamData?.searchFilterModel.ddlAcademicShift
       );
-      setDdlSection(allAcademicStudentExamData.searchFilterModel.ddlSection);
+      setDdlSection(allAcademicStudentExamData?.searchFilterModel.ddlSection);
     }
   }, [allAcademicStudentExamData, dispatch]);
 
@@ -340,7 +340,7 @@ const ExamMarkEntry = () => {
                 <TblHead />
 
                 <TableBody>
-                  {tableDataAfterPagingAndSorting().map((item) => (
+                  {tableDataAfterPagingAndSorting()?.map((item) => (
                     <ExamMarkEntryTableCollapse item={item} key={item.$id} />
                   ))}
                 </TableBody>
@@ -362,7 +362,7 @@ const ExamMarkEntry = () => {
           <>
             <ExamMarkEntryBulk
               statusData={
-                bulkData && bulkData.searchFilterModel.ddlStudentExamStatus
+                bulkData && bulkData?.searchFilterModel.ddlStudentExamStatus
               }
               bulkData={bulkData && bulkData.dbModelLsts}
             />

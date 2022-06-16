@@ -178,11 +178,11 @@ const StudentRegistration = () => {
       );
       setProgramValue(
         studentRegistrationInitialData?.searchFilterModel
-          .ddlFacultyProgramLink[0].Key
+          .ddlFacultyProgramLink[0]?.Key
       );
       setDdlClass(studentRegistrationInitialData?.searchFilterModel.ddlClass);
       setClassId(
-        studentRegistrationInitialData?.searchFilterModel.ddlClass[0].Key
+        studentRegistrationInitialData?.searchFilterModel.ddlClass[0]?.Key
       );
     }
   }, [dispatch, studentRegistrationInitialData]);
@@ -317,7 +317,7 @@ const StudentRegistration = () => {
                 <TblHead />
 
                 <TableBody>
-                  {tableDataAfterPagingAndSorting().map((item, index) => (
+                  {tableDataAfterPagingAndSorting()?.map((item, index) => (
                     <StudentRegistrationTableCollapse
                       index={index}
                       item={item}
@@ -342,7 +342,7 @@ const StudentRegistration = () => {
                       }
                       studentImage={
                         singleStudentRegistration &&
-                        singleStudentRegistration.FullPath
+                        singleStudentRegistration?.FullPath
                       }
                       setSelectedIndex={setSelectedIndex}
                       setOpenPopup={setOpenPopup}

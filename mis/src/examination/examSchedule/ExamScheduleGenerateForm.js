@@ -135,13 +135,13 @@ const ExamScheduleGenerateForm = ({
 
   const handleChange = (subject) => {
     setFormCheck((prev) => {
-      const exists = prev.find(
+      const exists = prev?.find(
         (u) =>
           u.IDAcademicFacultySubjectLink ===
           subject.IDAcademicFacultySubjectLink
       );
       if (exists) {
-        let newArr = prev.filter(
+        let newArr = prev?.filter(
           (u) =>
             u.IDAcademicFacultySubjectLink !==
             subject.IDAcademicFacultySubjectLink
@@ -296,7 +296,7 @@ const ExamScheduleGenerateForm = ({
                           {" "}
                           <Checkbox
                             checked={
-                              formCheck.filter(
+                              formCheck?.filter(
                                 (x) =>
                                   x.IDAcademicFacultySubjectLink ===
                                   subject.IDAcademicFacultySubjectLink

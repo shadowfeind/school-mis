@@ -44,20 +44,20 @@ const ExamResultTableCollapse = memo(
     useEffect(() => {
       if (student) {
         student
-          .sort((a, b) => a.RollNo - b.RollNo)
-          .map((d) => {
+          ?.sort((a, b) => a.RollNo - b.RollNo)
+          ?.map((d) => {
             let markModel = mark?.filter(
               (m) => m.IDHREmployee === d.IDHREmployee
             );
             if (ledgerHeader) {
-              ledgerHeader.map((l) => {
+              ledgerHeader?.map((l) => {
                 let obtainedMark = markModel?.find(
                   (o) => o.IdAcademicSubject === l.IDAcademicSubject
                 );
                 if (obtainedMark) {
-                  newLedger.push(obtainedMark);
+                  newLedger?.push(obtainedMark);
                 } else {
-                  newLedger.push({ IDHREmployee: d.IDHREmployee });
+                  newLedger?.push({ IDHREmployee: d.IDHREmployee });
                 }
               });
             }
@@ -100,7 +100,7 @@ const ExamResultTableCollapse = memo(
                 Name Of the Students
               </th>
               {ledgerHeader &&
-                ledgerHeader.map((s) => (
+                ledgerHeader?.map((s) => (
                   <th colSpan="2" key={s.$id} style={{ textAlign: "center" }}>
                     {s.SubjectName}
                   </th>
@@ -118,7 +118,7 @@ const ExamResultTableCollapse = memo(
             </tr>
             <tr>
               {ledgerHeader &&
-                ledgerHeader.map((s) => (
+                ledgerHeader?.map((s) => (
                   <Fragment key={s.$id}>
                     <th>TH</th>
                     <th>PR</th>
@@ -128,11 +128,11 @@ const ExamResultTableCollapse = memo(
           </thead>
           <tbody>
             {student &&
-              student.map((d) => {
-                const showResult = result.filter(
+              student?.map((d) => {
+                const showResult = result?.filter(
                   (r) => r.Key === d.IDHREmployee
                 );
-                const showRank = rank.filter((r) => r.Key === d.IDHREmployee);
+                const showRank = rank?.filter((r) => r.Key === d.IDHREmployee);
                 console.log(showResult);
                 console.log(showRank);
                 return (
@@ -140,7 +140,7 @@ const ExamResultTableCollapse = memo(
                     <td>{d.RollNo}</td>
                     <td>{d.StudentName}</td>
                     {ledgerData &&
-                      ledgerData.map((n) => {
+                      ledgerData?.map((n) => {
                         return (
                           n.IDHREmployee === d.IDHREmployee && (
                             <Fragment key={d.$id}>

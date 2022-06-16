@@ -70,7 +70,7 @@ const ExamMarkApprovalBlankForm = ({
                         <b>Term Exam:</b>
                         &nbsp;
                         {blankData?.dbModelLsts.length > 0 &&
-                          blankData.dbModelLsts[0].EventName}{" "}
+                          blankData.dbModelLsts[0]?.EventName}{" "}
                         -<b>{yearShow[0]?.Value}</b>
                       </div>
                     </td>
@@ -92,16 +92,16 @@ const ExamMarkApprovalBlankForm = ({
                   <th>Subject:</th>
                   <td>
                     {blankData?.dbModelLsts.length > 0 &&
-                      blankData.dbModelLsts[0].SubjectName}
+                      blankData.dbModelLsts[0]?.SubjectName}
                   </td>
                   <th>Subject Teacher:</th>
                   <td />
                 </tr>
                 <tr>
                   <th>Class:</th>
-                  <td>{classId?.length > 0 && classId[0].Value}</td>
+                  <td>{classId?.length > 0 && classId[0]?.Value}</td>
                   <th>Section:</th>
-                  <td>{sections?.length > 0 && sections[0].Value}</td>
+                  <td>{sections?.length > 0 && sections[0]?.Value}</td>
                 </tr>
               </tbody>
             </Table>
@@ -125,7 +125,7 @@ const ExamMarkApprovalBlankForm = ({
                 <th width="30%">Remarks</th>
               </tr>
               {blankData &&
-                blankData.dbModelLsts.map((s, i) => {
+                blankData.dbModelLsts?.map((s, i) => {
                   let count = i + 1;
                   return (
                     <tr key={s.$id}>

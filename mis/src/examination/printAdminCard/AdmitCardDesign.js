@@ -11,6 +11,7 @@ const AdmitCardDesign = ({
   examDate,
   principleSignature,
   year,
+  dateValue,
   yearDdl,
 }) => {
   const studentImage = imagePath?.filter((x) => x.Key === student.IDHREmployee);
@@ -44,7 +45,7 @@ const AdmitCardDesign = ({
                   {student.UniversityRegistrationNumber}
                 </h5>
                 <h5>
-                  <strong>Exam Date:</strong> {examDate.slice(0, 10)}
+                  <strong>Exam Date:</strong> {dateValue}
                 </h5>
               </Grid>
               <Grid item xs={4}>

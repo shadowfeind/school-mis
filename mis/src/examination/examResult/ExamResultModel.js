@@ -18,6 +18,10 @@ const ExamResultModel = ({
     (x) => x.Key === examReport.idAcademicYearCalendar
   );
 
+  const examYear = examReport.ddlAcademicYear?.filter(
+    (x) => x.Key === examReport.idAcademicYear
+  );
+
   return (
     <div id="result-with-grades" ref={componentRef}>
       {examReport.dbStudentModelLst?.map((student) => {

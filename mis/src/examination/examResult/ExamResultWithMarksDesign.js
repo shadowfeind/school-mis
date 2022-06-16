@@ -245,6 +245,7 @@ const ExamResultWithMarksDesign = ({
                               borderRight: "1px solid #000",
                               padding: "7px 15px",
                               fontSize: "11px",
+                              fontWeight: "lighter",
                             }}
                           >
                             {x?.ECAName}: {x?.ECAValue}
@@ -262,6 +263,7 @@ const ExamResultWithMarksDesign = ({
                               borderRight: "1px solid #000",
                               padding: "7px 15px",
                               fontSize: "11px",
+                              fontWeight: "lighter",
                             }}
                           >
                             {x?.ECAName}: {x?.ECAValue}

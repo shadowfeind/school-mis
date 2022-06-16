@@ -6,7 +6,7 @@ import { useReactToPrint } from "react-to-print";
 import { Button, Grid } from "@material-ui/core";
 import ReactHTMLTableToExcel from "react-html-table-to-excel";
 
-const ExamAnnualResultTable = memo(({ ledgerData, date }) => {
+const ExamAnnualResultTable = memo(({ ledgerData, date, year }) => {
   const componentRef = useRef();
   const printPdf = useReactToPrint({
     content: () => componentRef.current,
@@ -23,6 +23,9 @@ const ExamAnnualResultTable = memo(({ ledgerData, date }) => {
     ledgerData.ddlAcademicYearCalendar?.filter(
       (x) => x.Key === ledgerData.idAcademicYearCalendar
     );
+  // let termExamYear = year?.filter(
+  //   (x) => x.Key === searchFilterModel.idAcademicYear
+  // );
 
   return (
     <div className="ledgerResult" ref={componentRef}>

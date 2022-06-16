@@ -13,6 +13,7 @@ const PrintAdminCardPrint = ({
   componentRef,
   year,
   yearDdl,
+  dateValue,
   setOpenPopup,
 }) => {
   return (
@@ -30,6 +31,7 @@ const PrintAdminCardPrint = ({
                 headerBanners={headerBanners}
                 principleSignature={principleSignature}
                 year={year}
+                dateValue={dateValue}
                 yearDdl={yearDdl}
               />
             </Grid>

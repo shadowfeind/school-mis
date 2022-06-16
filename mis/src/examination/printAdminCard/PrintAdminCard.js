@@ -215,6 +215,9 @@ const PrintAdminCard = () => {
       setShift(admitCardInitialData?.searchFilterModel.ddlAcademicShift[0].Key);
       setDdlSection(admitCardInitialData?.searchFilterModel.ddlSection);
       setSection(admitCardInitialData?.searchFilterModel.ddlSection[0].Key);
+      setDateValue(
+        admitCardInitialData?.searchFilterModel?.StartDate?.slice(0, 10)
+      );
     }
   }, [admitCardInitialData, dispatch]);
 
@@ -573,6 +576,7 @@ const PrintAdminCard = () => {
               yearDdl={
                 printStudentsAdmitCard && printStudentsAdmitCard.ddlAcademicYear
               }
+              dateValue={dateValue}
               setOpenPopup={setOpenPopup}
             />
           </>

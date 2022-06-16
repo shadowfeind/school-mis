@@ -17,6 +17,7 @@ const ExamResultTableCollapse = memo(
     currentSection,
     schoolName,
     date,
+    year,
   }) => {
     const [ledgerData, setLedgeData] = useState([]);
     const componentRef = useRef();
@@ -26,8 +27,12 @@ const ExamResultTableCollapse = memo(
     let newLedger = [];
 
     let termExamName = searchFilterModel.ddlAcademicYearCalendar?.filter(
-      (x) => (x.Key = searchFilterModel.idAcademicYearCalendar)
+      (x) => x.Key === searchFilterModel.idAcademicYearCalendar
     );
+
+    // let termExamYear = year?.filter(
+    //   (x) => x.Key === searchFilterModel.idAcademicYear
+    // );
 
     let currentClassToDisplay = currentClass?.filter(
       (x) => x.Key === searchFilterModel.level

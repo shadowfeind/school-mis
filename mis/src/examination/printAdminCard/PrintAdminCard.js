@@ -7,7 +7,13 @@ import {
   Toolbar,
   Grid,
 } from "@material-ui/core";
+import {
+  KeyboardDatePicker,
+  MuiPickersUtilsProvider,
+} from "@material-ui/pickers";
+import DateFnsUtils from "@date-io/date-fns";
 import { Search } from "@material-ui/icons";
+
 import useCustomTable from "../../customHooks/useCustomTable";
 import InputControl from "../../components/controls/InputControl";
 import Popup from "../../components/Popup";
@@ -477,13 +483,22 @@ const PrintAdminCard = () => {
             </Grid>
             <Grid item xs={3}>
               <div style={{ height: "10px" }}></div>
-              <DatePickerControl
-                name="DOJ"
-                label="Pick Exam Date"
-                value={dateValue}
-                onChange={(e) => handleDate(e.target.value)}
-                errors={errors.date}
-              />
+              <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                <KeyboardDatePicker
+                  disableToolbar
+                  variant="inline"
+                  inputVariant="outlined"
+                  format="dd-MM-yyyy"
+                  name="DOJ"
+                  label="Pick Exam Date"
+                  value={dateValue}
+                  onChange={(e) => {
+                    const newDate = new Date(e);
+                    console.log(newDate.toLocaleDateString().slice(0, 10));
+                    handleDate(newDate.toLocaleDateString().slice(0, 10));
+                  }}
+                />
+              </MuiPickersUtilsProvider>
             </Grid>
 
             <Grid item xs={3}>
@@ -564,7 +579,8 @@ const PrintAdminCard = () => {
                 printStudentsAdmitCard && printStudentsAdmitCard.ClassName
               }
               examDate={
-                printStudentsAdmitCard && printStudentsAdmitCard.examDate
+                admitCardInitialData &&
+                admitCardInitialData?.searchFilterModel?.StartDate
               }
               principleSignature={principleSignature && principleSignature}
               print={printPdf}

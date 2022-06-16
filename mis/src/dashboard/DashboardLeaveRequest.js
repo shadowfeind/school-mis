@@ -329,14 +329,16 @@ const DashboardLeaveRequest = () => {
                     <EditIcon style={{ fontSize: 12 }} />
                   </Button>
                 )}{" "}
-                <Button
-                  variant="contained"
-                  color="secondary"
-                  className={classes.button}
-                  onClick={() => deleteLeaveHandler(s.IDLeaveRequest)}
-                >
-                  <DeleteIcon style={{ fontSize: 12 }} />
-                </Button>{" "}
+                {s.Status !== "APPROVED" && s.Status !== "CANCELED" && (
+                  <Button
+                    variant="contained"
+                    color="secondary"
+                    className={classes.button}
+                    onClick={() => deleteLeaveHandler(s.IDLeaveRequest)}
+                  >
+                    <DeleteIcon style={{ fontSize: 12 }} />
+                  </Button>
+                )}{" "}
                 {s.DocumentName !== null && (
                   <Button
                     variant="contained"

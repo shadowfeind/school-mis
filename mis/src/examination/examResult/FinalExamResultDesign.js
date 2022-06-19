@@ -24,14 +24,14 @@ const FinalExamResultDesign = ({
 }) => {
   let avgGpa = [];
   let tdToRender = [];
-  for (let i = subjectList.length; i <= 11; i++) {
+  for (let i = subjectList.length; i <= 10; i++) {
     tdToRender.push(i);
   }
 
   return (
     <div className="resultContainer">
       <div className="imageContainer">
-        <img src={`${API_URL}${headerBanners}`} width="740px" />
+        <img src={`${API_URL}${headerBanners}`} width="640px" />
       </div>
       <div className="subjectTable">
         <h1>PROGRESS REPORT</h1>

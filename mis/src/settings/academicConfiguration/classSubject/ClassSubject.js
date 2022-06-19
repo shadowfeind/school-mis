@@ -205,6 +205,7 @@ const ClassSubject = () => {
       message: "Successfully Updated",
       type: "success",
     });
+    setFormCheck();
     dispatch(getClassSubjectListAction(classId));
     dispatch({ type: UPDATE_SINGLE_CLASS_SUBJECT_RESET });
     setOpenPopupForm(false);
@@ -215,6 +216,7 @@ const ClassSubject = () => {
       message: "Successfully Updated",
       type: "success",
     });
+    setFormCheck([]);
     dispatch({ type: POST_TO_CREATE_CLASS_SUBJECT_RESET });
     dispatch(getClassSubjectListAction(classId));
   }

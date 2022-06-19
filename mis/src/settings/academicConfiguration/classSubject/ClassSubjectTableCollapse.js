@@ -26,8 +26,8 @@ const ClassSubjectTableCollapse = ({
       <TableCell>{item.IsCompulsory ? "True" : "False"}</TableCell>
       <TableCell>{item.IsTheoritical ? "True" : "False"}</TableCell>
       <TableCell>{item.IsPractical ? "True" : "False"}</TableCell>
-      <TableCell>{item.IsActive ? "True" : "False"}</TableCell>
       <TableCell>{item.CreditHour}</TableCell>
+      <TableCell>{item.IsActive ? "True" : "False"}</TableCell>
       <TableCell>
         <Button
           variant="contained"
@@ -41,7 +41,7 @@ const ClassSubjectTableCollapse = ({
           variant="contained"
           color="secondary"
           className={classes.button}
-            onClick={() => deleteCollegeHandler(item.IDClassSubject)}
+          onClick={() => deleteCollegeHandler(item.IDClassSubject)}
         >
           <DeleteIcon style={{ fontSize: 12 }} />
         </Button>

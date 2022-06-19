@@ -30,14 +30,14 @@ const ExamResultDesign = ({
 
   const dispatch = useDispatch();
 
-  for (let i = subjects.length; i <= 11; i++) {
+  for (let i = subjects.length; i <= 10; i++) {
     tdToRender.push(i);
   }
 
   return (
     <div className="resultContainer">
       <div className="resultHeader">
-        <img src={`${API_URL}${headerBanners}`} width="740px" />
+        <img src={`${API_URL}${headerBanners}`} width="640px" />
       </div>
       <div className="subjectTable">
         <h1>PROGRESS REPORT</h1>
@@ -74,25 +74,29 @@ const ExamResultDesign = ({
           <table style={{ margin: "15px 0" }}>
             <thead>
               <tr>
-                <th>SN</th>
-                <th>Subjects</th>
-                <th style={{ textAlign: "center" }}>Credit Hours</th>
-                <th colSpan="2" style={{ textAlign: "center" }}>
+                <th rowSpan="2">SN</th>
+                <th width="25%" rowSpan="2">
+                  Subjects
+                </th>
+                <th style={{ textAlign: "center" }} rowSpan="2">
+                  Credit Hours
+                </th>
+                <th colSpan="2" width="20%" style={{ textAlign: "center" }}>
                   Obtained Grades
                 </th>
-                <th style={{ textAlign: "center" }}>Final Grade</th>
-                <th style={{ textAlign: "center" }}>Grade Point</th>
-                <th style={{ textAlign: "center" }}>Highest Grade</th>
+                <th style={{ textAlign: "center" }} rowSpan="2">
+                  Final Grade
+                </th>
+                <th style={{ textAlign: "center" }} rowSpan="2">
+                  Grade Point
+                </th>
+                <th style={{ textAlign: "center" }} rowSpan="2">
+                  Highest Grade
+                </th>
               </tr>
               <tr>
-                <th></th>
-                <th></th>
-                <th></th>
                 <th style={{ textAlign: "center" }}>TH</th>
                 <th style={{ textAlign: "center" }}>PR</th>
-                <th></th>
-                <th></th>
-                <th></th>
               </tr>
             </thead>
             <tbody>

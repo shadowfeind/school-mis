@@ -39,14 +39,18 @@ const useStyles = makeStyles({
 
 const ClassSubjectCreateForm = ({
   subjectOptions,
+  formCheck,
   assignFacSubGenerate,
   setFormCheck,
   formCheckSubmitHandler,
+  setOpenPopup,
 }) => {
+  const [subjects, setSubjects] = useState([]);
   const classes = useStyles();
+
   const inputHandler = (subject, value) => {
     setFormCheck((prev) => {
-      const exists = prev.find(
+      const exists = prev?.find(
         (u) => u.IDAcademicSubject === subject.IDAcademicSubject
       );
       if (exists) {
@@ -64,11 +68,11 @@ const ClassSubjectCreateForm = ({
 
   const handleChange = (subject) => {
     setFormCheck((prev) => {
-      const exists = prev.find(
+      const exists = prev?.find(
         (u) => u.IDAcademicSubject === subject.IDAcademicSubject
       );
       if (exists) {
-        let newArr = prev.filter(
+        let newArr = prev?.filter(
           (u) => u.IDAcademicSubject !== subject.IDAcademicSubject
         );
         return [...newArr];
@@ -81,6 +85,14 @@ const ClassSubjectCreateForm = ({
       return [...prev, newSubject];
     });
   };
+
+  useEffect(() => {
+    if (subjectOptions) {
+      setSubjects(subjectOptions);
+    } else {
+      setSubjects(assignFacSubGenerate);
+    }
+  }, [subjectOptions, assignFacSubGenerate]);
 
   const symbolsArr = ["e", "E", "+", "-", ".", "ArrowUp", "ArrowDown"];
 
@@ -101,8 +113,8 @@ const ClassSubjectCreateForm = ({
             </TableRow>
           </TableHead>
           <TableBody>
-            {subjectOptions &&
-              subjectOptions.map((subject) => (
+            {subjects &&
+              subjects?.map((subject) => (
                 <StyledTableRow key={subject.IDAcademicSubject}>
                   <StyledTableCell component="th" scope="row">
                     {subject.SubjectName}
@@ -147,7 +159,14 @@ const ClassSubjectCreateForm = ({
                   <StyledTableCell align="center">
                     {" "}
                     <Checkbox
-                      // checked={state.checkedB}
+                      checked={
+                        formCheck?.filter(
+                          (x) =>
+                            x.IDAcademicSubject === subject.IDAcademicSubject
+                        )?.length > 0
+                          ? true
+                          : false
+                      }
                       onChange={() => handleChange(subject)}
                       name="checkedB"
                       color="primary"
@@ -170,7 +189,7 @@ const ClassSubjectCreateForm = ({
         <Button
           variant="contained"
           color="secondary"
-          // onClick={() => setOpenPopup(false)}
+          onClick={() => setOpenPopup(false)}
           style={{ margin: "10px 0 0 10px" }}
         >
           CANCEL

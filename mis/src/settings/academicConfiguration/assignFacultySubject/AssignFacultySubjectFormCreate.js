@@ -58,7 +58,7 @@ const AssignFacultySubjectFormCreate = ({
 
   const inputHandler = (subject, value) => {
     setFormCheck((prev) => {
-      const exists = prev.find(
+      const exists = prev?.find(
         (u) => u.IDAcademicSubject === subject.IDAcademicSubject
       );
       if (exists) {
@@ -76,11 +76,11 @@ const AssignFacultySubjectFormCreate = ({
 
   const handleChange = (subject) => {
     setFormCheck((prev) => {
-      const exists = prev.find(
+      const exists = prev?.find(
         (u) => u.IDAcademicSubject === subject.IDAcademicSubject
       );
       if (exists) {
-        let newArr = prev.filter(
+        let newArr = prev?.filter(
           (u) => u.IDAcademicSubject !== subject.IDAcademicSubject
         );
         return [...newArr];
@@ -130,7 +130,7 @@ const AssignFacultySubjectFormCreate = ({
           </TableHead>
           <TableBody>
             {subjects &&
-              subjects.map((subject) => (
+              subjects?.map((subject) => (
                 <StyledTableRow key={subject.IDAcademicSubject}>
                   <StyledTableCell component="th" scope="row">
                     {subject.SubjectName}
@@ -171,10 +171,10 @@ const AssignFacultySubjectFormCreate = ({
                     {" "}
                     <Checkbox
                       checked={
-                        formCheck.filter(
+                        formCheck?.filter(
                           (x) =>
                             x.IDAcademicSubject === subject.IDAcademicSubject
-                        ).length > 0
+                        )?.length > 0
                           ? true
                           : false
                       }

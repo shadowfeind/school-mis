@@ -217,6 +217,9 @@ const PrintAdminCard = () => {
       setAcademicYearDdl(
         admitCardInitialData?.searchFilterModel.ddlAcademicYear
       );
+      setAcaYear(
+        admitCardInitialData?.searchFilterModel.ddlAcademicYear[0]?.Key
+      );
       setDdlShift(admitCardInitialData?.searchFilterModel.ddlAcademicShift);
       setShift(
         admitCardInitialData?.searchFilterModel.ddlAcademicShift[0]?.Key
@@ -225,6 +228,22 @@ const PrintAdminCard = () => {
       setSection(admitCardInitialData?.searchFilterModel.ddlSection[0]?.Key);
       setDateValue(
         admitCardInitialData?.searchFilterModel?.StartDate?.slice(0, 10)
+      );
+      dispatch(
+        getEventAction(
+          admitCardInitialData?.searchFilterModel.ddlAcademicYear[0]?.Key,
+          admitCardInitialData?.searchFilterModel.ddlFacultyProgramLink[0]?.Key,
+          admitCardInitialData?.searchFilterModel.ddlClass[0]?.Key
+        )
+      );
+      dispatch(
+        getActiveStudentsForAdmitCardDataAction(
+          admitCardInitialData?.searchFilterModel.ddlAcademicYear[0]?.Key,
+          admitCardInitialData?.searchFilterModel.ddlFacultyProgramLink[0]?.Key,
+          admitCardInitialData?.searchFilterModel.ddlClass[0]?.Key,
+          admitCardInitialData?.searchFilterModel.ddlSection[0]?.Key,
+          admitCardInitialData?.searchFilterModel.ddlAcademicShift[0]?.Key
+        )
       );
     }
   }, [admitCardInitialData, dispatch]);

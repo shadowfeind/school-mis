@@ -278,17 +278,20 @@ const TeacherFacultySubject = () => {
   useEffect(() => {
     if (teacherFacInitData) {
       setAcademicYear(teacherFacInitData?.searchFilterModel.ddlAcademicYear);
+      setAcademicYearValue(
+        teacherFacInitData?.searchFilterModel.ddlAcademicYear[0]?.Key
+      );
       setShift(teacherFacInitData?.searchFilterModel.ddlAcademicShift);
       setShiftValue(
-        teacherFacInitData?.searchFilterModel.ddlAcademicShift[0].Key
+        teacherFacInitData?.searchFilterModel.ddlAcademicShift[0]?.Key
       );
       setProgramValue(
-        teacherFacInitData?.searchFilterModel.ddlFacultyProgramLink[0].Key
+        teacherFacInitData?.searchFilterModel.ddlFacultyProgramLink[0]?.Key
       );
       setSection(teacherFacInitData?.searchFilterModel.ddlSection);
-      setSectionValue(teacherFacInitData?.searchFilterModel.ddlSection[0].Key);
+      setSectionValue(teacherFacInitData?.searchFilterModel.ddlSection[0]?.Key);
       setClassOpt(teacherFacInitData?.searchFilterModel.ddlClass);
-      setClassOptValue(teacherFacInitData?.searchFilterModel.ddlClass[0].Key);
+      setClassOptValue(teacherFacInitData?.searchFilterModel.ddlClass[0]?.Key);
     }
   }, [teacherFacInitData]);
 

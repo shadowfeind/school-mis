@@ -176,6 +176,10 @@ const StudentRegistration = () => {
       setAcademicYearDdl(
         studentRegistrationInitialData?.searchFilterModel.ddlAcademicYear
       );
+      setAcaYear(
+        studentRegistrationInitialData?.searchFilterModel.ddlAcademicYear[0]
+          ?.Key
+      );
       setProgramValue(
         studentRegistrationInitialData?.searchFilterModel
           .ddlFacultyProgramLink[0]?.Key

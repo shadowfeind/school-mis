@@ -164,32 +164,35 @@ const TotalStudentAttendance = () => {
       );
       setDdlClass(allTotalStudentAttendanceData?.searchFilterModel?.ddlClass);
       setClassId(
-        allTotalStudentAttendanceData?.searchFilterModel?.ddlClass[0]?.Key
+        allTotalStudentAttendanceData?.searchFilterModel.ddlClass[0]?.Key
       );
       setAcademicYearDdl(
         allTotalStudentAttendanceData?.searchFilterModel?.ddlAcademicYear
+      );
+      setAcaYear(
+        allTotalStudentAttendanceData?.searchFilterModel.ddlAcademicYear[0]?.Key
       );
       setDdlShift(
         allTotalStudentAttendanceData?.searchFilterModel?.ddlAcademicShift
       );
       setShift(
-        allTotalStudentAttendanceData?.searchFilterModel?.ddlAcademicShift[0]
+        allTotalStudentAttendanceData?.searchFilterModel.ddlAcademicShift[0]
           ?.Key
       );
       setDdlSection(
         allTotalStudentAttendanceData?.searchFilterModel?.ddlSection
       );
       setSection(
-        allTotalStudentAttendanceData?.searchFilterModel?.ddlSection[0]?.Key
+        allTotalStudentAttendanceData?.searchFilterModel.ddlSection[0]?.Key
       );
       setStartDate(
-        allTotalStudentAttendanceData?.searchFilterModel?.currentDate?.slice(
+        allTotalStudentAttendanceData?.searchFilterModel.currentDate?.slice(
           0,
           10
         )
       );
       setEndDate(
-        allTotalStudentAttendanceData?.searchFilterModel?.currentDate?.slice(
+        allTotalStudentAttendanceData?.searchFilterModel.currentDate?.slice(
           0,
           10
         )

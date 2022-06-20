@@ -51,7 +51,11 @@
   text-align: left;
   font-weight: bold;
 }
-.uppderTableResult th,
+.uppderTableResult th {
+  border: 1px solid #000;
+  font-weight: lighter;
+}
+
 .uppderTableResult td {
   border: 1px solid #000;
   padding: 7px 15px;
@@ -98,10 +102,10 @@
   }
   .resultContainer {
     page-break-before: always;
-    width: 773px;
-    height: 1090px;
-    margin: 10px auto;
-    padding: 0 10px 10px 10px;
+    width: 202mm !important;
+    height: 288mm !important;
+    margin: 14px auto !important;
+    padding: 16px !important;
   }
   .resultContainer h1 {
     font-size: 24px;

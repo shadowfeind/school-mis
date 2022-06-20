@@ -57,7 +57,7 @@ const ClassSubjectCreateForm = ({
         const newSubject = { ...subject, CreditHour: Number(value) };
         // console.log(newSubject);
         let newArr = [...prev];
-        prev.map((data, index) => {
+        prev?.map((data, index) => {
           newArr[index].CreditHour = Number(value);
         });
         return [...newArr];
@@ -137,7 +137,7 @@ const ClassSubjectCreateForm = ({
                   <StyledTableCell align="center">
                     <TextField
                       id={`subject_${subject.IDAcademicSubject}`}
-                      defaultValue={subject.CreditHour}
+                      defaultValue="3"
                       type="number"
                       onWheelCapture={(e) => {
                         e.target.blur();

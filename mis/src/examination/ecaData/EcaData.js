@@ -182,16 +182,27 @@ const EcaData = () => {
   }, []);
   useEffect(() => {
     if (allEcaData) {
-      setAcademicYearDdl(allEcaData?.searchFilterModel.ddlAcademicYear);
+      setAcademicYearDdl(allEcaData.searchFilterModel.ddlAcademicYear);
+      setAcaYear(allEcaData.searchFilterModel.ddlAcademicYear[0]?.Key);
+
       setProgramValue(
         allEcaData?.searchFilterModel.ddlFacultyProgramLink[0]?.Key
       );
-      setDdlClass(allEcaData?.searchFilterModel.ddlClass);
-      setClassId(allEcaData?.searchFilterModel.ddlClass[0]?.Key);
-      setDdlShift(allEcaData?.searchFilterModel.ddlAcademicShift);
-      setShift(allEcaData?.searchFilterModel.ddlAcademicShift[0]?.Key);
-      setDdlSection(allEcaData?.searchFilterModel.ddlSection);
-      setSection(allEcaData?.searchFilterModel.ddlSection[0]?.Key);
+
+      setDdlClass(allEcaData.searchFilterModel.ddlClass);
+      setClassId(allEcaData.searchFilterModel.ddlClass[0]?.Key);
+      setDdlShift(allEcaData.searchFilterModel.ddlAcademicShift);
+      setShift(allEcaData.searchFilterModel.ddlAcademicShift[0]?.Key);
+      setDdlSection(allEcaData.searchFilterModel.ddlSection);
+      setSection(allEcaData.searchFilterModel.ddlSection[0]?.Key);
+      dispatch(
+        getEventAction(
+          allEcaData.searchFilterModel.ddlAcademicYear[0]?.Key,
+          allEcaData.searchFilterModel.ddlFacultyProgramLink[0]?.Key,
+          allEcaData.searchFilterModel.ddlClass[0]?.Key,
+          allEcaData.searchFilterModel.ddlAcademicShift[0]?.Key
+        )
+      );
     }
   }, [allEcaData, dispatch]);
 

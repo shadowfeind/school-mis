@@ -184,12 +184,15 @@ const AcademicYearCalendar = () => {
   useEffect(() => {
     if (academicYearCalendar) {
       setProgramValue(
-        academicYearCalendar?.searchFilterModel.ddlFacultyProgramLink[0].Key
+        academicYearCalendar?.searchFilterModel.ddlFacultyProgramLink[0]?.Key
       );
       setDdlClass(academicYearCalendar?.searchFilterModel.ddlClass);
-      setClassId(academicYearCalendar?.searchFilterModel.ddlClass[0].Key);
+      setClassId(academicYearCalendar?.searchFilterModel.ddlClass[0]?.Key);
       setAcademicYearDdl(
         academicYearCalendar?.searchFilterModel.ddlAcademicYear
+      );
+      setAcaYear(
+        academicYearCalendar?.searchFilterModel.ddlAcademicYear[0]?.Key
       );
     }
   }, [dispatch, academicYearCalendar]);

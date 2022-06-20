@@ -33,7 +33,7 @@ const ExamResultCount = ({ result, headerBanners, setOpenPopupCount }) => {
   return (
     <div className="resultContainerCount" id="result-count" ref={componentRef}>
       <div className="resultHeader">
-        <img src={`${API_URL}${headerBanners}`} width="740px" />
+        <img src={`${API_URL}${headerBanners}`} width="640px" />
       </div>
       <div className="subjectTable">
         <h1>PROGRESS REPORT</h1>

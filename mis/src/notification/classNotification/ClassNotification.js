@@ -171,6 +171,9 @@ const ClassNotification = () => {
     dispatch({ type: "GET_LINK", payload: "/notification" });
     if (classNotification) {
       setAcademicYear(classNotification?.searchFilterModel.ddlAcademicYear);
+      setAcademicYearValue(
+        classNotification?.searchFilterModel.ddlAcademicYear[0]?.Key
+      );
       setShift(classNotification?.searchFilterModel.ddlAcademicShift);
       setShiftValue(
         classNotification?.searchFilterModel.ddlAcademicShift[0]?.Key

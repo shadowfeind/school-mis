@@ -172,20 +172,27 @@ const SmsClassNotification = () => {
     dispatch({ type: "GET_LINK", payload: "/sms-notification" });
     if (smsClassNotification) {
       setAcademicYear(smsClassNotification?.searchFilterModel.ddlAcademicYear);
+      setAcademicYearValue(
+        smsClassNotification?.searchFilterModel.ddlAcademicYear[0]?.Key
+      );
       setShift(smsClassNotification?.searchFilterModel.ddlAcademicShift);
       setShiftValue(
-        smsClassNotification?.searchFilterModel.ddlAcademicShift[0].Key
+        smsClassNotification?.searchFilterModel.ddlAcademicShift[0]?.Key
       );
       setProgramValue(
-        smsClassNotification?.searchFilterModel.ddlFacultyProgramLink[0].Key
+        smsClassNotification?.searchFilterModel.ddlFacultyProgramLink[0]?.Key
       );
       setSection(smsClassNotification?.searchFilterModel.ddlSection);
       setSectionValue(
-        smsClassNotification?.searchFilterModel.ddlSection[0].Key
+        smsClassNotification?.searchFilterModel.ddlSection[0]?.Key
       );
       setClassOpt(smsClassNotification?.searchFilterModel.ddlClass);
-      setClassOptValue(smsClassNotification?.searchFilterModel.ddlClass[0].Key);
-      setDate(smsClassNotification?.searchFilterModel.currentDate.slice(0, 10));
+      setClassOptValue(
+        smsClassNotification?.searchFilterModel.ddlClass[0]?.Key
+      );
+      setDate(
+        smsClassNotification?.searchFilterModel.currentDate?.slice(0, 10)
+      );
     }
   }, [dispatch, smsClassNotification]);
 
@@ -332,7 +339,7 @@ const SmsClassNotification = () => {
                     value={date}
                     onChange={(e) => {
                       const newDate = new Date(e);
-                      setDate(newDate.toLocaleDateString().slice(0, 10));
+                      setDate(newDate.toLocaleDateString()?.slice(0, 10));
                     }}
                     style={{ width: "80%" }}
                   />

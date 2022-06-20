@@ -324,19 +324,34 @@ const ExamMarkApproval = () => {
     dispatch({ type: "GET_LINK", payload: "examination" });
     if (examApprovalInitialDatas) {
       setProgramValue(
-        examApprovalInitialDatas?.searchFilterModel.ddlFacultyProgramLink[0].Key
+        examApprovalInitialDatas?.searchFilterModel.ddlFacultyProgramLink[0]
+          ?.Key
       );
       setDdlClass(examApprovalInitialDatas?.searchFilterModel.ddlClass);
-      setClassId(examApprovalInitialDatas?.searchFilterModel.ddlClass[0].Key);
+      setClassId(examApprovalInitialDatas?.searchFilterModel.ddlClass[0]?.Key);
       setAcademicYearDdl(
         examApprovalInitialDatas?.searchFilterModel.ddlAcademicYear
       );
+      setAcaYear(
+        examApprovalInitialDatas?.searchFilterModel.ddlAcademicYear[0]?.Key
+      );
       setDdlShift(examApprovalInitialDatas?.searchFilterModel.ddlAcademicShift);
       setShift(
-        examApprovalInitialDatas?.searchFilterModel.ddlAcademicShift[0].Key
+        examApprovalInitialDatas?.searchFilterModel.ddlAcademicShift[0]?.Key
       );
       setDdlSection(examApprovalInitialDatas?.searchFilterModel.ddlSection);
-      setSection(examApprovalInitialDatas?.searchFilterModel.ddlSection[0].Key);
+      setSection(
+        examApprovalInitialDatas?.searchFilterModel.ddlSection[0]?.Key
+      );
+      dispatch(
+        getEventAction(
+          examApprovalInitialDatas?.searchFilterModel.ddlAcademicYear[0]?.Key,
+          examApprovalInitialDatas?.searchFilterModel.ddlFacultyProgramLink[0]
+            ?.Key,
+          examApprovalInitialDatas?.searchFilterModel.ddlClass[0]?.Key,
+          examApprovalInitialDatas?.searchFilterModel.ddlAcademicShift[0]?.Key
+        )
+      );
     }
   }, [examApprovalInitialDatas, dispatch]);
 

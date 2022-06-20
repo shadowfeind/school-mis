@@ -226,18 +226,21 @@ const ReassociateStudent = () => {
       setAcademicYear(
         allReassociateStudents?.searchFilterModel.ddlAcademicYear
       );
+      setAcademicYearValue(
+        allReassociateStudents?.searchFilterModel.ddlAcademicYear[0]?.Key
+      );
       setShift(allReassociateStudents?.searchFilterModel.ddlAcademicShift);
       setShiftValue(
-        allReassociateStudents?.searchFilterModel.ddlAcademicShift[0].Key
+        allReassociateStudents?.searchFilterModel.ddlAcademicShift[0]?.Key
       );
       setProgramValue(
-        allReassociateStudents?.searchFilterModel.ddlFacultyProgramLink[0].Key
+        allReassociateStudents?.searchFilterModel.ddlFacultyProgramLink[0]?.Key
       );
       setSection(allReassociateStudents?.ddlSection);
-      setSectionValue(allReassociateStudents?.ddlSection[0].Key);
+      setSectionValue(allReassociateStudents?.ddlSection[0]?.Key);
       setClassOpt(allReassociateStudents?.searchFilterModel.ddlClass);
       setClassOptValue(
-        allReassociateStudents?.searchFilterModel.ddlClass[0].Key
+        allReassociateStudents?.searchFilterModel.ddlClass[0]?.Key
       );
     }
   }, [allReassociateStudents]);

@@ -268,6 +268,9 @@ const StudentAttendance = () => {
       setAcademicYearDdl(
         studentAttendanceInitData?.searchFilterModel.ddlAcademicYear
       );
+      setAcaYear(
+        studentAttendanceInitData?.searchFilterModel.ddlAcademicYear[0]?.Key
+      );
       setDdlShift(
         studentAttendanceInitData?.searchFilterModel.ddlAcademicShift
       );
@@ -280,6 +283,14 @@ const StudentAttendance = () => {
       );
       setStartDate(studentAttendanceInitData?.searchFilterModel.StartDate);
       setEndDate(studentAttendanceInitData?.searchFilterModel.EndDate);
+      dispatch(
+        getEventAction(
+          studentAttendanceInitData?.searchFilterModel.ddlAcademicYear[0]?.Key,
+          studentAttendanceInitData?.searchFilterModel.ddlFacultyProgramLink[0]
+            ?.Key,
+          studentAttendanceInitData?.searchFilterModel.ddlClass[0]?.Key
+        )
+      );
     }
   }, [studentAttendanceInitData, dispatch]);
 

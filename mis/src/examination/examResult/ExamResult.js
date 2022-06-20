@@ -231,6 +231,9 @@ const ExamResult = () => {
       setAcademicYearDdl(
         examResultInitialDatas?.searchFilterModel.ddlAcademicYear
       );
+      setAcaYear(
+        examResultInitialDatas?.searchFilterModel.ddlAcademicYear[0]?.Key
+      );
       setDdlShift(examResultInitialDatas?.searchFilterModel.ddlAcademicShift);
       setShift(
         examResultInitialDatas?.searchFilterModel.ddlAcademicShift[0]?.Key
@@ -244,6 +247,24 @@ const ExamResult = () => {
       );
       setDateValue(
         examResultInitialDatas?.searchFilterModel?.StartDate?.slice(0, 10)
+      );
+      dispatch(
+        getEventForExamMarkAction(
+          examResultInitialDatas?.searchFilterModel.ddlAcademicYear[0]?.Key,
+          examResultInitialDatas?.searchFilterModel.ddlFacultyProgramLink[0]
+            ?.Key,
+          examResultInitialDatas?.searchFilterModel.ddlClass[0]?.Key
+        )
+      );
+      dispatch(
+        getStudentOptionsForExamMarkAction(
+          examResultInitialDatas?.searchFilterModel.ddlAcademicYear[0]?.Key,
+          examResultInitialDatas?.searchFilterModel.ddlFacultyProgramLink[0]
+            ?.Key,
+          examResultInitialDatas?.searchFilterModel.ddlClass[0]?.Key,
+          examResultInitialDatas?.searchFilterModel.ddlSection[0]?.Key,
+          examResultInitialDatas?.searchFilterModel.ddlAcademicShift[0]?.Key
+        )
       );
     }
   }, [examResultInitialDatas, dispatch]);

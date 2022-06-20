@@ -24,14 +24,14 @@ const ExamResultWithMarksDesign = ({
   let trackSubject = [];
   let tdToRender = [];
 
-  for (let i = subjects.length; i <= 11; i++) {
-    tdToRender?.push(i);
+  for (let i = subjects.length; i <= 10; i++) {
+    tdToRender.push(i);
   }
 
   return (
     <div className="resultContainer">
       <div className="imageContainer">
-        <img src={`${API_URL}${headerBanners}`} width="740px" />
+        <img src={`${API_URL}${headerBanners}`} width="640px" />
       </div>
       <div className="subjectTable">
         <h1>PROGRESS REPORT</h1>
@@ -68,33 +68,36 @@ const ExamResultWithMarksDesign = ({
           <table style={{ margin: "15px 0" }}>
             <thead>
               <tr>
-                <th>SN</th>
-                <th style={{ width: "30%" }}>Subjects</th>
+                <th rowSpan="2">SN</th>
+                <th style={{ width: "30%" }} rowSpan="2">
+                  Subjects
+                </th>
                 <th colSpan="2" style={{ textAlign: "center" }}>
                   Full Marks
                 </th>
                 <th colSpan="2" style={{ textAlign: "center" }}>
                   Obtained Marks
                 </th>
-                <th colSpan="2" style={{ textAlign: "center" }}>
+                <th colSpan="2" style={{ textAlign: "center" }} width="20%">
                   Obtained Grades
                 </th>
-                <th style={{ textAlign: "center" }}>Final Grade</th>
-                <th style={{ textAlign: "center" }}>Grade Point</th>
-                <th style={{ textAlign: "center" }}>Highest Grade</th>
+                <th style={{ textAlign: "center" }} rowSpan="2">
+                  Final Grade
+                </th>
+                <th style={{ textAlign: "center" }} rowSpan="2">
+                  Grade Point
+                </th>
+                <th style={{ textAlign: "center" }} rowSpan="2">
+                  Highest Grade
+                </th>
               </tr>
               <tr>
-                <th></th>
-                <th></th>
                 <th style={{ textAlign: "center" }}>TH</th>
                 <th style={{ textAlign: "center" }}>PR</th>
                 <th style={{ textAlign: "center" }}>TH</th>
                 <th style={{ textAlign: "center" }}>PR</th>
                 <th style={{ textAlign: "center" }}>TH</th>
                 <th style={{ textAlign: "center" }}>PR</th>
-                <th></th>
-                <th></th>
-                <th></th>
               </tr>
             </thead>
             <tbody>

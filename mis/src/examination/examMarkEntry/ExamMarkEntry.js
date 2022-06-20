@@ -68,13 +68,13 @@ const ExamMarkEntry = () => {
   const [ddlSection, setDdlSection] = useState([]);
   const [ddlEvent, setDdlEvent] = useState([]);
   const [ddlSchedule, setDdlSchedule] = useState([]);
-  const [programValue, setProgramValue] = useState(6);
+  const [programValue, setProgramValue] = useState("");
   const [classId, setClassId] = useState();
-  const [acaYear, setAcaYear] = useState(55);
-  const [shift, setShift] = useState(2);
-  const [section, setSection] = useState(1);
-  const [event, setEvent] = useState();
-  const [schedule, setSchedule] = useState();
+  const [acaYear, setAcaYear] = useState("");
+  const [shift, setShift] = useState("");
+  const [section, setSection] = useState("");
+  const [event, setEvent] = useState("");
+  const [schedule, setSchedule] = useState("");
   const dispatch = useDispatch();
   const classes = useStyles();
 

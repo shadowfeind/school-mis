@@ -298,6 +298,17 @@ const ExamSchedule = () => {
       setAcademicYearDdl(
         examScheduleInitialData?.searchFilterModel.ddlAcademicYear
       );
+      setAcaYear(
+        examScheduleInitialData?.searchFilterModel.ddlAcademicYear[0]?.Key
+      );
+      dispatch(
+        getEventForExamScheduleAction(
+          examScheduleInitialData?.searchFilterModel.ddlAcademicYear[0]?.Key,
+          examScheduleInitialData?.searchFilterModel.ddlFacultyProgramLink[0]
+            ?.Key,
+          examScheduleInitialData?.searchFilterModel.ddlClass[0]?.Key
+        )
+      );
     }
   }, [examScheduleInitialData, dispatch]);
 

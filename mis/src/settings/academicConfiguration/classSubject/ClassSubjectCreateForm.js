@@ -40,7 +40,7 @@ const useStyles = makeStyles({
 const ClassSubjectCreateForm = ({
   subjectOptions,
   formCheck,
-  assignFacSubGenerate,
+  checkErrors,
   setFormCheck,
   formCheckSubmitHandler,
   setOpenPopup,
@@ -89,10 +89,8 @@ const ClassSubjectCreateForm = ({
   useEffect(() => {
     if (subjectOptions) {
       setSubjects(subjectOptions);
-    } else {
-      setSubjects(assignFacSubGenerate);
     }
-  }, [subjectOptions, assignFacSubGenerate]);
+  }, [subjectOptions]);
 
   const symbolsArr = ["e", "E", "+", "-", ".", "ArrowUp", "ArrowDown"];
 
@@ -177,6 +175,9 @@ const ClassSubjectCreateForm = ({
           </TableBody>
         </Table>
       </TableContainer>
+      {checkErrors.formCheck && (
+        <h4 style={{ color: "red" }}>{checkErrors.formCheck}</h4>
+      )}
       <div
         style={{
           display: "flex",

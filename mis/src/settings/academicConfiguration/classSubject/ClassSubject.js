@@ -88,7 +88,8 @@ const ClassSubject = () => {
   const [ddlClass, setDdlClass] = useState([]);
   const [classId, setClassId] = useState("");
   const [formCheck, setFormCheck] = useState([]);
-  const [errors, setErrors] = useState([]);
+  const [checkErrors, setCheckErrors] = useState({});
+  const [errors, setErrors] = useState({});
   const classes = useStyles();
 
   const dispatch = useDispatch();
@@ -219,6 +220,7 @@ const ClassSubject = () => {
     setFormCheck([]);
     dispatch({ type: POST_TO_CREATE_CLASS_SUBJECT_RESET });
     dispatch(getClassSubjectListAction(classId));
+    setOpenPopup(false);
   }
   if (postToCreateClassSubjectError) {
     setNotify({
@@ -259,6 +261,15 @@ const ClassSubject = () => {
     setErrors({ ...temp });
     return Object.values(temp).every((x) => x === "");
   };
+
+  const validateCheckBox = () => {
+    let temp = {};
+    temp.formCheck =
+      formCheck?.length < 1 ? "Please Select Atleast One Option" : "";
+
+    setCheckErrors({ ...temp });
+    return Object.values(temp).every((x) => x === "");
+  };
   const listSearchHandler = () => {
     if (validate()) {
       dispatch(getClassSubjectListAction(classId));
@@ -282,14 +293,15 @@ const ClassSubject = () => {
     setOpenPopupForm(true);
   };
   const formCheckSubmitHandler = () => {
-    dispatch(
-      createSingleClassSubjectAction(
-        createClassSubjects.idYearFacultyProgramLink,
-        createClassSubjects.level,
-        formCheck
-      )
-    );
-    setOpenPopup(false);
+    if (validateCheckBox()) {
+      dispatch(
+        createSingleClassSubjectAction(
+          createClassSubjects.idYearFacultyProgramLink,
+          createClassSubjects.level,
+          formCheck
+        )
+      );
+    }
   };
 
   useEffect(() => {
@@ -394,6 +406,7 @@ const ClassSubject = () => {
               setFormCheck={setFormCheck}
               formCheckSubmitHandler={formCheckSubmitHandler}
               setOpenPopup={setOpenPopup}
+              checkErrors={checkErrors}
             />
           </>
         )}

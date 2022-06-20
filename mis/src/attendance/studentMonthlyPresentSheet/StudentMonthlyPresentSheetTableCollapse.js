@@ -115,7 +115,7 @@ const StudentMonthlyPresentSheetTableCollapse = ({ students }) => {
         </thead>
         <tbody>
           {students &&
-            students.dbModelLst.map((s) => {
+            students.dbModelLst?.map((s) => {
               return (
                 <tr key={s.$id}>
                   <td>{s.RollNumber}</td>

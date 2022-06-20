@@ -204,7 +204,9 @@ const AcademicGrading = () => {
           return item;
         } else {
           return item.filter((x) =>
-            x.LetterGrade.toLowerCase().includes(e.target.value?.toLowerCase())
+            x.LetterGrade?.toLowerCase()?.includes(
+              e.target.value?.toLowerCase()
+            )
           );
         }
       },
@@ -241,7 +243,7 @@ const AcademicGrading = () => {
           <TblHead />
 
           <TableBody>
-            {tableDataAfterPagingAndSorting().map((item) => (
+            {tableDataAfterPagingAndSorting()?.map((item) => (
               <AcademicGradingTableCollapse
                 key={item.$id}
                 item={item}

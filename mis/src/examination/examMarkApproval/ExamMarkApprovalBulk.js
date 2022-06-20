@@ -129,7 +129,7 @@ const ExamMarkApprovalBulk = ({
               <StyledTableCell align="center">
                 Mark Obtained(TH)
               </StyledTableCell>
-              {bulk && bulk?.length > 0 && bulk[0].FullMarkPractical !== 0 && (
+              {bulk && bulk?.length > 0 && bulk[0]?.FullMarkPractical !== 0 && (
                 <StyledTableCell align="center">
                   Mark Obtained(PT)
                 </StyledTableCell>
@@ -165,7 +165,7 @@ const ExamMarkApprovalBulk = ({
                         e.target.select();
                       }}
                       onKeyDown={(e) =>
-                        symbolsArr.includes(e.key) && e.preventDefault()
+                        symbolsArr?.includes(e.key) && e.preventDefault()
                       }
                       variant="outlined"
                       inputProps={{
@@ -199,7 +199,7 @@ const ExamMarkApprovalBulk = ({
                           e.target.select();
                         }}
                         onKeyDown={(e) =>
-                          symbolsArr.includes(e.key) && e.preventDefault()
+                          symbolsArr?.includes(e.key) && e.preventDefault()
                         }
                         inputProps={{
                           tabIndex: "2",

@@ -31,17 +31,19 @@ const SearchTeacherFacultySubjectForm = ({
     let temp = { ...errors };
     temp.IDTeacher = !fieldValues.IDTeacher ? "This feild is required" : "";
     temp.IDAcademicFacultySubjectLink =
-      !fieldValues.IDAcademicFacultySubjectLink ? "This feild is required" : "";
-    temp.Summary = !fieldValues.Summary
+      !fieldValues?.IDAcademicFacultySubjectLink
+        ? "This feild is required"
+        : "";
+    temp.Summary = !fieldValues?.Summary
       ? "This feild is required"
-      : !fieldValues.Summary.trim()
+      : !fieldValues.Summary?.trim()
       ? "This feild is required"
       : fieldValues.Summary.length > 200
       ? "Must be less than 101 characters"
       : "";
 
     setErrors({ ...temp });
-    return Object.values(temp).every((x) => x === "");
+    return Object.values(temp)?.every((x) => x === "");
   };
 
   const { values, setValues, handleInputChange, errors, setErrors } =
@@ -100,7 +102,7 @@ const SearchTeacherFacultySubjectForm = ({
             onFocus={(e) => {
               e.target.select();
             }}
-            options={datas ? datas.ddlFacultySubject : fillerArray}
+            options={datas ? datas?.ddlFacultySubject : fillerArray}
             errors={errors.IDAcademicFacultySubjectLink}
           />
           <SelectControl
@@ -111,7 +113,7 @@ const SearchTeacherFacultySubjectForm = ({
             onFocus={(e) => {
               e.target.select();
             }}
-            options={datas ? datas.ddlIsActive : fillerArray}
+            options={datas ? datas?.ddlIsActive : fillerArray}
           />
         </Grid>
       </Grid>

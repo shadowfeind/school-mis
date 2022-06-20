@@ -176,7 +176,7 @@ const LeaveRequestForm = ({
             src={
               imgSrc
                 ? imgSrc
-                : leaveRequestEdit && `${API_URL}${leaveRequestEdit.FullPath}`
+                : leaveRequestEdit && `${API_URL}${leaveRequestEdit?.FullPath}`
             }
             height={200}
             width={200}

@@ -510,7 +510,7 @@ const ExamSchedule = () => {
             <TblHead />
 
             <TableBody>
-              {tableDataAfterPagingAndSorting().map((item) => (
+              {tableDataAfterPagingAndSorting()?.map((item) => (
                 <ExamScheduleTableCollapse
                   item={item}
                   key={item.$id}

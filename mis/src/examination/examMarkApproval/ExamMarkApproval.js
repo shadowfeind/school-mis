@@ -131,7 +131,7 @@ const ExamMarkApproval = () => {
           return item;
         } else {
           return item.filter((x) =>
-            x.FullName.toLowerCase().includes(e.target.value?.toLowerCase())
+            x.FullName?.toLowerCase()?.includes(e.target.value?.toLowerCase())
           );
         }
       },
@@ -594,7 +594,7 @@ const ExamMarkApproval = () => {
                 <TblHead />
 
                 <TableBody>
-                  {tableDataAfterPagingAndSorting().map((item) => (
+                  {tableDataAfterPagingAndSorting()?.map((item) => (
                     <ExamMarkApprovalTableCollapse item={item} key={item.$id} />
                   ))}
                 </TableBody>
@@ -617,10 +617,10 @@ const ExamMarkApproval = () => {
             <ExamMarkApprovalBulk
               subjectName={bulkData && bulkData?.dbModelLsts}
               statusData={
-                bulkData && bulkData.searchFilterModel.ddlStudentExamStatus
+                bulkData && bulkData?.searchFilterModel.ddlStudentExamStatus
               }
-              search={bulkData && bulkData.searchFilterModel}
-              bulkData={bulkData && bulkData.dbModelLsts}
+              search={bulkData && bulkData?.searchFilterModel}
+              bulkData={bulkData && bulkData?.dbModelLsts}
               setOpenPopup={setOpenPopup}
             />
           </>
@@ -637,8 +637,8 @@ const ExamMarkApproval = () => {
             examApprovalInitialDatas &&
             examApprovalInitialDatas?.searchFilterModel?.ddlAcademicYear
           }
-          address={schoolValue && schoolValue.FullAddress}
-          schoolValue={schoolValue && schoolValue.SchoolName}
+          address={schoolValue && schoolValue?.FullAddress}
+          schoolValue={schoolValue && schoolValue?.SchoolName}
           blankData={bulkBlankData && bulkBlankData}
           setOpenPopup={setOpenBulkPopup}
         />

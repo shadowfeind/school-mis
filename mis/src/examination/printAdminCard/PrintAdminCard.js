@@ -515,8 +515,8 @@ const PrintAdminCard = () => {
                   value={dateValue}
                   onChange={(e) => {
                     const newDate = new Date(e);
-                    console.log(newDate.toLocaleDateString().slice(0, 10));
-                    handleDate(newDate.toLocaleDateString().slice(0, 10));
+                    console.log(newDate.toLocaleDateString()?.slice(0, 10));
+                    handleDate(newDate.toLocaleDateString()?.slice(0, 10));
                   }}
                 />
               </MuiPickersUtilsProvider>
@@ -567,7 +567,7 @@ const PrintAdminCard = () => {
               <TableContainer className={classes.table}>
                 <TblHead />
                 <TableBody>
-                  {tableDataAfterPagingAndSorting().map((item) => (
+                  {tableDataAfterPagingAndSorting()?.map((item) => (
                     <PrintAdminCardTableCollapse
                       item={item}
                       key={item.$id}

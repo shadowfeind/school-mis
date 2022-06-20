@@ -321,7 +321,7 @@ const StudentRegistration = () => {
                 <TblHead />
 
                 <TableBody>
-                  {tableDataAfterPagingAndSorting().map((item, index) => (
+                  {tableDataAfterPagingAndSorting()?.map((item, index) => (
                     <StudentRegistrationTableCollapse
                       index={index}
                       item={item}
@@ -346,7 +346,7 @@ const StudentRegistration = () => {
                       }
                       studentImage={
                         singleStudentRegistration &&
-                        singleStudentRegistration.FullPath
+                        singleStudentRegistration?.FullPath
                       }
                       setSelectedIndex={setSelectedIndex}
                       setOpenPopup={setOpenPopup}

@@ -197,14 +197,14 @@ const GeneratePublishResult = () => {
     dispatch({ type: "GET_LINK", payload: "examination" });
     if (allGeneratePublish) {
       setProgramValue(
-        allGeneratePublish?.searchFilterModel.ddlFacultyProgramLink[0].Key
+        allGeneratePublish?.searchFilterModel.ddlFacultyProgramLink[0]?.Key
       );
       setDdlClass(allGeneratePublish?.searchFilterModel.ddlClass);
-      setClassId(allGeneratePublish?.searchFilterModel.ddlClass[0].Key);
+      setClassId(allGeneratePublish?.searchFilterModel.ddlClass[0]?.Key);
       setAcademicYearDdl(allGeneratePublish?.searchFilterModel.ddlAcademicYear);
       setAcaYear(allGeneratePublish?.searchFilterModel.ddlAcademicYear[0]?.Key);
       setDdlShift(allGeneratePublish?.searchFilterModel.ddlAcademicShift);
-      setShift(allGeneratePublish?.searchFilterModel.ddlAcademicShift[0].Key);
+      setShift(allGeneratePublish?.searchFilterModel.ddlAcademicShift[0]?.Key);
       setDdlSection(allGeneratePublish?.searchFilterModel.ddlSection);
       setSection(allGeneratePublish?.searchFilterModel.ddlSection[0].Key);
       dispatch(
@@ -400,7 +400,7 @@ const GeneratePublishResult = () => {
                 <TblHead />
 
                 <TableBody>
-                  {tableDataAfterPagingAndSorting().map((item) => (
+                  {tableDataAfterPagingAndSorting()?.map((item) => (
                     <GeneratePublishResultTableCollapse
                       item={item}
                       key={item.$id}

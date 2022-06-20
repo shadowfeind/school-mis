@@ -332,7 +332,7 @@ const ClassNotification = () => {
                     value={date}
                     onChange={(e) => {
                       const newDate = new Date(e);
-                      setDate(newDate.toLocaleDateString().slice(0, 10));
+                      setDate(newDate.toLocaleDateString()?.slice(0, 10));
                     }}
                     style={{ width: "80%" }}
                   />
@@ -371,7 +371,7 @@ const ClassNotification = () => {
                 <TblHead />
 
                 <TableBody>
-                  {tableDataAfterPagingAndSorting().map((item) => (
+                  {tableDataAfterPagingAndSorting()?.map((item) => (
                     <ClassNotificationTableCollapse
                       item={item}
                       key={item.$id}

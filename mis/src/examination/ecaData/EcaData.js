@@ -95,7 +95,7 @@ const EcaData = () => {
           return item;
         } else {
           return item.filter((x) =>
-            x.EventName.toLowerCase().includes(e.target.value)
+            x.EventName?.toLowerCase()?.includes(e.target.value?.toLowerCase())
           );
         }
       },
@@ -184,9 +184,11 @@ const EcaData = () => {
     if (allEcaData) {
       setAcademicYearDdl(allEcaData.searchFilterModel.ddlAcademicYear);
       setAcaYear(allEcaData.searchFilterModel.ddlAcademicYear[0]?.Key);
+
       setProgramValue(
-        allEcaData.searchFilterModel.ddlFacultyProgramLink[0]?.Key
+        allEcaData?.searchFilterModel.ddlFacultyProgramLink[0]?.Key
       );
+
       setDdlClass(allEcaData.searchFilterModel.ddlClass);
       setClassId(allEcaData.searchFilterModel.ddlClass[0]?.Key);
       setDdlShift(allEcaData.searchFilterModel.ddlAcademicShift);

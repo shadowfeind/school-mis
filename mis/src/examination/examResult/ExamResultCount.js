@@ -12,21 +12,21 @@ const ExamResultCount = ({ result, headerBanners, setOpenPopupCount }) => {
     content: () => componentRef.current,
   });
   let classSection =
-    result && result.ddlSection.filter((x) => x.Key === result.classSection);
+    result && result.ddlSection?.filter((x) => x.Key === result.classSection);
   let event =
     result &&
-    result.ddlAcademicYearCalendar.filter(
+    result.ddlAcademicYearCalendar?.filter(
       (x) => x.Key === result.idAcademicYearCalendar
     );
   let resultYear =
     result &&
-    result.ddlAcademicYear.filter((x) => x.Key === result.idAcademicYear);
+    result.ddlAcademicYear?.filter((x) => x.Key === result.idAcademicYear);
   let classId =
     result &&
-    result.ddlLevel.filter((x) => x.Key === result.searchFilterModel.level);
+    result.ddlLevel?.filter((x) => x.Key === result.searchFilterModel.level);
   let shift =
     result &&
-    result.searchFilterModel.ddlAcademicShift.filter(
+    result.searchFilterModel.ddlAcademicShift?.filter(
       (x) => x.Key === result.searchFilterModel.idShift
     );
 
@@ -41,24 +41,24 @@ const ExamResultCount = ({ result, headerBanners, setOpenPopupCount }) => {
           <Grid item xs={6}>
             <h5>
               Class&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;
-              <span className="spanResult">{classId && classId[0].Value}</span>
+              <span className="spanResult">{classId && classId[0]?.Value}</span>
             </h5>
             <h5>
               Section&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;
               <span className="spanResult">
-                {classSection && classSection[0].Value}
+                {classSection && classSection[0]?.Value}
               </span>
             </h5>
           </Grid>
           <Grid item xs={6}>
             <h5>
               Shift&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;
-              <span className="spanResult">{shift && shift[0].Value}</span>
+              <span className="spanResult">{shift && shift[0]?.Value}</span>
             </h5>
           </Grid>
         </Grid>
         <h2>
-          {event && event[0].Value} : {result && result.npYear}
+          {event && event[0]?.Value} : {result && result.npYear}
         </h2>
         <div className="uppderTableResult">
           <table style={{ margin: "15px 0" }}>
@@ -80,9 +80,9 @@ const ExamResultCount = ({ result, headerBanners, setOpenPopupCount }) => {
             </thead>
             <tbody>
               {result &&
-                result.SubjectList.map((s, i) => {
+                result.SubjectList?.map((s, i) => {
                   let count = i + 1;
-                  let currentSubjectDatas = result.dbModelLst.filter(
+                  let currentSubjectDatas = result.dbModelLst?.filter(
                     (x) => x.SubjectCode === s.Value
                   );
                   let countAP = 0;
@@ -101,7 +101,7 @@ const ExamResultCount = ({ result, headerBanners, setOpenPopupCount }) => {
                   //Check = SchoolERP.Areas.Examination.Repository.AcademicStudentExamResultRepo.
                   //GetGrade((subject.ObtainedMark + subject.ObtainedMarkPractical), (totalFullMark + (totatFullMarkPractical == null ? 0 : totatFullMarkPractical)));
                   if (currentSubjectDatas.length > 0) {
-                    currentSubjectDatas.forEach((m) => {
+                    currentSubjectDatas?.forEach((m) => {
                       let totalMarks = m?.FullMark + m?.FullMarkPractical;
                       let totalObtainedMarks =
                         m?.ObtainedMark + m?.ObtainedMarkPractical;

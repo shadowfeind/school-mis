@@ -204,36 +204,36 @@ const StudentMonthlyPresentSheet = () => {
           .ddlFacultyProgramLink[0]?.Key
       );
       setDdlClass(
-        allStudentMonthlyPresentSheetData?.searchFilterModel.ddlClass
+        allStudentMonthlyPresentSheetData?.searchFilterModel?.ddlClass
       );
       setClassId(
         allStudentMonthlyPresentSheetData?.searchFilterModel.ddlClass[0]?.Key
       );
       setAcademicYearDdl(
-        allStudentMonthlyPresentSheetData?.searchFilterModel.ddlAcademicYear
+        allStudentMonthlyPresentSheetData?.searchFilterModel?.ddlAcademicYear
       );
       setAcaYear(
         allStudentMonthlyPresentSheetData?.searchFilterModel.ddlAcademicYear[0]
           ?.Key
       );
       setDdlShift(
-        allStudentMonthlyPresentSheetData?.searchFilterModel.ddlAcademicShift
+        allStudentMonthlyPresentSheetData?.searchFilterModel?.ddlAcademicShift
       );
       setShift(
         allStudentMonthlyPresentSheetData?.searchFilterModel.ddlAcademicShift[0]
           ?.Key
       );
       setDdlSection(
-        allStudentMonthlyPresentSheetData?.searchFilterModel.ddlSection
+        allStudentMonthlyPresentSheetData?.searchFilterModel?.ddlSection
       );
       setSection(
         allStudentMonthlyPresentSheetData?.searchFilterModel.ddlSection[0]?.Key
       );
       setDdlNepMonth(
-        allStudentMonthlyPresentSheetData?.searchFilterModel.ddlnpMonth
+        allStudentMonthlyPresentSheetData?.searchFilterModel?.ddlnpMonth
       );
       setDdlNepYear(
-        allStudentMonthlyPresentSheetData?.searchFilterModel.ddlnpYear
+        allStudentMonthlyPresentSheetData?.searchFilterModel?.ddlnpYear
       );
       setDate(
         allStudentMonthlyPresentSheetData?.searchFilterModel.currentDate?.slice(
@@ -241,6 +241,7 @@ const StudentMonthlyPresentSheet = () => {
           10
         )
       );
+
       setNepMonth(allStudentMonthlyPresentSheetData?.searchFilterModel.npMonth);
       setNepYear(allStudentMonthlyPresentSheetData?.searchFilterModel.npYear);
       dispatch(
@@ -463,7 +464,7 @@ const StudentMonthlyPresentSheet = () => {
                   value={date}
                   onChange={(e) => {
                     const newDate = new Date(e);
-                    setDate(newDate.toLocaleDateString().slice(0, 10));
+                    setDate(newDate?.toLocaleDateString()?.slice(0, 10));
                   }}
                 />
               </MuiPickersUtilsProvider>

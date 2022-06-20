@@ -47,7 +47,7 @@ const ExamResultModel = ({
               s.IDAssignECA == x.IDAssignECA &&
               s.IDHREmployee == student.IDHREmployee
             ) {
-              ecaDataFinal.push({ ...s, ECAName: x.ECAName });
+              ecaDataFinal?.push({ ...s, ECAName: x.ECAName });
             }
             // console.log("test", test);
           });
@@ -63,13 +63,13 @@ const ExamResultModel = ({
         //     }
         //   });
         // });
-        let studentClass = examReport.ddlLevel.filter(
+        let studentClass = examReport.ddlLevel?.filter(
           (x) => x.Key === examReport.level
         );
-        // let studentYear = examReport.ddlAcademicYear.filter(
+        // let studentYear = examReport.ddlAcademicYear?.filter(
         //   (x) => x.Key === examReport.idAcademicYear
         // );
-        let studentSection = examReport.ddlSection.filter(
+        let studentSection = examReport.ddlSection?.filter(
           (x) => x.Key === examReport.classSection
         );
         return (

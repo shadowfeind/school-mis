@@ -33,21 +33,21 @@ const SearchTeacherFacultySubjectTableCollapse = ({
     <TableRow>
       <TableCell>{item.TeacherName}</TableCell>
       <TableCell>
-        {yearNameToShow?.length > 0 && yearNameToShow[0].Value}
+        {yearNameToShow?.length > 0 && yearNameToShow[0]?.Value}
       </TableCell>
       <TableCell>
-        {classNameToShow?.length > 0 && classNameToShow[0].Value}
+        {classNameToShow?.length > 0 && classNameToShow[0]?.Value}
       </TableCell>
       <TableCell>
-        {subjectNameToShow?.length > 0 && subjectNameToShow[0].Value}
+        {subjectNameToShow?.length > 0 && subjectNameToShow[0]?.Value}
       </TableCell>
       <TableCell>
-        {sectionNameToShow?.length > 0 && sectionNameToShow[0].Value}
+        {sectionNameToShow?.length > 0 && sectionNameToShow[0]?.Value}
       </TableCell>
       <TableCell>
-        {shiftNameToShow?.length > 0 && shiftNameToShow[0].Value}
+        {shiftNameToShow?.length > 0 && shiftNameToShow[0]?.Value}
       </TableCell>
-      <TableCell>{item.Created_On.slice(0, 10)}</TableCell>
+      <TableCell>{item.Created_On?.slice(0, 10)}</TableCell>
       <TableCell>{item.IsActive ? "Active" : "Not Active"}</TableCell>
       <TableCell>
         <Button

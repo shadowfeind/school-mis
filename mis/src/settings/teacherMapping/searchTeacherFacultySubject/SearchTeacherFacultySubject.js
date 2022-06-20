@@ -168,10 +168,10 @@ const SearchTeacherFacultySubject = () => {
   useEffect(() => {
     if (searchTeacherFacInitData) {
       setCreationAccountSection(
-        searchTeacherFacInitData?.searchFilterModel.ddlTeacher
+        searchTeacherFacInitData?.searchFilterModel?.ddlTeacher
       );
       setCreationAccountSectionValue(
-        searchTeacherFacInitData?.searchFilterModel.ddlTeacher[0].Key
+        searchTeacherFacInitData?.searchFilterModel?.ddlTeacher[0].Key
       );
     }
   }, [searchTeacherFacInitData]);
@@ -183,7 +183,7 @@ const SearchTeacherFacultySubject = () => {
 
   useEffect(() => {
     if (searchTeacherFacListData) {
-      setTableData(searchTeacherFacListData.dbModelLst);
+      setTableData(searchTeacherFacListData?.dbModelLst);
     }
   }, [searchTeacherFacListData]);
   const validate = () => {
@@ -261,24 +261,24 @@ const SearchTeacherFacultySubject = () => {
               <TableContainer className={classes.table}>
                 <TblHead />
                 <TableBody>
-                  {tableDataAfterPagingAndSorting().map((item) => (
+                  {tableDataAfterPagingAndSorting()?.map((item) => (
                     <SearchTeacherFacultySubjectTableCollapse
                       item={item}
                       key={item.$id}
                       year={
                         searchTeacherFacListData?.searchFilterModel
-                          .ddlAcademicYear
+                          ?.ddlAcademicYear
                       }
                       subject={searchTeacherFacListData?.ddlFacultySubject}
                       classId={
-                        searchTeacherFacListData?.searchFilterModel.ddlClass
+                        searchTeacherFacListData?.searchFilterModel?.ddlClass
                       }
                       section={
-                        searchTeacherFacListData?.searchFilterModel.ddlSection
+                        searchTeacherFacListData?.searchFilterModel?.ddlSection
                       }
                       shift={
                         searchTeacherFacListData?.searchFilterModel
-                          .ddlAcademicShift
+                          ?.ddlAcademicShift
                       }
                       updateCollegeHandler={updateCollegeHandler}
                     />
@@ -306,7 +306,7 @@ const SearchTeacherFacultySubject = () => {
               }
               searchFilterModel={
                 singleEditSearchTeacherFacListData &&
-                singleEditSearchTeacherFacListData.searchFilterModel
+                singleEditSearchTeacherFacListData?.searchFilterModel
               }
               setOpenPopup={setOpenPopup}
             />

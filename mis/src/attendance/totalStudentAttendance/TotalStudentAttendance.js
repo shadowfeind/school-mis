@@ -109,7 +109,7 @@ const TotalStudentAttendance = () => {
           return item;
         } else {
           return item.filter((x) =>
-            x.FullName.toLowerCase().includes(e.target.value?.toLowerCase())
+            x.FullName?.toLowerCase()?.includes(e.target.value?.toLowerCase())
           );
         }
       },
@@ -160,27 +160,27 @@ const TotalStudentAttendance = () => {
     if (allTotalStudentAttendanceData) {
       setProgramValue(
         allTotalStudentAttendanceData?.searchFilterModel
-          .ddlFacultyProgramLink[0].Key
+          ?.ddlFacultyProgramLink[0]?.Key
       );
-      setDdlClass(allTotalStudentAttendanceData?.searchFilterModel.ddlClass);
+      setDdlClass(allTotalStudentAttendanceData?.searchFilterModel?.ddlClass);
       setClassId(
         allTotalStudentAttendanceData?.searchFilterModel.ddlClass[0]?.Key
       );
       setAcademicYearDdl(
-        allTotalStudentAttendanceData?.searchFilterModel.ddlAcademicYear
+        allTotalStudentAttendanceData?.searchFilterModel?.ddlAcademicYear
       );
       setAcaYear(
         allTotalStudentAttendanceData?.searchFilterModel.ddlAcademicYear[0]?.Key
       );
       setDdlShift(
-        allTotalStudentAttendanceData?.searchFilterModel.ddlAcademicShift
+        allTotalStudentAttendanceData?.searchFilterModel?.ddlAcademicShift
       );
       setShift(
         allTotalStudentAttendanceData?.searchFilterModel.ddlAcademicShift[0]
           ?.Key
       );
       setDdlSection(
-        allTotalStudentAttendanceData?.searchFilterModel.ddlSection
+        allTotalStudentAttendanceData?.searchFilterModel?.ddlSection
       );
       setSection(
         allTotalStudentAttendanceData?.searchFilterModel.ddlSection[0]?.Key
@@ -352,7 +352,7 @@ const TotalStudentAttendance = () => {
                   value={startDate}
                   onChange={(e) => {
                     const newDate = new Date(e);
-                    setStartDate(newDate.toLocaleDateString().slice(0, 10));
+                    setStartDate(newDate?.toLocaleDateString()?.slice(0, 10));
                   }}
                 />
               </MuiPickersUtilsProvider>
@@ -370,7 +370,7 @@ const TotalStudentAttendance = () => {
                   value={endDate}
                   onChange={(e) => {
                     const newDate = new Date(e);
-                    setEndDate(newDate.toLocaleDateString().slice(0, 10));
+                    setEndDate(newDate?.toLocaleDateString()?.slice(0, 10));
                   }}
                 />
               </MuiPickersUtilsProvider>

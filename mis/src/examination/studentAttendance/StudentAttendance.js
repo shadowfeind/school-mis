@@ -594,7 +594,7 @@ const StudentAttendance = () => {
                 <TblHead />
 
                 <TableBody>
-                  {tableDataAfterPagingAndSorting().map((item) => (
+                  {tableDataAfterPagingAndSorting()?.map((item) => (
                     <StudentAttendanceTableCollapse
                       item={item}
                       key={item.$id}

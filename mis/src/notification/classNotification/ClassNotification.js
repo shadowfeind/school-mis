@@ -171,18 +171,21 @@ const ClassNotification = () => {
     dispatch({ type: "GET_LINK", payload: "/notification" });
     if (classNotification) {
       setAcademicYear(classNotification?.searchFilterModel.ddlAcademicYear);
+      setAcademicYearValue(
+        classNotification?.searchFilterModel.ddlAcademicYear[0]?.Key
+      );
       setShift(classNotification?.searchFilterModel.ddlAcademicShift);
       setShiftValue(
-        classNotification?.searchFilterModel.ddlAcademicShift[0].Key
+        classNotification?.searchFilterModel.ddlAcademicShift[0]?.Key
       );
       setProgramValue(
-        classNotification?.searchFilterModel.ddlFacultyProgramLink[0].Key
+        classNotification?.searchFilterModel.ddlFacultyProgramLink[0]?.Key
       );
       setSection(classNotification?.searchFilterModel.ddlSection);
-      setSectionValue(classNotification?.searchFilterModel.ddlSection[0].Key);
+      setSectionValue(classNotification?.searchFilterModel.ddlSection[0]?.Key);
       setClassOpt(classNotification?.searchFilterModel.ddlClass);
-      setClassOptValue(classNotification?.searchFilterModel.ddlClass[0].Key);
-      setDate(classNotification?.searchFilterModel.currentDate.slice(0, 10));
+      setClassOptValue(classNotification?.searchFilterModel.ddlClass[0]?.Key);
+      setDate(classNotification?.searchFilterModel.currentDate?.slice(0, 10));
     }
   }, [dispatch, classNotification]);
 

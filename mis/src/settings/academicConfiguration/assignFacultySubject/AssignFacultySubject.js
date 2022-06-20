@@ -158,12 +158,15 @@ const AssignFacultySubject = () => {
     if (allAcademicSubjects) {
       // setTableData(academicYearCalendar.dbModelLst);
       setProgramValue(
-        allAcademicSubjects?.searchFilterModel.ddlFacultyProgramLink[0].Key
+        allAcademicSubjects?.searchFilterModel.ddlFacultyProgramLink[0]?.Key
       );
       setDdlClass(allAcademicSubjects?.searchFilterModel.ddlClass);
-      setClassId(allAcademicSubjects?.searchFilterModel.ddlClass[0].Key);
+      setClassId(allAcademicSubjects?.searchFilterModel.ddlClass[0]?.Key);
       setAcademicYearDdl(
         allAcademicSubjects?.searchFilterModel.ddlAcademicYear
+      );
+      setAcaYear(
+        allAcademicSubjects?.searchFilterModel.ddlAcademicYear[0]?.Key
       );
     }
   }, [dispatch, allAcademicSubjects]);

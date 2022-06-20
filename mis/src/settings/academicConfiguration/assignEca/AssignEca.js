@@ -146,12 +146,13 @@ const AssignECA = () => {
   useEffect(() => {
     if (allAssignEca) {
       setAcademicYear(allAssignEca?.searchFilterModel.ddlAcademicYear);
+      setAcaYear(allAssignEca?.searchFilterModel.ddlAcademicYear[0]?.Key);
       // setDdlProgram(allAssignEca.searchFilterModel.ddlFacultyProgramLink);
       setProgramValue(
-        allAssignEca?.searchFilterModel.ddlFacultyProgramLink[0].Key
+        allAssignEca?.searchFilterModel.ddlFacultyProgramLink[0]?.Key
       );
       setDdlClass(allAssignEca?.searchFilterModel.ddlClass);
-      setClassId(allAssignEca?.searchFilterModel.ddlClass[0].Key);
+      setClassId(allAssignEca?.searchFilterModel.ddlClass[0]?.Key);
     }
   }, [dispatch, allAssignEca]);
 

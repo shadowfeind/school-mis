@@ -176,13 +176,17 @@ const StudentRegistration = () => {
       setAcademicYearDdl(
         studentRegistrationInitialData?.searchFilterModel.ddlAcademicYear
       );
+      setAcaYear(
+        studentRegistrationInitialData?.searchFilterModel.ddlAcademicYear[0]
+          ?.Key
+      );
       setProgramValue(
         studentRegistrationInitialData?.searchFilterModel
-          .ddlFacultyProgramLink[0].Key
+          .ddlFacultyProgramLink[0]?.Key
       );
       setDdlClass(studentRegistrationInitialData?.searchFilterModel.ddlClass);
       setClassId(
-        studentRegistrationInitialData?.searchFilterModel.ddlClass[0].Key
+        studentRegistrationInitialData?.searchFilterModel.ddlClass[0]?.Key
       );
     }
   }, [dispatch, studentRegistrationInitialData]);

@@ -201,29 +201,33 @@ const StudentMonthlyPresentSheet = () => {
     if (allStudentMonthlyPresentSheetData) {
       setProgramValue(
         allStudentMonthlyPresentSheetData?.searchFilterModel
-          .ddlFacultyProgramLink[0].Key
+          .ddlFacultyProgramLink[0]?.Key
       );
       setDdlClass(
         allStudentMonthlyPresentSheetData?.searchFilterModel.ddlClass
       );
       setClassId(
-        allStudentMonthlyPresentSheetData?.searchFilterModel.ddlClass[0].Key
+        allStudentMonthlyPresentSheetData?.searchFilterModel.ddlClass[0]?.Key
       );
       setAcademicYearDdl(
         allStudentMonthlyPresentSheetData?.searchFilterModel.ddlAcademicYear
+      );
+      setAcaYear(
+        allStudentMonthlyPresentSheetData?.searchFilterModel.ddlAcademicYear[0]
+          ?.Key
       );
       setDdlShift(
         allStudentMonthlyPresentSheetData?.searchFilterModel.ddlAcademicShift
       );
       setShift(
         allStudentMonthlyPresentSheetData?.searchFilterModel.ddlAcademicShift[0]
-          .Key
+          ?.Key
       );
       setDdlSection(
         allStudentMonthlyPresentSheetData?.searchFilterModel.ddlSection
       );
       setSection(
-        allStudentMonthlyPresentSheetData?.searchFilterModel.ddlSection[0].Key
+        allStudentMonthlyPresentSheetData?.searchFilterModel.ddlSection[0]?.Key
       );
       setDdlNepMonth(
         allStudentMonthlyPresentSheetData?.searchFilterModel.ddlnpMonth
@@ -232,13 +236,22 @@ const StudentMonthlyPresentSheet = () => {
         allStudentMonthlyPresentSheetData?.searchFilterModel.ddlnpYear
       );
       setDate(
-        allStudentMonthlyPresentSheetData?.searchFilterModel.currentDate.slice(
+        allStudentMonthlyPresentSheetData?.searchFilterModel.currentDate?.slice(
           0,
           10
         )
       );
       setNepMonth(allStudentMonthlyPresentSheetData?.searchFilterModel.npMonth);
       setNepYear(allStudentMonthlyPresentSheetData?.searchFilterModel.npYear);
+      dispatch(
+        getSubjectOptionsForSelectAction(
+          allStudentMonthlyPresentSheetData?.searchFilterModel
+            .ddlAcademicYear[0]?.Key,
+          allStudentMonthlyPresentSheetData?.searchFilterModel
+            .ddlFacultyProgramLink[0]?.Key,
+          allStudentMonthlyPresentSheetData?.searchFilterModel.ddlClass[0]?.Key
+        )
+      );
     }
   }, [allStudentMonthlyPresentSheetData, dispatch]);
 

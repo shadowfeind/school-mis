@@ -224,19 +224,22 @@ const ExamResult = () => {
     dispatch({ type: "GET_LINK", payload: "examination" });
     if (examResultInitialDatas) {
       setProgramValue(
-        examResultInitialDatas?.searchFilterModel.ddlFacultyProgramLink[0].Key
+        examResultInitialDatas?.searchFilterModel.ddlFacultyProgramLink[0]?.Key
       );
       setDdlClass(examResultInitialDatas?.searchFilterModel.ddlClass);
-      setClassId(examResultInitialDatas?.searchFilterModel.ddlClass[0].Key);
+      setClassId(examResultInitialDatas?.searchFilterModel.ddlClass[0]?.Key);
       setAcademicYearDdl(
         examResultInitialDatas?.searchFilterModel.ddlAcademicYear
       );
+      setAcaYear(
+        examResultInitialDatas?.searchFilterModel.ddlAcademicYear[0]?.Key
+      );
       setDdlShift(examResultInitialDatas?.searchFilterModel.ddlAcademicShift);
       setShift(
-        examResultInitialDatas?.searchFilterModel.ddlAcademicShift[0].Key
+        examResultInitialDatas?.searchFilterModel.ddlAcademicShift[0]?.Key
       );
       setDdlSection(examResultInitialDatas?.searchFilterModel.ddlSection);
-      setSection(examResultInitialDatas?.searchFilterModel.ddlSection[0].Key);
+      setSection(examResultInitialDatas?.searchFilterModel.ddlSection[0]?.Key);
       setDdlNpYear(examResultInitialDatas?.searchFilterModel.ddlnpYear);
       setNpYear(examResultInitialDatas?.searchFilterModel.npYear);
       setDate(
@@ -244,6 +247,24 @@ const ExamResult = () => {
       );
       setDateValue(
         examResultInitialDatas?.searchFilterModel?.StartDate?.slice(0, 10)
+      );
+      dispatch(
+        getEventForExamMarkAction(
+          examResultInitialDatas?.searchFilterModel.ddlAcademicYear[0]?.Key,
+          examResultInitialDatas?.searchFilterModel.ddlFacultyProgramLink[0]
+            ?.Key,
+          examResultInitialDatas?.searchFilterModel.ddlClass[0]?.Key
+        )
+      );
+      dispatch(
+        getStudentOptionsForExamMarkAction(
+          examResultInitialDatas?.searchFilterModel.ddlAcademicYear[0]?.Key,
+          examResultInitialDatas?.searchFilterModel.ddlFacultyProgramLink[0]
+            ?.Key,
+          examResultInitialDatas?.searchFilterModel.ddlClass[0]?.Key,
+          examResultInitialDatas?.searchFilterModel.ddlSection[0]?.Key,
+          examResultInitialDatas?.searchFilterModel.ddlAcademicShift[0]?.Key
+        )
       );
     }
   }, [examResultInitialDatas, dispatch]);

@@ -141,19 +141,25 @@ const StudentIdCard = () => {
   useEffect(() => {
     if (studentIdCardInitialData) {
       setProgramValue(
-        studentIdCardInitialData?.searchFilterModel.ddlFacultyProgramLink[0].Key
+        studentIdCardInitialData?.searchFilterModel.ddlFacultyProgramLink[0]
+          ?.Key
       );
       setDdlClass(studentIdCardInitialData?.searchFilterModel.ddlClass);
-      setClassId(studentIdCardInitialData?.searchFilterModel.ddlClass[0].Key);
+      setClassId(studentIdCardInitialData?.searchFilterModel.ddlClass[0]?.Key);
       setAcademicYearDdl(
         studentIdCardInitialData?.searchFilterModel.ddlAcademicYear
       );
+      setAcaYear(
+        studentIdCardInitialData?.searchFilterModel.ddlAcademicYear[0]?.Key
+      );
       setDdlShift(studentIdCardInitialData?.searchFilterModel.ddlAcademicShift);
       setShift(
-        studentIdCardInitialData?.searchFilterModel.ddlAcademicShift[0].Key
+        studentIdCardInitialData?.searchFilterModel.ddlAcademicShift[0]?.Key
       );
       setDdlSection(studentIdCardInitialData?.searchFilterModel.ddlSection);
-      setSection(studentIdCardInitialData?.searchFilterModel.ddlSection[0].Key);
+      setSection(
+        studentIdCardInitialData?.searchFilterModel.ddlSection[0]?.Key
+      );
       setDate(
         studentIdCardInitialData.searchFilterModel.ValidityDate?.slice(0, 10)
       );

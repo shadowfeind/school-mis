@@ -202,10 +202,19 @@ const GeneratePublishResult = () => {
       setDdlClass(allGeneratePublish?.searchFilterModel.ddlClass);
       setClassId(allGeneratePublish?.searchFilterModel.ddlClass[0].Key);
       setAcademicYearDdl(allGeneratePublish?.searchFilterModel.ddlAcademicYear);
+      setAcaYear(allGeneratePublish?.searchFilterModel.ddlAcademicYear[0]?.Key);
       setDdlShift(allGeneratePublish?.searchFilterModel.ddlAcademicShift);
       setShift(allGeneratePublish?.searchFilterModel.ddlAcademicShift[0].Key);
       setDdlSection(allGeneratePublish?.searchFilterModel.ddlSection);
       setSection(allGeneratePublish?.searchFilterModel.ddlSection[0].Key);
+      dispatch(
+        getEventAction(
+          allGeneratePublish?.searchFilterModel.ddlAcademicYear[0]?.Key,
+          allGeneratePublish?.searchFilterModel.ddlFacultyProgramLink[0].Key,
+          allGeneratePublish?.searchFilterModel.ddlClass[0].Key,
+          allGeneratePublish?.searchFilterModel.ddlAcademicShift[0].Key
+        )
+      );
     }
   }, [allGeneratePublish, dispatch]);
 

@@ -278,17 +278,20 @@ const StudentProfile = () => {
   useEffect(() => {
     if (studentProfile) {
       setAcademicYear(studentProfile?.searchFilterModel.ddlAcademicYear);
+      setAcademicYearValue(
+        studentProfile?.searchFilterModel.ddlAcademicYear[0]?.Key
+      );
       setShift(studentProfile?.searchFilterModel.ddlAcademicShift);
-      setShiftValue(studentProfile?.searchFilterModel.ddlAcademicShift[0].Key);
+      setShiftValue(studentProfile?.searchFilterModel.ddlAcademicShift[0]?.Key);
       setProgramValue(
-        studentProfile?.searchFilterModel.ddlFacultyProgramLink[0].Key
+        studentProfile?.searchFilterModel.ddlFacultyProgramLink[0]?.Key
       );
       setSection(studentProfile?.searchFilterModel.ddlSection);
-      setSectionValue(studentProfile?.searchFilterModel.ddlSection[0].Key);
+      setSectionValue(studentProfile?.searchFilterModel.ddlSection[0]?.Key);
       setClassOpt(studentProfile?.searchFilterModel.ddlClass);
-      setClassOptValue(studentProfile?.searchFilterModel.ddlClass[0].Key);
+      setClassOptValue(studentProfile?.searchFilterModel.ddlClass[0]?.Key);
       setStatus(studentProfile?.searchFilterModel.ddlLevelStatus);
-      setStatusValue(studentProfile?.searchFilterModel.ddlLevelStatus[0].Key);
+      setStatusValue(studentProfile?.searchFilterModel.ddlLevelStatus[0]?.Key);
     }
   }, [dispatch, studentProfile]);
 

@@ -229,7 +229,12 @@ const OldQuestions = () => {
   useEffect(() => {
     if (allOldQuestions) {
       setDdlClass(allOldQuestions?.searchFilterModel.ddlClass);
-      // setClassId(allOldQuestions?.searchFilterModel.ddlClass[0].Key)
+      setClassId(allOldQuestions?.searchFilterModel.ddlClass[0]?.Key);
+      dispatch(
+        getSubjectOldQuestionsAction(
+          allOldQuestions?.searchFilterModel.ddlClass[0]?.Key
+        )
+      );
     }
   }, [dispatch, allOldQuestions]);
 

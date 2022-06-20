@@ -46,14 +46,14 @@ const ClassSubjectCreateForm = ({
   const classes = useStyles();
   const inputHandler = (subject, value) => {
     setFormCheck((prev) => {
-      const exists = prev.find(
+      const exists = prev?.find(
         (u) => u.IDAcademicSubject === subject.IDAcademicSubject
       );
       if (exists) {
         const newSubject = { ...subject, CreditHour: Number(value) };
         // console.log(newSubject);
         let newArr = [...prev];
-        prev.map((data, index) => {
+        prev?.map((data, index) => {
           newArr[index].CreditHour = Number(value);
         });
         return [...newArr];
@@ -64,11 +64,11 @@ const ClassSubjectCreateForm = ({
 
   const handleChange = (subject) => {
     setFormCheck((prev) => {
-      const exists = prev.find(
+      const exists = prev?.find(
         (u) => u.IDAcademicSubject === subject.IDAcademicSubject
       );
       if (exists) {
-        let newArr = prev.filter(
+        let newArr = prev?.filter(
           (u) => u.IDAcademicSubject !== subject.IDAcademicSubject
         );
         return [...newArr];
@@ -102,7 +102,7 @@ const ClassSubjectCreateForm = ({
           </TableHead>
           <TableBody>
             {subjectOptions &&
-              subjectOptions.map((subject) => (
+              subjectOptions?.map((subject) => (
                 <StyledTableRow key={subject.IDAcademicSubject}>
                   <StyledTableCell component="th" scope="row">
                     {subject.SubjectName}

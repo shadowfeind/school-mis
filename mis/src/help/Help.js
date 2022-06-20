@@ -49,10 +49,26 @@ const Help = () => {
               </Button>
             </a>
           </Grid>
-          <Grid item xs={3}>
+          {/* <Grid item xs={3}>
             {" "}
             <a
               href="https://play.google.com/store/apps/details?id=io.ionic.studentmis"
+              target="__blank"
+            >
+              <Button
+                variant="contained"
+                color="primary"
+                type="submit"
+                style={{ margin: "10px" }}
+              >
+                DOWNLOAD ANDROID APP
+              </Button>
+            </a>
+          </Grid> */}
+          <Grid item xs={3}>
+            {" "}
+            <a
+              href="https://play.google.com/store/apps/details?id=divine.school.mobileapp"
               target="__blank"
             >
               <Button

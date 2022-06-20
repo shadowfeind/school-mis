@@ -153,7 +153,9 @@ const ExamResultDesign = ({
                   <tr key={s.$id}>
                     <td>{count}</td>
                     <td>{s.SubjectName?.slice(0, 20)}</td>
-                    <td style={{ textAlign: "center" }}> 4.0</td>
+                    <td style={{ textAlign: "center" }}>
+                      {s.CreditHour?.toFixed(1)}
+                    </td>
                     <td style={{ textAlign: "center" }}>
                       {" "}
                       {gradeCalc(resultTH)}

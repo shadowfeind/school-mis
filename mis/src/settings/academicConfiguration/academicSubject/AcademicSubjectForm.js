@@ -16,7 +16,7 @@ const initialFormValues = {
   SubjectName: "",
   SubjectCode: "",
   SubjectDescription: "",
-  CreditHour: 0,
+  CreditHour: 3,
   IsOptional: false,
   IsCompulsory: false,
   IsTheoritical: false,

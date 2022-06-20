@@ -137,7 +137,7 @@ const ClassSubjectCreateForm = ({
                   <StyledTableCell align="center">
                     <TextField
                       id={`subject_${subject.IDAcademicSubject}`}
-                      defaultValue="3"
+                      defaultValue={subject.CreditHour}
                       type="number"
                       onWheelCapture={(e) => {
                         e.target.blur();

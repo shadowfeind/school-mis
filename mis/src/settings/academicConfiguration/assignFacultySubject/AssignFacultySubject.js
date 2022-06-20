@@ -90,6 +90,8 @@ const AssignFacultySubject = () => {
   const [acaYear, setAcaYear] = useState("");
   const [formCheck, setFormCheck] = useState([]);
   const [errors, setErrors] = useState({});
+  const [createErrors, setCreateErrors] = useState({});
+  const [generateErrors, setGenerateErrors] = useState({});
 
   const classes = useStyles();
 
@@ -235,21 +237,27 @@ const AssignFacultySubject = () => {
     return Object.values(temp).every((x) => x === "");
   };
 
-  // const validateTable = () => {
-  //   let temp = {};
-  //   temp.submit = formCheck?.length <= 0 ? "Select Atleast one options" : "";
+  const validateCreate = () => {
+    let temp = {};
+    temp.formCheck =
+      formCheck?.length < 1 ? "Please Select Atleast One Option" : "";
 
-  //   setErrors({ ...temp });
-  //   return Object.values(temp).every((x) => x === "");
-  // };
+    setCreateErrors({ ...temp });
+    return Object.values(temp).every((x) => x === "");
+  };
+
+  const validateGenerate = () => {
+    let temp = {};
+    temp.formCheck =
+      formCheck?.length < 1 ? "Please Select Atleast One Option" : "";
+
+    setGenerateErrors({ ...temp });
+    return Object.values(temp).every((x) => x === "");
+  };
 
   const handleAcademicYearChange = (e) => {
     handleSelectChange(e.target.value);
     setAcaYear(e.target.value);
-  };
-
-  const handleClassChange = (e) => {
-    setClassId(e.target.value);
   };
 
   const handleCreateClick = () => {
@@ -265,22 +273,26 @@ const AssignFacultySubject = () => {
   const formCheckSubmitHandler = () => {
     // if (validateTable()) {
     if (assignFacSubGenerate) {
-      dispatch(
-        AcademicFacultyCreateAction(
-          assignFacSubGenerate.idYearFacultyProgramLink,
-          assignFacSubGenerate.level,
-          formCheck
-        )
-      );
+      if (validateCreate()) {
+        dispatch(
+          AcademicFacultyCreateAction(
+            assignFacSubGenerate.idYearFacultyProgramLink,
+            assignFacSubGenerate.level,
+            formCheck
+          )
+        );
+      }
+    } else {
+      if (validateGenerate()) {
+        dispatch(
+          AcademicFacultyCreateAction(
+            academicSubjects.idYearFacultyProgramLink,
+            academicSubjects.level,
+            formCheck
+          )
+        );
+      }
     }
-    dispatch(
-      AcademicFacultyCreateAction(
-        academicSubjects.idYearFacultyProgramLink,
-        academicSubjects.level,
-        formCheck
-      )
-    );
-    setOpenPopup(false);
     // }
   };
 
@@ -445,6 +457,8 @@ const AssignFacultySubject = () => {
                   formCheck={formCheck}
                   formCheckSubmitHandler={formCheckSubmitHandler}
                   setOpenPopup={setOpenPopup}
+                  createErrors={createErrors}
+                  generateErrors={generateErrors}
                 />
               </>
             )}

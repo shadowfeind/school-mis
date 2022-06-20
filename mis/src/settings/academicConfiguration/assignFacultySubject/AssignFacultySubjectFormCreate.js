@@ -44,6 +44,8 @@ const AssignFacultySubjectFormCreate = ({
   setFormCheck,
   formCheckSubmitHandler,
   setOpenPopup,
+  createErrors,
+  generateErrors,
 }) => {
   const [subjects, setSubjects] = useState([]);
   const classes = useStyles();
@@ -188,6 +190,13 @@ const AssignFacultySubjectFormCreate = ({
           </TableBody>
         </Table>
       </TableContainer>
+      {createErrors.formCheck && (
+        <h4 style={{ color: "red" }}>{createErrors.formCheck}</h4>
+      )}
+
+      {generateErrors.formCheck && (
+        <h4 style={{ color: "red" }}>{generateErrors.formCheck}</h4>
+      )}
       {subjectOptions?.length <= 0 && (
         <div>
           <h3 style={{ color: "red", textAlign: "center" }}>No Data</h3>

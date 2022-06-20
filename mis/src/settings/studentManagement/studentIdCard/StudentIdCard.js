@@ -163,6 +163,16 @@ const StudentIdCard = () => {
       setDate(
         studentIdCardInitialData.searchFilterModel.ValidityDate?.slice(0, 10)
       );
+      dispatch(
+        getActiveStudentsForAdmitCardDataAction(
+          studentIdCardInitialData?.searchFilterModel.ddlAcademicYear[0]?.Key,
+          studentIdCardInitialData?.searchFilterModel.ddlFacultyProgramLink[0]
+            ?.Key,
+          studentIdCardInitialData?.searchFilterModel.ddlClass[0]?.Key,
+          studentIdCardInitialData?.searchFilterModel.ddlSection[0]?.Key,
+          studentIdCardInitialData?.searchFilterModel.ddlAcademicShift[0]?.Key
+        )
+      );
     }
   }, [studentIdCardInitialData, dispatch]);
 

@@ -61,6 +61,7 @@ const ExamScheduleGenerateForm = ({
   const [eventDdl, setEventDdl] = useState([]);
   const classes = useStyles();
   const [formCheck, setFormCheck] = useState([]);
+  const [allChecked, setAllChecked] = useState(false);
   const [errors, setErrors] = useState([]);
 
   const dispatch = useDispatch();
@@ -115,6 +116,7 @@ const ExamScheduleGenerateForm = ({
     }
     if (generate) {
       setFormCheck([...generate.dbModelLst]);
+      setAllChecked(true);
     }
     if (acaYear && classValue && programValue) {
       dispatch(
@@ -156,8 +158,10 @@ const ExamScheduleGenerateForm = ({
   const handleBulkChange = (checked) => {
     if (checked) {
       setFormCheck([...generate.dbModelLst]);
+      setAllChecked(checked);
     } else {
       setFormCheck([]);
+      setAllChecked(checked);
     }
   };
 
@@ -250,6 +254,7 @@ const ExamScheduleGenerateForm = ({
                       onChange={(e) => handleBulkChange(e.target.checked)}
                       name="checkedB"
                       color="primary"
+                      checked={allChecked}
                     />
                   </StyledTableCell>
                 </TableRow>

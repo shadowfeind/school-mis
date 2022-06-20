@@ -390,8 +390,10 @@ const ClassSubject = () => {
               subjectOptions={
                 createClassSubjects && createClassSubjects.ddlSubjectModelLst
               }
+              formCheck={formCheck}
               setFormCheck={setFormCheck}
               formCheckSubmitHandler={formCheckSubmitHandler}
+              setOpenPopup={setOpenPopup}
             />
           </>
         )}

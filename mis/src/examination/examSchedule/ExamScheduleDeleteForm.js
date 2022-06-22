@@ -5,9 +5,7 @@ import { useForm, Form } from "../../customHooks/useForm";
 import { useDispatch, useSelector } from "react-redux";
 import DatePickerControl from "../../components/controls/DatePickerControl";
 import SelectControl from "../../components/controls/SelectControl";
-import {
-    deleteExamScheduleAction,
-} from "./ExamScheduleActions";
+import { deleteExamScheduleAction } from "./ExamScheduleActions";
 
 const initialFormValues = {
   IDAcademicExamSchedule: 0,
@@ -33,10 +31,7 @@ const initialFormValues = {
   Updated_On: "2022-01-28T07:12:28.958Z",
 };
 
-const ExamScheduleDeleteForm = ({
-  examScheduleDelete,
-  setOpenDeletePopup
-}) => {
+const ExamScheduleDeleteForm = ({ examScheduleDelete, setOpenDeletePopup }) => {
   const dispatch = useDispatch();
 
   const { values, setValues, handleInputChange, errors, setErrors } =
@@ -48,12 +43,15 @@ const ExamScheduleDeleteForm = ({
     }
   }, [examScheduleDelete]);
 
-  const symbolsArr = ["e", "E", "+", "-", ".","ArrowUp","ArrowDown"];
+  const symbolsArr = ["e", "E", "+", "-", ".", "ArrowUp", "ArrowDown"];
 
   const test = [{ Key: "", Value: "" }];
-  const handleDeleteSchedule = () => {
-    dispatch(deleteExamScheduleAction(values, examScheduleDelete.searchFilterModel))
-  }
+  const handleDeleteSchedule = (e) => {
+    e.preventDefault();
+    dispatch(
+      deleteExamScheduleAction(values, examScheduleDelete.searchFilterModel)
+    );
+  };
 
   return (
     <>
@@ -61,36 +59,34 @@ const ExamScheduleDeleteForm = ({
         <Grid container style={{ fontSize: "12px" }}>
           <Grid item xs={6}>
             <SelectControl
-            disabled
+              disabled
               name="IDAcademicFacultySubjectLink"
               label="Subject"
               value={values.IDAcademicFacultySubjectLink}
               options={
-                examScheduleDelete
-                  ? examScheduleDelete.ddlSubject
-                  : test
+                examScheduleDelete ? examScheduleDelete.ddlSubject : test
               }
-              onChange= {null}
+              onChange={null}
             />
             <SelectControl
-            disabled
+              disabled
               name="ExamType"
               label="Exam Type*"
               value={values.ExamType}
               options={
-                examScheduleDelete
-                  ? examScheduleDelete.ddlExamType
-                  : test
+                examScheduleDelete ? examScheduleDelete.ddlExamType : test
               }
-              onChange= {null}
+              onChange={null}
             />
             {values.ExamType == "P" && (
               <InputControl
-              disabled
+                disabled
                 name="FullMarkPractical"
                 label="Full Marks Practical"
                 value={values.FullMarkPractical}
-                onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}
+                onKeyDown={(e) =>
+                  symbolsArr.includes(e.key) && e.preventDefault()
+                }
                 onChange={(e) =>
                   (e.target.value <= 100) & (e.target.value >= 0) &&
                   handleInputChange(e)
@@ -100,11 +96,13 @@ const ExamScheduleDeleteForm = ({
               />
             )}
             <InputControl
-            disabled
+              disabled
               name="FullMark"
               label="Full Marks*"
               value={values.FullMark}
-              onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}
+              onKeyDown={(e) =>
+                symbolsArr.includes(e.key) && e.preventDefault()
+              }
               onChange={(e) =>
                 (e.target.value <= 100) & (e.target.value >= 0) &&
                 handleInputChange(e)
@@ -113,16 +111,14 @@ const ExamScheduleDeleteForm = ({
               type="number"
             />
             <SelectControl
-            disabled
+              disabled
               name="ApplyGroup"
               label="Apply Group"
               value={values.ApplyGroup}
               options={
-                examScheduleDelete
-                  ? examScheduleDelete.ddlIsActive
-                  : test
+                examScheduleDelete ? examScheduleDelete.ddlIsActive : test
               }
-              onChange= {null}
+              onChange={null}
               // errors={errors.ApplyGroup}
             />
             {/* <DatePickerControl
@@ -134,30 +130,32 @@ const ExamScheduleDeleteForm = ({
               // errors={errors.ExamScheduleFromDate}
             /> */}
             <InputControl
-            disabled
+              disabled
               name="ExamScheduleFromTime"
               label="From"
               value={values.ExamScheduleFromTime}
-              onChange= {null}
+              onChange={null}
               // errors={errors.ExamScheduleFromTime}
               type="time"
             />
           </Grid>
           <Grid item xs={6}>
             <InputControl
-            disabled
+              disabled
               name="DisplayName"
               label="Display Name"
               value={values.DisplayName}
-              onChange= {null}
+              onChange={null}
               // errors={errors.DisplayName}
             />
             <InputControl
-            disabled
+              disabled
               name="SubjectOrder"
               label="Subject Order"
               value={values.SubjectOrder}
-              onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}
+              onKeyDown={(e) =>
+                symbolsArr.includes(e.key) && e.preventDefault()
+              }
               type="number"
               onChange={(e) =>
                 (e.target.value <= 100) & (e.target.value >= 0) &&
@@ -166,11 +164,13 @@ const ExamScheduleDeleteForm = ({
               // errors={errors.SubjectOrder}
             />
             <InputControl
-            disabled
+              disabled
               name="PassMark"
               label="Pass Mark"
               value={values.PassMark}
-              onKeyDown={(e) => symbolsArr.includes(e.key) && e.preventDefault()}
+              onKeyDown={(e) =>
+                symbolsArr.includes(e.key) && e.preventDefault()
+              }
               onChange={(e) =>
                 (e.target.value <= 100) & (e.target.value >= 0) &&
                 handleInputChange(e)
@@ -179,11 +179,11 @@ const ExamScheduleDeleteForm = ({
               type="number"
             />
             <InputControl
-            disabled
+              disabled
               name="GroupNumber"
               label="Group Number"
               value={values.GroupNumber}
-              onChange= {null}
+              onChange={null}
               // errors={errors.GroupNumber}
             />
             {/* <DatePickerControl
@@ -195,11 +195,11 @@ const ExamScheduleDeleteForm = ({
               // errors={errors.ExamScheduleToDate}
             /> */}
             <InputControl
-            disabled
+              disabled
               name="ExamScheduleToTime"
               label="To"
               value={values.ExamScheduleToTime}
-              onChange= {null}
+              onChange={null}
               // errors={errors.ExamScheduleToTime}
               type="time"
             />

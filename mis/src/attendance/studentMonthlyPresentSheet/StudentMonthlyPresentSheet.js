@@ -352,15 +352,21 @@ const StudentMonthlyPresentSheet = () => {
   const nepMonthHandler = (value) => {
     setNepMonth(value);
     if (nepYear) {
-      dispatch(getEnglishDateAction(value, nepYear));
+      dispatch(getEnglishDateAction(nepYear, value));
     }
   };
   const nepYearHandler = (value) => {
     setNepYear(value);
     if (nepMonth) {
-      dispatch(getEnglishDateAction(nepMonth, value));
+      dispatch(getEnglishDateAction(value, nepMonth));
     }
   };
+
+  useEffect(() => {
+    if (engDate) {
+      setDate(engDate?.Key);
+    }
+  }, [engDate]);
 
   return (
     <>
@@ -498,6 +504,10 @@ const StudentMonthlyPresentSheet = () => {
             {getListStudentPresent && (
               <StudentMonthlyPresentSheetTableCollapse
                 students={getListStudentPresent && getListStudentPresent}
+                fromDate={
+                  getListStudentPresent &&
+                  getListStudentPresent.searchFilterModel.fromDate
+                }
               />
             )}
           </>

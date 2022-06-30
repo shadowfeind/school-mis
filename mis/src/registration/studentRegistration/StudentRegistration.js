@@ -188,6 +188,14 @@ const StudentRegistration = () => {
       setClassId(
         studentRegistrationInitialData?.searchFilterModel.ddlClass[0]?.Key
       );
+      dispatch(
+        checkAcademicYearForStudentAction(
+          studentRegistrationInitialData?.searchFilterModel.ddlAcademicYear[0]
+            ?.Key,
+          studentRegistrationInitialData?.searchFilterModel
+            .ddlFacultyProgramLink[0]?.Key
+        )
+      );
     }
   }, [dispatch, studentRegistrationInitialData]);
 

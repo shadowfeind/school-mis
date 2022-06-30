@@ -11,6 +11,7 @@ import { RegistrationRoute } from "../routesConfig/RegistrationRoute";
 import { SettingsRoute } from "../routesConfig/SettingsRoute";
 import { NotificationRoute } from "../routesConfig/NotificationRoute";
 import { SMSNotificationRoute } from "../routesConfig/SmsNotificationRoute";
+import { HelpRoute } from "../routesConfig/HellpRoute";
 
 const useStyles = makeStyles({
   sideMenu: {
@@ -103,6 +104,13 @@ const SideMenu = () => {
     if (routeCheck !== "/sms-notification") {
       setRouteCheck("/sms-notification");
       setRouteLinks(SMSNotificationRoute);
+    }
+  }
+
+  if (navLink === "/help") {
+    if (routeCheck !== "/help") {
+      setRouteCheck("/help");
+      setRouteLinks(HelpRoute);
     }
   }
   return (

@@ -148,8 +148,8 @@ const StudentProfileForm = ({ studentData, setOpenPopup }) => {
       ? ""
       : "Email is not valid";
     temp.BloodGroup = !fieldValues.BloodGroup ? "This feild is required" : "";
-    temp.UniversityRegistrationNumber =
-      !fieldValues.UniversityRegistrationNumber ? "This feild is required" : "";
+    // temp.UniversityRegistrationNumber =
+    //   !fieldValues.UniversityRegistrationNumber ? "This feild is required" : "";
     // temp.WebLoginAccess = !fieldValues.WebLoginAccess
     // ? "This feild is required"
     // : "";
@@ -240,7 +240,7 @@ const StudentProfileForm = ({ studentData, setOpenPopup }) => {
               e.target.select();
             }}
             onChange={handleInputChange}
-            errors={errors.UniversityRegistrationNumber}
+            // errors={errors.UniversityRegistrationNumber}
           />
           <SelectControl
             name="Sex"

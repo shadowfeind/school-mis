@@ -54,7 +54,7 @@ const Help = () => {
               </Button>
             </a>
           </Grid>
-          <Grid item xs={3}>
+          {/* <Grid item xs={3}>
             {" "}
             <a
               href="https://play.google.com/store/apps/details?id=io.ionic.studentmis"
@@ -69,8 +69,8 @@ const Help = () => {
                 DOWNLOAD ANDROID APP
               </Button>
             </a>
-          </Grid>
-          {/* <Grid item xs={3}>
+          </Grid> */}
+          <Grid item xs={3}>
             {" "}
             <a
               href="https://play.google.com/store/apps/details?id=divine.school.mobileapp"
@@ -85,7 +85,7 @@ const Help = () => {
                 DOWNLOAD ANDROID APP
               </Button>
             </a>
-          </Grid> */}
+          </Grid>
         </Grid>
       </div>
       <div className={classes.helpBotContainer}>

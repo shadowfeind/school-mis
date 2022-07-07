@@ -1,10 +1,10 @@
-import DateRangeIcon from '@material-ui/icons/DateRange';
-import PortraitIcon from '@material-ui/icons/Portrait';
-import GroupAddIcon from '@material-ui/icons/GroupAdd';
+import DateRangeIcon from "@material-ui/icons/DateRange";
+import PortraitIcon from "@material-ui/icons/Portrait";
+import GroupAddIcon from "@material-ui/icons/GroupAdd";
 export const RegistrationRoute = [
   {
     name: "Counter Configuraion",
-    route: "/registration",
+    route: "/counter-configuration",
     icon: DateRangeIcon,
     exact: false,
   },
@@ -16,7 +16,7 @@ export const RegistrationRoute = [
   },
   {
     name: "Student Registration",
-    route: "/student-registration",
+    route: "/registration",
     icon: GroupAddIcon,
     exact: false,
   },

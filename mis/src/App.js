@@ -177,15 +177,15 @@ const App = () => {
               <Route path={"/attendance"} component={Attendance} />
               {/* attendance route end */}
               {/* registration route starts */}
-              <Route path={"/registration"} component={CounterConfiguration} />
+              <Route
+                path={"/counter-configuration"}
+                component={CounterConfiguration}
+              />
               <Route
                 path={"/admission-configuration"}
                 component={AdmissionConfiguration}
               />
-              <Route
-                path={"/student-Registration"}
-                component={StudentRegistration}
-              />
+              <Route path={"/registration"} component={StudentRegistration} />
               <Route path={"/old-questions"} component={OldQuestions} />
               <Route path={"/syllabus"} component={Syllabus} />
               <Route path={"/teacher-mapping"} component={TeacherMapping} />

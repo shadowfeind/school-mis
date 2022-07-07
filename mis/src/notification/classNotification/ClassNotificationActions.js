@@ -96,8 +96,8 @@ export const postClassNotificationAction =
         registration_ids: fcmTokenList,
         collapse_key: "type_a",
         notification: {
-          body: dbModel.MessageHeading,
-          title: SchoolShortName,
+          body: dbModel.MessageDescription,
+          title: `${SchoolShortName} (${dbModel.MessageHeading})`,
         },
       };
 

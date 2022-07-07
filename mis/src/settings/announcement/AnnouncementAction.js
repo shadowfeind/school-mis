@@ -96,8 +96,8 @@ export const announcementCreateAction =
         registration_ids: fcmTokenList,
         collapse_key: "type_a",
         notification: {
-          body: announcementCreate.NewsHeading,
-          title: schoolName,
+          body: announcementCreate.NewsDescription,
+          title: `${schoolName} (${announcementCreate.NewsHeading?.toUpperCase()})`,
         },
       };
 

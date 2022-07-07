@@ -99,8 +99,8 @@ export const postTeacherNotificationAction =
         registration_ids: fcmTokenList,
         collapse_key: "type_a",
         notification: {
-          body: teacherNotification.MessageHeading,
-          title: SchoolShortName,
+          body: teacherNotification.MessageDescription,
+          title: `${SchoolShortName} (${teacherNotification.MessageHeading})`,
         },
       };
 

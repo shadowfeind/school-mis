@@ -32,7 +32,9 @@ const ClassNotificationTableCollapse = ({
         <TableCell>
           {item.FirstName} {item.MiddleName} {item.LastName}
         </TableCell>
-        <TableCell style={{ width: 20 }}>{item.MessageDescription}</TableCell>
+        <TableCell style={{ width: "40%" }}>
+          {item.MessageDescription}
+        </TableCell>
         <TableCell>{item.Created_On?.slice(0, 10)}</TableCell>
         <TableCell>
           {" "}

@@ -31,8 +31,8 @@ const AnnouncementTableCollapse = ({
 
   return (
     <TableRow>
-      <TableCell>{item.NewsHeading}</TableCell>
-      <TableCell style={{ width: 20 }}>{item.NewsDescription}</TableCell>
+      <TableCell style={{ width: "25%" }}>{item.NewsHeading}</TableCell>
+      <TableCell style={{ width: "40%" }}>{item.NewsDescription}</TableCell>
       <TableCell>{item.Created_On.slice(0, 10)}</TableCell>
       <TableCell>{item.Updated_On.slice(0, 10)}</TableCell>
       <TableCell>{item.IsActive ? "Active" : "InActive"}</TableCell>

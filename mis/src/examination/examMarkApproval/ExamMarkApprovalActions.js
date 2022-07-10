@@ -28,7 +28,7 @@ export const getInitialExamApprovalDataAction = () => async (dispatch) => {
     dispatch({ type: GET_INITIAL_EXAM_APPORVAL_DATA_REQUEST });
 
     const { data } = await axiosInstance.get(
-      `${API_URL}/api/AcademicStudentExamData/GetAllAcademicStudentExamData
+      `${API_URL}/api/ApproveAcademicStudentExamData/GetAllExamMarkApproval
       `,
       tokenConfig()
     );

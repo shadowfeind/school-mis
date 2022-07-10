@@ -16,6 +16,7 @@ import { withStyles, makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import { postBulkExamMarkApprovalAction } from "./ExamMarkApprovalActions";
 import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -51,6 +52,10 @@ const ExamMarkApprovalBulk = ({
   const [errors, setErrors] = useState({});
   const classes = useStyles();
   const dispatch = useDispatch();
+
+  const { loading: postLoading } = useSelector(
+    (state) => state.postBulkExamApproval
+  );
 
   const validate = () => {
     let temp = {};
@@ -302,11 +307,12 @@ const ExamMarkApprovalBulk = ({
         <Button
           variant="contained"
           color="primary"
+          disabled={postLoading}
           type="submit"
           style={{ margin: "10px 0 0 10px" }}
           onClick={formCheckSubmitHandler}
         >
-          SUBMIT
+          {postLoading ? "PROCESSING..." : "SUBMIT"}
         </Button>
       </div>
     </>

@@ -92,23 +92,6 @@ export const announcementCreateAction =
     try {
       dispatch({ type: ANNOUNCEMENT_CREATE_REQUEST });
 
-      const fcmBody = {
-        registration_ids: fcmTokenList,
-        collapse_key: "type_a",
-        notification: {
-          body: announcementCreate.NewsDescription,
-          title: `${schoolName} (${announcementCreate.NewsHeading?.toUpperCase()})`,
-        },
-      };
-
-      const fbody = JSON.stringify(fcmBody);
-
-      await axios.post(
-        "https://fcm.googleapis.com/fcm/send",
-        fbody,
-        tokenHeader
-      );
-
       const jsonData = JSON.stringify({ dbModel: announcementCreate });
 
       const { data } = await axiosInstance.post(
@@ -126,6 +109,19 @@ export const announcementCreateAction =
           : error?.message,
       });
     }
+
+    const fcmBody = {
+      registration_ids: fcmTokenList,
+      collapse_key: "type_a",
+      notification: {
+        body: announcementCreate.NewsDescription,
+        title: `${schoolName} (${announcementCreate.NewsHeading?.toUpperCase()})`,
+      },
+    };
+
+    const fbody = JSON.stringify(fcmBody);
+
+    await axios.post("https://fcm.googleapis.com/fcm/send", fbody, tokenHeader);
   };
 
 export const getSingleAnnouncementAction = (id) => async (dispatch) => {

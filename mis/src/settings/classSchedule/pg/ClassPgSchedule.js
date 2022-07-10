@@ -97,7 +97,7 @@ const ClassPgSchedule = () => {
       dispatch(getAllPgClassScheuleAction());
     }
     if (pgClassSchedule) {
-      dispatch(getListClassScheuleAction(pgClassSchedule.dbModelLst[0].Id));
+      dispatch(getListClassScheuleAction(pgClassSchedule.dbModelLst[0]?.Id));
     }
   }, [pgClassSchedule]);
 

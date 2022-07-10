@@ -171,7 +171,7 @@ const SearchTeacherFacultySubject = () => {
         searchTeacherFacInitData?.searchFilterModel?.ddlTeacher
       );
       setCreationAccountSectionValue(
-        searchTeacherFacInitData?.searchFilterModel?.ddlTeacher[0].Key
+        searchTeacherFacInitData?.searchFilterModel?.ddlTeacher[0]?.Key
       );
     }
   }, [searchTeacherFacInitData]);

@@ -95,26 +95,7 @@ export const postTeacherNotificationAction =
     try {
       dispatch({ type: POST_TEACHER_NOTIFICATION_REQUEST });
 
-      const fcmBody = {
-        registration_ids: fcmTokenList,
-        collapse_key: "type_a",
-        notification: {
-          body: teacherNotification.MessageDescription,
-          title: `${SchoolShortName} (${teacherNotification.MessageHeading})`,
-        },
-      };
-
-      const fbody = JSON.stringify(fcmBody);
-
-      await axios.post(
-        "https://fcm.googleapis.com/fcm/send",
-        fbody,
-        tokenHeader
-      );
-
       const jsonData = JSON.stringify({ dbModel: teacherNotification });
-
-      console.log(jsonData);
 
       const { data } = await axiosInstance.post(
         `${API_URL}/api/TeacherNotification/PostTeacherNotification`,
@@ -131,4 +112,16 @@ export const postTeacherNotificationAction =
           : error?.message,
       });
     }
+    const fcmBody = {
+      registration_ids: fcmTokenList,
+      collapse_key: "type_a",
+      notification: {
+        body: teacherNotification.MessageDescription,
+        title: `${SchoolShortName} (${teacherNotification.MessageHeading})`,
+      },
+    };
+
+    const fbody = JSON.stringify(fcmBody);
+
+    await axios.post("https://fcm.googleapis.com/fcm/send", fbody, tokenHeader);
   };

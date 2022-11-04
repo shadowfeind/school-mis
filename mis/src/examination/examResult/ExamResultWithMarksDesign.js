@@ -22,6 +22,8 @@ const ExamResultWithMarksDesign = ({
   date,
 }) => {
   let trackSubject = [];
+  let trackSubjectFullMarks = [];
+  let trackSubjectMarks = [];
   let tdToRender = [];
 
   for (let i = subjects.length; i <= 10; i++) {
@@ -39,25 +41,21 @@ const ExamResultWithMarksDesign = ({
           <Grid item xs={6}>
             <h5>
               Name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;
-              <span className="spanResult">{student.FullName}</span>
+              <span>{student.FullName}</span>
             </h5>
             <h5>
               Section&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;
-              <span className="spanResult">
-                {studentSection && studentSection.Value}
-              </span>
+              <span>{studentSection && studentSection.Value}</span>
             </h5>
           </Grid>
           <Grid item xs={6}>
             <h5>
               Class&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;
-              <span className="spanResult">
-                {studentClass && studentClass.Value}
-              </span>
+              <span>{studentClass && studentClass.Value}</span>
             </h5>
             <h5>
               Roll No&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;
-              <span className="spanResult">{student.RollNo}</span>
+              <span>{student.RollNo}</span>
             </h5>
           </Grid>
         </Grid>
@@ -78,11 +76,11 @@ const ExamResultWithMarksDesign = ({
                 <th colSpan="2" style={{ textAlign: "center" }}>
                   Obtained Marks
                 </th>
-                <th colSpan="2" style={{ textAlign: "center" }} width="20%">
+                {/* <th colSpan="2" style={{ textAlign: "center" }} width="20%">
                   Obtained Grades
-                </th>
+                </th> */}
                 <th style={{ textAlign: "center" }} rowSpan="2">
-                  Final Grade
+                  Grade
                 </th>
                 <th style={{ textAlign: "center" }} rowSpan="2">
                   Grade Point
@@ -96,102 +94,109 @@ const ExamResultWithMarksDesign = ({
                 <th style={{ textAlign: "center" }}>PR</th>
                 <th style={{ textAlign: "center" }}>TH</th>
                 <th style={{ textAlign: "center" }}>PR</th>
-                <th style={{ textAlign: "center" }}>TH</th>
-                <th style={{ textAlign: "center" }}>PR</th>
+                {/* <th style={{ textAlign: "center" }}>TH</th>
+                <th style={{ textAlign: "center" }}>PR</th> */}
               </tr>
             </thead>
             <tbody>
-              {subjects?.map((s, i) => {
-                let count = i + 1;
-                let resultTH = (s.ObtainedMark * 100) / s.FullMark;
-                let resultPR =
-                  (s.ObtainedMarkPractical * 100) / s.FullMarkPractical;
-                let resultTotal =
-                  ((s.ObtainedMark + s.ObtainedMarkPractical) /
-                    (s.FullMark + s.FullMarkPractical)) *
-                  100;
+              {subjects
+                ?.sort((a, b) => a.SubjectOrder - b.SubjectOrder)
+                ?.map((s, i) => {
+                  let count = i + 1;
+                  let resultTH = (s.ObtainedMark * 100) / s.FullMark;
+                  let resultPR =
+                    (s.ObtainedMarkPractical * 100) / s.FullMarkPractical;
+                  let resultTotal =
+                    ((s.ObtainedMark + s.ObtainedMarkPractical) /
+                      (s.FullMark + s.FullMarkPractical)) *
+                    100;
 
-                let gradePointTotal =
-                  ((s.ObtainedMark + s.ObtainedMarkPractical) /
-                    (s.FullMark + s.FullMarkPractical)) *
-                  100;
+                  let gradePointTotal =
+                    ((s.ObtainedMark + s.ObtainedMarkPractical) /
+                      (s.FullMark + s.FullMarkPractical)) *
+                    100;
 
-                let filteredSubjects = dbModelLst?.filter(
-                  (x) =>
-                    (x.SubjectCode === s.SubjectCode) &
-                    (x.Status === "Approved")
-                );
-                let highestThMarks = filteredSubjects?.sort(
-                  (a, b) => b.ObtainedMark - a.ObtainedMark
-                );
-                let highestPrMarks = filteredSubjects?.sort(
-                  (a, b) => b.ObtainedMarkPractical - a.ObtainedMarkPractical
-                );
+                  let filteredSubjects = dbModelLst?.filter(
+                    (x) =>
+                      (x.SubjectCode === s.SubjectCode) &
+                      (x.Status === "Approved")
+                  );
+                  let highestThMarks = filteredSubjects?.sort(
+                    (a, b) => b.ObtainedMark - a.ObtainedMark
+                  );
+                  let highestPrMarks = filteredSubjects?.sort(
+                    (a, b) => b.ObtainedMarkPractical - a.ObtainedMarkPractical
+                  );
 
-                let totalHighestMarks;
-                if ((highestThMarks.length > 0) & (highestPrMarks.length > 0)) {
-                  let totalMarks = s?.FullMark + s?.FullMarkPractical;
+                  let totalHighestMarks;
+                  if (highestThMarks.length > 0 && highestPrMarks.length > 0) {
+                    let totalMarks = s?.FullMark + s?.FullMarkPractical;
 
-                  let totalHighestMarksContainer =
-                    highestThMarks[0].ObtainedMark +
-                    highestPrMarks[0].ObtainedMarkPractical;
+                    let totalHighestMarksContainer =
+                      highestThMarks[0].ObtainedMark +
+                      highestPrMarks[0].ObtainedMarkPractical;
 
-                  totalHighestMarks =
-                    (totalHighestMarksContainer * 100) / totalMarks;
-                } else {
-                  totalHighestMarks = 0;
-                }
+                    totalHighestMarks =
+                      (totalHighestMarksContainer * 100) / totalMarks;
+                  } else {
+                    totalHighestMarks = 0;
+                  }
 
-                //to calculate GPA tracking grade poing
-                let subTracker = {
-                  name: s.SubjectCode,
-                  totalMarks: Number(pointCalc(gradePointTotal)),
-                };
-                trackSubject.push(subTracker);
+                  trackSubjectFullMarks.push(s.FullMark + s.FullMarkPractical);
+                  trackSubjectMarks.push(
+                    s.ObtainedMark + s.ObtainedMarkPractical
+                  );
 
-                return (
-                  <tr key={s.$id}>
-                    <td>{count}</td>
-                    <td>{s.SubjectName?.slice(0, 20)}</td>
-                    <td style={{ textAlign: "center" }}> {s.FullMark}</td>
-                    <td style={{ textAlign: "center" }}>
-                      {" "}
-                      {s.FullMarkPractical}
-                    </td>
-                    <td style={{ textAlign: "center" }}>
-                      {" "}
-                      {s.FullMark !== null &&
-                        (s.ObtainedMark ? s.ObtainedMark.toFixed(2) : "0.00")}
-                    </td>
-                    <td style={{ textAlign: "center" }}>
-                      {" "}
-                      {s.FullMarkPractical !== null &&
-                        (s.ObtainedMarkPractical
-                          ? s.ObtainedMarkPractical.toFixed(2)
-                          : "0.00")}
-                    </td>
-                    <td style={{ textAlign: "center" }}>
+                  //to calculate GPA tracking grade poing
+                  let subTracker = {
+                    name: s.SubjectCode,
+                    totalMarks: Number(pointCalc(gradePointTotal)),
+                  };
+                  trackSubject.push(subTracker);
+
+                  return (
+                    <tr key={s.$id}>
+                      <td>{count}</td>
+                      <td>{s.SubjectName?.slice(0, 20)}</td>
+                      <td style={{ textAlign: "center" }}> {s.FullMark}</td>
+                      <td style={{ textAlign: "center" }}>
+                        {" "}
+                        {s.FullMarkPractical}
+                      </td>
+                      <td style={{ textAlign: "center" }}>
+                        {" "}
+                        {s.FullMark !== null &&
+                          (s.ObtainedMark ? s.ObtainedMark.toFixed(2) : "0.00")}
+                      </td>
+                      <td style={{ textAlign: "center" }}>
+                        {" "}
+                        {s.FullMarkPractical !== null &&
+                          (s.ObtainedMarkPractical
+                            ? s.ObtainedMarkPractical.toFixed(2)
+                            : "0.00")}
+                      </td>
+                      {/* <td style={{ textAlign: "center" }}>
                       {" "}
                       {gradeCalc(resultTH)}
                     </td>
                     <td style={{ textAlign: "center" }}>
                       {" "}
                       {s.FullMarkPractical !== null ? gradeCalc(resultPR) : ""}
-                    </td>
-                    <td style={{ textAlign: "center" }}>
-                      {" "}
-                      {gradeCalc(resultTotal)}
-                    </td>
-                    <td style={{ textAlign: "center" }}>
-                      {" "}
-                      {pointCalc(gradePointTotal)}
-                    </td>
-                    <td style={{ textAlign: "center" }}>
-                      {gradeCalc(totalHighestMarks)}
-                    </td>
-                  </tr>
-                );
-              })}
+                    </td> */}
+                      <td style={{ textAlign: "center" }}>
+                        {" "}
+                        {gradeCalc(resultTotal)}
+                      </td>
+                      <td style={{ textAlign: "center" }}>
+                        {" "}
+                        {pointCalc(gradePointTotal)}
+                      </td>
+                      <td style={{ textAlign: "center" }}>
+                        {gpaToGrade(pointCalc(gradePointTotal))}
+                      </td>
+                    </tr>
+                  );
+                })}
               {/* to render empty td */}
               {tdToRender &&
                 tdToRender?.map((x) => (
@@ -205,13 +210,30 @@ const ExamResultWithMarksDesign = ({
                     <td height={30}> </td>
                     <td height={30}> </td>
                     <td height={30}> </td>
-                    <td height={30}> </td>
-                    <td height={30}> </td>
+                    {/* <td height={30}> </td>
+                    <td height={30}> </td> */}
                   </tr>
                 ))}
 
               <tr>
-                <td colSpan={9} style={{ textAlign: "center" }}>
+                <td colSpan={2} style={{ textAlign: "center" }}>
+                  TOTAL
+                </td>
+                <td colSpan={2} style={{ textAlign: "center" }}>
+                  {trackSubjectFullMarks
+                    ?.reduce((acc, cur) => {
+                      return acc + cur;
+                    }, 0)
+                    .toFixed(2)}
+                </td>
+                <td colSpan={2} style={{ textAlign: "center" }}>
+                  {trackSubjectMarks
+                    ?.reduce((acc, cur) => {
+                      return acc + cur;
+                    }, 0)
+                    .toFixed(2)}
+                </td>
+                {/* <td colSpan={4} style={{ textAlign: "center" }}>
                   GRADE POINT AVERAGE (GPA)
                 </td>
                 <td style={{ textAlign: "center" }}>
@@ -220,7 +242,9 @@ const ExamResultWithMarksDesign = ({
                       return acc + cur.totalMarks;
                     }, 0) / trackSubject.length
                   )?.toFixed(2)}
-                </td>
+                </td> */}
+                <td></td>
+                <td></td>
                 <td></td>
               </tr>
             </tbody>

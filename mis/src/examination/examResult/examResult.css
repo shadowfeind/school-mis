@@ -38,7 +38,7 @@
   padding: 8px 15px;
 }
 .spanResult {
-  font-weight: lighter;
+  font-weight: bold;
 }
 .uppderTableResult table {
   border-collapse: collapse;
@@ -79,7 +79,6 @@
 .lowerTableResult td {
   border: 1px solid #000;
   padding: 7px 15px;
-  font-weight: lighter;
   font-size: 11px;
 }
 .signatureContainer {

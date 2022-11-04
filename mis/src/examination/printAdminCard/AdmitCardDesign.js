@@ -72,7 +72,7 @@ const AdmitCardDesign = ({
                     display: "inline-block",
                   }}
                 >
-                  Principle Signature
+                  Principal Signature
                 </h6>
               </Grid>
             </Grid>

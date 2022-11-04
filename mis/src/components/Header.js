@@ -150,8 +150,8 @@ const Header = () => {
   const handleLogout = () => {
     dispatch({ type: GET_HEADER_CONTENT_RESET });
     sessionStorage.removeItem("blueberrytoken");
-    window.location.href = "https://divinelight.vidyacube.com";
-    // window.location.href = "https://creation.vidyacube.com";
+    // window.location.href = "https://divinelight.vidyacube.com";
+    window.location.href = "https://creation.vidyacube.com";
     // window.location.href = "https://mis.vidyacube.com";
   };
 

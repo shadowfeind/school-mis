@@ -45,25 +45,21 @@ const ExamResultDesign = ({
           <Grid item xs={6}>
             <h5>
               Name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;
-              <span className="spanResult">{student.FullName}</span>
+              <span>{student.FullName}</span>
             </h5>
             <h5>
               Section&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;
-              <span className="spanResult">
-                {studentSection && studentSection.Value}
-              </span>
+              <span>{studentSection && studentSection.Value}</span>
             </h5>
           </Grid>
           <Grid item xs={6}>
             <h5>
               Class&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;
-              <span className="spanResult">
-                {studentClass && studentClass.Value}
-              </span>
+              <span>{studentClass && studentClass.Value}</span>
             </h5>
             <h5>
               Roll No&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;
-              <span className="spanResult">{student.RollNo}</span>
+              <span>{student.RollNo}</span>
             </h5>
           </Grid>
         </Grid>
@@ -85,7 +81,7 @@ const ExamResultDesign = ({
                   Obtained Grades
                 </th>
                 <th style={{ textAlign: "center" }} rowSpan="2">
-                  Final Grade
+                  Grade
                 </th>
                 <th style={{ textAlign: "center" }} rowSpan="2">
                   Grade Point
@@ -100,84 +96,89 @@ const ExamResultDesign = ({
               </tr>
             </thead>
             <tbody>
-              {subjects?.map((s, i) => {
-                let count = i + 1;
-                let resultTH = (s.ObtainedMark * 100) / s.FullMark;
-                let resultPR =
-                  (s.ObtainedMarkPractical * 100) / s.FullMarkPractical;
-                let resultTotal =
-                  ((s.ObtainedMark + s.ObtainedMarkPractical) /
-                    (s.FullMark + s.FullMarkPractical)) *
-                  100;
+              {subjects
+                ?.sort((a, b) => a.SubjectOrder - b.SubjectOrder)
+                ?.map((s, i) => {
+                  let count = i + 1;
+                  let resultTH = (s.ObtainedMark * 100) / s.FullMark;
+                  let resultPR =
+                    (s.ObtainedMarkPractical * 100) / s.FullMarkPractical;
+                  let resultTotal =
+                    ((s.ObtainedMark + s.ObtainedMarkPractical) /
+                      (s.FullMark + s.FullMarkPractical)) *
+                    100;
 
-                let gradePointTotal =
-                  ((s.ObtainedMark + s.ObtainedMarkPractical) /
-                    (s.FullMark + s.FullMarkPractical)) *
-                  100;
+                  let gradePointTotal =
+                    ((s.ObtainedMark + s.ObtainedMarkPractical) /
+                      (s.FullMark + s.FullMarkPractical)) *
+                    100;
 
-                let filteredSubjects = dbModelLst?.filter(
-                  (x) =>
-                    x.SubjectCode === s.SubjectCode && x.Status === "Approved"
-                );
+                  let filteredSubjects = dbModelLst?.filter(
+                    (x) =>
+                      x.SubjectCode === s.SubjectCode && x.Status === "Approved"
+                  );
 
-                let highestThMarks = filteredSubjects?.sort(
-                  (a, b) => b.ObtainedMark - a.ObtainedMark
-                );
-                let highestPrMarks = filteredSubjects?.sort(
-                  (a, b) => b.ObtainedMarkPractical - a.ObtainedMarkPractical
-                );
+                  let highestThMarks = filteredSubjects?.sort(
+                    (a, b) => b.ObtainedMark - a.ObtainedMark
+                  );
+                  let highestPrMarks = filteredSubjects?.sort(
+                    (a, b) => b.ObtainedMarkPractical - a.ObtainedMarkPractical
+                  );
 
-                let totalHighestMarks;
-                if (highestThMarks.length > 0 || highestPrMarks.length > 0) {
-                  let totalMarks = s?.FullMark + s?.FullMarkPractical;
+                  let totalHighestMarks;
+                  if (highestThMarks.length > 0 && highestPrMarks.length > 0) {
+                    let totalMarks = s?.FullMark + s?.FullMarkPractical;
 
-                  let totalHighestMarksContainer =
-                    highestThMarks[0]?.ObtainedMark +
-                    highestPrMarks[0]?.ObtainedMarkPractical;
+                    let totalHighestMarksContainer =
+                      highestThMarks[0]?.ObtainedMark +
+                      highestPrMarks[0]?.ObtainedMarkPractical;
 
-                  totalHighestMarks =
-                    (totalHighestMarksContainer * 100) / totalMarks;
-                } else {
-                  totalHighestMarks = 0;
-                }
+                    totalHighestMarks =
+                      (totalHighestMarksContainer * 100) / totalMarks;
+                  } else {
+                    totalHighestMarks = 0;
+                  }
 
-                // console.log(totalHighestMarks);
-                //to calculate GPA tracking grade poing
-                let subTracker = {
-                  name: s.SubjectCode,
-                  totalMarks: Number(pointCalc(gradePointTotal)),
-                };
-                trackSubject.push(subTracker);
+                  // console.log(totalHighestMarks);
+                  //to calculate GPA tracking grade poing
+                  let subTracker = {
+                    name: s.SubjectCode,
+                    totalMarks: Number(pointCalc(gradePointTotal)),
+                  };
+                  trackSubject.push(subTracker);
 
-                return (
-                  <tr key={s.$id}>
-                    <td>{count}</td>
-                    <td>{s.SubjectName?.slice(0, 20)}</td>
-                    <td style={{ textAlign: "center" }}>
-                      {s.CreditHour?.toFixed(1)}
-                    </td>
-                    <td style={{ textAlign: "center" }}>
-                      {" "}
-                      {gradeCalc(resultTH)}
-                    </td>
-                    <td style={{ textAlign: "center" }}>
-                      {" "}
-                      {s.FullMarkPractical !== null ? gradeCalc(resultPR) : ""}
-                    </td>
-                    <td style={{ textAlign: "center" }}>
-                      {" "}
-                      {gradeCalc(resultTotal)}
-                    </td>
-                    <td style={{ textAlign: "center" }}>
-                      {" "}
-                      {pointCalc(gradePointTotal)}
-                    </td>
-                    <td style={{ textAlign: "center" }}>
-                      {gradeCalc(totalHighestMarks)}
-                    </td>
-                  </tr>
-                );
-              })}
+                  return (
+                    <tr key={s.$id}>
+                      <td>{count}</td>
+                      <td>{s.SubjectName?.slice(0, 20)}</td>
+                      <td style={{ textAlign: "center" }}>
+                        {s.CreditHour?.toFixed(1)}
+                      </td>
+                      <td style={{ textAlign: "center" }}>
+                        {" "}
+                        {gradeCalc(resultTH)}
+                      </td>
+                      <td style={{ textAlign: "center" }}>
+                        {" "}
+                        {s.FullMarkPractical !== null
+                          ? gradeCalc(resultPR)
+                          : ""}
+                      </td>
+                      <td style={{ textAlign: "center" }}>
+                        {" "}
+                        {gradeCalc(resultTotal)}
+                      </td>
+                      <td style={{ textAlign: "center" }}>
+                        {" "}
+                        {pointCalc(gradePointTotal)}
+                      </td>
+                      <td style={{ textAlign: "center" }}>
+                        {gpaToGrade(pointCalc(gradePointTotal))}
+                        {/* {totalHighestMarks} */}
+                      </td>
+                    </tr>
+                  );
+                })}
               {/* to render empty td */}
               {tdToRender &&
                 tdToRender?.map((x) => (
@@ -303,7 +304,7 @@ const ExamResultDesign = ({
               </table>
             </Grid>
           </Grid>
-          <Grid container>
+          <Grid container style={{ fontWeight: "bold" }}>
             <Grid item xs={4}>
               <table style={{ marginRight: "40px" }}>
                 <thead>

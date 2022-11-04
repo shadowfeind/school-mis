@@ -15,7 +15,6 @@
 .ledgerResult td {
   border: 1px solid #000;
   padding: 4px 8px;
-  font-weight: lighter;
 }
 
 @media print {
